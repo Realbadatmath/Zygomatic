@@ -1,0 +1,720 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+        <div id="panel-settings" class="dashboard-tab-panel{% if _dtab == 'settings' %} active{% endif %}" {% if _dtab == 'settings' %}style="display: block;"{% endif %}>
+            <h3 class="dashboard-settings-panel-title">Settings</h3>
+            <div id="dashboard-settings-main" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;">
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-my-account-btn" style="display:none;" data-help="Manage your account settings.">My Account</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-styles-themes-btn" data-help="Customize styles, themes, buttons, backgrounds, sidebar, progression bars, and cursors.">Styles &amp; Themes</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-users-btn" data-help="Manage users and access.">Users</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-api-auth-btn" data-help="Configure API keys and authorization.">Api Authorization</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-languages-btn" data-help="Set language and regional preferences.">Languages</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-security-btn" data-help="Security options: flagged behaviour, network, contracts, login methods." onclick="if(window.showSettingsSecurityView){window.showSettingsSecurityView();}">Security</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-billing-btn" data-help="Billing and server management.">Billing</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-hotkeys-btn" data-help="View and edit keyboard shortcuts for tabs.">Hotkeys</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-voice-assistant-btn" data-help="Configure voice assistant: voice, language, gender, age, elegance, mood, permissions.">Voice Assistant</button>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-voices-btn" data-help="Configure narrator voices for each channel and department. Preview voices before assigning." onclick="if(window.showSettingsVoicesView){window.showSettingsVoicesView();}">Voices</button>
+            </div>
+            <div id="dashboard-settings-styles" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-styles-back" data-help="Return to the main settings menu.">Back</button>
+                <div class="dashboard-settings-buttons" style="margin-top:30px;">
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-open-buttons" data-help="Customize dashboard button appearance.">Buttons</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-open-backgrounds" data-help="Change dashboard background styles.">Backgrounds</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-open-sidebar" data-help="Customize sidebar appearance.">Sidebar</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-open-progression-bars" data-help="Customize progression bar styles.">Progression Bars</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-open-cursors" data-help="Select cursor style for the dashboard.">Cursors</button>
+                </div>
+            </div>
+            <div id="dashboard-settings-users" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-users-back" data-help="Return to the main settings menu.">Back</button>
+                <div id="dashboard-settings-users-content" class="dashboard-settings-subcontent"></div>
+            </div>
+            <div id="dashboard-settings-my-account" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-my-account-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">My Account</h4>
+                <div class="dashboard-settings-subcontent" style="max-width:400px;">
+                    <div style="margin-bottom:12px;">
+                        <label for="my-account-email" style="display:block;margin-bottom:4px;">Email</label>
+                        <input type="email" id="my-account-email" class="dashboard-settings-input" placeholder="Email address" style="width:100%;padding:8px;" />
+                        <label for="my-account-phone" style="display:block;margin-bottom:4px;">Phone number</label>
+                        <input type="text" id="my-account-phone" class="dashboard-settings-input" placeholder="Phone number" style="width:100%;padding:8px;" />
+                        <label for="my-account-password" style="display:block;margin-bottom:4px;">New password (leave blank to keep current)</label>
+                        <input type="password" id="my-account-password" class="dashboard-settings-input" placeholder="New password" style="width:100%;padding:8px;" autocomplete="new-password" />
+                        <label for="my-account-login-method" style="display:block;margin-bottom:4px;">Login method</label>
+                        <select id="my-account-login-method" class="dashboard-settings-input" style="width:100%;padding:8px;">
+                            <option value="id_password">ID / Password</option>
+                            <option value="id_password_sms">ID/Password + SMS</option>
+                            <option value="id_password_phone">ID/Password + Phone</option>
+                            <option value="microsoft_code">Microsoft Code</option>
+                            <option value="retinal_scan">Retinal Scan</option>
+                            <option value="finger_scan">Finger Scan</option>
+                        </select>
+                        <label for="my-account-devices" style="display:block;margin-bottom:4px;">Devices</label>
+                        <input type="text" id="my-account-devices" class="dashboard-settings-input" placeholder="Devices (e.g. device names or list)" style="width:100%;padding:8px;" />
+                    </div>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-my-account-save">Save</button>
+                    <span id="dashboard-settings-my-account-msg" style="margin-left:12px;color:#666;"></span>
+                </div>
+            </div>
+            <div id="dashboard-settings-api" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-api-back">Back</button>
+                <div id="dashboard-settings-api-content" class="dashboard-settings-subcontent"></div>
+            </div>
+            <div id="dashboard-settings-languages" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-languages-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Languages</h4>
+                <ul id="dashboard-settings-languages-list" class="dashboard-settings-languages-list"></ul>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-languages-apply" style="margin-top:16px;">Apply</button>
+            </div>
+            <div id="dashboard-settings-security" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-security-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Security</h4>
+                <div class="dashboard-settings-security-buttons" id="dashboard-settings-security-buttons">
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-orchestration-permissions-btn" data-help="Orchestrator vs Executor roles and allowed actions per agent. Only Orchestrators can create/transition jobs; Executors perform tasks only.">Orchestration Permissions</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-flagged-btn">Flagged behaviour</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-network-btn">Network security</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-contracts-btn">Contracts</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-login-methods-btn">Login Methods</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-agent-monitoring-btn">Agent Monitoring</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-safety-switch-btn" data-help="System Safety &amp; Protection: protection levels, hardware KPIs, emergency stop, circuit breaker, safety audit.">Safety Switch</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-security-diagrams-btn" data-help="Open a dialog with diagrams for Authentication, Web Security, Schedules, and Agents security flows.">Security Diagrams</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-llms-btn" data-help="List all unique LLMs from agent configs and Feedback &amp; Workflow LLMS documents.">LLMS</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-dependencies-btn" data-help="List all dependencies needed throughout the app with status: installed, parts missing, or not installed.">Dependencies</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-zero-public-btn" data-help="Manage Zero Public invite links: create per-link request limits, 7-day expiry, and revoke access.">Zero Public</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-azure-btn" data-help="Azure Cloud integrations: configure Blob Storage, Event Grid, Azure Functions. View live free-tier usage meters.">Azure Cloud</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-huggingface-btn" data-help="Connect your HuggingFace account to enable IPAdapter and model downloads.">HuggingFace</button>
+                    <button type="button" class="btn dashboard-btn" id="dashboard-settings-control-settings-btn" data-help="Master catalogue of every guardrail, quality gate, parameter, and content policy rule across Medusa, Creator Nexus, the port-5000 core, and all workflows. Separately password-protected.">Control Settings</button>
+                </div>
+            </div>
+            <!-- ── Control Settings panel (2026-08-05) ──────────────────────── -->
+            <div id="dashboard-settings-control-settings" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-control-settings-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Control Settings</h4>
+                <p style="font-size:0.88rem;color:#666;margin-bottom:16px;max-width:760px;">
+                    Master catalogue of every guardrail, quality gate, parameter, and content policy rule enforced
+                    across Medusa, Creator Nexus, the port-5000 platform core, and all pipeline workflows — each
+                    entry has a unique ID, its file location, and whether it is currently active, so the roster
+                    can be individually verified and kept up to date. Protected by its own password, separate
+                    from your dashboard login.
+                </p>
+
+                <!-- Gate: setup (first run) -->
+                <div id="cs-gate-setup" style="display:none;max-width:380px;">
+                    <p style="font-size:0.88rem;color:#92400e;background:#fff3cd;border:1px solid #f59e0b;border-radius:8px;padding:10px 12px;margin-bottom:14px;">
+                        No Control Settings password exists yet. Choose one now. It is stored only as a salted,
+                        600,000-round PBKDF2-SHA256 digest — nobody, including the AI assistant, can retrieve it
+                        afterward. There is no in-app recovery if you forget it.
+                    </p>
+                    <label style="display:block;margin-bottom:4px;">Username</label>
+                    <input type="text" id="cs-setup-username" class="dashboard-settings-input" value="Zygomatic" readonly style="width:100%;padding:8px;margin-bottom:12px;background:#f3f4f6;" />
+                    <label style="display:block;margin-bottom:4px;">New password (min. 10 characters)</label>
+                    <input type="password" id="cs-setup-password" class="dashboard-settings-input" autocomplete="new-password" style="width:100%;padding:8px;margin-bottom:12px;" />
+                    <label style="display:block;margin-bottom:4px;">Confirm password</label>
+                    <input type="password" id="cs-setup-confirm" class="dashboard-settings-input" autocomplete="new-password" style="width:100%;padding:8px;margin-bottom:12px;" />
+                    <button type="button" class="btn dashboard-btn" id="cs-setup-submit">Create password</button>
+                    <div id="cs-setup-msg" style="margin-top:10px;font-size:0.85rem;color:#b91c1c;"></div>
+                </div>
+
+                <!-- Gate: unlock (returning) -->
+                <div id="cs-gate-unlock" style="display:none;max-width:380px;">
+                    <label style="display:block;margin-bottom:4px;">Username</label>
+                    <input type="text" id="cs-unlock-username" class="dashboard-settings-input" value="Zygomatic" readonly style="width:100%;padding:8px;margin-bottom:12px;background:#f3f4f6;" />
+                    <label style="display:block;margin-bottom:4px;">Password</label>
+                    <input type="password" id="cs-unlock-password" class="dashboard-settings-input" autocomplete="current-password" style="width:100%;padding:8px;margin-bottom:12px;" />
+                    <button type="button" class="btn dashboard-btn" id="cs-unlock-submit">Unlock</button>
+                    <div id="cs-unlock-msg" style="margin-top:10px;font-size:0.85rem;color:#b91c1c;"></div>
+                </div>
+
+                <!-- Unlocked content -->
+                <div id="cs-content" style="display:none;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+                        <div class="schedule-tabs cs-subtabs" role="tablist" aria-label="Control Settings category" style="display:inline-flex;gap:8px;flex-wrap:wrap;">
+                            <button type="button" class="tab-btn cs-subtab active" data-cat="guardrails" role="tab">Guardrails</button>
+                            <button type="button" class="tab-btn cs-subtab" data-cat="quality_gates" role="tab">Quality Gates</button>
+                            <button type="button" class="tab-btn cs-subtab" data-cat="parameters" role="tab">Parameters</button>
+                            <button type="button" class="tab-btn cs-subtab" data-cat="policy_rules" role="tab">Policy Rules</button>
+                        </div>
+                        <button type="button" class="btn dashboard-btn btn-secondary" id="cs-lock-btn">Lock</button>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+                        <input type="text" id="cs-search" placeholder="Search name / function / location…" class="dashboard-settings-input" style="flex:1;min-width:220px;padding:8px;" />
+                        <select id="cs-program-filter" class="dashboard-settings-input" style="padding:8px;">
+                            <option value="">All programs</option>
+                            <option value="medusa">Medusa</option>
+                            <option value="creator_nexus">Creator Nexus</option>
+                            <option value="port5000">Port 5000</option>
+                            <option value="workflows">Workflows</option>
+                        </select>
+                        <span id="cs-count" style="font-size:0.82rem;color:#666;"></span>
+                        <button type="button" class="btn dashboard-btn" id="cs-add-row-btn">+ Add entry</button>
+                        <button type="button" class="btn dashboard-btn" id="cs-save-btn">Save changes</button>
+                        <span id="cs-save-msg" style="font-size:0.82rem;color:#666;"></span>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="dashboard-table cs-table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th style="width:90px;">ID</th>
+                                    <th style="width:110px;">Program</th>
+                                    <th>Name</th>
+                                    <th>Function</th>
+                                    <th style="width:130px;">Activated</th>
+                                    <th>Location</th>
+                                    <th style="width:40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="cs-tbody"><tr><td colspan="7" style="padding:20px;color:#999;text-align:center;">Loading…</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- ── Zero Public panel ─────────────────────────────────────────── -->
+            <div id="dashboard-settings-zero-public" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-zero-public-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Zero Public — Invite Links</h4>
+                <p style="font-size:0.88rem;color:#666;margin-bottom:16px;">
+                    Each link is a unique URL you hand out. Set how many jobs the link allows.
+                    Links auto-expire after <strong>7 days</strong> and are permanently destroyed.
+                    Once a link hits its request limit the page stays visible but submissions are blocked.
+                </p>
+                <div style="display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap;">
+                    <button type="button" class="btn dashboard-btn" id="zpub-add-btn" onclick="zpubOpenAddModal()">+ Add Link</button>
+                    <button type="button" class="btn dashboard-btn btn-secondary" id="zpub-refresh-btn" onclick="zpubLoadUrls()">↻ Refresh</button>
+                    <span id="zpub-server-url-note" style="font-size:0.82rem;color:#666;"></span>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%;border-collapse:collapse;font-size:0.88rem;" id="zpub-table">
+                        <thead>
+                            <tr style="border-bottom:2px solid #e5e7eb;text-align:left;">
+                                <th style="padding:8px 10px;color:#555;font-weight:600;">Label</th>
+                                <th style="padding:8px 10px;color:#555;font-weight:600;">Invite URL</th>
+                                <th style="padding:8px 10px;color:#555;font-weight:600;text-align:center;">Requests</th>
+                                <th style="padding:8px 10px;color:#555;font-weight:600;">Permission</th>
+                                <th style="padding:8px 10px;color:#555;font-weight:600;">Created</th>
+                                <th style="padding:8px 10px;color:#555;font-weight:600;">Expires on</th>
+                                <th style="padding:8px 10px;color:#555;font-weight:600;">Status</th>
+                                <th style="padding:8px 10px;color:#555;font-weight:600;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="zpub-tbody">
+                            <tr><td colspan="8" style="padding:20px;color:#999;text-align:center;">Loading…</td></tr>
+                        </tbody>
+                        <style>
+                          .zpub-badge-manual  { display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.77rem;font-weight:600;background:#fff3cd;color:#92400e;border:1px solid #f59e0b; }
+                          .zpub-badge-auto    { display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.77rem;font-weight:600;background:#d1fae5;color:#065f46;border:1px solid #10b981; }
+                          @keyframes zpub-tab-blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+                          .agent-zero-tab-blink { animation: zpub-tab-blink 0.9s ease-in-out infinite !important; }
+                          .zpub-pending-badge { position:absolute;top:-6px;right:-6px;background:#dc2626;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;pointer-events:none; }
+                        </style>
+                    </table>
+                </div>
+            </div>
+            <!-- ── Zero Public: Add Link modal ────────────────────────────────── -->
+            <div id="zpub-add-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:3000;align-items:center;justify-content:center;">
+                <div style="background:#fff;border-radius:12px;padding:28px 32px;max-width:420px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.18);">
+                    <h4 style="margin:0 0 18px 0;font-size:1.1rem;">Create Invite Link</h4>
+                    <label style="display:block;font-size:0.88rem;font-weight:600;margin-bottom:6px;">Label <span style="color:#999;font-weight:400;">(who is this for?)</span></label>
+                    <input type="text" id="zpub-label-input" maxlength="80" placeholder="e.g. LinkedIn Portfolio Demo"
+                        style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:7px;font-size:0.95rem;margin-bottom:16px;outline:none;box-sizing:border-box;">
+                    <label style="display:block;font-size:0.88rem;font-weight:600;margin-bottom:6px;">Max requests <span style="color:#999;font-weight:400;">(how many jobs this link can submit)</span></label>
+                    <input type="number" id="zpub-maxreq-input" min="1" max="100" value="2"
+                        style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:7px;font-size:0.95rem;margin-bottom:16px;outline:none;box-sizing:border-box;">
+                    <label style="display:block;font-size:0.88rem;font-weight:600;margin-bottom:6px;">Permission</label>
+                    <select id="zpub-perm-input" style="width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:7px;font-size:0.95rem;margin-bottom:22px;outline:none;box-sizing:border-box;">
+                        <option value="automatic">Automatic</option>
+                        <option value="manual">Manual (requires admin approval)</option>
+                    </select>
+                    <div style="display:flex;gap:10px;justify-content:flex-end;">
+                        <button type="button" class="btn dashboard-btn btn-secondary" onclick="zpubCloseAddModal()">Cancel</button>
+                        <button type="button" class="btn dashboard-btn" id="zpub-add-save-btn" onclick="zpubCreateUrl()">Create Link</button>
+                    </div>
+                </div>
+            </div>
+            <!-- ── Azure Cloud panel ──────────────────────────────────────────── -->
+            <div id="dashboard-settings-azure" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-azure-back">Back</button>
+                <h4 class="dashboard-settings-panel-title" style="margin-top:16px;">Azure Cloud Integrations</h4>
+                <p style="font-size:0.85rem;color:#666;margin-bottom:20px;max-width:600px;">
+                    All services are <strong>opt-in</strong> — toggle each one on only when you have credentials.
+                    A budget guard automatically stops calls at <strong>95% of each free tier limit</strong> so you never get charged.
+                    Usage resets on the 1st of each month.
+                </p>
+
+                <!-- Usage meters -->
+                <div id="azure-usage-section" style="margin-bottom:24px;">
+                    <h5 style="margin:0 0 10px 0;font-size:0.95rem;font-weight:600;color:#333;">Free-Tier Usage This Month</h5>
+                    <div id="azure-usage-meters" style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="color:#999;font-size:0.85rem;">Loading…</div>
+                    </div>
+                    <button type="button" class="btn dashboard-btn btn-secondary" id="azure-usage-refresh-btn" style="margin-top:10px;font-size:0.82rem;padding:5px 12px;" onclick="azureLoadUsage()">↻ Refresh usage</button>
+                </div>
+
+                <!-- Service config forms -->
+                <div id="azure-services-config" style="display:flex;flex-direction:column;gap:20px;max-width:600px;">
+
+                    <!-- Narration TTS -->
+                    <div class="azure-service-card" id="azure-speech-card">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                            <label class="azure-toggle-label">
+                                <input type="checkbox" id="azure-speech-enabled" onchange="azureToggleService('speech',this.checked)">
+                                <span class="azure-toggle-slider"></span>
+                            </label>
+                            <strong style="font-size:0.95rem;">Neural TTS (Speech)</strong>
+                            <span style="font-size:0.78rem;color:#888;margin-left:auto;">Free: 500K chars/month</span>
+                        </div>
+                        <p style="font-size:0.82rem;color:#666;margin:0 0 10px 0;">Narration for all pipelines (IndexTTS-2, Chatterbox fallback). Disable for silent placeholder audio.</p>
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Speech Key <span style="color:#999;font-weight:400;">(Azure Portal → Speech resource → Keys)</span></label>
+                        <input type="password" id="azure-speech-key" placeholder="Speech subscription key" autocomplete="off"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;margin-bottom:8px;box-sizing:border-box;">
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Region</label>
+                        <input type="text" id="azure-speech-region" placeholder="westeurope"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;margin-bottom:8px;box-sizing:border-box;">
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Voice</label>
+                        <select id="azure-speech-voice" style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;box-sizing:border-box;">
+                            <optgroup label="🇬🇧 UK Male">
+                                <option value="en-GB-RyanNeural">Ryan — UK Male (Narration, default)</option>
+                                <option value="en-GB-ThomasNeural">Thomas — UK Male (Professional)</option>
+                            </optgroup>
+                            <optgroup label="🇬🇧 UK Female">
+                                <option value="en-GB-SoniaNeural">Sonia — UK Female (Professional)</option>
+                                <option value="en-GB-LibbyNeural">Libby — UK Female (Relaxed)</option>
+                                <option value="en-GB-MaisieNeural">Maisie — UK Female (Warm)</option>
+                            </optgroup>
+                            <optgroup label="🇺🇸 US Male">
+                                <option value="en-US-GuyNeural">Guy — US Male (Casual)</option>
+                                <option value="en-US-ChristopherNeural">Christopher — US Male (Newscast)</option>
+                                <option value="en-US-RogerNeural">Roger — US Male (Newscast)</option>
+                                <option value="en-US-SteffanNeural">Steffan — US Male (Professional)</option>
+                                <option value="en-US-BrianNeural">Brian — US Male (Relaxed)</option>
+                                <option value="en-US-JasonNeural">Jason — US Male (Newscast)</option>
+                                <option value="en-US-EricNeural">Eric — US Male (Relaxed)</option>
+                                <option value="en-US-DavisNeural">Davis — US Male (Professional)</option>
+                            </optgroup>
+                            <optgroup label="🇺🇸 US Female">
+                                <option value="en-US-AriaNeural">Aria — US Female (Professional)</option>
+                                <option value="en-US-JennyNeural">Jenny — US Female (Newscast)</option>
+                                <option value="en-US-NancyNeural">Nancy — US Female (Relaxed)</option>
+                                <option value="en-US-SaraNeural">Sara — US Female (Professional)</option>
+                                <option value="en-US-AmberNeural">Amber — US Female (Warm)</option>
+                                <option value="en-US-ElizabethNeural">Elizabeth — US Female (Professional)</option>
+                                <option value="en-US-MichelleNeural">Michelle — US Female (Relaxed)</option>
+                            </optgroup>
+                            <optgroup label="🧒 Young / Child">
+                                <option value="en-US-AnaNeural">Ana — US Young Girl</option>
+                                <option value="en-US-CoraNeural">Cora — US Young Girl</option>
+                            </optgroup>
+                            <optgroup label="🇦🇺 Australian">
+                                <option value="en-AU-WilliamNeural">William — AU Male</option>
+                                <option value="en-AU-NatashaNeural">Natasha — AU Female</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+
+                    <div class="azure-service-card" id="azure-blob-card">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                            <label class="azure-toggle-label">
+                                <input type="checkbox" id="azure-blob-enabled" onchange="azureToggleService('blob',this.checked)">
+                                <span class="azure-toggle-slider"></span>
+                            </label>
+                            <strong style="font-size:0.95rem;">Blob Storage</strong>
+                            <span style="font-size:0.78rem;color:#888;margin-left:auto;">Free: 5 GB + 50K ops/month</span>
+                        </div>
+                        <p style="font-size:0.82rem;color:#666;margin:0 0 10px 0;">Upload finished videos/images to Azure after each job completes. Returns a Blob URL stored with the job.</p>
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Connection String <span style="color:#999;font-weight:400;">(from Azure Portal → Storage Account → Access keys)</span></label>
+                        <input type="password" id="azure-blob-connection-string" placeholder="DefaultEndpointsProtocol=https;AccountName=…" autocomplete="off"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;margin-bottom:8px;box-sizing:border-box;">
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Container name</label>
+                        <input type="text" id="azure-blob-container" placeholder="zygomatic-outputs"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;box-sizing:border-box;">
+                    </div>
+
+                    <!-- Event Grid -->
+                    <div class="azure-service-card" id="azure-eventgrid-card">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                            <label class="azure-toggle-label">
+                                <input type="checkbox" id="azure-eventgrid-enabled" onchange="azureToggleService('eventgrid',this.checked)">
+                                <span class="azure-toggle-slider"></span>
+                            </label>
+                            <strong style="font-size:0.95rem;">Event Grid</strong>
+                            <span style="font-size:0.78rem;color:#888;margin-left:auto;">Free: 100K events/month</span>
+                        </div>
+                        <p style="font-size:0.82rem;color:#666;margin:0 0 10px 0;">Publish a <code>JobCompleted</code> event whenever a pipeline job finishes. External systems can subscribe and react.</p>
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Topic endpoint URL <span style="color:#999;font-weight:400;">(from Azure Portal → Event Grid Topic → Overview)</span></label>
+                        <input type="url" id="azure-eventgrid-endpoint" placeholder="https://your-topic.region.eventgrid.azure.net/api/events"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;margin-bottom:8px;box-sizing:border-box;">
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Access key</label>
+                        <input type="password" id="azure-eventgrid-key" placeholder="Access key 1 or 2" autocomplete="off"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;box-sizing:border-box;">
+                    </div>
+
+                    <!-- Azure Functions -->
+                    <div class="azure-service-card" id="azure-function-card">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                            <label class="azure-toggle-label">
+                                <input type="checkbox" id="azure-function-enabled" onchange="azureToggleService('function',this.checked)">
+                                <span class="azure-toggle-slider"></span>
+                            </label>
+                            <strong style="font-size:0.95rem;">Azure Functions</strong>
+                            <span style="font-size:0.78rem;color:#888;margin-left:auto;">Free: 1M calls/month</span>
+                        </div>
+                        <p style="font-size:0.82rem;color:#666;margin:0 0 10px 0;">Cloud entry point for external webhooks. External systems hit the Function URL; it validates and forwards requests to your pipeline.</p>
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Function URL <span style="color:#999;font-weight:400;">(from Azure Portal → Function App → Get Function URL)</span></label>
+                        <input type="url" id="azure-function-url" placeholder="https://your-app.azurewebsites.net/api/PipelineWebhook"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;margin-bottom:8px;box-sizing:border-box;">
+                        <label style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:3px;">Function key <span style="color:#999;font-weight:400;">(optional — host key from Function App → App keys)</span></label>
+                        <input type="password" id="azure-function-key" placeholder="Function host key" autocomplete="off"
+                            style="width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.85rem;box-sizing:border-box;">
+                    </div>
+
+                    <!-- API Management note -->
+                    <div class="azure-service-card" style="opacity:0.75;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                            <strong style="font-size:0.95rem;">API Management</strong>
+                            <span style="font-size:0.78rem;background:#e8f4e8;color:#2d6a2d;padding:2px 8px;border-radius:10px;font-weight:600;">Portal-only</span>
+                            <span style="font-size:0.78rem;color:#888;margin-left:auto;">Free: 1M calls/month</span>
+                        </div>
+                        <p style="font-size:0.82rem;color:#666;margin:0;">APIM is configured entirely in the Azure Portal — no credentials needed here. Set it up to proxy your zero_public_server URL with subscription-key auth and rate limiting. APIM calls are counted in the budget meter above once you add the policy.</p>
+                    </div>
+
+                </div>
+
+                <!-- Save button -->
+                <div style="margin-top:20px;display:flex;align-items:center;gap:14px;">
+                    <button type="button" class="btn dashboard-btn" id="azure-save-btn" onclick="azureSaveConfig()">💾 Save Configuration</button>
+                    <span id="azure-save-msg" style="font-size:0.88rem;color:#666;"></span>
+                </div>
+
+                <p style="font-size:0.78rem;color:#aaa;margin-top:16px;">
+                    Credentials are stored locally in <code>data/runtime/azure_config.json</code> on your server — never sent to any third party.
+                    Secrets are masked in the UI after saving.
+                </p>
+            </div>
+            <div id="dashboard-settings-orchestration-permissions" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-orchestration-permissions-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Orchestration Permissions</h4>
+                <p class="dashboard-settings-placeholder" style="margin-bottom:12px;">Only Orchestrators can create/transition jobs. Executors perform tasks and return results only. Force Override is admin only.</p>
+                <div id="dashboard-settings-orchestration-permissions-table-wrap" style="overflow-x:auto;">
+                    <table class="dashboard-hotkeys-table" id="orchestration-permissions-table">
+                        <thead><tr><th>Agent Name</th><th>Role Type</th><th>Allowed Actions</th></tr></thead>
+                        <tbody id="orchestration-permissions-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="dashboard-settings-flagged" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-flagged-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Flagged behaviour</h4>
+                <p class="dashboard-settings-placeholder">Configure flagged behaviour options here.</p>
+            </div>
+            <div id="dashboard-settings-network" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-network-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Network security</h4>
+                <p class="dashboard-settings-placeholder">Configure network security options here.</p>
+            </div>
+            <div id="dashboard-settings-contracts" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-contracts-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Contracts</h4>
+                <p class="dashboard-settings-placeholder">Configure contracts here.</p>
+            </div>
+            <div id="dashboard-settings-agent-monitoring" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-agent-monitoring-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Agent Monitoring</h4>
+                <div class="dashboard-settings-security-buttons" style="margin-top:12px;">
+                    <button type="button" class="btn dashboard-btn dashboard-settings-agent-monitoring-tab active" data-tab="communications">Agent Communications</button>
+                    <button type="button" class="btn dashboard-btn dashboard-settings-agent-monitoring-tab" data-tab="activity">Agent Activity</button>
+                    <button type="button" class="btn dashboard-btn dashboard-settings-agent-monitoring-tab" data-tab="permissions">Agent Permissions</button>
+                </div>
+                <div id="dashboard-settings-agent-monitoring-communications" class="dashboard-settings-agent-monitoring-panel" style="display:block; margin-top:16px;">
+                    <p class="dashboard-settings-placeholder">Agent Communications — content coming soon.</p>
+                </div>
+                <div id="dashboard-settings-agent-monitoring-activity" class="dashboard-settings-agent-monitoring-panel" style="display:none; margin-top:16px;">
+                    <p class="dashboard-settings-placeholder">Agent Activity — content coming soon.</p>
+                </div>
+                <div id="dashboard-settings-agent-monitoring-permissions" class="dashboard-settings-agent-monitoring-panel" style="display:none; margin-top:16px;">
+                    <p class="dashboard-settings-placeholder">Agent Permissions — content coming soon.</p>
+                </div>
+            </div>
+            <div id="dashboard-settings-login-methods" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-login-methods-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Login Methods</h4>
+                <div class="dashboard-settings-security-buttons">
+                    <button type="button" class="btn dashboard-btn" data-method="id_password_sms">ID/Password + Sms</button>
+                    <button type="button" class="btn dashboard-btn" data-method="id_password_phone">ID/Password + Phone Call</button>
+                    <button type="button" class="btn dashboard-btn" data-method="microsoft_code">Microsoft Code</button>
+                    <button type="button" class="btn dashboard-btn" data-method="retinal_scan">Retinal Scan</button>
+                    <button type="button" class="btn dashboard-btn" data-method="finger_scan">Finger Scan</button>
+                </div>
+            </div>
+            <div id="dashboard-settings-login-method-form" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-login-method-form-back">Back</button>
+                <h4 class="dashboard-settings-panel-title" id="dashboard-settings-login-method-form-title">Login method</h4>
+                <div id="dashboard-settings-login-method-form-fields" class="dashboard-settings-subcontent"></div>
+                <button type="button" class="btn dashboard-btn" id="dashboard-settings-login-method-form-save">Save</button>
+            </div>
+            <div id="dashboard-settings-safety-switch" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-safety-switch-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Safety Switch — System Safety &amp; Protection</h4>
+                <p class="dashboard-settings-placeholder" style="margin-bottom:16px;">Protection layer for PC, GPU, CPU, RAM, storage, scheduler, agents. Fail-closed, always-on.</p>
+                <div class="safety-switch-layout" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; max-width:1100px;">
+                    <div class="safety-switch-card" style="background:#f8f9fa; border:1px solid #e5e7eb; border-radius:8px; padding:16px;">
+                        <h5 style="margin:0 0 12px 0; font-size:1rem;">Protection Level</h5>
+                        <div id="safety-protection-level" style="font-size:1.25rem; font-weight:600; color:#16a34a;">0 — Normal</div>
+                        <div id="safety-protection-desc" style="font-size:0.85rem; color:#666; margin-top:4px;">System healthy, jobs run normally.</div>
+                    </div>
+                    <div class="safety-switch-card" style="background:#f8f9fa; border:1px solid #e5e7eb; border-radius:8px; padding:16px;">
+                        <h5 style="margin:0 0 12px 0; font-size:1rem;">Circuit Breaker</h5>
+                        <div id="safety-circuit-breaker" style="font-size:1rem;">Closed (OK)</div>
+                        <button type="button" class="btn dashboard-btn" id="safety-circuit-reset-btn" style="margin-top:8px; display:none;">Reset (Admin)</button>
+                    </div>
+                </div>
+                <div style="margin-top:20px;">
+                    <button type="button" class="btn dashboard-btn" id="safety-emergency-stop-btn" style="background:#dc2626; color:#fff; border-color:#b91c1c;">Emergency Stop</button>
+                    <span id="safety-emergency-msg" style="margin-left:12px; font-size:0.9rem; color:#666;"></span>
+                </div>
+                <div class="safety-kpis" style="margin-top:24px; display:grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap:12px;">
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">GPU temp</span><div id="safety-kpi-gpu-temp">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">GPU %</span><div id="safety-kpi-gpu-pct">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">VRAM used</span><div id="safety-kpi-vram">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">CPU temp</span><div id="safety-kpi-cpu-temp">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">CPU %</span><div id="safety-kpi-cpu-pct">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">RAM %</span><div id="safety-kpi-ram">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">Free disk</span><div id="safety-kpi-disk">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">Queue depth</span><div id="safety-kpi-queue">—</div></div>
+                    <div class="safety-kpi" style="background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:10px 12px;"><span style="font-size:0.75rem; color:#666;">OOM count</span><div id="safety-kpi-oom">—</div></div>
+                </div>
+                <div style="margin-top:20px;">
+                    <h5 style="margin:0 0 8px 0; font-size:0.95rem;">Recent Safety Events</h5>
+                    <div id="safety-audit-log" style="max-height:180px; overflow-y:auto; background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:12px; font-size:0.85rem; color:#555;">Loading…</div>
+                </div>
+                <div style="margin-top:24px;">
+                    <h5 style="margin:0 0 12px 0; font-size:0.95rem;">Threshold Configuration</h5>
+                    <p class="dashboard-settings-placeholder" style="font-size:0.85rem; margin-bottom:12px;">Safety thresholds per spec. Admin can edit and save. All changes are audited.</p>
+                    <div id="safety-thresholds-container" style="overflow-x:auto; background:#fff; border:1px solid #e5e7eb; border-radius:6px; padding:12px;">
+                        <table class="dashboard-hotkeys-table" id="safety-thresholds-table" style="font-size:0.9rem;">
+                            <thead><tr><th>Category</th><th>Parameter</th><th>Value</th><th>Unit</th></tr></thead>
+                            <tbody id="safety-thresholds-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div id="safety-thresholds-actions" style="margin-top:12px; display:none;">
+                        <button type="button" class="btn dashboard-btn" id="safety-thresholds-save-btn">Save Thresholds</button>
+                        <span id="safety-thresholds-msg" style="margin-left:12px; font-size:0.9rem; color:#666;"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="dashboard-settings-billing" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-billing-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Billing</h4>
+                <button type="button" class="btn dashboard-btn dashboard-settings-billing-add" id="dashboard-settings-billing-add-server"><span class="icon-plus">+</span> Add Server</button>
+            </div>
+            <div id="dashboard-settings-hotkeys" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-hotkeys-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Hotkeys</h4>
+                <p class="dashboard-hotkeys-hint">Double-click a field to type a hotkey, then press Enter to set. Delete to clear. Ctrl+right-click to select multiple.</p>
+                <p class="dashboard-hotkeys-hint" style="margin-top:8px;"><strong>Z</strong> — Wake Agent Zero (chatbot); press Z again to close.</p>
+                <table class="dashboard-hotkeys-table">
+                    <thead><tr><th>Tab</th><th>Hotkey</th></tr></thead>
+                    <tbody id="dashboard-hotkeys-tbody"></tbody>
+                </table>
+            </div>
+            <div id="dashboard-settings-voice-assistant" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-voice-assistant-back">Back</button>
+                <h4 class="dashboard-settings-panel-title">Voice Assistant</h4>
+                <div class="dashboard-settings-subcontent" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;max-width:1000px;">
+                    <div>
+                        <div class="form-group" style="margin-bottom:14px;">
+                            <label for="voice-assistant-voice" style="display:block;margin-bottom:4px;">Voice</label>
+                            <select id="voice-assistant-voice" class="dashboard-settings-input" style="width:100%;max-width:220px;padding:8px;">
+                                <option value="">— Select preset voice (disables options below) —</option>
+                                <option value="preset-1">Preset Voice 1</option>
+                                <option value="preset-2">Preset Voice 2</option>
+                                <option value="preset-3">Preset Voice 3</option>
+                                <option value="preset-4">Preset Voice 4</option>
+                                <option value="preset-5">Preset Voice 5</option>
+                            </select>
+                        </div>
+                        <div class="form-group voice-assistant-custom-row" style="margin-bottom:14px;">
+                            <label for="voice-assistant-language" style="display:block;margin-bottom:4px;">Language</label>
+                            <select id="voice-assistant-language" class="dashboard-settings-input" style="width:100%;max-width:220px;padding:8px;">
+                                <option value="">— Select language —</option>
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                                <option value="it">Italian</option>
+                                <option value="ja">Japanese</option>
+                                <option value="zh">Chinese</option>
+                            </select>
+                            <label for="voice-assistant-gender" style="display:block;margin-bottom:4px;">Gender</label>
+                            <select id="voice-assistant-gender" class="dashboard-settings-input" style="width:100%;max-width:220px;padding:8px;">
+                                <option value="">— Select gender —</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                                <option value="neutral">Neutral</option>
+                            </select>
+                            <label for="voice-assistant-age" style="display:block;margin-bottom:4px;">Age</label>
+                            <select id="voice-assistant-age" class="dashboard-settings-input" style="width:100%;max-width:220px;padding:8px;">
+                                <option value="">— Select age —</option>
+                                <option value="child">Child</option>
+                                <option value="teen">Teen</option>
+                                <option value="young">Young adult</option>
+                                <option value="middle">Middle age</option>
+                                <option value="senior">Senior</option>
+                            </select>
+                            <label for="voice-assistant-elegance" style="display:block;margin-bottom:4px;">Elegance (1–10)</label>
+                            <select id="voice-assistant-elegance" class="dashboard-settings-input" style="width:100%;max-width:120px;padding:8px;">
+                                <option value="">— Level —</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                                <option value="6">6</option><option value="7">7</option><option value="8">8</option>                                <option value="9">9</option><option value="10">10</option>
+                            </select>
+                            <label for="voice-assistant-mood" style="display:block;margin-bottom:4px;">Mood</label>
+                            <select id="voice-assistant-mood" class="dashboard-settings-input" style="width:100%;max-width:220px;padding:8px;">
+                                <option value="">— Select mood —</option>
+                                <option value="friendly">Friendly</option>
+                                <option value="professional">Professional</option>
+                                <option value="calm">Calm</option>
+                                <option value="enthusiastic">Enthusiastic</option>
+                            </select>
+                        </div>
+                        <span class="dashboard-settings-panel-title" style="display:block;margin-bottom:10px;">Voice Assistant Permissions</span>
+                        <p style="font-size:0.9rem;color:#666;margin-bottom:12px;">Choose on which tab(s) the voice assistant should function (select one or more):</p>
+                        <table class="dashboard-table" style="width:100%;border-collapse:collapse;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left;padding:8px 12px;border-bottom:2px solid #ddd;font-weight:600;">Tab</th>
+                                    <th style="text-align:center;padding:8px 12px;border-bottom:2px solid #ddd;font-weight:600;width:100px;">Enable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">Agent Overview</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="agent_overview"></td></tr>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">Error Logs</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="error_logs"></td></tr>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">Job Status</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="job_status"></td></tr>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">Monitoring UI</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="monitoring_ui"></td></tr>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">GPU Schedule</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="gpu_schedule"></td></tr>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">CPU Schedule</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="cpu_schedule"></td></tr>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">Parameter Control</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="parameter_control"></td></tr>
+                                <tr><td style="padding:10px 12px;border-bottom:1px solid #eee;">Settings</td><td style="text-align:center;padding:10px 12px;border-bottom:1px solid #eee;"><input type="checkbox" name="voice-permission-tab" value="settings"></td></tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn dashboard-btn voice-assistant-apply-btn" id="voice-assistant-apply-btn" data-help="Apply voice assistant settings and permissions.">Apply</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Narrator Voices Settings ── -->
+            <div id="dashboard-settings-voices" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-voices-back" style="margin-bottom:16px;">← Back</button>
+                <h4 class="dashboard-settings-panel-title">Narrator Voices</h4>
+
+                <!-- TOP TABLE: Available voice profiles -->
+                <div style="margin-bottom:28px;">
+                    <h5 style="margin:0 0 6px 0;font-size:0.95rem;color:#444;">Available Voices</h5>
+                    <p style="font-size:0.82rem;color:#666;margin:0 0 10px 0;">Preview text: <em>"Alignment is not mixing guava with petrol and expecting gravy."</em></p>
+                    <div style="overflow-x:auto;">
+                    <table class="dashboard-overview-agents-table" style="width:100%;font-size:0.85rem;" id="voices-library-table">
+                        <thead><tr>
+                            <th>Label</th><th>Gender</th><th>Age</th><th>Style</th>
+                            <th>Voice Engine</th><th>Description</th><th style="width:90px;">Preview</th>
+                        </tr></thead>
+                        <tbody id="voices-library-tbody">
+                            <tr><td colspan="7" style="text-align:center;padding:24px;color:#888;">Loading voices…</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+                <!-- BOTTOM TABLE: Channel / Department voice assignments -->
+                <div>
+                    <h5 style="margin:0 0 6px 0;font-size:0.95rem;color:#444;">Channel &amp; Department Voice Assignments</h5>
+                    <p style="font-size:0.82rem;color:#666;margin:0 0 10px 0;">Click a channel name to change its assigned voice.</p>
+                    <div style="overflow-x:auto;">
+                    <table class="dashboard-overview-agents-table" style="width:100%;font-size:0.85rem;" id="voices-channel-table">
+                        <thead><tr>
+                            <th>Channel / Department</th><th>Assigned Voice</th><th>Gender</th>
+                            <th>Speed</th><th>Depth/Pitch</th><th>Age</th><th>Ethnicity</th>
+                        </tr></thead>
+                        <tbody id="voices-channel-tbody">
+                            <tr><td colspan="7" style="text-align:center;padding:24px;color:#888;">Loading assignments…</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+                <!-- Voice Selection Modal -->
+                <div id="voice-assign-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9998;align-items:center;justify-content:center;">
+                    <div style="background:#fff;border-radius:10px;padding:24px 28px;max-width:540px;width:90%;max-height:calc(75vh / var(--ui-zoom,1));overflow-y:auto;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.25);">
+                        <button type="button" id="voice-modal-close" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#666;">✕</button>
+                        <h5 id="voice-modal-title" style="margin:0 0 14px 0;">Select Voice</h5>
+                        <div id="voice-modal-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- HuggingFace Settings Panel -->
+            <div id="dashboard-settings-huggingface" class="dashboard-settings-view" style="display:none;">
+                <button type="button" class="btn dashboard-btn btn-secondary" id="dashboard-settings-huggingface-back">← Back</button>
+                <h4 class="dashboard-settings-panel-title" style="margin-top:16px;">🤗 HuggingFace Connection</h4>
+                <p style="color:#666;font-size:14px;margin-bottom:20px;">Your HuggingFace token is stored in <code>.env</code> as <code>HF_TOKEN</code> and applied immediately to the running server. It is used to download model weights (IPAdapter, LoRA base models, etc.) from private or gated repos.</p>
+
+                <div style="max-width:480px;">
+                  <!-- Token input -->
+                  <label for="hf-token-input" style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Access Token</label>
+                  <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+                    <input type="password" id="hf-token-input" class="dashboard-settings-input"
+                           placeholder="hf_xxxxxxxxxxxxxxxxxxxx"
+                           style="flex:1;padding:9px 12px;border:1px solid #ccc;border-radius:6px;font-family:monospace;font-size:13px;" />
+                    <button type="button" class="btn dashboard-btn" id="hf-token-toggle"
+                            style="padding:8px 12px;font-size:12px;white-space:nowrap;" onclick="(function(){
+                              var i=document.getElementById('hf-token-input');
+                              i.type = i.type==='password' ? 'text' : 'password';
+                              document.getElementById('hf-token-toggle').textContent = i.type==='password' ? 'Show' : 'Hide';
+                            })()">Show</button>
+                  </div>
+                  <p style="font-size:12px;color:#888;margin-bottom:16px;">
+                    Get a free token at <a href="https://huggingface.co/settings/tokens" target="_blank" style="color:#4a90e2;">huggingface.co/settings/tokens</a> — a <strong>Read</strong> token is sufficient.
+                  </p>
+
+                  <!-- Action buttons -->
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+                    <button type="button" class="btn dashboard-btn" id="hf-token-save">Save Token</button>
+                    <button type="button" class="btn dashboard-btn" id="hf-token-test">Test Connection</button>
+                  </div>
+                  <div id="hf-token-msg" style="font-size:13px;min-height:20px;margin-bottom:20px;"></div>
+
+                  <!-- Status badge -->
+                  <div id="hf-status-row" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f5f7fa;border-radius:8px;border:1px solid #e0e4ec;margin-bottom:24px;">
+                    <span id="hf-status-dot" style="width:10px;height:10px;border-radius:50%;background:#ccc;display:inline-block;flex-shrink:0;"></span>
+                    <span id="hf-status-text" style="font-size:13px;color:#555;">Loading…</span>
+                  </div>
+
+                  <!-- What this enables -->
+                  <h5 style="font-size:13px;font-weight:600;margin-bottom:8px;color:#333;">What this enables</h5>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div class="hf-feature-row" style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#fff;border:1px solid #e8eaf0;border-radius:6px;">
+                      <span style="font-size:16px;">🎭</span>
+                      <div>
+                        <strong style="font-size:13px;">IPAdapter — XLabs-AI/flux-ip-adapter</strong>
+                        <p style="font-size:12px;color:#666;margin:2px 0 0;">Face consistency across all generated scenes (~600 MB, one-time download)</p>
+                      </div>
+                      <button type="button" class="btn dashboard-btn" data-hf-repo="XLabs-AI/flux-ip-adapter" data-hf-file="ip_adapter.safetensors"
+                              style="margin-left:auto;padding:4px 10px;font-size:12px;white-space:nowrap;" onclick="hfDownload(this)">Download</button>
+                      <p style="font-size:12px;color:#888;margin:4px 0 0 0;">Also pulls <code>openai/clip-vit-large-patch14</code> (image encoder required by diffusers).</p>
+                    </div>
+                    <div class="hf-feature-row" style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#fff;border:1px solid #e8eaf0;border-radius:6px;">
+                      <span style="font-size:16px;">🎨</span>
+                      <div>
+                        <strong style="font-size:13px;">FLUX.1-dev (higher quality base for LoRA training)</strong>
+                        <p style="font-size:12px;color:#666;margin:2px 0 0;">Gated repo — requires HF token + acceptance of model terms (~24 GB)</p>
+                      </div>
+                      <button type="button" class="btn dashboard-btn" data-hf-repo="black-forest-labs/FLUX.1-dev" data-hf-file="flux1-dev.safetensors"
+                              style="margin-left:auto;padding:4px 10px;font-size:12px;white-space:nowrap;" onclick="hfDownload(this)">Download</button>
+                    </div>
+                    <div class="hf-feature-row" style="display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:#fff;border:1px solid #e8eaf0;border-radius:6px;">
+                      <span style="font-size:16px;">🎙️</span>
+                      
+                  </div>
+
+                </div>
+            </div>

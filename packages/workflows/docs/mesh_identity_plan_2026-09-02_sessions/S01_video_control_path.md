@@ -1,0 +1,22 @@
+# S01: the video control path. Control frames reach the render, and the three-arm receipt
+
+Read `README.md` in this folder first; its rules are binding. Plan: `../mesh_identity_plan_2026-09-02.md` sections 1, 2 and 7 (Phase 0). Notes: `../mesh_identity_plan_2026-09-02_notes/understand_video_control.md` (read whole).
+
+## Why this session exists
+No per-frame geometry sequence has ever reached a GPU render. `generate_vace_static_clip` (`wan_vace_service.py:1385-1396`) has no argument for an external folder of control frames. In sequence mode (`ZYG_VACE_MASK_SEQ=1`, `:1489-1553`) the control is `still*(1-m)+127*m` per frame, and the prop-plate and character-skeleton painting (`:1579-1592`, `:1606-1618`) sit inside the single-image branch, so they are unreachable exactly when a per-frame path is used. The graph already accepts any folder: node 13 `LoadImagesFromFolderKJ` (`:1713-1725`). The 41-frame Abel depth track at `output/char_mesh/c3345deb5bde/vace_ctrl/` (2026-08-04, grey fraction 0.043 percent) has never been consumed by any graph, and no `_vace_ctrlseq` receipt exists anywhere under `output/`.
+
+## Owns / reads
+Owns: `wan_vace_service.py`, `geom/vace_control.py`, `geom/char_vace.py`, new `scripts/vace_plate_receipt.py`, `output/vace_receipts/**`. Reads: `identity_bank.py` (call `check_clip`), `pipeline_debug.py` (`qc_clip`), `output/char_mesh/**` (S02 writes `vace_ctrl_registry/` and `vace_ctrl_wrong/` there; you only read).
+No downloads. GPU: flock lock on every render. Do not restart the kanban server (S05 does).
+
+## Tasks
+1. **`control_dir=None` on `generate_vace_static_clip`.** When given: a directory of `ctrl_%05d.png` (the `vace_control.build` naming, `geom/vace_control.py:74-127`); validate the count against `num_frames` with the same pad-or-truncate rule as `build_mask_sequence` (`:1311-1356`); size-match to the render size; copy into the run's ctrl dir that node 13 reads. Make prop-plate and character painting a per-frame function and apply it to every control frame whenever `control_dir` or sequence mode is active (today both only run in the single-image branch). The fail-safe contract stays: any failure logs and falls back to yesterday's behaviour; never a black or missing frame. Stamp the run's LOGBOOK with `control_dir`, the frame count, and the sha1 of the first and last frame (`geom/controls.runtime_stamp` pattern). Optional: the same argument on `generate_vace_clip_from_frames` (`:892-895`).
+2. **Receipt harness `scripts/vace_plate_receipt.py`.** Inputs: still, prompt, seed, character LoRA set, a CORRECT plates dir, a WRONG plates dir, mask. Render three arms with identical seed, prompt, mask and LoRAs: neutral (`control_dir=None`, `ZYG_CHAR_GEOM_CTRL=0`), correct, wrong. Score every arm with `identity_bank.check_clip` (`identity_bank.py:571-627`; it samples 2, 6, 9, 13, 16 s through a static box, S03 is improving it, use whatever version is on disk and record which) and with edge-correlation against frame 0 inside the subject mask at frames 80 and 200 (the measure behind the "prop fidelity about zero by frame 80" finding), plus `pipeline_debug.qc_clip` for motion. Write a four-state ledger JSON and a one-page markdown receipt under `output/vace_receipts/<date>/`. Plates: S02's `output/char_mesh/c3345deb5bde/vace_ctrl_registry/` (correct) and `vace_ctrl_wrong/` (Cornelis body on Abel's poses) when they exist; otherwise the legacy `vace_ctrl/` as correct and its time-reversed copy as wrong, and label the receipt "legacy phenotype (female macro)". 41 frames is a valid VACE length (4n+1).
+   GATE: the correct-plate arm beats BOTH nulls on identity AND on frame-200 edge-correlation. If it does not, the plate is not steering; say so, do not tune.
+3. **Static-skeleton receipt on a human.** `ZYG_CHAR_GEOM_CTRL` (`geom/char_vace.py`) has never produced a real character clip (the only job that reached it found no character). Run one still that has a person through the harness with the static skeleton on versus off, same seed, and record the result beside the plate arms.
+
+## Do not
+Edit `identity_bank.py`, `movement_studio.py`, `bp_movement.py`, `wan_animate_service.py` or any ComfyUI graph file (S03, S05, S06 own them). Touch the registered bodies. Download weights.
+
+## Receipt
+`receipts/S01.md`: the argument and where painting now happens per frame; the three-arm table with both nulls; the static-skeleton pair; paths of every rendered clip and ledger; open items.

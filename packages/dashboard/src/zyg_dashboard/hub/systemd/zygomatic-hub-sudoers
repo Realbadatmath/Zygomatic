@@ -1,0 +1,4 @@
+# Passwordless start/stop/restart of the hub units, matching the existing
+# /etc/sudoers.d/zygomatic-services entries. Install with:
+#   sudo install -m 0440 -o root -g root zygomatic-hub-sudoers /etc/sudoers.d/zygomatic-hub
+zygomatic ALL=(root) NOPASSWD: /usr/bin/systemctl start zygomatic-hub.service, /usr/bin/systemctl stop zygomatic-hub.service, /usr/bin/systemctl restart zygomatic-hub.service, /usr/bin/systemctl start zygomatic-hub-launcher.service, /usr/bin/systemctl stop zygomatic-hub-launcher.service, /usr/bin/systemctl restart zygomatic-hub-launcher.service, /usr/bin/systemctl start zygomatic-restart-api.service, /usr/bin/systemctl stop zygomatic-restart-api.service, /usr/bin/systemctl restart zygomatic-restart-api.service

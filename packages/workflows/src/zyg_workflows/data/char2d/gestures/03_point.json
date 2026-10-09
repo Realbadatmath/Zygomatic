@@ -1,0 +1,320 @@
+{
+ "name": "03_point",
+ "label": "Point (deictic)",
+ "hands": "R",
+ "meaning": "The right index finger extends and the arm reaches forward and slightly down: the deictic point, \"that one / there\". Rest, a short raise with the three outer fingers already folding, an apex with the elbow straight, the thumb tucked over them and the index locked out ahead, then an eased return.",
+ "reads_well": [
+  "profileR",
+  "front45R"
+ ],
+ "keys": [
+  {
+   "name": "rest",
+   "hold_frames": 6,
+   "bones": {}
+  },
+  {
+   "name": "raise",
+   "hold_frames": 6,
+   "bones": {
+    "upperarm01.R": [
+     30,
+     0,
+     30
+    ],
+    "lowerarm01.R": [
+     12.5,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.R": [
+     12.5,
+     0.0,
+     0.0
+    ],
+    "wrist.R": [
+     0,
+     -30,
+     0
+    ],
+    "finger2-1.R": [
+     10.0,
+     0.0,
+     -7.0
+    ],
+    "finger2-2.R": [
+     8.0,
+     0.0,
+     0.0
+    ],
+    "finger2-3.R": [
+     6.0,
+     0.0,
+     0.0
+    ],
+    "finger3-1.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "finger3-2.R": [
+     50.0,
+     0.0,
+     0.0
+    ],
+    "finger3-3.R": [
+     30.0,
+     0.0,
+     0.0
+    ],
+    "finger4-1.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "finger4-2.R": [
+     50.0,
+     0.0,
+     0.0
+    ],
+    "finger4-3.R": [
+     30.0,
+     0.0,
+     0.0
+    ],
+    "finger5-1.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "finger5-2.R": [
+     50.0,
+     0.0,
+     0.0
+    ],
+    "finger5-3.R": [
+     30.0,
+     0.0,
+     0.0
+    ],
+    "finger1-1.R": [
+     20.0,
+     14.0,
+     0.0
+    ],
+    "finger1-2.R": [
+     25.0,
+     0.0,
+     0.0
+    ],
+    "finger1-3.R": [
+     22.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "name": "apex",
+   "hold_frames": 18,
+   "bones": {
+    "upperarm01.R": [
+     50,
+     0,
+     22
+    ],
+    "lowerarm01.R": [
+     12,
+     0,
+     0
+    ],
+    "lowerarm02.R": [
+     12,
+     0,
+     0
+    ],
+    "wrist.R": [
+     12,
+     -20,
+     0
+    ],
+    "finger2-1.R": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "finger2-2.R": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "finger2-3.R": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "finger3-1.R": [
+     75.0,
+     0.0,
+     0.0
+    ],
+    "finger3-2.R": [
+     88.0,
+     0.0,
+     0.0
+    ],
+    "finger3-3.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "finger4-1.R": [
+     75.0,
+     0.0,
+     0.0
+    ],
+    "finger4-2.R": [
+     88.0,
+     0.0,
+     0.0
+    ],
+    "finger4-3.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "finger5-1.R": [
+     75.0,
+     0.0,
+     0.0
+    ],
+    "finger5-2.R": [
+     88.0,
+     0.0,
+     0.0
+    ],
+    "finger5-3.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "finger1-1.R": [
+     30.0,
+     20.0,
+     0.0
+    ],
+    "finger1-2.R": [
+     35.0,
+     0.0,
+     0.0
+    ],
+    "finger1-3.R": [
+     30.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "name": "return",
+   "hold_frames": 8,
+   "bones": {
+    "upperarm01.R": [
+     18,
+     0,
+     18
+    ],
+    "lowerarm01.R": [
+     15.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.R": [
+     15.0,
+     0.0,
+     0.0
+    ],
+    "wrist.R": [
+     -25,
+     -30,
+     0.0
+    ],
+    "finger2-1.R": [
+     15.0,
+     0.0,
+     -7.0
+    ],
+    "finger2-2.R": [
+     12.0,
+     0.0,
+     0.0
+    ],
+    "finger2-3.R": [
+     10.0,
+     0.0,
+     0.0
+    ],
+    "finger3-1.R": [
+     25.0,
+     0.0,
+     -2.5
+    ],
+    "finger3-2.R": [
+     30.0,
+     0.0,
+     0.0
+    ],
+    "finger3-3.R": [
+     20.0,
+     0.0,
+     0.0
+    ],
+    "finger4-1.R": [
+     25.0,
+     0.0,
+     2.5
+    ],
+    "finger4-2.R": [
+     30.0,
+     0.0,
+     0.0
+    ],
+    "finger4-3.R": [
+     20.0,
+     0.0,
+     0.0
+    ],
+    "finger5-1.R": [
+     25.0,
+     0.0,
+     7.0
+    ],
+    "finger5-2.R": [
+     30.0,
+     0.0,
+     0.0
+    ],
+    "finger5-3.R": [
+     20.0,
+     0.0,
+     0.0
+    ],
+    "finger1-1.R": [
+     14.0,
+     8.0,
+     0.0
+    ],
+    "finger1-2.R": [
+     18.0,
+     0.0,
+     0.0
+    ],
+    "finger1-3.R": [
+     16.0,
+     0.0,
+     0.0
+    ]
+   }
+  }
+ ]
+}

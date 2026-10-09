@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creator Nexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css?v=63" />
+  <style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+</head>
+  <body>
+    <div class="background-orb orb-a"></div>
+    <div class="background-orb orb-b"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <div class="back-nav" id="backNav">
+            <span class="back-arrow">&#8592;</span>
+            <span class="back-label">Return to dashboard</span>
+          </div>
+          <h1>Creator Nexus</h1>
+        </div>
+
+        <nav class="tab-dock" aria-label="Primary tabs">
+          <button class="tab-chip active" data-tab="channels" type="button">
+            <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <span class="chip-label">Channels</span>
+          </button>
+          <button class="tab-chip" data-tab="upload" type="button">
+            <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg></span>
+            <span class="chip-label">Upload</span>
+          </button>
+          <button class="tab-chip" data-tab="marketing" type="button">
+            <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></span>
+            <span class="chip-label">Marketing</span>
+          </button>
+          <button class="tab-chip" data-tab="metrics" type="button">
+            <span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span>
+            <span class="chip-label">Metrics</span>
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="tab-panel active" id="panel-channels">
+          <div class="channels-layout">
+            <aside class="card channel-list-card">
+              <div class="card-head">
+                <h2>Channels</h2>
+              </div>
+              <div class="channel-create-row">
+                <input id="newChannelName" type="text" placeholder="New channel name" />
+                <button id="addChannelBtn" class="btn">Add</button>
+              </div>
+              <div id="channelList" class="channel-list"></div>
+            </aside>
+
+            <section class="card channel-detail-card">
+              <div class="card-head card-head--split">
+                <div class="card-head-main">
+                  <h2 id="vaultTitle" class="editable-h2" title="Click to rename">Select a Channel</h2>
+                  <input id="channelNameInline" class="inline-edit-title" type="text" placeholder="Channel name" />
+                </div>
+                <div class="card-head-center">
+                  <p id="nicheDisplay" class="editable-niche" title="Click to edit niche">—</p>
+                  <input id="channelNicheInline" class="inline-edit-niche" type="text" placeholder="Niche / Theme" />
+                </div>
+                <div class="settings-wrap">
+                  <button class="settings-btn" id="settingsBtn" type="button" title="Channel settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  </button>
+                  <div class="settings-menu" id="settingsMenu">
+                    <button class="settings-menu-item danger" id="deleteChannelBtn" type="button">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                      Delete Channel
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subtab-bar">
+                <button class="subtab" data-subtab="content" type="button">Content</button>
+                <button class="subtab" data-subtab="scheduled" type="button">Scheduled</button>
+                <button class="subtab" data-subtab="posts" type="button">Posts</button>
+                <button class="subtab" data-subtab="usage" type="button">Usage</button>
+                <button class="subtab" data-subtab="access" type="button">Account &amp; Accessibility</button>
+                <button class="subtab" data-subtab="adsense" type="button">AdSense</button>
+                <button class="subtab" data-subtab="description" type="button">Description</button>
+              </div>
+
+              <div class="subtab-panel" id="subtab-access">
+                <div class="vault-list">
+                  <div class="vault-row vault-row--clickable" data-account="primaryContact">
+                    <span class="vault-label">Primary Contact</span>
+                    <span class="vault-summary-text" id="sum-primaryContact">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="youtube">
+                    <span class="vault-label">YouTube Account</span>
+                    <span class="vault-summary-text" id="sum-youtube">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="facebook">
+                    <span class="vault-label">Facebook Account</span>
+                    <span class="vault-summary-text" id="sum-facebook">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="x">
+                    <span class="vault-label">X Account</span>
+                    <span class="vault-summary-text" id="sum-x">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="kick">
+                    <span class="vault-label">Kick Account</span>
+                    <span class="vault-summary-text" id="sum-kick">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="tiktok">
+                    <span class="vault-label">TikTok Account</span>
+                    <span class="vault-summary-text" id="sum-tiktok">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="instagram">
+                    <span class="vault-label">Instagram Account</span>
+                    <span class="vault-summary-text" id="sum-instagram">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="linkedin">
+                    <span class="vault-label">LinkedIn Account</span>
+                    <span class="vault-summary-text" id="sum-linkedin">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="reddit">
+                    <span class="vault-label">Reddit Account</span>
+                    <span class="vault-summary-text" id="sum-reddit">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="pinterest">
+                    <span class="vault-label">Pinterest Account</span>
+                    <span class="vault-summary-text" id="sum-pinterest">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="threads">
+                    <span class="vault-label">Threads Account</span>
+                    <span class="vault-summary-text" id="sum-threads">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="tumblr">
+                    <span class="vault-label">Tumblr Account</span>
+                    <span class="vault-summary-text" id="sum-tumblr">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="discord">
+                    <span class="vault-label">Discord Account</span>
+                    <span class="vault-summary-text" id="sum-discord">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="telegram">
+                    <span class="vault-label">Telegram Account</span>
+                    <span class="vault-summary-text" id="sum-telegram">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="whatsapp">
+                    <span class="vault-label">WhatsApp Account</span>
+                    <span class="vault-summary-text" id="sum-whatsapp">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="vk">
+                    <span class="vault-label">VK Account</span>
+                    <span class="vault-summary-text" id="sum-vk">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="odnoklassniki">
+                    <span class="vault-label">OK.ru Account</span>
+                    <span class="vault-summary-text" id="sum-odnoklassniki">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="rutube">
+                    <span class="vault-label">Rutube Account</span>
+                    <span class="vault-summary-text" id="sum-rutube">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="yandex">
+                    <span class="vault-label">Yandex Account</span>
+                    <span class="vault-summary-text" id="sum-yandex">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="bilibili">
+                    <span class="vault-label">Bilibili Account</span>
+                    <span class="vault-summary-text" id="sum-bilibili">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="sinaweibo">
+                    <span class="vault-label">Weibo Account</span>
+                    <span class="vault-summary-text" id="sum-sinaweibo">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="wechat">
+                    <span class="vault-label">WeChat Account</span>
+                    <span class="vault-summary-text" id="sum-wechat">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="qq">
+                    <span class="vault-label">QQ Account</span>
+                    <span class="vault-summary-text" id="sum-qq">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="douyin">
+                    <span class="vault-label">Douyin Account</span>
+                    <span class="vault-summary-text" id="sum-douyin">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="zhihu">
+                    <span class="vault-label">Zhihu Account</span>
+                    <span class="vault-summary-text" id="sum-zhihu">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="youku">
+                    <span class="vault-label">Youku Account</span>
+                    <span class="vault-summary-text" id="sum-youku">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="iqiyi">
+                    <span class="vault-label">iQIYI Account</span>
+                    <span class="vault-summary-text" id="sum-iqiyi">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="google">
+                    <span class="vault-label">Google Account</span>
+                    <span class="vault-summary-text" id="sum-google">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="phone">
+                    <span class="vault-label">Phone Number</span>
+                    <span class="vault-summary-text" id="sum-phone">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="googleCloud">
+                    <span class="vault-label">Google Cloud Account</span>
+                    <span class="vault-summary-text" id="sum-googleCloud">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="email">
+                    <span class="vault-label">Email Address</span>
+                    <span class="vault-summary-text" id="sum-email">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                  <div class="vault-row vault-row--clickable" data-account="vital">
+                    <span class="vault-label">Other Vital Info</span>
+                    <span class="vault-summary-text" id="sum-vital">Not configured</span>
+                    <span class="vault-chevron">›</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subtab-panel" id="subtab-content">
+                <div class="platform-bar-wrap">
+                  <div class="platform-bar" id="platformBar">
+                    <!-- rendered by JS based on region -->
+                  </div>
+                  <div class="region-selector">
+                    <button class="region-btn" id="regionBtn" type="button">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                      <span id="regionLabel">English</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="region-menu" id="regionMenu" hidden>
+                      <button class="region-opt active" data-region="english"  type="button">🇬🇧 English</button>
+                      <button class="region-opt" data-region="spanish"  type="button">🇪🇸 Spanish</button>
+                      <button class="region-opt" data-region="french"   type="button">🇫🇷 French</button>
+                      <button class="region-opt" data-region="indian"   type="button">🇮🇳 Indian</button>
+                      <button class="region-opt" data-region="chinese"  type="button">🇨🇳 Chinese</button>
+                      <button class="region-opt" data-region="russian"  type="button">🇷🇺 Russian</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="platformPanels">
+                  <!-- english / shared -->
+                  <div class="platform-panel active" id="platform-youtube"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Video Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-kick"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Stream Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-tiktok"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Video Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-instagram"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Post Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-facebook"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Post Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-x"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Post Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-whatsapp"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Broadcast Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <!-- chinese -->
+                  <div class="platform-panel" id="platform-bilibili"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Video Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-sinaweibo"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Post Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-wechat"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Channel Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-qq"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Space Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-zhihu"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Article Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-douyin"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Video Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-youku"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Video Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-iqiyi"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Video Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <!-- russian -->
+                  <div class="platform-panel" id="platform-vk"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Post Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-telegram"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Channel Post</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-odnoklassniki"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Post Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-yandex"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Zen Article</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                  <div class="platform-panel" id="platform-rutube"><div class="content-kanban"><div class="content-col"><div class="content-card" data-content-card="true" title="Click for full details"><div class="content-card-title">Preview Video Title</div><div class="content-card-stats"><div class="stat-row"><span class="stat-label">Views</span><span class="stat-value">0</span></div><div class="stat-row stat-row--earnings"><span class="stat-label">Earnings</span><span class="stat-value">$0.00</span></div></div><div class="content-card-hidden" hidden><span data-stat="likes">0</span><span data-stat="comments">0</span><span data-stat="updated">—</span><span data-stat="cpm">$0.00</span></div></div></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div><div class="content-col"></div></div></div>
+                </div>
+              </div>
+
+              <div class="subtab-panel" id="subtab-scheduled">
+                <div class="content-kanban">
+                  <div class="content-col">
+                    <div class="sched-card">
+                        <div class="sched-card-head">
+                          <div class="sched-card-title">Preview Title</div>
+                          <div class="sched-platform-picker" title="Click to change platform">
+                            <img class="sched-platform-icon" src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube" width="16" height="16" data-platform="youtube">
+                            <div class="sched-platform-menu" hidden>
+                              <button class="sched-platform-opt" data-p="youtube"  data-color="FF0000"><img src="https://cdn.simpleicons.org/youtube/FF0000"   width="16" height="16"></button>
+                              <button class="sched-platform-opt" data-p="facebook" data-color="1877F2"><img src="https://cdn.simpleicons.org/facebook/1877F2"  width="16" height="16"></button>
+                              <button class="sched-platform-opt" data-p="kick"     data-color="53FC18"><img src="https://cdn.simpleicons.org/kick/53FC18"     width="16" height="16"></button>
+                              <button class="sched-platform-opt" data-p="tiktok"   data-color="FE2C55"><img src="https://cdn.simpleicons.org/tiktok/FE2C55"   width="16" height="16"></button>
+                              <button class="sched-platform-opt" data-p="instagram" data-color="E4405F"><img src="https://cdn.simpleicons.org/instagram/E4405F" width="16" height="16"></button>
+                              <button class="sched-platform-opt" data-p="x"        data-color="ffffff"><img src="https://cdn.simpleicons.org/x/ffffff"        width="16" height="16"></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="sched-card-dates">
+                          <div class="sched-date-block">
+                            <span class="sched-date-label">Schedule date</span>
+                            <input class="sched-date-input" type="date" />
+                          </div>
+                          <div class="sched-date-block">
+                            <span class="sched-date-label">Air date</span>
+                            <input class="sched-date-input" type="date" />
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="content-col"></div>
+                  <div class="content-col"></div>
+                  <div class="content-col"></div>
+                  <div class="content-col"></div>
+                </div>
+              </div>
+
+              <div class="subtab-panel" id="subtab-posts">
+                <div class="platform-bar-wrap">
+                  <div class="platform-bar" id="postsBar"></div>
+                </div>
+                <div id="postsPanels"></div>
+              </div>
+
+              <div class="subtab-panel" id="subtab-usage">
+                <div class="vault-list" style="margin-top:10px">
+                  <div class="vault-row">
+                    <span class="vault-label">Data Uploaded</span>
+                    <input id="usageData" type="text" value="— telemetry" readonly />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">API Calls Made</span>
+                    <input id="usageApiCalls" type="text" value="— telemetry" readonly />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Tokens Used</span>
+                    <input id="usageTokens" type="text" value="— telemetry" readonly />
+                  </div>
+                </div>
+              </div>
+
+              <div class="subtab-panel" id="subtab-adsense">
+                <div class="adsense-notice">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><circle cx="10" cy="10" r="8"/><line x1="10" y1="6" x2="10" y2="10"/><circle cx="10" cy="14" r="0.8" fill="currentColor" stroke="none"/></svg>
+                  <span>AdSense is <strong>shared across all channels</strong>. Fill it in once and it applies everywhere.</span>
+                </div>
+                <div class="vault-list" style="margin-top:12px">
+
+                  <div class="vault-section-header">Account Details</div>
+                  <div class="vault-row">
+                    <span class="vault-label">Publisher ID</span>
+                    <input id="adsPublisherId" type="text" placeholder="pub-0000000000000000" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Account Email</span>
+                    <input id="adsEmail" type="email" placeholder="you@example.com" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Account Name</span>
+                    <input id="adsName" type="text" placeholder="Full name on account" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Status</span>
+                    <select id="adsStatus">
+                      <option value="">— Select —</option>
+                      <option value="active">Active</option>
+                      <option value="review">Under Review</option>
+                      <option value="restricted">Restricted</option>
+                      <option value="suspended">Suspended</option>
+                      <option value="closed">Closed</option>
+                    </select>
+                  </div>
+
+                  <div class="vault-section-header">Payment Settings</div>
+                  <div class="vault-row">
+                    <span class="vault-label">Payment Threshold</span>
+                    <input id="adsThreshold" type="text" placeholder="e.g. $100" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Currency</span>
+                    <input id="adsCurrency" type="text" placeholder="e.g. USD" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Payment Method</span>
+                    <select id="adsPaymentMethod">
+                      <option value="">— Select —</option>
+                      <option value="bank">Bank Transfer (EFT)</option>
+                      <option value="wire">Wire Transfer</option>
+                      <option value="check">Check</option>
+                      <option value="western">Western Union</option>
+                    </select>
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Bank / IBAN</span>
+                    <input id="adsBankAccount" type="text" placeholder="IBAN or account number" />
+                  </div>
+
+                  <div class="vault-section-header">Tax Information</div>
+                  <div class="vault-row">
+                    <span class="vault-label">Tax Form</span>
+                    <select id="adsTaxForm">
+                      <option value="">— Not submitted —</option>
+                      <option value="w9">W-9 (US Person)</option>
+                      <option value="w8ben">W-8BEN (Non-US Individual)</option>
+                      <option value="w8bene">W-8BEN-E (Non-US Entity)</option>
+                    </select>
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Tax ID / VAT</span>
+                    <input id="adsTaxId" type="text" placeholder="Tax identification number" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Country</span>
+                    <input id="adsCountry" type="text" placeholder="Country of tax residence" />
+                  </div>
+
+                  <div class="vault-section-header">Earnings Snapshot</div>
+                  <div class="vault-row">
+                    <span class="vault-label">Est. Balance</span>
+                    <input id="adsBalance" type="text" placeholder="e.g. $47.23" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Last Payment</span>
+                    <input id="adsLastPayment" type="text" placeholder="e.g. $120.00 — Jan 21, 2026" />
+                  </div>
+                  <div class="vault-row">
+                    <span class="vault-label">Notes</span>
+                    <input id="adsNotes" type="text" placeholder="Any notes about this account" />
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="subtab-panel" id="subtab-description">
+                <div class="desc-panel">
+                  <div class="desc-section">
+                    <label class="desc-section-label" for="channelDescription">Channel Description</label>
+                    <textarea id="channelDescription" class="desc-textarea" placeholder="Describe this channel — its niche, tone, target audience, and content purpose…"></textarea>
+                  </div>
+                  <div class="desc-section">
+                    <div class="desc-rules-header">
+                      <span class="desc-section-label">Content Rules</span>
+                      <button class="desc-section-chevron" id="contentRulesChevron" type="button" title="Collapse / expand">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <button class="desc-add-rule-btn" id="addRuleBtn" type="button" title="Add rule">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="13" height="13"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                      </button>
+                    </div>
+                    <div id="rulesList" class="desc-rules-list"></div>
+                  </div>
+                  <div class="desc-section">
+                    <div class="desc-rules-header">
+                      <span class="desc-section-label">Policy Rules</span>
+                      <button class="desc-section-chevron" id="policyRulesChevron" type="button" title="Collapse / expand">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <button class="desc-add-rule-btn" id="addPolicyRuleBtn" type="button" title="Add policy rule">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="13" height="13"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                      </button>
+                    </div>
+                    <div id="policyRulesList" class="desc-rules-list"></div>
+                  </div>
+                  <div class="desc-section">
+                    <div class="desc-rules-header">
+                      <span class="desc-section-label">General Policy Rules</span>
+                      <button class="desc-section-chevron" id="generalPolicyRulesChevron" type="button" title="Collapse / expand">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <button class="desc-add-rule-btn" id="addGeneralPolicyRuleBtn" type="button" title="Add general policy rule">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="13" height="13"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                      </button>
+                    </div>
+                    <div id="generalPolicyRulesList" class="desc-rules-list"></div>
+                  </div>
+                </div>
+              </div>
+
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="panel-upload">
+          <div class="card upload-card">
+            <div class="card-head">
+              <h2>Upload Pipeline</h2>
+            </div>
+            <div class="upload-stab-bar">
+              <button class="upload-stab active" data-ustab="scheduling">Upload Scheduling</button>
+              <button class="upload-stab" data-ustab="platforms">Platforms</button>
+              <button class="upload-stab-settings" id="uploadSettingsBtn" type="button" title="Region">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </button>
+            </div>
+            <div class="upload-stab-panel active" id="ustab-scheduling">
+              <div class="upload-stage-wrap" id="ustab-sched-wrap"></div>
+            </div>
+            <div class="upload-stab-panel" id="ustab-platforms">
+              <div class="pipeline-banner">
+                <div>
+                  <div class="pipeline-banner-label">Next automated run</div>
+                  <div class="pipeline-banner-time">Daily · 07:00 Amsterdam</div>
+                </div>
+                <div id="pipelineCountdown" class="pipeline-countdown">—</div>
+              </div>
+              <div class="upload-stage-wrap" id="ustab-pipe-wrap"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="panel-marketing">
+          <div class="card mkt-card">
+
+            <!-- ── Header ── -->
+            <div class="card-head mkt-card-head">
+              <div class="mkt-head-left">
+                <h2 id="mktBoardTitle">Marketing Pipeline</h2>
+                <!-- Workflow switcher — options rendered by JS from MKT_WORKFLOWS -->
+                <div class="mkt-wf-select">
+                  <button class="mkt-wf-btn" id="mktWorkflowBtn" type="button" aria-haspopup="true" aria-expanded="false" title="Switch workflow">
+                    <span class="mkt-wf-btn-label">Workflows</span>
+                    <svg class="mkt-wf-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                  <div class="mkt-wf-menu" id="mktWorkflowMenu" role="menu" hidden></div>
+                </div>
+              </div>
+              <div class="mkt-head-actions" id="mktHeadActions">
+                <span class="mkt-scan-status" id="mktScanStatus">Scanning…</span>
+                <span class="mkt-next-batch-label">Next batch: <span id="mktNextBatch" class="mkt-next-batch-time">--:--</span></span>
+              </div>
+            </div>
+
+            <!-- ── Per-platform workflow boards (rendered by JS, one at a time) ── -->
+            <div class="mkt-wf-boards" id="mktWorkflowBoards" hidden></div>
+
+            <!-- ── 4-Stage Kanban ── -->
+            <div class="mkt-kanban" id="mktPipelineKanban">
+
+              <!-- Stage 1: Production -->
+              <div class="mkt-stage">
+                <div class="mkt-stage-header">
+                  <span class="mkt-stage-num">1</span>
+                  <span class="mkt-stage-title">Production</span>
+                  <span class="mkt-stage-count" id="mkt-count-production">0</span>
+                </div>
+                <div class="mkt-stage-hint">Episodes detected that are produced in last 24 h</div>
+                <div class="mkt-stage-body" id="mkt-body-production"></div>
+              </div>
+
+              <!-- Stage 2: Tagging -->
+              <div class="mkt-stage">
+                <div class="mkt-stage-header">
+                  <span class="mkt-stage-num">2</span>
+                  <span class="mkt-stage-title">Tagging</span>
+                  <span class="mkt-stage-count" id="mkt-count-tagging">0</span>
+                </div>
+                <div class="mkt-stage-hint">Title · Tags · Privacy</div>
+                <div class="mkt-stage-body" id="mkt-body-tagging"></div>
+              </div>
+
+              <!-- Stage 3: Scheduling -->
+              <div class="mkt-stage">
+                <div class="mkt-stage-header">
+                  <span class="mkt-stage-num">3</span>
+                  <span class="mkt-stage-title">Scheduling</span>
+                  <span class="mkt-stage-count" id="mkt-count-scheduling">0</span>
+                </div>
+                <div class="mkt-stage-hint">3 slots / day</div>
+                <div class="mkt-stage-body" id="mkt-body-scheduling"></div>
+              </div>
+
+              <!-- Stage 4: Publishing -->
+              <div class="mkt-stage">
+                <div class="mkt-stage-header">
+                  <span class="mkt-stage-num">4</span>
+                  <span class="mkt-stage-title">Publishing</span>
+                  <span class="mkt-stage-count" id="mkt-count-publishing">0</span>
+                  <button class="mkt-clear-done-btn" id="mktClearDoneBtn" title="Remove all ✓ Uploaded entries">Clear Done</button>
+                </div>
+                <div class="mkt-stage-hint">Upload 3× / day · Auto at batch time · Done auto-archives after 6 h</div>
+                <div class="mkt-stage-body" id="mkt-body-publishing"></div>
+              </div>
+
+            </div><!-- /.mkt-kanban -->
+
+          </div>
+        </section>
+
+        <!-- ── Floating Live Tail (global, always on top) ── -->
+        <div class="mkt-float-tail" id="mktFloatTail" aria-hidden="true">
+          <div class="mkt-float-tail-bar">
+            <span class="mkt-livetail-title">Live Tail</span>
+            <div class="mkt-livetail-filters">
+              <button class="mkt-log-filter active" data-level="all"   type="button">All</button>
+              <button class="mkt-log-filter"        data-level="info"  type="button">Info</button>
+              <button class="mkt-log-filter"        data-level="warn"  type="button">Warn</button>
+              <button class="mkt-log-filter"        data-level="error" type="button">Error</button>
+              <button class="mkt-log-filter"        data-level="debug" type="button">Debug</button>
+            </div>
+            <label class="mkt-autoscroll-label">
+              <input type="checkbox" id="mktAutoScroll" checked /> Auto-scroll
+            </label>
+            <button class="mkt-log-clear" id="mktClearLog" type="button">Clear</button>
+            <button class="mkt-float-tail-close" id="mktTailClose" type="button" title="Close">✕</button>
+          </div>
+          <pre class="mkt-livetail-output" id="mktLogOutput">Waiting for events…</pre>
+        </div>
+
+        <!-- ── Live Tail FAB ── -->
+        <button class="mkt-tail-fab" id="mktTailFab" type="button" title="Live Tail">
+          <svg viewBox="0 0 21 18" fill="none" stroke="#58a6ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+            <polyline points="1 9 5 9 7 18 13 0 16 9 20 9"/>
+            <circle class="mkt-hb-dot" r="1.8" cx="0" cy="0"/>
+          </svg>
+        </button>
+
+        <section class="tab-panel" id="panel-metrics">
+
+          <!-- ── Channel Overview ── -->
+          <div class="card metrics-card">
+            <div class="card-head">
+              <h2>Channel Overview</h2>
+              <p>Channels are ranked by views from highest to lowest.</p>
+            </div>
+            <div class="summary-grid" id="summaryGrid">
+              <div class="summary-item"><p>Total Channels</p><strong id="sumChannels">0</strong></div>
+              <div class="summary-item"><p>Total Subscribers</p><strong id="sumSubscribers">—</strong></div>
+              <div class="summary-item"><p>Total Views</p><strong id="sumViews">—</strong></div>
+              <div class="summary-item"><p>Total Watch Time</p><strong id="sumWatchTime">—</strong></div>
+              <div class="summary-item"><p>Total Earnings</p><strong id="sumEarnings">—</strong></div>
+              <div class="summary-item"><p>Avg Engagement Rate</p><strong id="sumEngagement">—</strong></div>
+              <div class="summary-item"><p>Avg CTR</p><strong id="sumCTR">—</strong></div>
+              <div class="summary-item"><p>Avg RPM</p><strong id="sumRPM">—</strong></div>
+            </div>
+            <div class="table-wrap table-wrap--scroll">
+              <table class="metrics-table">
+                <thead>
+                  <tr>
+                    <th class="col-pin">#</th>
+                    <th class="col-pin">Channel</th>
+                    <th>Niche</th>
+                    <th>Subscribers</th>
+                    <th>Sub Growth</th>
+                    <th>Videos</th>
+                    <th>Upload Freq</th>
+                    <th>Views</th>
+                    <th>Watch Time</th>
+                    <th>Avg Duration</th>
+                    <th>Retention %</th>
+                    <th>Impressions</th>
+                    <th>CTR</th>
+                    <th>Engagement</th>
+                    <th>Likes</th>
+                    <th>Comments</th>
+                    <th>Shares</th>
+                    <th>Like Ratio</th>
+                    <th>CPM</th>
+                    <th>RPM</th>
+                    <th>Earnings</th>
+                    <th>Top Video</th>
+                  </tr>
+                </thead>
+                <tbody id="metricsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ── Video Performance ── -->
+          <div class="card metrics-card--sub">
+            <div class="card-head">
+              <h2>Video Performance</h2>
+              <p>Per-video breakdown across all channels and platforms.</p>
+            </div>
+            <div class="table-wrap table-wrap--scroll">
+              <table class="metrics-table">
+                <thead>
+                  <tr>
+                    <th class="col-pin">Title</th>
+                    <th>Channel</th>
+                    <th>Platform</th>
+                    <th>Published</th>
+                    <th>Views</th>
+                    <th>Unique Viewers</th>
+                    <th>Watch Time</th>
+                    <th>Avg Duration</th>
+                    <th>Retention %</th>
+                    <th>Impressions</th>
+                    <th>CTR</th>
+                    <th>Likes</th>
+                    <th>Like Ratio</th>
+                    <th>Comments</th>
+                    <th>Shares</th>
+                    <th>Saves</th>
+                    <th>Subs Gained</th>
+                    <th>Subs Lost</th>
+                    <th>Cards CTR</th>
+                    <th>End Screen CTR</th>
+                    <th>Playlist Adds</th>
+                    <th>RPM</th>
+                    <th>Earnings</th>
+                  </tr>
+                </thead>
+                <tbody id="videoMetricsTableBody">
+                  <tr><td colspan="23" class="metrics-empty">No video data yet — connect platform APIs to populate.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ── Audience & Demographics ── -->
+          <div class="card metrics-card--sub">
+            <div class="card-head"><h2>Audience &amp; Demographics</h2></div>
+            <div class="metrics-demo-grid">
+
+              <div class="metrics-demo-block">
+                <div class="metrics-demo-title">Traffic Sources</div>
+                <div class="metrics-bar-list">
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">Browse / Homepage</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">Suggested Videos</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">Search</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">External / Google</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">Notifications</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">Playlists</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">Channel Page</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">Direct / Unknown</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                </div>
+              </div>
+
+              <div class="metrics-demo-block">
+                <div class="metrics-demo-title">Top Countries</div>
+                <div class="metrics-bar-list">
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">—</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                </div>
+              </div>
+
+              <div class="metrics-demo-block">
+                <div class="metrics-demo-title">Age &amp; Gender</div>
+                <div class="metrics-gender-row"><span class="metrics-gender-label">Male</span><div class="metrics-bar-track"><div class="metrics-bar-fill metrics-bar-fill--blue" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                <div class="metrics-gender-row"><span class="metrics-gender-label">Female</span><div class="metrics-bar-track"><div class="metrics-bar-fill metrics-bar-fill--pink" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                <div class="metrics-gender-row"><span class="metrics-gender-label">Other</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                <div class="metrics-demo-subtitle">Age Groups</div>
+                <div class="metrics-age-chips">
+                  <div class="metrics-age-chip"><span>13–17</span><strong>—</strong></div>
+                  <div class="metrics-age-chip"><span>18–24</span><strong>—</strong></div>
+                  <div class="metrics-age-chip"><span>25–34</span><strong>—</strong></div>
+                  <div class="metrics-age-chip"><span>35–44</span><strong>—</strong></div>
+                  <div class="metrics-age-chip"><span>45–54</span><strong>—</strong></div>
+                  <div class="metrics-age-chip"><span>55+</span><strong>—</strong></div>
+                </div>
+              </div>
+
+              <div class="metrics-demo-block">
+                <div class="metrics-demo-title">Devices &amp; Viewer Type</div>
+                <div class="metrics-bar-list">
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">📱 Mobile</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">💻 Desktop</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">📺 TV</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                  <div class="metrics-bar-row"><span class="metrics-bar-label">📟 Tablet</span><div class="metrics-bar-track"><div class="metrics-bar-fill" style="width:0%"></div></div><span class="metrics-bar-val">—</span></div>
+                </div>
+                <div class="metrics-demo-subtitle" style="margin-top:14px">Viewer Loyalty</div>
+                <div class="metrics-viewer-split">
+                  <div class="metrics-viewer-half metrics-viewer-half--returning"><strong>—</strong><span>Returning</span></div>
+                  <div class="metrics-viewer-half metrics-viewer-half--new"><strong>—</strong><span>New</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── Marketing Insights ── -->
+          <div class="card metrics-card--sub">
+            <div class="card-head"><h2>Marketing Insights</h2></div>
+            <div class="metrics-insights-grid">
+
+              <div class="metrics-insights-block">
+                <div class="metrics-demo-title">Best Upload Day &amp; Time</div>
+                <div class="metrics-timing-grid">
+                  <div class="metrics-timing-cell"><span>Mon</span><strong>—</strong></div>
+                  <div class="metrics-timing-cell"><span>Tue</span><strong>—</strong></div>
+                  <div class="metrics-timing-cell"><span>Wed</span><strong>—</strong></div>
+                  <div class="metrics-timing-cell"><span>Thu</span><strong>—</strong></div>
+                  <div class="metrics-timing-cell"><span>Fri</span><strong>—</strong></div>
+                  <div class="metrics-timing-cell"><span>Sat</span><strong>—</strong></div>
+                  <div class="metrics-timing-cell"><span>Sun</span><strong>—</strong></div>
+                </div>
+                <div class="metrics-insight-note">Peak time: <span class="metrics-insight-val">—</span></div>
+              </div>
+
+              <div class="metrics-insights-block">
+                <div class="metrics-demo-title">Top Search Terms</div>
+                <div class="metrics-keyword-list">
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">1</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">2</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">3</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">4</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">5</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">6</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">7</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                  <div class="metrics-keyword-row"><span class="metrics-kw-rank">8</span><span class="metrics-kw-term">—</span><span class="metrics-kw-views">—</span></div>
+                </div>
+              </div>
+
+              <div class="metrics-insights-block">
+                <div class="metrics-demo-title">Audience Retention</div>
+                <div class="metrics-retention-stats">
+                  <div class="metrics-retention-row"><span>Avg Retention %</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Top Drop-off Point</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Re-watch Rate</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Notification CTR</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>A/B Thumbnail Winner</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Retention Curve</span><strong class="metrics-api-note">API required</strong></div>
+                </div>
+              </div>
+
+              <div class="metrics-insights-block">
+                <div class="metrics-demo-title">Virality &amp; Sentiment</div>
+                <div class="metrics-retention-stats">
+                  <div class="metrics-retention-row"><span>Viral Coefficient</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Shares ÷ Views</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Comment Sentiment</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Top Comment Theme</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Subs per 1k Views</span><strong>—</strong></div>
+                  <div class="metrics-retention-row"><span>Cross-platform Reach</span><strong>—</strong></div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="metrics-demo-title" style="margin:22px 0 10px">Multi-Platform Comparison</div>
+            <div class="table-wrap table-wrap--scroll">
+              <table class="metrics-table">
+                <thead>
+                  <tr>
+                    <th class="col-pin">Platform</th>
+                    <th>Followers</th>
+                    <th>Avg Engagement Rate</th>
+                    <th>Reach</th>
+                    <th>Best Post Time</th>
+                    <th>Short / Reel Views</th>
+                    <th>Live Peak Viewers</th>
+                    <th>Story Views</th>
+                  </tr>
+                </thead>
+                <tbody id="platformMetricsTableBody">
+                  <tr><td colspan="8" class="metrics-empty">No platform data yet — connect APIs to populate.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+      </main>
+    </div>
+
+    <div id="accountModal" class="modal-overlay">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 id="modalTitle">Account Details</h3>
+          <button class="modal-close" id="modalClose" type="button">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+          <button id="modalSave" class="btn primary" type="button">Save</button>
+          <button id="modalCancel" class="btn" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Channel Confirm Dialog -->
+    <div id="deleteConfirmModal" class="modal-overlay">
+      <div class="modal-box confirm-box">
+        <div class="modal-header">
+          <h3>Delete Channel</h3>
+          <button class="modal-close" id="deleteConfirmClose" type="button">✕</button>
+        </div>
+        <div class="modal-body confirm-body">
+          <div class="confirm-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </div>
+          <p class="confirm-msg">Are you sure you want to delete <strong id="deleteConfirmName"></strong>?</p>
+          <p class="confirm-sub">This action cannot be undone. All associated data will be permanently removed.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="deleteConfirmOk" class="btn danger" type="button">Delete</button>
+          <button id="deleteConfirmCancel" class="btn" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="commentsModal" class="modal-overlay comments-modal-overlay">
+      <div class="modal-box comments-modal-box">
+        <div class="modal-header">
+          <h3 id="commentsModalTitle">YouTube Comments</h3>
+          <button class="modal-close" id="commentsModalClose" type="button">✕</button>
+        </div>
+        <div class="modal-body" id="commentsModalBody"></div>
+        <div class="modal-footer" style="justify-content:space-between;align-items:center;">
+          <span class="telemetry-note">⚡ Live endpoint will be connected in a future update</span>
+          <button id="commentsModalDone" class="btn" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post edit modal -->
+    <div id="postModal" class="modal-overlay post-modal-overlay">
+      <div class="modal-box post-modal-box">
+        <div class="modal-header">
+          <h3>Post — <span id="postModalPlatform"></span></h3>
+          <button class="modal-close" id="postModalClose" type="button">✕</button>
+        </div>
+        <div class="modal-body post-modal-body">
+          <div class="post-modal-field">
+            <label class="post-modal-label" for="postModalTitle">Title / Hook</label>
+            <input id="postModalTitle" class="post-modal-input" type="text" placeholder="Post headline or hook…">
+          </div>
+          <div class="post-modal-field post-modal-field--grow">
+            <label class="post-modal-label" for="postModalBody">Post Content</label>
+            <textarea id="postModalBody" class="post-modal-textarea" placeholder="Write your post here…"></textarea>
+          </div>
+          <div class="post-modal-row">
+            <div class="post-modal-field">
+              <label class="post-modal-label" for="postModalStatus">Status</label>
+              <select id="postModalStatus" class="post-modal-select">
+                <option value="idea">Idea</option>
+                <option value="draft">Draft</option>
+                <option value="ready">Ready</option>
+                <option value="posted">Posted</option>
+              </select>
+            </div>
+            <div class="post-modal-field">
+              <label class="post-modal-label" for="postModalDate">Scheduled Date</label>
+              <input id="postModalDate" class="post-modal-input" type="date">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer post-modal-footer">
+          <button id="postModalSave" class="btn primary" type="button">Save</button>
+          <button id="postModalCancel" class="btn" type="button">Cancel</button>
+          <button id="postModalDelete" class="btn danger post-modal-delete-btn" type="button" hidden>Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./app.js?v=14"></script>
+  </body>
+</html>

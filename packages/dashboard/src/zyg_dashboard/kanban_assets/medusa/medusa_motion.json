@@ -1,0 +1,19 @@
+{
+ "pad_top": 0,
+ "pad_left": 0,
+ "crop": [
+  448,
+  496
+ ],
+ "src": "~/ai-models/comfyui/output/ZygMedusaMotion_00001_.mp4",
+ "mode": "motion",
+ "w": 448,
+ "h": 496,
+ "frames": 81,
+ "fps": 17.0,
+ "seed": 20260923,
+ "shift": 5.0,
+ "steps": 20,
+ "wall_s": 363.7,
+ "loop_shift": 0
+}

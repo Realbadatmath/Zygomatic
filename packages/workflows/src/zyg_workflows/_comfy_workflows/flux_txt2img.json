@@ -1,0 +1,82 @@
+{
+  "10": {
+    "inputs": {
+      "unet_name": "flux1-dev.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Flux UNet"}
+  },
+  "11": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "DualCLIPLoader (T5 + CLIP-L)"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux_ae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load Flux VAE"}
+  },
+  "20": {
+    "inputs": {
+      "clip": ["11", 0],
+      "clip_l": "ZYG_CHAR character, studio portrait, photorealistic",
+      "t5xxl": "ZYG_CHAR character, studio portrait, photorealistic",
+      "guidance": 3.5,
+      "text": "a sample documentary still, cinematic lighting, photorealistic"
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {
+      "clip": ["11", 0],
+      "clip_l": "",
+      "t5xxl": "",
+      "guidance": 3.5,
+      "text": ""
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "25": {
+    "inputs": {"guidance": 3.5, "conditioning": ["20", 0]},
+    "class_type": "FluxGuidance",
+    "_meta": {"title": "FluxGuidance"}
+  },
+  "30": {
+    "inputs": {"width": 1024, "height": 1024, "batch_size": 1},
+    "class_type": "EmptyLatentImage",
+    "_meta": {"title": "Empty Latent"}
+  },
+  "31": {
+    "inputs": {
+      "model": ["10", 0],
+      "conditioning": ["25", 0],
+      "neg_conditioning": ["21", 0],
+      "noise_seed": 42,
+      "steps": 25,
+      "timestep_to_start_cfg": 25,
+      "true_gs": 3.5,
+      "image_to_image_strength": 0.0,
+      "denoise_strength": 1.0,
+      "latent_image": ["30", 0]
+    },
+    "class_type": "XlabsSampler",
+    "_meta": {"title": "XlabsSampler"}
+  },
+  "40": {
+    "inputs": {"samples": ["31", 0], "vae": ["12", 0]},
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygFluxT2I", "images": ["40", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}

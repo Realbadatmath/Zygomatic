@@ -1,0 +1,14 @@
+{
+  "button_theme": {
+    "file": "scaled_steel_buttons_test.html",
+    "variant": "s18",
+    "label": "Scaled 18 Subtle"
+  },
+  "background_theme": {
+    "file": "soft_backgrounds_test.html",
+    "variant": "bg37",
+    "label": "Smoky Pearl"
+  },
+  "apply_buttons_to_tabs": ["all"],
+  "apply_background_to_tabs": ["all"]
+}

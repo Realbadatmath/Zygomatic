@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zygomatic-zero-public"
+version = "0.1.0"
+description = "Zygomatic zero — see README.md"
+readme = "README.md"
+# 3.12 is the floor zygomatic-workflows imposes (its own numpy pin requires Python>=3.12).
+requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+# Derived from the imports of src/ by an AST walk that maps module name -> distribution, the method
+# of zygomatic-workflows/scripts/list_imports.py.
+# zygomatic-workflows is the base library; for local development install it from the sibling checkout:
+#   pip install -e ../workflows
+# requirements-lock.txt is regenerated with (--python because the interpreter first on PATH is 3.11,
+# below the 3.12 floor above; --no-emit-package because zygomatic-workflows is the sibling package in this monorepo and
+# not on any index — [tool.uv.sources] below makes uv resolve it from that path, so its transitive
+# dependencies ARE in the lock, only the editable line for the package itself is left out):
+#   uv pip compile pyproject.toml --all-extras --python /home/zygomatic/repos/.tools/venv/bin/python \
+#     --no-emit-package zygomatic-workflows -o requirements-lock.txt
+# and must stay clean under: pip-audit -r requirements-lock.txt --no-deps --disable-pip
+# Lower bounds are the live production version or the lowest version that fixes every known advisory
+# for that package, whichever is higher. Never `==`: this is an application package, the lock carries
+# the pins.
+dependencies = [
+  "zygomatic-workflows>=0.1.0",
+  "cryptography>=46.0.5",
+  "flask>=3.1.3",
+  "flask-limiter>=4.1.1",
+  "pillow>=12.3.0",
+  "python-dotenv>=1.2.2",
+  "pyyaml>=6.0.3",
+  "redis>=7.3.0",
+  "requests>=2.34.2",
+  "werkzeug>=3.1.6",
+  "zygomatic-workflows>=0.1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-timeout>=2.3", "ruff>=0.16", "bandit[toml]>=1.9", "reuse>=6", "import-linter>=2", "pip-audit>=2.10", "pre-commit>=4"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"zyg_zero" = ["**/*.json", "**/*.html", "**/*.js", "**/*.css", "**/*.svg", "**/*.png", "**/*.ico", "**/*.cube", "**/*.md", "**/*.ini", "**/*.txt", "**/*.yaml", "**/*.yml", "**/*.conf"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "tests_arch_ext", "tests_vst", "capability_tests", "deploy", "site", "docs"]
+# B101 assert: used only in tests (excluded above). B603/B607: subprocess with argument lists, no shell.
+# B311: random for sampling, never for secrets. Each remaining skip must carry a reason here.
+skips = ["B101", "B603", "B607", "B311"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --no-header"
+markers = [
+  "slow: takes more than a few seconds",
+  "api: exercises HTTP routes in-process",
+  "gpu: needs a CUDA device",
+  "service: needs a running local service (ComfyUI, Ollama, Blender, Postgres)",
+  "timeout: per-test timeout (pytest-timeout)",
+]
+
+[tool.uv.sources]
+zygomatic-workflows = { workspace = true }

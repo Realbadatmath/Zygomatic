@@ -1,0 +1,498 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body style="margin:0">
+<title>Zygomatic Architecture</title>
+<meta name="description" content="Compact one-screen architecture of the Zygomatic AI media studio: servers, application layer, shared services, GPU backends, state and timers.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#eef0f3; --panel:#f8f9fb; --panel2:#ffffff; --ink:#1c2230; --ink2:#4b5567; --ink3:#7b8596; --line:#cfd5de; --line2:#b7bfcb;
+  --accent:#0b5d8e; --accent-ink:#ffffff; --sel:#f29f05; --ok:#2a8c4a; --warn:#d2860b; --bad:#c43c3c; --off:#8a919e;
+  --l0:#5b6a85; --l1:#1f6f8b; --l2:#2f6b4f; --l3:#7a4f9e; --l4:#b35a1f; --l5:#3b5f9e; --l6:#a0303a; --l7:#6b6b2a; --l8:#4f5e6b;
+  --l0bg:#e9edf3; --l1bg:#e3eef3; --l2bg:#e4efe8; --l3bg:#ede6f3; --l4bg:#f5e9df; --l5bg:#e4eaf5; --l6bg:#f4e3e5; --l7bg:#efefe0; --l8bg:#e7eaed;
+  --canvas:#e4e7ec; --grid:#d8dce3; --edge:#6f7a8c; --edge-hl:#0b5d8e; --edge-claude:#a0303a; --edge-gpu:#b35a1f;
+  --shadow:0 6px 18px rgba(20,30,50,.12);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141821; --panel:#1b2029; --panel2:#222834; --ink:#e6e9ef; --ink2:#b4bcc9; --ink3:#7f8899; --line:#2f3745; --line2:#3d4656;
+  --accent:#4aa3d8; --accent-ink:#0b1118; --sel:#f2b544; --ok:#4fc274; --warn:#e9a33a; --bad:#e26666; --off:#6e7684;
+  --l0:#9aa8bf; --l1:#5fb3cf; --l2:#6fc091; --l3:#b592d6; --l4:#e59a62; --l5:#86a8e6; --l6:#e07c86; --l7:#c9c46a; --l8:#94a3b2;
+  --l0bg:#1d222c; --l1bg:#172530; --l2bg:#172a21; --l3bg:#241d30; --l4bg:#2d2119; --l5bg:#1b2335; --l6bg:#2e1c1f; --l7bg:#27271a; --l8bg:#1f2429;
+  --canvas:#0f1218; --grid:#1a1f28; --edge:#7d8798; --edge-hl:#4aa3d8; --edge-claude:#e07c86; --edge-gpu:#e59a62;
+  --shadow:0 6px 18px rgba(0,0,0,.45);
+}}
+:root[data-theme="dark"]{
+  --bg:#141821; --panel:#1b2029; --panel2:#222834; --ink:#e6e9ef; --ink2:#b4bcc9; --ink3:#7f8899; --line:#2f3745; --line2:#3d4656;
+  --accent:#4aa3d8; --accent-ink:#0b1118; --sel:#f2b544; --ok:#4fc274; --warn:#e9a33a; --bad:#e26666; --off:#6e7684;
+  --l0:#9aa8bf; --l1:#5fb3cf; --l2:#6fc091; --l3:#b592d6; --l4:#e59a62; --l5:#86a8e6; --l6:#e07c86; --l7:#c9c46a; --l8:#94a3b2;
+  --l0bg:#1d222c; --l1bg:#172530; --l2bg:#172a21; --l3bg:#241d30; --l4bg:#2d2119; --l5bg:#1b2335; --l6bg:#2e1c1f; --l7bg:#27271a; --l8bg:#1f2429;
+  --canvas:#0f1218; --grid:#1a1f28; --edge:#7d8798; --edge-hl:#4aa3d8; --edge-claude:#e07c86; --edge-gpu:#e59a62;
+  --shadow:0 6px 18px rgba(0,0,0,.45);
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.4;overflow:hidden}
+*{box-sizing:border-box}
+#app{display:grid;grid-template-columns:272px 1fr;grid-template-rows:52px 1fr;height:100%;width:100%}
+header{grid-column:1/3;display:flex;align-items:center;gap:14px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:16px;margin:0;font-weight:600;letter-spacing:.01em;white-space:nowrap}
+header .sub{color:var(--ink3);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header .spacer{flex:1}
+.tools{display:flex;gap:6px;align-items:center}
+button,.btn{font:inherit;font-size:12.5px;color:var(--ink);background:var(--panel2);border:1px solid var(--line2);border-radius:6px;padding:5px 9px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,input:focus-visible,.navitem:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button.tog[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#menuBtn{display:none}
+aside{border-right:1px solid var(--line);background:var(--panel);overflow:auto;padding:12px 12px 24px;display:flex;flex-direction:column;gap:14px}
+aside h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px;font-weight:600}
+#search{width:100%;font:inherit;font-size:13px;padding:7px 9px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2);color:var(--ink)}
+.navlist{display:flex;flex-direction:column;gap:3px}
+.navitem{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;border:1px solid transparent;background:transparent;text-align:left;color:var(--ink);font-size:13px;width:100%}
+.navitem:hover{background:var(--panel2);border-color:var(--line)}
+.navitem[aria-current="true"]{background:var(--panel2);border-color:var(--accent)}
+.navitem .sw{width:10px;height:10px;border-radius:2px;flex:none}
+.navitem .n{color:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:11px;margin-left:auto}
+.navitem small{color:var(--ink3);display:block;font-size:11px}
+#results{display:flex;flex-direction:column;gap:2px}
+#results .navitem{font-size:12.5px}
+main{position:relative;overflow:hidden;background:var(--canvas)}
+#stage{width:100%;height:100%;touch-action:none;cursor:grab;display:block}
+#stage.dragging{cursor:grabbing}
+.node rect.box{stroke-width:1.2;rx:5}
+.node text{pointer-events:none}
+.node .lbl{font-size:12.5px;font-weight:600;fill:var(--ink)}
+.node .sub{font-size:10.5px;font-family:"IBM Plex Mono",monospace;fill:var(--ink2)}
+.node .chip{font-size:9.5px;font-weight:600;fill:var(--ink3);letter-spacing:.04em}
+.node{cursor:pointer}
+.node:hover rect.box{stroke:var(--accent);stroke-width:2}
+.node.sel rect.box{stroke:var(--sel);stroke-width:2.6}
+.node.hot rect.box{stroke:var(--accent);stroke-width:2}
+.node.trace rect.box{stroke:var(--sel);stroke-width:2.2}
+.lane-title{font-size:15px;font-weight:700;fill:var(--ink)}
+.lane-note{font-size:11px;fill:var(--ink2)}
+.group-title{font-size:11.5px;font-weight:600;fill:var(--ink2);letter-spacing:.05em;text-transform:uppercase}
+.group-box{fill:var(--panel2);fill-opacity:.55;stroke:var(--line2);stroke-width:1;rx:8;stroke-dasharray:none}
+.edge{fill:none;stroke:var(--edge);stroke-width:1.3;opacity:.55}
+.edge.k-claude{stroke:var(--edge-claude)}
+.edge.k-gpu{stroke:var(--edge-gpu)}
+.edge.k-poll{stroke-dasharray:5 4}
+.edge.k-spawn{stroke-dasharray:2 3;stroke-width:1.6}
+.edge.k-file{stroke-dasharray:8 3 2 3}
+.edge.k-flow{opacity:.75;stroke-width:1.6}
+.edge.hl{opacity:1;stroke-width:2.4;stroke:var(--edge-hl)}
+.edge.k-claude.hl{stroke:var(--edge-claude)}
+.edge.k-gpu.hl{stroke:var(--edge-gpu)}
+.edge.tr{opacity:1;stroke-width:2.8;stroke:var(--sel)}
+.elabel{font-size:10px;fill:var(--ink2);font-family:"IBM Plex Mono",monospace}
+.elabel-bg{fill:var(--canvas);fill-opacity:.9;stroke:none;rx:3}
+.eg{opacity:0}
+.zoom-mid .eg{opacity:1}
+.eg.hl,.eg.tr{opacity:1}
+.eg.hl .elabel{fill:var(--ink);font-weight:500}
+.dimmed .node:not(.hl):not(.sel):not(.trace){opacity:.28}
+.dimmed .edge:not(.hl):not(.tr){opacity:.08}
+.dimmed .eg:not(.hl):not(.tr){opacity:0}
+.step-badge circle{fill:var(--sel);stroke:var(--ink);stroke-width:.8}
+.step-badge text{font-size:10px;font-weight:700;fill:#1c2230;text-anchor:middle}
+.status-dot{stroke:var(--panel2);stroke-width:1}
+.s-ok{fill:var(--ok)} .s-warn{fill:var(--warn)} .s-bad{fill:var(--bad)} .s-off{fill:var(--off)}
+#hud{position:absolute;left:12px;bottom:12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+#hud .zl{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink2);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 7px}
+#legend{position:absolute;left:12px;top:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--ink2);display:grid;grid-template-columns:auto auto;gap:3px 12px;box-shadow:var(--shadow)}
+#legend svg{vertical-align:middle;margin-right:4px}
+#legend .cnt{font-family:"IBM Plex Mono",monospace;font-weight:500;color:var(--ink)}
+#legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+#minimap{position:absolute;right:12px;bottom:12px;width:230px;height:150px;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden;cursor:pointer}
+#minimap svg{width:100%;height:100%;display:block}
+#minimap .vp{fill:var(--accent);fill-opacity:.15;stroke:var(--accent);stroke-width:1.5}
+#detail{position:absolute;right:12px;top:12px;width:min(380px,calc(100% - 24px));max-height:calc(100% - 190px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:14px 16px 16px;display:none}
+#detail.open{display:block}
+#detail h3{margin:0 0 2px;font-size:15px;font-weight:600;text-wrap:balance}
+#detail .kicker{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:6px}
+#detail .mono{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink2);word-break:break-word}
+#detail ul{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink)}
+#detail li{margin:3px 0}
+#detail .links{margin-top:10px;display:flex;flex-wrap:wrap;gap:4px}
+#detail .links button{font-size:11px;padding:3px 7px}
+#detail .close{position:absolute;right:10px;top:8px;border:none;background:transparent;font-size:18px;line-height:1;padding:2px 6px;color:var(--ink3)}
+#detail .steps{margin-top:8px;display:flex;flex-direction:column;gap:3px}
+#detail .step{display:flex;gap:8px;align-items:flex-start;padding:4px 6px;border-radius:5px;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--ink);text-align:left;font:inherit;font-size:12.5px;width:100%}
+#detail .step:hover{background:var(--panel2);border-color:var(--line)}
+#detail .step[aria-current="true"]{border-color:var(--sel)}
+#detail .step b{flex:none;width:20px;height:20px;border-radius:50%;background:var(--sel);color:#1c2230;font-size:11px;display:inline-flex;align-items:center;justify-content:center}
+#detail .step small{display:block;color:var(--ink3);font-size:11px}
+.stepnav{display:flex;gap:6px;margin-top:10px}
+.pill{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--line2);color:var(--ink2);margin:2px 4px 0 0}
+.pill.ok{border-color:var(--ok);color:var(--ok)} .pill.warn{border-color:var(--warn);color:var(--warn)} .pill.bad{border-color:var(--bad);color:var(--bad)} .pill.off{border-color:var(--off);color:var(--off)}
+@media (max-width:860px){
+  #app{grid-template-columns:1fr}
+  header{grid-column:1}
+  header .sub{display:none}
+  #menuBtn{display:inline-block}
+  aside{position:absolute;left:0;top:52px;bottom:0;width:min(300px,86vw);z-index:5;transform:translateX(-105%);transition:transform .2s;box-shadow:var(--shadow)}
+  aside.open{transform:none}
+  #legend{display:none}
+  #minimap{width:150px;height:100px}
+  #detail{max-height:52%;top:auto;bottom:120px;left:12px;width:auto}
+}
+@media (prefers-reduced-motion: reduce){ aside{transition:none} }
+</style>
+<div id="app">
+  <header>
+    <button id="menuBtn" aria-label="Open navigator">☰</button>
+    <h1>Zygomatic Architecture</h1>
+    <span class="sub">Compact structural view · one screen · every box is a real process, module group or store, surveyed 2026-10-05</span>
+    <span class="spacer"></span>
+    <div class="tools">
+      <button id="fitBtn" class="primary" title="Fit everything (0)">Fit all</button>
+      <button id="zoomOut" title="Zoom out (-)">−</button>
+      <button id="zoomIn" title="Zoom in (+)">+</button>
+      <button id="labelsBtn" class="tog" aria-pressed="false" title="Always show edge labels">Edge labels</button>
+      <button id="clearBtn" title="Clear selection (Esc)">Clear</button>
+    </div>
+  </header>
+  <aside id="side">
+    <div>
+      <h2>Find</h2>
+      <input id="search" type="search" placeholder="Search nodes, ports, files… (/)" aria-label="Search nodes">
+      <div id="results"></div>
+    </div>
+    <div>
+      <h2>Layers</h2>
+      <div id="laneNav" class="navlist"></div>
+    </div>
+    <div>
+      <h2>Key paths</h2>
+      <div id="traceNav" class="navlist"></div>
+    </div>
+    <div>
+      <h2>How to read it</h2>
+      <div style="font-size:12px;color:var(--ink2);line-height:1.5">Drag to pan, wheel or pinch to zoom, click a box for its files and links. A workflow trace numbers the boxes a request passes through, top to bottom. Colored dots are live service state as of the survey.</div>
+    </div>
+  </aside>
+  <main>
+    <svg id="stage" role="img" aria-label="Pannable, zoomable architecture atlas of the Zygomatic system, nine horizontal layers from the public edge down to timers, with labeled arrows for every call, spawn, poll and file write"></svg>
+    <div id="legend">
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.5"/></svg>HTTP call / import</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.5" stroke-dasharray="5 4"/></svg>poll / SSE / watch</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.8" stroke-dasharray="2 3"/></svg>spawns process</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.5" stroke-dasharray="8 3 2 3"/></svg>reads / writes files</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge-claude)" stroke-width="1.8"/></svg>Claude subscription path</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge-gpu)" stroke-width="1.8"/></svg>GPU work / VRAM lease</span>
+      <span data-st="ok"><i class="dot" style="background:var(--ok)"></i>running <b class="cnt"></b></span>
+      <span data-st="warn"><i class="dot" style="background:var(--warn)"></i>running, unmanaged <b class="cnt"></b></span>
+      <span data-st="bad"><i class="dot" style="background:var(--bad)"></i>failed / unreachable <b class="cnt"></b></span>
+      <span data-st="off"><i class="dot" style="background:var(--off)"></i>off / on demand / retired <b class="cnt"></b></span>
+    </div>
+    <div id="hud"><span class="zl" id="zoomLabel">100%</span><span class="zl" id="countLabel"></span><span class="zl" id="statusLabel"></span></div>
+    <div id="minimap"><svg id="mini" aria-hidden="true"></svg></div>
+    <div id="detail" role="dialog" aria-label="Details">
+      <button class="close" id="detailClose" aria-label="Close details">×</button>
+      <div id="detailBody"></div>
+    </div>
+  </main>
+</div>
+<script>
+const LANES = [
+ {id:'L0', title:'Edge & people', note:'who reaches the machine', color:'--l0', bg:'--l0bg'},
+ {id:'L1', title:'Servers', note:'every listening process; all under systemd', color:'--l1', bg:'--l1bg'},
+ {id:'L2', title:'Application layer', note:'what the two front ends are made of', color:'--l3', bg:'--l3bg'},
+ {id:'L3', title:'Shared services', note:'modules every department calls', color:'--l5', bg:'--l5bg'},
+ {id:'L4', title:'AI backends — one RTX 4090', note:'24 GB VRAM shared by everything in the red frame', color:'--l6', bg:'--l6bg'},
+ {id:'L5', title:'State & storage', note:'Postgres for ledgers, files for everything else', color:'--l7', bg:'--l7bg'},
+ {id:'L6', title:'Timers & watchers', note:'what fires by itself', color:'--l8', bg:'--l8bg'},
+];
+const GROUPS = [
+ {id:'g_people', lane:'L0', title:'People & agents', cols:3, cw:168, ch:54},
+ {id:'g_ext', lane:'L0', title:'Off-box services', cols:4, cw:168, ch:54},
+ {id:'g_edge', lane:'L1', title:'Public ingress', cols:3, cw:176, ch:58},
+ {id:'g_core', lane:'L1', title:'Core', cols:4, cw:176, ch:58},
+ {id:'g_lan', lane:'L1', title:'LAN apps', cols:3, cw:176, ch:58},
+ {id:'g_dash', lane:'L2', title:'Dashboard :5000 (Flask, 38 blueprints)', cols:4, cw:176, ch:58},
+ {id:'g_studio', lane:'L2', title:'Studios :8899 (one SPA, hash-routed)', cols:4, cw:176, ch:58},
+ {id:'g_llm', lane:'L3', title:'LLM access', cols:3, cw:176, ch:58},
+ {id:'g_media', lane:'L3', title:'Media services', cols:5, cw:176, ch:58},
+ {id:'g_qc', lane:'L3', title:'Quality & arbitration', cols:3, cw:176, ch:58},
+ {id:'g_gpu', lane:'L4', title:'Resident on the GPU', cols:7, cw:168, ch:58, frame:true},
+ {id:'g_cpu', lane:'L4', title:'CPU & off-box', cols:3, cw:168, ch:58},
+ {id:'g_pg', lane:'L5', title:'Postgres 16', cols:2, cw:176, ch:58},
+ {id:'g_files', lane:'L5', title:'File state', cols:5, cw:176, ch:58},
+ {id:'g_app', lane:'L5', title:'App-local', cols:3, cw:176, ch:58},
+ {id:'g_timers', lane:'L6', title:'Schedulers', cols:4, cw:200, ch:58},
+];
+const NODES = [
+ {id:'visitor', g:'g_people', label:'Public visitor', sub:'invite link · zero.zygomaticszero.com', d:['Enters via /u/<token>, 2 requests per token; only CF-Connecting-IP trusted.']},
+ {id:'operator', g:'g_people', label:'Operator (LAN)', sub:'hub bookmarks :7000', d:['Reaches every LAN app from the hub; Medusa IP-gated to two addresses.']},
+ {id:'claude', g:'g_people', label:'Claude agents', sub:'Fable creates · Opus executes', d:['Session trees written by Fable; the board spawns claude -p --model claude-opus-5 executors, one task each, up to 30.','In-app assistants (Vicky, architecture, Hugo, Nomologin) are claude -p on the login too.']},
+ {id:'anthropic', g:'g_ext', label:'Anthropic subscription', sub:'claude -p on the login', st:'ok', d:['Every Claude call is a headless CLI turn with ANTHROPIC_* stripped from the env; the OAuth usage meter feeds quota_meter and the Session Tree USAGE HOLD.']},
+ {id:'youtube', g:'g_ext', label:'YouTube', sub:'upload.py · scheduled publish', st:'ok', d:['videos.insert + thumbnail + captions + playlist; publishAt at 08:00 / 14:00 / 20:00.']},
+ {id:'cloudflare', g:'g_ext', label:'Cloudflare', sub:'tunnel · DNS-01 certs', st:'ok', d:['cloudflared is a thread of Zero Public (token mode); certbot renews the studio cert daily.']},
+ {id:'extapis', g:'g_ext', label:'Research & asset APIs', sub:'OpenAlex · S2 · CORE · Freesound', d:['Academic sources cached in Postgres essays; foley from Freesound then CC0 catalogs.']},
+ {id:'nginx', g:'g_edge', label:'nginx :80 / :443', sub:'studio → :8899 · catch-all → :5001', st:'ok', d:['TLS for studio.zygomaticszero.com (mic needs HTTPS); SSE unbuffered; WebSocket upgrade map.']},
+ {id:'zeropub', g:'g_edge', label:'Zero Public :5001', sub:'zero_public_server.py + Redis', st:'ok', d:['Invite-gated job submit, SSE progress, downloads, portfolio video, Zero Cinema HLS, the atlas download. Single worker over Redis zpub:queue.']},
+ {id:'redis', g:'g_edge', label:'Redis :6379', sub:'zpub:* keys', st:'ok', d:['Queue, running job, job JSON (48 h), sessions, rate limits, invite tokens.']},
+ {id:'flask', g:'g_core', label:'Dashboard :5000', sub:'crewai_web_gui.py · crewai-gui.service', st:'ok', d:['Flask, threaded; 38 blueprints; all departments share one in-process job dict and a GPU pipeline lock; 16 daemon threads start on import.']},
+ {id:'kanban', g:'g_core', label:'Studios + Kanban :8899', sub:'kanban_server.py · stdlib', st:'ok', d:['Serves inspection.html (36k lines), kanban.html, extension bundles and the voice bridge; polls :5000 for board state.']},
+ {id:'sessiontree', g:'g_core', label:'Session Tree :7100', sub:'session_tree_server.py', st:'ok', d:['Claude job board; JSON trees; spawn sweep 20 s; USAGE HOLD from the login meter; verify_cmd on every report.']},
+ {id:'hub', g:'g_core', label:'Hub :7000 / :7001 / :7777', sub:'hub_watch.py supervises', st:'ok', d:['Bookmark page, restart backend (systemctl --user or sudo for the four system units), headless launcher; alive while :5000 answers.']},
+ {id:'medusa', g:'g_lan', label:'Medusa :5300 + :5301', sub:'7-tab GUI · presets submitter', st:'ok', d:['Vicky (claude -p sonnet, session id = memory), Victor (Ollama), guarded entry into :5000 /api/medusa/generate with an 18+ gate.']},
+ {id:'nexus', g:'g_lan', label:'Creator Nexus :8090', sub:'static · localStorage', st:'ok', d:['Marketing kanban: scans new videos every 10 s, batch slots, fires /api/marketing/upload.']},
+ {id:'lanapps', g:'g_lan', label:'Other LAN apps', sub:'8750', st:'ok', d:['Nomologin :8750 (running, loopback). It has a user unit and starts on demand from the hub.']},
+ {id:'bp_dept', g:'g_dash', label:'15 department blueprints', sub:'documentary · storyteller · kids · medusa …', d:['bp_zero (documentary), bp_storyteller, bp_kidsmusic + bp_kidseries, bp_melody_daily, bp_jackmona_daily, bp_preempt, bp_medusa (+training, models), bp_market, bp_sports, bp_remix, bp_remixai, bp_char2d, bp_movement, bp_picture_studio, bp_claude_clip.','Each starts pipeline_*.py runs as worker threads.']},
+ {id:'bp_plat', g:'g_dash', label:'Platform blueprints', sub:'kanban status · live tail · approval queue …', d:['bp_pipeline_api (board status, SSE live log, internal start for Zero Public), bp_approval_queue + production_calendar, bp_schedule, bp_integrity_ops, bp_metrics → metrics_hub (14 subtabs), bp_assets_media (marketing upload), bp_creator_nexus, bp_auth, bp_safety, bp_agents_api, bp_benchmark.']},
+ {id:'pages', g:'g_dash', label:'Dashboard pages', sub:'enhanced_dashboard.html + 47 JS modules', d:['Agent Overview, Schedule, Job Status, Monitoring, Parameter Control, Approval Queue, Audit, Integrity Gate, Metrics hub, Workflows (embeds the :8899 board), Frequency, Benchmark, Sandbox, Settings, Asset Manager, department pages.']},
+ {id:'batchers', g:'g_dash', label:'Daily batchers (threads)', sub:'documentary · storyteller · melody 09:00 · jackmona 03:00', d:['Daemon threads inside :5000, auto mode off by default, 24 GB free-RAM gate; all die with :5000.']},
+ {id:'studios', g:'g_studio', label:'14 studio tabs', sub:'video · mesh · picture · character · creature …', d:['Library, Video (Wan/VACE/FLUX), Mesh (Blender, Direct3D-S2), Picture (FLUX), Character (FLUX + Blender MPFB/Cycles), Creature, Movement (VACE + SAM 3D Body + Blender), Voice (IndexTTS-2, RVC, Whisper), Music (ACE-Step), Melody (kids), SFX, VFX (LTX + Blender), Architecture (190 tools, Blender, sonnet assistant), Bake-off.']},
+ {id:'board', g:'g_studio', label:'Kanban board', sub:'kanban.html · 12 departments', d:['Cards matched by exact title to pipeline stages; ?pipeline_id= pins a run; standalone renders surfaced from logbooks.']},
+ {id:'ext', g:'g_studio', label:'Extension packages', sub:'arch_ext 60 js · arch_assistant_ext 91 py · geom 51 py', d:['arch_ext + arch_server_ext (icon families, hot-reloaded), arch_assistant_ext (reasoning), arch_blender_ext (37 builders), studio_ext + studio_ext_server, voice_ext, mesh_studio_ops, geom anthropometry.']},
+ {id:'voicebridge', g:'g_studio', label:'Voice bridge', sub:'/inspect/api/voice/**', d:['Mic → Whisper → speaker verify → voice_brain (builtin → grammar → arch → llm) → SSE action to the driver tab → ack ledger; TTS replies via IndexTTS-2.']},
+ {id:'sv_llm', g:'g_llm', label:'subscription_llm · kids_llm · arch_assistant', sub:'claude -p · tiers haiku/sonnet/opus', d:['One headless CLI turn per call; refused limit → local Ollama fallback, never the key. kids_llm: Opus → qwen3.5:9b → template. arch assistant on sonnet.']},
+ {id:'sv_bank', g:'g_llm', label:'preempt_bank · llm_audit · quota_meter', sub:'replay · audit rows · € per week', d:['Pre-emptive bank records the ~10-14 text turns of a documentary and replays them; every turn audited; quota = utilization × 41.40 EUR/week from the OAuth meter.']},
+ {id:'sv_murch', g:'g_llm', label:'murch_engine (local LLM)', sub:'qwen3.5:9b on Ollama', d:['Emotion scoring, shot grammar, rhythm cuts; the fallback brain when Claude is refused.']},
+ {id:'sv_tts', g:'g_media', label:'tts_service · zyg_whisper · voice_conversion', sub:'IndexTTS-2 · faster-whisper · Applio RVC', d:['The only TTS chain (Chatterbox absent); shared Whisper loader with VRAM-aware CPU degrade; RVC singer lock with ship_check().']},
+ {id:'sv_comfy', g:'g_media', label:'comfy_generation + _comfy_client', sub:'42 graphs · submit lock', d:['Loads _comfy_workflows/*.json, attests licences, takes the cross-process flock, POSTs to :8188, polls /history. Wan, VACE, FLUX, Klein, Qwen-Image, SDXL+LoRA, HandFixer, ACE-Step graphs all go through here.']},
+ {id:'sv_ltx', g:'g_media', label:'ltx_hidream_service', sub:'LTX-2.5 + HiDream-O1 on :8189', d:['gpu_lease(): evict :8188 weights, run on :8189, unload, release. scholarly_motion.py sets picture count, 20 s clip ceiling and the locked-camera prompt.']},
+ {id:'sv_stills', g:'g_media', label:'scholarly_stills_backend', sub:'diffusers FLUX.1-schnell in-process', d:['Documentary stills with character bible + ControlNet under scholarly_gpu.lock; DSL kwargs via dsl_runtime.']},
+ {id:'sv_encode', g:'g_media', label:'encode_utils · audio · repair · Blender drivers', sub:'NVENC first · loudnorm · inpaint · headless Blender', d:['encode_utils (NVENC → x264), audio_service/audio_mix (ACE-Step bed, foley, two-pass loudnorm), flux_fill/ipadapter/controlnet/lora_trainer, video_finish (RIFE + RealESRGAN), arch_blender_build + blender_character_service under a global Blender lock.']},
+ {id:'gates', g:'g_qc', label:'Quality gates', sub:'typography OCR · era · VLM · identity · hands · pixel', d:['typography_ocr (PP-OCR CPU), era_gate (Qwen3-VL), vlm_inspector checklists, cell_vlm_judge, identity_qc (ArcFace), hand_qc/anatomy_qc (MediaPipe), pixel_gates (look_gate…), audio/voice/continuity QC. A gate that did not run says so in its receipt.']},
+ {id:'ledger', g:'g_qc', label:'run_ledger · safety · licence', sub:'stages/fallbacks/gates → Postgres', d:['Every executed stage, silent degrade and gate verdict recorded; safety_subsystem fail-closed; licence_provenance attests every model file before use.']},
+ {id:'arb', g:'g_qc', label:'GPU arbitration', sub:'submit lock · gpu_lease · 90 s sweeper', d:['flock on comfy_8188.lock for every Comfy caller; lease evicts :8188 before :8189 runs; vram_manager sweeper evicts Ollama first then frees Comfy when idle; native workers use ~/.zyg_gpu.lock; power capped at 350 W.']},
+ {id:'ai_comfy', g:'g_gpu', label:'ComfyUI :8188', sub:'comfyui.service · 0.22', st:'ok', d:['FLUX.1-schnell, FLUX.2 Klein, SDXL/Juggernaut, Qwen-Image/Edit, Wan 2.1/2.2, ACE-Step 1.5, LoRAs; 15 custom node packs.']},
+ {id:'ai_ltx', g:'g_gpu', label:'ComfyUI-LTX :8189', sub:'comfyui-ltx.service · 0.38.1', st:'ok', d:['LTX-2.5 22B distilled + HiDream-O1 in one instance; shares the model folder read-only.']},
+ {id:'ai_ollama', g:'g_gpu', label:'Ollama :11434', sub:'9 models', st:'ok', d:['qwen3.5:9b (judge/fallback), vicky 24B, victor qwen3.6 35B, gpt-oss 20b, qwen2.5 32b, moondream, coder models. Evicted first when idle.']},
+ {id:'ai_tts', g:'g_gpu', label:'IndexTTS-2 · Applio RVC', sub:'subprocess workers', st:'ok', d:['Primary TTS worker in its own venv; RVC in Applio\'s py3.12 venv.']},
+ {id:'ai_whisper', g:'g_gpu', label:'faster-whisper · SAM 3D Body', sub:'in-process · isolated venv', st:'ok', d:['Whisper large-v3 VRAM-gated; SAM 3D Body worker holds the native GPU lock.']},
+ {id:'ai_blender', g:'g_gpu', label:'Blender 4.3.2 · Direct3D-S2', sub:'headless Cycles · mesh gen', st:'ok', d:['MPFB, Building Tools, BagaPie, Archimesh, Blosm, BlenderGIS, sverchok…; Direct3D-S2 (MIT) replaced TripoSR/InstantMesh.']},
+ {id:'ai_misc', g:'g_gpu', label:'diffusers FLUX · YOLOv8 · ArcFace · NVENC', sub:'inside :5000 / in-process', st:'ok', d:['Documentary stills in-process (~1.3 GB idle), detectors for QC, RealESRGAN x2, h264_nvenc for every final encode.']},
+ {id:'cpu', g:'g_cpu', label:'CPU judges & renderers', sub:'PP-OCR · fluidsynth · MediaPipe · librosa', d:['Zero-VRAM gates and the deterministic score render before any GPU time.']},
+ {id:'cloud_claude', g:'g_cpu', label:'Claude (claude -p)', sub:'subscription login', st:'ok', d:['Opus 5 for scripts and lyrics, sonnet for the architecture assistant, haiku for tagging.']},
+ {id:'retired', g:'g_cpu', label:'Retired stack', sub:'MusicGen · Fish · Kokoro · Chatterbox · SeedVR2 …', st:'off', d:['Dated swap ledger in data/models.json and docs/stack_upgrade_history.md; Azure TTS superseded; Skill VM retired 2026-10-05.']},
+ {id:'pg', g:'g_pg', label:'6 tables', sub:'stages · fallbacks · gates · chars · checks · essays', d:['Run ledger, identity bank and essay cache; unix socket only; pgdb.py seam; one Alembic revision.']},
+ {id:'pg16', g:'g_pg', label:'~/pg16', sub:'zyg-postgres.service', st:'ok', d:['User-level Postgres 16, no TCP; SQLite predecessors renamed, never deleted.']},
+ {id:'fs_runtime', g:'g_files', label:'data/runtime/', sub:'1,528 files · hot JSON state', d:['llm_audit, preempt bank, quota, logbooks, locks, approval settings, batcher state, voice bridge ledger, tunnel URL, licences.']},
+ {id:'fs_output', g:'g_files', label:'data/output/clips + output/', sub:'346 run dirs · kids_* · portfolio', d:['pipeline_state.json, stills, subtitled MP4 + SRT per run; kids songs, portfolio v1-v7, studio outputs.']},
+ {id:'fs_lora', g:'g_files', label:'~/lora-datasets/', sub:'bibles · sheets · LoRAs', d:['Per-character identity assets the Library tab walks read-only.']},
+ {id:'fs_models', g:'g_files', label:'~/ai-models/comfyui/models', sub:'+ _comfy_workflows 42 graphs', d:['Checkpoints, diffusion models, VAEs, LoRAs shared by both ComfyUIs; the 42 graphs the client submits.']},
+ {id:'fs_config', g:'g_files', label:'Config & rosters', sub:'models.json · agents 134 · Schedule/ · config/', d:['Model slot ledger, agent definitions, GPU/CPU bar mappings, safety thresholds, VLM checklists, nginx conf.']},
+ {id:'app_st', g:'g_app', label:'Session Tree JSON', sub:'active · planned · finished · audit', d:['Briefs and verifiers live inside the task record; spawn logs per executor.']},
+ {id:'app_misc', g:'g_app', label:'Medusa chats · Nexus localStorage', sub:'+ /api/creator-nexus/state history', d:['Vicky chats as JSON, presets; Creator Nexus state in the browser with a server-side history.']},
+ {id:'app_claude', g:'g_app', label:'~/.claude · youtube/token.pickle', sub:'login · transcripts · OAuth', d:['The login every claude -p uses and the transcripts the meter prices; the YouTube OAuth token (do not delete).']},
+ {id:'tm_sys', g:'g_timers', label:'systemd timers & cron', sub:'health 2 min · quota 10 min · qc 04:30 · snapshot 30 min', st:'ok', d:['zygomatic-health (restart governor), zyg-quota-meter, zyg-preempt-testcard, zyg-qc-trends, zyg-certbot-renew, zyg-cpu-cap (60 s), zyg-sysusage (continuous), zyg-snapshot, cron skill_integrity_monitor (5 min).']},
+ {id:'tm_threads', g:'g_timers', label:'Threads inside :5000', sub:'16 on import · sweeper 90 s · zero-launcher 5 s', d:['telemetry-sampler, zero approval worker + kanban watcher, four daily batchers, preempt watcher, department schedulers and cleaners, mdm watcher, comfy VRAM sweeper, zero-launcher.']},
+ {id:'tm_other', g:'g_timers', label:'Other loops', sub:'hub 15 s · session tree 20 s / 300 s · nexus 10 s', d:['hub_watch gates on :5000; Session Tree spawn sweep and usage poll; Creator Nexus browser intervals.']},
+];
+const EDGES = [
+ ['visitor','cloudflare','HTTPS'],['cloudflare','zeropub','tunnel → :5001'],['nginx','zeropub','catch-all :80'],['nginx','kanban',':443 TLS → :8899'],
+ ['operator','nginx','studio domain'],['operator','hub','bookmarks'],['operator','flask','login'],['operator','kanban','studios'],['operator','medusa','IP-gated'],['operator','nexus','marketing'],
+ ['claude','sessiontree','st create / claim / done'],['sessiontree','claude','spawns Opus executors','spawn'],['sessiontree','anthropic','usage meter → HOLD','claude'],
+ ['hub','flask','port check 15 s','poll'],['hub','lanapps','systemctl --user','spawn'],
+ ['zeropub','redis','queue'],['zeropub','flask','POST /api/internal/pipeline/start'],['flask','zeropub','respawn if missing','spawn'],
+ ['kanban','flask','polls /api/kanban/status','poll'],['flask','kanban','/workflows embeds board'],
+ ['medusa','flask','/api/medusa/generate (parked)'],['medusa','ai_ollama','Victor / local Vicky'],['medusa','cloud_claude','Vicky: claude -p sonnet','claude'],
+ ['nexus','flask','new-videos 10 s · marketing/upload','poll'],['bp_plat','youtube','upload.py','spawn'],
+ ['flask','bp_dept','registers'],['flask','bp_plat','registers'],['flask','pages','renders'],['batchers','bp_dept','daily ticks','poll'],
+ ['kanban','studios','serves'],['kanban','board','serves'],['kanban','ext','bundles'],['kanban','voicebridge','route group'],
+ ['board','bp_plat','/api/kanban/status','poll'],
+ ['bp_dept','sv_llm','scripts · lyrics','claude'],['bp_dept','sv_tts','narration · voices'],['bp_dept','sv_comfy','stills · sheets'],['bp_dept','sv_ltx','motion · HiDream'],['bp_dept','sv_stills','documentary stills'],['bp_dept','sv_encode','assembly'],['bp_dept','gates','QC receipts'],['bp_dept','extapis','research'],
+ ['studios','sv_comfy','Wan / VACE / FLUX'],['studios','sv_tts','voice studio'],['studios','sv_encode','Blender, renders'],['studios','sv_ltx','VFX plates'],['studios','sv_llm','arch assistant','claude'],
+ ['voicebridge','sv_tts','Whisper + TTS'],['ext','sv_encode','Blender builders'],
+ ['sv_llm','cloud_claude','claude -p, no API key in env','claude'],['sv_llm','sv_murch','refused → local'],['sv_llm','sv_bank','audit · replay','file'],['sv_bank','anthropic','oauth/usage','claude'],['sv_murch','ai_ollama','qwen3.5:9b'],
+ ['sv_tts','ai_tts','workers','spawn'],['sv_tts','ai_whisper','shared loader','gpu'],['sv_comfy','arb','take lock'],['sv_comfy','ai_comfy','POST /prompt','gpu'],['sv_ltx','arb','lease per leg'],['sv_ltx','ai_ltx','graphs','gpu'],['sv_stills','ai_misc','in-process FLUX','gpu'],['sv_encode','ai_blender','headless','spawn'],['sv_encode','ai_misc','NVENC','gpu'],
+ ['gates','ai_ollama','Qwen3-VL judges'],['gates','cpu','PP-OCR, MediaPipe'],['gates','ai_misc','ArcFace, YOLO','gpu'],['ledger','pg','psycopg','file'],['gates','fs_output','receipts in pipeline_state','file'],
+ ['arb','ai_comfy','/free evict','gpu'],['arb','ai_ltx','unload after leg','gpu'],['arb','ai_ollama','evict first','gpu'],
+ ['ai_comfy','fs_models','models/','file'],['ai_ltx','fs_models','read-only share','file'],['sv_comfy','fs_models','load graph','file'],
+ ['pg','pg16','socket','file'],['flask','fs_runtime','hot state','file'],['bp_dept','fs_output','run folders','file'],['studios','fs_lora','identity assets','file'],['flask','fs_config','rosters','file'],
+ ['sessiontree','app_st','trees','file'],['sessiontree','app_claude','reads session model','file'],['medusa','app_misc','chats','file'],['nexus','app_misc','localStorage','file'],['bp_plat','app_claude','token.pickle','file'],['sv_bank','app_claude','prices transcripts','file'],
+ ['tm_sys','flask','restart governor','spawn'],['tm_sys','sv_bank','quota · preempt card','spawn'],['tm_sys','ledger','--trends nightly','spawn'],['tm_sys','nginx','cert reload','spawn'],['tm_threads','batchers','are these threads'],['tm_threads','arb','sweeper loop','poll'],['tm_other','hub','hub_watch','poll'],['tm_other','sessiontree','sweeps','poll'],['tm_other','nexus','browser timers','poll'],
+];
+const TRACES = [
+ {id:'tr_doc', title:'Documentary episode', note:'from a batcher tick to YouTube', steps:[['batchers','03:00 documentary tick'],['bp_dept','scholarly run starts'],['sv_llm','Opus script via claude -p'],['cloud_claude','one turn on the login'],['sv_tts','IndexTTS-2 + Whisper'],['sv_stills','FLUX stills in-process'],['gates','gates leave receipts'],['sv_ltx','LTX motion on :8189'],['arb','lease evicts :8188 first'],['sv_encode','NVENC assembly'],['fs_output','run folder'],['ledger','ledger rows'],['nexus','picked up after 45 min'],['bp_plat','marketing upload'],['youtube','scheduled publish']]},
+ {id:'tr_public', title:'Public job', note:'invite link to download', steps:[['visitor','/u/<token>'],['cloudflare','tunnel'],['zeropub','gate + submit'],['redis','zpub:queue'],['zeropub','worker'],['flask','internal pipeline start'],['bp_dept','normal department run'],['zeropub','SSE + download']]},
+ {id:'tr_gpu', title:'One GPU, two ComfyUIs', note:'how jobs never collide', steps:[['sv_comfy','any Comfy caller'],['arb','submit lock'],['ai_comfy','production job'],['sv_ltx','LTX caller'],['arb','lease: evict :8188'],['ai_ltx','LTX job'],['arb','unload :8189, release'],['tm_threads','90 s sweeper'],['ai_ollama','evicted first when idle']]},
+ {id:'tr_claude', title:'Claude without the key', note:'and the meters watching it', steps:[['bp_dept','asks for Opus'],['sv_llm','env scrubbed, claude -p'],['cloud_claude','turn'],['app_claude','transcript'],['sv_bank','audit + quota'],['anthropic','usage %'],['sessiontree','USAGE HOLD at 100%'],['sv_murch','refused → qwen']]},
+ {id:'tr_st', title:'Session Tree task', note:'creator, board, executor, verifier', steps:[['claude','Fable: st create'],['sessiontree','tree active'],['tm_other','spawn sweep 20 s'],['claude','Opus executor claims'],['app_st','report in tree JSON'],['sessiontree','verify_cmd, archive']]},
+];
+// ---------- layout ----------
+const NS='http://www.w3.org/2000/svg';
+const LANE_LABEL_W=190, PAD=28, GPAD=16, GTITLE=24, GAP=14, LANE_GAP=34, MAXW=5000;
+const nodeById={}; NODES.forEach(n=>nodeById[n.id]=n);
+const groupById={}; GROUPS.forEach(g=>groupById[g.id]=g);
+const laneById={}; LANES.forEach(l=>laneById[l.id]=l);
+const missing=[]; EDGES.forEach(e=>{ if(!nodeById[e[0]]||!nodeById[e[1]]) missing.push(e); });
+if(missing.length) console.warn('edges with unknown nodes', missing);
+
+function layout(){
+  GROUPS.forEach(g=>{ g.nodes=NODES.filter(n=>n.g===g.id); const cw=g.cw||172, ch=g.ch||58;
+    let cols=g.chain? g.nodes.length : (g.cols||4); cols=Math.min(cols,g.nodes.length||1);
+    const rows=Math.ceil(g.nodes.length/cols);
+    g.w=GPAD*2+cols*cw+(cols-1)*GAP; g.h=GTITLE+GPAD*2+rows*ch+(rows-1)*GAP;
+    g.nodes.forEach((n,i)=>{ const c=i%cols, r=Math.floor(i/cols); n.w=cw; n.h=ch; n.rx=GPAD+c*(cw+GAP); n.ry=GTITLE+GPAD+r*(ch+GAP); });
+  });
+  let y=PAD;
+  LANES.forEach(l=>{ const gs=GROUPS.filter(g=>g.lane===l.id); let x=LANE_LABEL_W+PAD, rowY=0, rowH=0; const rows=[];
+    gs.forEach(g=>{ if(x+g.w>MAXW && x>LANE_LABEL_W+PAD){ rowY+=rowH+GAP; x=LANE_LABEL_W+PAD; rowH=0; } g.x=x; g.y=rowY; x+=g.w+GAP; rowH=Math.max(rowH,g.h); });
+    l.y=y; l.h=rowY+rowH+PAD*2; l.x=0; l.cw=Math.max(...gs.map(g=>g.x+g.w))+PAD;
+    gs.forEach(g=>{ g.y+=y+PAD; g.nodes.forEach(n=>{ n.x=g.x+n.rx; n.y=g.y+n.ry; }); });
+    y+=l.h+LANE_GAP; });
+  const uniform=Math.max(...LANES.map(l=>l.cw)); LANES.forEach(l=>l.w=uniform);
+  WORLD.w=uniform+PAD; WORLD.h=y;
+}
+const WORLD={w:0,h:0};
+
+// ---------- draw ----------
+const stage=document.getElementById('stage');
+const el=(t,a={},p)=>{ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); if(p) p.appendChild(e); return e; };
+let root, gEdges, gNodes, gBadges, gLabels;
+const edgeEls=[]; // {el, g, from, to}
+function draw(){
+  stage.innerHTML='';
+  const defs=el('defs',{},stage);
+  const mk=(id,color)=>{ const m=el('marker',{id,viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'7',markerHeight:'7',orient:'auto-start-reverse'},defs); el('path',{d:'M0,0 L10,5 L0,10 z',fill:color},m); };
+  mk('arr','var(--edge)'); mk('arrhl','var(--edge-hl)'); mk('arrc','var(--edge-claude)'); mk('arrg','var(--edge-gpu)'); mk('arrt','var(--sel)');
+  const pat=el('pattern',{id:'grid',width:'40',height:'40',patternUnits:'userSpaceOnUse'},defs); el('path',{d:'M40 0 H0 V40',fill:'none',stroke:'var(--grid)','stroke-width':'1'},pat);
+  root=el('g',{id:'root'},stage);
+  el('rect',{x:-4000,y:-4000,width:WORLD.w+8000,height:WORLD.h+8000,fill:'url(#grid)'},root);
+  const gl=el('g',{},root);
+  LANES.forEach(l=>{ const c=`var(${l.color})`;
+    el('rect',{x:l.x,y:l.y,width:l.w,height:l.h,fill:`var(${l.bg})`,rx:10,stroke:c,'stroke-opacity':.35},gl);
+    el('rect',{x:l.x,y:l.y,width:8,height:l.h,fill:c,rx:4},gl);
+    const t=el('text',{x:l.x+26,y:l.y+30,class:'lane-title'},gl); t.textContent=l.title;
+    wrapText(gl,l.note,l.x+26,l.y+50,LANE_LABEL_W-40,13,'lane-note');
+    const gs=GROUPS.filter(g=>g.lane===l.id);
+    gs.forEach(g=>{ const box=el('rect',{x:g.x,y:g.y,width:g.w,height:g.h,class:'group-box'},gl); if(g.frame){ box.setAttribute('stroke','var(--l6)'); box.setAttribute('stroke-width','2'); }
+      const gt=el('text',{x:g.x+GPAD,y:g.y+17,class:'group-title'},gl); gt.textContent=g.title; });
+  });
+  gEdges=el('g',{},root); gLabels=el('g',{},root); gNodes=el('g',{},root); gBadges=el('g',{},root);
+  EDGES.forEach((e,i)=>{ const a=nodeById[e[0]], b=nodeById[e[1]]; if(!a||!b) return; const kind=e[3]||'http';
+    const d=pathFor(a,b); const p=el('path',{d,class:'edge k-'+kind,'marker-end':'url(#'+(kind==='claude'?'arrc':kind==='gpu'?'arrg':'arr')+')'},gEdges);
+    const mid=midPoint(a,b); const lg=el('g',{class:'eg'},gLabels); const tx=el('text',{x:mid.x,y:mid.y+3,class:'elabel','text-anchor':'middle'},lg); tx.textContent=e[2]||'';
+    const bb=(e[2]||'').length*6.1+8; lg.insertBefore(el('rect',{x:mid.x-bb/2,y:mid.y-7,width:bb,height:14,class:'elabel-bg'}),tx);
+    edgeEls.push({el:p,lg,from:a.id,to:b.id,kind,label:e[2]}); });
+  // chain auto edges
+  GROUPS.filter(g=>g.chain).forEach(g=>{ for(let i=0;i<g.nodes.length-1;i++){ const a=g.nodes[i], b=g.nodes[i+1];
+    const p=el('path',{d:`M${a.x+a.w},${a.y+a.h/2} L${b.x},${b.y+b.h/2}`,class:'edge k-flow','marker-end':'url(#arr)'},gEdges); edgeEls.push({el:p,lg:null,from:a.id,to:b.id,kind:'flow',label:''}); } });
+  NODES.forEach(n=>{ const l=laneById[groupById[n.g].lane]; const g=el('g',{class:'node','data-id':n.id,tabindex:'0',role:'button','aria-label':n.label+' '+(n.sub||'')},gNodes); n.el=g;
+    el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,class:'box',fill:'var(--panel2)',stroke:`var(${l.color})`},g);
+    el('rect',{x:n.x,y:n.y,width:4,height:n.h,fill:`var(${l.color})`,rx:2},g);
+    const lbl=el('text',{x:n.x+11,y:n.y+17,class:'lbl'},g); lbl.textContent=fit(n.label,n.w-18,6.9);
+    if(n.sub){ const s=el('text',{x:n.x+11,y:n.y+31,class:'sub'},g); s.textContent=fit(n.sub,n.w-18,6.2); }
+    if(n.h>=52 && n.d && n.d[0]){ const s2=el('text',{x:n.x+11,y:n.y+n.h-8,class:'chip'},g); s2.textContent=fit(n.d[0].replace(/\.$/,''),n.w-18,5.7).toUpperCase(); }
+    if(n.st) el('circle',{cx:n.x+n.w-9,cy:n.y+9,r:4.5,class:'status-dot s-'+n.st},g);
+    g.addEventListener('click',ev=>{ ev.stopPropagation(); select(n.id,true); });
+    g.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); select(n.id,true);} });
+    g.addEventListener('pointerenter',()=>hover(n.id,true)); g.addEventListener('pointerleave',()=>hover(n.id,false));
+  });
+  document.getElementById('countLabel').textContent=NODES.length+' boxes · '+edgeEls.length+' arrows';
+  const stc={ok:0,warn:0,bad:0,off:0}; NODES.forEach(n=>{ if(n.st) stc[n.st]=(stc[n.st]||0)+1; });
+  document.querySelectorAll('#legend [data-st]').forEach(sp=>{ const k=sp.dataset.st; sp.querySelector('.cnt').textContent=stc[k]; sp.hidden=!stc[k]; });
+  document.getElementById('statusLabel').textContent='services: '+stc.ok+' running · '+stc.off+' off/on demand · '+stc.warn+' unmanaged · '+stc.bad+' failed';
+}
+function fit(s,w,cw){ const max=Math.floor(w/cw); return s.length>max? s.slice(0,max-1)+'…' : s; }
+function wrapText(parent,text,x,y,w,lh,cls){ const words=text.split(' '); let line='', yy=y; const cw=5.6; words.forEach(wd=>{ if((line+' '+wd).trim().length*cw>w){ const t=el('text',{x,y:yy,class:cls},parent); t.textContent=line.trim(); yy+=lh; line=wd; } else line=(line+' '+wd); }); if(line.trim()){ const t=el('text',{x,y:yy,class:cls},parent); t.textContent=line.trim(); } }
+function anchors(a,b){ const ac={x:a.x+a.w/2,y:a.y+a.h/2}, bc={x:b.x+b.w/2,y:b.y+b.h/2};
+  if(b.y>a.y+a.h+20) return [{x:ac.x,y:a.y+a.h},{x:bc.x,y:b.y},'v'];
+  if(a.y>b.y+b.h+20) return [{x:ac.x,y:a.y},{x:bc.x,y:b.y+b.h},'v'];
+  if(bc.x>ac.x) return [{x:a.x+a.w,y:ac.y},{x:b.x,y:bc.y},'h'];
+  return [{x:a.x,y:ac.y},{x:b.x+b.w,y:bc.y},'h']; }
+function pathFor(a,b){ const [p,q,o]=anchors(a,b); if(o==='v'){ const dy=(q.y-p.y)/2; return `M${p.x},${p.y} C${p.x},${p.y+dy} ${q.x},${q.y-dy} ${q.x},${q.y}`; } const dx=(q.x-p.x)/2; return `M${p.x},${p.y} C${p.x+dx},${p.y} ${q.x-dx},${q.y} ${q.x},${q.y}`; }
+function midPoint(a,b){ const [p,q]=anchors(a,b); return {x:(p.x+q.x)/2,y:(p.y+q.y)/2}; }
+
+// ---------- view ----------
+const view={k:1,x:0,y:0};
+const main=document.querySelector('main');
+function apply(){ root.setAttribute('transform',`translate(${view.x},${view.y}) scale(${view.k})`); document.getElementById('zoomLabel').textContent=Math.round(view.k*100)+'%';
+  stage.classList.toggle('zoom-mid', view.k>=0.62 || labelsOn); updateMini(); }
+function fitRect(r,pad=40){ const W=main.clientWidth, H=main.clientHeight; const k=Math.min((W-pad*2)/r.w,(H-pad*2)/r.h,2.2); view.k=k; view.x=(W-r.w*k)/2-r.x*k; view.y=(H-r.h*k)/2-r.y*k; apply(); }
+function fitAll(){ const W=main.clientWidth,H=main.clientHeight; const top=(window.innerWidth>860)?120:16; const k=Math.min((W-40)/WORLD.w,(H-top-30)/WORLD.h,2.2); view.k=k; view.x=(W-WORLD.w*k)/2; view.y=top+(H-top-WORLD.h*k)/2; apply(); }
+function flyTo(n,k){ const W=main.clientWidth,H=main.clientHeight; const kk=k||Math.max(view.k,1.1); view.k=kk; view.x=W/2-(n.x+n.w/2)*kk; view.y=H/2-(n.y+n.h/2)*kk; apply(); }
+function zoomAt(f,cx,cy){ const nk=Math.min(4,Math.max(0.06,view.k*f)); view.x=cx-(cx-view.x)*(nk/view.k); view.y=cy-(cy-view.y)*(nk/view.k); view.k=nk; apply(); }
+let drag=null, pts=new Map(), pinch=null;
+stage.addEventListener('pointerdown',e=>{ pts.set(e.pointerId,{x:e.clientX,y:e.clientY}); if(pts.size===1){ drag={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y,moved:false}; stage.setPointerCapture(e.pointerId); } else if(pts.size===2){ const [a,b]=[...pts.values()]; pinch={d:Math.hypot(a.x-b.x,a.y-b.y),k:view.k,cx:(a.x+b.x)/2,cy:(a.y+b.y)/2}; drag=null; } });
+stage.addEventListener('pointermove',e=>{ if(!pts.has(e.pointerId)) return; pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch && pts.size===2){ const [a,b]=[...pts.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); const r=main.getBoundingClientRect(); const cx=(a.x+b.x)/2-r.left, cy=(a.y+b.y)/2-r.top; const nk=Math.min(4,Math.max(0.06,pinch.k*d/pinch.d)); view.x=cx-(cx-view.x)*(nk/view.k); view.y=cy-(cy-view.y)*(nk/view.k); view.k=nk; apply(); return; }
+  if(drag){ const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3){ drag.moved=true; stage.classList.add('dragging'); } view.x=drag.vx+dx; view.y=drag.vy+dy; apply(); } });
+const endPtr=e=>{ pts.delete(e.pointerId); if(pts.size<2) pinch=null; if(drag && !drag.moved && e.target===stage.firstElementChild?.nextElementSibling?.firstElementChild){} if(drag&&!drag.moved && (e.target.tagName==='rect' && e.target.getAttribute('fill')==='url(#grid)')) clearSel(); drag=null; stage.classList.remove('dragging'); };
+stage.addEventListener('pointerup',endPtr); stage.addEventListener('pointercancel',endPtr);
+stage.addEventListener('wheel',e=>{ e.preventDefault(); const r=main.getBoundingClientRect(); const f=Math.exp(-e.deltaY*(e.deltaMode===1?0.05:0.0015)); zoomAt(f,e.clientX-r.left,e.clientY-r.top); },{passive:false});
+stage.addEventListener('dblclick',e=>{ const r=main.getBoundingClientRect(); zoomAt(1.6,e.clientX-r.left,e.clientY-r.top); });
+
+// ---------- minimap ----------
+const mini=document.getElementById('mini'); let miniVp;
+function buildMini(){ mini.innerHTML=''; mini.setAttribute('viewBox',`0 0 ${WORLD.w} ${WORLD.h}`); mini.setAttribute('preserveAspectRatio','xMidYMid meet');
+  LANES.forEach(l=>el('rect',{x:l.x,y:l.y,width:l.w,height:l.h,fill:`var(${l.bg})`,stroke:`var(${l.color})`,'stroke-width':8},mini));
+  NODES.forEach(n=>el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,fill:`var(${laneById[groupById[n.g].lane].color})`,'fill-opacity':.7},mini));
+  miniVp=el('rect',{class:'vp'},mini); }
+function updateMini(){ if(!miniVp) return; const W=main.clientWidth,H=main.clientHeight; miniVp.setAttribute('x',(-view.x)/view.k); miniVp.setAttribute('y',(-view.y)/view.k); miniVp.setAttribute('width',W/view.k); miniVp.setAttribute('height',H/view.k); }
+function miniNav(e){ const r=mini.getBoundingClientRect(); const sx=WORLD.w/r.width, sy=WORLD.h/r.height; const s=Math.max(sx,sy); const ox=(r.width-WORLD.w/s)/2, oy=(r.height-WORLD.h/s)/2; const wx=(e.clientX-r.left-ox)*s, wy=(e.clientY-r.top-oy)*s; const W=main.clientWidth,H=main.clientHeight; view.x=W/2-wx*view.k; view.y=H/2-wy*view.k; apply(); }
+let miniDrag=false; mini.addEventListener('pointerdown',e=>{ miniDrag=true; mini.setPointerCapture(e.pointerId); miniNav(e); }); mini.addEventListener('pointermove',e=>{ if(miniDrag) miniNav(e); }); mini.addEventListener('pointerup',()=>miniDrag=false);
+
+// ---------- selection / detail ----------
+let selected=null, activeTrace=null, traceStep=-1, labelsOn=false;
+const detail=document.getElementById('detail'), body=document.getElementById('detailBody');
+function clearSel(){ selected=null; activeTrace=null; traceStep=-1; NODES.forEach(n=>n.el.classList.remove('sel','hl','trace')); edgeEls.forEach(e=>{ e.el.classList.remove('hl','tr'); e.el.setAttribute('marker-end','url(#'+(e.kind==='claude'?'arrc':e.kind==='gpu'?'arrg':'arr')+')'); if(e.lg) e.lg.classList.remove('hl','tr'); }); gBadges.innerHTML=''; stage.classList.remove('dimmed'); detail.classList.remove('open'); document.querySelectorAll('#traceNav .navitem').forEach(b=>b.removeAttribute('aria-current')); }
+function hover(id,on){ if(selected||activeTrace) return; edgeEls.forEach(e=>{ if(e.from===id||e.to===id){ e.el.classList.toggle('hl',on); if(e.lg) e.lg.classList.toggle('hl',on); const o=e.from===id?e.to:e.from; nodeById[o].el.classList.toggle('hot',on); } }); }
+function select(id,fly){ clearSel(); selected=id; const n=nodeById[id]; n.el.classList.add('sel'); stage.classList.add('dimmed');
+  const links=[]; edgeEls.forEach(e=>{ if(e.from===id||e.to===id){ e.el.classList.add('hl'); e.el.setAttribute('marker-end','url(#arrhl)'); if(e.lg) e.lg.classList.add('hl'); const o=e.from===id?e.to:e.from; nodeById[o].el.classList.add('hl'); links.push({o,dir:e.from===id?'→':'←',label:e.label||'next stage'}); } });
+  const g=groupById[n.g], l=laneById[g.lane]; const st=n.st?`<span class="pill ${n.st}">${({ok:'running',warn:'running, unmanaged',bad:'failed / unreachable',off:'off / retired'})[n.st]}</span>`:'';
+  body.innerHTML=`<div class="kicker">${l.title} · ${g.title}</div><h3>${esc(n.label)}</h3><div class="mono">${esc(n.sub||'')}</div>${st}<ul>${(n.d||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`+(links.length?`<div class="kicker" style="margin-top:12px">Connections (${links.length})</div><div class="links">${links.map(k=>`<button data-go="${k.o}" title="${esc(k.label)}">${k.dir} ${esc(nodeById[k.o].label)}</button>`).join('')}</div>`:'');
+  body.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>select(b.dataset.go,true)));
+  detail.classList.add('open'); if(fly) flyTo(n, Math.max(view.k,0.9)); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function runTrace(t){ clearSel(); activeTrace=t; stage.classList.add('dimmed'); const ids=t.steps.map(s=>s[0]);
+  ids.forEach(id=>nodeById[id]?.el.classList.add('trace'));
+  for(let i=0;i<ids.length-1;i++){ const a=ids[i], b=ids[i+1]; let hit=false; edgeEls.forEach(e=>{ if((e.from===a&&e.to===b)||(e.from===b&&e.to===a)){ e.el.classList.add('tr'); e.el.setAttribute('marker-end','url(#arrt)'); if(e.lg) e.lg.classList.add('tr'); hit=true; } });
+    if(!hit){ const na=nodeById[a], nb=nodeById[b]; if(na&&nb){ el('path',{d:pathFor(na,nb),class:'edge tr','stroke-dasharray':'6 5','marker-end':'url(#arrt)'},gBadges); } } }
+  t.steps.forEach((s,i)=>{ const n=nodeById[s[0]]; if(!n) return; const b=el('g',{class:'step-badge'},gBadges); el('circle',{cx:n.x-2,cy:n.y-2,r:9},b); const tx=el('text',{x:n.x-2,y:n.y+1.5},b); tx.textContent=i+1; });
+  body.innerHTML=`<div class="kicker">Workflow trace · ${t.steps.length} steps</div><h3>${esc(t.title)}</h3><div class="mono">${esc(t.note)}</div><div class="steps">${t.steps.map((s,i)=>`<button class="step" data-i="${i}"><b>${i+1}</b><span>${esc(nodeById[s[0]]?.label||s[0])}<small>${esc(s[1])}</small></span></button>`).join('')}</div><div class="stepnav"><button id="prevStep">◀ Prev</button><button id="nextStep" class="primary">Next ▶</button><button id="fitTrace">Fit trace</button></div>`;
+  body.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>gotoStep(+b.dataset.i)));
+  body.querySelector('#prevStep').addEventListener('click',()=>gotoStep(Math.max(0,traceStep-1)));
+  body.querySelector('#nextStep').addEventListener('click',()=>gotoStep(Math.min(t.steps.length-1,traceStep+1)));
+  body.querySelector('#fitTrace').addEventListener('click',fitTrace);
+  detail.classList.add('open'); document.querySelectorAll('#traceNav .navitem').forEach(b=>b.setAttribute('aria-current',b.dataset.id===t.id)); fitTrace(); }
+function fitTrace(){ if(!activeTrace) return; const ns=activeTrace.steps.map(s=>nodeById[s[0]]).filter(Boolean); const x0=Math.min(...ns.map(n=>n.x)), y0=Math.min(...ns.map(n=>n.y)), x1=Math.max(...ns.map(n=>n.x+n.w)), y1=Math.max(...ns.map(n=>n.y+n.h)); fitRect({x:x0,y:y0,w:x1-x0,h:y1-y0},60); }
+function gotoStep(i){ if(!activeTrace) return; traceStep=i; const n=nodeById[activeTrace.steps[i][0]]; body.querySelectorAll('.step').forEach(b=>b.setAttribute('aria-current',+b.dataset.i===i)); body.querySelector(`.step[data-i="${i}"]`)?.scrollIntoView({block:'nearest'}); if(n) flyTo(n,1.3); }
+
+// ---------- nav ----------
+function buildNav(){ const ln=document.getElementById('laneNav'); LANES.forEach(l=>{ const b=document.createElement('button'); b.className='navitem'; b.innerHTML=`<span class="sw" style="background:var(${l.color})"></span><span>${esc(l.title)}</span><span class="n">${NODES.filter(n=>groupById[n.g].lane===l.id).length}</span>`; b.addEventListener('click',()=>{ clearSel(); fitRect({x:0,y:l.y,w:l.w,h:l.h},30); document.querySelectorAll('#laneNav .navitem').forEach(x=>x.removeAttribute('aria-current')); b.setAttribute('aria-current','true'); closeSide(); }); ln.appendChild(b); });
+  const tn=document.getElementById('traceNav'); TRACES.forEach(t=>{ const b=document.createElement('button'); b.className='navitem'; b.dataset.id=t.id; b.innerHTML=`<span><span>${esc(t.title)}</span><small>${esc(t.note)}</small></span>`; b.addEventListener('click',()=>{ runTrace(t); closeSide(); }); tn.appendChild(b); }); }
+const search=document.getElementById('search'), results=document.getElementById('results');
+search.addEventListener('input',()=>{ const q=search.value.trim().toLowerCase(); results.innerHTML=''; if(q.length<2) return; const hits=NODES.filter(n=>(n.label+' '+(n.sub||'')+' '+(n.d||[]).join(' ')).toLowerCase().includes(q)).slice(0,14);
+  hits.forEach(n=>{ const b=document.createElement('button'); b.className='navitem'; const l=laneById[groupById[n.g].lane]; b.innerHTML=`<span class="sw" style="background:var(${l.color})"></span><span>${esc(n.label)}<small>${esc(n.sub||'')}</small></span>`; b.addEventListener('click',()=>{ select(n.id,true); closeSide(); }); results.appendChild(b); });
+  if(!hits.length){ results.innerHTML='<div style="font-size:12px;color:var(--ink3);padding:6px 8px">No box matches.</div>'; } });
+function closeSide(){ if(window.innerWidth<=860) document.getElementById('side').classList.remove('open'); }
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('side').classList.toggle('open'));
+document.getElementById('fitBtn').addEventListener('click',fitAll);
+document.getElementById('zoomIn').addEventListener('click',()=>zoomAt(1.3,main.clientWidth/2,main.clientHeight/2));
+document.getElementById('zoomOut').addEventListener('click',()=>zoomAt(1/1.3,main.clientWidth/2,main.clientHeight/2));
+document.getElementById('clearBtn').addEventListener('click',clearSel);
+document.getElementById('detailClose').addEventListener('click',clearSel);
+document.getElementById('labelsBtn').addEventListener('click',e=>{ labelsOn=!labelsOn; e.currentTarget.setAttribute('aria-pressed',labelsOn); apply(); });
+document.addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT'){ if(e.key==='Escape') e.target.blur(); return; } const c=main.clientWidth/2, m=main.clientHeight/2;
+  if(e.key==='+'||e.key==='=') zoomAt(1.25,c,m); else if(e.key==='-') zoomAt(0.8,c,m); else if(e.key==='0') fitAll(); else if(e.key==='Escape') clearSel(); else if(e.key==='/'){ e.preventDefault(); search.focus(); }
+  else if(e.key==='ArrowLeft'){ view.x+=80; apply(); } else if(e.key==='ArrowRight'){ view.x-=80; apply(); } else if(e.key==='ArrowUp'){ view.y+=80; apply(); } else if(e.key==='ArrowDown'){ view.y-=80; apply(); }
+  else if(e.key==='n'&&activeTrace) gotoStep(Math.min(activeTrace.steps.length-1,traceStep+1)); else if(e.key==='p'&&activeTrace) gotoStep(Math.max(0,traceStep-1)); });
+window.addEventListener('resize',()=>{ apply(); });
+
+// ---------- boot ----------
+function start(data){ layout(); draw(); buildMini(); buildNav(); fitAll();
+  if(data&&data.sel&&nodeById[data.sel]) select(data.sel,true); else if(data&&data.trace){ const t=TRACES.find(x=>x.id===data.trace); if(t) runTrace(t); }
+  try{ const v=localStorage.getItem('atlas-view'); if(v&&!(data&&(data.sel||data.trace))){ const o=JSON.parse(v); if(o&&o.k){ Object.assign(view,o); apply(); } } }catch(_){}
+  setInterval(()=>{ try{ localStorage.setItem('atlas-view',JSON.stringify(view)); }catch(_){} },2000); }
+window.claude?.hot?.snapshot?.(()=>({sel:selected,trace:activeTrace?.id||null}));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+
+</body>
+</html>

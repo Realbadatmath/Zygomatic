@@ -1,0 +1,304 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token|default('') }}">
+<title>Stockmarket &amp; Cryptodaily — operator console</title>
+<link rel="icon" href="/static/favicon.ico?v=20260825" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png?v=20260825">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png?v=20260825">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png?v=20260825">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0d1117; color:#d7dde5; font:14px/1.5 system-ui, sans-serif; }
+  .wrap { max-width:1220px; margin:0 auto; padding:24px 20px 60px; }
+  h1 { font-size:22px; margin:0 0 4px; } h1 .tag { color:#e8b923; }
+  h2 { font-size:15px; margin:34px 0 10px; color:#9fb0c3; text-transform:uppercase; letter-spacing:.08em; }
+  .sub { color:#8b96a5; margin:0 0 18px; }
+  .pills { display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0; }
+  .pill { background:#161d27; border:1px solid #263041; border-radius:999px; padding:5px 14px; font-size:12.5px; }
+  .pill b { color:#fff; } .pill.ok b{color:#43c383;} .pill.warn b{color:#e0a832;} .pill.err b{color:#e05252;}
+  table { width:100%; border-collapse:collapse; background:#11161d; border:1px solid #232b38; border-radius:8px; overflow:hidden; }
+  th, td { padding:8px 10px; text-align:left; border-bottom:1px solid #1c2430; font-size:13px; vertical-align:top; }
+  th { background:#151c26; color:#93a2b4; font-weight:600; font-size:12px; }
+  tr:last-child td { border-bottom:none; }
+  input[type=text], input[type=number], select { background:#0d1320; border:1px solid #2a3546; color:#e6ecf3; border-radius:6px; padding:7px 10px; font-size:13px; }
+  button { background:#1d2836; border:1px solid #33415a; color:#dfe7f0; border-radius:6px; padding:6px 13px; font-size:12.5px; cursor:pointer; }
+  button:hover { background:#26344a; }
+  button.primary { background:#2b5cab; border-color:#3a70c9; } button.primary:hover { background:#3468bd; }
+  button.danger { background:#4a2026; border-color:#75333c; } button.danger:hover { background:#5c2830; }
+  button.small { padding:3px 9px; font-size:11.5px; }
+  .row { display:flex; gap:10px; align-items:center; margin:10px 0 12px; flex-wrap:wrap; }
+  .muted { color:#77828f; } .good { color:#43c383; } .warn { color:#e0a832; } .bad { color:#e05252; }
+  .up { color:#16c784; font-weight:600; } .down { color:#ea3943; font-weight:600; }
+  label.chk { display:flex; gap:6px; align-items:center; font-size:12.5px; color:#a9b5c2; cursor:pointer; }
+  a { color:#6fa8ff; text-decoration:none; } a:hover { text-decoration:underline; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .card { background:#11161d; border:1px solid #232b38; border-radius:8px; padding:14px 16px; }
+  .card h3 { margin:0 0 10px; font-size:14px; color:#cbd6e2; }
+  pre.social { white-space:pre-wrap; background:#0d1320; border:1px solid #263041; border-radius:6px; padding:8px 10px; font-size:12px; color:#b9c6d4; margin:6px 0 0; }
+  #toast { position:fixed; bottom:18px; right:18px; background:#20304a; border:1px solid #3a537c; padding:10px 16px; border-radius:8px; display:none; max-width:440px; font-size:13px; }
+  .note { background:#151b14; border:1px solid #2c3a24; border-radius:8px; padding:10px 14px; font-size:12.5px; color:#a9c39a; margin:8px 0 0; }
+  .warnbox { background:#1d1a12; border:1px solid #3d3418; color:#d8c48a; }
+</style>
+<style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+  <h1>Stockmarket &amp; Cryptodaily <span class="tag">[ operator console ]</span></h1>
+  <p class="sub">Screen the universe → decide rise/fall and short-trade vs long-hold → local charts → IndexTTS-2 narration →
+     chaptered episode. Boards: <a href="/workflows">/workflows → Financials › Stockmarket / Cryptodaily</a>.
+     Delivered files live <b>72&nbsp;h</b>, then the cleaner removes them.</p>
+  <div class="pills" id="pills"></div>
+  <div class="note warnbox">Educational content, not financial advice — the disclaimer is written into every episode description automatically.</div>
+
+  <h2>Build an episode</h2>
+  <div class="row">
+    <button class="primary" onclick="run('stocks')">▶ Build Stockmarket episode</button>
+    <button class="primary" onclick="run('crypto')">▶ Build Cryptodaily episode</button>
+    <button onclick="preview('stocks')">Preview stock screen (no video)</button>
+    <button onclick="preview('crypto')">Preview crypto screen (no video)</button>
+    <span class="muted" id="busy-note"></span>
+  </div>
+  <table><thead><tr><th>#</th><th>Symbol</th><th>Name</th><th>Verdict</th><th>Horizon</th><th>Conviction</th><th>Top reason</th></tr></thead>
+    <tbody id="prev-body"><tr><td colspan="7" class="muted">run a preview to see what today's screen produces</td></tr></tbody></table>
+
+  <h2>Settings</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Schedule &amp; episode shape</h3>
+      <div class="row"><label class="chk"><input type="checkbox" id="s-auto"> auto mode — build daily without asking</label></div>
+      <div class="row">
+        <span class="muted" style="width:110px">stocks at</span><input type="text" id="s-stime" style="width:80px">
+        <span class="muted" style="width:110px">crypto at</span><input type="text" id="s-ctime" style="width:80px">
+      </div>
+      <div class="row">
+        <span class="muted" style="width:110px">picks on air</span><input type="number" id="s-picks" style="width:70px" min="3" max="12">
+        <span class="muted" style="width:110px">held on ice</span><input type="number" id="s-hold" style="width:70px" min="0" max="6">
+      </div>
+      <div class="row">
+        <span class="muted" style="width:110px">research depth</span><input type="number" id="s-depth" style="width:70px" min="4" max="24">
+        <span class="muted" style="width:110px">board seconds</span><input type="number" id="s-board" style="width:70px" min="4" max="20">
+      </div>
+      <div class="row">
+        <span class="muted" style="width:110px">re-pick cooldown</span><input type="number" id="s-cool" style="width:70px" min="0" max="30"><span class="muted">days</span>
+        <span class="muted" style="width:110px">delivery TTL</span><input type="number" id="s-ttl" style="width:70px" min="6" max="336"><span class="muted">hours</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Universe, data providers &amp; voices</h3>
+      <div class="row">
+        <span class="muted" style="width:110px">stock universe</span>
+        <select id="s-univ"><option value="sp500_ndx">S&amp;P 500 + Nasdaq-100</option><option value="watchlist">my watchlist only</option></select>
+      </div>
+      <div class="row"><span class="muted" style="width:110px">watchlist</span><input type="text" id="s-watch" placeholder="AAPL, MSFT, ASML …" style="flex:1"></div>
+      <div class="row"><span class="muted" style="width:110px">crypto top-N</span><input type="number" id="s-topn" style="width:80px" min="20" max="250"></div>
+      <div class="row"><span class="muted" style="width:110px">Twelve Data key</span><input type="text" id="s-td" placeholder="optional — promotes to first-choice provider" style="flex:1"></div>
+      <div class="row"><span class="muted" style="width:110px">Alpha Vantage key</span><input type="text" id="s-av" placeholder="optional last-resort provider" style="flex:1"></div>
+      <div class="row">
+        <span class="muted" style="width:110px">stocks voice</span><select id="s-svoice"></select>
+        <span class="muted" style="width:110px">crypto voice</span><select id="s-cvoice"></select>
+      </div>
+      <div class="row"><button class="primary" onclick="saveSettings()">Save settings</button></div>
+    </div>
+  </div>
+
+  <h2>Ice box <span class="muted" style="text-transform:none">(researched, deliberately NOT in the episode — for telegram &amp; X)</span></h2>
+  <table><thead><tr><th>Channel</th><th>Symbol</th><th>Call</th><th>Added</th><th>Ready-to-paste post</th><th></th></tr></thead>
+    <tbody id="ice-body"><tr><td colspan="6" class="muted">loading…</td></tr></tbody></table>
+
+  <h2>Delivered episodes</h2>
+  <table><thead><tr><th>Channel</th><th>Built</th><th>Length</th><th>Picks</th><th>QC</th><th>Deletes in</th><th>Files</th></tr></thead>
+    <tbody id="ep-body"><tr><td colspan="7" class="muted">loading…</td></tr></tbody></table>
+</div>
+<div id="toast"></div>
+<script>
+const CSRF = document.querySelector('meta[name=csrf-token]').content;
+const VOICES = ['m01_warm_baritone','m02_bright_tenor','m03_elder_gravel','m04_british_crisp',
+  'm05_soft_intimate','m06_young_earnest','m07_dark_resonant','m08_wry_mid',
+  'f01_warm_alto','f02_bright_clear','f03_british_poised','f04_elder_gentle',
+  'f05_soft_intimate','f06_young_light','f07_low_smoky','f08_crisp_journalist'];
+let SETTINGS = {};
+
+function toast(msg, ms) { const t=document.getElementById('toast'); t.textContent=msg; t.style.display='block';
+  clearTimeout(t._h); t._h=setTimeout(()=>t.style.display='none', ms||4200); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+async function jget(u){ const r=await fetch(u); return r.json(); }
+async function jpost(u,b){ const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':CSRF},body:JSON.stringify(b||{})});
+  return {ok:r.ok, data: await r.json().catch(()=>({}))}; }
+
+function fillVoices(){ for (const id of ['s-svoice','s-cvoice']) {
+    const sel=document.getElementById(id); sel.innerHTML = VOICES.map(v=>`<option value="${v}">${v}</option>`).join(''); } }
+
+async function loadStatus(){
+  const d = await jget('/api/market/status');
+  SETTINGS = d.settings || {};
+  const s = SETTINGS;
+  const P=[];
+  P.push(`<span class="pill ${s.auto_mode?'ok':'warn'}">auto mode <b>${s.auto_mode?'ON':'OFF'}</b></span>`);
+  P.push(`<span class="pill">stocks <b>${esc(s.stocks_run_at)}</b> · crypto <b>${esc(s.crypto_run_at)}</b></span>`);
+  P.push(`<span class="pill">universe <b>${d.universe_size}</b> names</span>`);
+  P.push(`<span class="pill">episode <b>${s.picks_per_episode}</b> picks · <b>${s.icebox_hold}</b> on ice</span>`);
+  P.push(`<span class="pill">free disk <b>${d.disk.free_gb} GB</b></span>`);
+  for (const [k,v] of Object.entries(d.gates||{})) P.push(`<span class="pill ${v.ok?'ok':'err'}">${k} gate <b>${v.ok?'ok':'blocked'}</b></span>`);
+  (d.active_jobs||[]).forEach(j=>P.push(`<span class="pill ok">running <b>${esc(j.department)}</b> — ${esc(j.current_stage||'')} ${j.progress_pct||0}%</span>`));
+  document.getElementById('pills').innerHTML = P.join('');
+  document.getElementById('busy-note').textContent =
+    d.other_pipeline_busy ? 'another pipeline is running — use force at your own risk' : '';
+
+  document.getElementById('s-auto').checked = !!s.auto_mode;
+  document.getElementById('s-stime').value = s.stocks_run_at||'';
+  document.getElementById('s-ctime').value = s.crypto_run_at||'';
+  document.getElementById('s-picks').value = s.picks_per_episode;
+  document.getElementById('s-hold').value  = s.icebox_hold;
+  document.getElementById('s-depth').value = s.research_depth;
+  document.getElementById('s-board').value = s.opening_chart_seconds;
+  document.getElementById('s-cool').value  = s.republish_cooldown_days;
+  document.getElementById('s-ttl').value   = s.delivery_ttl_hours;
+  document.getElementById('s-univ').value  = s.stock_universe||'sp500_ndx';
+  document.getElementById('s-watch').value = (s.stock_watchlist||[]).join(', ');
+  document.getElementById('s-topn').value  = s.crypto_top_n;
+  document.getElementById('s-td').value    = s.twelvedata_key||'';
+  document.getElementById('s-av').value    = s.alphavantage_key||'';
+  document.getElementById('s-svoice').value= s.stocks_voice||'m04_british_crisp';
+  document.getElementById('s-cvoice').value= s.crypto_voice||'m02_bright_tenor';
+}
+
+async function saveSettings(){
+  const patch = {
+    auto_mode: document.getElementById('s-auto').checked,
+    stocks_run_at: document.getElementById('s-stime').value.trim(),
+    crypto_run_at: document.getElementById('s-ctime').value.trim(),
+    picks_per_episode: +document.getElementById('s-picks').value,
+    icebox_hold: +document.getElementById('s-hold').value,
+    research_depth: +document.getElementById('s-depth').value,
+    opening_chart_seconds: +document.getElementById('s-board').value,
+    republish_cooldown_days: +document.getElementById('s-cool').value,
+    delivery_ttl_hours: +document.getElementById('s-ttl').value,
+    stock_universe: document.getElementById('s-univ').value,
+    stock_watchlist: document.getElementById('s-watch').value.split(',').map(x=>x.trim()).filter(Boolean),
+    crypto_top_n: +document.getElementById('s-topn').value,
+    twelvedata_key: document.getElementById('s-td').value.trim(),
+    alphavantage_key: document.getElementById('s-av').value.trim(),
+    stocks_voice: document.getElementById('s-svoice').value,
+    crypto_voice: document.getElementById('s-cvoice').value,
+  };
+  const r = await jpost('/api/market/settings', patch);
+  toast(r.ok ? 'settings saved' : 'save failed'); loadStatus();
+}
+
+async function run(dept){
+  const r = await jpost('/api/market/run', {department: dept});
+  if (!r.ok) { toast('refused: ' + (r.data.error||'unknown')); return; }
+  toast(`${dept} episode started — job ${r.data.job_id}. Watch it on /workflows.`, 8000);
+  loadStatus();
+}
+
+async function preview(dept){
+  toast('screening… this takes a few minutes on a cold cache', 9000);
+  const d = await jget('/api/market/preview/' + dept + '?n=9');
+  const rows = (d.picks||[]).map((p,i)=>`<tr>
+    <td>${i+1}</td><td><b>${esc(p.symbol)}</b></td><td>${esc(p.name)}</td>
+    <td class="${p.direction==='up'?'up':'down'}">${p.direction==='up'?'▲ RISE':'▼ FALL'}</td>
+    <td>${p.horizon==='short'?'short-term trade':'long-term investment'}</td>
+    <td>${Math.round((p.conviction||0)*100)}%</td>
+    <td class="muted">${esc((p.drivers_for||[])[0]||'')}</td></tr>`).join('');
+  document.getElementById('prev-body').innerHTML = rows || '<tr><td colspan="7" class="muted">nothing scored — check the provider chain</td></tr>';
+  toast('preview ready — nothing was rendered');
+}
+
+async function loadIce(){
+  const d = await jget('/api/market/icebox');
+  const rows = (d.items||[]).map(i=>`<tr class="${i.used?'muted':''}">
+    <td>${esc(i.channel)}</td><td><b>${esc(i.symbol)}</b><div class="muted">${esc(i.name)}</div></td>
+    <td class="${i.direction==='up'?'up':'down'}">${i.direction==='up'?'▲':'▼'} ${i.horizon==='short'?'trade':'hold'}</td>
+    <td class="muted">${esc((i.added_at||'').slice(0,16).replace('T',' '))}</td>
+    <td><pre class="social">${esc(i.social_text)}</pre></td>
+    <td><button class="small" onclick="copyIce(this)">copy</button>
+        <button class="small" onclick="iceUsed('${esc(i.channel)}','${esc(i.symbol)}')">${i.used?'used ✓':'mark used'}</button>
+        <button class="small danger" onclick="iceDel('${esc(i.channel)}','${esc(i.symbol)}')">×</button></td></tr>`).join('');
+  document.getElementById('ice-body').innerHTML = rows || '<tr><td colspan="6" class="muted">empty — the next episode fills it</td></tr>';
+}
+function copyIce(btn){ const t=btn.closest('tr').querySelector('pre.social').textContent;
+  navigator.clipboard.writeText(t).then(()=>toast('copied')); }
+async function iceUsed(c,s){ await jpost('/api/market/icebox/used',{channel:c,symbol:s}); loadIce(); }
+async function iceDel(c,s){ await jpost('/api/market/icebox/delete',{channel:c,symbol:s}); loadIce(); }
+
+async function loadEpisodes(){
+  const d = await jget('/api/market/episodes');
+  const rows = [];
+  for (const [dept, eps] of Object.entries(d)) for (const e of eps) {
+    const qc = (e.qc||{}).passed;
+    rows.push(`<tr><td>${esc(e.channel)}</td>
+      <td class="muted">${esc((e.built_at||'').slice(0,16).replace('T',' '))}</td>
+      <td>${Math.round((e.duration_s||0)/60)} min</td>
+      <td>${(e.picks||[]).length} <span class="muted">+${(e.icebox||[]).length} iced</span></td>
+      <td class="${qc?'good':'bad'}">${qc?'pass':'FAIL'}</td>
+      <td class="${(e.deletes_in_hours||0)<12?'warn':'muted'}">${e.deletes_in_hours!=null?e.deletes_in_hours+' h':'—'}</td>
+      <td>${e.file_exists ? `<a href="/api/market/media/${dept}/${esc(e.job_id)}/${encodeURIComponent(e.file_name)}">video</a>
+           · <a href="/api/market/media/${dept}/${esc(e.job_id)}/${encodeURIComponent(e.file_name.replace(/\.mp4$/,'.description.txt'))}">description</a>`
+        : '<span class="muted">removed</span>'}</td></tr>`);
+  }
+  document.getElementById('ep-body').innerHTML = rows.join('') || '<tr><td colspan="7" class="muted">no episodes yet</td></tr>';
+}
+
+fillVoices();
+loadStatus(); loadIce(); loadEpisodes();
+setInterval(loadStatus, 10000);
+setInterval(loadEpisodes, 30000);
+</script>
+</body>
+</html>

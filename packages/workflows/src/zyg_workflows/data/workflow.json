@@ -1,0 +1,1556 @@
+{
+  "boxes": {
+    "workflow_2d": [
+      {
+        "flowId": "FLOW0001",
+        "txtId": "TXT0001",
+        "agentName": "2D Cultural Adaptation Agent",
+        "text": "Cultural Adaptation"
+      },
+      {
+        "flowId": "FLOW0002",
+        "txtId": "TXT0002",
+        "agentName": "2D Multilingual Voice Agent",
+        "text": "Multilingual Voice"
+      },
+      {
+        "flowId": "FLOW0003",
+        "txtId": "TXT0003",
+        "agentName": "2D Translation Agent",
+        "text": "Translate"
+      },
+      {
+        "flowId": "FLOW0004",
+        "txtId": "TXT0004",
+        "agentName": "2D Animation Agent",
+        "text": "Animation"
+      },
+      {
+        "flowId": "FLOW0005",
+        "txtId": "TXT0005",
+        "agentName": "2D Modeling Agent",
+        "text": "Modeling"
+      },
+      {
+        "flowId": "FLOW0006",
+        "txtId": "TXT0006",
+        "agentName": "2D Rigging Agent",
+        "text": "Rigging"
+      },
+      {
+        "flowId": "FLOW0007",
+        "txtId": "TXT0007",
+        "agentName": "2D Color Grading Agent",
+        "text": "Color"
+      },
+      {
+        "flowId": "FLOW0008",
+        "txtId": "TXT0008",
+        "agentName": "2D FX Agent",
+        "text": "FX"
+      },
+      {
+        "flowId": "FLOW0009",
+        "txtId": "TXT0009",
+        "agentName": "2D Rendering Agent",
+        "text": "Rendering"
+      },
+      {
+        "flowId": "FLOW0010",
+        "txtId": "TXT0010",
+        "agentName": "2D Compositing Agent",
+        "text": "Composition"
+      },
+      {
+        "flowId": "FLOW0011",
+        "txtId": "TXT0011",
+        "agentName": "2D Audio Agent",
+        "text": "Audio"
+      },
+      {
+        "flowId": "FLOW0012",
+        "txtId": "TXT0012",
+        "agentName": "2D Scene Assembly Agent",
+        "text": "Scene Assembly"
+      },
+      {
+        "flowId": "FLOW0013",
+        "txtId": "TXT0013",
+        "agentName": "2D Voice Synthesis Agent",
+        "text": "Voice"
+      },
+      {
+        "flowId": "FLOW0014",
+        "txtId": "TXT0014",
+        "agentName": "2D Episode Builder Agent",
+        "text": "Episode"
+      },
+      {
+        "flowId": "FLOW0015",
+        "txtId": "TXT0015",
+        "agentName": "2D QC Agent",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0016",
+        "txtId": "TXT0016",
+        "agentName": "2D QC Agent 2",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0017",
+        "txtId": "TXT0017",
+        "agentName": "2D Error Agent",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0018",
+        "txtId": "TXT0018",
+        "agentName": "2D Error Agent 2",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0019",
+        "txtId": "TXT0019",
+        "agentName": "Scheduling Agent",
+        "text": "Scheduling Agent"
+      },
+      {
+        "flowId": "FLOW0020",
+        "txtId": "TXT0020",
+        "agentName": "2D Research Agent",
+        "text": "Research Agent"
+      },
+      {
+        "flowId": "FLOW0021",
+        "txtId": "TXT0021",
+        "agentName": "2D Script Writer",
+        "text": "Script Writer"
+      },
+      {
+        "flowId": "FLOW0022",
+        "txtId": "TXT0022",
+        "agentName": "2D Error Agent 3",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0023",
+        "txtId": "TXT0023",
+        "agentName": "2D QC Agent 3",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0024",
+        "txtId": "TXT0024",
+        "agentName": "2D Screenplay Writer Agent",
+        "text": "Screenplay"
+      },
+      {
+        "flowId": "FLOW0025",
+        "txtId": "TXT0025",
+        "agentName": "2D Storyboard Agent",
+        "text": "Storyboard"
+      },
+      {
+        "flowId": "FLOW0026",
+        "txtId": "TXT0026",
+        "agentName": "2D Error Agent 4",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0027",
+        "txtId": "TXT0027",
+        "agentName": "2D QC Agent 4",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0028",
+        "txtId": "TXT0028",
+        "agentName": "2D Character Asset Agent",
+        "text": "Characters"
+      },
+      {
+        "flowId": "FLOW0029",
+        "txtId": "TXT0029",
+        "agentName": "2D Environment Asset Agent",
+        "text": "Environments"
+      },
+      {
+        "flowId": "FLOW0030",
+        "txtId": "TXT0030",
+        "agentName": "2D Animal Asset Agent",
+        "text": "Animals"
+      },
+      {
+        "flowId": "FLOW0031",
+        "txtId": "TXT0031",
+        "agentName": "2D Object Asset Agent",
+        "text": "Objects"
+      },
+      {
+        "flowId": "FLOW0032",
+        "txtId": "TXT0032",
+        "agentName": "2D Asset Manager Agent",
+        "text": "Asset Manager"
+      },
+      {
+        "flowId": "FLOW0033",
+        "txtId": "TXT0033",
+        "agentName": "2D Error Agent 5",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0034",
+        "txtId": "TXT0034",
+        "agentName": "2D QC Agent 5",
+        "text": "Quality Control"
+      }
+    ],
+    "workflow_3d": [
+      {
+        "flowId": "FLOW0035",
+        "txtId": "TXT0035",
+        "agentName": "3D Compositing Agent",
+        "text": "Compositing"
+      },
+      {
+        "flowId": "FLOW0036",
+        "txtId": "TXT0036",
+        "agentName": "3D Rendering Agent",
+        "text": "Rendering"
+      },
+      {
+        "flowId": "FLOW0037",
+        "txtId": "TXT0037",
+        "agentName": "3D UV Mapping Agent",
+        "text": "UV Mapping"
+      },
+      {
+        "flowId": "FLOW0038",
+        "txtId": "TXT0038",
+        "agentName": "3D Cultural Adaptation Agent",
+        "text": "Cultural Adaptation"
+      },
+      {
+        "flowId": "FLOW0039",
+        "txtId": "TXT0039",
+        "agentName": "3D Multilingual Voice Agent",
+        "text": "Multilingual Voice"
+      },
+      {
+        "flowId": "FLOW0040",
+        "txtId": "TXT0040",
+        "agentName": "3D Translation Agent",
+        "text": "Translate"
+      },
+      {
+        "flowId": "FLOW0041",
+        "txtId": "TXT0041",
+        "agentName": "3D Lighting Agent",
+        "text": "Lighting"
+      },
+      {
+        "flowId": "FLOW0042",
+        "txtId": "TXT0042",
+        "agentName": "3D Modeling Agent",
+        "text": "Modeling"
+      },
+      {
+        "flowId": "FLOW0043",
+        "txtId": "TXT0043",
+        "agentName": "3D Texturing Agent",
+        "text": "Texturing"
+      },
+      {
+        "flowId": "FLOW0044",
+        "txtId": "TXT0044",
+        "agentName": "3D Lookdev Agent",
+        "text": "Lookdev"
+      },
+      {
+        "flowId": "FLOW0045",
+        "txtId": "TXT0045",
+        "agentName": "3D Rigging Agent",
+        "text": "Rigging"
+      },
+      {
+        "flowId": "FLOW0046",
+        "txtId": "TXT0046",
+        "agentName": "3D Animation Agent",
+        "text": "Animation"
+      },
+      {
+        "flowId": "FLOW0047",
+        "txtId": "TXT0047",
+        "agentName": "3D Simulation Agent",
+        "text": "Simulation"
+      },
+      {
+        "flowId": "FLOW0048",
+        "txtId": "TXT0048",
+        "agentName": "3D Audio Agent",
+        "text": "Audio"
+      },
+      {
+        "flowId": "FLOW0049",
+        "txtId": "TXT0049",
+        "agentName": "3D Scene Assembly Agent",
+        "text": "Scene Assembly"
+      },
+      {
+        "flowId": "FLOW0050",
+        "txtId": "TXT0050",
+        "agentName": "3D Voice Synthesis Agent",
+        "text": "Voice"
+      },
+      {
+        "flowId": "FLOW0051",
+        "txtId": "TXT0051",
+        "agentName": "3D Episode Builder Agent",
+        "text": "Episode"
+      },
+      {
+        "flowId": "FLOW0052",
+        "txtId": "TXT0052",
+        "agentName": "3D QC Agent",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0053",
+        "txtId": "TXT0053",
+        "agentName": "3D QC Agent 2",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0054",
+        "txtId": "TXT0054",
+        "agentName": "3D Error Agent",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0055",
+        "txtId": "TXT0055",
+        "agentName": "3D Error Agent 2",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0056",
+        "txtId": "TXT0056",
+        "agentName": "Scheduling Agent",
+        "text": "Scheduling Agent"
+      },
+      {
+        "flowId": "FLOW0057",
+        "txtId": "TXT0057",
+        "agentName": "3D Research Agent",
+        "text": "Research Agent"
+      },
+      {
+        "flowId": "FLOW0058",
+        "txtId": "TXT0058",
+        "agentName": "3D Script Writer",
+        "text": "Script Writer"
+      },
+      {
+        "flowId": "FLOW0059",
+        "txtId": "TXT0059",
+        "agentName": "3D Error Agent 3",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0060",
+        "txtId": "TXT0060",
+        "agentName": "3D QC Agent 3",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0061",
+        "txtId": "TXT0061",
+        "agentName": "3D Screenplay Writer Agent",
+        "text": "Screenplay"
+      },
+      {
+        "flowId": "FLOW0062",
+        "txtId": "TXT0062",
+        "agentName": "3D Storyboard Agent",
+        "text": "Storyboard"
+      },
+      {
+        "flowId": "FLOW0063",
+        "txtId": "TXT0063",
+        "agentName": "3D Error Agent 4",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0064",
+        "txtId": "TXT0064",
+        "agentName": "3D QC Agent 4",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0065",
+        "txtId": "TXT0065",
+        "agentName": "3D Character Asset Agent",
+        "text": "Characters"
+      },
+      {
+        "flowId": "FLOW0066",
+        "txtId": "TXT0066",
+        "agentName": "3D Environment Asset Agent",
+        "text": "Environments"
+      },
+      {
+        "flowId": "FLOW0067",
+        "txtId": "TXT0067",
+        "agentName": "3D Animal Asset Agent",
+        "text": "Animals"
+      },
+      {
+        "flowId": "FLOW0068",
+        "txtId": "TXT0068",
+        "agentName": "3D Object Asset Agent",
+        "text": "Objects"
+      },
+      {
+        "flowId": "FLOW0069",
+        "txtId": "TXT0069",
+        "agentName": "3D Asset Manager Agent",
+        "text": "Asset Manager"
+      },
+      {
+        "flowId": "FLOW0070",
+        "txtId": "TXT0070",
+        "agentName": "3D Error Agent 5",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0071",
+        "txtId": "TXT0071",
+        "agentName": "3D QC Agent 5",
+        "text": "Quality Control"
+      }
+    ],
+    "workflow_clipfarm": [
+      {
+        "flowId": "FLOW0072",
+        "txtId": "TXT0072",
+        "agentName": "Scheduling Agent",
+        "text": "Scheduling Agent"
+      },
+      {
+        "flowId": "FLOW0073",
+        "txtId": "TXT0073",
+        "agentName": "CLIPFARM Metrics Agent",
+        "text": "Metrics"
+      },
+      {
+        "flowId": "FLOW0074",
+        "txtId": "TXT0074",
+        "agentName": "CLIPFARM Trend Detector Agent",
+        "text": "Trend Detector"
+      },
+      {
+        "flowId": "FLOW0075",
+        "txtId": "TXT0075",
+        "agentName": "CLIPFARM Research Agent",
+        "text": "Research Agent"
+      },
+      {
+        "flowId": "FLOW0076",
+        "txtId": "TXT0076",
+        "agentName": "CLIPFARM Overview Agent",
+        "text": "Overview"
+      },
+      {
+        "flowId": "FLOW0077",
+        "txtId": "TXT0077",
+        "agentName": "CLIPFARM Selection Agent",
+        "text": "Selection"
+      },
+      {
+        "flowId": "FLOW0078",
+        "txtId": "TXT0078",
+        "agentName": "CLIPFARM Deduplication Agent",
+        "text": "Deduplication"
+      },
+      {
+        "flowId": "FLOW0081",
+        "txtId": "TXT0081",
+        "agentName": "CLIPFARM Library Agent",
+        "text": "Library"
+      },
+      {
+        "flowId": "FLOW0082",
+        "txtId": "TXT0082",
+        "agentName": "CLIPFARM Compliance Agent",
+        "text": "Compliance"
+      },
+      {
+        "flowId": "FLOW0083",
+        "txtId": "TXT0083",
+        "agentName": "CLIPFARM Source Scanner Agent",
+        "text": "Source Scanner"
+      },
+      {
+        "flowId": "FLOW0084",
+        "txtId": "TXT0084",
+        "agentName": "CLIPFARM Transcript Fetch Agent",
+        "text": "Transcript Fetch"
+      },
+      {
+        "flowId": "FLOW0085",
+        "txtId": "TXT0085",
+        "agentName": "CLIPFARM Video Fetch Agent",
+        "text": "Video Fetch"
+      },
+      {
+        "flowId": "FLOW0086",
+        "txtId": "TXT0086",
+        "agentName": "CLIPFARM Rights Check Agent",
+        "text": "Rights Check"
+      },
+      {
+        "flowId": "FLOW0087",
+        "txtId": "TXT0087",
+        "agentName": "CLIPFARM Content Indexer Agent",
+        "text": "Content Indexer"
+      },
+      {
+        "flowId": "FLOW0088",
+        "txtId": "TXT0088",
+        "agentName": "CLIPFARM Moment Detection Agent",
+        "text": "Moment Detection"
+      },
+      {
+        "flowId": "FLOW0089",
+        "txtId": "TXT0089",
+        "agentName": "CLIPFARM Variant Generator Agent",
+        "text": "Variant Generator"
+      },
+      {
+        "flowId": "FLOW0090",
+        "txtId": "TXT0090",
+        "agentName": "CLIPFARM Hook Generator Agent",
+        "text": "Hook Generator"
+      },
+      {
+        "flowId": "FLOW0091",
+        "txtId": "TXT0091",
+        "agentName": "CLIPFARM Commentary Agent",
+        "text": "Commentary"
+      },
+      {
+        "flowId": "FLOW0092",
+        "txtId": "TXT0092",
+        "agentName": "CLIPFARM Subtitle Generator Agent",
+        "text": "Subtitle Generator"
+      },
+      {
+        "flowId": "FLOW0093",
+        "txtId": "TXT0093",
+        "agentName": "CLIPFARM Sound Effects Agent",
+        "text": "Sound Effects"
+      },
+      {
+        "flowId": "FLOW0094",
+        "txtId": "TXT0094",
+        "agentName": "CLIPFARM Thumbnail Agent",
+        "text": "Thumbnails"
+      },
+      {
+        "flowId": "FLOW0095",
+        "txtId": "TXT0095",
+        "agentName": "CLIPFARM QC Agent",
+        "text": "Quality Control"
+      },
+      {
+        "flowId": "FLOW0096",
+        "txtId": "TXT0096",
+        "agentName": "CLIPFARM Error Detection Agent",
+        "text": "Error Detection"
+      },
+      {
+        "flowId": "FLOW0097",
+        "txtId": "TXT0097",
+        "agentName": "CLIPFARM Platform Adapter Agent",
+        "text": "Platform Adapter"
+      },
+      {
+        "flowId": "FLOW0098",
+        "txtId": "TXT0098",
+        "agentName": "CLIPFARM Upload Agent",
+        "text": "Upload Agent"
+      },
+      {
+        "flowId": "FLOW0099",
+        "txtId": "TXT0099",
+        "agentName": "CLIPFARM Upload Schedule Agent",
+        "text": "Upload Schedule"
+      },
+      {
+        "flowId": "FLOW0100",
+        "txtId": "TXT0100",
+        "agentName": "CLIPFARM Air Time Agent",
+        "text": "Air Time"
+      },
+      {
+        "flowId": "FLOW0101",
+        "txtId": "TXT0101",
+        "agentName": "CLIPFARM Analytics Agent",
+        "text": "Analytics"
+      },
+      {
+        "flowId": "FLOW0102",
+        "txtId": "TXT0102",
+        "agentName": "CLIPFARM Performance Scorer Agent",
+        "text": "Performance"
+      },
+      {
+        "flowId": "FLOW0103",
+        "txtId": "TXT0103",
+        "agentName": "CLIPFARM Winner Replication Agent",
+        "text": "Winner Replication"
+      },
+      {
+        "flowId": "FLOW0104",
+        "txtId": "TXT0104",
+        "agentName": "CLIPFARM Feedback Agent",
+        "text": "Feedback Agent"
+      }
+    ],
+    "workflow_distribution": [
+      {
+        "flowId": "FLOW0091",
+        "txtId": "TXT0091",
+        "agentName": "Scheduling Agent",
+        "text": "Scheduling"
+      },
+      {
+        "flowId": "FLOW0092",
+        "txtId": "TXT0092",
+        "agentName": "DISTRIBUTION Script Writer Agent",
+        "text": "Scripts"
+      },
+      {
+        "flowId": "FLOW0093",
+        "txtId": "TXT0093",
+        "agentName": "DISTRIBUTION Thumbnail Agent",
+        "text": "Thumbnail"
+      },
+      {
+        "flowId": "FLOW0094",
+        "txtId": "TXT0094",
+        "agentName": "DISTRIBUTION Audio Agent",
+        "text": "Audio"
+      },
+      {
+        "flowId": "FLOW0095",
+        "txtId": "TXT0095",
+        "agentName": "DISTRIBUTION Video Editor Agent",
+        "text": "Video Editor"
+      },
+      {
+        "flowId": "FLOW0117",
+        "txtId": "TXT0117",
+        "agentName": "DISTRIBUTION Support Agent",
+        "text": "Support"
+      },
+      {
+        "flowId": "FLOW0118",
+        "txtId": "TXT0118",
+        "agentName": "DISTRIBUTION Document Filing Agent",
+        "text": "Document Filing"
+      },
+      {
+        "flowId": "FLOW0119",
+        "txtId": "TXT0119",
+        "agentName": "DISTRIBUTION Case Tracker Agent",
+        "text": "Case Tracker"
+      },
+      {
+        "flowId": "FLOW0120",
+        "txtId": "TXT0120",
+        "agentName": "DISTRIBUTION Compliance Agent",
+        "text": "Compliance"
+      },
+      {
+        "flowId": "FLOW0121",
+        "txtId": "TXT0121",
+        "agentName": "DISTRIBUTION Analytics Agent",
+        "text": "Analytics"
+      },
+      {
+        "flowId": "FLOW0145",
+        "txtId": "TXT0145",
+        "agentName": "DISTRIBUTION Analytics Reporting Agent",
+        "text": "Analytics Reporting"
+      },
+      {
+        "flowId": "FLOW0122",
+        "txtId": "TXT0122",
+        "agentName": "DISTRIBUTION Spanish Marketing Agent",
+        "text": "Spanish Marketing"
+      },
+      {
+        "flowId": "FLOW0123",
+        "txtId": "TXT0123",
+        "agentName": "DISTRIBUTION Hindi Marketing Agent",
+        "text": "Hindi marketing"
+      },
+      {
+        "flowId": "FLOW0124",
+        "txtId": "TXT0124",
+        "agentName": "DISTRIBUTION French Marketing Agent",
+        "text": "French Marketing"
+      },
+      {
+        "flowId": "FLOW0125",
+        "txtId": "TXT0125",
+        "agentName": "DISTRIBUTION English Marketing Agent",
+        "text": "English Marketing"
+      },
+      {
+        "flowId": "FLOW0126",
+        "txtId": "TXT0126",
+        "agentName": "DISTRIBUTION Bengali Marketing Agent",
+        "text": "Bengali Marketing"
+      },
+      {
+        "flowId": "FLOW0146",
+        "txtId": "TXT0146",
+        "agentName": "DISTRIBUTION Mandarin Marketing Agent",
+        "text": "Mandarin Marketing"
+      },
+      {
+        "flowId": "FLOW0147",
+        "txtId": "TXT0147",
+        "agentName": "DISTRIBUTION Portuguese Marketing Agent",
+        "text": "Portuguese Marketing"
+      },
+      {
+        "flowId": "FLOW0127",
+        "txtId": "TXT0127",
+        "agentName": "DISTRIBUTION Affiliate Marketing Agent",
+        "text": "Affiliate Marketing"
+      },
+      {
+        "flowId": "FLOW0128",
+        "txtId": "TXT0128",
+        "agentName": "DISTRIBUTION Media Marketing Agent",
+        "text": "Media Marketing"
+      },
+      {
+        "flowId": "FLOW0129",
+        "txtId": "TXT0129",
+        "agentName": "DISTRIBUTION PPC Agent",
+        "text": "PPC"
+      },
+      {
+        "flowId": "FLOW0130",
+        "txtId": "TXT0130",
+        "agentName": "DISTRIBUTION Trend Analyst Agent",
+        "text": "Trend Analyst"
+      },
+      {
+        "flowId": "FLOW0131",
+        "txtId": "TXT0131",
+        "agentName": "DISTRIBUTION SEO Agent",
+        "text": "Seo Agent"
+      },
+      {
+        "flowId": "FLOW0148",
+        "txtId": "TXT0148",
+        "agentName": "DISTRIBUTION Audience Targeting Agent",
+        "text": "Audience Targeting"
+      },
+      {
+        "flowId": "FLOW0132",
+        "txtId": "TXT0132",
+        "agentName": "DISTRIBUTION Campaign Builder Agent",
+        "text": "Campaign Builder"
+      },
+      {
+        "flowId": "FLOW0133",
+        "txtId": "TXT0133",
+        "agentName": "DISTRIBUTION E-mail Marketing Agent",
+        "text": "E-mail Marketing"
+      },
+      {
+        "flowId": "FLOW0149",
+        "txtId": "TXT0149",
+        "agentName": "DISTRIBUTION Conversion Optimizer Agent",
+        "text": "Conversion Optimizer"
+      },
+      {
+        "flowId": "FLOW0134",
+        "txtId": "TXT0134",
+        "agentName": "DISTRIBUTION Arabic Marketing Agent",
+        "text": "Arabic Marketing"
+      },
+      {
+        "flowId": "FLOW0135",
+        "txtId": "TXT0135",
+        "agentName": "DISTRIBUTION Optimization Agent",
+        "text": "Optimization"
+      },
+      {
+        "flowId": "FLOW0136",
+        "txtId": "TXT0136",
+        "agentName": "DISTRIBUTION Financial Agent",
+        "text": "Financial"
+      },
+      {
+        "flowId": "FLOW0137",
+        "txtId": "TXT0137",
+        "agentName": "DISTRIBUTION Community Agent",
+        "text": "Community"
+      },
+      {
+        "flowId": "FLOW0138",
+        "txtId": "TXT0138",
+        "agentName": "DISTRIBUTION Legal Agent",
+        "text": "Legal"
+      },
+      {
+        "flowId": "FLOW0140",
+        "txtId": "TXT0140",
+        "agentName": "DISTRIBUTION SEO Support Agent",
+        "text": "SEO Support"
+      },
+      {
+        "flowId": "FLOW0141",
+        "txtId": "TXT0141",
+        "agentName": "DISTRIBUTION Marketing Ops Agent",
+        "text": "Marketing Ops"
+      },
+      {
+        "flowId": "FLOW0142",
+        "txtId": "TXT0142",
+        "agentName": "DISTRIBUTION Localization Agent",
+        "text": "Localization"
+      },
+      {
+        "flowId": "FLOW0143",
+        "txtId": "TXT0143",
+        "agentName": "DISTRIBUTION Revenue Ops Agent",
+        "text": "Revenue Ops"
+      },
+      {
+        "flowId": "FLOW0144",
+        "txtId": "TXT0144",
+        "agentName": "DISTRIBUTION Community Mgmt Agent",
+        "text": "Community Mgmt"
+      }
+    ],
+    "workflow_maintenance": [
+      {
+        "flowId": "FLOW0096",
+        "txtId": "TXT0096",
+        "agentName": "MAINTENANCE Maintenance Agent",
+        "text": "Maintenance"
+      },
+      {
+        "flowId": "FLOW0097",
+        "txtId": "TXT0097",
+        "agentName": "MAINTENANCE Maintenance Agent 2",
+        "text": "Maintenance"
+      },
+      {
+        "flowId": "FLOW0098",
+        "txtId": "TXT0098",
+        "agentName": "MAINTENANCE Testing Agent",
+        "text": "Testing"
+      },
+      {
+        "flowId": "FLOW0099",
+        "txtId": "TXT0099",
+        "agentName": "MAINTENANCE Logbook Agent",
+        "text": "Logbook"
+      },
+      {
+        "flowId": "FLOW0100",
+        "txtId": "TXT0100",
+        "agentName": "Scheduling Agent",
+        "text": "Scheduling Agent"
+      },
+      {
+        "flowId": "FLOW0101",
+        "txtId": "TXT0101",
+        "agentName": "MAINTENANCE Daily Scan Agent",
+        "text": "Daily Scan"
+      },
+      {
+        "flowId": "FLOW0102",
+        "txtId": "TXT0102",
+        "agentName": "MAINTENANCE Assignment Agent",
+        "text": "Assignments"
+      },
+      {
+        "flowId": "FLOW0103",
+        "txtId": "TXT0103",
+        "agentName": "MAINTENANCE Execution Plan Agent",
+        "text": "Execution Plans"
+      },
+      {
+        "flowId": "FLOW0104",
+        "txtId": "TXT0104",
+        "agentName": "MAINTENANCE Update Agent",
+        "text": "Updates"
+      },
+      {
+        "flowId": "FLOW0105",
+        "txtId": "TXT0105",
+        "agentName": "MAINTENANCE Testing Agent 2",
+        "text": "Testing"
+      },
+      {
+        "flowId": "FLOW0106",
+        "txtId": "TXT0106",
+        "agentName": "MAINTENANCE Overlord Agent",
+        "text": "Overlord"
+      }
+    ],
+    "workflow_2d_overseers": [
+      {
+        "flowId": "FLOW0107",
+        "txtId": "TXT0107",
+        "agentName": "2D Pipeline Overseer",
+        "text": "Production Overseer"
+      },
+      {
+        "flowId": "FLOW0108",
+        "txtId": "TXT0108",
+        "agentName": "2D Output Overseer",
+        "text": "Media Overseer"
+      }
+    ],
+    "workflow_3d_overseers": [
+      {
+        "flowId": "FLOW0109",
+        "txtId": "TXT0109",
+        "agentName": "3D Pipeline Overseer",
+        "text": "Production Overseer"
+      },
+      {
+        "flowId": "FLOW0110",
+        "txtId": "TXT0110",
+        "agentName": "3D Output Overseer",
+        "text": "Media Overseer"
+      }
+    ],
+    "workflow_clipfarm_overseers": [
+      {
+        "flowId": "FLOW0111",
+        "txtId": "TXT0111",
+        "agentName": "CLIPFARM Clipfarm Overseer Agent",
+        "text": "Clip Farm Overseer"
+      }
+    ],
+    "workflow_distribution_overseers": [
+      {
+        "flowId": "FLOW0112",
+        "txtId": "TXT0112",
+        "agentName": "DISTRIBUTION Media Overseer",
+        "text": "Media Overseer"
+      },
+      {
+        "flowId": "FLOW0113",
+        "txtId": "TXT0113",
+        "agentName": "DISTRIBUTION Content Overseer",
+        "text": "Content Overseer"
+      },
+      {
+        "flowId": "FLOW0114",
+        "txtId": "TXT0114",
+        "agentName": "DISTRIBUTION Affiliate Overseer",
+        "text": "Affiliate Overseer"
+      },
+      {
+        "flowId": "FLOW0150",
+        "txtId": "TXT0150",
+        "agentName": "DISTRIBUTION Support Overseer",
+        "text": "Support Overseer"
+      }
+    ],
+    "workflow_maintenance_overseers": [
+      {
+        "flowId": "FLOW0116",
+        "txtId": "TXT0116",
+        "agentName": "MAINTENANCE System Overseer",
+        "text": "Overseer"
+      },
+      {
+        "flowId": "FLOW0115",
+        "txtId": "TXT0115",
+        "agentName": "MAINTENANCE Pipeline Overseer",
+        "text": "Overseer"
+      }
+    ]
+  },
+  "step_to_agent": {
+    "agent_name_exact": {
+      "2D Animal Asset Agent": "2D-Animal-Asset-Agent",
+      "2D Animation Agent": "2D-Animation-Agent",
+      "2D Asset Manager Agent": "2D-Asset-Manager-Agent",
+      "2D Audio Agent": "2D-Audio-Agent",
+      "2D Character Asset Agent": "2D-Character-Asset-Agent",
+      "2D Color Grading Agent": "2D-Color-Grading-Agent",
+      "2D Compositing Agent": "2D-Compositing-Agent",
+      "2D Cultural Adaptation Agent": "2D-Cultural-Adaptation-Agent",
+      "2D Environment Asset Agent": "2D-Environment-Asset-Agent",
+      "2D Episode Builder Agent": "2D-Episode-Builder-Agent",
+      "2D Error Agent": "2D-Error-Agent",
+      "2D Error Agent 2": "2D-Error-Agent-2",
+      "2D Error Agent 3": "2D-Error-Agent-3",
+      "2D Error Agent 4": "2D-Error-Agent-4",
+      "2D Error Agent 5": "2D-Error-Agent-5",
+      "2D FX Agent": "2D-FX-Agent",
+      "2D Modeling Agent": "2D-Modeling-Agent",
+      "2D Multilingual Voice Agent": "2D-Multilingual-Voice-Agent",
+      "2D Object Asset Agent": "2D-Object-Asset-Agent",
+      "2D Output Overseer": "2D-Output-Overseer",
+      "2D Pipeline Overseer": "2D-Pipeline-Overseer",
+      "2D QC Agent": "2D-QC-Agent",
+      "2D QC Agent 2": "2D-QC-Agent-2",
+      "2D QC Agent 3": "2D-QC-Agent-3",
+      "2D QC Agent 4": "2D-QC-Agent-4",
+      "2D QC Agent 5": "2D-QC-Agent-5",
+      "2D Rendering Agent": "2D-Rendering-Agent",
+      "2D Research Agent": "2D-Research-Agent",
+      "2D Rigging Agent": "2D-Rigging-Agent",
+      "2D Scene Assembly Agent": "2D-Scene-Assembly-Agent",
+      "2D Scheduling Agent": "Scheduling-Agent",
+      "2D Screenplay Writer Agent": "2D-Screenplay-Writer-Agent",
+      "2D Script Writer": "2D-Script-Writer",
+      "2D Storyboard Agent": "2D-Storyboard-Agent",
+      "2D Translation Agent": "2D-Translation-Agent",
+      "2D Voice Synthesis Agent": "2D-Voice-Synthesis-Agent",
+      "3D Animal Asset Agent": "3D-Animal-Asset-Agent",
+      "3D Animation Agent": "3D-Animation-Agent",
+      "3D Asset Manager Agent": "3D-Asset-Manager-Agent",
+      "3D Audio Agent": "3D-Audio-Agent",
+      "3D Character Asset Agent": "3D-Character-Asset-Agent",
+      "3D Compositing Agent": "3D-Compositing-Agent",
+      "3D Cultural Adaptation Agent": "3D-Cultural-Adaptation-Agent",
+      "3D Environment Asset Agent": "3D-Environment-Asset-Agent",
+      "3D Episode Builder Agent": "3D-Episode-Builder-Agent",
+      "3D Error Agent": "3D-Error-Agent",
+      "3D Error Agent 2": "3D-Error-Agent-2",
+      "3D Error Agent 3": "3D-Error-Agent-3",
+      "3D Error Agent 4": "3D-Error-Agent-4",
+      "3D Error Agent 5": "3D-Error-Agent-5",
+      "3D Lighting Agent": "3D-Lighting-Agent",
+      "3D Lookdev Agent": "3D-Lookdev-Agent",
+      "3D Modeling Agent": "3D-Modeling-Agent",
+      "3D Multilingual Voice Agent": "3D-Multilingual-Voice-Agent",
+      "3D Object Asset Agent": "3D-Object-Asset-Agent",
+      "3D Output Overseer": "3D-Output-Overseer",
+      "3D Pipeline Overseer": "3D-Pipeline-Overseer",
+      "3D QC Agent": "3D-QC-Agent",
+      "3D QC Agent 2": "3D-QC-Agent-2",
+      "3D QC Agent 3": "3D-QC-Agent-3",
+      "3D QC Agent 4": "3D-QC-Agent-4",
+      "3D QC Agent 5": "3D-QC-Agent-5",
+      "3D Rendering Agent": "3D-Rendering-Agent",
+      "3D Research Agent": "3D-Research-Agent",
+      "3D Rigging Agent": "3D-Rigging-Agent",
+      "3D Scene Assembly Agent": "3D-Scene-Assembly-Agent",
+      "3D Scheduling Agent": "Scheduling-Agent",
+      "3D Screenplay Writer Agent": "3D-Screenplay-Writer-Agent",
+      "3D Script Writer": "3D-Script-Writer",
+      "3D Simulation Agent": "3D-Simulation-Agent",
+      "3D Storyboard Agent": "3D-Storyboard-Agent",
+      "3D Texturing Agent": "3D-Texturing-Agent",
+      "3D Translation Agent": "3D-Translation-Agent",
+      "3D UV Mapping Agent": "3D-UV-Mapping-Agent",
+      "3D Voice Synthesis Agent": "3D-Voice-Synthesis-Agent",
+      "AFFIL-CLIPFARM Assignment Agent": "CLIPFARM-Assignment-Agent",
+      "AFFIL-CLIPFARM Clipfarm Orchestrator Agent": "CLIPFARM-Clipfarm-Overseer-Agent",
+      "AFFIL-CLIPFARM Commentary Agent": "CLIPFARM-Commentary-Agent",
+      "AFFIL-CLIPFARM Compliance Agent": "CLIPFARM-Compliance-Agent",
+      "AFFIL-CLIPFARM Error Agent": "CLIPFARM-Error-Detection-Agent",
+      "AFFIL-CLIPFARM Library Agent": "CLIPFARM-Library-Agent",
+      "AFFIL-CLIPFARM Metrics Agent": "CLIPFARM-Metrics-Agent",
+      "AFFIL-CLIPFARM Overview Agent": "CLIPFARM-Overview-Agent",
+      "AFFIL-CLIPFARM Pipeline Overseer": "CLIPFARM-Clipfarm-Overseer-Agent",
+      "AFFIL-CLIPFARM Platform Distribution Agent": "CLIPFARM-Platform-Adapter-Agent",
+      "AFFIL-CLIPFARM QC Agent": "CLIPFARM-QC-Agent",
+      "AFFIL-CLIPFARM Research Agent": "CLIPFARM-Research-Agent",
+      "AFFIL-CLIPFARM Scheduling Agent": "Scheduling-Agent",
+      "AFFIL-CLIPFARM Scheduling Agent 2": "Scheduling-Agent",
+      "AFFIL-CLIPFARM Selection Agent": "CLIPFARM-Selection-Agent",
+      "AFFIL-CLIPFARM Slicing Agent": "CLIPFARM-Moment-Detection-Agent",
+      "AFFIL-CLIPFARM Sound Effects Agent": "CLIPFARM-Sound-Effects-Agent",
+      "AFFIL-CLIPFARM Thumbnail Agent": "CLIPFARM-Thumbnail-Agent",
+      "AFFIL-CLIPFARM Timing Agent": "CLIPFARM-Air-Time-Agent",
+      "AFFIL-CLIPFARM Upload Scheduling Agent": "CLIPFARM-Upload-Schedule-Agent",
+      "CLIPFARM Air Time Agent": "CLIPFARM-Air-Time-Agent",
+      "CLIPFARM Analytics Agent": "CLIPFARM-Analytics-Agent",
+      "CLIPFARM Assignment Agent": "CLIPFARM-Assignment-Agent",
+      "CLIPFARM Commentary Agent": "CLIPFARM-Commentary-Agent",
+      "CLIPFARM Clipfarm Overseer Agent": "CLIPFARM-Clipfarm-Overseer-Agent",
+      "CLIPFARM Compliance Agent": "CLIPFARM-Compliance-Agent",
+      "CLIPFARM Content Indexer Agent": "CLIPFARM-Content-Indexer-Agent",
+      "CLIPFARM Deduplication Agent": "CLIPFARM-Deduplication-Agent",
+      "CLIPFARM Error Detection Agent": "CLIPFARM-Error-Detection-Agent",
+      "CLIPFARM Feedback Agent": "CLIPFARM-Feedback-Agent",
+      "CLIPFARM Hook Generator Agent": "CLIPFARM-Hook-Generator-Agent",
+      "CLIPFARM Library Agent": "CLIPFARM-Library-Agent",
+      "CLIPFARM Metrics Agent": "CLIPFARM-Metrics-Agent",
+      "CLIPFARM Moment Detection Agent": "CLIPFARM-Moment-Detection-Agent",
+      "CLIPFARM Overview Agent": "CLIPFARM-Overview-Agent",
+      "CLIPFARM Performance Scorer Agent": "CLIPFARM-Performance-Scorer-Agent",
+      "CLIPFARM Platform Adapter Agent": "CLIPFARM-Platform-Adapter-Agent",
+      "CLIPFARM QC Agent": "CLIPFARM-QC-Agent",
+      "CLIPFARM Research Agent": "CLIPFARM-Research-Agent",
+      "CLIPFARM Rights Check Agent": "CLIPFARM-Rights-Check-Agent",
+      "CLIPFARM Scheduling Agent": "Scheduling-Agent",
+      "CLIPFARM Selection Agent": "CLIPFARM-Selection-Agent",
+      "CLIPFARM Sound Effects Agent": "CLIPFARM-Sound-Effects-Agent",
+      "CLIPFARM Source Scanner Agent": "CLIPFARM-Source-Scanner-Agent",
+      "CLIPFARM Subtitle Generator Agent": "CLIPFARM-Subtitle-Generator-Agent",
+      "CLIPFARM Thumbnail Agent": "CLIPFARM-Thumbnail-Agent",
+      "CLIPFARM Transcript Fetch Agent": "CLIPFARM-Transcript-Fetch-Agent",
+      "CLIPFARM Trend Detector Agent": "CLIPFARM-Trend-Detector-Agent",
+      "CLIPFARM Upload Agent": "CLIPFARM-Upload-Agent",
+      "CLIPFARM Upload Schedule Agent": "CLIPFARM-Upload-Schedule-Agent",
+      "CLIPFARM Variant Generator Agent": "CLIPFARM-Variant-Generator-Agent",
+      "CLIPFARM Video Fetch Agent": "CLIPFARM-Video-Fetch-Agent",
+      "CLIPFARM Winner Replication Agent": "CLIPFARM-Winner-Replication-Agent",
+      "DISTRIBUTION Audio Agent": "DISTRIBUTION-Audio-Agent",
+      "DISTRIBUTION Media Overseer": "DISTRIBUTION-Media-Overseer",
+      "DISTRIBUTION Content Overseer": "DISTRIBUTION-Overseer-A",
+      "DISTRIBUTION Affiliate Overseer": "DISTRIBUTION-Overseer-B",
+      "DISTRIBUTION Support Overseer": "DISTRIBUTION-Overseer-C",
+      "DISTRIBUTION Overseer A": "DISTRIBUTION-Overseer-A",
+      "DISTRIBUTION Overseer B": "DISTRIBUTION-Overseer-B",
+      "DISTRIBUTION Overseer C": "DISTRIBUTION-Overseer-C",
+      "DISTRIBUTION Audience Targeting Agent": "Audience-Targeting-Agent",
+      "DISTRIBUTION Conversion Optimizer Agent": "Conversion-Optimizer-Agent",
+      "DISTRIBUTION Analytics Reporting Agent": "Analytics-Reporting-Agent",
+      "DISTRIBUTION Mandarin Marketing Agent": "Mandarin-Marketing-Agent",
+      "DISTRIBUTION Portuguese Marketing Agent": "Portuguese-Marketing-Agent",
+      "DISTRIBUTION Scheduling Agent": "Scheduling-Agent",
+      "DISTRIBUTION Script Writer Agent": "DISTRIBUTION-Script-Writer-Agent",
+      "DISTRIBUTION Thumbnail Agent": "DISTRIBUTION-Thumbnail-Agent",
+      "DISTRIBUTION Video Editor Agent": "DISTRIBUTION-Video-Editor-Agent",
+      "DISTRIBUTION Support Agent": "Customer-Support-Agent",
+      "DISTRIBUTION Document Filing Agent": "Document-Filing-Agent",
+      "DISTRIBUTION Case Tracker Agent": "Case-Tracker-Agent",
+      "DISTRIBUTION Compliance Agent": "Compliance-Checker-Agent",
+      "DISTRIBUTION Analytics Agent": "Analytics-Reporting-Agent",
+      "DISTRIBUTION Spanish Marketing Agent": "Spanish-Marketing-Agent",
+      "DISTRIBUTION Hindi Marketing Agent": "Hindi-Marketing-Agent",
+      "DISTRIBUTION French Marketing Agent": "French-Marketing-Agent",
+      "DISTRIBUTION English Marketing Agent": "English-Marketing-Agent",
+      "DISTRIBUTION Bengali Marketing Agent": "Bengali-Marketing-Agent",
+      "DISTRIBUTION Affiliate Marketing Agent": "Affiliate-Marketing-Agent",
+      "DISTRIBUTION Media Marketing Agent": "Social-Media-Marketing-Agent",
+      "DISTRIBUTION PPC Agent": "PPC-Agent",
+      "DISTRIBUTION Trend Analyst Agent": "YouTube-Trend-Analyst-Agent",
+      "DISTRIBUTION SEO Agent": "YouTube-SEO-Agent",
+      "DISTRIBUTION Campaign Builder Agent": "Campaign-Builder-Agent",
+      "DISTRIBUTION E-mail Marketing Agent": "Email-Marketing-Agent",
+      "DISTRIBUTION Arabic Marketing Agent": "Arabic-Marketing-Agent",
+      "DISTRIBUTION Optimization Agent": "Revenue-Optimization-Agent",
+      "DISTRIBUTION Financial Agent": "Financial-Agent",
+      "DISTRIBUTION Community Agent": "YouTube-Community-Agent",
+      "DISTRIBUTION Legal Agent": "Legal-Agent",
+      "DISTRIBUTION SEO Support Agent": "YouTube-SEO-Agent",
+      "DISTRIBUTION Marketing Ops Agent": "Affiliate-Marketing-Overseer",
+      "DISTRIBUTION Localization Agent": "Localization-Master-Agent",
+      "DISTRIBUTION Revenue Ops Agent": "Financial-Agent",
+      "DISTRIBUTION Community Mgmt Agent": "YouTube-Community-Agent",
+      "MAINTENANCE Assignment Agent": "MAINTENANCE-Assignment-Agent",
+      "MAINTENANCE Daily Scan Agent": "MAINTENANCE-Daily-Scan-Agent",
+      "MAINTENANCE Execution Plan Agent": "MAINTENANCE-Execution-Plan-Agent",
+      "MAINTENANCE Logbook Agent": "MAINTENANCE-Logbook-Agent",
+      "MAINTENANCE Maintenance Agent": "MAINTENANCE-Maintenance-Agent",
+      "MAINTENANCE Maintenance Agent 2": "MAINTENANCE-Maintenance-Agent-2",
+      "MAINTENANCE Overlord Agent": "MAINTENANCE-Overlord-Agent",
+      "MAINTENANCE Pipeline Overseer": "MAINTENANCE-Pipeline-Overseer",
+      "MAINTENANCE Scheduling Agent": "Scheduling-Agent",
+      "MAINTENANCE System Overseer": "MAINTENANCE-System-Overseer",
+      "MAINTENANCE Testing Agent": "MAINTENANCE-Testing-Agent",
+      "MAINTENANCE Testing Agent 2": "MAINTENANCE-Testing-Agent-2",
+      "MAINTENANCE Update Agent": "MAINTENANCE-Update-Agent"
+    },
+    "step_exact": {
+      "Scheduling Agent": "Scheduling-Agent",
+      "Research Agent": "2D-Series-Agent",
+      "Script Writer": "2D-Script-Agent",
+      "Screenplay": "2D-Script-Agent",
+      "Storyboard": "2D-Storyboard-Agent",
+      "Characters": "2D-Character-Designer-Agent",
+      "Animals": "3D-Character-Designer-Agent",
+      "Environments": "3D-Environment-Agent",
+      "Objects": "3D-Modeling-Agent",
+      "Asset Manager": "2D-Asset-Manager-Agent",
+      "Animation": "2D-Animation-Agent",
+      "Modeling": "3D-Modeling-Agent",
+      "Rigging": "3D-Rigging-Agent",
+      "Color": "2D-Colorist-Agent",
+      "FX": "3D-Effects-Agent",
+      "Rendering": "3D-Rendering-Agent",
+      "Composition": "2D-Compositor-Agent",
+      "Audio": "2D-Sound-Effects-Agent",
+      "Voice": "2D-Voice-Agent",
+      "Scene Assembly": "2D-Series-Agent",
+      "Episode": "2D-Series-Agent",
+      "Translate": "Localization-Master-Agent",
+      "Multilangual Voice": "Voice-Localization-Master-Agent",
+      "Multilingual Voice": "Voice-Localization-Master-Agent",
+      "Cultural Adapation": "Cultural-Adaptation-Master-Agent",
+      "Cultural Adaptation": "Cultural-Adaptation-Master-Agent",
+      "Quality Control": "2D-Quality-Control-Agent",
+      "Error Detection": "Error-Detector-Agent"
+    },
+    "step_exact_by_chart": {
+      "workflow_2d": {
+        "FX": "2D-FX-Agent",
+        "FX Agent": "2D-FX-Agent",
+        "Characters": "2D-Character-Designer-Agent",
+        "Animation": "2D-Animation-Agent",
+        "Composition": "2D-Compositor-Agent",
+        "Audio": "2D-Sound-Effects-Agent",
+        "Voice": "2D-Voice-Agent",
+        "Scene Assembly": "2D-Series-Agent",
+        "Episode": "2D-Series-Agent",
+        "Quality Control": "2D-Quality-Control-Agent",
+        "Error Detection": "Error-Detector-Agent",
+        "Scheduling Agent": "Scheduling-Agent",
+        "Research Agent": "2D-Series-Agent",
+        "Script Writer": "2D-Script-Agent",
+        "Screenplay": "2D-Script-Agent",
+        "Storyboard": "2D-Storyboard-Agent",
+        "Asset Manager": "2D-Asset-Manager-Agent",
+        "Translate": "Localization-Master-Agent",
+        "Multilingual Voice": "Voice-Localization-Master-Agent",
+        "Cultural Adapation": "Cultural-Adaptation-Master-Agent",
+        "Cultural Adaptation": "Cultural-Adaptation-Master-Agent"
+      },
+      "workflow_3d": {
+        "Compositing": "3D-Compositor-Agent",
+        "UV Mapping": "3D-Modeling-Agent",
+        "Lookdev": "3D-Lighting-Agent",
+        "Simulation": "3D-Animation-Agent",
+        "Lighting": "3D-Lighting-Agent",
+        "Texturing": "3D-Texturing-Agent",
+        "Script Writer": "3D-Script-Agent",
+        "Screenplay": "3D-Script-Agent",
+        "Research Agent": "3D-Series-Agent",
+        "Voice": "3D-Voice-Agent",
+        "Audio": "3D-Music-Agent",
+        "Scene Assembly": "3D-Series-Agent",
+        "Episode": "3D-Series-Agent",
+        "Quality Control": "3D-Quality-Control-Agent",
+        "Scheduling Agent": "Scheduling-Agent",
+        "Asset Manager": "3D-Asset-Manager-Agent"
+      },
+      "workflow_distribution": {
+        "Support": "Customer-Support-Agent",
+        "Document Filing": "Document-Filing-Agent",
+        "Case Tracker": "Case-Tracker-Agent",
+        "Compliance": "Compliance-Checker-Agent",
+        "Analytics": "Analytics-Reporting-Agent",
+        "Analytics Reporting": "Analytics-Reporting-Agent",
+        "Spanish Marketing": "Spanish-Marketing-Agent",
+        "Hindi marketing": "Hindi-Marketing-Agent",
+        "French Marketing": "French-Marketing-Agent",
+        "English Marketing": "English-Marketing-Agent",
+        "Bengali Marketing": "Bengali-Marketing-Agent",
+        "Mandarin Marketing": "Mandarin-Marketing-Agent",
+        "Portuguese Marketing": "Portuguese-Marketing-Agent",
+        "Arabic Marketing": "Arabic-Marketing-Agent",
+        "Affiliate Marketing": "Affiliate-Marketing-Agent",
+        "Media Marketing": "Social-Media-Marketing-Agent",
+        "PPC": "PPC-Agent",
+        "Trend Analyst": "YouTube-Trend-Analyst-Agent",
+        "Seo Agent": "YouTube-SEO-Agent",
+        "Audience Targeting": "Audience-Targeting-Agent",
+        "Campaign Builder": "Campaign-Builder-Agent",
+        "Conversion Optimizer": "Conversion-Optimizer-Agent",
+        "Scheduling": "Scheduling-Agent",
+        "Scheduling Agent": "Scheduling-Agent",
+        "Scripts": "DISTRIBUTION-Script-Writer-Agent",
+        "Thumbnail": "DISTRIBUTION-Thumbnail-Agent",
+        "Audio": "DISTRIBUTION-Audio-Agent",
+        "Video Editor": "DISTRIBUTION-Video-Editor-Agent",
+        "E-mail Marketing": "Email-Marketing-Agent",
+        "Optimization": "Revenue-Optimization-Agent",
+        "Financial": "Financial-Agent",
+        "Community": "YouTube-Community-Agent",
+        "Community Mgmt": "YouTube-Community-Agent",
+        "Legal": "Legal-Agent",
+        "SEO Support": "YouTube-SEO-Agent",
+        "Marketing Ops": "Affiliate-Marketing-Overseer",
+        "Localization": "Localization-Master-Agent",
+        "Revenue Ops": "Financial-Agent"
+      },
+      "workflow_maintenance": {
+        "Maintenance": "MAINTENANCE-Maintenance-Agent",
+        "Testing": "MAINTENANCE-Testing-Agent",
+        "Logbook": "MAINTENANCE-Logbook-Agent",
+        "Scheduling Agent": "Scheduling-Agent",
+        "Daily Scan": "MAINTENANCE-Daily-Scan-Agent",
+        "Assignments": "MAINTENANCE-Assignment-Agent",
+        "Execution Plans": "MAINTENANCE-Execution-Plan-Agent",
+        "Updates": "MAINTENANCE-Update-Agent",
+        "Overlord": "MAINTENANCE-Overlord-Agent"
+      },
+      "workflow_clipfarm": {
+        "Clip Farm Overseer": "CLIPFARM-Clipfarm-Overseer-Agent",
+        "Upload Schedule": "CLIPFARM-Upload-Schedule-Agent",
+        "Thumbnail": "CLIPFARM-Thumbnail-Agent",
+        "Thumbnails": "CLIPFARM-Thumbnail-Agent",
+        "Platforms": "CLIPFARM-Platform-Adapter-Agent",
+        "Quality Control": "CLIPFARM-QC-Agent",
+        "Error Detection": "CLIPFARM-Error-Detection-Agent",
+        "Scheduling Agent": "Scheduling-Agent",
+        "Metrics": "CLIPFARM-Metrics-Agent",
+        "Overview": "CLIPFARM-Overview-Agent",
+        "Selection": "CLIPFARM-Selection-Agent",
+        "Assignments": "CLIPFARM-Assignment-Agent",
+        "Research Agent": "CLIPFARM-Research-Agent",
+        "Scheduling": "Scheduling-Agent",
+        "Library": "CLIPFARM-Library-Agent",
+        "Slice": "CLIPFARM-Moment-Detection-Agent",
+        "Commentary": "CLIPFARM-Commentary-Agent",
+        "Air Time": "CLIPFARM-Air-Time-Agent",
+        "Sound Effects": "CLIPFARM-Sound-Effects-Agent",
+        "Compliance": "CLIPFARM-Compliance-Agent",
+        "Trend Detector": "CLIPFARM-Trend-Detector-Agent",
+        "Deduplication": "CLIPFARM-Deduplication-Agent",
+        "Source Scanner": "CLIPFARM-Source-Scanner-Agent",
+        "Transcript Fetch": "CLIPFARM-Transcript-Fetch-Agent",
+        "Video Fetch": "CLIPFARM-Video-Fetch-Agent",
+        "Rights Check": "CLIPFARM-Rights-Check-Agent",
+        "Content Indexer": "CLIPFARM-Content-Indexer-Agent",
+        "Moment Detection": "CLIPFARM-Moment-Detection-Agent",
+        "Variant Generator": "CLIPFARM-Variant-Generator-Agent",
+        "Hook Generator": "CLIPFARM-Hook-Generator-Agent",
+        "Subtitle Generator": "CLIPFARM-Subtitle-Generator-Agent",
+        "Platform Adapter": "CLIPFARM-Platform-Adapter-Agent",
+        "Upload Agent": "CLIPFARM-Upload-Agent",
+        "Analytics": "CLIPFARM-Analytics-Agent",
+        "Performance": "CLIPFARM-Performance-Scorer-Agent",
+        "Winner Replication": "CLIPFARM-Winner-Replication-Agent",
+        "Feedback Agent": "CLIPFARM-Feedback-Agent"
+      },
+      "workflow_clipfarm_overseers": {
+        "Clip Farm Overseer": "CLIPFARM-Clipfarm-Overseer-Agent"
+      }
+    },
+    "role_to_agent": {
+      "Translate Agent": "Localization-Master-Agent",
+      "Cultural Adaptation Agent": "Cultural-Adaptation-Master-Agent",
+      "Cultural Adaptation Master": "Cultural-Adaptation-Master-Agent",
+      "Multilingual Voice Agent": "Voice-Localization-Master-Agent",
+      "Voice Agent": "2D-Voice-Agent",
+      "Localization Master": "Localization-Master-Agent",
+      "English Marketing": "English-Localization-Agent",
+      "Arabic Marketing": "Arabic-Localization-Agent",
+      "Bengali Marketing": "Bengali-Localization-Agent",
+      "French Marketing": "French-Localization-Agent",
+      "Hindi Marketing": "Hindi-Localization-Agent",
+      "Mandarin Marketing": "Mandarin-Localization-Agent",
+      "Portuguese Marketing": "Portuguese-Localization-Agent",
+      "Spanish Marketing": "Spanish-Localization-Agent",
+      "Video Editor": "YouTube-Video-Editor-Agent",
+      "Thumbnail Agent": "YouTube-Thumbnail-Agent",
+      "SEO Agent": "YouTube-SEO-Agent",
+      "Scripts": "YouTube-Script-Agent",
+      "Script/Metadata Agent": "YouTube-Script-Agent",
+      "Scheduling Agent": "2D-Scheduling-Agent",
+      "Scheduling": "2D-Scheduling-Agent",
+      "Community Agent": "YouTube-Community-Agent",
+      "Support Agent": "YouTube-Community-Agent",
+      "Audio Agent": "2D-Sound-Effects-Agent",
+      "Audio": "2D-Sound-Effects-Agent",
+      "Compositing Agent": "3D-Compositor-Agent",
+      "Characters Agent": "2D-Character-Designer-Agent",
+      "Animation Agent": "2D-Animation-Agent",
+      "FX Agent": "3D-Effects-Agent",
+      "Effects Agent": "3D-Effects-Agent",
+      "Rendering Agent": "3D-Rendering-Agent",
+      "Composition Agent": "2D-Compositor-Agent",
+      "3D Animation Agent": "3D-Animation-Agent",
+      "Scene Assembly Agent": "2D-Series-Agent",
+      "Episode Agent": "2D-Series-Agent",
+      "Research Agent": "2D-Series-Agent",
+      "Script Writer": "2D-Script-Agent",
+      "Screenplay": "2D-Script-Agent",
+      "Storyboard": "2D-Storyboard-Agent",
+      "Storyboard Agent": "2D-Storyboard-Agent",
+      "Asset Manager": "3D-Asset-Manager-Agent",
+      "Modeling Agent": "3D-Modeling-Agent",
+      "Rigging Agent": "3D-Rigging-Agent",
+      "Lighting Agent": "3D-Lighting-Agent",
+      "Texturing Agent": "3D-Texturing-Agent",
+      "Environments Agent": "3D-Environment-Agent",
+      "Color Agent": "2D-Colorist-Agent",
+      "Quality Control Agent": "3D-Quality-Control-Agent",
+      "Error Detection Agent": "Error-Detector-Agent",
+      "Animals Agent": "3D-Character-Designer-Agent",
+      "Objects Agent": "3D-Modeling-Agent",
+      "Cultural Adapation": "Cultural-Adaptation-Master-Agent",
+      "Multilangual Voice": "Voice-Localization-Master-Agent",
+      "Thumbnail": "YouTube-Thumbnail-Agent",
+      "Upload Schedule": "YouTube-Scheduling-Agent",
+      "Sound Effects": "2D-Sound-Effects-Agent",
+      "Trend Analyst": "YouTube-Trend-Analyst-Agent",
+      "Seo Agent": "YouTube-SEO-Agent",
+      "E-mail Marketing": "Email-Marketing-Agent",
+      "PPC": "PPC-Agent",
+      "Community": "YouTube-Community-Agent",
+      "Optimization": "YouTube-Trend-Analyst-Agent",
+      "Financial": "Financial-Agent"
+    },
+    "stage_agents": {
+      "2D Series/2D Series. Stage 1.odt": [
+        "Error-Detector-Agent",
+        "Multi-Language-QC-Agent",
+        "3D-Series-Agent",
+        "YouTube-Scheduling-Agent"
+      ],
+      "2D Series/2D Series. Stage 2 , 3 , 3.1 and 4.odt": [
+        "3D-Character-Designer-Agent",
+        "2D-Animation-Agent",
+        "YouTube-Audio-Agent",
+        "2D-Colorist-Agent",
+        "2D-Compositor-Agent",
+        "Cultural-Adaptation-Master-Agent",
+        "3D-Series-Agent",
+        "3D-Effects-Agent",
+        "3D-Modeling-Agent",
+        "Voice-Localization-Master-Agent",
+        "3D-Rendering-Agent",
+        "3D-Rigging-Agent"
+      ],
+      "3D Series/3D Series. Stage 1.odt": [
+        "Error-Detector-Agent",
+        "Multi-Language-QC-Agent",
+        "3D-Series-Agent",
+        "YouTube-Scheduling-Agent"
+      ],
+      "3D Series/3D Series. Stage 2 , 3 , 3.1 and 4.odt": [
+        "3D-Character-Designer-Agent",
+        "2D-Animation-Agent",
+        "YouTube-Audio-Agent",
+        "2D-Character-Designer-Agent",
+        "3D-Compositor-Agent",
+        "Cultural-Adaptation-Master-Agent",
+        "3D-Environment-Agent",
+        "3D-Series-Agent",
+        "3D-Lighting-Agent",
+        "3D-Modeling-Agent",
+        "Voice-Localization-Master-Agent",
+        "3D-Rigging-Agent",
+        "3D-Texturing-Agent"
+      ],
+      "Afilliate Marketing/Afilliate Marketing. Stage 1 Strategy.odt": [
+        "Compliance-Checker-Agent"
+      ],
+      "Distribution/Distribution. Stage 1. Distribution.odt": [
+        "YouTube-Audio-Agent",
+        "YouTube-Scheduling-Agent",
+        "YouTube-Thumbnail-Agent"
+      ],
+      "Distribution/Distribution. Stage 2. Search Optimization.odt": [
+        "YouTube-Trend-Analyst-Agent"
+      ],
+      "Distribution/Distribution. Stage 3. Marketing.odt": [
+        "Affiliate-Marketing-Overseer",
+        "Email-Marketing-Agent",
+        "Social-Media-Marketing-Agent",
+        "PPC-Agent"
+      ],
+      "Distribution/Distribution. Stage 5. Revenue.odt": [
+        "Financial-Agent"
+      ],
+      "Distribution/Distribution. Stage 6. Performance.odt": [
+        "Analytics-Reporting-Agent"
+      ],
+      "Distribution/Distribution. Stage 7. Governance.odt": [
+        "Compliance-Checker-Agent",
+        "Document-Filing-Agent"
+      ],
+      "Distribution/Distribution. Stage 8. Community.odt": [
+        "YouTube-Community-Agent"
+      ]
+    },
+    "distribution_orchestrated_by": {
+      "stage_1_2": "Content Overseer",
+      "stage_3_4": "Affiliate Overseer",
+      "stage_5_6_7_8": "Support Overseer",
+      "content_overseer": "Media Overseer",
+      "affiliate_overseer": "Media Overseer",
+      "support_overseer": "Media Overseer",
+      "media_overseer": "Zero",
+      "by_step": {
+        "DISTRIBUTION Scheduling Agent": "Content Overseer",
+        "DISTRIBUTION Script Writer Agent": "Content Overseer",
+        "DISTRIBUTION Thumbnail Agent": "Content Overseer",
+        "DISTRIBUTION Audio Agent": "Content Overseer",
+        "DISTRIBUTION Video Editor Agent": "Content Overseer",
+        "DISTRIBUTION SEO Agent": "Content Overseer",
+        "DISTRIBUTION Trend Analyst Agent": "Content Overseer",
+        "DISTRIBUTION SEO Support Agent": "Content Overseer",
+        "DISTRIBUTION Audience Targeting Agent": "Affiliate Overseer",
+        "DISTRIBUTION Campaign Builder Agent": "Affiliate Overseer",
+        "DISTRIBUTION PPC Agent": "Affiliate Overseer",
+        "DISTRIBUTION Media Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION E-mail Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Affiliate Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Conversion Optimizer Agent": "Affiliate Overseer",
+        "DISTRIBUTION Marketing Ops Agent": "Affiliate Overseer",
+        "DISTRIBUTION Spanish Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Hindi Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION French Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION English Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Bengali Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Mandarin Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Portuguese Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Arabic Marketing Agent": "Affiliate Overseer",
+        "DISTRIBUTION Localization Agent": "Affiliate Overseer",
+        "DISTRIBUTION Optimization Agent": "Support Overseer",
+        "DISTRIBUTION Financial Agent": "Support Overseer",
+        "DISTRIBUTION Revenue Ops Agent": "Support Overseer",
+        "DISTRIBUTION Analytics Agent": "Support Overseer",
+        "DISTRIBUTION Analytics Reporting Agent": "Support Overseer",
+        "DISTRIBUTION Legal Agent": "Support Overseer",
+        "DISTRIBUTION Compliance Agent": "Support Overseer",
+        "DISTRIBUTION Case Tracker Agent": "Support Overseer",
+        "DISTRIBUTION Document Filing Agent": "Support Overseer",
+        "DISTRIBUTION Community Agent": "Support Overseer",
+        "DISTRIBUTION Support Agent": "Support Overseer",
+        "DISTRIBUTION Community Mgmt Agent": "Support Overseer",
+        "DISTRIBUTION Content Overseer": "Media Overseer",
+        "DISTRIBUTION Affiliate Overseer": "Media Overseer",
+        "DISTRIBUTION Support Overseer": "Media Overseer",
+        "DISTRIBUTION Media Overseer": "Zero"
+      }
+    },
+    "llms": [
+      "DeepSeek 33B",
+      "DeepSeek Coder 33B",
+      "DeepSeek Coder 33B → repairs + patches + refactors",
+      "DeepSeek-Coder 33B (Q4)",
+      "Escalate to DeepSeek Coder 33B when:",
+      "Escalate to Qwen3.6 35B-A3B when:",
+      "If Asset Manager is purely organizational (non-code), it can stay on GPT-OSS 20B.",
+      "LLaMA 3 70B (Q4)",
+      "LLaMA 3 70B (Q4) → strategy + diagnosis + risk + decisions",
+      "Qwen3.6 35B-A3B",
+      "GPT-OSS 20B",
+      "GPT-OSS 20B (FP16)",
+      "GPT-OSS 20B (or similar 7B instruct)",
+      "GPT-OSS 20B → fast triage + summarization + quick utilities",
+      "These are execution-heavy and parameter-driven — perfect for 7B speed.",
+      "These are structured, data-heavy, repetitive tasks — ideal for 7B speed.",
+      "Use 70B when:",
+      "Use GPT-OSS 20B when:",
+      "Why: cheap/fast first-pass; hand off tough ones to 70B."
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+# Ruff configuration — the style the codebase already used, now enforced.
+line-length = 120
+target-version = "py311"
+extend-exclude = ["deploy", "site", "docs", "*/vendor/*", "*/nomologin_node/*", "*/arch_ext/*", "*/voice_ext/*", "*/studio_ext/*", "*/kanban_assets/*", "*/static/*", "*/templates/*"]
+
+[format]
+quote-style = "single"
+docstring-code-format = false
+
+[lint]
+select = ["E", "F", "W", "B", "S", "T20"]
+ignore = [
+  "E501",  # line length: the formatter wraps code; long strings and URLs are allowed to stay on one line
+  "S603", "S607",  # subprocess with a list argument and no shell is the safe form; executables resolve on PATH by design
+  "S311",  # random is used for sampling and jitter, never for secrets (secrets/tokens use the secrets module)
+  "B905",  # zip(strict=) is a py3.10 nicety, not a defect
+  "E741", "E731",  # single-letter names and lambda assignment are style, not correctness
+  "S101",  # assert as an invariant check in measurement code; bandit B101 carries the same rationale. Converting
+           # the 629 sites to explicit raises is tracked quality work, not a security finding.
+]
+
+[lint.per-file-ignores]
+"tests/**" = ["S101", "S108", "S105", "S106", "T201"]
+"tests_arch_ext/**" = ["S101", "S108", "T201"]
+"tests_vst/**" = ["S101", "S108", "T201"]
+"capability_tests/**" = ["S101", "S108", "T201"]
+"scripts/**" = ["S101", "T201"]
+# print is the CLI's output channel (docs/conventions.md, Logging): entry points, self-tests,
+# scripts and test trees keep it; library modules log through `_zyg_log` instead.
+"**/__main__.py" = ["T201"]
+"**/cli.py" = ["T201"]
+"**/*_cli.py" = ["T201"]
+"**/selftest.py" = ["T201"]
+# Grandfathered CLI modules: every print in these files sits inside a `main()`/`_main()`/`cli()`
+# body or an `if __name__` block (verified by AST), so it is CLI output, not library logging.
+# The quality ratchet (scripts/ratchet.py, print_calls) keeps their counts from growing.
+"src/zyg_zero/medusa/medusa_presets.py" = ["T201"]
+"src/zyg_zero/nomologin_assistant.py" = ["T201"]
+"src/zyg_zero/nomologin_board.py" = ["T201"]
+"src/zyg_zero/nomologin_browser.py" = ["T201"]
+"src/zyg_zero/nomologin_mail.py" = ["T201"]
+"src/zyg_zero/nomologin_proxy.py" = ["T201"]
+"src/zyg_zero/nomologin_sites.py" = ["T201"]
+"src/zyg_zero/zero_public_server.py" = ["T201"]
+"src/zyg_zero/zpub_portfolio_deck.py" = ["T201"]

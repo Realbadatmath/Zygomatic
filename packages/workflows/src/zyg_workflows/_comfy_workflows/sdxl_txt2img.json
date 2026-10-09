@@ -1,0 +1,67 @@
+{
+  "10": {
+    "inputs": {
+      "ckpt_name": "Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {"title": "Load SDXL Checkpoint"}
+  },
+  "20": {
+    "inputs": {
+      "text": "photorealistic portrait photo, natural skin texture, sharp focus",
+      "clip": ["10", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {
+      "text": "cartoon, anime, illustration, cgi, 3d render, cel shading, blurry, low quality, watermark, text",
+      "clip": ["10", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "30": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {"title": "Empty Latent"}
+  },
+  "31": {
+    "inputs": {
+      "seed": 42,
+      "steps": 30,
+      "cfg": 6.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1.0,
+      "model": ["10", 0],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "latent_image": ["30", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {"title": "KSampler"}
+  },
+  "40": {
+    "inputs": {
+      "samples": ["31", 0],
+      "vae": ["10", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "50": {
+    "inputs": {
+      "filename_prefix": "ZygSDXL",
+      "images": ["40", 0]
+    },
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}
+

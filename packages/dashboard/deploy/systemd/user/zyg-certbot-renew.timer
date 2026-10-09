@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily certificate renewal check for studio.zygomaticszero.com
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,26 @@
+{
+ "flow_src": "medusa_motion.mp4",
+ "fps": 17.0,
+ "mane_px_mean": 9.94,
+ "mane_px_peak": 11.72,
+ "cut_range": [
+  40,
+  80
+ ],
+ "seam": 15.56,
+ "step": 1.85,
+ "cut": {
+  "frames": 40,
+  "seconds": 2.35,
+  "locked_worst": 0,
+  "locked_worst_tongue_rects": 245,
+  "kb": 1789
+ },
+ "pp": {
+  "frames": 160,
+  "seconds": 9.41,
+  "locked_worst": 0,
+  "locked_worst_tongue_rects": 245,
+  "kb": 7375
+ }
+}

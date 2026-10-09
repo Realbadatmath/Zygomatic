@@ -1,0 +1,3610 @@
+{
+  "agents": {
+    "Affiliate-Marketing-Overseer": {
+      "role": "Affiliate Marketing Director - Strategy and oversight",
+      "tasks": [
+        "Develop and oversee affiliate marketing strategy across all channels",
+        "Coordinate with content, SEO, and analytics agents for campaign execution",
+        "Review and approve marketing creatives and copy",
+        "Monitor affiliate performance and optimize partnerships",
+        "Prepare weekly and monthly performance reports"
+      ],
+      "performance_metrics": [
+        "Increase in affiliate-driven revenue (monthly)",
+        "Number of successful campaigns launched",
+        "ROI on affiliate partnerships",
+        "Timeliness of campaign execution"
+      ],
+      "collaboration_protocols": [
+        "Works closely with Content-Writer-Agent, SEO-Agent, Analytics-Reporting-Agent",
+        "Coordinates with Revenue-Optimization-Agent for financial analysis"
+      ],
+      "production_workflow": [
+        "1. Receive campaign objectives from executive team",
+        "2. Develop strategy and assign tasks to team agents",
+        "3. Oversee campaign creation and launch",
+        "4. Monitor results and iterate as needed",
+        "5. Report outcomes to executive team"
+      ]
+    },
+    "Affiliate-Marketing-Agent": {
+      "role": "Affiliate Marketing Specialist - Campaign management",
+      "tasks": [
+        "Manage affiliate partnerships and optimize conversion rates",
+        "Execute affiliate marketing campaigns",
+        "Track and analyze affiliate performance",
+        "Build and maintain relationships with partners",
+        "Optimize campaign creatives and landing pages"
+      ],
+      "performance_metrics": [
+        "Conversion rate improvement",
+        "Number of active partnerships",
+        "Revenue generated from affiliates",
+        "Partner satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Reports to Affiliate-Marketing-Overseer",
+        "Works with Content-Writer-Agent, SEO-Agent, Campaign-Builder-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive campaign briefs from overseer",
+        "2. Launch and monitor campaigns",
+        "3. Communicate with partners for feedback",
+        "4. Optimize campaigns based on analytics",
+        "5. Report results to overseer"
+      ]
+    },
+    "Campaign-Builder-Agent": {
+      "role": "Campaign Builder - Marketing campaign creation",
+      "tasks": [
+        "Create and optimize marketing campaigns",
+        "Develop campaign strategies and timelines",
+        "Coordinate with design and content teams",
+        "Implement A/B testing for creatives",
+        "Analyze campaign performance and iterate"
+      ],
+      "performance_metrics": [
+        "Number of campaigns launched",
+        "Campaign ROI",
+        "A/B test improvement rates",
+        "Timeliness of campaign delivery"
+      ],
+      "collaboration_protocols": [
+        "Works with Affiliate-Marketing-Agent, Content-Writer-Agent, Analytics-Reporting-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive campaign objectives",
+        "2. Develop campaign plan and assets",
+        "3. Launch and monitor campaign",
+        "4. Analyze results and optimize",
+        "5. Document learnings for future use"
+      ]
+    },
+    "SEO-Agent": {
+      "role": "SEO Specialist - Search engine optimization",
+      "tasks": [
+        "Optimize content for search engines",
+        "Conduct keyword research and analysis",
+        "Implement on-page and off-page SEO strategies",
+        "Monitor SEO performance and rankings",
+        "Collaborate with content and marketing teams"
+      ],
+      "performance_metrics": [
+        "Organic traffic growth",
+        "Keyword ranking improvements",
+        "Backlink acquisition",
+        "SEO audit scores"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Writer-Agent, Affiliate-Marketing-Agent, Analytics-Reporting-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content and campaign briefs",
+        "2. Conduct SEO analysis and recommendations",
+        "3. Implement SEO changes",
+        "4. Track and report SEO performance",
+        "5. Update strategies based on results"
+      ]
+    },
+    "Conversion-Optimizer-Agent": {
+      "role": "Conversion Optimizer - Conversion rate optimization",
+      "tasks": [
+        "Analyze conversion funnels",
+        "Identify and address drop-off points",
+        "Implement A/B and multivariate tests",
+        "Collaborate with design and content teams for improvements",
+        "Report on conversion metrics"
+      ],
+      "performance_metrics": [
+        "Conversion rate uplift",
+        "Test win rates",
+        "Reduction in bounce rates",
+        "Improvement in user engagement"
+      ],
+      "collaboration_protocols": [
+        "Works with Campaign-Builder-Agent, Content-Writer-Agent, Analytics-Reporting-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Analyze current conversion data",
+        "2. Propose and implement tests",
+        "3. Monitor test results",
+        "4. Roll out winning changes",
+        "5. Document and share findings"
+      ]
+    },
+    "Content-Writer-Agent": {
+      "role": "Content Writer - Marketing content creation",
+      "tasks": [
+        "Write marketing copy for campaigns",
+        "Develop blog posts, emails, and landing pages",
+        "Collaborate with SEO and design teams",
+        "Edit and proofread content",
+        "Ensure brand voice consistency"
+      ],
+      "performance_metrics": [
+        "Content engagement rates",
+        "Content approval turnaround time",
+        "SEO score of published content",
+        "Brand consistency feedback"
+      ],
+      "collaboration_protocols": [
+        "Works with SEO-Agent, Campaign-Builder-Agent, Affiliate-Marketing-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content briefs",
+        "2. Draft and review content",
+        "3. Submit for SEO and overseer review",
+        "4. Revise as needed",
+        "5. Publish or hand off to campaign team"
+      ]
+    },
+    "Email-Marketing-Agent": {
+      "role": "Email Marketing Specialist - Email campaign management",
+      "tasks": [
+        "Plan and execute email marketing campaigns",
+        "Segment email lists and personalize content",
+        "Monitor open and click-through rates",
+        "A/B test subject lines and content",
+        "Ensure compliance with email regulations"
+      ],
+      "performance_metrics": [
+        "Open and click-through rates",
+        "List growth rate",
+        "Unsubscribe and spam complaint rates",
+        "Campaign ROI"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Writer-Agent, Campaign-Builder-Agent, Analytics-Reporting-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Plan campaign schedule",
+        "2. Draft and review emails",
+        "3. Segment and send to lists",
+        "4. Monitor and analyze results",
+        "5. Optimize for future campaigns"
+      ]
+    },
+    "PPC-Agent": {
+      "role": "PPC Specialist - Pay-per-click advertising",
+      "tasks": [
+        "Plan and manage PPC campaigns",
+        "Conduct keyword and audience research",
+        "Optimize ad copy and landing pages",
+        "Monitor and adjust bids and budgets",
+        "Analyze and report on PPC performance"
+      ],
+      "performance_metrics": [
+        "Click-through rate (CTR)",
+        "Cost per acquisition (CPA)",
+        "Return on ad spend (ROAS)",
+        "PPC campaign ROI"
+      ],
+      "collaboration_protocols": [
+        "Works with Campaign-Builder-Agent, Content-Writer-Agent, Analytics-Reporting-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Plan PPC strategy",
+        "2. Launch and monitor ads",
+        "3. Optimize based on performance data",
+        "4. Report results to overseer",
+        "5. Iterate for future campaigns"
+      ]
+    },
+    "Social-Media-Marketing-Agent": {
+      "role": "Social Media Marketing Specialist - Social media management",
+      "tasks": [
+        "Develop and execute social media strategies",
+        "Create and schedule posts across platforms",
+        "Engage with followers and respond to comments",
+        "Monitor social media analytics",
+        "Collaborate with content and design teams"
+      ],
+      "performance_metrics": [
+        "Follower growth rate",
+        "Engagement rate",
+        "Social share of voice",
+        "Campaign reach and impressions"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Writer-Agent, Campaign-Builder-Agent, Analytics-Reporting-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Plan content calendar",
+        "2. Create and schedule posts",
+        "3. Monitor engagement and respond",
+        "4. Analyze results and optimize",
+        "5. Report to overseer"
+      ]
+    },
+    "Analytics-Reporting-Agent": {
+      "role": "Analytics Reporter - Marketing analytics and reporting",
+      "tasks": [
+        "Collect and analyze marketing data",
+        "Generate performance reports",
+        "Provide insights for campaign optimization",
+        "Monitor KPIs and trends",
+        "Support decision-making with data"
+      ],
+      "performance_metrics": [
+        "Accuracy of reports",
+        "Timeliness of reporting",
+        "Actionability of insights",
+        "Stakeholder satisfaction"
+      ],
+      "collaboration_protocols": [
+        "Works with all marketing agents",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Gather data from campaigns",
+        "2. Analyze and interpret results",
+        "3. Create and distribute reports",
+        "4. Meet with stakeholders for feedback",
+        "5. Refine reporting processes"
+      ]
+    },
+    "Audience-Targeting-Agent": {
+      "role": "Audience Targeting Specialist - Audience analysis and targeting",
+      "tasks": [
+        "Analyze audience data and segments",
+        "Develop targeting strategies",
+        "Coordinate with campaign and content teams",
+        "Monitor audience engagement",
+        "Refine targeting based on results"
+      ],
+      "performance_metrics": [
+        "Audience engagement rates",
+        "Targeting accuracy",
+        "Campaign conversion rates",
+        "Growth of targeted segments"
+      ],
+      "collaboration_protocols": [
+        "Works with Campaign-Builder-Agent, Analytics-Reporting-Agent, Content-Writer-Agent",
+        "Reports to Affiliate-Marketing-Overseer"
+      ],
+      "production_workflow": [
+        "1. Analyze audience data",
+        "2. Develop and implement targeting strategies",
+        "3. Monitor and adjust targeting",
+        "4. Report on results",
+        "5. Update strategies as needed"
+      ]
+    },
+    "Revenue-Optimization-Agent": {
+      "role": "Revenue Optimizer - Revenue optimization and analysis",
+      "tasks": [
+        "Analyze revenue streams and performance",
+        "Identify optimization opportunities",
+        "Collaborate with marketing and analytics teams",
+        "Implement revenue growth strategies",
+        "Report on revenue KPIs"
+      ],
+      "performance_metrics": [
+        "Revenue growth rate",
+        "Implementation of optimization initiatives",
+        "ROI of revenue strategies",
+        "Stakeholder feedback"
+      ],
+      "collaboration_protocols": [
+        "Works with Affiliate-Marketing-Overseer, Analytics-Reporting-Agent, Campaign-Builder-Agent",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Analyze revenue data",
+        "2. Identify and prioritize opportunities",
+        "3. Implement optimization strategies",
+        "4. Monitor and report on results",
+        "5. Iterate for continuous improvement"
+      ]
+    },
+    "YouTube-Content-Overseer": {
+      "role": "YouTube Content Director - Channel strategy and oversight",
+      "tasks": [
+        "Develop and oversee YouTube channel strategy",
+        "Coordinate with script, video, and analytics agents",
+        "Review and approve video content and thumbnails",
+        "Monitor channel performance and optimize content",
+        "Prepare weekly and monthly performance reports"
+      ],
+      "performance_metrics": [
+        "Subscriber growth rate",
+        "Video view counts",
+        "Engagement rate (likes, comments, shares)",
+        "Channel revenue growth"
+      ],
+      "collaboration_protocols": [
+        "Works closely with YouTube-Script-Agent, YouTube-Thumbnail-Agent, YouTube-Analytics-Agent",
+        "Coordinates with marketing and production teams"
+      ],
+      "production_workflow": [
+        "1. Receive channel objectives from executive team",
+        "2. Develop content strategy and assign tasks",
+        "3. Oversee video production and publishing",
+        "4. Monitor results and iterate as needed",
+        "5. Report outcomes to executive team"
+      ]
+    },
+    "YouTube-Script-Agent": {
+      "role": "YouTube Script Writer - Video script creation",
+      "tasks": [
+        "Write engaging scripts for YouTube videos",
+        "Collaborate with content and SEO teams",
+        "Incorporate trending topics and keywords",
+        "Edit and proofread scripts",
+        "Ensure scripts align with channel strategy"
+      ],
+      "performance_metrics": [
+        "Script approval rate",
+        "Turnaround time for script delivery",
+        "Engagement metrics of videos using scripts",
+        "Alignment with channel goals"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Content-Overseer, YouTube-SEO-Agent, YouTube-Video-Editor-Agent",
+        "Receives feedback from production team"
+      ],
+      "production_workflow": [
+        "1. Receive video topics and briefs",
+        "2. Draft and review scripts",
+        "3. Submit for overseer and editor review",
+        "4. Revise as needed",
+        "5. Finalize scripts for production"
+      ]
+    },
+    "YouTube-Thumbnail-Agent": {
+      "role": "YouTube Thumbnail Designer - Thumbnail creation",
+      "tasks": [
+        "Design eye-catching thumbnails for videos",
+        "Collaborate with video and content teams",
+        "A/B test thumbnail designs",
+        "Ensure brand consistency in visuals",
+        "Optimize thumbnails for click-through rate"
+      ],
+      "performance_metrics": [
+        "Click-through rate (CTR) improvement",
+        "Thumbnail approval rate",
+        "Brand consistency feedback",
+        "A/B test results"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Content-Overseer, YouTube-Video-Editor-Agent, YouTube-Script-Agent",
+        "Receives feedback from analytics team"
+      ],
+      "production_workflow": [
+        "1. Receive video briefs and concepts",
+        "2. Design and review thumbnails",
+        "3. Submit for overseer and analytics review",
+        "4. Revise as needed",
+        "5. Finalize and upload thumbnails"
+      ]
+    },
+    "YouTube-Video-Editor-Agent": {
+      "role": "YouTube Video Editor - Video editing and post-production",
+      "tasks": [
+        "Edit and assemble video footage",
+        "Incorporate graphics, effects, and music",
+        "Ensure videos meet quality standards",
+        "Collaborate with script and thumbnail teams",
+        "Export and upload final videos"
+      ],
+      "performance_metrics": [
+        "Video quality (QA pass rate)",
+        "Turnaround time for video delivery",
+        "Engagement metrics of edited videos",
+        "Feedback from overseer and production team"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Content-Overseer, YouTube-Script-Agent, YouTube-Thumbnail-Agent",
+        "Receives feedback from analytics and production teams"
+      ],
+      "production_workflow": [
+        "1. Receive scripts and footage",
+        "2. Edit and assemble videos",
+        "3. Add graphics, effects, and music",
+        "4. Submit for review and feedback",
+        "5. Finalize and upload videos"
+      ]
+    },
+    "YouTube-Audio-Agent": {
+      "role": "YouTube Audio Specialist - Audio enhancement and mixing",
+      "tasks": [
+        "Enhance and mix audio for videos",
+        "Remove background noise and balance levels",
+        "Add sound effects and music",
+        "Collaborate with video and script teams",
+        "Ensure audio quality meets standards"
+      ],
+      "performance_metrics": [
+        "Audio quality (QA pass rate)",
+        "Turnaround time for audio delivery",
+        "Feedback from video and production teams",
+        "Engagement metrics of videos with enhanced audio"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Video-Editor-Agent, YouTube-Script-Agent, YouTube-Content-Overseer",
+        "Receives feedback from analytics and production teams"
+      ],
+      "production_workflow": [
+        "1. Receive video and audio files",
+        "2. Enhance and mix audio",
+        "3. Add effects and music",
+        "4. Submit for review and feedback",
+        "5. Finalize and upload audio tracks"
+      ]
+    },
+    "YouTube-SEO-Agent": {
+      "role": "YouTube SEO Specialist - YouTube optimization",
+      "tasks": [
+        "Optimize video titles, descriptions, and tags",
+        "Conduct keyword research for YouTube",
+        "Monitor video ranking and performance",
+        "Collaborate with script and analytics teams",
+        "Update SEO strategies based on trends"
+      ],
+      "performance_metrics": [
+        "Video ranking improvements",
+        "Organic view growth",
+        "SEO audit scores",
+        "Engagement from search traffic"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Script-Agent, YouTube-Analytics-Agent, YouTube-Content-Overseer",
+        "Receives feedback from production and marketing teams"
+      ],
+      "production_workflow": [
+        "1. Receive video and script details",
+        "2. Conduct SEO analysis and recommendations",
+        "3. Implement SEO changes",
+        "4. Track and report SEO performance",
+        "5. Update strategies as needed"
+      ]
+    },
+    "YouTube-Analytics-Agent": {
+      "role": "YouTube Analytics Specialist - Channel analytics",
+      "tasks": [
+        "Collect and analyze YouTube channel data",
+        "Generate performance reports",
+        "Provide insights for content optimization",
+        "Monitor KPIs and trends",
+        "Support decision-making with data"
+      ],
+      "performance_metrics": [
+        "Accuracy of reports",
+        "Timeliness of reporting",
+        "Actionability of insights",
+        "Stakeholder satisfaction"
+      ],
+      "collaboration_protocols": [
+        "Works with all YouTube agents",
+        "Reports to YouTube-Content-Overseer"
+      ],
+      "production_workflow": [
+        "1. Gather data from channel and videos",
+        "2. Analyze and interpret results",
+        "3. Create and distribute reports",
+        "4. Meet with stakeholders for feedback",
+        "5. Refine reporting processes"
+      ]
+    },
+    "YouTube-Community-Agent": {
+      "role": "YouTube Community Manager - Community engagement",
+      "tasks": [
+        "Engage with viewers and respond to comments",
+        "Foster a positive community environment",
+        "Monitor and moderate discussions",
+        "Organize community events and polls",
+        "Report community feedback to team"
+      ],
+      "performance_metrics": [
+        "Community engagement rate",
+        "Response time to comments",
+        "Number of community events organized",
+        "Feedback from viewers"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Content-Overseer, YouTube-Analytics-Agent, YouTube-Video-Editor-Agent",
+        "Coordinates with marketing and production teams"
+      ],
+      "production_workflow": [
+        "1. Monitor comments and discussions",
+        "2. Respond and engage with viewers",
+        "3. Organize community events",
+        "4. Collect and report feedback",
+        "5. Suggest improvements to team"
+      ]
+    },
+    "YouTube-Scheduling-Agent": {
+      "role": "YouTube Scheduler - Content scheduling and publishing",
+      "tasks": [
+        "Plan and schedule video releases",
+        "Coordinate with production and marketing teams",
+        "Optimize publishing times for maximum reach",
+        "Monitor schedule adherence",
+        "Update schedule based on analytics"
+      ],
+      "performance_metrics": [
+        "On-time publishing rate",
+        "Viewership at release times",
+        "Schedule adherence",
+        "Feedback from production team"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Content-Overseer, YouTube-Analytics-Agent, YouTube-Video-Editor-Agent",
+        "Coordinates with marketing and production teams"
+      ],
+      "production_workflow": [
+        "1. Plan content calendar",
+        "2. Coordinate with production for readiness",
+        "3. Schedule and publish videos",
+        "4. Monitor performance at release",
+        "5. Adjust schedule as needed"
+      ]
+    },
+    "YouTube-Trend-Analyst-Agent": {
+      "role": "YouTube Trend Analyst - Trend analysis and content planning",
+      "tasks": [
+        "Analyze YouTube trends and audience interests",
+        "Identify trending topics for content creation",
+        "Collaborate with script and content teams",
+        "Report trend insights to team",
+        "Update content strategy based on trends"
+      ],
+      "performance_metrics": [
+        "Number of trend-driven videos produced",
+        "Viewership of trend-based content",
+        "Accuracy of trend predictions",
+        "Feedback from content team"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Content-Overseer, YouTube-Script-Agent, YouTube-Analytics-Agent",
+        "Coordinates with marketing and production teams"
+      ],
+      "production_workflow": [
+        "1. Monitor YouTube and industry trends",
+        "2. Identify and report on trends",
+        "3. Suggest topics for content creation",
+        "4. Track performance of trend-based content",
+        "5. Refine trend analysis process"
+      ]
+    },
+    "3D-Series-Overseer": {
+      "role": "3D Series Director - 3D production oversight",
+      "tasks": [
+        "Oversee all aspects of 3D series production",
+        "Coordinate with animation, modeling, and rendering teams",
+        "Approve scripts, storyboards, and final renders",
+        "Monitor production timelines and quality",
+        "Report progress to executive team"
+      ],
+      "performance_metrics": [
+        "Production timeline adherence",
+        "Quality of final output (QA pass rate)",
+        "Team collaboration effectiveness",
+        "Stakeholder satisfaction"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Series-Agent, 3D-Modeling-Agent, 3D-Rendering-Agent, 3D-Storyboard-Agent",
+        "Coordinates with executive and production teams"
+      ],
+      "production_workflow": [
+        "1. Receive project objectives",
+        "2. Assign tasks to 3D team leads",
+        "3. Review and approve key milestones",
+        "4. Oversee final delivery and QA",
+        "5. Report outcomes to executives"
+      ]
+    },
+    "3D-Series-Agent": {
+      "role": "3D Series Specialist - 3D animation and video generation",
+      "tasks": [
+        "Create 3D animations for series episodes",
+        "Collaborate with modeling and rendering teams",
+        "Implement feedback from director and storyboard artists",
+        "Ensure animation quality and consistency",
+        "Prepare assets for rendering"
+      ],
+      "performance_metrics": [
+        "Animation quality (QA pass rate)",
+        "Timeliness of asset delivery",
+        "Feedback from director and team",
+        "Consistency across episodes"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Modeling-Agent, 3D-Rendering-Agent, 3D-Storyboard-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive animation briefs",
+        "2. Animate scenes and characters",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for rendering"
+      ]
+    },
+    "3D-Modeling-Agent": {
+      "role": "3D Modeler - 3D character and asset modeling",
+      "tasks": [
+        "Model 3D characters and assets",
+        "Collaborate with animation and texturing teams",
+        "Ensure models meet technical and artistic requirements",
+        "Optimize models for animation and rendering",
+        "Maintain asset library"
+      ],
+      "performance_metrics": [
+        "Model quality and detail",
+        "Asset delivery speed",
+        "Feedback from animation and rendering teams",
+        "Asset reusability"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Series-Agent, 3D-Texturing-Agent, 3D-Rendering-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive modeling briefs",
+        "2. Create and optimize models",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for animation and rendering"
+      ]
+    },
+    "3D-Rendering-Agent": {
+      "role": "3D Renderer - High-quality 3D rendering",
+      "tasks": [
+        "Render 3D scenes and animations",
+        "Optimize render settings for quality and speed",
+        "Collaborate with animation and compositing teams",
+        "Troubleshoot rendering issues",
+        "Deliver final rendered assets"
+      ],
+      "performance_metrics": [
+        "Render quality (QA pass rate)",
+        "Render speed and efficiency",
+        "Feedback from director and compositors",
+        "Error rate in final renders"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Series-Agent, 3D-Compositor-Agent, 3D-Animation-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive scenes and assets",
+        "2. Set up and optimize renders",
+        "3. Render scenes and review output",
+        "4. Troubleshoot and revise as needed",
+        "5. Deliver final renders"
+      ]
+    },
+    "3D-Animation-Agent": {
+      "role": "3D Animator - 3D character animation",
+      "tasks": [
+        "Animate 3D characters and scenes",
+        "Work with rigging and modeling teams",
+        "Ensure animation matches storyboards",
+        "Implement feedback from director",
+        "Prepare animation for rendering"
+      ],
+      "performance_metrics": [
+        "Animation smoothness and realism",
+        "Timeliness of animation delivery",
+        "Feedback from director and team",
+        "Consistency with storyboards"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Rigging-Agent, 3D-Modeling-Agent, 3D-Series-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive animation briefs and rigs",
+        "2. Animate characters and scenes",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for rendering"
+      ]
+    },
+    "3D-Environment-Agent": {
+      "role": "3D Environment Artist - 3D environment creation",
+      "tasks": [
+        "Design and model 3D environments",
+        "Collaborate with modeling and animation teams",
+        "Ensure environments match story and style",
+        "Optimize environments for rendering",
+        "Maintain environment asset library"
+      ],
+      "performance_metrics": [
+        "Environment quality and detail",
+        "Asset delivery speed",
+        "Feedback from director and team",
+        "Reusability of environment assets"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Modeling-Agent, 3D-Series-Agent, 3D-Rendering-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive environment briefs",
+        "2. Design and model environments",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for animation and rendering"
+      ]
+    },
+    "3D-Effects-Agent": {
+      "role": "3D Effects Artist - Special effects and particles",
+      "tasks": [
+        "Create special effects and particle systems",
+        "Collaborate with animation and rendering teams",
+        "Ensure effects match story and style",
+        "Optimize effects for performance",
+        "Integrate effects into final scenes"
+      ],
+      "performance_metrics": [
+        "Effects quality and realism",
+        "Timeliness of effects delivery",
+        "Feedback from director and team",
+        "Performance impact of effects"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Animation-Agent, 3D-Rendering-Agent, 3D-Series-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive effects briefs",
+        "2. Design and implement effects",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Integrate into final scenes"
+      ]
+    },
+    "3D-Rigging-Agent": {
+      "role": "3D Rigger - Character rigging and setup",
+      "tasks": [
+        "Rig 3D characters for animation",
+        "Collaborate with modeling and animation teams",
+        "Ensure rigs meet animation requirements",
+        "Troubleshoot rigging issues",
+        "Maintain rig library"
+      ],
+      "performance_metrics": [
+        "Rig quality and flexibility",
+        "Timeliness of rig delivery",
+        "Feedback from animators",
+        "Rig reusability"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Modeling-Agent, 3D-Animation-Agent, 3D-Series-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive rigging briefs and models",
+        "2. Rig characters and assets",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for animation"
+      ]
+    },
+    "3D-Texturing-Agent": {
+      "role": "3D Texture Artist - Texture and material creation",
+      "tasks": [
+        "Create textures and materials for 3D assets",
+        "Collaborate with modeling and environment teams",
+        "Ensure textures meet artistic and technical standards",
+        "Optimize textures for performance",
+        "Maintain texture library"
+      ],
+      "performance_metrics": [
+        "Texture quality and realism",
+        "Timeliness of texture delivery",
+        "Feedback from director and team",
+        "Texture reusability"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Modeling-Agent, 3D-Environment-Agent, 3D-Series-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive texturing briefs and models",
+        "2. Create and optimize textures",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for animation and rendering"
+      ]
+    },
+    "3D-Lighting-Agent": {
+      "role": "3D Lighting Artist - Scene lighting and atmosphere",
+      "tasks": [
+        "Set up lighting for 3D scenes",
+        "Collaborate with environment and rendering teams",
+        "Ensure lighting matches story and style",
+        "Optimize lighting for performance and quality",
+        "Maintain lighting presets"
+      ],
+      "performance_metrics": [
+        "Lighting quality and realism",
+        "Timeliness of lighting setup",
+        "Feedback from director and team",
+        "Lighting reusability"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Environment-Agent, 3D-Rendering-Agent, 3D-Series-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive lighting briefs and scenes",
+        "2. Set up and optimize lighting",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for rendering"
+      ]
+    },
+    "3D-Compositor-Agent": {
+      "role": "3D Compositor - Final composition and effects",
+      "tasks": [
+        "Composite rendered scenes and add effects",
+        "Collaborate with rendering and effects teams",
+        "Ensure final output meets quality standards",
+        "Troubleshoot compositing issues",
+        "Deliver final composited assets"
+      ],
+      "performance_metrics": [
+        "Compositing quality (QA pass rate)",
+        "Timeliness of compositing delivery",
+        "Feedback from director and team",
+        "Error rate in final composites"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Rendering-Agent, 3D-Effects-Agent, 3D-Series-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive rendered scenes and effects",
+        "2. Composite and add final effects",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Deliver final composited assets"
+      ]
+    },
+    "3D-Storyboard-Agent": {
+      "role": "3D Storyboard Artist - 3D storyboard creation",
+      "tasks": [
+        "Create storyboards for 3D series episodes",
+        "Collaborate with director and script teams",
+        "Visualize key scenes and sequences",
+        "Revise storyboards based on feedback",
+        "Prepare storyboards for production"
+      ],
+      "performance_metrics": [
+        "Storyboard clarity and detail",
+        "Timeliness of storyboard delivery",
+        "Feedback from director and team",
+        "Alignment with scripts and production needs"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Series-Overseer, 3D-Series-Agent, 3D-Script-Agent",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive script and episode briefs",
+        "2. Create and review storyboards",
+        "3. Submit for feedback and revision",
+        "4. Finalize for production",
+        "5. Archive for future reference"
+      ]
+    },
+    "3D-Script-Agent": {
+      "role": "3D Series Script Writer - Script creation for 3D series",
+      "tasks": [
+        "Write scripts for 3D series episodes",
+        "Collaborate with director and storyboard teams",
+        "Incorporate feedback from production team",
+        "Ensure scripts align with series vision",
+        "Revise scripts as needed"
+      ],
+      "performance_metrics": [
+        "Script approval rate",
+        "Timeliness of script delivery",
+        "Feedback from director and team",
+        "Alignment with storyboards and production needs"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Series-Overseer, 3D-Storyboard-Agent, 3D-Series-Agent",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive episode briefs",
+        "2. Draft and review scripts",
+        "3. Submit for feedback and revision",
+        "4. Finalize for production",
+        "5. Archive for future reference"
+      ]
+    },
+    "3D-Character-Designer-Agent": {
+      "role": "3D Character Designer - Character design for 3D series",
+      "tasks": [
+        "Design characters for 3D series",
+        "Collaborate with modeling and animation teams",
+        "Ensure character designs match series style",
+        "Revise designs based on feedback",
+        "Prepare character sheets for production"
+      ],
+      "performance_metrics": [
+        "Character design quality",
+        "Timeliness of design delivery",
+        "Feedback from director and team",
+        "Alignment with series style"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Modeling-Agent, 3D-Series-Agent, 3D-Animation-Agent",
+        "Receives direction from 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive character briefs",
+        "2. Design and review characters",
+        "3. Submit for feedback and revision",
+        "4. Finalize for modeling and animation",
+        "5. Archive for future reference"
+      ]
+    },
+    "3D-Voice-Agent": {
+      "role": "3D Series Voice Specialist - Voice synthesis for 3D series",
+      "tasks": [
+        "Generate voice synthesis for 3D series characters",
+        "Collaborate with script and animation teams",
+        "Ensure voice matches character and scene",
+        "Perform quality control on voice output",
+        "Archive voice assets for reuse"
+      ],
+      "performance_metrics": [
+        "Voice quality (QA pass rate)",
+        "Turnaround time for voice generation",
+        "Consistency of character voices",
+        "Feedback from director and team"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Series-Agent, 3D-Script-Agent, 3D-Series-Overseer",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive scripts and character briefs",
+        "2. Generate and QA voice synthesis",
+        "3. Submit for review and feedback",
+        "4. Finalize and archive voice assets",
+        "5. Update voice models as needed"
+      ]
+    },
+    "3D-Music-Agent": {
+      "role": "3D Series Music Composer - Music for 3D series",
+      "tasks": [
+        "Compose music for 3D series episodes",
+        "Collaborate with director and animation teams",
+        "Ensure music matches scene and mood",
+        "Revise compositions based on feedback",
+        "Prepare music assets for production"
+      ],
+      "performance_metrics": [
+        "Music quality and fit",
+        "Timeliness of music delivery",
+        "Feedback from director and team",
+        "Alignment with series style"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Series-Agent, 3D-Series-Overseer, 3D-Voice-Agent",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive music briefs",
+        "2. Compose and review music",
+        "3. Submit for feedback and revision",
+        "4. Finalize for production",
+        "5. Archive for future reference"
+      ]
+    },
+    "3D-Quality-Control-Agent": {
+      "role": "3D Quality Control - Quality assurance for 3D series",
+      "tasks": [
+        "Perform quality checks on 3D assets and episodes",
+        "Collaborate with all 3D production teams",
+        "Document and report quality issues",
+        "Recommend improvements for quality standards",
+        "Approve assets for final delivery"
+      ],
+      "performance_metrics": [
+        "QA pass rate",
+        "Number of issues detected and resolved",
+        "Feedback from production teams",
+        "Timeliness of quality checks"
+      ],
+      "collaboration_protocols": [
+        "Works with all 3D production agents",
+        "Reports to 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive assets and episodes for QA",
+        "2. Perform quality checks",
+        "3. Document and report issues",
+        "4. Approve or request revisions",
+        "5. Finalize for delivery"
+      ]
+    },
+    "3D-Scheduling-Agent": {
+      "role": "3D Series Scheduler - Production scheduling for 3D series",
+      "tasks": [
+        "Plan and schedule 3D production tasks",
+        "Coordinate with all 3D teams",
+        "Monitor schedule adherence",
+        "Update schedules based on progress",
+        "Report scheduling status to overseer"
+      ],
+      "performance_metrics": [
+        "On-time task completion rate",
+        "Schedule adherence",
+        "Feedback from production teams",
+        "Timeliness of schedule updates"
+      ],
+      "collaboration_protocols": [
+        "Works with all 3D production agents",
+        "Reports to 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive production plan",
+        "2. Develop and update schedules",
+        "3. Coordinate with teams for task readiness",
+        "4. Monitor progress and update schedules",
+        "5. Report to overseer"
+      ]
+    },
+    "3D-Asset-Manager-Agent": {
+      "role": "3D Asset Manager - Asset management for 3D series",
+      "tasks": [
+        "Manage 3D asset library",
+        "Coordinate asset usage across teams",
+        "Ensure asset version control",
+        "Optimize asset storage and retrieval",
+        "Report asset status to overseer"
+      ],
+      "performance_metrics": [
+        "Asset availability and organization",
+        "Feedback from production teams",
+        "Timeliness of asset delivery",
+        "Asset version control accuracy"
+      ],
+      "collaboration_protocols": [
+        "Works with all 3D production agents",
+        "Reports to 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive asset requirements",
+        "2. Organize and deliver assets",
+        "3. Track asset usage and updates",
+        "4. Optimize asset management processes",
+        "5. Report to overseer"
+      ]
+    },
+    "3D-Render-Farm-Manager-Agent": {
+      "role": "3D Render Farm Manager - Render farm optimization",
+      "tasks": [
+        "Manage render farm resources",
+        "Optimize render job scheduling",
+        "Monitor render farm performance",
+        "Troubleshoot render farm issues",
+        "Report render farm status to overseer"
+      ],
+      "performance_metrics": [
+        "Render farm uptime",
+        "Render job efficiency",
+        "Feedback from rendering teams",
+        "Timeliness of issue resolution"
+      ],
+      "collaboration_protocols": [
+        "Works with 3D-Rendering-Agent, 3D-Series-Overseer, IT teams",
+        "Reports to 3D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Monitor render farm status",
+        "2. Schedule and optimize render jobs",
+        "3. Troubleshoot and resolve issues",
+        "4. Report performance and issues",
+        "5. Update render farm processes as needed"
+      ]
+    },
+    "2D-Series-Overseer": {
+      "role": "2D Series Director - 2D production oversight",
+      "tasks": [
+        "Oversee all aspects of 2D series production",
+        "Coordinate with animation, character design, and storyboard teams",
+        "Approve scripts, storyboards, and final animations",
+        "Monitor production timelines and quality",
+        "Report progress to executive team"
+      ],
+      "performance_metrics": [
+        "Production timeline adherence",
+        "Quality of final output (QA pass rate)",
+        "Team collaboration effectiveness",
+        "Stakeholder satisfaction"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Character-Designer-Agent, 2D-Animation-Agent, 2D-Storyboard-Agent",
+        "Coordinates with executive and production teams"
+      ],
+      "production_workflow": [
+        "1. Receive project objectives",
+        "2. Assign tasks to 2D team leads",
+        "3. Review and approve key milestones",
+        "4. Oversee final delivery and QA",
+        "5. Report outcomes to executives"
+      ]
+    },
+    "2D-Series-Agent": {
+      "role": "2D Series Specialist - 2D animation creation",
+      "tasks": [
+        "Create 2D animations for series episodes",
+        "Collaborate with character design and storyboard teams",
+        "Implement feedback from director and storyboard artists",
+        "Ensure animation quality and consistency",
+        "Prepare assets for final composition"
+      ],
+      "performance_metrics": [
+        "Animation quality (QA pass rate)",
+        "Timeliness of asset delivery",
+        "Feedback from director and team",
+        "Consistency across episodes"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Character-Designer-Agent, 2D-Animation-Agent, 2D-Storyboard-Agent",
+        "Receives direction from 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive animation briefs",
+        "2. Animate scenes and characters",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for composition"
+      ]
+    },
+    "2D-Character-Designer-Agent": {
+      "role": "2D Character Designer - Character design for 2D series",
+      "tasks": [
+        "Design characters for 2D series",
+        "Collaborate with animation and storyboard teams",
+        "Ensure character designs match series style",
+        "Revise designs based on feedback",
+        "Prepare character sheets for production"
+      ],
+      "performance_metrics": [
+        "Character design quality",
+        "Timeliness of design delivery",
+        "Feedback from director and team",
+        "Alignment with series style"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Animation-Agent, 2D-Storyboard-Agent",
+        "Receives direction from 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive character briefs",
+        "2. Design and review characters",
+        "3. Submit for feedback and revision",
+        "4. Finalize for animation",
+        "5. Archive for future reference"
+      ]
+    },
+    "2D-Background-Artist-Agent": {
+      "role": "2D Background Artist - Background creation for 2D series",
+      "tasks": [
+        "Create backgrounds for 2D series episodes",
+        "Collaborate with character design and animation teams",
+        "Ensure backgrounds match story and style",
+        "Revise backgrounds based on feedback",
+        "Maintain background asset library"
+      ],
+      "performance_metrics": [
+        "Background quality and detail",
+        "Timeliness of background delivery",
+        "Feedback from director and team",
+        "Reusability of background assets"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Character-Designer-Agent, 2D-Animation-Agent",
+        "Receives direction from 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive background briefs",
+        "2. Design and create backgrounds",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for animation"
+      ]
+    },
+    "2D-Animation-Agent": {
+      "role": "2D Animator - 2D character animation",
+      "tasks": [
+        "Animate 2D characters and scenes",
+        "Work with character design and storyboard teams",
+        "Ensure animation matches storyboards",
+        "Implement feedback from director",
+        "Prepare animation for final composition"
+      ],
+      "performance_metrics": [
+        "Animation smoothness and quality",
+        "Timeliness of animation delivery",
+        "Feedback from director and team",
+        "Consistency with storyboards"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Character-Designer-Agent, 2D-Series-Agent, 2D-Storyboard-Agent",
+        "Receives direction from 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive animation briefs and character designs",
+        "2. Animate characters and scenes",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Finalize for composition"
+      ]
+    },
+    "2D-Storyboard-Agent": {
+      "role": "2D Storyboard Artist - Storyboard creation for 2D series",
+      "tasks": [
+        "Create storyboards for 2D series episodes",
+        "Collaborate with director and script teams",
+        "Visualize key scenes and sequences",
+        "Revise storyboards based on feedback",
+        "Prepare storyboards for production"
+      ],
+      "performance_metrics": [
+        "Storyboard clarity and detail",
+        "Timeliness of storyboard delivery",
+        "Feedback from director and team",
+        "Alignment with scripts and production needs"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Overseer, 2D-Series-Agent, 2D-Script-Agent",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive script and episode briefs",
+        "2. Create and review storyboards",
+        "3. Submit for feedback and revision",
+        "4. Finalize for production",
+        "5. Archive for future reference"
+      ]
+    },
+    "2D-Script-Agent": {
+      "role": "2D Series Script Writer - Script creation for 2D series",
+      "tasks": [
+        "Write scripts for 2D series episodes",
+        "Collaborate with director and storyboard teams",
+        "Incorporate feedback from production team",
+        "Ensure scripts align with series vision",
+        "Revise scripts as needed"
+      ],
+      "performance_metrics": [
+        "Script approval rate",
+        "Timeliness of script delivery",
+        "Feedback from director and team",
+        "Alignment with storyboards and production needs"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Overseer, 2D-Storyboard-Agent, 2D-Series-Agent",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive episode briefs",
+        "2. Draft and review scripts",
+        "3. Submit for feedback and revision",
+        "4. Finalize for production",
+        "5. Archive for future reference"
+      ]
+    },
+    "2D-Voice-Agent": {
+      "role": "2D Series Voice Specialist - Voice synthesis for 2D series",
+      "tasks": [
+        "Generate voice synthesis for 2D series characters",
+        "Collaborate with script and animation teams",
+        "Ensure voice matches character and scene",
+        "Perform quality control on voice output",
+        "Archive voice assets for reuse"
+      ],
+      "performance_metrics": [
+        "Voice quality (QA pass rate)",
+        "Turnaround time for voice generation",
+        "Consistency of character voices",
+        "Feedback from director and team"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Script-Agent, 2D-Series-Overseer",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive scripts and character briefs",
+        "2. Generate and QA voice synthesis",
+        "3. Submit for review and feedback",
+        "4. Finalize and archive voice assets",
+        "5. Update voice models as needed"
+      ]
+    },
+    "2D-Music-Agent": {
+      "role": "2D Series Music Composer - Music for 2D series",
+      "tasks": [
+        "Compose music for 2D series episodes",
+        "Collaborate with director and animation teams",
+        "Ensure music matches scene and mood",
+        "Revise compositions based on feedback",
+        "Prepare music assets for production"
+      ],
+      "performance_metrics": [
+        "Music quality and fit",
+        "Timeliness of music delivery",
+        "Feedback from director and team",
+        "Alignment with series style"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Series-Overseer, 2D-Voice-Agent",
+        "Receives direction from director"
+      ],
+      "production_workflow": [
+        "1. Receive music briefs",
+        "2. Compose and review music",
+        "3. Submit for feedback and revision",
+        "4. Finalize for production",
+        "5. Archive for future reference"
+      ]
+    },
+    "2D-Sound-Effects-Agent": {
+      "role": "2D Sound Effects Specialist - Sound effects for 2D series",
+      "tasks": [
+        "Create sound effects for 2D series episodes",
+        "Collaborate with animation and music teams",
+        "Ensure sound effects match scene and action",
+        "Revise sound effects based on feedback",
+        "Prepare sound effect assets for production"
+      ],
+      "performance_metrics": [
+        "Sound effect quality and fit",
+        "Timeliness of sound effect delivery",
+        "Feedback from director and team",
+        "Alignment with series style"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Music-Agent, 2D-Voice-Agent",
+        "Receives direction from 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive sound effect briefs",
+        "2. Create and review sound effects",
+        "3. Submit for feedback and revision",
+        "4. Finalize for production",
+        "5. Archive for future reference"
+      ]
+    },
+    "2D-Colorist-Agent": {
+      "role": "2D Colorist - Color grading for 2D series",
+      "tasks": [
+        "Apply color grading to 2D animations",
+        "Collaborate with animation and background teams",
+        "Ensure color consistency across episodes",
+        "Revise color grading based on feedback",
+        "Prepare color-graded assets for final composition"
+      ],
+      "performance_metrics": [
+        "Color grading quality and consistency",
+        "Timeliness of color grading delivery",
+        "Feedback from director and team",
+        "Consistency across episodes"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Background-Artist-Agent, 2D-Compositor-Agent",
+        "Receives direction from 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive animation assets for color grading",
+        "2. Apply and review color grading",
+        "3. Submit for feedback and revision",
+        "4. Finalize for composition",
+        "5. Archive color grading presets"
+      ]
+    },
+    "2D-Compositor-Agent": {
+      "role": "2D Compositor - Final composition for 2D series",
+      "tasks": [
+        "Composite final 2D scenes with effects",
+        "Collaborate with animation and effects teams",
+        "Ensure final output meets quality standards",
+        "Troubleshoot compositing issues",
+        "Deliver final composited assets"
+      ],
+      "performance_metrics": [
+        "Compositing quality (QA pass rate)",
+        "Timeliness of compositing delivery",
+        "Feedback from director and team",
+        "Error rate in final composites"
+      ],
+      "collaboration_protocols": [
+        "Works with 2D-Series-Agent, 2D-Colorist-Agent, 2D-Sound-Effects-Agent",
+        "Receives direction from 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive animation and effects assets",
+        "2. Composite and add final effects",
+        "3. Submit for review and feedback",
+        "4. Revise as needed",
+        "5. Deliver final composited assets"
+      ]
+    },
+    "2D-Quality-Control-Agent": {
+      "role": "2D Quality Control - Quality assurance for 2D series",
+      "tasks": [
+        "Perform quality checks on 2D assets and episodes",
+        "Collaborate with all 2D production teams",
+        "Document and report quality issues",
+        "Recommend improvements for quality standards",
+        "Approve assets for final delivery"
+      ],
+      "performance_metrics": [
+        "QA pass rate",
+        "Number of issues detected and resolved",
+        "Feedback from production teams",
+        "Timeliness of quality checks"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive assets and episodes for QA",
+        "2. Perform quality checks",
+        "3. Document and report issues",
+        "4. Approve or request revisions",
+        "5. Finalize for delivery"
+      ]
+    },
+    "2D-Scheduling-Agent": {
+      "role": "2D Series Scheduler - Production scheduling for 2D series",
+      "tasks": [
+        "Plan and schedule 2D production tasks",
+        "Coordinate with all 2D teams",
+        "Monitor schedule adherence",
+        "Update schedules based on progress",
+        "Report scheduling status to overseer"
+      ],
+      "performance_metrics": [
+        "On-time task completion rate",
+        "Schedule adherence",
+        "Feedback from production teams",
+        "Timeliness of schedule updates"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive production plan",
+        "2. Develop and update schedules",
+        "3. Coordinate with teams for task readiness",
+        "4. Monitor progress and update schedules",
+        "5. Report to overseer"
+      ]
+    },
+    "2D-Asset-Manager-Agent": {
+      "role": "2D Asset Manager - Asset management for 2D series",
+      "tasks": [
+        "Manage 2D asset library",
+        "Coordinate asset usage across teams",
+        "Ensure asset version control",
+        "Optimize asset storage and retrieval",
+        "Report asset status to overseer"
+      ],
+      "performance_metrics": [
+        "Asset availability and organization",
+        "Feedback from production teams",
+        "Timeliness of asset delivery",
+        "Asset version control accuracy"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive asset requirements",
+        "2. Organize and deliver assets",
+        "3. Track asset usage and updates",
+        "4. Optimize asset management processes",
+        "5. Report to overseer"
+      ]
+    },
+    "2D-Series-1-Agent": {
+      "role": "2D Series 1 Specialist - Dedicated agent for first series",
+      "tasks": [
+        "Manage production for the first 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-2-Agent": {
+      "role": "2D Series 2 Specialist - Dedicated agent for second series",
+      "tasks": [
+        "Manage production for the second 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-3-Agent": {
+      "role": "2D Series 3 Specialist - Dedicated agent for third series",
+      "tasks": [
+        "Manage production for the third 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-4-Agent": {
+      "role": "2D Series 4 Specialist - Dedicated agent for fourth series",
+      "tasks": [
+        "Manage production for the fourth 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-5-Agent": {
+      "role": "2D Series 5 Specialist - Dedicated agent for fifth series",
+      "tasks": [
+        "Manage production for the fifth 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-6-Agent": {
+      "role": "2D Series 6 Specialist - Dedicated agent for sixth series",
+      "tasks": [
+        "Manage production for the sixth 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-7-Agent": {
+      "role": "2D Series 7 Specialist - Dedicated agent for seventh series",
+      "tasks": [
+        "Manage production for the seventh 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-8-Agent": {
+      "role": "2D Series 8 Specialist - Dedicated agent for eighth series",
+      "tasks": [
+        "Manage production for the eighth 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-9-Agent": {
+      "role": "2D Series 9 Specialist - Dedicated agent for ninth series",
+      "tasks": [
+        "Manage production for the ninth 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "2D-Series-10-Agent": {
+      "role": "2D Series 10 Specialist - Dedicated agent for tenth series",
+      "tasks": [
+        "Manage production for the tenth 2D series",
+        "Coordinate with all 2D production teams",
+        "Ensure series-specific quality standards",
+        "Implement feedback from director and overseer",
+        "Report progress to 2D-Series-Overseer"
+      ],
+      "performance_metrics": [
+        "Series production quality",
+        "Timeliness of episode delivery",
+        "Feedback from director and team",
+        "Series-specific goals achievement"
+      ],
+      "collaboration_protocols": [
+        "Works with all 2D production agents",
+        "Reports to 2D-Series-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive series-specific briefs",
+        "2. Coordinate with production teams",
+        "3. Review and approve series content",
+        "4. Implement feedback and revisions",
+        "5. Deliver final series episodes"
+      ]
+    },
+    "Business-Support-Overseer": {
+      "role": "Business Support Director - Business operations oversight",
+      "tasks": [
+        "Oversee all business support operations",
+        "Coordinate with financial, legal, and customer support teams",
+        "Approve business processes and policies",
+        "Monitor business performance and compliance",
+        "Report progress to executive team"
+      ],
+      "performance_metrics": [
+        "Business process efficiency",
+        "Compliance adherence rate",
+        "Team collaboration effectiveness",
+        "Stakeholder satisfaction"
+      ],
+      "collaboration_protocols": [
+        "Works with Financial-Agent, Legal-Agent, Customer-Support-Agent, Quality-Control-Agent",
+        "Coordinates with executive and operational teams"
+      ],
+      "production_workflow": [
+        "1. Receive business objectives",
+        "2. Assign tasks to business support teams",
+        "3. Review and approve key processes",
+        "4. Oversee compliance and quality",
+        "5. Report outcomes to executives"
+      ]
+    },
+    "Financial-Agent": {
+      "role": "Financial Specialist - Financial operations and reporting",
+      "tasks": [
+        "Manage financial operations and accounting",
+        "Prepare financial reports and budgets",
+        "Monitor cash flow and expenses",
+        "Ensure financial compliance",
+        "Provide financial analysis and insights"
+      ],
+      "performance_metrics": [
+        "Financial accuracy and timeliness",
+        "Budget adherence",
+        "Compliance with financial regulations",
+        "Stakeholder satisfaction with financial reporting"
+      ],
+      "collaboration_protocols": [
+        "Works with Business-Support-Overseer, Legal-Agent, Quality-Control-Agent",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Receive financial data and requirements",
+        "2. Process and analyze financial information",
+        "3. Prepare reports and recommendations",
+        "4. Submit for review and approval",
+        "5. Implement approved financial strategies"
+      ]
+    },
+    "Legal-Agent": {
+      "role": "Legal Specialist - Legal compliance and risk management",
+      "tasks": [
+        "Handle legal matters and compliance",
+        "Review contracts and legal documents",
+        "Monitor regulatory changes",
+        "Provide legal advice and guidance",
+        "Manage legal risks and disputes"
+      ],
+      "performance_metrics": [
+        "Legal compliance rate",
+        "Contract review turnaround time",
+        "Risk mitigation effectiveness",
+        "Legal issue resolution rate"
+      ],
+      "collaboration_protocols": [
+        "Works with Business-Support-Overseer, Financial-Agent, Quality-Control-Agent",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Receive legal requests and documents",
+        "2. Review and analyze legal matters",
+        "3. Provide legal advice and recommendations",
+        "4. Draft and review legal documents",
+        "5. Monitor compliance and implementation"
+      ]
+    },
+    "Customer-Support-Agent": {
+      "role": "Customer Support Specialist - Customer service and support",
+      "tasks": [
+        "Provide customer support and assistance",
+        "Handle customer inquiries and complaints",
+        "Resolve customer issues and problems",
+        "Maintain customer relationships",
+        "Collect and report customer feedback"
+      ],
+      "performance_metrics": [
+        "Customer satisfaction scores",
+        "Response time to customer inquiries",
+        "Issue resolution rate",
+        "Customer retention rate"
+      ],
+      "collaboration_protocols": [
+        "Works with Business-Support-Overseer, Quality-Control-Agent, Feedback-Collector-Agent",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive and log new cases",
+        "2. Assign cases to appropriate teams",
+        "3. Monitor case progress and updates",
+        "4. Coordinate resolution efforts",
+        "5. Document and report case outcomes"
+      ]
+    },
+    "Quality-Control-Agent": {
+      "role": "Quality Control Specialist - Quality assurance and standards",
+      "tasks": [
+        "Ensure quality standards across all operations",
+        "Perform quality checks and audits",
+        "Document quality issues and improvements",
+        "Train teams on quality processes",
+        "Monitor quality metrics and trends"
+      ],
+      "performance_metrics": [
+        "Quality audit pass rate",
+        "Number of quality issues detected",
+        "Quality improvement implementation rate",
+        "Team compliance with quality standards"
+      ],
+      "collaboration_protocols": [
+        "Works with all business support agents",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive materials for quality review",
+        "2. Perform quality checks and audits",
+        "3. Document findings and recommendations",
+        "4. Coordinate improvements with teams",
+        "5. Monitor quality metrics and trends"
+      ]
+    },
+    "Compliance-Checker-Agent": {
+      "role": "Compliance Checker - Regulatory compliance monitoring",
+      "tasks": [
+        "Monitor compliance with regulations and policies",
+        "Conduct compliance audits and assessments",
+        "Document compliance issues and violations",
+        "Recommend compliance improvements",
+        "Train teams on compliance requirements"
+      ],
+      "performance_metrics": [
+        "Compliance audit pass rate",
+        "Number of compliance violations detected",
+        "Compliance improvement implementation rate",
+        "Regulatory update implementation time"
+      ],
+      "collaboration_protocols": [
+        "Works with Legal-Agent, Quality-Control-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Monitor regulatory changes and requirements",
+        "2. Conduct compliance audits and assessments",
+        "3. Document findings and violations",
+        "4. Recommend and implement improvements",
+        "5. Train teams on compliance requirements"
+      ]
+    },
+    "Case-Tracker-Agent": {
+      "role": "Case Tracker - Case management and tracking",
+      "tasks": [
+        "Track and manage business cases and issues",
+        "Monitor case progress and resolution",
+        "Coordinate case resolution with teams",
+        "Document case outcomes and learnings",
+        "Report case status to management"
+      ],
+      "performance_metrics": [
+        "Case resolution time",
+        "Case tracking accuracy",
+        "Stakeholder satisfaction with case management",
+        "Case outcome quality"
+      ],
+      "collaboration_protocols": [
+        "Works with Customer-Support-Agent, Legal-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive and log new cases",
+        "2. Assign cases to appropriate teams",
+        "3. Monitor case progress and updates",
+        "4. Coordinate resolution efforts",
+        "5. Document and report case outcomes"
+      ]
+    },
+    "Document-Filing-Agent": {
+      "role": "Document Filing Specialist - Document management and organization",
+      "tasks": [
+        "Manage document filing and organization",
+        "Ensure proper document categorization",
+        "Maintain document version control",
+        "Optimize document search and retrieval",
+        "Ensure document security and compliance"
+      ],
+      "performance_metrics": [
+        "Document organization accuracy",
+        "Document retrieval speed",
+        "Document security compliance",
+        "User satisfaction with document management"
+      ],
+      "collaboration_protocols": [
+        "Works with all business support agents",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive documents for filing",
+        "2. Categorize and organize documents",
+        "3. Implement version control",
+        "4. Optimize search and retrieval",
+        "5. Monitor document security and access"
+      ]
+    },
+    "Error-Detector-Agent": {
+      "role": "Error Detector - Error detection and reporting",
+      "tasks": [
+        "Detect and report errors in business processes",
+        "Monitor system and process performance",
+        "Identify potential issues and risks",
+        "Recommend error prevention strategies",
+        "Track error resolution and improvements"
+      ],
+      "performance_metrics": [
+        "Error detection rate",
+        "Error resolution time",
+        "Error prevention effectiveness",
+        "System uptime and reliability"
+      ],
+      "collaboration_protocols": [
+        "Works with Quality-Control-Agent, Business-Support-Overseer, IT teams",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Monitor systems and processes",
+        "2. Detect and analyze errors",
+        "3. Report errors to appropriate teams",
+        "4. Track error resolution progress",
+        "5. Recommend prevention strategies"
+      ]
+    },
+    "Performance-Evaluator-Agent": {
+      "role": "Performance Evaluator - Performance analysis and optimization",
+      "tasks": [
+        "Evaluate and analyze business performance",
+        "Identify performance improvement opportunities",
+        "Develop performance optimization strategies",
+        "Monitor performance metrics and trends",
+        "Report performance insights to management"
+      ],
+      "performance_metrics": [
+        "Performance improvement rate",
+        "Optimization strategy effectiveness",
+        "Metric accuracy and relevance",
+        "Stakeholder satisfaction with performance insights"
+      ],
+      "collaboration_protocols": [
+        "Works with all business support agents",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Collect and analyze performance data",
+        "2. Identify improvement opportunities",
+        "3. Develop optimization strategies",
+        "4. Implement and monitor improvements",
+        "5. Report performance insights and trends"
+      ]
+    },
+    "Ticket-Processor-Agent": {
+      "role": "Ticket Processor - Support ticket management",
+      "tasks": [
+        "Process and manage support tickets",
+        "Prioritize and assign tickets to teams",
+        "Monitor ticket resolution progress",
+        "Communicate with customers on ticket status",
+        "Document ticket outcomes and resolutions"
+      ],
+      "performance_metrics": [
+        "Ticket resolution time",
+        "Customer satisfaction with ticket handling",
+        "Ticket processing accuracy",
+        "Ticket backlog management"
+      ],
+      "collaboration_protocols": [
+        "Works with Customer-Support-Agent, Case-Tracker-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive and log support tickets",
+        "2. Prioritize and assign tickets",
+        "3. Monitor ticket progress",
+        "4. Communicate with customers",
+        "5. Document and close resolved tickets"
+      ]
+    },
+    "FAQ-Updater-Agent": {
+      "role": "FAQ Updater - FAQ content maintenance",
+      "tasks": [
+        "Maintain and update FAQ content",
+        "Analyze customer questions and feedback",
+        "Create new FAQ entries as needed",
+        "Optimize FAQ search and organization",
+        "Monitor FAQ effectiveness and usage"
+      ],
+      "performance_metrics": [
+        "FAQ content accuracy and relevance",
+        "FAQ usage and effectiveness",
+        "Customer satisfaction with FAQ",
+        "FAQ update turnaround time"
+      ],
+      "collaboration_protocols": [
+        "Works with Customer-Support-Agent, Feedback-Collector-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Analyze customer questions and feedback",
+        "2. Identify FAQ update needs",
+        "3. Create and update FAQ content",
+        "4. Optimize FAQ organization",
+        "5. Monitor FAQ effectiveness"
+      ]
+    },
+    "Feedback-Collector-Agent": {
+      "role": "Feedback Collector - Customer feedback collection and analysis",
+      "tasks": [
+        "Collect and analyze customer feedback",
+        "Identify feedback trends and patterns",
+        "Report feedback insights to teams",
+        "Coordinate feedback-driven improvements",
+        "Monitor feedback collection effectiveness"
+      ],
+      "performance_metrics": [
+        "Feedback collection rate",
+        "Feedback analysis accuracy",
+        "Feedback-driven improvement rate",
+        "Customer satisfaction with feedback process"
+      ],
+      "collaboration_protocols": [
+        "Works with Customer-Support-Agent, Performance-Evaluator-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Collect customer feedback from various sources",
+        "2. Analyze and categorize feedback",
+        "3. Identify trends and patterns",
+        "4. Report insights to relevant teams",
+        "5. Monitor improvement implementation"
+      ]
+    },
+    "Invoice-Agent": {
+      "role": "Invoice Specialist - Invoice processing and management",
+      "tasks": [
+        "Process and manage invoices",
+        "Ensure invoice accuracy and compliance",
+        "Track invoice payments and status",
+        "Generate invoice reports and analytics",
+        "Coordinate with financial and legal teams"
+      ],
+      "performance_metrics": [
+        "Invoice processing accuracy",
+        "Invoice processing speed",
+        "Payment tracking accuracy",
+        "Compliance with invoicing regulations"
+      ],
+      "collaboration_protocols": [
+        "Works with Financial-Agent, Legal-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive and review invoices",
+        "2. Process and validate invoices",
+        "3. Track payment status",
+        "4. Generate reports and analytics",
+        "5. Coordinate with teams for issue resolution"
+      ]
+    },
+    "Expense-Agent": {
+      "role": "Expense Manager - Expense tracking and management",
+      "tasks": [
+        "Track and manage business expenses",
+        "Monitor expense budgets and limits",
+        "Process expense reports and reimbursements",
+        "Analyze expense trends and patterns",
+        "Ensure expense policy compliance"
+      ],
+      "performance_metrics": [
+        "Expense tracking accuracy",
+        "Expense processing speed",
+        "Budget adherence rate",
+        "Expense policy compliance rate"
+      ],
+      "collaboration_protocols": [
+        "Works with Financial-Agent, Quality-Control-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive and review expense reports",
+        "2. Process and validate expenses",
+        "3. Monitor budget compliance",
+        "4. Analyze expense trends",
+        "5. Report expense insights to management"
+      ]
+    },
+    "Payroll-Agent": {
+      "role": "Payroll Specialist - Payroll processing and administration",
+      "tasks": [
+        "Process and manage payroll operations",
+        "Calculate salaries, taxes, and deductions",
+        "Ensure payroll compliance and accuracy",
+        "Handle payroll inquiries and issues",
+        "Generate payroll reports and analytics"
+      ],
+      "performance_metrics": [
+        "Payroll processing accuracy",
+        "Payroll processing speed",
+        "Compliance with payroll regulations",
+        "Employee satisfaction with payroll"
+      ],
+      "collaboration_protocols": [
+        "Works with Financial-Agent, Legal-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Collect and validate payroll data",
+        "2. Calculate salaries and deductions",
+        "3. Process payroll payments",
+        "4. Generate reports and analytics",
+        "5. Handle payroll inquiries and issues"
+      ]
+    },
+    "Tax-Agent": {
+      "role": "Tax Specialist - Tax compliance and management",
+      "tasks": [
+        "Handle tax calculations and compliance",
+        "Monitor tax law changes and updates",
+        "Prepare tax returns and filings",
+        "Coordinate with financial and legal teams",
+        "Provide tax advice and guidance"
+      ],
+      "performance_metrics": [
+        "Tax calculation accuracy",
+        "Tax compliance rate",
+        "Tax filing timeliness",
+        "Tax optimization effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Works with Financial-Agent, Legal-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Monitor tax law changes",
+        "2. Calculate taxes and prepare filings",
+        "3. Review and validate tax calculations",
+        "4. Submit tax filings and payments",
+        "5. Monitor tax compliance and optimization"
+      ]
+    },
+    "Financial-Report-Agent": {
+      "role": "Financial Report Specialist - Financial reporting and analysis",
+      "tasks": [
+        "Generate and manage financial reports",
+        "Analyze financial data and trends",
+        "Provide financial insights and recommendations",
+        "Ensure report accuracy and compliance",
+        "Coordinate with stakeholders on financial matters"
+      ],
+      "performance_metrics": [
+        "Report accuracy and timeliness",
+        "Financial analysis quality",
+        "Stakeholder satisfaction with reports",
+        "Compliance with reporting standards"
+      ],
+      "collaboration_protocols": [
+        "Works with Financial-Agent, Performance-Evaluator-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Collect and validate financial data",
+        "2. Analyze financial trends and patterns",
+        "3. Generate financial reports",
+        "4. Review and validate reports",
+        "5. Distribute reports to stakeholders"
+      ]
+    },
+    "Contract-Generator-Agent": {
+      "role": "Contract Generator - Contract creation and management",
+      "tasks": [
+        "Generate and manage business contracts",
+        "Ensure contract compliance and accuracy",
+        "Coordinate contract reviews and approvals",
+        "Maintain contract templates and standards",
+        "Track contract performance and renewals"
+      ],
+      "performance_metrics": [
+        "Contract generation accuracy",
+        "Contract review turnaround time",
+        "Contract compliance rate",
+        "Stakeholder satisfaction with contracts"
+      ],
+      "collaboration_protocols": [
+        "Works with Legal-Agent, Business-Support-Overseer, Financial-Agent",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive contract requirements",
+        "2. Generate contracts using templates",
+        "3. Review and validate contracts",
+        "4. Coordinate approvals and signatures",
+        "5. Monitor contract performance and renewals"
+      ]
+    },
+    "Review-Agent": {
+      "role": "Review Specialist - Review processes and assessments",
+      "tasks": [
+        "Conduct reviews and assessments",
+        "Evaluate processes and performance",
+        "Provide feedback and recommendations",
+        "Coordinate review processes with teams",
+        "Document review outcomes and actions"
+      ],
+      "performance_metrics": [
+        "Review accuracy and thoroughness",
+        "Review turnaround time",
+        "Review recommendation quality",
+        "Stakeholder satisfaction with reviews"
+      ],
+      "collaboration_protocols": [
+        "Works with Quality-Control-Agent, Performance-Evaluator-Agent, Business-Support-Overseer",
+        "Reports to Business-Support-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive review requests and materials",
+        "2. Conduct thorough reviews and assessments",
+        "3. Provide feedback and recommendations",
+        "4. Coordinate with teams on improvements",
+        "5. Document review outcomes and actions"
+      ]
+    },
+    "Content-Production-Overseer": {
+      "role": "Content Production Director - Content production oversight",
+      "tasks": [
+        "Oversee all content production operations",
+        "Coordinate with video, audio, and editing teams",
+        "Approve content plans and final deliverables",
+        "Monitor production timelines and quality",
+        "Report progress to executive team"
+      ],
+      "performance_metrics": [
+        "Production timeline adherence",
+        "Content quality (QA pass rate)",
+        "Team collaboration effectiveness",
+        "Stakeholder satisfaction"
+      ],
+      "collaboration_protocols": [
+        "Works with Render-Agent, Upload-Agent, YouTube-Channel-Agent, Daily-Production-Scheduler-Agent",
+        "Coordinates with executive and production teams"
+      ],
+      "production_workflow": [
+        "1. Receive content production objectives",
+        "2. Assign tasks to production teams",
+        "3. Review and approve content plans",
+        "4. Oversee final delivery and QA",
+        "5. Report outcomes to executives"
+      ]
+    },
+    "Render-Agent": {
+      "role": "Content Render Specialist - Video rendering and processing",
+      "tasks": [
+        "Render and process video content",
+        "Optimize render settings for quality and speed",
+        "Collaborate with editing and compositing teams",
+        "Troubleshoot rendering issues",
+        "Deliver final rendered assets"
+      ],
+      "performance_metrics": [
+        "Render quality (QA pass rate)",
+        "Render speed and efficiency",
+        "Feedback from production teams",
+        "Error rate in final renders"
+      ],
+      "collaboration_protocols": [
+        "Works with Scene-Editor-Agent, Effects-Agent, Content-Production-Overseer",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content for rendering",
+        "2. Set up and optimize render settings",
+        "3. Render content and review output",
+        "4. Troubleshoot and revise as needed",
+        "5. Deliver final rendered assets"
+      ]
+    },
+    "Upload-Agent": {
+      "role": "Content Upload Specialist - Content upload and distribution",
+      "tasks": [
+        "Upload content to various platforms",
+        "Optimize content for platform requirements",
+        "Manage upload schedules and metadata",
+        "Monitor upload success and performance",
+        "Coordinate with platform teams"
+      ],
+      "performance_metrics": [
+        "Upload success rate",
+        "Upload speed and efficiency",
+        "Platform compliance rate",
+        "Content performance after upload"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Production-Overseer, YouTube-Channel-Agent, Metadata-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content for upload",
+        "2. Prepare content for platform requirements",
+        "3. Upload and verify content",
+        "4. Monitor upload performance",
+        "5. Report upload status and metrics"
+      ]
+    },
+    "YouTube-Channel-Agent": {
+      "role": "YouTube Channel Manager - YouTube channel operations",
+      "tasks": [
+        "Manage YouTube channel operations",
+        "Coordinate content scheduling and publishing",
+        "Monitor channel performance and analytics",
+        "Optimize channel for growth and engagement",
+        "Coordinate with content and marketing teams"
+      ],
+      "performance_metrics": [
+        "Channel growth rate",
+        "Content engagement metrics",
+        "Channel optimization effectiveness",
+        "Stakeholder satisfaction"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Production-Overseer, Video-Scheduler-Agent, Analytics-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive channel objectives and content",
+        "2. Plan and schedule content publishing",
+        "3. Monitor channel performance",
+        "4. Optimize channel based on analytics",
+        "5. Report channel status and metrics"
+      ]
+    },
+    "Channel-Manager-Agent": {
+      "role": "Channel Management Specialist - Multi-channel coordination",
+      "tasks": [
+        "Manage multiple channel operations",
+        "Coordinate content across platforms",
+        "Ensure brand consistency across channels",
+        "Monitor cross-platform performance",
+        "Optimize channel strategies"
+      ],
+      "performance_metrics": [
+        "Multi-channel coordination effectiveness",
+        "Brand consistency across channels",
+        "Cross-platform performance",
+        "Channel strategy optimization"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Channel-Agent, Content-Production-Overseer, Analytics-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Coordinate content across multiple channels",
+        "2. Ensure brand consistency",
+        "3. Monitor cross-platform performance",
+        "4. Optimize channel strategies",
+        "5. Report multi-channel status"
+      ]
+    },
+    "Video-Scheduler-Agent": {
+      "role": "Video Scheduling Specialist - Content scheduling optimization",
+      "tasks": [
+        "Optimize video publishing schedules",
+        "Analyze audience behavior and timing",
+        "Coordinate with production and marketing teams",
+        "Monitor schedule performance",
+        "Adjust schedules based on analytics"
+      ],
+      "performance_metrics": [
+        "Schedule optimization effectiveness",
+        "Audience engagement at scheduled times",
+        "Schedule adherence rate",
+        "Performance improvement from scheduling"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Channel-Agent, Analytics-Agent, Content-Production-Overseer",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Analyze audience behavior and timing",
+        "2. Optimize publishing schedules",
+        "3. Coordinate with production teams",
+        "4. Monitor schedule performance",
+        "5. Adjust schedules based on results"
+      ]
+    },
+    "Thumbnail-Agent": {
+      "role": "Thumbnail Designer - Thumbnail creation and optimization",
+      "tasks": [
+        "Create compelling thumbnails for content",
+        "Optimize thumbnails for click-through rates",
+        "Ensure brand consistency in thumbnails",
+        "A/B test thumbnail designs",
+        "Coordinate with content and marketing teams"
+      ],
+      "performance_metrics": [
+        "Click-through rate improvement",
+        "Thumbnail approval rate",
+        "Brand consistency in thumbnails",
+        "A/B test results"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Production-Overseer, YouTube-Channel-Agent, Analytics-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content briefs for thumbnails",
+        "2. Design and create thumbnails",
+        "3. A/B test thumbnail designs",
+        "4. Optimize based on performance",
+        "5. Finalize and deliver thumbnails"
+      ]
+    },
+    "Metadata-Agent": {
+      "role": "Metadata Specialist - Content metadata optimization",
+      "tasks": [
+        "Optimize metadata for content discovery",
+        "Conduct keyword research and analysis",
+        "Manage tags and descriptions",
+        "Ensure SEO compliance",
+        "Monitor metadata performance"
+      ],
+      "performance_metrics": [
+        "Content discovery improvement",
+        "SEO performance metrics",
+        "Metadata accuracy and relevance",
+        "Search ranking improvements"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Production-Overseer, YouTube-Channel-Agent, Analytics-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content for metadata optimization",
+        "2. Conduct keyword research",
+        "3. Optimize metadata and tags",
+        "4. Monitor metadata performance",
+        "5. Adjust based on analytics"
+      ]
+    },
+    "Comment-Moderator-Agent": {
+      "role": "Comment Moderator - Community moderation and engagement",
+      "tasks": [
+        "Moderate user comments and discussions",
+        "Foster positive community engagement",
+        "Handle spam and inappropriate content",
+        "Respond to user inquiries",
+        "Report community trends and feedback"
+      ],
+      "performance_metrics": [
+        "Comment moderation effectiveness",
+        "Community engagement rate",
+        "Spam detection accuracy",
+        "User satisfaction with moderation"
+      ],
+      "collaboration_protocols": [
+        "Works with YouTube-Channel-Agent, Content-Production-Overseer, Analytics-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Monitor comments and discussions",
+        "2. Moderate inappropriate content",
+        "3. Engage with community members",
+        "4. Report community trends",
+        "5. Coordinate with teams on community issues"
+      ]
+    },
+    "Analytics-Agent": {
+      "role": "Analytics Specialist - Content performance analysis",
+      "tasks": [
+        "Analyze content performance and metrics",
+        "Provide insights for content optimization",
+        "Monitor trends and patterns",
+        "Generate performance reports",
+        "Support decision-making with data"
+      ],
+      "performance_metrics": [
+        "Analytics accuracy and timeliness",
+        "Insight quality and actionability",
+        "Report relevance and usefulness",
+        "Stakeholder satisfaction with analytics"
+      ],
+      "collaboration_protocols": [
+        "Works with all content production agents",
+        "Reports to Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Collect and analyze performance data",
+        "2. Identify trends and patterns",
+        "3. Generate insights and recommendations",
+        "4. Create and distribute reports",
+        "5. Support teams with data-driven decisions"
+      ]
+    },
+    "Daily-Production-Scheduler-Agent": {
+      "role": "Daily Production Scheduler - Daily production coordination",
+      "tasks": [
+        "Schedule and coordinate daily production activities",
+        "Allocate resources and manage timelines",
+        "Monitor daily production progress",
+        "Coordinate with all production teams",
+        "Report daily production status"
+      ],
+      "performance_metrics": [
+        "Daily schedule adherence",
+        "Resource allocation efficiency",
+        "Production timeline management",
+        "Team coordination effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Works with all content production agents",
+        "Reports to Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Plan daily production schedules",
+        "2. Allocate resources and assign tasks",
+        "3. Monitor production progress",
+        "4. Coordinate with teams for adjustments",
+        "5. Report daily status and metrics"
+      ]
+    },
+    "Task-Scheduler-Agent": {
+      "role": "Task Scheduler - Task optimization and resource allocation",
+      "tasks": [
+        "Optimize task scheduling and resource allocation",
+        "Manage task dependencies and priorities",
+        "Coordinate task assignments across teams",
+        "Monitor task completion and efficiency",
+        "Optimize workflow processes"
+      ],
+      "performance_metrics": [
+        "Task completion efficiency",
+        "Resource allocation optimization",
+        "Workflow process improvement",
+        "Task dependency management"
+      ],
+      "collaboration_protocols": [
+        "Works with all content production agents",
+        "Reports to Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Analyze task requirements and dependencies",
+        "2. Optimize task scheduling and allocation",
+        "3. Assign tasks to appropriate teams",
+        "4. Monitor task completion and efficiency",
+        "5. Optimize workflow processes"
+      ]
+    },
+    "Effects-Agent": {
+      "role": "Effects Specialist - Visual effects and enhancement",
+      "tasks": [
+        "Create and apply visual effects to content",
+        "Enhance content with special effects",
+        "Collaborate with editing and rendering teams",
+        "Ensure effects quality and performance",
+        "Maintain effects library and standards"
+      ],
+      "performance_metrics": [
+        "Effects quality and creativity",
+        "Effects performance optimization",
+        "Feedback from production teams",
+        "Effects library organization"
+      ],
+      "collaboration_protocols": [
+        "Works with Scene-Editor-Agent, Render-Agent, Content-Production-Overseer",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content for effects enhancement",
+        "2. Design and create visual effects",
+        "3. Apply and optimize effects",
+        "4. Collaborate with rendering teams",
+        "5. Maintain effects library and standards"
+      ]
+    },
+    "Footage-Organizer-Agent": {
+      "role": "Footage Organizer - Content organization and management",
+      "tasks": [
+        "Organize and manage content footage",
+        "Categorize and tag content assets",
+        "Optimize content storage and retrieval",
+        "Maintain content asset library",
+        "Coordinate with production teams"
+      ],
+      "performance_metrics": [
+        "Content organization accuracy",
+        "Asset retrieval speed and efficiency",
+        "Content library organization",
+        "Team satisfaction with content management"
+      ],
+      "collaboration_protocols": [
+        "Works with all content production agents",
+        "Reports to Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive and organize content footage",
+        "2. Categorize and tag content assets",
+        "3. Optimize storage and retrieval systems",
+        "4. Maintain content asset library",
+        "5. Coordinate with production teams"
+      ]
+    },
+    "Progress-Tracker-Agent": {
+      "role": "Progress Tracker - Production progress monitoring",
+      "tasks": [
+        "Track and monitor production progress",
+        "Update progress status and metrics",
+        "Identify production bottlenecks and issues",
+        "Coordinate with teams for progress updates",
+        "Report progress to management"
+      ],
+      "performance_metrics": [
+        "Progress tracking accuracy",
+        "Timeliness of progress updates",
+        "Bottleneck identification effectiveness",
+        "Stakeholder satisfaction with progress reporting"
+      ],
+      "collaboration_protocols": [
+        "Works with all content production agents",
+        "Reports to Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Monitor production progress across teams",
+        "2. Update progress status and metrics",
+        "3. Identify bottlenecks and issues",
+        "4. Coordinate with teams for updates",
+        "5. Report progress to management"
+      ]
+    },
+    "Reminder-Agent": {
+      "role": "Reminder Specialist - Task and deadline management",
+      "tasks": [
+        "Manage task reminders and deadlines",
+        "Coordinate with teams for task updates",
+        "Send timely reminders and notifications",
+        "Track task completion and deadlines",
+        "Report deadline adherence to management"
+      ],
+      "performance_metrics": [
+        "Reminder accuracy and timeliness",
+        "Deadline adherence rate",
+        "Task completion tracking accuracy",
+        "Team satisfaction with reminder system"
+      ],
+      "collaboration_protocols": [
+        "Works with all content production agents",
+        "Reports to Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Monitor task deadlines and requirements",
+        "2. Send timely reminders and notifications",
+        "3. Track task completion and updates",
+        "4. Coordinate with teams for status updates",
+        "5. Report deadline adherence to management"
+      ]
+    },
+    "Scene-Editor-Agent": {
+      "role": "Scene Editor - Video editing and scene composition",
+      "tasks": [
+        "Edit and compose video scenes",
+        "Collaborate with effects and rendering teams",
+        "Ensure scene quality and flow",
+        "Implement feedback from director",
+        "Prepare scenes for final rendering"
+      ],
+      "performance_metrics": [
+        "Scene editing quality",
+        "Scene composition effectiveness",
+        "Feedback from director and team",
+        "Scene preparation for rendering"
+      ],
+      "collaboration_protocols": [
+        "Works with Effects-Agent, Render-Agent, Content-Production-Overseer",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive footage for scene editing",
+        "2. Edit and compose scenes",
+        "3. Collaborate with effects teams",
+        "4. Implement feedback and revisions",
+        "5. Prepare scenes for final rendering"
+      ]
+    },
+    "Script-Agent": {
+      "role": "Script Specialist - Script creation and management",
+      "tasks": [
+        "Create and manage content scripts",
+        "Collaborate with director and production teams",
+        "Revise scripts based on feedback",
+        "Ensure script quality and alignment",
+        "Maintain script library and standards"
+      ],
+      "performance_metrics": [
+        "Script quality and creativity",
+        "Script approval rate",
+        "Feedback from director and team",
+        "Script library organization"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Production-Overseer, Scene-Editor-Agent, Analytics-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Receive content briefs for scripts",
+        "2. Create and review scripts",
+        "3. Collaborate with director and teams",
+        "4. Revise based on feedback",
+        "5. Finalize and archive scripts"
+      ]
+    },
+    "Movies-of-Peoples-Lives-Agent": {
+      "role": "Movies of People's Lives Specialist - Documentary content creation",
+      "tasks": [
+        "Create documentary-style content about people's lives",
+        "Research and develop story concepts",
+        "Coordinate with production and editing teams",
+        "Ensure content quality and authenticity",
+        "Manage documentary production workflow"
+      ],
+      "performance_metrics": [
+        "Documentary content quality",
+        "Story development effectiveness",
+        "Production workflow efficiency",
+        "Content authenticity and engagement"
+      ],
+      "collaboration_protocols": [
+        "Works with Content-Production-Overseer, Script-Agent, Scene-Editor-Agent",
+        "Receives direction from Content-Production-Overseer"
+      ],
+      "production_workflow": [
+        "1. Research and develop story concepts",
+        "2. Create documentary content plans",
+        "3. Coordinate with production teams",
+        "4. Ensure content quality and authenticity",
+        "5. Manage documentary production workflow"
+      ]
+    },
+    "Localization-Master-Agent": {
+      "role": "Multi-language content adaptation coordinator",
+      "tasks": [
+        "Coordinate translation across all 8 languages",
+        "Manage translation memory database",
+        "Ensure consistency across language versions",
+        "Perform quality control for translations",
+        "Optimize workflow for multi-language production"
+      ],
+      "performance_metrics": [
+        "Translation consistency across languages",
+        "Translation memory database accuracy",
+        "Quality control pass rate",
+        "Multi-language workflow efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with all language-specific localization agents",
+        "Coordinates with Voice-Localization-Master-Agent and Cultural-Adaptation-Master-Agent",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Receive content for multi-language adaptation",
+        "2. Coordinate translation across all languages",
+        "3. Manage translation memory and consistency",
+        "4. Perform quality control and validation",
+        "5. Deliver localized content to all markets"
+      ]
+    },
+    "Cultural-Adaptation-Master-Agent": {
+      "role": "Multi-cultural content adaptation coordinator",
+      "tasks": [
+        "Adapt cultural references for each market",
+        "Modify humor and jokes for cultural sensitivity",
+        "Adjust social norms and behaviors",
+        "Ensure cultural authenticity",
+        "Maintain brand consistency across cultures"
+      ],
+      "performance_metrics": [
+        "Cultural adaptation accuracy",
+        "Cultural sensitivity compliance",
+        "Brand consistency across cultures",
+        "Market-specific engagement rates"
+      ],
+      "collaboration_protocols": [
+        "Works with all language-specific localization agents",
+        "Coordinates with Localization-Master-Agent and marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Analyze content for cultural adaptation needs",
+        "2. Adapt cultural references and humor",
+        "3. Ensure cultural sensitivity and authenticity",
+        "4. Validate adaptations with cultural experts",
+        "5. Deliver culturally adapted content"
+      ]
+    },
+    "Voice-Localization-Master-Agent": {
+      "role": "Multi-language voice synthesis coordinator",
+      "tasks": [
+        "Coordinate voice synthesis across all languages",
+        "Manage voice casting for each language",
+        "Train accent-specific voice models",
+        "Ensure emotion matching across languages",
+        "Perform quality control for voice localization"
+      ],
+      "performance_metrics": [
+        "Voice synthesis quality across languages",
+        "Accent-specific voice model accuracy",
+        "Emotion matching consistency",
+        "Voice localization efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with all language-specific voice agents",
+        "Coordinates with Localization-Master-Agent",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Coordinate voice synthesis across all languages",
+        "2. Manage voice casting and model training",
+        "3. Ensure accent and emotion consistency",
+        "4. Perform quality control and validation",
+        "5. Deliver localized voice content"
+      ]
+    },
+    "English-Localization-Agent": {
+      "role": "English content optimization",
+      "tasks": [
+        "Optimize English content for global appeal",
+        "Ensure cultural neutrality for international markets",
+        "Maintain high-quality English standards",
+        "Adapt for different English-speaking regions"
+      ],
+      "performance_metrics": [
+        "English content quality and clarity",
+        "Global market appeal effectiveness",
+        "Cultural neutrality compliance",
+        "Regional adaptation accuracy"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, English-Voice-Agent, English-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for English optimization",
+        "2. Optimize for global appeal and clarity",
+        "3. Ensure cultural neutrality",
+        "4. Adapt for regional variations",
+        "5. Deliver optimized English content"
+      ]
+    },
+    "Mandarin-Localization-Agent": {
+      "role": "Mandarin Chinese content adaptation",
+      "tasks": [
+        "Translate and adapt content for Chinese market",
+        "Incorporate Chinese cultural references",
+        "Ensure compliance with Chinese content regulations",
+        "Optimize for Chinese social media platforms"
+      ],
+      "performance_metrics": [
+        "Translation accuracy and cultural appropriateness",
+        "Chinese regulatory compliance",
+        "Engagement on Chinese platforms",
+        "Cultural reference integration"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, Mandarin-Voice-Agent, Mandarin-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for Mandarin adaptation",
+        "2. Translate and incorporate cultural references",
+        "3. Ensure regulatory compliance",
+        "4. Optimize for Chinese platforms",
+        "5. Deliver localized Mandarin content"
+      ]
+    },
+    "Hindi-Localization-Agent": {
+      "role": "Hindi content adaptation",
+      "tasks": [
+        "Translate and adapt content for Indian market",
+        "Incorporate Indian cultural references",
+        "Handle regional dialect variations",
+        "Optimize for Indian streaming platforms"
+      ],
+      "performance_metrics": [
+        "Hindi translation accuracy",
+        "Indian cultural reference integration",
+        "Regional dialect handling",
+        "Indian platform optimization"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, Hindi-Voice-Agent, Hindi-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for Hindi adaptation",
+        "2. Translate and incorporate Indian cultural references",
+        "3. Handle regional dialect variations",
+        "4. Optimize for Indian platforms",
+        "5. Deliver localized Hindi content"
+      ]
+    },
+    "Spanish-Localization-Agent": {
+      "role": "Spanish content adaptation",
+      "tasks": [
+        "Translate and adapt content for Spanish-speaking markets",
+        "Handle Latin American vs European Spanish differences",
+        "Incorporate Hispanic cultural references",
+        "Optimize for Spanish streaming platforms"
+      ],
+      "performance_metrics": [
+        "Spanish translation accuracy",
+        "Regional Spanish variation handling",
+        "Hispanic cultural reference integration",
+        "Spanish platform optimization"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, Spanish-Voice-Agent, Spanish-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for Spanish adaptation",
+        "2. Translate and handle regional variations",
+        "3. Incorporate Hispanic cultural references",
+        "4. Optimize for Spanish platforms",
+        "5. Deliver localized Spanish content"
+      ]
+    },
+    "French-Localization-Agent": {
+      "role": "French content adaptation",
+      "tasks": [
+        "Translate and adapt content for French-speaking markets",
+        "Maintain formal language standards",
+        "Incorporate French cultural references",
+        "Optimize for European content standards"
+      ],
+      "performance_metrics": [
+        "French translation accuracy",
+        "Formal language standard compliance",
+        "French cultural reference integration",
+        "European content standard optimization"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, French-Voice-Agent, French-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for French adaptation",
+        "2. Translate and maintain formal standards",
+        "3. Incorporate French cultural references",
+        "4. Optimize for European standards",
+        "5. Deliver localized French content"
+      ]
+    },
+    "Arabic-Localization-Agent": {
+      "role": "Arabic content adaptation",
+      "tasks": [
+        "Translate and adapt content for Arabic-speaking markets",
+        "Handle right-to-left text formatting",
+        "Ensure cultural and religious sensitivity",
+        "Optimize for Middle Eastern content standards"
+      ],
+      "performance_metrics": [
+        "Arabic translation accuracy",
+        "Right-to-left formatting compliance",
+        "Cultural and religious sensitivity",
+        "Middle Eastern standard optimization"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, Arabic-Voice-Agent, Arabic-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for Arabic adaptation",
+        "2. Translate and handle right-to-left formatting",
+        "3. Ensure cultural and religious sensitivity",
+        "4. Optimize for Middle Eastern standards",
+        "5. Deliver localized Arabic content"
+      ]
+    },
+    "Bengali-Localization-Agent": {
+      "role": "Bengali content adaptation",
+      "tasks": [
+        "Translate and adapt content for Bengali-speaking markets",
+        "Handle Bangladesh vs Indian Bengali differences",
+        "Incorporate Bengali cultural references",
+        "Optimize for South Asian content standards"
+      ],
+      "performance_metrics": [
+        "Bengali translation accuracy",
+        "Regional Bengali variation handling",
+        "Bengali cultural reference integration",
+        "South Asian standard optimization"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, Bengali-Voice-Agent, Bengali-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for Bengali adaptation",
+        "2. Translate and handle regional variations",
+        "3. Incorporate Bengali cultural references",
+        "4. Optimize for South Asian standards",
+        "5. Deliver localized Bengali content"
+      ]
+    },
+    "Portuguese-Localization-Agent": {
+      "role": "Portuguese content adaptation",
+      "tasks": [
+        "Translate and adapt content for Portuguese-speaking markets",
+        "Handle Brazilian vs European Portuguese differences",
+        "Incorporate Portuguese cultural references",
+        "Optimize for Latin American content standards"
+      ],
+      "performance_metrics": [
+        "Portuguese translation accuracy",
+        "Regional Portuguese variation handling",
+        "Portuguese cultural reference integration",
+        "Latin American standard optimization"
+      ],
+      "collaboration_protocols": [
+        "Works with Localization-Master-Agent, Portuguese-Voice-Agent, Portuguese-Marketing-Agent",
+        "Receives direction from Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive content for Portuguese adaptation",
+        "2. Translate and handle regional variations",
+        "3. Incorporate Portuguese cultural references",
+        "4. Optimize for Latin American standards",
+        "5. Deliver localized Portuguese content"
+      ]
+    },
+    "English-Voice-Agent": {
+      "role": "English voice synthesis specialist",
+      "tasks": [
+        "Generate English voice synthesis",
+        "Train character-specific voice models",
+        "Ensure emotion and tone consistency",
+        "Perform quality control for English voice output"
+      ],
+      "performance_metrics": [
+        "English voice quality (QA pass rate)",
+        "Character voice consistency",
+        "Emotion and tone accuracy",
+        "Voice synthesis efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, English-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for English voice synthesis",
+        "2. Generate and train voice models",
+        "3. Ensure emotion and tone consistency",
+        "4. Perform quality control",
+        "5. Deliver English voice assets"
+      ]
+    },
+    "Mandarin-Voice-Agent": {
+      "role": "Mandarin voice synthesis specialist",
+      "tasks": [
+        "Generate Mandarin voice synthesis",
+        "Handle tonal language requirements",
+        "Train Chinese accent voice models",
+        "Perform quality control for Mandarin voice output"
+      ],
+      "performance_metrics": [
+        "Mandarin voice quality (QA pass rate)",
+        "Tonal language accuracy",
+        "Chinese accent authenticity",
+        "Voice synthesis efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, Mandarin-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for Mandarin voice synthesis",
+        "2. Generate and train tonal voice models",
+        "3. Ensure accent authenticity",
+        "4. Perform quality control",
+        "5. Deliver Mandarin voice assets"
+      ]
+    },
+    "Hindi-Voice-Agent": {
+      "role": "Hindi voice synthesis specialist",
+      "tasks": [
+        "Generate Hindi voice synthesis",
+        "Handle Indian accent variations",
+        "Train regional dialect voice models",
+        "Perform quality control for Hindi voice output"
+      ],
+      "performance_metrics": [
+        "Hindi voice quality (QA pass rate)",
+        "Indian accent accuracy",
+        "Regional dialect handling",
+        "Voice synthesis efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, Hindi-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for Hindi voice synthesis",
+        "2. Generate and train accent-specific models",
+        "3. Handle regional dialect variations",
+        "4. Perform quality control",
+        "5. Deliver Hindi voice assets"
+      ]
+    },
+    "Spanish-Voice-Agent": {
+      "role": "Spanish voice synthesis specialist",
+      "tasks": [
+        "Generate Spanish voice synthesis",
+        "Handle Latin American vs European accents",
+        "Train regional voice models",
+        "Perform quality control for Spanish voice output"
+      ],
+      "performance_metrics": [
+        "Spanish voice quality (QA pass rate)",
+        "Regional accent accuracy",
+        "Voice model training efficiency",
+        "Voice synthesis consistency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, Spanish-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for Spanish voice synthesis",
+        "2. Generate and train regional voice models",
+        "3. Handle accent variations",
+        "4. Perform quality control",
+        "5. Deliver Spanish voice assets"
+      ]
+    },
+    "French-Voice-Agent": {
+      "role": "French voice synthesis specialist",
+      "tasks": [
+        "Generate French voice synthesis",
+        "Handle formal French pronunciation",
+        "Train European accent voice models",
+        "Perform quality control for French voice output"
+      ],
+      "performance_metrics": [
+        "French voice quality (QA pass rate)",
+        "Formal pronunciation accuracy",
+        "European accent authenticity",
+        "Voice synthesis efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, French-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for French voice synthesis",
+        "2. Generate and train formal voice models",
+        "3. Ensure European accent authenticity",
+        "4. Perform quality control",
+        "5. Deliver French voice assets"
+      ]
+    },
+    "Arabic-Voice-Agent": {
+      "role": "Arabic voice synthesis specialist",
+      "tasks": [
+        "Generate Arabic voice synthesis",
+        "Handle Arabic pronunciation rules",
+        "Train Middle Eastern accent voice models",
+        "Perform quality control for Arabic voice output"
+      ],
+      "performance_metrics": [
+        "Arabic voice quality (QA pass rate)",
+        "Arabic pronunciation accuracy",
+        "Middle Eastern accent authenticity",
+        "Voice synthesis efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, Arabic-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for Arabic voice synthesis",
+        "2. Generate and train pronunciation-specific models",
+        "3. Ensure Middle Eastern accent authenticity",
+        "4. Perform quality control",
+        "5. Deliver Arabic voice assets"
+      ]
+    },
+    "Bengali-Voice-Agent": {
+      "role": "Bengali voice synthesis specialist",
+      "tasks": [
+        "Generate Bengali voice synthesis",
+        "Handle Bengali pronunciation",
+        "Train South Asian accent voice models",
+        "Perform quality control for Bengali voice output"
+      ],
+      "performance_metrics": [
+        "Bengali voice quality (QA pass rate)",
+        "Bengali pronunciation accuracy",
+        "South Asian accent authenticity",
+        "Voice synthesis efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, Bengali-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for Bengali voice synthesis",
+        "2. Generate and train pronunciation-specific models",
+        "3. Ensure South Asian accent authenticity",
+        "4. Perform quality control",
+        "5. Deliver Bengali voice assets"
+      ]
+    },
+    "Portuguese-Voice-Agent": {
+      "role": "Portuguese voice synthesis specialist",
+      "tasks": [
+        "Generate Portuguese voice synthesis",
+        "Handle Brazilian vs European Portuguese accents",
+        "Train Latin American accent voice models",
+        "Perform quality control for Portuguese voice output"
+      ],
+      "performance_metrics": [
+        "Portuguese voice quality (QA pass rate)",
+        "Regional accent accuracy",
+        "Latin American accent authenticity",
+        "Voice synthesis efficiency"
+      ],
+      "collaboration_protocols": [
+        "Works with Voice-Localization-Master-Agent, Portuguese-Localization-Agent",
+        "Receives direction from Voice-Localization-Master-Agent"
+      ],
+      "production_workflow": [
+        "1. Receive scripts for Portuguese voice synthesis",
+        "2. Generate and train regional voice models",
+        "3. Handle accent variations",
+        "4. Perform quality control",
+        "5. Deliver Portuguese voice assets"
+      ]
+    },
+    "English-Marketing-Agent": {
+      "role": "English market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for English-speaking markets",
+        "Create content promotion and distribution plans",
+        "Manage audience engagement and analytics",
+        "Ensure brand management for English markets"
+      ],
+      "performance_metrics": [
+        "English market engagement rates",
+        "Marketing strategy effectiveness",
+        "Brand consistency in English markets",
+        "ROI on English marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with English-Localization-Agent, English-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop English market marketing strategy",
+        "2. Create promotion and distribution plans",
+        "3. Execute marketing campaigns",
+        "4. Monitor engagement and analytics",
+        "5. Optimize based on performance data"
+      ]
+    },
+    "Mandarin-Marketing-Agent": {
+      "role": "Mandarin market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for Chinese markets",
+        "Manage WeChat, Weibo, and Chinese social media",
+        "Create Chinese audience engagement campaigns",
+        "Ensure brand management for Chinese markets"
+      ],
+      "performance_metrics": [
+        "Chinese market engagement rates",
+        "Chinese social media performance",
+        "Brand consistency in Chinese markets",
+        "ROI on Chinese marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with Mandarin-Localization-Agent, Mandarin-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop Chinese market marketing strategy",
+        "2. Create Chinese social media campaigns",
+        "3. Execute marketing initiatives",
+        "4. Monitor Chinese market performance",
+        "5. Optimize based on market data"
+      ]
+    },
+    "Hindi-Marketing-Agent": {
+      "role": "Hindi market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for Indian markets",
+        "Manage Indian social media and streaming platforms",
+        "Create Indian audience engagement campaigns",
+        "Ensure brand management for Indian markets"
+      ],
+      "performance_metrics": [
+        "Indian market engagement rates",
+        "Indian platform performance",
+        "Brand consistency in Indian markets",
+        "ROI on Indian marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with Hindi-Localization-Agent, Hindi-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop Indian market marketing strategy",
+        "2. Create Indian platform campaigns",
+        "3. Execute marketing initiatives",
+        "4. Monitor Indian market performance",
+        "5. Optimize based on market data"
+      ]
+    },
+    "Spanish-Marketing-Agent": {
+      "role": "Spanish market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for Spanish-speaking markets",
+        "Manage Latin American and European Spanish markets",
+        "Create Spanish audience engagement campaigns",
+        "Ensure brand management for Spanish markets"
+      ],
+      "performance_metrics": [
+        "Spanish market engagement rates",
+        "Regional Spanish market performance",
+        "Brand consistency in Spanish markets",
+        "ROI on Spanish marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with Spanish-Localization-Agent, Spanish-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop Spanish market marketing strategy",
+        "2. Create regional Spanish campaigns",
+        "3. Execute marketing initiatives",
+        "4. Monitor Spanish market performance",
+        "5. Optimize based on market data"
+      ]
+    },
+    "French-Marketing-Agent": {
+      "role": "French market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for French-speaking markets",
+        "Manage European and African French markets",
+        "Create French audience engagement campaigns",
+        "Ensure brand management for French markets"
+      ],
+      "performance_metrics": [
+        "French market engagement rates",
+        "Regional French market performance",
+        "Brand consistency in French markets",
+        "ROI on French marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with French-Localization-Agent, French-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop French market marketing strategy",
+        "2. Create regional French campaigns",
+        "3. Execute marketing initiatives",
+        "4. Monitor French market performance",
+        "5. Optimize based on market data"
+      ]
+    },
+    "Arabic-Marketing-Agent": {
+      "role": "Arabic market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for Arabic-speaking markets",
+        "Manage Middle Eastern and North African markets",
+        "Create Arabic audience engagement campaigns",
+        "Ensure brand management for Arabic markets"
+      ],
+      "performance_metrics": [
+        "Arabic market engagement rates",
+        "Regional Arabic market performance",
+        "Brand consistency in Arabic markets",
+        "ROI on Arabic marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with Arabic-Localization-Agent, Arabic-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop Arabic market marketing strategy",
+        "2. Create regional Arabic campaigns",
+        "3. Execute marketing initiatives",
+        "4. Monitor Arabic market performance",
+        "5. Optimize based on market data"
+      ]
+    },
+    "Bengali-Marketing-Agent": {
+      "role": "Bengali market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for Bengali-speaking markets",
+        "Manage Bangladesh and Indian Bengali markets",
+        "Create Bengali audience engagement campaigns",
+        "Ensure brand management for Bengali markets"
+      ],
+      "performance_metrics": [
+        "Bengali market engagement rates",
+        "Regional Bengali market performance",
+        "Brand consistency in Bengali markets",
+        "ROI on Bengali marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with Bengali-Localization-Agent, Bengali-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop Bengali market marketing strategy",
+        "2. Create regional Bengali campaigns",
+        "3. Execute marketing initiatives",
+        "4. Monitor Bengali market performance",
+        "5. Optimize based on market data"
+      ]
+    },
+    "Portuguese-Marketing-Agent": {
+      "role": "Portuguese market marketing specialist",
+      "tasks": [
+        "Develop marketing strategy for Portuguese-speaking markets",
+        "Manage Brazilian and Portuguese markets",
+        "Create Portuguese audience engagement campaigns",
+        "Ensure brand management for Portuguese markets"
+      ],
+      "performance_metrics": [
+        "Portuguese market engagement rates",
+        "Regional Portuguese market performance",
+        "Brand consistency in Portuguese markets",
+        "ROI on Portuguese marketing campaigns"
+      ],
+      "collaboration_protocols": [
+        "Works with Portuguese-Localization-Agent, Portuguese-Voice-Agent",
+        "Coordinates with affiliate marketing teams",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Develop Portuguese market marketing strategy",
+        "2. Create regional Portuguese campaigns",
+        "3. Execute marketing initiatives",
+        "4. Monitor Portuguese market performance",
+        "5. Optimize based on market data"
+      ]
+    },
+    "Multi-Language-QC-Agent": {
+      "role": "Multi-language quality control specialist",
+      "tasks": [
+        "Perform quality control across all 8 languages",
+        "Verify translation accuracy and consistency",
+        "Check cultural sensitivity and appropriateness",
+        "Assess voice quality and synchronization",
+        "Validate content consistency across languages"
+      ],
+      "performance_metrics": [
+        "Multi-language QA pass rate",
+        "Translation accuracy verification",
+        "Cultural sensitivity compliance",
+        "Voice quality assessment accuracy"
+      ],
+      "collaboration_protocols": [
+        "Works with all language-specific agents",
+        "Coordinates with Localization-Master-Agent and Voice-Localization-Master-Agent",
+        "Reports to executive team"
+      ],
+      "production_workflow": [
+        "1. Receive localized content for quality control",
+        "2. Verify translation accuracy and consistency",
+        "3. Check cultural sensitivity and appropriateness",
+        "4. Assess voice quality and synchronization",
+        "5. Validate and approve final localized content"
+      ]
+    }
+  }
+} 

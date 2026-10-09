@@ -1,0 +1,65 @@
+{
+  "id": "subtitles_fixture_v1",
+  "purpose": "The one fixed narration every subtitle pipeline run is measured on. Numbers are SPELLED OUT so the synthesiser reads them right; the formatter must turn them into digits (standing rule).",
+  "verified": false,
+  "how_to_verify": "1) synthesise `audio` with the voices below; 2) open it in Audacity; 3) for each entry in verified_words, set `t` to the word's onset in seconds (3 decimals); 4) set verified = true. The five timing columns stay `untested — key unverified` until then.",
+  "audio": {
+    "path": "capability_tests/fixtures/subtitles/narration.wav",
+    "sample_rate": 48000,
+    "channels": 1,
+    "voices": {
+      "NARRATOR": "the house documentary narrator voice (Narration Audio Stack default), English",
+      "CORNELIS": "the Cornelis bench voice, Dutch",
+      "ANNA": "the Anna voice used on the ledger intro, Dutch"
+    },
+    "assembly": "concatenate the segments in order with the silences given; insert bell.wav at [bell] and dog_bark.wav at [dog barks] from the SFX library slates; loudnorm -16 LUFS after a limiter (scene audio levels rule)"
+  },
+  "segments": [
+    {"n": 1, "speaker": "NARRATOR", "lang": "en", "text": "In sixteen seventy-one, the yard at Kattenburg launched a pinas they called the Zeehond.", "silence_after": 0.6},
+    {"n": 2, "speaker": "NARRATOR", "lang": "en", "text": "Nicolaes Witsen wrote it all down, from the first keel plank to the last twenty-three barrels of tar.", "silence_after": 0.6},
+    {"n": 3, "speaker": "NARRATOR", "lang": "en", "text": "Cornelis, the master shipwright, kept a book of his own, and his apprentice Joost kept the key to it.", "silence_after": 0.8},
+    {"n": 4, "speaker": "SFX", "lang": "-", "text": "[bell]", "silence_after": 0.4},
+    {"n": 5, "speaker": "NARRATOR", "lang": "en", "text": "The launch was set for the morning tide, when the water at the gauge stood highest and the wind, which had blown from the north-east for eleven days without pause and had kept every ship in the harbour idle at its moorings, finally turned to the south-west and let the yard breathe again.", "silence_after": 0.8, "note": "the planted long sentence: forces three or more cues and tests breaks on sense"},
+    {"n": 6, "speaker": "NARRATOR", "lang": "en", "text": "I— I mean, the second tide. The first one came too early.", "silence_after": 0.6, "note": "the planted false start: verbatim must keep it"},
+    {"n": 7, "speaker": "SFX", "lang": "-", "text": "[dog barks]", "silence_after": 0.4},
+    {"n": 8, "speaker": "CORNELIS", "lang": "nl", "text": "Drieëntwintig tonnen teer, Joost. Niet tweeëntwintig. Tel ze nog eens.", "silence_after": 0.3},
+    {"n": 9, "speaker": "ANNA", "lang": "nl", "text": "Hij heeft ze drie keer geteld, Cornelis. Het zijn er drieëntwintig.", "silence_after": 0.3, "note": "two speakers back to back: the speaker probe"},
+    {"n": 10, "speaker": "CORNELIS", "lang": "nl", "text": "Dan is er één te veel op het schip.", "silence_after": 0.8},
+    {"n": 11, "speaker": "NARRATOR", "lang": "en", "text": "By noon the Zeehond was in the water, and Witsen's drawing of her hull was already on its way to the printer.", "silence_after": 0.6},
+    {"n": 12, "speaker": "NARRATOR", "lang": "en", "text": "Twenty-three barrels went with her. One of them, Cornelis always said, was never paid for.", "silence_after": 1.0}
+  ],
+  "transcript_verbatim": "the concatenation of segments 1-12 text fields, SFX segments excluded, in order — the WER reference",
+  "expected_digits": ["1671", "23 barrels", "23 tonnen", "22 tonnen", "11 days", "1 te veel"],
+  "verified_words": [
+    {"segment": 1, "word": "sixteen", "t": null},
+    {"segment": 1, "word": "Kattenburg", "t": null},
+    {"segment": 1, "word": "Zeehond", "t": null},
+    {"segment": 2, "word": "Witsen", "t": null},
+    {"segment": 2, "word": "twenty-three", "t": null},
+    {"segment": 3, "word": "Cornelis", "t": null},
+    {"segment": 3, "word": "Joost", "t": null},
+    {"segment": 5, "word": "launch", "t": null},
+    {"segment": 5, "word": "eleven", "t": null},
+    {"segment": 5, "word": "south-west", "t": null},
+    {"segment": 6, "word": "second", "t": null},
+    {"segment": 8, "word": "Drieëntwintig", "t": null},
+    {"segment": 8, "word": "Tel", "t": null},
+    {"segment": 9, "word": "drie", "t": null},
+    {"segment": 9, "word": "Cornelis", "t": null},
+    {"segment": 10, "word": "één", "t": null},
+    {"segment": 11, "word": "noon", "t": null},
+    {"segment": 11, "word": "printer", "t": null},
+    {"segment": 12, "word": "Twenty-three", "t": null},
+    {"segment": 12, "word": "paid", "t": null}
+  ],
+  "video": {
+    "path": "capability_tests/fixtures/subtitles/cutlist.mp4",
+    "cuts": [10.0, 25.5, 41.0, 63.0, 88.0, 120.0, 150.0],
+    "command": "ffmpeg -y -f lavfi -i \"color=c=0x203040:s=1280x720:r=25:d=DUR\" -i narration.wav -filter_complex \"[0:v]drawtext=text='%{pts\\:hms}':fontsize=48:fontcolor=white:x=40:y=40, drawbox=enable='between(t,10,25.5)+between(t,41,63)+between(t,88,120)+gte(t,150)':x=0:y=0:w=1280:h=720:color=0x604020@1.0:t=fill[v]\" -map \"[v]\" -map 1:a -c:v libx264 -crf 18 -pix_fmt yuv420p -c:a aac -shortest cutlist.mp4",
+    "note": "DUR = the audio length; the drawbox toggles the background colour at every cut so the cut list is visible to the eye and to a shot-change detector"
+  },
+  "burn": {
+    "filter": "the house subtitles filter in pipeline_video._burn_subtitles (fontsize, margin, box) — unchanged",
+    "ocr": "typography OCR judge on a 1280x720 frame at each sampled cue midpoint"
+  }
+}

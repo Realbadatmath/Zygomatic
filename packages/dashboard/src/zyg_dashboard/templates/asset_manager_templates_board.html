@@ -1,0 +1,285 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Templates Board</title>
+<link rel="icon" href="/static/favicon.ico?v=20260825" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png?v=20260825">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png?v=20260825">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png?v=20260825">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0d0f14;color:#c8ccd6;font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;overflow:hidden}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:#151820}
+::-webkit-scrollbar-thumb{background:#2a3045;border-radius:3px}
+
+/* ── header ── */
+#hdr{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#111420;border-bottom:1px solid #1e2438;min-height:44px;flex-shrink:0}
+#hdr-title{font-size:13px;font-weight:600;color:#6ee7f7;letter-spacing:.05em;text-transform:uppercase}
+#hdr-count{font-size:11px;color:#5a6480;margin-left:4px}
+#hdr-filter{display:flex;gap:6px;margin-left:auto;align-items:center}
+.filter-btn{background:#1a1f30;border:1px solid #2a3045;color:#8899bb;font-size:11px;padding:3px 10px;border-radius:12px;cursor:pointer;transition:all .15s}
+.filter-btn:hover{border-color:#6ee7f7;color:#6ee7f7}
+.filter-btn.active{background:#1b3a42;border-color:#6ee7f7;color:#6ee7f7}
+#refresh-btn{background:none;border:1px solid #2a3045;color:#5a6480;font-size:11px;padding:3px 8px;border-radius:4px;cursor:pointer;transition:all .15s}
+#refresh-btn:hover{border-color:#6ee7f7;color:#6ee7f7}
+
+/* ── layout ── */
+#board{display:flex;gap:0;height:calc(calc(100vh / var(--ui-zoom,1)) - 44px);overflow:hidden}
+
+/* ── column ── */
+.col{display:flex;flex-direction:column;min-width:220px;flex:1;border-right:1px solid #161b28}
+.col:last-child{border-right:none}
+.col-hdr{padding:10px 14px 8px;display:flex;align-items:center;gap:8px;flex-shrink:0;background:#111420}
+.col-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.col-name{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.col-cnt{font-size:10px;color:#3a4460;margin-left:auto}
+.col-body{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:8px}
+
+/* ── card ── */
+.card{background:#141824;border:1px solid #1e2438;border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .15s,transform .1s}
+.card:hover{border-color:#6ee7f7;transform:translateY(-1px)}
+.card-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#0a0c12}
+.card-thumb.no-img{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:#0e1120;color:#2a3045;font-size:28px}
+.card-body{padding:8px 10px 9px}
+.card-title{font-size:11px;font-weight:500;color:#c8ccd6;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:5px}
+.card-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 6px;border-radius:8px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.tag-documentary{background:#1a2a1a;color:#5adb7a}
+.tag-scholarly{background:#1a2030;color:#6eb0f7}
+.tag-crime{background:#2a1a1a;color:#f7706e}
+.tag-clipfarm{background:#2a2010;color:#f7c06e}
+.tag-general{background:#1e1e2a;color:#8888cc}
+.card-dur{font-size:9px;color:#3a4460;margin-left:auto}
+.card-date{font-size:9px;color:#2d3550;margin-top:3px}
+
+/* ── empty state ── */
+.col-empty{text-align:center;color:#2a3045;padding:24px 12px;font-size:11px;line-height:1.6}
+
+/* ── loading / error ── */
+#overlay{position:fixed;inset:0;background:#0d0f14;display:flex;align-items:center;justify-content:center;z-index:99;flex-direction:column;gap:12px}
+#overlay-msg{color:#3a4460;font-size:12px}
+.spinner{width:24px;height:24px;border:2px solid #1e2438;border-top-color:#6ee7f7;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+<style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+</head>
+<body>
+
+<div id="overlay"><div class="spinner"></div><div id="overlay-msg">Loading templates…</div></div>
+
+<div id="hdr" style="display:none">
+  <span id="hdr-title">Templates Board</span>
+  <span id="hdr-count"></span>
+  <div id="hdr-filter">
+    <button class="filter-btn active" data-cat="all">All</button>
+    <button class="filter-btn" data-cat="scholarly">Scholarly</button>
+    <button class="filter-btn" data-cat="crime">Crime</button>
+    <button class="filter-btn" data-cat="clipfarm">Clipfarm</button>
+    <button class="filter-btn" data-cat="general">General</button>
+    <button id="refresh-btn" title="Refresh">↻</button>
+  </div>
+</div>
+
+<div id="board" style="display:none">
+  <div class="col" id="col-scholarly">
+    <div class="col-hdr">
+      <span class="col-dot" style="background:#6eb0f7"></span>
+      <span class="col-name" style="color:#6eb0f7">Scholarly</span>
+      <span class="col-cnt" id="cnt-scholarly">0</span>
+    </div>
+    <div class="col-body" id="body-scholarly"></div>
+  </div>
+  <div class="col" id="col-crime">
+    <div class="col-hdr">
+      <span class="col-dot" style="background:#f7706e"></span>
+      <span class="col-name" style="color:#f7706e">Crime</span>
+      <span class="col-cnt" id="cnt-crime">0</span>
+    </div>
+    <div class="col-body" id="body-crime"></div>
+  </div>
+  <div class="col" id="col-clipfarm">
+    <div class="col-hdr">
+      <span class="col-dot" style="background:#f7c06e"></span>
+      <span class="col-name" style="color:#f7c06e">Clipfarm</span>
+      <span class="col-cnt" id="cnt-clipfarm">0</span>
+    </div>
+    <div class="col-body" id="body-clipfarm"></div>
+  </div>
+  <div class="col" id="col-general">
+    <div class="col-hdr">
+      <span class="col-dot" style="background:#8888cc"></span>
+      <span class="col-name" style="color:#8888cc">General</span>
+      <span class="col-cnt" id="cnt-general">0</span>
+    </div>
+    <div class="col-body" id="body-general"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var _activeFilter = 'all';
+  var _allOutputs   = [];
+  var _timer        = null;
+
+  function _fmtDur(s){
+    if (!s) return '';
+    var m = Math.floor(s/60), sec = s%60;
+    return m + ':' + (sec<10?'0':'') + sec;
+  }
+
+  function _fmtDate(ts){
+    if (!ts) return '';
+    try { return new Date(ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit'}); }
+    catch(e){ return ''; }
+  }
+
+  function _tagHtml(tags){
+    if (!tags || !tags.length) return '';
+    return tags.slice(0,3).map(function(t){
+      return '<span class="tag tag-'+t.toLowerCase()+'">'+t+'</span>';
+    }).join('');
+  }
+
+  function _makeCard(o){
+    var thumbSrc = o.thumb
+      ? '/api/templates/thumb/' + o.id + '/' + o.thumb
+      : null;
+    var thumbHtml = thumbSrc
+      ? '<img class="card-thumb" src="' + thumbSrc + '" alt="" loading="lazy" onerror="this.parentNode.replaceChild((function(){var d=document.createElement(\'div\');d.className=\'card-thumb no-img\';d.textContent=\'🎬\';return d;}()),this)">'
+      : '<div class="card-thumb no-img">🎬</div>';
+    var title = o.subject || o.id.slice(0,16);
+    // Capitalise first letter
+    title = title.charAt(0).toUpperCase() + title.slice(1);
+    return '<div class="card" data-id="'+o.id+'" data-cat="'+o.category+'">'
+      + thumbHtml
+      + '<div class="card-body">'
+      + '<div class="card-title">'+_esc(title)+'</div>'
+      + '<div class="card-meta">'+_tagHtml(o.tags)
+      + (o.duration ? '<span class="card-dur">'+_fmtDur(o.duration)+'</span>' : '')
+      + '</div>'
+      + (o.timestamp ? '<div class="card-date">'+_fmtDate(o.timestamp)+'</div>' : '')
+      + '</div></div>';
+  }
+
+  function _esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function _render(outputs){
+    var cols = {scholarly:[], crime:[], clipfarm:[], general:[]};
+    var filter = _activeFilter;
+    outputs.forEach(function(o){
+      var cat = o.category || 'general';
+      if (filter !== 'all' && cat !== filter) return;
+      if (!cols[cat]) cols[cat] = [];
+      cols[cat].push(o);
+    });
+    var total = 0;
+    ['scholarly','crime','clipfarm','general'].forEach(function(cat){
+      var list = cols[cat] || [];
+      total += list.length;
+      document.getElementById('cnt-'+cat).textContent = list.length;
+      var body = document.getElementById('body-'+cat);
+      if (!list.length){
+        body.innerHTML = '<div class="col-empty">No completed<br>'+cat+' outputs</div>';
+      } else {
+        body.innerHTML = list.map(_makeCard).join('');
+      }
+    });
+    document.getElementById('hdr-count').textContent = '(' + total + ')';
+  }
+
+  function _load(){
+    fetch('/api/templates/outputs')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        _allOutputs = data.outputs || [];
+        _render(_allOutputs);
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('hdr').style.display     = 'flex';
+        document.getElementById('board').style.display   = 'flex';
+      })
+      .catch(function(e){
+        document.getElementById('overlay-msg').textContent = 'Error loading templates: ' + e.message;
+      });
+  }
+
+  // filter buttons
+  document.getElementById('hdr-filter').addEventListener('click', function(e){
+    var btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    _activeFilter = btn.dataset.cat;
+    _render(_allOutputs);
+    // show/hide columns based on filter
+    ['scholarly','crime','clipfarm','general'].forEach(function(cat){
+      var col = document.getElementById('col-'+cat);
+      col.style.display = (_activeFilter === 'all' || _activeFilter === cat) ? 'flex' : 'none';
+    });
+  });
+
+  document.getElementById('refresh-btn').addEventListener('click', _load);
+
+  // auto-refresh every 30s
+  _timer = setInterval(_load, 30000);
+
+  _load();
+})();
+</script>
+</body>
+</html>

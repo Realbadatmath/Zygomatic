@@ -1,0 +1,98 @@
+{
+  "1001": {
+    "name": "Stable Diffusion 1.5 XL",
+    "gradient": "/static/Gradients/more_gradients/gradient_01.png"
+  },
+  "1002": {
+    "name": "Dreamshaper Realisticvision",
+    "gradient": "/static/Gradients/more_gradients/gradient_02.png"
+  },
+  "1003": {
+    "name": "Animatediff",
+    "gradient": "/static/Gradients/more_gradients/gradient_03.png"
+  },
+  "1004": {
+    "name": "Stable Video Diffusion",
+    "gradient": "/static/Gradients/more_gradients/gradient_04.png"
+  },
+  "1005": {
+    "name": "Controlnet",
+    "gradient": "/static/Gradients/more_gradients/gradient_05.png"
+  },
+  "1006": {
+    "name": "Realesrgan",
+    "gradient": "/static/Gradients/more_gradients/gradient_06.png"
+  },
+  "1009": {
+    "name": "Blender (bpy)",
+    "gradient": "/static/Gradients/more_gradients/gradient_07.png"
+  },
+  "1010": {
+    "name": "Kandinsky 2.2",
+    "gradient": "/static/Gradients/more_gradients/gradient_08.png"
+  },
+  "1011": {
+    "name": "Deforum",
+    "gradient": "/static/Gradients/more_gradients/gradient_09.png"
+  },
+  "1012": {
+    "name": "ComfyUI",
+    "gradient": "/static/Gradients/more_gradients/gradient_10.png"
+  },
+  "1013": {
+    "name": "Dreambooth",
+    "gradient": "/static/Gradients/more_gradients/gradient_11.png"
+  },
+  "1016": {
+    "name": "Clip",
+    "gradient": "/static/Gradients/more_gradients/gradient_12.png"
+  },
+  "1030": {
+    "name": "Claude 3",
+    "gradient": "/static/Gradients/more_gradients/gradient_13.png"
+  },
+  "1035": {
+    "name": "VAE",
+    "gradient": "/static/Gradients/more_gradients/gradient_14.png"
+  },
+  "1036": {
+    "name": "LoRA",
+    "gradient": "/static/Gradients/more_gradients/gradient_15.png"
+  },
+  "1037": {
+    "name": "Davinci Resolve",
+    "gradient": "/static/Gradients/more_gradients/gradient_16.png"
+  },
+  "1042": {
+    "name": "Midjourney",
+    "gradient": "/static/Gradients/more_gradients/gradient_17.png"
+  },
+  "1044": {
+    "name": "Runway",
+    "gradient": "/static/Gradients/more_gradients/gradient_18.png"
+  },
+  "1045": {
+    "name": "Stable Diffusion",
+    "gradient": "/static/Gradients/more_gradients/gradient_19.png"
+  },
+  "1046": {
+    "name": "Pika Labs",
+    "gradient": "/static/Gradients/more_gradients/gradient_20.png"
+  },
+  "1048": {
+    "name": "Whisper",
+    "gradient": "/static/Gradients/more_gradients/gradient_05.png"
+  },
+  "1049": {
+    "name": "OpenCV",
+    "gradient": "/static/Gradients/more_gradients/gradient_06.png"
+  },
+  "1050": {
+    "name": "ImageHash + OpenCV",
+    "gradient": "/static/Gradients/more_gradients/gradient_07.png"
+  },
+  "1051": {
+    "name": "YOLOv8 Segment Anything",
+    "gradient": "/static/Gradients/more_gradients/gradient_08.png"
+  }
+} 

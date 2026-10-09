@@ -1,0 +1,870 @@
+/* ---------------------------------------------------------------------------
+ * Agent Zero v2 — chat window.
+ *
+ * Theme lives entirely on the --az-* variables declared on #agent-zero-window,
+ * so a dark variant is a single block override. Sizes are px/rem like the other
+ * dashboard panels (the page runs at html zoom .67, see dashboard_core.css).
+ * ------------------------------------------------------------------------- */
+
+#agent-zero-window {
+    --az-bg: #f7f8fb;
+    --az-fg: #0d1117;
+    --az-muted: #5b6472;
+    --az-accent: #7a8bb3;
+    --az-accent-dark: #6a7ba3;
+    --az-border: #cbd5e0;
+    --az-user-bubble: #e8ecf7;
+    --az-code-bg: #1b212c;
+    --az-code-fg: #e6edf3;
+    --az-ok: #2f855a;
+    --az-err: #c0392b;
+    --az-warn: #b7791f;
+}
+
+/* --- overlay + window ---------------------------------------------------- */
+#agent-zero-overlay {
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    z-index: 9000;
+    display: none;
+}
+
+/* zero_chat.js also sets the inline display ('flex'/'none'), because the iframe
+ * hotkey bridge in enhanced_dashboard.html reads overlay.style.display. */
+#agent-zero-overlay.az-open {
+    display: flex;
+}
+
+#agent-zero-window {
+    position: fixed;
+    z-index: 9001;
+    width: 960px;
+    height: 700px;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+    min-width: 520px;
+    min-height: 360px;
+    background: var(--az-bg);
+    color: var(--az-fg);
+    border: 1px solid var(--az-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.26);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    resize: both;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+#agent-zero-window.az-maximised {
+    left: 20px !important;
+    top: 20px !important;
+    width: calc(100vw - 40px) !important;
+    height: calc(100vh - 40px) !important;
+    resize: none;
+}
+
+/* --- header -------------------------------------------------------------- */
+.az-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: linear-gradient(140deg, #e8ecf7, #b8c5e0 50%, var(--az-accent));
+    border-bottom: 1px solid var(--az-border);
+    cursor: grab;
+    user-select: none;
+    flex: 0 0 auto;
+}
+
+.az-header:active {
+    cursor: grabbing;
+}
+
+.az-title {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-right: 2px;
+}
+
+.az-session-title {
+    flex: 1 1 auto;
+    min-width: 60px;
+    font-weight: 500;
+    color: #1d2430;
+    padding: 2px 6px;
+    border-radius: 5px;
+    cursor: text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.az-session-title:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.az-hbtn {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(13, 17, 23, 0.14);
+    border-radius: 6px;
+    color: #0d1117;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 9px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+.az-hbtn:hover {
+    background: #fff;
+}
+
+.az-hbtn.az-on {
+    background: var(--az-accent-dark);
+    color: #fff;
+}
+
+.az-hbtn-icon {
+    width: 26px;
+    height: 24px;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.az-hbtn-dot {
+    position: relative;
+}
+
+.az-hbtn-dot::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--az-err);
+}
+
+.az-budget-pill {
+    font-variant-numeric: tabular-nums;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(13, 17, 23, 0.14);
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.az-budget-pill.az-blocked {
+    background: #ffe8cc;
+    border-color: var(--az-warn);
+    color: #7a4a00;
+}
+
+/* --- popovers (model fallback, budget, gear, slash) ---------------------- */
+.az-pop {
+    position: fixed;
+    z-index: 9100;
+    min-width: 220px;
+    max-width: 420px;
+    max-height: 60vh;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid var(--az-border);
+    border-radius: 9px;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.22);
+    padding: 8px;
+    font-size: 13px;
+}
+
+.az-pop-row {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 8px;
+    cursor: pointer;
+    color: var(--az-fg);
+    font-size: 13px;
+}
+
+.az-pop-row:hover,
+.az-pop-row.az-sel {
+    background: var(--az-user-bubble);
+}
+
+.az-pop-row .az-pop-hint {
+    color: var(--az-muted);
+    font-size: 11px;
+    margin-left: 6px;
+}
+
+.az-pop h4 {
+    margin: 2px 4px 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--az-muted);
+}
+
+.az-pop select {
+    width: 100%;
+    font-size: 13px;
+    padding: 4px;
+}
+
+/* --- body: drawer + transcript ------------------------------------------ */
+.az-body {
+    flex: 1 1 auto;
+    display: flex;
+    min-height: 0;
+}
+
+.az-drawer {
+    flex: 0 0 240px;
+    width: 240px;
+    display: none;
+    flex-direction: column;
+    border-right: 1px solid var(--az-border);
+    background: #eef1f7;
+    min-height: 0;
+}
+
+.az-drawer.az-open {
+    display: flex;
+}
+
+.az-drawer-head {
+    padding: 8px 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--az-muted);
+    border-bottom: 1px solid var(--az-border);
+}
+
+.az-drawer-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 6px;
+}
+
+.az-sess {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-bottom: 3px;
+}
+
+.az-sess:hover {
+    background: #e2e7f2;
+}
+
+.az-sess.az-cur {
+    background: var(--az-user-bubble);
+    box-shadow: inset 0 0 0 1px var(--az-accent);
+}
+
+.az-sess-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.az-sess-title {
+    font-size: 13px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.az-sess-meta {
+    font-size: 11px;
+    color: var(--az-muted);
+}
+
+.az-sess-del {
+    flex: 0 0 auto;
+    background: none;
+    border: none;
+    color: var(--az-muted);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 2px;
+}
+
+.az-sess-del:hover {
+    color: var(--az-err);
+}
+
+.az-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+}
+
+.az-transcript {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 16px 20px 8px;
+    min-height: 0;
+    scroll-behavior: smooth;
+}
+
+/* --- messages ------------------------------------------------------------ */
+.az-msg {
+    margin: 0 0 14px;
+}
+
+.az-msg-user {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.az-msg-user .az-bubble {
+    background: var(--az-user-bubble);
+    border: 1px solid #d3dbec;
+    border-radius: 12px 12px 4px 12px;
+    padding: 8px 12px;
+    max-width: 78%;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.az-msg-user .az-thumb {
+    display: block;
+    max-width: 180px;
+    max-height: 140px;
+    border-radius: 7px;
+    margin-top: 6px;
+}
+
+.az-msg-assistant {
+    width: 100%;
+    word-break: break-word;
+}
+
+.az-msg-assistant .az-md > :first-child {
+    margin-top: 0;
+}
+
+.az-msg-assistant .az-md > :last-child {
+    margin-bottom: 0;
+}
+
+.az-md-p {
+    margin: 0 0 8px;
+}
+
+.az-md-h {
+    margin: 14px 0 6px;
+    line-height: 1.3;
+}
+
+.az-md-h1 { font-size: 19px; }
+.az-md-h2 { font-size: 17px; }
+.az-md-h3 { font-size: 15px; }
+.az-md-h4,
+.az-md-h5,
+.az-md-h6 { font-size: 14px; }
+
+.az-md-list {
+    margin: 0 0 8px;
+    padding-left: 22px;
+}
+
+.az-md-list li {
+    margin: 2px 0;
+}
+
+.az-md-quote {
+    margin: 0 0 8px;
+    padding: 2px 0 2px 10px;
+    border-left: 3px solid var(--az-accent);
+    color: var(--az-muted);
+}
+
+.az-md-hr {
+    border: none;
+    border-top: 1px solid var(--az-border);
+    margin: 12px 0;
+}
+
+.az-md-link {
+    color: #2b5fa8;
+}
+
+.az-md-table {
+    border-collapse: collapse;
+    margin: 0 0 10px;
+    font-size: 13px;
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.az-md-table th,
+.az-md-table td {
+    border: 1px solid var(--az-border);
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.az-md-table th {
+    background: var(--az-user-bubble);
+}
+
+.az-icode {
+    background: #e7eaf1;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 12.5px;
+}
+
+.az-code {
+    background: var(--az-code-bg);
+    border-radius: 9px;
+    margin: 0 0 10px;
+    overflow: hidden;
+}
+
+.az-code-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px 4px 12px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #aab6c6;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+
+.az-code-copy {
+    background: rgba(255, 255, 255, 0.12);
+    color: #e6edf3;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 8px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.az-code-copy:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.az-code-pre {
+    margin: 0;
+    padding: 10px 12px;
+    overflow-x: auto;
+    color: var(--az-code-fg);
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+/* --- thinking / tool cards / confirm / banners -------------------------- */
+.az-thinking {
+    color: var(--az-muted);
+    font-style: italic;
+    font-size: 13px;
+    white-space: pre-wrap;
+    margin: 0 0 8px;
+    border-left: 2px dashed #c3cad6;
+    padding-left: 10px;
+}
+
+.az-tool {
+    border: 1px solid var(--az-border);
+    border-radius: 8px;
+    background: #eef1f7;
+    margin: 0 0 8px;
+    overflow: hidden;
+}
+
+.az-tool-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+}
+
+.az-tool-head:hover {
+    background: #e5eaf4;
+}
+
+.az-tool-name {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.az-tool-ms {
+    color: var(--az-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.az-tool-flag.az-ok { color: var(--az-ok); }
+.az-tool-flag.az-err { color: var(--az-err); }
+.az-tool-flag.az-run { color: var(--az-accent-dark); }
+
+.az-tool-body {
+    display: none;
+    border-top: 1px solid var(--az-border);
+    padding: 8px 10px;
+    background: #f8f9fc;
+}
+
+.az-tool.az-expanded .az-tool-body {
+    display: block;
+}
+
+.az-tool-body h5 {
+    margin: 0 0 3px;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--az-muted);
+}
+
+.az-tool-pre {
+    margin: 0 0 8px;
+    max-height: 280px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid var(--az-border);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.az-tool-pre:last-child {
+    margin-bottom: 0;
+}
+
+.az-confirm {
+    border: 1px solid var(--az-warn);
+    background: #fff8e8;
+    border-radius: 9px;
+    padding: 10px 12px;
+    margin: 0 0 10px;
+}
+
+.az-confirm-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.az-confirm-risk {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #7a4a00;
+}
+
+.az-confirm-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.az-btn {
+    border: 1px solid var(--az-border);
+    background: #fff;
+    border-radius: 7px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--az-fg);
+}
+
+.az-btn:hover:not(:disabled) {
+    background: var(--az-user-bubble);
+}
+
+.az-btn:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.az-btn-primary {
+    background: var(--az-accent-dark);
+    border-color: var(--az-accent-dark);
+    color: #fff;
+}
+
+.az-btn-primary:hover:not(:disabled) {
+    background: #5d6d93;
+}
+
+.az-banner {
+    border-radius: 9px;
+    padding: 9px 12px;
+    margin: 0 0 12px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.az-banner-error {
+    background: #fdecea;
+    border: 1px solid var(--az-err);
+    color: #7f1d16;
+}
+
+.az-banner-budget,
+.az-banner-warn {
+    background: #fff3e0;
+    border: 1px solid var(--az-warn);
+    color: #7a4a00;
+}
+
+.az-banner-info {
+    background: #eaf1fb;
+    border: 1px solid var(--az-accent);
+    color: #1f3763;
+}
+
+.az-banner-request {
+    background: #f3e8ff;
+    border: 1px solid #8b5cf6;
+    color: #4c1d95;
+}
+
+.az-banner-text {
+    flex: 1 1 auto;
+    min-width: 120px;
+}
+
+.az-usage {
+    font-size: 11px;
+    color: var(--az-muted);
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+}
+
+.az-empty {
+    color: var(--az-muted);
+    font-size: 13px;
+    padding: 6px 2px;
+}
+
+.az-spinner {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--az-accent);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: az-spin 0.8s linear infinite;
+    vertical-align: -1px;
+}
+
+@keyframes az-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- composer ------------------------------------------------------------ */
+.az-composer {
+    flex: 0 0 auto;
+    border-top: 1px solid var(--az-border);
+    background: #fff;
+    padding: 8px 12px 10px;
+}
+
+.az-attach-row {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.az-attach-row.az-open {
+    display: flex;
+}
+
+.az-attach-row img {
+    max-height: 56px;
+    border-radius: 6px;
+    border: 1px solid var(--az-border);
+}
+
+.az-input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+}
+
+.az-textarea {
+    flex: 1 1 auto;
+    resize: none;
+    min-height: 38px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--az-border);
+    border-radius: 9px;
+    padding: 9px 11px;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--az-fg);
+    background: #fff;
+}
+
+.az-textarea:focus {
+    outline: none;
+    border-color: var(--az-accent);
+    box-shadow: 0 0 0 2px rgba(122, 139, 179, 0.25);
+}
+
+.az-cbtn {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--az-border);
+    background: #f2f4f9;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--az-fg);
+}
+
+.az-cbtn:hover {
+    background: var(--az-user-bubble);
+}
+
+.az-cbtn.az-listening {
+    background: var(--az-err);
+    border-color: var(--az-err);
+    color: #fff;
+}
+
+.az-send {
+    width: auto;
+    min-width: 64px;
+    padding: 0 14px;
+    font-weight: 700;
+    background: var(--az-accent-dark);
+    border-color: var(--az-accent-dark);
+    color: #fff;
+}
+
+.az-send:hover {
+    background: #5d6d93;
+}
+
+.az-send.az-stop {
+    background: var(--az-err);
+    border-color: var(--az-err);
+}
+
+.az-hint {
+    margin-top: 5px;
+    font-size: 11px;
+    color: var(--az-muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.az-drop {
+    outline: 2px dashed var(--az-accent);
+    outline-offset: -6px;
+}
+
+.az-toast {
+    position: fixed;
+    bottom: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9200;
+    background: rgba(13, 17, 23, 0.9);
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+/* --- minimized tab (same look as the legacy .agent-zero-tab) ------------ */
+#agent-zero-minimized {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99998;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    width: max-content;
+    white-space: nowrap;
+    background: linear-gradient(140deg, #e8ecf7, #b8c5e0);
+    border: 1px solid var(--az-accent);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    padding: 10px 28px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    color: #0d1117;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+#agent-zero-minimized.az-open {
+    display: inline-flex;
+}
+
+#agent-zero-minimized:hover {
+    background: linear-gradient(140deg, #dde3f4, #a8b8e0);
+}
+
+.az-tab-badge {
+    display: none;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--az-err);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    padding: 0 4px;
+}
+
+.az-tab-badge.az-open {
+    display: inline-block;
+}
+
+#agent-zero-minimized.az-alert {
+    background: linear-gradient(140deg, #ffe7d6, #f0b894);
+    border-color: var(--az-warn);
+}

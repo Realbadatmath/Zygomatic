@@ -1,0 +1,386 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token|default('') }}">
+    <title>{% if current_tab == 'error_logs' %}Error Logs{% elif current_tab == 'job_status' %}Job Status{% elif current_tab == 'monitoring_ui' %}Monitoring UI{% elif current_tab == 'parameter_control' %}Parameter Control{% elif current_tab == 'approval_queue' %}Approval Queue{% elif current_tab == 'audit' %}Audit{% elif current_tab == 'settings' %}Settings{% elif current_tab == 'workflows' %}Workflows{% elif current_tab == 'sandbox' %}Sandbox{% else %}Agent Overview{% endif %} – CrewAI Dashboard</title>
+    <link rel="icon" href="/static/favicon.ico?v=20260825" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png?v=20260825">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png?v=20260825">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png?v=20260825">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+    <!-- Prefetch schedule pages so GPU/CPU Schedule tabs load faster when clicked -->
+    <link rel="prefetch" href="/gpu_schedule.html">
+    <link rel="prefetch" href="/cpu_schedule.html">
+    <link rel="prefetch" href="/api/dashboard/themes/config">
+    <script src="/static/js/dashboard_csrf.js"></script>
+    <link rel="stylesheet" href="/static/css/dashboard_core.css?v=2">
+<style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+<style id="zyg-medusa-bg-css">
+  /* Medusa backdrop — see the zyg_medusa_bg handler at the bottom of this page. */
+  #zyg-medusa-bg { display: none; position: fixed; inset: 0; z-index: 0; overflow: hidden;
+                   background-color: #0d1219; background-position: center; background-size: cover;
+                   background-repeat: no-repeat; pointer-events: none; }
+  #zyg-medusa-bg::before { content: ''; position: absolute; inset: -60px;
+                   background: inherit; filter: blur(58px) saturate(0.3) brightness(0.34); }
+  /* The moving backdrop (2026-10-02): an LTX-2.5 30 s seamless loop of the same
+     drawing with the snakes writhing. It arrives ALREADY blurred from ffmpeg,
+     so only a small CSS blur is left to hide the upscale from 512 px — a 58px
+     blur on a full-screen video would be re-computed every frame. The still
+     above stays underneath and shows through until the video can play, and
+     again if it errors, so the backdrop never flashes empty. */
+  #zyg-medusa-bg > video { position: absolute; inset: -60px; width: calc(100% + 120px);
+                   height: calc(100% + 120px); object-fit: cover; opacity: 0;
+                   transition: opacity .8s ease; pointer-events: none;
+                   filter: blur(8px) saturate(0.3) brightness(0.34); }
+  #zyg-medusa-bg.zyg-has-vid > video { opacity: 1; }
+  body.zyg-medusa-bg #zyg-medusa-bg { display: block; }
+  body.zyg-medusa-bg .dashboard-sidebar { background: transparent;
+                   border-right-color: rgba(255, 255, 255, 0.04); }
+</style>
+</head>
+<body id="dashboard-body" class="dashboard-body-default" style="background: radial-gradient(circle at 0 0, #f4f2ef, transparent 55%), linear-gradient(145deg, #e0dbd4, #b8b1aa); min-height: calc(100vh / var(--ui-zoom,1));">
+    <!-- Session-expired banner — shown when any API returns 401 after server restart -->
+    <div id="session-expired-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#c0392b;color:#fff;text-align:center;padding:10px 16px;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.3);">
+        ⚠ Session expired — server was restarted. &nbsp;<a href="/login" style="color:#fff;text-decoration:underline;">Click here to log in again</a>
+    </div>
+    <svg aria-hidden="true" style="position:absolute;width:0;height:0;">
+        <defs>
+            <linearGradient id="dashboardWarmSteel" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#383430"/>
+                <stop offset="45%" stop-color="#b8b0a8"/>
+                <stop offset="80%" stop-color="#e8e0d8"/>
+                <stop offset="100%" stop-color="#403c38"/>
+            </linearGradient>
+            <linearGradient id="settingsGearSilver" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8e6e2"/><stop offset="40%" stop-color="#b8b6b2"/><stop offset="100%" stop-color="#585858"/></linearGradient>
+        </defs>
+    </svg>
+    <div id="dashboard-settings-icon" class="dashboard-settings-icon" data-help="Open settings: themes, users, API auth, languages, security, billing, hotkeys, and voice assistant." title="Settings (F3: debug panel)"><svg viewBox="0 0 64 64" width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;min-width:24px;min-height:24px;max-width:24px;max-height:24px;"><circle cx="32" cy="32" r="22" fill="none" stroke="url(#settingsGearSilver)" stroke-width="2.5"/><circle cx="32" cy="32" r="9" fill="url(#settingsGearSilver)"/><circle cx="32" cy="6" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/><circle cx="32" cy="6" r="1.5" fill="url(#settingsGearSilver)"/><circle cx="55" cy="20" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/><circle cx="55" cy="20" r="1.5" fill="url(#settingsGearSilver)"/><circle cx="55" cy="44" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/><circle cx="55" cy="44" r="1.5" fill="url(#settingsGearSilver)"/><circle cx="9" cy="20" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/><circle cx="9" cy="20" r="1.5" fill="url(#settingsGearSilver)"/><circle cx="9" cy="44" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/><circle cx="9" cy="44" r="1.5" fill="url(#settingsGearSilver)"/><circle cx="32" cy="58" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/><circle cx="32" cy="58" r="1.5" fill="url(#settingsGearSilver)"/></svg></div>
+{% set _dtab = (current_tab|default('welcome')) or 'welcome' %}{% include 'dashboard/_chrome_sidebar.html' %}
+{% include 'dashboard/_chrome_clock_modal.html' %}
+{% include 'dashboard/_modal_security_diagrams.html' %}
+    <div class="dashboard-main">
+    <div class="container">
+        <!-- Welcome: blank page shown by default after login. Select a section from the sidebar to view content. -->
+        <div id="panel-welcome" class="dashboard-tab-panel{% if _dtab == 'welcome' %} active{% endif %}" style="{% if _dtab != 'welcome' %}display: none;{% else %}display: block;{% endif %}">
+            <div class="zyg-welcome-wrap">
+                <span class="zyg-welcome-title" data-text="Zygomatic">Zygomatic</span>
+            </div>
+        </div>
+        <!-- Tab panels (content injected by JS); Agent Overview contains stats + agent grid below. Server sets visible panel from current_tab to avoid 2–3s flash of agent overview. -->
+{% include 'dashboard/_panel_agent_overview.html' %}
+        <div id="panel-users" class="dashboard-tab-panel{% if _dtab == 'users' %} active{% endif %}" {% if _dtab == 'users' %}style="display: block;"{% endif %}></div>
+        <div id="panel-error_logs" class="dashboard-tab-panel{% if _dtab == 'error_logs' %} active{% endif %}" {% if _dtab == 'error_logs' %}style="display: block;"{% endif %}></div>
+        <div id="panel-approval_queue" class="dashboard-tab-panel{% if _dtab == 'approval_queue' %} active{% endif %}" {% if _dtab == 'approval_queue' %}style="display: block;"{% endif %}></div>
+        <div id="panel-audit" class="dashboard-tab-panel{% if _dtab == 'audit' %} active{% endif %}" {% if _dtab == 'audit' %}style="display: block;"{% endif %}></div>
+        <div id="panel-integrity_gate" class="dashboard-tab-panel{% if _dtab == 'integrity_gate' %} active{% endif %}" {% if _dtab == 'integrity_gate' %}style="display: block;"{% endif %}></div>
+        <div id="panel-job_lifecycle" class="dashboard-tab-panel{% if _dtab == 'job_lifecycle' %} active{% endif %}" {% if _dtab == 'job_lifecycle' %}style="display: block;"{% endif %}></div>
+        <div id="panel-frequency" class="dashboard-tab-panel{% if _dtab == 'frequency' %} active{% endif %}" style="{% if _dtab == 'frequency' %}display:flex;{% else %}display:none;{% endif %} padding:0; overflow:hidden; position:fixed; top:0; left:192px; right:0; bottom:0; z-index:100;"></div>
+
+{% include 'dashboard/_panel_benchmark.html' %}
+{% include 'dashboard/_panel_metrics.html' %}
+        <div id="panel-job_status" class="dashboard-tab-panel{% if _dtab == 'job_status' %} active{% endif %}" {% if _dtab == 'job_status' %}style="display: block;"{% endif %}></div>
+        <div id="panel-monitoring_ui" class="dashboard-tab-panel{% if _dtab == 'monitoring_ui' %} active{% endif %}" {% if _dtab == 'monitoring_ui' %}style="display: block;"{% endif %}></div>
+        <div id="panel-api_authorization" class="dashboard-tab-panel{% if _dtab == 'api_authorization' %} active{% endif %}" {% if _dtab == 'api_authorization' %}style="display: block;"{% endif %}></div>
+{% include 'dashboard/_panel_parameter_control.html' %}
+        <div id="panel-publics_zero" class="dashboard-tab-panel{% if _dtab == 'publics_zero' %} active{% endif %}" style="{% if _dtab == 'publics_zero' %}display:block;{% else %}display:none;{% endif %} padding:0; overflow:hidden;">
+            <iframe id="publics-zero-iframe" src="" style="width:100%; height:calc(calc(100vh / var(--ui-zoom,1)) - 60px); border:none; display:block;" allow="clipboard-write" title="Publics Zero"></iframe>
+        </div>
+        <div id="panel-workflows" class="dashboard-tab-panel{% if _dtab == 'workflows' %} active{% endif %}" style="{% if _dtab == 'workflows' %}display:block;{% else %}display:none;{% endif %} padding:0; overflow:hidden; position:fixed; top:0; left:192px; right:0; bottom:0; z-index:100;">
+            <iframe id="workflows-iframe" src="" style="width:100%; height:100%; border:none; display:block;" title="Workflows"></iframe>
+            <script>document.getElementById('workflows-iframe').src = 'http://' + location.hostname + ':8899/kanban.html?v=56';</script>
+        </div>
+        <div id="panel-sandbox" class="dashboard-tab-panel{% if _dtab == 'sandbox' %} active{% endif %}" style="{% if _dtab == 'sandbox' %}display:block;{% else %}display:none;{% endif %} padding:0; overflow:hidden; position:fixed; top:0; left:192px; right:0; bottom:0; z-index:100;">
+            <iframe id="sandbox-iframe" src="" style="width:100%; height:100%; border:none; display:block;" title="Sandbox"></iframe>
+            <script>document.getElementById('sandbox-iframe').src = 'http://' + location.hostname + ':5555/';</script>
+        </div>
+{# 2026-09-30: _panel_mechanics.html is included by _panel_metrics.html now — Mechanics
+   became a Metrics subtab (between Test Data and Capabilities), not a tab of its own. #}
+{% include 'dashboard/_panel_settings.html' %}
+        <!-- Agent Details Modal -->
+        <div id="agent-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #f5f5f7; padding: 30px; border-radius: 15px; max-width: 600px; width: 90%; max-height: 80%; overflow-y: auto;">
+                <h2 id="modal-title">Agent Details</h2>
+                <div id="modal-content"></div>
+                <button class="btn" onclick="closeModal()" style="margin-top: 20px;">Close</button>
+            </div>
+        </div>
+    <!-- Add a floating debug panel to the bottom-right -->
+    <div id="debug-panel" style="display:none;position:fixed;bottom:16px;right:16px;background:rgba(255,255,255,0.97);border:1px solid #888;border-radius:8px;padding:12px 18px;z-index:9999;font-size:13px;max-width:400px;max-height:300px;overflow-y:auto;box-shadow:0 2px 8px rgba(0,0,0,0.08);"></div>
+    <script>
+        window.DASHBOARD_USER_ROLE = {{ (user_role or '')|tojson }};
+        window.DASHBOARD_USER_ID = {{ (user_id or '')|tojson }};
+        window.DASHBOARD_USER_NAME = {{ (user_name or user_id or 'User')|tojson }};
+        window.DASHBOARD_INITIAL_TAB = {{ (initial_tab if initial_tab is defined else (current_tab or 'agent_overview'))|tojson }};
+        function spectatorNotAllowed() {
+            if (window.DASHBOARD_USER_ROLE === 'spectators') {
+                alert('This action is not allowed as Spectator');
+                return true;
+            }
+            return false;
+        }
+        // Start dashboard API requests immediately so they are in flight while the page parses (faster load when coming from GPU/CPU schedule)
+        window._dashboardAgentsPromise = fetch('/api/agents').then(function(r) { return r.json(); }).catch(function() { return []; });
+        window._dashboardDepartmentsPromise = fetch('/api/departments').then(function(r) { return r.json(); }).catch(function() { return []; });
+    </script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" defer></script>
+    <script src="/static/js/dashboard_theme.js?v=2" defer></script>
+    <script src="/static/js/dashboard_tab_users.js" defer></script>
+    <script src="/static/js/dashboard_tab_error_logs.js" defer></script>
+    <script src="/static/js/dashboard_tab_job_status.js" defer></script>
+    <script src="/static/js/dashboard_tab_monitoring_ui.js" defer></script>
+    <script src="/static/js/dashboard_tab_parameter_control.js" defer></script>
+    <script src="/static/js/dashboard_tab_api_authorization.js" defer></script>
+    <script src="/static/js/dashboard_tab_approval_queue.js?v=12" defer></script>
+    <script src="/static/js/dashboard_tab_audit.js" defer></script>
+    <script src="/static/js/dashboard_tab_integrity_gate.js?v=20260911" defer></script>
+    <script src="/static/js/dashboard_tab_job_lifecycle.js" defer></script>
+    <script src="/static/js/dashboard_tab_frequency.js?v=6" defer></script>
+    <script src="/static/js/dashboard_analytics.js?v=2" defer></script>
+    <script src="/static/js/dashboard_testdata.js?v=2" defer></script>
+    <script src="/static/js/dashboard_capabilities.js?v=20" defer></script>
+    <script src="/static/js/dashboard_lineage.js?v=1" defer></script>
+    <script src="/static/js/dashboard_expansion.js?v=1" defer></script>
+    <script src="/static/js/dashboard_tab_metrics.js?v=17" defer></script>
+    <script src="/static/js/safety_scan_spec.js" defer></script>
+    <script src="/static/js/dashboard_tab_mechanics.js?v=14" defer></script>
+    <script src="/static/js/dashboard_settings_buttons.js" defer></script>
+    <script src="/static/js/dashboard_settings_backgrounds.js" defer></script>
+    <script src="/static/js/dashboard_settings_sidebar.js" defer></script>
+    <script src="/static/js/dashboard_settings_progression_bars.js" defer></script>
+    <script src="/static/js/dashboard_settings_cursors.js" defer></script>
+    <script src="/static/js/dashboard_settings_azure.js" defer></script>
+    <script src="/static/js/dashboard_settings_hotkeys.js" defer></script>
+    <script src="/static/js/dashboard_settings_voices.js?v=5" defer></script>
+    <script src="/static/js/dashboard_settings_huggingface.js?v=2" defer></script>
+    <script src="/static/js/dashboard_settings_control.js?v=1" defer></script>
+    <script src="/static/js/dashboard_tabs.js?v=23" defer></script>
+    <script src="/static/js/dashboard_debug_security_diagrams.js" defer></script>
+    <script src="/static/js/dashboard_agent_overview_table.js" defer></script>
+    <script src="/static/js/dashboard_help.js" defer></script>
+    <script src="/static/js/dashboard_command_center.js" defer></script>
+    <!-- Agent Zero v2 (2026-10-08) — replaces dashboard_agent_zero.js (left on disk, unreferenced) -->
+    <link rel="stylesheet" href="/static/css/agent_zero_v2.css?v=1">
+    <script src="/static/js/agent_zero_v2/zero_markdown.js?v=1" defer></script>
+    <script src="/static/js/agent_zero_v2/zero_chat.js?v=1" defer></script>
+    <script src="/static/js/agent_zero_v2/zero_chat_transcript.js?v=1" defer></script>
+    <script src="/static/js/agent_zero_v2/zero_models.js?v=1" defer></script>
+    <script src="/static/js/agent_zero_v2/zero_requests.js?v=1" defer></script>
+    <script src="/static/js/agent_zero_v2/zero_livetail.js?v=1" defer></script>
+    <script src="/static/js/dashboard_tab_agent_overview.js?v=2"></script>
+    <!-- Final override: Lavender diagram styles + UI fixes - MUST be last to beat any earlier rules -->
+    <link rel="stylesheet" href="/static/css/dashboard_diagram_override.css?v=1">
+    <script>
+    /* SETTINGS PANEL RECOVERY — one-time check after all scripts load */
+    window.addEventListener('load', function() {
+        var loc = window.location.pathname;
+        if (loc !== '/settings') return;
+        var main = document.getElementById('dashboard-settings-main');
+        if (!main) return;
+        var cs = window.getComputedStyle(main);
+        if (cs.display === 'none' || main.style.getPropertyValue('display') === 'none') {
+            main.style.setProperty('display', 'flex', 'important');
+            main.style.setProperty('flex-direction', 'column', 'important');
+            main.style.setProperty('align-items', 'flex-start', 'important');
+            main.style.setProperty('gap', '8px', 'important');
+        }
+    });
+    </script>
+
+
+<!-- ═══════════════════════════════════════ SKILLS TAB ═══════════════════════════════════════ -->
+<script src="/static/js/dashboard_tab_mechanics_skills.js?v=1"></script>
+
+<script src="/static/js/dashboard_mechanics_tests.js?v=1"></script>
+
+<script>
+// ── Zero Public invite-link management ─────────────────────────────────────
+// All zpub functions (zpubLoadUrls, zpubRenderTable, zpubCreateUrl, etc.)
+// are defined in dashboard_tabs.js which loads after this block.
+// Only keep the auto-load triggers here.
+(function () {
+  // Auto-load when the Zero Public settings panel becomes visible
+  var _zpubObserver = new MutationObserver(function () {
+    var panel = document.getElementById('dashboard-settings-zero-public');
+    if (panel && panel.style.display !== 'none' && panel.offsetParent !== null) {
+      var tbody = document.getElementById('zpub-tbody');
+      if (tbody && tbody.textContent.indexOf('Loading') >= 0 && typeof window.zpubLoadUrls === 'function') {
+        window.zpubLoadUrls();
+      }
+    }
+  });
+  document.addEventListener('DOMContentLoaded', function () {
+    _zpubObserver.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['style'] });
+  });
+})();
+</script>
+<script src="/static/js/dashboard_sidebar_telemetry.js?v=2"></script>
+<script>
+// ── Iframe hotkey bridge (kanban + other iframes → parent AgentZero) ─────────
+// Cross-origin iframes on port 8899 cannot fire the parent keydown listener.
+// They postMessage hotkeys here; we forward them to AgentZero.
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.type !== 'zyg_hotkey') return;
+  var az = window.AgentZero;
+  if (!az) return;
+  var k = e.data.key;
+  if (k === 'z') {
+    // Agent Zero v2 owns its own open/closed state (zero_chat.js exports toggle()).
+    if (window.AgentZero) window.AgentZero.toggle();
+  } else if (k === 'Escape') {
+    az.close && az.close();
+  } else if (k === 'ctrl+r') {
+    az.reset && az.reset();
+  }
+});
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Medusa backdrop (2026-09-18) ─────────────────────────────────────────────
+// On the Workflows tab's Medusa board the blurred Medusa drawing spreads over the
+// WHOLE page — under this left tab list as well as the board. The board is a
+// cross-origin iframe (:8899), so it announces itself with a zyg_medusa_bg
+// postMessage and the frame goes transparent; this page paints the backdrop.
+// Shown only while BOTH hold: the frame says Medusa, and the Workflows panel is
+// the visible one — tabs switch in-page, so a stale "on" must not follow the
+// operator to Error Logs.
+(function () {
+  var ORIGIN = 'http://' + location.hostname + ':8899';   // same host the iframe src uses
+  // Bump when medusa_backdrop.mp4 is re-made: the :8899 route sends
+  // max-age=86400 and no validator, so the query string is the only cache lever
+  // (same reason kanban_main.js carries MDZ_V for the mane loop and the masks).
+  var MDZ_BG_V = '20261002';
+  var want = false;
+  function panelShown() {
+    var p = document.getElementById('panel-workflows');
+    return !!p && getComputedStyle(p).display !== 'none';
+  }
+  function apply() {
+    var on = want && panelShown();
+    document.body.classList.toggle('zyg-medusa-bg', on);
+    // The layer is display:none when off, which does not reliably stop the
+    // decoder — park it explicitly so the backdrop costs nothing on the other
+    // tabs, and rewind so it always returns at the top of the loop.
+    var v = document.getElementById('zyg-medusa-bg-vid');
+    if (!v) return;
+    if (on) {
+      if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    } else if (!v.paused) {
+      v.pause(); v.currentTime = 0;
+    }
+  }
+  window.addEventListener('message', function (e) {
+    if (!e.data || e.data.type !== 'zyg_medusa_bg' || e.origin !== ORIGIN) return;
+    want = !!e.data.on;
+    apply();
+  });
+  function init() {
+    if (!document.getElementById('zyg-medusa-bg')) {
+      var layer = document.createElement('div');
+      layer.id = 'zyg-medusa-bg';
+      layer.style.backgroundImage = 'url(' + ORIGIN + '/kanban_assets/medusa/medusa_base.jpg)';
+      // Moving backdrop. The still above is the fallback and stays behind it:
+      // the layer only reveals the video once it can actually play, and hides
+      // it again on error, so a 404 or a codec the browser will not decode
+      // leaves exactly the backdrop that was here before.
+      var vid = document.createElement('video');
+      vid.id = 'zyg-medusa-bg-vid';
+      // No autoplay attribute on purpose: the element would then resume itself
+      // after apply() parked it, and the backdrop would keep decoding on the
+      // other tabs. apply() is the only thing that starts or stops it.
+      vid.loop = true; vid.muted = true; vid.defaultMuted = true;
+      // preload none: every dashboard load would otherwise fetch this, including
+      // for operators who never open the Medusa board. apply() starts it the
+      // first time the board is actually shown.
+      vid.playsInline = true; vid.preload = 'none';
+      vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
+      vid.setAttribute('aria-hidden', 'true');
+      vid.src = ORIGIN + '/medusa/backdrop.mp4?v=' + MDZ_BG_V;
+      vid.addEventListener('canplay', function () { layer.classList.add('zyg-has-vid'); });
+      vid.addEventListener('error', function () { layer.classList.remove('zyg-has-vid'); });
+      layer.appendChild(vid);
+      // A muted video is normally allowed to start on its own, but if the
+      // browser refuses the backdrop would sit on its first frame. Re-run apply()
+      // after the operator's next click — deferred, because a click that changes
+      // tabs has not moved the panel yet while the handler is running, and
+      // playing here would race the pause that the panel change is about to do.
+      document.addEventListener('click', function () { setTimeout(apply, 0); });
+      document.body.insertBefore(layer, document.body.firstChild);
+    }
+    var p = document.getElementById('panel-workflows');
+    if (p) new MutationObserver(apply).observe(p, { attributes: true, attributeFilter: ['style', 'class'] });
+    apply();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Publics Zero iframe loader ────────────────────────────────────────────────
+(function () {
+  var iframe = document.getElementById('publics-zero-iframe');
+  if (!iframe) return;
+  var panel = document.getElementById('panel-publics_zero');
+  if (!panel || panel.style.display === 'none') return;
+  fetch('/api/zero-admin-url')
+    .then(function (r) { return r.json(); })
+    .then(function (d) { if (d.url) iframe.src = d.url; })
+    .catch(function () {});
+})();
+</script>
+
+<!-- ── Benchmark Tab JS ──────────────────────────────────────────────── -->
+<script src="/static/js/dashboard_tab_benchmark.js?v=1"></script>

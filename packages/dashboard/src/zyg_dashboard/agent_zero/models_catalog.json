@@ -1,0 +1,1113 @@
+{
+  "_about": "Agent Zero v2 seed model catalogue. Seed lists are replaced by the live /models list of a provider once its API key is present. Local sizes are the Ollama library download sizes in GB; vram_gb = size_gb * 1.1 + 2 (rounded), ram_gb = size_gb + 4. Prices are USD per 1M tokens, null when unknown.",
+  "subscription": [
+    {
+      "id": "claude-opus-5",
+      "label": "Claude Opus 5 (default)",
+      "context": 1000000,
+      "vision": true,
+      "tools": true,
+      "price_in": 5.0,
+      "price_out": 25.0
+    },
+    {
+      "id": "claude-opus-5-5",
+      "label": "Claude Opus 5.5",
+      "context": 1000000,
+      "vision": true,
+      "tools": true,
+      "price_in": 4.0,
+      "price_out": 20.0
+    },
+    {
+      "id": "claude-sonnet-5-5",
+      "label": "Claude Sonnet 5.5",
+      "context": 1000000,
+      "vision": true,
+      "tools": true,
+      "price_in": 2.0,
+      "price_out": 10.0
+    },
+    {
+      "id": "claude-sonnet-5",
+      "label": "Claude Sonnet 5",
+      "context": 1000000,
+      "vision": true,
+      "tools": true,
+      "price_in": 2.0,
+      "price_out": 10.0
+    },
+    {
+      "id": "claude-haiku-4-5",
+      "label": "Claude Haiku 4.5",
+      "context": 200000,
+      "vision": true,
+      "tools": true,
+      "price_in": 1.0,
+      "price_out": 5.0
+    },
+    {
+      "id": "claude-fable-5-1",
+      "label": "Claude Fable 5.1 (separate weekly limit)",
+      "context": 1000000,
+      "vision": true,
+      "tools": true,
+      "price_in": 10.0,
+      "price_out": 50.0
+    }
+  ],
+  "api": {
+    "anthropic": {
+      "label": "Anthropic API",
+      "key_env": [
+        "ANTHROPIC_API_KEY"
+      ],
+      "base_url": "https://api.anthropic.com",
+      "models_endpoint": null,
+      "models": [
+        {
+          "id": "claude-opus-5",
+          "label": "Claude Opus 5",
+          "context": 1000000,
+          "vision": true,
+          "tools": true,
+          "price_in": 5.0,
+          "price_out": 25.0
+        },
+        {
+          "id": "claude-opus-5-5",
+          "label": "Claude Opus 5.5",
+          "context": 1000000,
+          "vision": true,
+          "tools": true,
+          "price_in": 4.0,
+          "price_out": 20.0
+        },
+        {
+          "id": "claude-sonnet-5-5",
+          "label": "Claude Sonnet 5.5",
+          "context": 1000000,
+          "vision": true,
+          "tools": true,
+          "price_in": 2.0,
+          "price_out": 10.0
+        },
+        {
+          "id": "claude-sonnet-5",
+          "label": "Claude Sonnet 5",
+          "context": 1000000,
+          "vision": true,
+          "tools": true,
+          "price_in": 2.0,
+          "price_out": 10.0
+        },
+        {
+          "id": "claude-haiku-4-5",
+          "label": "Claude Haiku 4.5",
+          "context": 200000,
+          "vision": true,
+          "tools": true,
+          "price_in": 1.0,
+          "price_out": 5.0
+        },
+        {
+          "id": "claude-fable-5-1",
+          "label": "Claude Fable 5.1",
+          "context": 1000000,
+          "vision": true,
+          "tools": true,
+          "price_in": 10.0,
+          "price_out": 50.0
+        }
+      ]
+    },
+    "openai": {
+      "label": "OpenAI",
+      "key_env": [
+        "OPENAI_API_KEY"
+      ],
+      "base_url": "https://api.openai.com/v1",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "gpt-5",
+          "label": "GPT-5",
+          "context": 400000,
+          "vision": true,
+          "tools": true,
+          "price_in": 1.25,
+          "price_out": 10.0
+        },
+        {
+          "id": "gpt-5-mini",
+          "label": "GPT-5 mini",
+          "context": 400000,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.25,
+          "price_out": 2.0
+        },
+        {
+          "id": "gpt-5-nano",
+          "label": "GPT-5 nano",
+          "context": 400000,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.05,
+          "price_out": 0.4
+        },
+        {
+          "id": "gpt-4.1",
+          "label": "GPT-4.1",
+          "context": 1047576,
+          "vision": true,
+          "tools": true,
+          "price_in": 2.0,
+          "price_out": 8.0
+        },
+        {
+          "id": "gpt-4.1-mini",
+          "label": "GPT-4.1 mini",
+          "context": 1047576,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.4,
+          "price_out": 1.6
+        },
+        {
+          "id": "o3",
+          "label": "o3 (reasoning)",
+          "context": 200000,
+          "vision": true,
+          "tools": true,
+          "price_in": 2.0,
+          "price_out": 8.0
+        },
+        {
+          "id": "o4-mini",
+          "label": "o4-mini (reasoning)",
+          "context": 200000,
+          "vision": true,
+          "tools": true,
+          "price_in": 1.1,
+          "price_out": 4.4
+        }
+      ]
+    },
+    "google": {
+      "label": "Google Gemini",
+      "key_env": [
+        "GEMINI_API_KEY",
+        "GOOGLE_API_KEY"
+      ],
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "gemini-2.5-pro",
+          "label": "Gemini 2.5 Pro",
+          "context": 1048576,
+          "vision": true,
+          "tools": true,
+          "price_in": 1.25,
+          "price_out": 10.0
+        },
+        {
+          "id": "gemini-2.5-flash",
+          "label": "Gemini 2.5 Flash",
+          "context": 1048576,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.3,
+          "price_out": 2.5
+        },
+        {
+          "id": "gemini-2.5-flash-lite",
+          "label": "Gemini 2.5 Flash-Lite",
+          "context": 1048576,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.1,
+          "price_out": 0.4
+        }
+      ]
+    },
+    "openrouter": {
+      "label": "OpenRouter",
+      "key_env": [
+        "OPENROUTER_API_KEY"
+      ],
+      "base_url": "https://openrouter.ai/api/v1",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "anthropic/claude-opus-5-5",
+          "label": "Claude Opus 5.5 (OpenRouter)",
+          "context": 1000000,
+          "vision": true,
+          "tools": true,
+          "price_in": null,
+          "price_out": null
+        },
+        {
+          "id": "openai/gpt-5",
+          "label": "GPT-5 (OpenRouter)",
+          "context": 400000,
+          "vision": true,
+          "tools": true,
+          "price_in": null,
+          "price_out": null
+        },
+        {
+          "id": "google/gemini-2.5-pro",
+          "label": "Gemini 2.5 Pro (OpenRouter)",
+          "context": 1048576,
+          "vision": true,
+          "tools": true,
+          "price_in": null,
+          "price_out": null
+        },
+        {
+          "id": "meta-llama/llama-3.3-70b-instruct",
+          "label": "Llama 3.3 70B Instruct",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": null,
+          "price_out": null
+        },
+        {
+          "id": "deepseek/deepseek-r1",
+          "label": "DeepSeek R1",
+          "context": 131072,
+          "vision": false,
+          "tools": false,
+          "price_in": null,
+          "price_out": null
+        },
+        {
+          "id": "qwen/qwen3-235b-a22b",
+          "label": "Qwen3 235B A22B",
+          "context": 40960,
+          "vision": false,
+          "tools": true,
+          "price_in": null,
+          "price_out": null
+        },
+        {
+          "id": "mistralai/mistral-large",
+          "label": "Mistral Large",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": null,
+          "price_out": null
+        }
+      ]
+    },
+    "groq": {
+      "label": "Groq",
+      "key_env": [
+        "GROQ_API_KEY"
+      ],
+      "base_url": "https://api.groq.com/openai/v1",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "llama-3.3-70b-versatile",
+          "label": "Llama 3.3 70B Versatile",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.59,
+          "price_out": 0.79
+        },
+        {
+          "id": "llama-3.1-8b-instant",
+          "label": "Llama 3.1 8B Instant",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.05,
+          "price_out": 0.08
+        },
+        {
+          "id": "qwen/qwen3-32b",
+          "label": "Qwen3 32B",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.29,
+          "price_out": 0.59
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "label": "GPT-OSS 120B",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.15,
+          "price_out": 0.75
+        },
+        {
+          "id": "openai/gpt-oss-20b",
+          "label": "GPT-OSS 20B",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.1,
+          "price_out": 0.5
+        }
+      ]
+    },
+    "deepseek": {
+      "label": "DeepSeek",
+      "key_env": [
+        "DEEPSEEK_API_KEY"
+      ],
+      "base_url": "https://api.deepseek.com/v1",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "deepseek-chat",
+          "label": "DeepSeek Chat",
+          "context": 128000,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.27,
+          "price_out": 1.1
+        },
+        {
+          "id": "deepseek-reasoner",
+          "label": "DeepSeek Reasoner",
+          "context": 128000,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.55,
+          "price_out": 2.19
+        }
+      ]
+    },
+    "mistral": {
+      "label": "Mistral AI",
+      "key_env": [
+        "MISTRAL_API_KEY"
+      ],
+      "base_url": "https://api.mistral.ai/v1",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "mistral-large-latest",
+          "label": "Mistral Large",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 2.0,
+          "price_out": 6.0
+        },
+        {
+          "id": "mistral-medium-latest",
+          "label": "Mistral Medium",
+          "context": 131072,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.4,
+          "price_out": 2.0
+        },
+        {
+          "id": "mistral-small-latest",
+          "label": "Mistral Small",
+          "context": 131072,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.1,
+          "price_out": 0.3
+        },
+        {
+          "id": "codestral-latest",
+          "label": "Codestral",
+          "context": 256000,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.3,
+          "price_out": 0.9
+        },
+        {
+          "id": "devstral-medium-latest",
+          "label": "Devstral Medium",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.4,
+          "price_out": 2.0
+        }
+      ]
+    },
+    "xai": {
+      "label": "xAI Grok",
+      "key_env": [
+        "XAI_API_KEY"
+      ],
+      "base_url": "https://api.x.ai/v1",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "grok-4",
+          "label": "Grok 4",
+          "context": 256000,
+          "vision": true,
+          "tools": true,
+          "price_in": 3.0,
+          "price_out": 15.0
+        },
+        {
+          "id": "grok-4-fast",
+          "label": "Grok 4 Fast",
+          "context": 2000000,
+          "vision": true,
+          "tools": true,
+          "price_in": 0.2,
+          "price_out": 0.5
+        },
+        {
+          "id": "grok-3-mini",
+          "label": "Grok 3 mini",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.3,
+          "price_out": 0.5
+        }
+      ]
+    },
+    "together": {
+      "label": "Together AI",
+      "key_env": [
+        "TOGETHER_API_KEY"
+      ],
+      "base_url": "https://api.together.xyz/v1",
+      "models_endpoint": "/models",
+      "models": [
+        {
+          "id": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+          "label": "Llama 3.3 70B Instruct Turbo",
+          "context": 131072,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.88,
+          "price_out": 0.88
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-fp8-tput",
+          "label": "Qwen3 235B A22B (fp8)",
+          "context": 40960,
+          "vision": false,
+          "tools": true,
+          "price_in": 0.2,
+          "price_out": 0.6
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-R1",
+          "label": "DeepSeek R1",
+          "context": 163840,
+          "vision": false,
+          "tools": false,
+          "price_in": 3.0,
+          "price_out": 7.0
+        }
+      ]
+    }
+  },
+  "local": {
+    "ollama": [
+      {
+        "id": "llama3.1:8b",
+        "label": "Llama 3.1 8B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 4.9,
+        "vram_gb": 7,
+        "ram_gb": 8.9,
+        "family": "llama3.1",
+        "notes": ""
+      },
+      {
+        "id": "llama3.2:3b",
+        "label": "Llama 3.2 3B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 2.0,
+        "vram_gb": 4,
+        "ram_gb": 6.0,
+        "family": "llama3.2",
+        "notes": ""
+      },
+      {
+        "id": "llama3.3:70b",
+        "label": "Llama 3.3 70B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 43.0,
+        "vram_gb": 49,
+        "ram_gb": 47,
+        "family": "llama3.3",
+        "notes": ""
+      },
+      {
+        "id": "llama3.2-vision:11b",
+        "label": "Llama 3.2 Vision 11B",
+        "context": 131072,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 7.8,
+        "vram_gb": 11,
+        "ram_gb": 11.8,
+        "family": "llama3.2-vision",
+        "notes": "vision, no tool calling"
+      },
+      {
+        "id": "qwen3:8b",
+        "label": "Qwen3 8B",
+        "context": 40960,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 5.2,
+        "vram_gb": 8,
+        "ram_gb": 9.2,
+        "family": "qwen3",
+        "notes": ""
+      },
+      {
+        "id": "qwen3:14b",
+        "label": "Qwen3 14B",
+        "context": 40960,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 9.3,
+        "vram_gb": 12,
+        "ram_gb": 13.3,
+        "family": "qwen3",
+        "notes": ""
+      },
+      {
+        "id": "qwen3:32b",
+        "label": "Qwen3 32B",
+        "context": 40960,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 20.0,
+        "vram_gb": 24,
+        "ram_gb": 24,
+        "family": "qwen3",
+        "notes": ""
+      },
+      {
+        "id": "qwen3:30b-a3b",
+        "label": "Qwen3 30B A3B (MoE)",
+        "context": 40960,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 19.0,
+        "vram_gb": 23,
+        "ram_gb": 23,
+        "family": "qwen3",
+        "notes": "MoE, 3B active"
+      },
+      {
+        "id": "qwen2.5:7b",
+        "label": "Qwen2.5 7B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 4.7,
+        "vram_gb": 7,
+        "ram_gb": 8.7,
+        "family": "qwen2.5",
+        "notes": ""
+      },
+      {
+        "id": "qwen2.5:14b",
+        "label": "Qwen2.5 14B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 9.0,
+        "vram_gb": 12,
+        "ram_gb": 13.0,
+        "family": "qwen2.5",
+        "notes": ""
+      },
+      {
+        "id": "qwen2.5:32b",
+        "label": "Qwen2.5 32B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 20.0,
+        "vram_gb": 24,
+        "ram_gb": 24,
+        "family": "qwen2.5",
+        "notes": ""
+      },
+      {
+        "id": "qwen2.5:72b",
+        "label": "Qwen2.5 72B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 47.0,
+        "vram_gb": 54,
+        "ram_gb": 51,
+        "family": "qwen2.5",
+        "notes": ""
+      },
+      {
+        "id": "qwen2.5-coder:7b",
+        "label": "Qwen2.5 Coder 7B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 4.7,
+        "vram_gb": 7,
+        "ram_gb": 8.7,
+        "family": "qwen2.5",
+        "notes": "code"
+      },
+      {
+        "id": "qwen2.5-coder:14b",
+        "label": "Qwen2.5 Coder 14B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 9.0,
+        "vram_gb": 12,
+        "ram_gb": 13.0,
+        "family": "qwen2.5",
+        "notes": "code"
+      },
+      {
+        "id": "qwen2.5-coder:32b",
+        "label": "Qwen2.5 Coder 32B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 20.0,
+        "vram_gb": 24,
+        "ram_gb": 24,
+        "family": "qwen2.5",
+        "notes": "code"
+      },
+      {
+        "id": "qwen2.5vl:7b",
+        "label": "Qwen2.5-VL 7B",
+        "context": 128000,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 6.0,
+        "vram_gb": 9,
+        "ram_gb": 10.0,
+        "family": "qwen2.5vl",
+        "notes": "vision"
+      },
+      {
+        "id": "qwen3.5:9b",
+        "label": "Qwen3.5 9B",
+        "context": 262144,
+        "vision": true,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 6.6,
+        "vram_gb": 9,
+        "ram_gb": 10.6,
+        "family": "qwen3.5",
+        "notes": "this stack's vision model"
+      },
+      {
+        "id": "qwen3.6:35b-a3b",
+        "label": "Qwen3.6 35B A3B (MoE)",
+        "context": 262144,
+        "vision": true,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 23.0,
+        "vram_gb": 27,
+        "ram_gb": 27,
+        "family": "qwen3.6",
+        "notes": "MoE, 3B active"
+      },
+      {
+        "id": "deepseek-r1:7b",
+        "label": "DeepSeek R1 7B",
+        "context": 131072,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 4.7,
+        "vram_gb": 7,
+        "ram_gb": 8.7,
+        "family": "deepseek-r1",
+        "notes": "reasoning, no tool calling"
+      },
+      {
+        "id": "deepseek-r1:14b",
+        "label": "DeepSeek R1 14B",
+        "context": 131072,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 9.0,
+        "vram_gb": 12,
+        "ram_gb": 13.0,
+        "family": "deepseek-r1",
+        "notes": "reasoning, no tool calling"
+      },
+      {
+        "id": "deepseek-r1:32b",
+        "label": "DeepSeek R1 32B",
+        "context": 131072,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 20.0,
+        "vram_gb": 24,
+        "ram_gb": 24,
+        "family": "deepseek-r1",
+        "notes": "reasoning, no tool calling"
+      },
+      {
+        "id": "deepseek-r1:70b",
+        "label": "DeepSeek R1 70B",
+        "context": 131072,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 43.0,
+        "vram_gb": 49,
+        "ram_gb": 47,
+        "family": "deepseek-r1",
+        "notes": "reasoning, no tool calling"
+      },
+      {
+        "id": "deepseek-coder:33b",
+        "label": "DeepSeek Coder 33B",
+        "context": 16384,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 19.0,
+        "vram_gb": 23,
+        "ram_gb": 23,
+        "family": "deepseek-coder",
+        "notes": "code"
+      },
+      {
+        "id": "deepseek-coder-v2:16b",
+        "label": "DeepSeek Coder V2 16B",
+        "context": 163840,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 8.9,
+        "vram_gb": 12,
+        "ram_gb": 12.9,
+        "family": "deepseek-coder-v2",
+        "notes": "code"
+      },
+      {
+        "id": "gemma3:4b",
+        "label": "Gemma 3 4B",
+        "context": 131072,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 3.3,
+        "vram_gb": 6,
+        "ram_gb": 7.3,
+        "family": "gemma3",
+        "notes": "vision"
+      },
+      {
+        "id": "gemma3:12b",
+        "label": "Gemma 3 12B",
+        "context": 131072,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 8.1,
+        "vram_gb": 11,
+        "ram_gb": 12.1,
+        "family": "gemma3",
+        "notes": "vision"
+      },
+      {
+        "id": "gemma3:27b",
+        "label": "Gemma 3 27B",
+        "context": 131072,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 17.0,
+        "vram_gb": 21,
+        "ram_gb": 21,
+        "family": "gemma3",
+        "notes": "vision"
+      },
+      {
+        "id": "gpt-oss:20b",
+        "label": "GPT-OSS 20B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 13.0,
+        "vram_gb": 16,
+        "ram_gb": 17,
+        "family": "gpt-oss",
+        "notes": ""
+      },
+      {
+        "id": "gpt-oss:120b",
+        "label": "GPT-OSS 120B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 65.0,
+        "vram_gb": 74,
+        "ram_gb": 69,
+        "family": "gpt-oss",
+        "notes": "too big for a single 24-48 GB GPU"
+      },
+      {
+        "id": "mistral:7b",
+        "label": "Mistral 7B",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 4.1,
+        "vram_gb": 7,
+        "ram_gb": 8.1,
+        "family": "mistral",
+        "notes": ""
+      },
+      {
+        "id": "mistral-small:24b",
+        "label": "Mistral Small 24B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 14.0,
+        "vram_gb": 17,
+        "ram_gb": 18,
+        "family": "mistral-small",
+        "notes": ""
+      },
+      {
+        "id": "mistral-nemo:12b",
+        "label": "Mistral Nemo 12B",
+        "context": 131072,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 7.1,
+        "vram_gb": 10,
+        "ram_gb": 11.1,
+        "family": "mistral-nemo",
+        "notes": ""
+      },
+      {
+        "id": "mixtral:8x7b",
+        "label": "Mixtral 8x7B (MoE)",
+        "context": 32768,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 26.0,
+        "vram_gb": 31,
+        "ram_gb": 30,
+        "family": "mixtral",
+        "notes": "MoE"
+      },
+      {
+        "id": "codestral:22b",
+        "label": "Codestral 22B",
+        "context": 32768,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 13.0,
+        "vram_gb": 16,
+        "ram_gb": 17,
+        "family": "codestral",
+        "notes": "code"
+      },
+      {
+        "id": "devstral:24b",
+        "label": "Devstral 24B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 14.0,
+        "vram_gb": 17,
+        "ram_gb": 18,
+        "family": "devstral",
+        "notes": "agentic coding"
+      },
+      {
+        "id": "phi4:14b",
+        "label": "Phi-4 14B",
+        "context": 16384,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 9.1,
+        "vram_gb": 12,
+        "ram_gb": 13.1,
+        "family": "phi4",
+        "notes": ""
+      },
+      {
+        "id": "phi4-mini:3.8b",
+        "label": "Phi-4 mini 3.8B",
+        "context": 131072,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 2.5,
+        "vram_gb": 5,
+        "ram_gb": 6.5,
+        "family": "phi4",
+        "notes": ""
+      },
+      {
+        "id": "llava:13b",
+        "label": "LLaVA 13B",
+        "context": 4096,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 8.0,
+        "vram_gb": 11,
+        "ram_gb": 12.0,
+        "family": "llava",
+        "notes": "vision"
+      },
+      {
+        "id": "moondream:1.8b",
+        "label": "Moondream 1.8B",
+        "context": 2048,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 1.7,
+        "vram_gb": 4,
+        "ram_gb": 5.7,
+        "family": "moondream",
+        "notes": "vision, tiny"
+      },
+      {
+        "id": "minicpm-v:8b",
+        "label": "MiniCPM-V 8B",
+        "context": 32768,
+        "vision": true,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 5.5,
+        "vram_gb": 8,
+        "ram_gb": 9.5,
+        "family": "minicpm-v",
+        "notes": "vision"
+      },
+      {
+        "id": "command-r:35b",
+        "label": "Command R 35B",
+        "context": 131072,
+        "vision": false,
+        "tools": true,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 20.0,
+        "vram_gb": 24,
+        "ram_gb": 24,
+        "family": "command-r",
+        "notes": "RAG / tool use"
+      },
+      {
+        "id": "nomic-embed-text",
+        "label": "Nomic Embed Text",
+        "context": 8192,
+        "vision": false,
+        "tools": false,
+        "price_in": null,
+        "price_out": null,
+        "size_gb": 0.27,
+        "vram_gb": 2,
+        "ram_gb": 4.3,
+        "family": "nomic-bert",
+        "notes": "embedding only"
+      }
+    ]
+  }
+}

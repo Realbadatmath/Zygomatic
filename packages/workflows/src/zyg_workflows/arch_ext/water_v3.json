@@ -1,0 +1,13 @@
+{"section_key": "site",
+ "section_label": "Site",
+ "groups": [
+   {"g": "Water (v3, sits on the sculpted bed)",
+    "items": [
+      ["water_body", "Lake surface", {"rx": 30, "rz": 20, "wobble": 0.25, "seed": 1, "seg": 48},
+       "A lake or pond skin, 0.02 m thin. Its shoreline is the sculpt_basin formula, so give the basin under it the same rx/rz/wobble/seed. Drop it at the water level: bed + 0.8 x depth."],
+      ["water_path", "River surface", {"len": 60, "w": 8, "meander": 6, "seed": 1, "seg": 24},
+       "One reach of a river or stream. It wanders on the sculpt_channel formula, so give the channel under it the same len/meander/seed. Chain reaches with ry, never uphill."],
+      ["water_plane", "Sea surface", {"w": 200, "d": 120, "wave": 0.15, "seed": 1, "res": 24},
+       "One flat sea with a swell, and no bed at all — dish a sculpt_shelf into the ground under it. The record's y is the sea datum."]
+    ]}
+ ]}

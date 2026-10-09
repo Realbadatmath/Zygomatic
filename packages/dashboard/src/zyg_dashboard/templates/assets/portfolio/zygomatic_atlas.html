@@ -1,0 +1,980 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body style="margin:0">
+<title>Zygomatic Atlas</title>
+<meta name="description" content="Zoomable architecture atlas of the Zygomatic AI media studio: servers, studios, workflows, shared services, GPU backends, state and timers, surveyed 2026-10-05.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#eef0f3; --panel:#f8f9fb; --panel2:#ffffff; --ink:#1c2230; --ink2:#4b5567; --ink3:#7b8596; --line:#cfd5de; --line2:#b7bfcb;
+  --accent:#0b5d8e; --accent-ink:#ffffff; --sel:#f29f05; --ok:#2a8c4a; --warn:#d2860b; --bad:#c43c3c; --off:#8a919e;
+  --l0:#5b6a85; --l1:#1f6f8b; --l2:#2f6b4f; --l3:#7a4f9e; --l4:#b35a1f; --l5:#3b5f9e; --l6:#a0303a; --l7:#6b6b2a; --l8:#4f5e6b;
+  --l0bg:#e9edf3; --l1bg:#e3eef3; --l2bg:#e4efe8; --l3bg:#ede6f3; --l4bg:#f5e9df; --l5bg:#e4eaf5; --l6bg:#f4e3e5; --l7bg:#efefe0; --l8bg:#e7eaed;
+  --canvas:#e4e7ec; --grid:#d8dce3; --edge:#6f7a8c; --edge-hl:#0b5d8e; --edge-claude:#a0303a; --edge-gpu:#b35a1f;
+  --shadow:0 6px 18px rgba(20,30,50,.12);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141821; --panel:#1b2029; --panel2:#222834; --ink:#e6e9ef; --ink2:#b4bcc9; --ink3:#7f8899; --line:#2f3745; --line2:#3d4656;
+  --accent:#4aa3d8; --accent-ink:#0b1118; --sel:#f2b544; --ok:#4fc274; --warn:#e9a33a; --bad:#e26666; --off:#6e7684;
+  --l0:#9aa8bf; --l1:#5fb3cf; --l2:#6fc091; --l3:#b592d6; --l4:#e59a62; --l5:#86a8e6; --l6:#e07c86; --l7:#c9c46a; --l8:#94a3b2;
+  --l0bg:#1d222c; --l1bg:#172530; --l2bg:#172a21; --l3bg:#241d30; --l4bg:#2d2119; --l5bg:#1b2335; --l6bg:#2e1c1f; --l7bg:#27271a; --l8bg:#1f2429;
+  --canvas:#0f1218; --grid:#1a1f28; --edge:#7d8798; --edge-hl:#4aa3d8; --edge-claude:#e07c86; --edge-gpu:#e59a62;
+  --shadow:0 6px 18px rgba(0,0,0,.45);
+}}
+:root[data-theme="dark"]{
+  --bg:#141821; --panel:#1b2029; --panel2:#222834; --ink:#e6e9ef; --ink2:#b4bcc9; --ink3:#7f8899; --line:#2f3745; --line2:#3d4656;
+  --accent:#4aa3d8; --accent-ink:#0b1118; --sel:#f2b544; --ok:#4fc274; --warn:#e9a33a; --bad:#e26666; --off:#6e7684;
+  --l0:#9aa8bf; --l1:#5fb3cf; --l2:#6fc091; --l3:#b592d6; --l4:#e59a62; --l5:#86a8e6; --l6:#e07c86; --l7:#c9c46a; --l8:#94a3b2;
+  --l0bg:#1d222c; --l1bg:#172530; --l2bg:#172a21; --l3bg:#241d30; --l4bg:#2d2119; --l5bg:#1b2335; --l6bg:#2e1c1f; --l7bg:#27271a; --l8bg:#1f2429;
+  --canvas:#0f1218; --grid:#1a1f28; --edge:#7d8798; --edge-hl:#4aa3d8; --edge-claude:#e07c86; --edge-gpu:#e59a62;
+  --shadow:0 6px 18px rgba(0,0,0,.45);
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.4;overflow:hidden}
+*{box-sizing:border-box}
+#app{display:grid;grid-template-columns:272px 1fr;grid-template-rows:52px 1fr;height:100%;width:100%}
+header{grid-column:1/3;display:flex;align-items:center;gap:14px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:16px;margin:0;font-weight:600;letter-spacing:.01em;white-space:nowrap}
+header .sub{color:var(--ink3);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header .spacer{flex:1}
+.tools{display:flex;gap:6px;align-items:center}
+button,.btn{font:inherit;font-size:12.5px;color:var(--ink);background:var(--panel2);border:1px solid var(--line2);border-radius:6px;padding:5px 9px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,input:focus-visible,.navitem:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button.tog[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#menuBtn{display:none}
+aside{border-right:1px solid var(--line);background:var(--panel);overflow:auto;padding:12px 12px 24px;display:flex;flex-direction:column;gap:14px}
+aside h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px;font-weight:600}
+#search{width:100%;font:inherit;font-size:13px;padding:7px 9px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2);color:var(--ink)}
+.navlist{display:flex;flex-direction:column;gap:3px}
+.navitem{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;border:1px solid transparent;background:transparent;text-align:left;color:var(--ink);font-size:13px;width:100%}
+.navitem:hover{background:var(--panel2);border-color:var(--line)}
+.navitem[aria-current="true"]{background:var(--panel2);border-color:var(--accent)}
+.navitem .sw{width:10px;height:10px;border-radius:2px;flex:none}
+.navitem .n{color:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:11px;margin-left:auto}
+.navitem small{color:var(--ink3);display:block;font-size:11px}
+#results{display:flex;flex-direction:column;gap:2px}
+#results .navitem{font-size:12.5px}
+main{position:relative;overflow:hidden;background:var(--canvas)}
+#stage{width:100%;height:100%;touch-action:none;cursor:grab;display:block}
+#stage.dragging{cursor:grabbing}
+.node rect.box{stroke-width:1.2;rx:5}
+.node text{pointer-events:none}
+.node .lbl{font-size:12.5px;font-weight:600;fill:var(--ink)}
+.node .sub{font-size:10.5px;font-family:"IBM Plex Mono",monospace;fill:var(--ink2)}
+.node .chip{font-size:9.5px;font-weight:600;fill:var(--ink3);letter-spacing:.04em}
+.node{cursor:pointer}
+.node:hover rect.box{stroke:var(--accent);stroke-width:2}
+.node.sel rect.box{stroke:var(--sel);stroke-width:2.6}
+.node.hot rect.box{stroke:var(--accent);stroke-width:2}
+.node.trace rect.box{stroke:var(--sel);stroke-width:2.2}
+.lane-title{font-size:15px;font-weight:700;fill:var(--ink)}
+.lane-note{font-size:11px;fill:var(--ink2)}
+.group-title{font-size:11.5px;font-weight:600;fill:var(--ink2);letter-spacing:.05em;text-transform:uppercase}
+.group-box{fill:var(--panel2);fill-opacity:.55;stroke:var(--line2);stroke-width:1;rx:8;stroke-dasharray:none}
+.edge{fill:none;stroke:var(--edge);stroke-width:1.3;opacity:.55}
+.edge.k-claude{stroke:var(--edge-claude)}
+.edge.k-gpu{stroke:var(--edge-gpu)}
+.edge.k-poll{stroke-dasharray:5 4}
+.edge.k-spawn{stroke-dasharray:2 3;stroke-width:1.6}
+.edge.k-file{stroke-dasharray:8 3 2 3}
+.edge.k-flow{opacity:.75;stroke-width:1.6}
+.edge.hl{opacity:1;stroke-width:2.4;stroke:var(--edge-hl)}
+.edge.k-claude.hl{stroke:var(--edge-claude)}
+.edge.k-gpu.hl{stroke:var(--edge-gpu)}
+.edge.tr{opacity:1;stroke-width:2.8;stroke:var(--sel)}
+.elabel{font-size:10px;fill:var(--ink2);font-family:"IBM Plex Mono",monospace}
+.elabel-bg{fill:var(--canvas);fill-opacity:.9;stroke:none;rx:3}
+.eg{opacity:0}
+.zoom-mid .eg{opacity:1}
+.eg.hl,.eg.tr{opacity:1}
+.eg.hl .elabel{fill:var(--ink);font-weight:500}
+.dimmed .node:not(.hl):not(.sel):not(.trace){opacity:.28}
+.dimmed .edge:not(.hl):not(.tr){opacity:.08}
+.dimmed .eg:not(.hl):not(.tr){opacity:0}
+.step-badge circle{fill:var(--sel);stroke:var(--ink);stroke-width:.8}
+.step-badge text{font-size:10px;font-weight:700;fill:#1c2230;text-anchor:middle}
+.status-dot{stroke:var(--panel2);stroke-width:1}
+.s-ok{fill:var(--ok)} .s-warn{fill:var(--warn)} .s-bad{fill:var(--bad)} .s-off{fill:var(--off)}
+#hud{position:absolute;left:12px;bottom:12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+#hud .zl{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink2);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 7px}
+#legend{position:absolute;left:12px;top:12px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--ink2);display:grid;grid-template-columns:auto auto;gap:3px 12px;box-shadow:var(--shadow)}
+#legend svg{vertical-align:middle;margin-right:4px}
+#legend .cnt{font-family:"IBM Plex Mono",monospace;font-weight:500;color:var(--ink)}
+#legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+#minimap{position:absolute;right:12px;bottom:12px;width:230px;height:150px;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden;cursor:pointer}
+#minimap svg{width:100%;height:100%;display:block}
+#minimap .vp{fill:var(--accent);fill-opacity:.15;stroke:var(--accent);stroke-width:1.5}
+#detail{position:absolute;right:12px;top:12px;width:min(380px,calc(100% - 24px));max-height:calc(100% - 190px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:14px 16px 16px;display:none}
+#detail.open{display:block}
+#detail h3{margin:0 0 2px;font-size:15px;font-weight:600;text-wrap:balance}
+#detail .kicker{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:6px}
+#detail .mono{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink2);word-break:break-word}
+#detail ul{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink)}
+#detail li{margin:3px 0}
+#detail .links{margin-top:10px;display:flex;flex-wrap:wrap;gap:4px}
+#detail .links button{font-size:11px;padding:3px 7px}
+#detail .close{position:absolute;right:10px;top:8px;border:none;background:transparent;font-size:18px;line-height:1;padding:2px 6px;color:var(--ink3)}
+#detail .steps{margin-top:8px;display:flex;flex-direction:column;gap:3px}
+#detail .step{display:flex;gap:8px;align-items:flex-start;padding:4px 6px;border-radius:5px;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--ink);text-align:left;font:inherit;font-size:12.5px;width:100%}
+#detail .step:hover{background:var(--panel2);border-color:var(--line)}
+#detail .step[aria-current="true"]{border-color:var(--sel)}
+#detail .step b{flex:none;width:20px;height:20px;border-radius:50%;background:var(--sel);color:#1c2230;font-size:11px;display:inline-flex;align-items:center;justify-content:center}
+#detail .step small{display:block;color:var(--ink3);font-size:11px}
+.stepnav{display:flex;gap:6px;margin-top:10px}
+.pill{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--line2);color:var(--ink2);margin:2px 4px 0 0}
+.pill.ok{border-color:var(--ok);color:var(--ok)} .pill.warn{border-color:var(--warn);color:var(--warn)} .pill.bad{border-color:var(--bad);color:var(--bad)} .pill.off{border-color:var(--off);color:var(--off)}
+@media (max-width:860px){
+  #app{grid-template-columns:1fr}
+  header{grid-column:1}
+  header .sub{display:none}
+  #menuBtn{display:inline-block}
+  aside{position:absolute;left:0;top:52px;bottom:0;width:min(300px,86vw);z-index:5;transform:translateX(-105%);transition:transform .2s;box-shadow:var(--shadow)}
+  aside.open{transform:none}
+  #legend{display:none}
+  #minimap{width:150px;height:100px}
+  #detail{max-height:52%;top:auto;bottom:120px;left:12px;width:auto}
+}
+@media (prefers-reduced-motion: reduce){ aside{transition:none} }
+</style>
+<div id="app">
+  <header>
+    <button id="menuBtn" aria-label="Open navigator">☰</button>
+    <h1>Zygomatic Atlas</h1>
+    <span class="sub">Architecture and workflows of the AI media studio on the RTX 4090 host · surveyed from the live tree 2026-10-05</span>
+    <span class="spacer"></span>
+    <div class="tools">
+      <button id="fitBtn" class="primary" title="Fit everything (0)">Fit all</button>
+      <button id="zoomOut" title="Zoom out (-)">−</button>
+      <button id="zoomIn" title="Zoom in (+)">+</button>
+      <button id="labelsBtn" class="tog" aria-pressed="false" title="Always show edge labels">Edge labels</button>
+      <button id="clearBtn" title="Clear selection (Esc)">Clear</button>
+    </div>
+  </header>
+  <aside id="side">
+    <div>
+      <h2>Find</h2>
+      <input id="search" type="search" placeholder="Search nodes, ports, files… (/)" aria-label="Search nodes">
+      <div id="results"></div>
+    </div>
+    <div>
+      <h2>Layers</h2>
+      <div id="laneNav" class="navlist"></div>
+    </div>
+    <div>
+      <h2>Workflows — trace a path</h2>
+      <div id="traceNav" class="navlist"></div>
+    </div>
+    <div>
+      <h2>How to read it</h2>
+      <div style="font-size:12px;color:var(--ink2);line-height:1.5">Drag to pan, wheel or pinch to zoom, click a box for its files and links. A workflow trace numbers the boxes a request passes through, top to bottom. Colored dots are live service state as of the survey.</div>
+    </div>
+  </aside>
+  <main>
+    <svg id="stage" role="img" aria-label="Pannable, zoomable architecture atlas of the Zygomatic system, nine horizontal layers from the public edge down to timers, with labeled arrows for every call, spawn, poll and file write"></svg>
+    <div id="legend">
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.5"/></svg>HTTP call / import</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.5" stroke-dasharray="5 4"/></svg>poll / SSE / watch</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.8" stroke-dasharray="2 3"/></svg>spawns process</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge)" stroke-width="1.5" stroke-dasharray="8 3 2 3"/></svg>reads / writes files</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge-claude)" stroke-width="1.8"/></svg>Claude subscription path</span>
+      <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="var(--edge-gpu)" stroke-width="1.8"/></svg>GPU work / VRAM lease</span>
+      <span data-st="ok"><i class="dot" style="background:var(--ok)"></i>running <b class="cnt"></b></span>
+      <span data-st="warn"><i class="dot" style="background:var(--warn)"></i>running, unmanaged <b class="cnt"></b></span>
+      <span data-st="bad"><i class="dot" style="background:var(--bad)"></i>failed / unreachable <b class="cnt"></b></span>
+      <span data-st="off"><i class="dot" style="background:var(--off)"></i>off / on demand / retired <b class="cnt"></b></span>
+    </div>
+    <div id="hud"><span class="zl" id="zoomLabel">100%</span><span class="zl" id="countLabel"></span><span class="zl" id="statusLabel"></span></div>
+    <div id="minimap"><svg id="mini" aria-hidden="true"></svg></div>
+    <div id="detail" role="dialog" aria-label="Details">
+      <button class="close" id="detailClose" aria-label="Close details">×</button>
+      <div id="detailBody"></div>
+    </div>
+  </main>
+</div>
+<script>
+const LANES = [
+ {id:'L0', title:'People & public edge', note:'who reaches the machine, and from where', color:'--l0', bg:'--l0bg'},
+ {id:'L1', title:'Front doors & servers', note:'every listening process, each under a systemd unit; dots = live state on 2026-10-05', color:'--l1', bg:'--l1bg'},
+ {id:'L2', title:'Dashboard :5000 internals', note:'crewai_web_gui.py — 6 own routes, 38 blueprints, 477 route paths', color:'--l2', bg:'--l2bg'},
+ {id:'L3', title:'Studios :8899', note:'inspection.html SPA, hash-routed; bundles concatenated per request', color:'--l3', bg:'--l3bg'},
+ {id:'L4', title:'Workflows', note:'stage chains as the board labels them; left to right is time', color:'--l4', bg:'--l4bg'},
+ {id:'L5', title:'Shared services & gates', note:'the modules every department calls, and the arbitration that keeps one GPU sane', color:'--l5', bg:'--l5bg'},
+ {id:'L6', title:'AI backends — one RTX 4090', note:'everything inside the red frame shares 24 GB of VRAM; power capped at 350 W', color:'--l6', bg:'--l6bg'},
+ {id:'L7', title:'State & storage', note:'Postgres holds the ledgers; data/runtime JSON is still the dominant store', color:'--l7', bg:'--l7bg'},
+ {id:'L8', title:'Timers & watchers', note:'what fires by itself — systemd timers, cron, and daemon threads inside :5000', color:'--l8', bg:'--l8bg'},
+];
+
+// group: {id, lane, title, cols, cw, ch, chain}
+const GROUPS = [
+ {id:'g_people', lane:'L0', title:'People', cols:3},
+ {id:'g_claude', lane:'L0', title:'Claude agents', cols:3},
+ {id:'g_ext', lane:'L0', title:'External services', cols:4},
+ {id:'g_edge', lane:'L1', title:'Public ingress', cols:3},
+ {id:'g_core', lane:'L1', title:'Core servers', cols:4},
+ {id:'g_lan', lane:'L1', title:'LAN apps', cols:3},
+ {id:'g_sat', lane:'L1', title:'Satellites', cols:4, cw:150, ch:52},
+ {id:'g_pages', lane:'L2', title:'Dashboard pages', cols:5, cw:150, ch:50},
+ {id:'g_bpdept', lane:'L2', title:'Department blueprints', cols:5, cw:150, ch:50},
+ {id:'g_bpplat', lane:'L2', title:'Platform blueprints', cols:5, cw:150, ch:50},
+ {id:'g_studios', lane:'L3', title:'Studio tabs (hash routes)', cols:7, cw:150, ch:56},
+ {id:'g_sext', lane:'L3', title:'Extension packages', cols:3, cw:160, ch:50},
+ {id:'g_doc', lane:'L4', title:'Documentary episode (pipeline_scholarly.py)', chain:true, cw:126, ch:48},
+ {id:'g_kids', lane:'L4', title:'Kids song (pipeline_kidsmusic.py, 13 board columns)', chain:true, cw:118, ch:48},
+ {id:'g_story', lane:'L4', title:'Storyteller episode (pipeline_storyteller.py)', chain:true, cw:126, ch:48},
+ {id:'g_sheet', lane:'L4', title:'Contact-sheet identity flywheel (contact_sheet_pipeline.py)', chain:true, cw:118, ch:48},
+ {id:'g_pub', lane:'L4', title:'Public job (zero_public_server.py)', chain:true, cw:122, ch:48},
+ {id:'g_st', lane:'L4', title:'Session Tree task (:7100)', chain:true, cw:122, ch:48},
+ {id:'g_mkt', lane:'L4', title:'Marketing → YouTube (Creator Nexus)', chain:true, cw:122, ch:48},
+ {id:'g_voicecmd', lane:'L4', title:'Voice command (voice_bridge.py)', chain:true, cw:118, ch:48},
+ {id:'g_depts', lane:'L4', title:'Other departments on the board', cols:6, cw:150, ch:50},
+ {id:'g_sched', lane:'L4', title:'Approval Queue & batchers', cols:4, cw:160, ch:54},
+ {id:'g_llm', lane:'L5', title:'LLM access (subscription, never the key)', cols:4, cw:164, ch:56},
+ {id:'g_media', lane:'L5', title:'Media services', cols:5, cw:164, ch:56},
+ {id:'g_gates', lane:'L5', title:'Quality gates & provenance', cols:5, cw:160, ch:52},
+ {id:'g_gpuarb', lane:'L5', title:'GPU arbitration', cols:2, cw:180, ch:60},
+ {id:'g_gpu', lane:'L6', title:'Resident on the RTX 4090 (24 GB)', cols:6, cw:168, ch:60, frame:true},
+ {id:'g_cpu', lane:'L6', title:'CPU-only judges & renderers', cols:2, cw:160, ch:52},
+ {id:'g_cloud', lane:'L6', title:'Off-box', cols:2, cw:160, ch:52},
+ {id:'g_retired', lane:'L6', title:'Retired / rejected', cols:1, cw:200, ch:62},
+ {id:'g_pg', lane:'L7', title:'Postgres 16 (unix socket, no TCP)', cols:4, cw:150, ch:50},
+ {id:'g_files', lane:'L7', title:'File state (JSON / media)', cols:6, cw:160, ch:54},
+ {id:'g_appstate', lane:'L7', title:'App-local state', cols:3, cw:160, ch:54},
+ {id:'g_timers', lane:'L8', title:'systemd timers & cron', cols:5, cw:160, ch:52},
+ {id:'g_watch', lane:'L8', title:'Daemon threads inside :5000 (start on import)', cols:5, cw:160, ch:52},
+ {id:'g_otherwatch', lane:'L8', title:'Other loops', cols:3, cw:160, ch:52},
+];
+
+// node: {id, g, label, sub, st (ok|warn|bad|off), d:[detail lines]}
+const NODES = [
+ // L0
+ {id:'visitor', g:'g_people', label:'Public visitor', sub:'zero.zygomaticszero.com', d:['Enters through an invite link /u/<token>; each token allows 2 requests by default (zpub_gate.py).','Only CF-Connecting-IP is trusted for rate limits; before that fix 18,706 of 18,826 log events read 127.0.0.1.','Can also unlock Zero Cinema with a password (session flag only, never admin).']},
+ {id:'operator', g:'g_people', label:'Operator (LAN)', sub:'LAN browser → hub :7000', d:['Reaches every LAN app from the hub bookmark page; measures the GUI at 67% zoom.','Medusa and Presets allow only two LAN addresses by IP gate.','Remote pixels via Sunshine on the real :0 session; x11vnc/noVNC units exist but are dead.']},
+ {id:'fable', g:'g_claude', label:'Claude Fable — creator', sub:'writes session trees via `st`', d:['Identity is not self-declared: the st CLI sends CLAUDE_CODE_SESSION_ID and the board reads the model from ~/.claude/projects/*/<sid>.jsonl.','creator_models = ["claude-fable"]; executors are never Fable.','One tree active at a time; a second tree waits in planned/.']},
+ {id:'opusexec', g:'g_claude', label:'Claude Opus executors', sub:'one task per session, ≤30 live', d:['Spawned by session_tree_server.py: claude -p --model claude-opus-5 --session-id <uuid> --permission-mode auto.','start_new_session=True and the unit uses KillMode=process, so a board restart does not kill them.','Brief revealed only on claim; lease 180 min; report must list changed_files with mtimes after the claim.']},
+ {id:'assistants', g:'g_claude', label:'In-app assistants', sub:'Vicky · arch assistant · Hugo · Nomologin', d:['Vicky (Medusa): claude -p --model sonnet, cwd = medusa/ so only medusa/.claude/settings.json loads; opus/fable requests are downgraded to sonnet.','Architecture assistant: claude -p --model sonnet by default since 2026-09-07; cheap tier haiku; refuses opus/fable/mythos.','The Nomologin assistant runs claude -p on opus.','All of them use the operator login in ~/.claude/.credentials.json, never an API key.']},
+ {id:'anthropic', g:'g_ext', label:'Anthropic (subscription)', sub:'claude -p on the login · /api/oauth/usage', st:'ok', d:['Every Claude call the pipelines make is a headless `claude -p` turn on the operator login.','subscription_llm._env() pops every ANTHROPIC_*, CLAUDE_CODE_* and CLAUDECODE variable before spawning, so the CLI can never bill the key.','quota_meter.py reads five_hour / seven_day utilization from GET https://api.anthropic.com/api/oauth/usage; the Session Tree reads the same meter for USAGE HOLD.','Weekly subscription cost model: plan × 12 / 52.1775 × utilization.']},
+ {id:'youtube', g:'g_ext', label:'YouTube', sub:'"Zygomatic Documentaries"', st:'ok', d:['Upload chain: videos.insert → thumbnails.set → captions.insert (.srt) → playlistItems.insert.','Script: ~/zygomatics-zero/youtube/upload.py in the only venv with googleapiclient; token.pickle is do-not-delete.','privacyStatus = scheduled with publishAt at the air slot (08:00 / 14:00 / 20:00 Amsterdam).']},
+ {id:'cloudflare', g:'g_ext', label:'Cloudflare', sub:'tunnel + DNS-01 certs', st:'ok', d:['cloudflared runs as a thread of zero_public_server.py (`tunnel run --token …`), no config file in ~/.cloudflared; URL sidecar data/runtime/tunnel_url.txt.','studio.zygomaticszero.com certificate renewed by zyg-certbot-renew.timer via Cloudflare DNS-01, deploy hook reloads nginx.']},
+ {id:'extapis', g:'g_ext', label:'Research & asset APIs', sub:'OpenAlex · Semantic Scholar · CORE · Freesound · IMAP', d:['scholarly_research_agent.py: OpenAlex → Semantic Scholar → CORE, cached in the Postgres essays table; browser scrape (Playwright → Selenium) only as fallback.','audio_service.py foley: Freesound API → soundbible CC0 catalog (AudioGen disabled 2026-08-09, CC-BY-NC).']},
+ // L1 edge
+ {id:'nginx', g:'g_edge', label:'nginx :80 / :443', sub:'two sites enabled', st:'ok', d:['studio.zygomaticszero.com :443 TLS → http://127.0.0.1:8899 with proxy_buffering off (SSE voice events), client_max_body_size 0, 3600 s timeouts, WebSocket upgrade map.','Catch-all server_name "ZygomaticsZero.local _" on :80 → 127.0.0.1:5001.','Nothing else is published; every other port is LAN or loopback only.']},
+ {id:'cloudflared', g:'g_edge', label:'cloudflared', sub:'child of :5001, token mode', st:'ok', d:['Started by zero_public_server._start_public_tunnel() (lines 166-206); reconnects every 10 s.','Sole public ingress → 127.0.0.1:5001; app uses ProxyFix and trusts CF-Connecting-IP only.','Metrics endpoint on 127.0.0.1:20241.']},
+ {id:'zeropub', g:'g_edge', label:'Zero Public :5001', sub:'zero_public_server.py → zpub_*.py', st:'ok', d:['Public storefront: invite-gated job submit, SSE progress, /download, portfolio page + /portfolio-stream, Zero Cinema (HLS, fingerprint password gate).','Modularised 2026-07-17: zpub_config, zpub_store, zpub_gate, zpub_main_api, zpub_worker, zpub_cinema, zpub_portfolio_deck + zpub_routes_{public,admin,storyteller,sports,cinema}.','Redis queue zpub:queue (RPUSH/BLPOP), single worker, in-memory fallback when Redis is absent.','zero-public.service is active; crewai-gui also runs a zero-launcher thread that respawns it every 5 s if missing.','Slideshow card commented out of zero_public.html on 2026-10-05; routes untouched.']},
+ // L1 core
+ {id:'flask', g:'g_core', label:'Dashboard :5000', sub:'crewai_web_gui.py · crewai-gui.service', st:'ok', d:['Flask, threaded, use_reloader=False so each daemon thread starts exactly once.','38 blueprints registered at the bottom of the file (lines 5055-5202); they import its globals, so order matters.','All departments register jobs in the shared in-process dict _workflow_jobs; _GPU_PIPELINE_LOCK serialises GPU-heavy runs.','2026-10-05 14:08: back under crewai-gui.service. It had been a hand-started process since 2026-10-02 that held the port, so every unit start died with "Address already in use" until the start limit tripped.','MemoryHigh=44G in the unit; holds ~1.3 GB VRAM for in-process diffusers FLUX.']},
+ {id:'kanban', g:'g_core', label:'Studios + Kanban :8899', sub:'kanban_server.py · 6,290 lines', st:'ok', d:['Plain http.server + socketserver, no Flask. Serves kanban.html, kanban_assets/, inspection.html (36,495 lines) and the *_ext/bundle.js concatenations.','Polls the Flask API for board state: /api/kanban/status, /api/workflow_status/active, /api/workflow/steps/agents.','Owns its own JSON: /inspect/api/list, /inspect/api/char/*, creature review gate /api/kanban/creature/decide (forwarded same-host with the internal credential because :8899 has no dashboard cookie).','Published as studio.zygomaticszero.com so the browser mic works (HTTPS).','Drop-in env ZYG_ARCH_ASSIST_CLI_TIMEOUT=7200.']},
+ {id:'sessiontree', g:'g_core', label:'Session Tree :7100', sub:'session_tree_server.py · stdlib', st:'ok', d:['Claude agent job board at ~/Zygomatic/session_tree; CLI st_cli.py installed as ~/.local/bin/st.','Storage is plain JSON: data/active, data/planned, data/finished, audit.jsonl, spawn_logs/.','Limits: 30 tasks per tree, 1 task per session, heavy_slots 1 / light_slots 30, vram_reserve 2 GB, ram_reserve 6 GB, gpu_busy_util 60%.','Spawn sweep every 20 s; cooldown 120 s; brake after 5 spawns for 10 min; usage poll 300 s; USAGE HOLD at 100% until resets_at + 90 s.','Finished trees are served only to a real browser (Sec-Fetch-Site check); the agent CLI cannot read them.']},
+ {id:'hub', g:'g_core', label:'Hub :7000 / :7001 / :7777', sub:'hub_server · restart_api · launcher', st:'ok', d:['~/Zygomatic/hub. 7000 = LAN bookmark page of app cards; 7001 = start/stop/restart backend that runs systemctl --user; 7777 = headless launcher (loopback).','zyg-hub.service runs hub_watch.py, which keeps all three up whenever TCP :5000 answers (15 s poll).','One more card points at a local sandbox server on :5555, not listening at survey time.']},
+ {id:'medusa', g:'g_lan', label:'Medusa :5300 + Presets :5301', sub:'medusa_server.py · medusa_presets.py', st:'ok', d:['Standalone 7-tab GUI (Medusa/Character Studio, Inspection, Training, Vicky, Models, Tab 6, Resources) at ~/Zygomatic/medusa. No generation deps of its own.','Picture jobs: POST /api/generate_character → forwards to :5000 /api/medusa/generate, which always parks the request as pending; Victor then approves it with a second call.','Age floor in crews/medusa_age_gate.py (MIN_AGE, deliberately no env override); Models tab attestation mdlMinAge = 18.','medusa_ipgate allowlist of two LAN addresses + loopback because both ports bind 0.0.0.0 with no login (confused-deputy fix; :5301 was the open door).','Vicky memory = the claude CLI session id; chats are JSON under medusa/data/runtime/vicky/chats/.']},
+ {id:'nexus', g:'g_lan', label:'Creator Nexus :8090', sub:'python3 -m http.server', st:'ok', d:['Pure static app (index.html, app.js, styles.css) at ~/Creator Nexus; all state in localStorage, with a rotating history kept by :5000 /api/creator-nexus/state after a data-loss incident.','Marketing kanban: scans :5000 /api/output/new-videos every 10 s, auto-advances to batch slots (00/04/08/12/16/20 h) and air slots (08/14/20 h).','Fires POST /api/marketing/upload per episode at batch time; 22 platform vault.']},
+ {id:'nomologin', g:'g_lan', label:'Nomologin :8750', sub:'nomologin.service · loopback only', st:'ok', d:['Persona store/launcher: one Chrome --user-data-dir plus its own proxy shim per social identity (shims 41000-41199, CDP 42000-42199). "We never log in." No fingerprint spoofing.','nomologin_node/driver.js attaches with puppeteer; nomologin_assistant.py uses claude -p --model opus through nomologin_mcp_shim.py.','nomologin.service (user unit, Restart=on-failure) since 2026-10-05; the hub button routes to systemctl --user restart. Host header pinned to localhost:8750.']},
+ {id:'controlplane', g:'g_sat', label:'FastAPI control plane :8000', sub:'zyg_api · optional', st:'off', d:['orchestrator/zyg-orchestrator: governance, schedules, approvals, audit, GPU leases, Alembic. Bridged by api_adapter.py as the "Dev Legacy Launcher".','Not listening on survey day; the Flask app is the production system.']},
+ {id:'redis', g:'g_sat', label:'Redis :6379', sub:'loopback', st:'ok', d:['Keys: zpub:queue, zpub:running, zpub:job:<id> (48 h TTL), zpub:sess:<sid>, zpub:rate:<ip>, zpub:token:<token>.','Consumed by Zero Public only.']},
+ // L2 pages
+ {id:'p_overview', g:'g_pages', label:'Agent Overview', sub:'/ · home', d:['Active agents, tasks, GPU/CPU at a glance; agent roster from agents/index.json (134) and agent_configurations.json (103).']},
+ {id:'p_schedule', g:'g_pages', label:'GPU / CPU Schedule', sub:'/gpu_schedule.html', d:['Timeline booking of GPU/CPU bars (bp_schedule.py, schedule_service.py); bars from Schedule/agent_model_bar_mapping.json; reads :8188 for live load.']},
+ {id:'p_approval', g:'g_pages', label:'Approval Queue', sub:'/approval_queue', d:['Five cards: documentary, storyteller, melody, jackmona, preempt. Columns scheduled / in_production / done / failed / blocked / building / ready / claimed / consumed / aborted.','Play / pause / abort per workflow; settings saved to data/runtime/approval_queue_settings.json and re-read every 30 s tick; the 24 GB free-RAM gate is not adjustable.','Calendar panel (production_calendar.py): 7/14/28-day windows, honest "expected" = 28-day prior median only.']},
+ {id:'p_integrity', g:'g_pages', label:'Integrity Gate', sub:'/integrity_gate', d:['Dependency and canonical-LLM checks, blocked reason, force override (bp_integrity_ops.py, 29 routes). Never imports comfy_generation_service.']},
+ {id:'p_metrics', g:'g_pages', label:'Metrics hub', sub:'/metrics · 14 subtabs', d:['overview, analytics, pipelines, characters, llm, quota, quality, system, agents, test_data, mechanics, capabilities, stack_lineage, expansion.','One shared "Checked HH:MM:SS" badge; capabilities = 50 steps × 190 tools × 10,519 questions; expansion = census of the program\'s own 2,622 files.']},
+ {id:'p_workflows', g:'g_pages', label:'Workflows', sub:'/workflows · embeds kanban.html', d:['Live Kanban board from :8899 inside the dashboard, telemetry circles, and the Live Tail (SSE /api/live_log from bp_pipeline_api.py).']},
+ {id:'p_assets', g:'g_pages', label:'Asset Manager', sub:'/asset_manager/templates_board', d:['bp_assets_media.py, 43 routes: asset library, media serving, downloader, and the marketing upload endpoint.']},
+ {id:'p_depts', g:'g_pages', label:'Department pages', sub:'/markets · /betting · /remix · /remix-ai', d:['market_manage.html (Stockmarket + Cryptodaily), sports_manage.html (TokiToki), remix_manage.html, remixai_manage.html.']},
+ {id:'p_ops', g:'g_pages', label:'Ops pages', sub:'job_status · monitoring · audit · logs', d:['Job Status, Monitoring UI, Parameter Control, Audit, Error Logs, Job Lifecycle, Frequency, Benchmark, Sandbox (:5555 scanner), Settings (themes, voices, cursors, hotkeys, HF, Azure).','All render enhanced_dashboard.html with a tab key; the sidebar partial _chrome_sidebar.html is the page-address list.']},
+ {id:'p_zero', g:'g_pages', label:'Public templates', sub:'zero_public · zero_cinema · zero_slideshow', d:['Templates for the :5001 storefront live in this tree and are served by Zero Public.']},
+ // L2 department blueprints
+ {id:'bp_zero', g:'g_bpdept', label:'bp_zero', sub:'documentary dept · 17 routes', d:['Documentary department API; starts zero-approval-worker and zero-kanban-watcher on import; auto mode retries a blocked batch in 1 h and skips a tick on low MemAvailable.']},
+ {id:'bp_story', g:'g_bpdept', label:'bp_storyteller (+daily)', sub:'24 + 4 routes', d:['Storyteller pipeline + character generation; daily batcher runs one episode per template per day, blocked until that template has a trained character LoRA.']},
+ {id:'bp_kids', g:'g_bpdept', label:'bp_kidsmusic · bp_kidseries', sub:'6 + 4 routes', d:['Children\'s music and the ten kids series (balloons, bubbles, car, ducks, moon, plane, shapes, tractor, train, whichsound).']},
+ {id:'bp_jackmona', g:'g_bpdept', label:'bp_jackmona_daily', sub:'Life of Jack / Life of Mona', d:['Two sequential episodes at 03:00 Amsterdam (ZYG_JACKMONA_HOUR), free-RAM gate 24 GB, episode recorded at start, orphan grace 900 s. State: data/runtime/jackmona_daily.json.','Identity via kids_series_people.py: one look and one fixed singer per child, episode ledger so no repeats.']},
+ {id:'bp_melody', g:'g_bpdept', label:'bp_melody_daily', sub:'5 songs/day from 09:00', d:['ZYG_MELODY_HOUR 9, ZYG_MELODY_PER_DAY 5, one at a time; denoise ladder 0.45/0.55/0.65 for intelligibility.']},
+ {id:'bp_preempt', g:'g_bpdept', label:'bp_preempt', sub:'pre-emptive brain bank', d:['Builder state data/runtime/preempt/state.json; banks the ~10-14 Claude text turns of a documentary in advance; ON 100/100.']},
+ {id:'bp_medusa', g:'g_bpdept', label:'bp_medusa (+training, models)', sub:'6 + 22 + 20 routes', d:['Guarded entry /api/medusa/generate (women-only swimwear, adults-only, always parked pending), photo-upload LoRA training, base-model LoRA jobs (mdm-watcher).']},
+ {id:'bp_market', g:'g_bpdept', label:'bp_market · bp_sports', sub:'12 + 13 routes', d:['Stockmarket/Cryptodaily briefings and the TokiToki betting department (pipeline_sports.py, sports_ingest.py, briefing_video.py).']},
+ {id:'bp_remix', g:'g_bpdept', label:'bp_remix · bp_remixai', sub:'13 + 13 routes', d:['Channel watch → clip → narrate split-screen; AI-video study → regenerate. Watchers env-gated (ZYG_REMIX_WATCHER, ZYG_REMIXAI_SWEEPER).']},
+ {id:'bp_char2d', g:'g_bpdept', label:'bp_char2d', sub:'2D Character Basics I-IV', d:['pipeline_char2d.py: MPFB character.blend, six cel-shaded views + turnaround, Rhubarb timing → 3 visemes, talk_front.mp4, gesture clips. Selected as a kanban template char2d_basics_1..4.']},
+ {id:'bp_movement', g:'g_bpdept', label:'bp_movement', sub:'9 routes', d:['Movement Studio backend: VACE motion console, SAM 3D Body capture, rig ops (studio_ext_server/movement_rig.py).']},
+ {id:'bp_picture', g:'g_bpdept', label:'bp_picture_studio', sub:'3 routes', d:['Advanced picture editing jobs (pic-edit-<jid> threads) over picture_fx.py.']},
+ {id:'bp_claudeclip', g:'g_bpdept', label:'bp_claude_clip', sub:'token accounting', d:['Records Claude token usage (_record_token_usage) and clip calls; Whisper via zyg_whisper.']},
+ // L2 platform blueprints
+ {id:'bp_pipeline', g:'g_bpplat', label:'bp_pipeline_api', sub:'24 routes · Live Tail SSE', d:['/api/kanban/status (card titles matched by exact string, KANBAN_STAGE_MAP_DOCUMENTARY maps 24 titles → stage fragments), /api/workflow_status/active, /api/workflow/steps/agents, /api/live_log SSE, /api/internal/pipeline/start + status for Zero Public.']},
+ {id:'bp_approval', g:'g_bpplat', label:'bp_approval_queue', sub:'5 routes', d:['/api/approval_queue/board, /calendar, /<wf>/action play|pause|abort, /<wf>/settings, /preempt/item/<id>/action. History tailed from zero_audit.jsonl by prefix.']},
+ {id:'bp_schedule', g:'g_bpplat', label:'bp_schedule · bp_timeline_legacy', sub:'8 + 13 routes', d:['GPU/CPU timeline entries and legacy bars.']},
+ {id:'bp_integrity', g:'g_bpplat', label:'bp_integrity_ops', sub:'29 routes', d:['Dependency status, HF downloads (hf-download thread), integrity checks, canonical LLM list.']},
+ {id:'bp_metrics', g:'g_bpplat', label:'bp_metrics → metrics_hub.py', sub:'/api/metrics/hub/<section>', d:['metrics_hub.collect_runs + analytics_hub.enrich_runs; reads Postgres gates/fallbacks, health-probe events, llm_audit rows (source=claude_code).']},
+ {id:'bp_assets', g:'g_bpplat', label:'bp_assets_media', sub:'43 routes · marketing upload', d:['POST /api/marketing/upload shells youtube/upload.py through zygomatics-zero/venv; /api/output/new-videos filters files aged 45 min-24 h and skips _slideshow/_narration/_raw/… suffixes.']},
+ {id:'bp_nexus', g:'g_bpplat', label:'bp_creator_nexus', sub:'3 routes', d:['Rotating state history for Creator Nexus; used by pipeline_crime, pipeline_storyteller, metrics_hub, analytics_hub, zpub_portfolio_deck.']},
+ {id:'bp_auth', g:'g_bpplat', label:'bp_auth · bp_themes_users', sub:'8 + 12 routes', d:['Login, logout, CSRF, restart; themes and user admin. Auth gate mirrors the page list in _dashboard_paths.']},
+ {id:'bp_safety', g:'g_bpplat', label:'bp_safety · bp_skill_sandbox', sub:'6 + 5 routes', d:['Error logs, telemetry, schedule pause; /sandbox security scanner on :5555. The Skill VM inbound route was removed 2026-10-05 with the VM (last inbound 2026-04-29).']},
+ {id:'bp_agents', g:'g_bpplat', label:'bp_agents_api · bp_jobs_audit', sub:'26 + 9 routes', d:['Agent registry/config API; jobs + audit log.']},
+ {id:'bp_voices', g:'g_bpplat', label:'bp_voices · bp_benchmark', sub:'6 + 13 routes', d:['Voice catalog / narrator voices; benchmark replay + infra probes.']},
+ {id:'bp_zps', g:'g_bpplat', label:'bp_zero_public_store', sub:'7 routes', d:['URL-token store for public links: data/runtime/zero_public_urls.json, 7-day TTL, base URL from tunnel_url.txt.']},
+ {id:'bp_pages', g:'g_bpplat', label:'bp_dashboard_pages · bp_control_settings', sub:'17 + 7 routes', d:['All dashboard page routes; parameter-control settings.']},
+ // L3 studios
+ {id:'s_library', g:'g_studios', label:'Library (Inspection)', sub:'#inspections', d:['Read-only walk of lora-datasets/storyteller_chars: sheets, bibles, LoRA state; creature review gate.']},
+ {id:'s_video', g:'g_studios', label:'Video Studio', sub:'#videos · video_studio.py', d:['RACKS spec; /video/api/render|assemble|still|prompt|vfx/draft|preset/*. Wan2.1/2.2 I2V, VACE, FLUX on :8188. ComfyUI leaves omitted inputs None.']},
+ {id:'s_mesh', g:'g_studios', label:'Mesh Studio', sub:'#mesh · mesh_studio.py', d:['mesh_studio_ops/{a_shape,b_session}.py, mesh_control.py → Blender; geom/ anthropometry; Direct3D-S2 for mesh generation; UniRig lost to Blender auto-weights 2026-09-05.']},
+ {id:'s_picture', g:'g_studios', label:'Picture Studio', sub:'#pictures · picture_fx.py', d:['FLUX edits on :8188; /inspect/api/picture/fx/*.']},
+ {id:'s_char', g:'g_studios', label:'Character Studio', sub:'#charstudio · character_studio.py', d:['char_photoreal.py, char_cycles_render.py, char_skin_dehair.py, character_hair_assets.py; CC0 MPFB base body in Blender (Cycles); FLUX contact sheets + LoRA on :8188.','--stage previews runs LAST.']},
+ {id:'s_creature', g:'g_studios', label:'Creature Studio', sub:'#creatures · creature_fx.py', d:['creature_sheet_service, creature_training_service, creature_lora_service, creature_judge (per-cell VLM); body-plan lock; FLUX + VACE on :8188.']},
+ {id:'s_movement', g:'g_studios', label:'Movement Studio', sub:'#movement · movement_studio.py', d:['VACE motion console; SAM 3D Body capture (SOMA zero pose ≠ T-pose); Blender rigging, ecorché, skeleton mesh; stance + chest fix 2026-09-24.']},
+ {id:'s_voice', g:'g_studios', label:'Voice Studio', sub:'#voices1 · voice_studio.py', d:['Tweak engine + preset store; /voice/api/render|bake|prerender|preset/*|assign/save. IndexTTS-2 primary, Applio RVC conversion, Whisper QC. Ubi bench ub01-ub10, no pick yet.']},
+ {id:'s_music', g:'g_studios', label:'Music Studio', sub:'#musicstudio · music_studio.py', d:['INSTRUMENTS library, /inspect/api/music/spec, merge; ACE-Step 1.5 on :8188.']},
+ {id:'s_melody', g:'g_studios', label:'Melody Studio', sub:'#music · kids_music_service.py', d:['Kids songs and series live here, not in the Videos tab (_VID_SKIP_PREFIX kids_). ACE-Step + HiDream + LTX + Ollama + Whisper.']},
+ {id:'s_sfx', g:'g_studios', label:'SFX Studio', sub:'#sfx · sfx_fx.py', d:['Local DSP/ffmpeg, sfx_merger.py, vocal_fx_ingest.py (Whisper); library slates; the vocal FX library is the first AI-training-forbidding licence in the stack.']},
+ {id:'s_vfx', g:'g_studios', label:'VFX Studio', sub:'#vfx · vfx_fx.py + 16 vfx_*.py', d:['Detectors, landmarks, volume render / camera search in Blender (vfx_volume_render.py), embed, place, probes, metrics; LTX via ltx_hidream_service on :8189.']},
+ {id:'s_arch', g:'g_studios', label:'Architecture Studio', sub:'#architecture · architecture_studio.py', d:['190-tool dock; arch_assistant.py (claude -p sonnet, tools via arch_mcp_shim.py → /assistant/tool); arch_blender_build.py offline renders under a global Blender lock; reference model rail (Witsen 1671 pinas); floor-plan library (never CubiCasa/RPLAN).','Viewport labels OFF, no auto-select; /assistant/active must be 0 before a GUI restart.']},
+ {id:'s_board', g:'g_studios', label:'Kanban board', sub:'kanban.html · kanban_main.js', d:['Department map: scholarly=Documentary, kidsmusic, kidseries, clipfarm, crime, video, storyteller, remix, wardrobe, char2d, movement, medusa. ?pipeline_id= pins another run; other_runs chips.','Standalone renders surfaced by kanban_video_status.py from data/runtime/logbook/<run>.jsonl, liveness by scanning /proc.']},
+ {id:'s_voicebridge', g:'g_studios', label:'Voice bridge', sub:'/inspect/api/voice/**', d:['Browser mic → /voice/utterance → zyg_whisper large-v3 → optional speaker verify → voice_brain.plan (builtin → grammar → arch → llm) → SSE action/say to the driver tab (ghost cursor) → /voice/ack → ledger in data/runtime/voice_bridge/.','TTS replies via voice_ext/tts.py (IndexTTS-2), cached under say/.']},
+ {id:'s_bakeoff', g:'g_studios', label:'Bake-off / Home', sub:'#bakeoff · #home (no tab button)', d:['Reachable by hash only; output/bakeoff holds comparison runs.']},
+ {id:'x_arch', g:'g_sext', label:'arch_ext · arch_server_ext', sub:'60 js + 45 json · 14 py', d:['Client icon-family registrations (geometry/label/opening kinds) concatenated into /arch_ext/bundle.js; server ROUTES per family at /inspect/api/architecture/ext/<family>/<op>, hot-reloaded on mtime.']},
+ {id:'x_archassist', g:'g_sext', label:'arch_assistant_ext', sub:'91 py', d:['The reasoning layer: analyse geometry/performance/planning, building program, circulation and clash rules, asset search; dispatched by architecture_studio.ext_dispatch().']},
+ {id:'x_archblender', g:'g_sext', label:'arch_blender_ext', sub:'37 py', d:['Blender builders: ground_v3, mountains, rivers/lakes, forests, roofs, MEP, furniture, civil infra; invoked by arch_blender_build.py and render_offline_blender.py.']},
+ {id:'x_studio', g:'g_sext', label:'studio_ext · studio_ext_server', sub:'18 js · 9 py', d:['Character/Creature/Movement page extensions (hair, eyes, lashes, dress, photoreal, fur, file-compare); server ops char_checks, char_file, char_hair, char_photoreal, char_run, creature, mesh, movement_rig at /inspect/api/studio/<mod>/<op>.']},
+ {id:'x_voice', g:'g_sext', label:'voice_ext', sub:'17 js + 2 py', d:['Per-studio voice-command actions (10_nav, 20_videos, 22_charstudio, 25_voices, 30_architecture…), speaker.py, tts.py.']},
+ {id:'x_geom', g:'g_sext', label:'geom/ · mesh_studio_ops/', sub:'51 py (72 with anthro/, form/)', d:['Anthropometry engine: body grid/metrics/plates, head and face fit, keypoints, mesh skeletons, drift gates, phenotype. Library only, no URL. 116 tests in tests_arch_ext/.']},
+ // L4 chains
+ {id:'d1', g:'g_doc', label:'Topic setup', sub:'Stage 1', d:['Topic pools in data/zero_topic_pools.json; auto mode picks from them.']},
+ {id:'d2', g:'g_doc', label:'Academic research', sub:'Stage 2 · scholarly_research_agent', d:['OpenAlex → Semantic Scholar → CORE, cached in Postgres essays; browser scrape fallback. Crime variant: web_research_agent.py.']},
+ {id:'d3', g:'g_doc', label:'Script (Opus 5)', sub:'Stage 3 · subscription_llm', d:['MODEL_SCRIPT claude-opus-5; haiku tier for tagging, sonnet tier for large calls; fallback Ollama qwen3.5:9b through murch_engine.','[YOUTUBE_META] block written into pipeline_state in the same prompt.']},
+ {id:'d4', g:'g_doc', label:'Emotion & rhythm', sub:'3.1 · murch_engine (qwen)', d:['Cascading emotion scorer, shot grammar, saliency, xfade + RMS rhythm cuts; MURCH_LLM_MODEL qwen3.5:9b on Ollama.']},
+ {id:'d5', g:'g_doc', label:'TTS narration', sub:'Stage 4 · IndexTTS-2', d:['tts_service._tts_shared(): IndexTTS-2 worker → Chatterbox (not installed since 2026-10-02). Workers taskset 0-19; loudnorm I=-16 TP=-1.5 LRA=11.']},
+ {id:'d6', g:'g_doc', label:'Whisper align', sub:'zyg_whisper large-v3', d:['Word timings for subtitles; cuda → cpu:base degrade recorded in run_ledger.']},
+ {id:'d7', g:'g_doc', label:'Time-locked scenes', sub:'3.5a', d:['Scenes locked to narration timing before any picture is made.']},
+ {id:'d8', g:'g_doc', label:'Stills (FLUX.1-schnell)', sub:'3.5 · scholarly_stills_backend', d:['In-process diffusers FLUX.1-schnell + character bible + ControlNet; cross-process mutex data/runtime/scholarly_gpu.lock. Comfy only under ZYG_SCHOLARLY_COMFY_IMAGES=1. Output flux_images/flux_NNN.jpg.']},
+ {id:'d9', g:'g_doc', label:'Gates & repair', sub:'typography · era · hand · VLM', d:['typography_ocr (PP-OCR), era_gate (Qwen3-VL), hand_qc (MediaPipe), vlm_inspector checklists; every gate leaves a receipt in pipeline_state.gate_receipts, or says it did not run.']},
+ {id:'d10', g:'g_doc', label:'LTX motion', sub:'Stage 5 · :8189', d:['scholarly_motion.py → ltx_hidream_service: one still = one 20 s clip (VRAM ceiling, 47.9-49.1 GB measured), locked-off camera prompt only; Ken Burns added after by ffmpeg render_move(). Camera moves in the prompt invent kissing/crowds.']},
+ {id:'d11', g:'g_doc', label:'Assembly (NVENC)', sub:'Stage 6 · encode_utils', d:['NVENC first, x264 fallback, _NVENC_SEM; book intro; LUT colour grade; ACE-Step BGM bed.']},
+ {id:'d12', g:'g_doc', label:'Subtitles', sub:'pipeline_video._burn_subtitles', d:['<slug>_subtitled.mp4 + .srt sidecar; timings prefer Whisper over TTS. Numerals as digits.']},
+ {id:'d13', g:'g_doc', label:'Deliver', sub:'data/output/clips/<pid>/', d:['Cleanup, optional scp to the Windows desktop, pipeline_state.json dumped to the run folder; Creator Nexus sees it after 45 min.']},
+ {id:'k1', g:'g_kids', label:'Song brief', sub:'kids_series_people', d:['Who, what, how long; Jack/Mona = 36 moments each, episode ledger. Length rotation 130/150/170 s (210 s loses its last 5 lines).']},
+ {id:'k2', g:'g_kids', label:'Lyrics (Opus 5)', sub:'kids_llm → subscription', d:['Opus writes 30 lines with a verbatim hook; qwen3.5:9b second; template last; never the key. Backend that answered goes into the song manifest.']},
+ {id:'k3', g:'g_kids', label:'Compose & score', sub:'kids_music_theory', d:['Symbolic plan: bpm, key, time signature, form, SINGERS table.']},
+ {id:'k4', g:'g_kids', label:'Score render', sub:'fluidsynth · CPU', d:['libfluidsynth + MuseScore_General.sf3 (GPL-2 soundfont), deterministic.']},
+ {id:'k5', g:'g_kids', label:'Measure score', sub:'audio_qc', d:['Gates on the rendered score before any GPU time is spent.']},
+ {id:'k6', g:'g_kids', label:'ACE-Step a2a', sub:'ace_step_service · :8188', d:['Sampler starts from the score render latent (workflow ace_step_kidsong_a2a_spike); denoise ladder 0.45/0.55/0.65 fixed intelligibility to 94%.']},
+ {id:'k7', g:'g_kids', label:'Measure track', sub:'CLAP · tempo · age', d:['Tempo/key/loudness/duration, CLAP semantic check, gate_singer_age.']},
+ {id:'k8', g:'g_kids', label:'Master + RVC', sub:'audio_mix · voice_conversion', d:['Two-pass loudnorm; Applio RVC v2 model warm_control_v2 locks the singer; ship_check() refuses a bad conversion.']},
+ {id:'k9', g:'g_kids', label:'Storyboard (Opus 5)', sub:'kids_video_service', d:['32-picture storyboard with 0 motif filler; Opus → qwen → motif deck.']},
+ {id:'k10', g:'g_kids', label:'Illustrate (HiDream-O1)', sub:'ltx_hidream_service · :8189', d:['MODEL_FAMILY hidream default: 1024² in 4 s warm; falls back to FLUX.2 klein-4B on :8188. One picture per LTX clip.']},
+ {id:'k11', g:'g_kids', label:'Measure frames', sub:'CLIP · librosa', d:['Cartoon-vs-photoreal contrast ≥ 0.75, beat-grid cut accuracy, worst rolling 5 s picture rate.']},
+ {id:'k12', g:'g_kids', label:'Animate (LTX-2.5)', sub:'5 s per picture · :8189', d:['One clip per picture, CLIP_S default 5 s; 960² in 25 s warm.']},
+ {id:'k13', g:'g_kids', label:'Assemble', sub:'ffmpeg xfade', d:['Every join an xfade, no hard cuts; outputs output/kidsmusic/<job>/ and output/cinematic/<job>/.']},
+ {id:'t1', g:'g_story', label:'Character prep', sub:'character_bible_service', d:['character_bible.json under lora-datasets/storyteller_chars/<id>/; brief + state services.']},
+ {id:'t2', g:'g_story', label:'Story script', sub:'subscription_llm / Ollama', d:['Single-voice episode script; multi-voice scenes go through storyteller_scene_service.py.']},
+ {id:'t3', g:'g_story', label:'TTS narration', sub:'IndexTTS-2 · voice catalog', d:['storyteller_voice_catalog.py assigns voices; previews via storyteller_voice_preview_service.']},
+ {id:'t4', g:'g_story', label:'Stills + bible', sub:'comfy_generation_service', d:['Character-locked stills on :8188 with the bible package; consistency_qa_service checks drift.']},
+ {id:'t5', g:'g_story', label:'Anatomy repair', sub:'anatomy_qc · flux_fill', d:['hand_qc_service (MediaPipe rebuild) + Qwen InstantX inpaint graph.']},
+ {id:'t6', g:'g_story', label:'Ken Burns', sub:'Stage 4', d:['Pan/zoom animation of the stills; NVENC cap 8 concurrent.']},
+ {id:'t7', g:'g_story', label:'Assembly', sub:'encode_utils NVENC', d:['Failure labels: no final video / no narration audio / no audio stream / degraded output.']},
+ {id:'t8', g:'g_story', label:'Subtitle burn', sub:'Stage 5b', d:['pipeline_video._burn_subtitles.']},
+ {id:'c1', g:'g_sheet', label:'Sheet generate', sub:'48-angle sheet (asks first)', d:['FLUX contact sheet on :8188; a picture request is ONE picture, a sheet asks first.']},
+ {id:'c2', g:'g_sheet', label:'Awaiting approval', sub:'operator gate', d:['Creature/character sheets wait for the operator decision via :8899 /api/kanban/creature/decide.']},
+ {id:'c3', g:'g_sheet', label:'Tile crop', sub:'cells', d:['Sheet cut into cells for QC and training.']},
+ {id:'c4', g:'g_sheet', label:'Identity QC', sub:'ArcFace antelopev2', d:['identity_qc_service: cosine vs the sheet-A anchor, angle-aware (frontal strict, profile lenient, back exempt); regen bad cells with ipadapter_service.']},
+ {id:'c5', g:'g_sheet', label:'Captions', sub:'', d:['Captions for the LoRA dataset.']},
+ {id:'c6', g:'g_sheet', label:'LoRA training', sub:'lora_trainer_service', d:['Trains the character LoRA; ComfyUI LoRAs must be converted (convert_lora.py) or they are never applied; alpha lost on export.']},
+ {id:'c7', g:'g_sheet', label:'Angle expansion', sub:'', d:['More angles from the trained LoRA.']},
+ {id:'c8', g:'g_sheet', label:'LoRA refine → done', sub:'', d:['Second pass; unlocks the storyteller daily batcher for that template.']},
+ {id:'z1', g:'g_pub', label:'/u/<token>', sub:'invite check', d:['Token validated against :5000 /api/zero_public/token_check and consumed via token_use; stored in session.']},
+ {id:'z2', g:'g_pub', label:'POST /api/submit', sub:'rate limit per edge IP', d:['Prompt classified by :5000 /api/internal/zero/classify.']},
+ {id:'z3', g:'g_pub', label:'RPUSH zpub:queue', sub:'Redis', d:['zpub:job:<id> JSON with 48 h TTL; queued → running → done | failed.']},
+ {id:'z4', g:'g_pub', label:'Worker BLPOP', sub:'zpub_worker · single', d:['Honours a halt key; in-memory fallback when Redis is down.']},
+ {id:'z5', g:'g_pub', label:'/api/internal/pipeline/start', sub:'INTERNAL_TOKEN → :5000', d:['The job becomes a normal department run in _workflow_jobs.']},
+ {id:'z6', g:'g_pub', label:'Poll status', sub:'/api/internal/pipeline/status/<id>', d:['Worker relays progress to the browser.']},
+ {id:'z7', g:'g_pub', label:'SSE to browser', sub:'/api/stream/<job>', d:['Live progress stream.']},
+ {id:'z8', g:'g_pub', label:'/download/<job>', sub:'MP4', d:['Finished output served from the run folder.']},
+ {id:'st1', g:'g_st', label:'st create --file', sub:'tree.json', d:['Up to 30 tasks; brief, verify_cmd, cwd, expect_files, weight, vram_gb per task.']},
+ {id:'st2', g:'g_st', label:'planned → active', sub:'one tree at a time', d:['Ranked by created_at; promoted when the active tree archives.']},
+ {id:'st3', g:'g_st', label:'Spawn sweep 20 s', sub:'claude -p opus', d:['Checks heavy/light slots, VRAM/RAM reserves, GPU busy %, cooldown, brake and USAGE HOLD before each spawn.']},
+ {id:'st4', g:'g_st', label:'st claim', sub:'brief revealed', d:['Busy slot ⇒ queued, then st await.']},
+ {id:'st5', g:'g_st', label:'Work + st touch', sub:'lease 180 min', d:['Heartbeat extends the lease; stale leases can be taken over; st reset returns a task to todo.']},
+ {id:'st6', g:'g_st', label:'st done --report', sub:'summary ≥ 40 chars', d:['changed_files absolute with mtime after the claim, verification cmd + output, not_done list.']},
+ {id:'st7', g:'g_st', label:'verify_cmd', sub:'timeout 180 s', d:['Non-zero exit = task FAILED, not finished.']},
+ {id:'st8', g:'g_st', label:'Archive', sub:'settle 20 min', d:['Auto-archives after 20 quiet minutes; finished trees readable only in a browser.']},
+ {id:'m1', g:'g_mkt', label:'Scan new-videos', sub:'every 10 s', d:['GET :5000/api/output/new-videos: files 45 min-24 h old, suffix filter, pipeline_<id>_state.json read for YouTube metadata.']},
+ {id:'m2', g:'g_mkt', label:'Production log', sub:'24 h rolling', d:['Stage 1, never cleared; usedKeys dedup.']},
+ {id:'m3', g:'g_mkt', label:'Scheduling slot', sub:'next batch ≥ 60 min away', d:['MKT_BATCH_SLOTS 00/04/08/12/16/20; title/description/tags from Claude [YOUTUBE_META].']},
+ {id:'m4', g:'g_mkt', label:'Publishing', sub:'batch check every 60 s', d:['At batch time uploadStatus → uploading; POST /api/marketing/upload with air_slot.']},
+ {id:'m5', g:'g_mkt', label:'upload.py', sub:'zygomatics-zero/venv', d:['videos.insert + thumbnail (flux_000.jpg or ffmpeg frame at 10%) + captions + playlist.']},
+ {id:'m6', g:'g_mkt', label:'Scheduled publish', sub:'08:00 / 14:00 / 20:00', d:['status.publishAt at the air slot; category 27 Education; madeForKids from audience.']},
+ {id:'v1', g:'g_voicecmd', label:'Mic (HTTPS)', sub:'MediaRecorder webm/opus', d:['Only works on studio.zygomaticszero.com because browsers require HTTPS for the mic.']},
+ {id:'v2', g:'g_voicecmd', label:'/voice/utterance', sub:'POST', d:['ffmpeg → 16 kHz mono wav.']},
+ {id:'v3', g:'g_voicecmd', label:'Whisper large-v3', sub:'voice_stt', d:['zyg_whisper on cuda with Silero VAD.']},
+ {id:'v4', g:'g_voicecmd', label:'Speaker verify', sub:'optional', d:['Gate armed only if someone is enrolled (voice_ext/speaker.py).']},
+ {id:'v5', g:'g_voicecmd', label:'voice_brain.plan', sub:'builtin → grammar → arch → llm', d:['Deterministic layers first, LLM last.']},
+ {id:'v6', g:'g_voicecmd', label:'SSE action / say', sub:'/voice/events', d:['Driver tab executes the action with a ghost cursor; IndexTTS-2 speaks replies.']},
+ {id:'v7', g:'g_voicecmd', label:'/voice/ack → ledger', sub:'data/runtime/voice_bridge/', d:['Every utterance leaves a ledger line.']},
+ // other departments
+ {id:'dep_crime', g:'g_depts', label:'Crime', sub:'pipeline_crime.py', d:['Web research variant; still uses the anthropic SDK key path (pipeline_crime.py:412).']},
+ {id:'dep_video', g:'g_depts', label:'Video', sub:'pipeline_video.py', d:['Generic video department; book intro and subtitle burn live here; KANBAN_STAGE_MAP_VIDEO.']},
+ {id:'dep_clipfarm', g:'g_depts', label:'Clipfarm', sub:'clipfarm_visual_framework.py', d:['10-part visual framework: DISCIPLINE_BASELINES (floor) + BEAT_TYPE_OVERRIDES (ceiling) via VisualFrameworkResolver; NarrativeBeatClassifier reads transcript + audio energy; build_sd_prompt().']},
+ {id:'dep_sports', g:'g_depts', label:'Sports (TokiToki)', sub:'pipeline_sports.py', d:['One pipeline with themed rows; odds cache; briefing_video.py.']},
+ {id:'dep_market', g:'g_depts', label:'Markets', sub:'bp_market', d:['Stockmarket + Cryptodaily daily briefings (scheduler env-gated).']},
+ {id:'dep_remix', g:'g_depts', label:'Remix · Remix Ai', sub:'remixai_analyze.py', d:['Channel watch → clip → narrate; AI-video study → regenerate (SDK key path for analysis).']},
+ {id:'dep_wardrobe', g:'g_depts', label:'Wardrobe · env/fx', sub:'pipeline_envfx_runner.py', d:['env-, fx-, wardrobe-, assetlib-<pid> worker threads.']},
+ {id:'dep_kidsseries', g:'g_depts', label:'Kids series ×10', sub:'kids_series_common.py', d:['Each pipeline_kids_<slug>.py exposes SERIES, STAGES, run_episode, run_cli; output/kids_<slug>/<job>/. Outside verifier scripts/kids_series_check.py (stdlib + ffprobe, GPU-free).']},
+ {id:'dep_scenes', g:'g_depts', label:'Scene & intro builds', sub:'run_scene_*.py · sand_title_fx.py', d:['Second Ledger intro (SECOND_LEDGER_INTRO, 1344×768), Shores/Cornelis scenes, eagle call sourcing (source_eagle_call.py), sand letters written with Qwen-Image-Edit gated by OCR read-back, portfolio build.py in ~/Documents/Portfolio_video (v7 live).']},
+ {id:'dep_agents', g:'g_depts', label:'CrewAI agent fleet', sub:'crewai_pipeline.py · 134 agents', d:['CEO-Agent → overseers → specialist agents (agents/index.json 134, agent_configurations.json 103); llm = "ollama/llama3" through LiteLLM inside crewai.LLM; prompts optionally wrapped by pipeline_dsl_adapter.']},
+ {id:'dep_captests', g:'g_depts', label:'Capability tests', sub:'capability_tests/ · 50 steps', d:['pixel_gates, identity_gates, text/vlm judges, mesh_gen, rigging, stt; 324 columns blocked on unbuilt fixtures (tree a6efef).']},
+ {id:'dep_preempt', g:'g_depts', label:'Pre-emptive bank', sub:'preempt_bank.py', d:['Record mode banks turns to data/runtime/preempt/documentary/<id>/turns.jsonl; replay answers by hash then next unused same-stage record; misses go live only if live_allowed(), else local fallback.']},
+ // scheduling
+ {id:'aq_board', g:'g_sched', label:'Approval Queue board', sub:'bp_approval_queue.py (2026-09-20)', d:['Five workflow cards, play/pause/abort, settings, pre-empt item actions; history from zero_audit.jsonl.']},
+ {id:'aq_calendar', g:'g_sched', label:'Production calendar', sub:'production_calendar.py', d:['Views calendar / production, windows 7/14/28 days, anchor −365…+28; rows documentary{scholarly,crime}, storyteller, melody{kidsmusic}, preempt; sources metrics_hub + analytics_hub + system_usage.jsonl.']},
+ {id:'aq_batchers', g:'g_sched', label:'Daily batchers', sub:'bp_zero · storyteller · melody · jackmona', d:['Each a daemon thread inside :5000 with auto mode OFF by default; all die with :5000. Free-RAM gate 24 GB fixed.']},
+ {id:'aq_health', g:'g_sched', label:'Restart governor', sub:'zygomatic-health-probe.sh', d:['No per-job restart counter in the queue. The probe needs 2 consecutive bad probes, 3 min startup grace, honours /var/tmp/zygomatic-maintenance.flag (15 min) and in-flight flags (5 min stale, 45 min max deferral).']},
+ // L5 LLM access
+ {id:'sv_sub', g:'g_llm', label:'subscription_llm.py', sub:'claude -p · env scrubbed', d:['The one implementation: a headless claude -p turn per call, user message as stream-json so vision blocks pass, result event read back; SubscriptionClient().messages.create mimics the SDK shape.','Picks the newest claude binary (2.1.74 ignores MAX_THINKING_TOKENS=0 and bills ~5×). Tiers: haiku→claude-haiku-4-5, sonnet→claude-sonnet-5, opus→claude-opus-5.','Refused limit → SubscriptionLimitError → caller takes its LOCAL fallback; it never switches to the key. CLI cwd data/runtime/scholarly-llm-cli; timeout 900 s; MAX_TURNS 3.']},
+ {id:'sv_kidsllm', g:'g_llm', label:'kids_llm.py', sub:'Opus → qwen3.5:9b → template', d:['Thin router over subscription_llm.run_turn for write_lyrics and _llm_ideas_once; opus_available() checks only the CLI binary and login, no key consulted. ZYG_KIDSMUSIC_OPUS_TIMEOUT 600.']},
+ {id:'sv_arch', g:'g_llm', label:'arch_assistant.py', sub:'claude -p --model sonnet', d:['cwd data/runtime/arch_assistant/cli (no CLAUDE.md); CLI_TIMEOUT 1800 (unit drop-in 7200); tools through arch_mcp_shim.py → /assistant/tool; kills with the GUI, so /assistant/active must be 0 before restart.']},
+ {id:'sv_preempt', g:'g_llm', label:'preempt_bank.py', sub:'record / replay', d:['Context is a contextvar; ~2% of a Claude week per brain; vision calls always have a local fallback (Qwen3-VL / OCR / moondream).']},
+ {id:'sv_audit', g:'g_llm', label:'llm_audit.py', sub:'data/runtime/llm_audit/', d:['Every turn: source=claude_code, backend, stage, tokens, CLI cost figure (not to be quoted), session id, cli_version().']},
+ {id:'sv_quota', g:'g_llm', label:'quota_meter.py', sub:'% × 41.40 EUR/week', d:['OAuth usage windows + API-equivalent cost from ~/.claude/projects transcripts de-duped by message id; state quota_meter_status.json, quota_samples.jsonl. The meter is SHARED across sessions.']},
+ {id:'sv_sdk', g:'g_llm', label:'SDK key sites (legacy)', sub:'pipeline_crime · storyteller stream · cell_vlm tier 2', d:['ANTHROPIC_API_KEY still read by pipeline_crime.py, pipeline_storyteller.py (messages.stream), pipeline_video.py, character_photo_analysis_service, remixai_analyze, cell_vlm_judge tier 2, and subscription_llm api-mode escape hatch only.']},
+ {id:'sv_murch', g:'g_llm', label:'murch_engine.py', sub:'local LLM roster · qwen3.5:9b', d:['Walter Murch editing intelligence in 4 layers; owns _ollama_response_text and MURCH_LLM_MODEL; the fallback when Claude is refused.']},
+ // media services
+ {id:'sv_tts', g:'g_media', label:'tts_service.py', sub:'IndexTTS-2 → (Chatterbox absent)', d:['The only TTS chain. Worker ~/models/tts_indextts2/indextts2_worker.py, subprocess + JSON, taskset 0-19, 8 threads. Related: abel_voice, narration_service, narrator_voice_service, voice_pool, voice_assign.']},
+ {id:'sv_whisper', g:'g_media', label:'zyg_whisper.py', sub:'faster-whisper large-v3 + VAD', d:['One shared loader, VRAM-aware (ZYG_WHISPER_MIN_VRAM_MB) → cpu:base degrade logged to run_ledger. Also voice_stt, diarize_sortformer, speaker_verify_worker.']},
+ {id:'sv_rvc', g:'g_media', label:'voice_conversion.py', sub:'Applio RVC v2 · ship_check()', d:['convert_stem() onto a separated vocal stem, model warm_control_v2; worker tools/vc_applio_worker.py in Applio\'s own py3.12 venv; provenance models/vc_applio/PROVENANCE.json.']},
+ {id:'sv_ace', g:'g_media', label:'ace_step_service.py', sub:'ACE-Step 1.5 turbo · MIT', d:['generate(prompt, out, duration_s ≤ 180, seed) through 6 ace_step_*.json graphs and the ComfyUI-Zygomatic-Ace node pack on :8188; replaced MusicGen 2026-08-09.']},
+ {id:'sv_ltx', g:'g_media', label:'ltx_hidream_service.py', sub:'LTX-2.5 + HiDream-O1 · :8189', d:['Starts the second ComfyUI on demand (LTX_ROOT/start_server.sh); every GPU call under the production submit lock with gpu_lease(); scholarly_motion.py is the documentary policy layer.']},
+ {id:'sv_stills', g:'g_media', label:'scholarly_stills_backend.py', sub:'diffusers FLUX.1-schnell in-process', d:['Production default for documentary stills; ControlNet + character bible; per-slot tier escalation to video_flux_still_service; scholarly_gpu.lock mutex; DSL kwargs via dsl_runtime.py.']},
+ {id:'sv_comfy', g:'g_media', label:'comfy_generation_service + _comfy_client', sub:'42 graphs · submit lock', d:['_comfy_client loads _comfy_workflows/*.json, substitutes on a deep copy, POSTs, polls /history. Used for character-locked stills, HandFixer, Klein, Qwen-Image, SDXL+Arcane LoRA (pair with sd_xl_base, not Juggernaut).','Every graph attested against data/runtime/model_licences.json before submit.']},
+ {id:'sv_wan', g:'g_media', label:'wan_video_service.py (+vace, animate)', sub:'Wan2.1 I2V-14B · ~39 GB', d:['3.8 s clips animating FLUX stills; wan_vace_service (identity from PIXELS, modality = identity, strength = motion; shift is the lever), wan_animate, wan_face_restore, wan_prop_restore, wan_setlock; wan_lora/ training scripts (musubi).']},
+ {id:'sv_encode', g:'g_media', label:'encode_utils.py', sub:'NVENC first · x264 fallback', d:['_ffmpeg_run_nvenc_first, _cq_for_crf, _NVENC_SEM; Ken Burns NVENC cap 8; video_finish.py adds RIFE 2× + RealESRGAN; video_assembly / overlay / audio.']},
+ {id:'sv_audio', g:'g_media', label:'audio_service · audio_mix', sub:'music bed + foley + loudnorm', d:['ACE-Step bed at 12%; foley Freesound → soundbible CC0; two-pass loudnorm with a limiter before loudnorm; sfx_merger.']},
+ {id:'sv_fix', g:'g_media', label:'flux_fill · ipadapter · controlnet', sub:'repair & identity services', d:['Qwen InstantX inpaint, IP-Adapter cell regen, ControlNet pose/depth; bg_remove, object_track (YOLOv8), lipsync_service (SAM3D), lora_trainer_service.']},
+ {id:'sv_blender', g:'g_media', label:'Blender drivers', sub:'arch_blender_build · blender_character_service', d:['Headless Blender 4.3.2 under a global lock (/tmp/claude-1000/arch_ext_blender.lock); blender_scripts/generate_character.py (MPFB, Cycles), char2d_poses, vfx_volume_render, mesh_control.']},
+ // gates
+ {id:'g_typo', g:'g_gates', label:'typography_ocr.py', sub:'PP-OCR · CPU · zero cost', d:['Flags lettering only when it can QUOTE it; replaced the Qwen3-VL judge (14 GB, declines under FLUX residency) and the Anthropic fallback (HTTP 400). typography_repair.py sweeps/repairs.']},
+ {id:'g_era', g:'g_gates', label:'era_gate.py', sub:'anachronisms · Qwen3-VL', d:['One haiku call per batch extracts checkable objects + fix phrases (keyword fallback), universal tells, 2 content questions; judged by Qwen3-VL over 3×2 enlarged tiles.']},
+ {id:'g_vlm', g:'g_gates', label:'vlm_inspector.py', sub:'checklists · config/vlm_checklists.json', d:['Local Apache-2.0 Qwen3-VL answering atomic yes/no items; _vlm_render_gate / _vlm_text_gate; preview_judge.py on TAESD previews (CPU); creature_judge per cell. No local VLM sees extra digits or a second feather reliably.']},
+ {id:'g_identity', g:'g_gates', label:'identity_qc_service.py', sub:'ArcFace · identity_bank (Postgres)', d:['Cosine vs anchor, angle-aware thresholds, content-truth layer; _identity_embed_worker; chars/checks tables. Spread is never continuity on video.']},
+ {id:'g_hand', g:'g_gates', label:'hand_qc · anatomy_qc', sub:'MediaPipe legacy rebuild', d:['The old gate returned 1.0 for every frame; rebuilt. Receipts hand_qc in pipeline_scholarly.']},
+ {id:'g_pixel', g:'g_gates', label:'pixel_gates.py', sub:'look_gate · patch_gate · fill_check · plate_law', d:['Arithmetic bands vs the character\'s styled cells + palette; cannot recognise subjects by design. Morphs are only caught via look_gate.']},
+ {id:'g_cell', g:'g_gates', label:'cell_vlm_judge.py', sub:'tier 1 Ollama · tier 2 Anthropic', d:['Tiered defect judge for contact-sheet cells; tier 2 catches the ghost-face remnants detectors cannot see.']},
+ {id:'g_receipts', g:'g_gates', label:'Gate receipts', sub:'pipeline_state.gate_receipts', d:['_gate_receipt(name, ran, reason, stats): a gate that did not run must say so instead of reading as a pass. scripts/score_gate_evidence.py, qc_gate_admin.py.']},
+ {id:'g_ledger', g:'g_gates', label:'run_ledger.py', sub:'stages · fallbacks · gates → Postgres', d:['What executed (device, model_id, weights sha256, wall_s, vram_peak), every silent degrade, every QC verdict. --trends = cross-run drift (ghost-face audit: 17/49 cells bad while every single-run gate passed).']},
+ {id:'g_licence', g:'g_gates', label:'licence_provenance · lora_attest', sub:'model_licences.json', d:['Licence at FILE level; FLUX pause; NC models denied (SMPL, AMASS, 9B/dev); Klein Apache-2.0; qc_contract.py.']},
+ {id:'g_safety', g:'g_gates', label:'safety_subsystem.py', sub:'fail-closed · levels 0-4', d:['GPU/CPU/RAM/disk guards, emergency stop, quarantine, hash-chained audit JSONL; thresholds safety_thresholds.json. skill_integrity_monitor.py diffs critical file hashes every 5 min.']},
+ {id:'g_otherqc', g:'g_gates', label:'QC battery', sub:'audio · voice · continuity · restoration · mesh', d:['audio_qc, voice_qc, continuity_qc, restoration_qc, mesh_qc, asset_validate, pipeline_debug (flow/churn/NCC/embeddings), subtitles judge.']},
+ // GPU arbitration
+ {id:'arb_lock', g:'g_gpuarb', label:'Submit lock', sub:'flock data/runtime/comfy_8188.lock', d:['_comfy_client._acquire_submit_lock: :8188 is ONE server shared by the documentary, creature, storyteller and contact-sheet workers (P-07, 2026-08-25); wait budget max(job_timeout, 3600 s); /interrupt refused unless the prompt is ours.']},
+ {id:'arb_lease', g:'g_gpuarb', label:'gpu_lease()', sub:'evict :8188 → use :8189 → unload', d:['ltx_hidream_service: take the production lock, POST /free to :8188, yield, then POST unload_models + free_memory to :8189 and release — so the next Wan/ACE job never starts under a 40 GB LTX residency. Held for a whole leg.']},
+ {id:'arb_sweeper', g:'g_gpuarb', label:'vram_manager sweeper', sub:'every 90 s (ZYG_COMFY_IDLE_FREE_SEC)', d:['Skips when work is active or KEEP_LOADED=1; evicts Ollama first if ≥ 512 MiB; releases Comfy at ≥ 8 GB VRAM or ≥ 6 GB RSS; startup sweep; calibration ceilings 450 W / 80% CPU / 56 GB RAM / 48 GB VRAM; pins Comfy to cores 0-20.']},
+ {id:'arb_native', g:'g_gpuarb', label:'Native GPU lock', sub:'~/.zyg_gpu.lock', d:['Held by sam3d_body_service, geom/pose_track, vace plate and lipsync receipt scripts; in-process _GPU_PIPELINE_LOCK + _workflow_jobs decide _gpu_work_active().']},
+ // L6 GPU residents
+ {id:'ai_comfy', g:'g_gpu', label:'ComfyUI :8188 (0.22)', sub:'~/ai-models/comfyui · comfyui.service', st:'ok', d:['--cache-ram 4 8 --preview-method taesd. Checkpoints: ace_step_1.5_turbo_aio, hidream_o1 (bf16 + fp8), flux1-schnell, SDXL base, Juggernaut-XL v9, DynaVisionXL. Diffusion models: FLUX.2 klein-4b, qwen_image_2512, qwen_image_edit_2509, Wan2.1 I2V/T2V/VACE, Wan2.2 I2V-A14B + Animate, ltx-2.5-22b.','Custom nodes: controlnet_aux, HandFixer, Impact-Pack/Subpack, InstantID, IPAdapter_plus, KJNodes, PuLID (Flux + base), SeedVR2, SAM2, WanVideoWrapper, Zygomatic-Ace, x-flux.','542 MiB resident idle.']},
+ {id:'ai_ltx', g:'g_gpu', label:'ComfyUI-LTX :8189 (0.38.1)', sub:'~/ai-models/comfyui-ltx · comfyui-ltx.service', st:'ok', d:['Hosts LTX-2.5 22B distilled int8 AND HiDream-O1 — one instance, not two. Shares the production model dir read-only via extra_model_paths.yaml. Only custom node: ComfyUI-LTXVideo.','comfyui-ltx.service (user unit) since 2026-10-05; ltx_hidream_service.ensure_up() still starts it on demand if the port is ever down. 30 s LTX = VRAM ceiling; 5 s 960² in 25 s.']},
+ {id:'ai_ollama', g:'g_gpu', label:'Ollama :11434', sub:'9 models · 148 GB on disk', st:'ok', d:['vicky (Dolphin-Mistral-24B Venice Q8), victor (qwen3.6:35b-a3b MoE), qwen3.5:9b (the working judge/fallback), gpt-oss:20b (format:json returns empty), qwen2.5:32b, moondream, deepseek-coder:33b, qwen2.5-coder:32b.','Evicted first by the sweeper when it holds ≥ 512 MiB.']},
+ {id:'ai_flux', g:'g_gpu', label:'diffusers FLUX.1-schnell', sub:'in-process in :5000', st:'ok', d:['The documentary still generator; :5000 holds ~1.3 GB VRAM idle; _deep_unload_flux_pipeline_cache on sweep.']},
+ {id:'ai_tts', g:'g_gpu', label:'IndexTTS-2 worker', sub:'models/tts_indextts2 · subprocess', st:'ok', d:['Primary and only working TTS; VRAM gate tests in tests/test_tts_vram_gate.py; Whisper QC sidecar.']},
+ {id:'ai_rvc', g:'g_gpu', label:'Applio RVC v2', sub:'vc_applio/.venv · py3.12', st:'ok', d:['Singer lock for kids songs; bench tools/vc_bench.py; warm control model.']},
+ {id:'ai_whisper', g:'g_gpu', label:'faster-whisper large-v3', sub:'in-process · VRAM gated', st:'ok', d:['Subtitles, voice bridge, QC ingest; degrades to cpu:base.']},
+ {id:'ai_sam', g:'g_gpu', label:'SAM 3 / SAM 3D Body', sub:'models/sam3 · body_venv', st:'ok', d:['Isolated venv worker sam3d_body_worker.py; load budget 240 s, 6 s per frame; holds ~/.zyg_gpu.lock. Pose track for Movement Studio.']},
+ {id:'ai_blender', g:'g_gpu', label:'Blender 4.3.2', sub:'headless · CUDA Cycles', st:'ok', d:['Addons: mpfb (CC0 human base), CAD_Sketcher, asset_bridge, BlenderGIS, blosm, building_tools, CharMorph, MeasureIt_ARCH, polyhavenassets, sverchok, terrainmixer; extensions archimesh, Bagapie, bonsai, cad2cube, ivygen, modular_tree, srtm_terrain, PDT.','Global lock /tmp/claude-1000/arch_ext_blender.lock.']},
+ {id:'ai_mesh', g:'g_gpu', label:'Direct3D-S2 · UniRig', sub:'~/Direct3D-S2 · /UniRig', st:'ok', d:['Direct3D-S2 (MIT, EU-clean) replaced TripoSR / InstantMesh / TRELLIS.2 on 2026-09-19; UniRig bench lost to Blender auto-weights.']},
+ {id:'ai_vision', g:'g_gpu', label:'YOLOv8 · ArcFace · RealESRGAN', sub:'in-process onnx / torch', st:'ok', d:['yolov8n.pt for anatomy/hand QC and object tracking; antelopev2 for identity; RealESRGAN x2 upscale (SeedVR2 rejected).']},
+ {id:'ai_nvenc', g:'g_gpu', label:'NVENC encoder', sub:'h264_nvenc · cap 8', st:'ok', d:['Every final encode; Ken Burns + NVENC bench capped at 8 concurrent.']},
+ {id:'cpu_ocr', g:'g_cpu', label:'RapidOCR / PP-OCR', sub:'typography judge', d:['CPU, zero VRAM; also gates sand-letter renders by exact normalised read-back.']},
+ {id:'cpu_synth', g:'g_cpu', label:'fluidsynth + MuseScore sf3', sub:'score render', d:['Deterministic CPU render before any GPU time; MediaPipe and librosa also CPU.']},
+ {id:'cloud_claude', g:'g_cloud', label:'Claude (claude -p)', sub:'subscription login', st:'ok', d:['The only Claude path for scholarly and kids writing; see the LLM access group.']},
+ {id:'cloud_azure', g:'g_cloud', label:'Azure Neural TTS', sub:'superseded 2026-08-06', st:'off', d:['Key expired (401) → Kokoro once handled narration; now IndexTTS-2. Gender map in voice_pool.py still used.']},
+ {id:'retired', g:'g_retired', label:'Retired / rejected stack', sub:'stack_upgrade_history.md', st:'off', d:['MusicGen + AudioGen (CC-BY-NC, 2026-08-09), Fish-Speech + Orpheus (2026-07-15), Kokoro + Azure (2026-08-06), Chatterbox (2026-10-02), Maya1 for child voices, SeedVR2 (rejected 2026-08-09), TripoSR / InstantMesh / TRELLIS.2, CLIP defect captions (2026-09-15), Qwen3-VL typography judge (2026-08-21), GNM head (retracted), relief primitive, Google 3D Tiles (403 for EEA).','data/models.json slot ids: 1xxx legacy (deprecated), 2001-2027 GPU live, 2101-2109 CPU live.']},
+ // L7 state
+ {id:'pg_ledger', g:'g_pg', label:'stages · fallbacks · gates', sub:'553 · 3,187 · 5,650 rows', d:['Run ledger of record (run_ledger.py); read by metrics_hub for quality and fallback views.']},
+ {id:'pg_identity', g:'g_pg', label:'chars · checks', sub:'24 · 111 rows', d:['identity_bank.py: face/body embeddings as BYTEA with dim and backend, and identity check results.']},
+ {id:'pg_essays', g:'g_pg', label:'essays', sub:'2,028 rows', d:['Scholarly essay cache for scholarly_research_agent / pipeline_scholarly.']},
+ {id:'pg_alembic', g:'g_pg', label:'alembic 0001', sub:'crews/alembic · pgdb.py seam', d:['Single revision 2026-10-02; modules never DDL. pgdb.py = psycopg3 pool per DSN, 15 s down fast-fail, ZYG_PG_DSN override; 6 importers. tools.content_index / tools.asset_index declared but absent from the live schema.','SQLite predecessors renamed *.pre-postgres-20261002, never deleted; content_index.db, scholarly_essays.db, existing_clips.db unread by any live module.']},
+ {id:'fs_runtime', g:'g_files', label:'data/runtime/', sub:'1,528 files · the hot store', d:['llm_audit/, preempt/, quota_*.json/jsonl, agent_sessions_ledger.jsonl, logbook/<run>.jsonl, comfy_<port>.lock, scholarly_gpu.lock, approval_queue_settings.json, jackmona_daily.json, voice_bridge/, tunnel_url.txt, zero_public_urls.json, system_usage.jsonl, model_licences.json, arch_assistant/, stack_lineage/.']},
+ {id:'fs_clips', g:'g_files', label:'data/output/clips/<pid>/', sub:'346 run dirs', d:['pipeline_state.json, flux_images/flux_NNN.jpg, <slug>_subtitled.mp4 + .srt, gate receipts. Siblings: bakeoff, claude_clips, remix_ai, stocks, storyteller, tokitoki, voice_auditions. NEVER dedupe episodes by filename.']},
+ {id:'fs_output', g:'g_files', label:'output/', sub:'kids_* · kidsmusic · cinematic · portfolio', d:['12 kids_* dirs, portfolio v1-v7, char2d, assetlib_* (9 families), arch/char/hair/head_fit/movement/photoreal/texturing/vace_receipts/video_studio/ltx25_video/hidream_o1/identity_bench/realism_bench.']},
+ {id:'fs_lora', g:'g_files', label:'~/lora-datasets/', sub:'storyteller_chars · creatures', d:['character_bible.json, contact sheets, cells, captions, trained LoRAs per character; the Library tab walks this read-only. LoRA storage rules apply.']},
+ {id:'fs_models', g:'g_files', label:'~/ai-models/comfyui/models', sub:'shared by :8188 and :8189', d:['checkpoints, diffusion_models, vae, loras (zygchar_*, wan_chars/props/lightning/antireal, klein refcontrol, qwen_edit angle/skin, ltx25), clip, clip_vision, ultralytics. uv cache hardlinks make du lie.']},
+ {id:'fs_workflows', g:'g_files', label:'_comfy_workflows/', sub:'42 graphs', d:['flux 11, sdxl 6, klein 6, ace_step 6, qwen 4, wan22 2, wan 2, hand_fixer 2, ltx25 1, infinitetalk 1, image_esrgan 1.']},
+ {id:'fs_config', g:'g_files', label:'Config & rosters', sub:'models.json · agents/ · Schedule/ · config/', d:['data/models.json slot ledger (swap history), agents/index.json 134 + agent_configurations.json 103, Schedule/agent_model_bar_mapping*.json, safety_thresholds.json, config/vlm_checklists.json, pause_profiles.json, remedy_kb.json, nginx conf.']},
+ {id:'fs_assets', g:'g_files', label:'data/asset_libraries/ · data/assets/', sub:'sfx · foley · instruments · vfx plates · floor plans', d:['Provenance registered through asset_library_service; prop_mesh/, wan_lora/, kanban_assets/; eagle_shortlist.json.']},
+ {id:'fs_docs', g:'g_files', label:'~/Documents', sub:'Portfolio_video · cinema media', d:['Portfolio build workspace (build.py, v1-v7, UBI intros), blender_city_tutorial (tree 550b4d), Screenshots portfolio, st task reports. Zero Cinema indexes video here.']},
+ {id:'fs_stpaths', g:'g_appstate', label:'Session Tree data/', sub:'active · planned · finished · audit.jsonl', d:['Plain JSON per tree with briefs and verifiers inside the task record; spawn_logs/<ts>-<tree>-<task>-<sid8>.log.']},
+ {id:'fs_medusa', g:'g_appstate', label:'Medusa runtime', sub:'vicky/chats/*.json · presets/', d:['current.json, conversations/<date>.jsonl, partials/, uploads/; config/presets/*.json|yaml for :5301; three disjoint storage roots.']},
+ {id:'fs_nexus', g:'g_appstate', label:'Creator Nexus localStorage', sub:'+ /api/creator-nexus/state history', d:['creator_nexus_channels_v1, mktKanbanState (episodes per stage, usedKeys, log), vault for 22 platforms; _mktMigrate() repairs stale state.']},
+ {id:'fs_yt', g:'g_appstate', label:'YouTube OAuth', sub:'youtube/token.pickle · client_secret.json', d:['Scopes youtube.upload, force-ssl, readonly; re-auth needs an SSH port-forward from Windows; do-not-delete.']},
+ {id:'fs_claude', g:'g_appstate', label:'~/.claude', sub:'.credentials.json · projects/*/<sid>.jsonl', d:['The login every claude -p call uses; transcripts are what quota_meter prices and what the Session Tree reads to learn a session\'s model.']},
+ {id:'fs_pg16', g:'g_appstate', label:'~/pg16', sub:'env/bin/postgres · data · run/', d:['User-level Postgres 16 install; DSN postgresql://zygomatic@/zygomatic?host=~/pg16/run; psql lives in the micromamba pkgs dir, not on PATH.']},
+ // L8 timers
+ {id:'tm_health', g:'g_timers', label:'zygomatic-health.timer', sub:'every 2 min · system', st:'ok', d:['/usr/local/bin/zygomatic-health-probe.sh: wedge detection with maintenance and in-flight interlocks; restarts :5000 / :5001 units.']},
+ {id:'tm_quota', g:'g_timers', label:'zyg-quota-meter.timer', sub:'*:00/10 · quota_meter.py sample', st:'ok', d:['Samples the Claude 5-hour and 7-day quota %.']},
+ {id:'tm_preempt', g:'g_timers', label:'zyg-preempt-testcard.timer', sub:'*:03/10 · preempt_test_record.py', st:'ok', d:['Re-records the Pre-emptive bank Test Data card.']},
+ {id:'tm_qc', g:'g_timers', label:'zyg-qc-trends.timer', sub:'04:30 · run_ledger.py --trends', st:'ok', d:['Cross-run gate trend detection. Had failed nightly since the Postgres move because the unit ran the system python (no psycopg); fixed 2026-10-05 to use agents/.venv and ran clean (reported a loudnorm linear → dynamic silent degrade, 68× in one run).']},
+ {id:'tm_cert', g:'g_timers', label:'zyg-certbot-renew.timer', sub:'daily · DNS-01', st:'ok', d:['Renews studio.zygomaticszero.com; deploy hook sudo -n nginx -s reload.']},
+ {id:'tm_cpu', g:'g_timers', label:'zyg-cpu-cap.timer', sub:'every 60 s · zyg_cpu_cap.sh', st:'ok', d:['Pins the Claude Code / VS Code process tree to 20 of 24 cores.']},
+ {id:'tm_sys', g:'g_timers', label:'zyg-sysusage.service', sub:'continuous · 1 line/min', st:'ok', d:['sysusage_sampler.py → data/runtime/system_usage.jsonl, Nice=10; feeds the production calendar.']},
+ {id:'tm_snap', g:'g_timers', label:'zyg-snapshot.timer', sub:'30 min · git snapshot', st:'ok', d:['Had silently stopped firing since 2026-09-01 (the timer is OnUnitActiveSec, so once the service was stopped mid-run nothing re-armed it). Re-seeded 2026-10-05: one run, 8 min 51 s CPU, 1,593 files, no orphan tmp_pack; next fire 30 min later. crews/.git: git prune, NOT git gc.']},
+ {id:'tm_cron', g:'g_timers', label:'cron */5 skill_integrity_monitor', sub:'crontab -l', st:'ok', d:['Baseline + 5-minute hash diff of critical server files; log rotates past 5 MB.']},
+ {id:'tm_power', g:'g_timers', label:'nvidia-power-limit.service', sub:'nvidia-smi -pl 350', st:'ok', d:['Oneshot at boot; nvfd fan control units.']},
+ // watchers inside :5000
+ {id:'w_telemetry', g:'g_watch', label:'telemetry-sampler', sub:'1 Hz · crewai_web_gui:3750', d:['Module-level; feeds the telemetry circles and the Frequency page.']},
+ {id:'w_zero', g:'g_watch', label:'zero-approval-worker + kanban-watcher', sub:'bp_zero.py:1816-1819', d:['Documentary auto mode: picks approved topics, syncs Zero → Kanban status.']},
+ {id:'w_jackmona', g:'g_watch', label:'jackmona-daily-watcher', sub:'03:00 AMS · 2 songs', d:['Sequential, never concurrent (one GPU, one submit lock); RAM gate 24 GB.']},
+ {id:'w_melody', g:'g_watch', label:'melody-daily-watcher', sub:'09:00 · 5 songs', d:['One at a time; ZYG_MELODY_PER_DAY.']},
+ {id:'w_story', g:'g_watch', label:'storyteller-daily-watcher', sub:'once per day · off by default', d:['One episode per template per calendar day.']},
+ {id:'w_preempt', g:'g_watch', label:'preempt-watcher', sub:'bp_preempt.py:546', d:['Builds the bank ahead of the night batch.']},
+ {id:'w_dept', g:'g_watch', label:'market · sports · remix · remixai', sub:'schedulers + 30-min cleaners · env-gated', d:['ZYG_MARKET_SCHEDULER, ZYG_SPORTS_SCHEDULER, ZYG_REMIX_WATCHER, ZYG_REMIXAI_SWEEPER; retention sweeps.']},
+ {id:'w_mdm', g:'g_watch', label:'mdm-watcher', sub:'medusa_model_jobs.py:471', d:['Medusa base-model LoRA job watcher.']},
+ {id:'w_zerolauncher', g:'g_watch', label:'zero-launcher', sub:'__main__ · every 5 s', d:['Respawns zero_public_server.py on :5001 if it is missing — in addition to the systemd unit.']},
+ {id:'w_sweeper', g:'g_watch', label:'comfy-vram-sweeper', sub:'__main__ · 90 s', d:['The idle VRAM sweeper loop from vram_manager.py.']},
+ {id:'w_hub', g:'g_otherwatch', label:'hub_watch.py', sub:'15 s · gates on :5000', d:['Keeps 7000/7001/7777 alive while :5000 answers.']},
+ {id:'w_stspawn', g:'g_otherwatch', label:'Session Tree sweeps', sub:'spawn 20 s · usage 300 s', d:['Spawner sweep, usage-hold poll, lease expiry, settle-archive.']},
+ {id:'w_nexus', g:'g_otherwatch', label:'Creator Nexus timers', sub:'scan 10 s · batch 60 s', d:['Browser-side setInterval loops; only alive while the tab is open.']},
+];
+// edge: [from, to, label, kind]  kinds: http (default) | poll | spawn | file | claude | gpu
+const EDGES = [
+ ['visitor','cloudflared','HTTPS via Cloudflare'],
+ ['cloudflared','zeropub','127.0.0.1:5001'],
+ ['nginx','zeropub','catch-all :80 → :5001'],
+ ['nginx','kanban',':443 TLS → :8899, SSE unbuffered'],
+ ['operator','nginx','studio.zygomaticszero.com'],
+ ['operator','hub','bookmark page'],
+ ['operator','flask','login session'],
+ ['operator','kanban','studios SPA'],
+ ['operator','medusa','LAN, IP-gated'],
+ ['operator','nexus','marketing board'],
+  ['hub','flask','TCP :5000 up? (15 s)','poll'],
+ ['hub','medusa','systemctl --user restart','spawn'],
+ ['kanban','flask','polls /api/kanban/status','poll'],
+ ['flask','kanban','/workflows embeds kanban.html'],
+ ['zeropub','flask','POST /api/internal/pipeline/start'],
+ ['zeropub','redis','RPUSH / BLPOP zpub:queue'],
+ ['flask','zeropub','zero-launcher respawn 5 s','spawn'],
+ ['medusa','flask','POST /api/medusa/generate (parks pending)'],
+ ['medusa','ai_ollama','Victor / local Vicky brains'],
+ ['medusa','cloud_claude','Vicky: claude -p sonnet','claude'],
+ ['medusa','kanban','video tools'],
+ ['nexus','flask','GET new-videos 10 s · POST marketing/upload','poll'],
+ ['bp_assets','youtube','upload.py: insert + thumbnail + captions','spawn'],
+ ['fable','sessiontree','st create / status'],
+ ['sessiontree','opusexec','spawn claude -p claude-opus-5','spawn'],
+ ['opusexec','sessiontree','st claim · touch · done --report'],
+ ['sessiontree','anthropic','GET /api/oauth/usage → USAGE HOLD','claude'],
+ ['assistants','cloud_claude','claude -p on the login','claude'],
+ ['nomologin','cloud_claude','claude -p opus','claude'],
+   ['controlplane','flask','api_adapter.py (optional)'],
+ // dashboard internals
+ ['flask','bp_pipeline','registers 38 blueprints'],
+ ['p_workflows','bp_pipeline','SSE /api/live_log','poll'],
+ ['p_approval','bp_approval','board · calendar · action'],
+ ['bp_approval','aq_board','payload'],
+ ['aq_board','aq_calendar','calendar view'],
+ ['aq_board','aq_batchers','play / pause / abort'],
+ ['bp_zero','d1','starts documentary run','spawn'],
+ ['bp_kids','k1','starts song','spawn'],
+ ['bp_jackmona','k1','2 episodes 03:00','spawn'],
+ ['bp_story','t1','starts episode','spawn'],
+ ['bp_medusa','sv_comfy','approved picture job'],
+ ['bp_char2d','ai_blender','MPFB + Rhubarb','gpu'],
+ ['bp_movement','s_movement','backend'],
+ ['bp_metrics','pg_ledger','reads gates / fallbacks','file'],
+ ['bp_assets','m5','shells upload.py','spawn'],
+ ['bp_nexus','fs_nexus','state history','file'],
+ ['bp_integrity','p_integrity','checks'],
+ ['bp_pipeline','z5','internal start / status'],
+ // studios → services
+ ['s_video','sv_comfy','Wan / VACE / FLUX graphs'],
+ ['s_video','sv_wan','I2V clips'],
+ ['s_picture','sv_comfy','FLUX edits'],
+ ['s_char','sv_comfy','contact sheets + LoRA'],
+ ['s_char','sv_blender','MPFB body, Cycles'],
+ ['s_creature','sv_comfy','FLUX + VACE sheets'],
+ ['s_creature','g_cell','per-cell judge'],
+ ['s_movement','sv_wan','VACE motion'],
+ ['s_movement','ai_sam','pose capture','gpu'],
+ ['s_movement','sv_blender','rig / ecorché'],
+ ['s_voice','sv_tts','render / bake'],
+ ['s_voice','sv_rvc','conversion'],
+ ['s_voice','sv_whisper','QC'],
+ ['s_music','sv_ace','spec → music'],
+ ['s_melody','k1','kids songs / series'],
+ ['s_sfx','sv_audio','merge / ingest'],
+ ['s_vfx','sv_ltx','LTX plates'],
+ ['s_vfx','sv_blender','volume render'],
+ ['s_arch','sv_arch','assistant turns'],
+ ['s_arch','sv_blender','offline render (global lock)'],
+ ['s_arch','x_arch','ext dispatch'],
+ ['s_arch','x_archassist','reasoning ops'],
+ ['x_archblender','sv_blender','builders'],
+ ['s_mesh','sv_blender','mesh_control'],
+ ['s_mesh','ai_mesh','Direct3D-S2','gpu'],
+ ['s_mesh','x_geom','anthropometry'],
+ ['s_library','fs_lora','read-only walk','file'],
+ ['s_voicebridge','v2','utterances'],
+ ['s_board','bp_pipeline','/api/kanban/status','poll'],
+ ['s_board','fs_runtime','logbook/<run>.jsonl','file'],
+ ['x_voice','s_voicebridge','action registry'],
+ ['x_studio','s_char','page ops'],
+ // documentary chain → services
+ ['d2','extapis','OpenAlex → S2 → CORE'],
+ ['d2','pg_essays','cache','file'],
+ ['d3','sv_sub','script turns','claude'],
+ ['d4','sv_murch','emotion scoring'],
+ ['d5','sv_tts','narration'],
+ ['d6','sv_whisper','word timings'],
+ ['d8','sv_stills','diffusers FLUX','gpu'],
+ ['d9','g_typo','lettering'],
+ ['d9','g_era','anachronisms'],
+ ['d9','g_hand','hands'],
+ ['d9','g_vlm','checklists'],
+ ['d10','sv_ltx','20 s clips','gpu'],
+ ['d11','sv_encode','NVENC'],
+ ['d11','sv_ace','BGM bed'],
+ ['d13','fs_clips','run folder','file'],
+ ['d13','m1','visible after 45 min','poll'],
+ ['d3','dep_preempt','record / replay','claude'],
+ // kids chain
+ ['k2','sv_kidsllm','lyrics','claude'],
+ ['k4','cpu_synth','sf3 render'],
+ ['k6','sv_ace','a2a graph','gpu'],
+ ['k8','sv_rvc','singer lock'],
+ ['k9','sv_kidsllm','storyboard','claude'],
+ ['k10','sv_ltx','HiDream stills','gpu'],
+ ['k12','sv_ltx','LTX clips','gpu'],
+ ['k13','fs_output','output/kidsmusic','file'],
+ // storyteller chain
+ ['t1','fs_lora','bible','file'],
+ ['t2','sv_sub','script','claude'],
+ ['t3','sv_tts','narration'],
+ ['t4','sv_comfy','character-locked stills','gpu'],
+ ['t5','sv_fix','inpaint'],
+ ['t7','sv_encode','NVENC'],
+ ['t8','fs_clips','storyteller output','file'],
+ ['c1','sv_comfy','sheet graph','gpu'],
+ ['c2','kanban','operator decides'],
+ ['c4','g_identity','ArcFace'],
+ ['c6','sv_fix','lora_trainer_service'],
+ ['c8','fs_lora','trained LoRA','file'],
+ // public job chain
+ ['z1','flask','token_check / token_use'],
+ ['z3','redis','keys','file'],
+ ['z5','flask','INTERNAL_TOKEN'],
+ ['z8','fs_clips','serves MP4','file'],
+ // session tree chain
+ ['st1','fs_stpaths','tree JSON','file'],
+ ['st3','opusexec','executor','spawn'],
+ ['st3','anthropic','usage ≥ 100% → hold','claude'],
+ ['st7','sessiontree','verify_cmd'],
+ // marketing
+ ['m1','bp_assets','/api/output/new-videos','poll'],
+ ['m4','bp_assets','POST /api/marketing/upload'],
+ ['m5','youtube','Data API v3'],
+ ['m5','fs_yt','token.pickle','file'],
+ // voice command
+ ['v1','nginx','HTTPS'],
+ ['v3','sv_whisper','transcribe'],
+ ['v6','sv_tts','say'],
+ ['v7','fs_runtime','voice_bridge/ ledger','file'],
+ // departments
+ ['dep_crime','sv_sdk','SDK key path','claude'],
+ ['dep_remix','sv_sdk','analysis','claude'],
+ ['dep_clipfarm','sv_comfy','SD/XL prompts'],
+ ['dep_sports','sv_tts','briefing voice'],
+ ['dep_kidsseries','k1','same 13 stages'],
+ ['dep_scenes','sv_comfy','Qwen-Image-Edit, VACE'],
+ ['dep_scenes','cpu_ocr','sand letters read-back'],
+ ['dep_agents','ai_ollama','LiteLLM ollama/llama3'],
+ ['dep_preempt','sv_preempt','bank'],
+ // LLM access → backends/state
+ ['sv_sub','cloud_claude','claude -p, no ANTHROPIC_* in env','claude'],
+ ['sv_sub','sv_audit','every turn','file'],
+ ['sv_sub','sv_murch','refused → local fallback'],
+ ['sv_kidsllm','sv_sub','run_turn','claude'],
+ ['sv_kidsllm','ai_ollama','qwen3.5:9b fallback'],
+ ['sv_arch','cloud_claude','sonnet turns','claude'],
+ ['sv_preempt','sv_sub','live only if allowed','claude'],
+ ['sv_preempt','fs_runtime','preempt/<id>/turns.jsonl','file'],
+ ['sv_audit','fs_runtime','llm_audit/','file'],
+ ['sv_quota','anthropic','oauth/usage','claude'],
+ ['sv_quota','fs_claude','prices transcripts','file'],
+ ['sv_sdk','anthropic','ANTHROPIC_API_KEY','claude'],
+ ['sv_murch','ai_ollama','qwen3.5:9b'],
+ // media → backends
+ ['sv_tts','ai_tts','worker subprocess','spawn'],
+ ['sv_whisper','ai_whisper','shared loader','gpu'],
+ ['sv_rvc','ai_rvc','vc_applio_worker','spawn'],
+ ['sv_ace','sv_comfy','ace_step graphs'],
+ ['sv_comfy','arb_lock','flock before submit'],
+ ['sv_comfy','ai_comfy','POST /prompt, poll /history','gpu'],
+ ['sv_ltx','arb_lease','lease per leg'],
+ ['sv_ltx','ai_ltx','LTX / HiDream graphs','gpu'],
+ ['sv_ltx','ai_ltx','start_server.sh on demand','spawn'],
+ ['sv_stills','ai_flux','in-process','gpu'],
+ ['sv_wan','sv_comfy','Wan graphs'],
+ ['sv_encode','ai_nvenc','h264_nvenc','gpu'],
+ ['sv_fix','sv_comfy','inpaint / IP-Adapter graphs'],
+ ['sv_fix','ai_vision','YOLOv8 tracking','gpu'],
+ ['sv_blender','ai_blender','headless subprocess','spawn'],
+ ['sv_audio','extapis','Freesound'],
+ ['sv_comfy','g_licence','attest graph first'],
+ ['sv_comfy','fs_workflows','load graph','file'],
+ // gates → backends/state
+ ['g_typo','cpu_ocr','PP-OCR'],
+ ['g_era','ai_ollama','Qwen3-VL tiles'],
+ ['g_vlm','ai_ollama','checklist answers'],
+ ['g_cell','ai_ollama','tier 1'],
+ ['g_cell','sv_sdk','tier 2','claude'],
+ ['g_identity','ai_vision','ArcFace embed','gpu'],
+ ['g_identity','pg_identity','chars / checks','file'],
+ ['g_hand','ai_vision','MediaPipe / YOLO'],
+ ['g_receipts','fs_clips','pipeline_state.json','file'],
+ ['g_ledger','pg_ledger','psycopg3 pool','file'],
+ ['g_licence','fs_runtime','model_licences.json','file'],
+ ['g_safety','fs_runtime','safety_audit_log.jsonl','file'],
+ // arbitration → GPU
+ ['arb_lock','fs_runtime','comfy_8188.lock','file'],
+ ['arb_lease','ai_comfy','POST /free (evict)','gpu'],
+ ['arb_lease','ai_ltx','unload_models + free_memory','gpu'],
+ ['arb_sweeper','ai_ollama','evict first ≥ 512 MiB','gpu'],
+ ['arb_sweeper','ai_comfy','/free when idle ≥ 8 GB','gpu'],
+ ['arb_native','ai_sam','.zyg_gpu.lock','gpu'],
+ ['ai_ltx','fs_models','extra_model_paths.yaml (read-only)','file'],
+ ['ai_comfy','fs_models','models/','file'],
+ // state links
+ ['pg_alembic','fs_pg16','unix socket','file'],
+ ['sessiontree','fs_stpaths','JSON trees','file'],
+ ['sessiontree','fs_claude','reads <sid>.jsonl for model','file'],
+ ['medusa','fs_medusa','chats + presets','file'],
+ ['nexus','fs_nexus','localStorage','file'],
+  ['zeropub','fs_docs','cinema index + portfolio stream','file'],
+ ['flask','fs_runtime','hot state','file'],
+ // timers → targets
+ ['tm_health','flask','restart on 2 bad probes','spawn'],
+ ['tm_health','zeropub','restart','spawn'],
+ ['tm_quota','sv_quota','sample','spawn'],
+ ['tm_preempt','sv_preempt','test card','spawn'],
+ ['tm_qc','g_ledger','--trends','spawn'],
+ ['tm_cert','nginx','reload after renew','spawn'],
+ ['tm_cpu','opusexec','20 of 24 cores'],
+ ['tm_sys','fs_runtime','system_usage.jsonl','file'],
+ ['tm_cron','g_safety','integrity diff','spawn'],
+ ['tm_power','ai_comfy','350 W cap','gpu'],
+ ['w_zero','bp_zero','auto mode tick','poll'],
+ ['w_jackmona','bp_jackmona','03:00','poll'],
+ ['w_melody','bp_melody','09:00 ×5','poll'],
+ ['w_story','bp_story','daily','poll'],
+ ['w_preempt','bp_preempt','build bank','poll'],
+ ['w_dept','bp_market','daily briefings','poll'],
+ ['w_mdm','bp_medusa','LoRA jobs','poll'],
+ ['w_zerolauncher','zeropub','respawn','spawn'],
+ ['w_sweeper','arb_sweeper','90 s loop','poll'],
+ ['w_hub','hub','supervises','poll'],
+ ['w_stspawn','sessiontree','sweeps','poll'],
+ ['w_nexus','nexus','setInterval','poll'],
+ ['aq_health','tm_health','is the probe'],
+ ['aq_batchers','w_jackmona','are these threads'],
+];
+
+// traces: ordered steps through node ids
+const TRACES = [
+ {id:'tr_doc', title:'Documentary episode, night batch', note:'from the auto-mode tick to a scheduled YouTube publish', steps:[
+  ['w_zero','03:00-ish tick inside :5000 picks an approved topic'],['bp_zero','department starts a scholarly run in _workflow_jobs'],['d1','topic setup'],['d2','research via OpenAlex, cached in Postgres essays'],['d3','Opus 5 writes the script through subscription_llm'],['sv_sub','claude -p with ANTHROPIC_* stripped'],['cloud_claude','one turn on the login'],['sv_audit','turn audited'],['d4','qwen scores emotion and rhythm'],['d5','IndexTTS-2 narration'],['d6','Whisper word timings'],['d8','diffusers FLUX stills under scholarly_gpu.lock'],['d9','typography, era, hand and VLM gates leave receipts'],['d10','LTX motion on :8189 under a lease'],['arb_lease','production weights evicted first'],['d11','NVENC assembly with ACE-Step bed'],['d12','subtitles burned'],['d13','run folder written'],['g_ledger','stages, fallbacks, gates recorded'],['m1','Creator Nexus sees the file after 45 min'],['m3','batch slot assigned'],['m5','upload.py'],['youtube','scheduled publish at the air slot']]},
+ {id:'tr_kids', title:'Kids song at 03:00 (Jack & Mona)', note:'two sequential episodes, one GPU', steps:[
+  ['w_jackmona','jackmona-daily-watcher fires at 03:00 AMS if 24 GB RAM is free'],['bp_jackmona','episode recorded at START'],['k1','brief from kids_series_people'],['k2','Opus writes 30 lines'],['sv_kidsllm','Opus → qwen → template'],['k3','theory plan'],['k4','fluidsynth score on CPU'],['k5','score gate'],['k6','ACE-Step a2a on :8188'],['arb_lock','submit lock held'],['k7','CLAP + age gate'],['k8','loudnorm + RVC singer lock'],['k9','Opus storyboard'],['k10','HiDream-O1 stills on :8189'],['arb_lease','evict :8188, use :8189, unload'],['k11','CLIP frame measure'],['k12','LTX 5 s per picture'],['k13','xfade assembly'],['fs_output','output/kidsmusic'],['s_melody','appears in the Melody tab']]},
+ {id:'tr_public', title:'Public job from the internet', note:'invite link to download', steps:[
+  ['visitor','opens /u/<token>'],['cloudflared','tunnel to 127.0.0.1:5001'],['zeropub','Zero Public gate'],['z1','token checked against :5000'],['z2','submit, rate-limited by CF-Connecting-IP'],['z3','RPUSH zpub:queue'],['redis','job JSON, 48 h TTL'],['z4','single worker BLPOP'],['z5','POST /api/internal/pipeline/start with INTERNAL_TOKEN'],['bp_pipeline','job joins _workflow_jobs'],['z6','status polled'],['z7','SSE to the browser'],['z8','MP4 download']]},
+ {id:'tr_medusa', title:'Medusa picture request', note:'guarded entry, parked, auto-approved', steps:[
+  ['operator','opens Medusa :5300 (IP gate)'],['medusa','form or Vicky chat'],['assistants','Vicky: claude -p sonnet, session id = memory'],['bp_medusa','POST /api/medusa/generate → parked pending (age gate, swimwear rule)'],['medusa','Victor approves with a second call'],['sv_comfy','graph attested, submit lock'],['ai_comfy','FLUX / SDXL render'],['fs_medusa','picture + chat stored'],['s_board','Medusa board via /api/medusa/kanban_status']]},
+ {id:'tr_st', title:'Session Tree task', note:'creator writes, board spawns, executor reports, server verifies', steps:[
+  ['fable','st create --file tree.json'],['sessiontree','tree saved; planned if another is active'],['st2','promoted to active'],['w_stspawn','spawn sweep every 20 s'],['st3','slots, reserves and USAGE HOLD checked'],['anthropic','oauth usage read'],['opusexec','claude -p claude-opus-5 spawned'],['st4','st claim reveals the brief'],['st5','touch extends the 180 min lease'],['tm_cpu','executor pinned to 20 cores'],['st6','st done --report'],['st7','verify_cmd runs on the server'],['fs_stpaths','tree JSON + audit.jsonl'],['st8','archive after 20 quiet minutes']]},
+ {id:'tr_voice', title:'Voice command in the studios', note:'why the studio needs HTTPS', steps:[
+  ['operator','speaks into the browser mic'],['v1','HTTPS only'],['nginx','studio.zygomaticszero.com → :8899'],['s_voicebridge','route group inside kanban_server.py'],['v2','POST utterance'],['v3','Whisper large-v3'],['ai_whisper','GPU, VRAM gated'],['v4','speaker verify if enrolled'],['v5','builtin → grammar → arch → llm'],['v6','SSE action to the driver tab'],['v7','ack + ledger']]},
+ {id:'tr_gpu', title:'One GPU, two ComfyUIs', note:'how a Wan job and an LTX job never collide', steps:[
+  ['sv_comfy','any Comfy caller'],['arb_lock','flock comfy_8188.lock'],['ai_comfy','production job runs'],['sv_ltx','LTX / HiDream caller'],['arb_lease','takes the same lock, POST /free to :8188'],['ai_ltx','LTX job under up to 40 GB residency'],['arb_lease','unload_models + free_memory on :8189, lock released'],['w_sweeper','90 s idle loop'],['arb_sweeper','Ollama evicted first, then Comfy /free'],['arb_native','native workers use ~/.zyg_gpu.lock instead'],['tm_power','350 W cap under everything']]},
+ {id:'tr_claude', title:'Claude without the API key', note:'every writing call and the meters that watch it', steps:[
+  ['d3','a pipeline asks for Opus'],['sv_sub','resolve tier, build env without ANTHROPIC_*'],['sv_preempt','replay from the bank if recorded'],['cloud_claude','claude -p on the login'],['fs_claude','transcript lands in ~/.claude/projects'],['sv_audit','llm_audit row, source=claude_code'],['tm_quota','meter sampled every 10 min'],['sv_quota','utilization × 41.40 EUR/week'],['anthropic','GET /api/oauth/usage'],['sessiontree','USAGE HOLD stops executor spawns at 100%'],['sv_murch','refused → qwen3.5:9b, never the key']]},
+ {id:'tr_story', title:'Storyteller episode + LoRA flywheel', note:'a template is blocked until its character LoRA exists', steps:[
+  ['c1','contact sheet generated'],['c2','operator approves on :8899'],['c3','cells cropped'],['c4','ArcFace identity QC'],['c6','LoRA trained'],['c8','LoRA refined → template unlocked'],['w_story','daily watcher'],['t1','character bible'],['t2','script'],['t3','IndexTTS-2'],['t4','character-locked stills on :8188'],['t5','anatomy repair'],['t6','Ken Burns'],['t7','NVENC assembly'],['t8','subtitles'],['fs_clips','output/storyteller']]},
+ {id:'tr_arch', title:'Architecture Studio drawing', note:'assistant turns, extension ops, Blender render', steps:[
+  ['operator','draws in #architecture'],['s_arch','190-tool dock'],['x_arch','icon-family ops hot-reloaded'],['sv_arch','claude -p sonnet with arch_mcp_shim tools'],['x_archassist','analysis, program, clash rules'],['x_archblender','ground, roofs, MEP, furniture builders'],['sv_blender','global Blender lock'],['ai_blender','offline Cycles render'],['fs_runtime','arch_assistant/ transcripts; data/architecture renders']]},
+];
+// ---------- layout ----------
+const NS='http://www.w3.org/2000/svg';
+const LANE_LABEL_W=190, PAD=28, GPAD=16, GTITLE=24, GAP=14, LANE_GAP=34, MAXW=5000;
+const nodeById={}; NODES.forEach(n=>nodeById[n.id]=n);
+const groupById={}; GROUPS.forEach(g=>groupById[g.id]=g);
+const laneById={}; LANES.forEach(l=>laneById[l.id]=l);
+const missing=[]; EDGES.forEach(e=>{ if(!nodeById[e[0]]||!nodeById[e[1]]) missing.push(e); });
+if(missing.length) console.warn('edges with unknown nodes', missing);
+
+function layout(){
+  GROUPS.forEach(g=>{ g.nodes=NODES.filter(n=>n.g===g.id); const cw=g.cw||172, ch=g.ch||58;
+    let cols=g.chain? g.nodes.length : (g.cols||4); cols=Math.min(cols,g.nodes.length||1);
+    const rows=Math.ceil(g.nodes.length/cols);
+    g.w=GPAD*2+cols*cw+(cols-1)*GAP; g.h=GTITLE+GPAD*2+rows*ch+(rows-1)*GAP;
+    g.nodes.forEach((n,i)=>{ const c=i%cols, r=Math.floor(i/cols); n.w=cw; n.h=ch; n.rx=GPAD+c*(cw+GAP); n.ry=GTITLE+GPAD+r*(ch+GAP); });
+  });
+  let y=PAD;
+  LANES.forEach(l=>{ const gs=GROUPS.filter(g=>g.lane===l.id); let x=LANE_LABEL_W+PAD, rowY=0, rowH=0; const rows=[];
+    gs.forEach(g=>{ if(x+g.w>MAXW && x>LANE_LABEL_W+PAD){ rowY+=rowH+GAP; x=LANE_LABEL_W+PAD; rowH=0; } g.x=x; g.y=rowY; x+=g.w+GAP; rowH=Math.max(rowH,g.h); });
+    l.y=y; l.h=rowY+rowH+PAD*2; l.x=0; l.cw=Math.max(...gs.map(g=>g.x+g.w))+PAD;
+    gs.forEach(g=>{ g.y+=y+PAD; g.nodes.forEach(n=>{ n.x=g.x+n.rx; n.y=g.y+n.ry; }); });
+    y+=l.h+LANE_GAP; });
+  const uniform=Math.max(...LANES.map(l=>l.cw)); LANES.forEach(l=>l.w=uniform);
+  WORLD.w=uniform+PAD; WORLD.h=y;
+}
+const WORLD={w:0,h:0};
+
+// ---------- draw ----------
+const stage=document.getElementById('stage');
+const el=(t,a={},p)=>{ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); if(p) p.appendChild(e); return e; };
+let root, gEdges, gNodes, gBadges, gLabels;
+const edgeEls=[]; // {el, g, from, to}
+function draw(){
+  stage.innerHTML='';
+  const defs=el('defs',{},stage);
+  const mk=(id,color)=>{ const m=el('marker',{id,viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'7',markerHeight:'7',orient:'auto-start-reverse'},defs); el('path',{d:'M0,0 L10,5 L0,10 z',fill:color},m); };
+  mk('arr','var(--edge)'); mk('arrhl','var(--edge-hl)'); mk('arrc','var(--edge-claude)'); mk('arrg','var(--edge-gpu)'); mk('arrt','var(--sel)');
+  const pat=el('pattern',{id:'grid',width:'40',height:'40',patternUnits:'userSpaceOnUse'},defs); el('path',{d:'M40 0 H0 V40',fill:'none',stroke:'var(--grid)','stroke-width':'1'},pat);
+  root=el('g',{id:'root'},stage);
+  el('rect',{x:-4000,y:-4000,width:WORLD.w+8000,height:WORLD.h+8000,fill:'url(#grid)'},root);
+  const gl=el('g',{},root);
+  LANES.forEach(l=>{ const c=`var(${l.color})`;
+    el('rect',{x:l.x,y:l.y,width:l.w,height:l.h,fill:`var(${l.bg})`,rx:10,stroke:c,'stroke-opacity':.35},gl);
+    el('rect',{x:l.x,y:l.y,width:8,height:l.h,fill:c,rx:4},gl);
+    const t=el('text',{x:l.x+26,y:l.y+30,class:'lane-title'},gl); t.textContent=l.title;
+    wrapText(gl,l.note,l.x+26,l.y+50,LANE_LABEL_W-40,13,'lane-note');
+    const gs=GROUPS.filter(g=>g.lane===l.id);
+    gs.forEach(g=>{ const box=el('rect',{x:g.x,y:g.y,width:g.w,height:g.h,class:'group-box'},gl); if(g.frame){ box.setAttribute('stroke','var(--l6)'); box.setAttribute('stroke-width','2'); }
+      const gt=el('text',{x:g.x+GPAD,y:g.y+17,class:'group-title'},gl); gt.textContent=g.title; });
+  });
+  gEdges=el('g',{},root); gLabels=el('g',{},root); gNodes=el('g',{},root); gBadges=el('g',{},root);
+  EDGES.forEach((e,i)=>{ const a=nodeById[e[0]], b=nodeById[e[1]]; if(!a||!b) return; const kind=e[3]||'http';
+    const d=pathFor(a,b); const p=el('path',{d,class:'edge k-'+kind,'marker-end':'url(#'+(kind==='claude'?'arrc':kind==='gpu'?'arrg':'arr')+')'},gEdges);
+    const mid=midPoint(a,b); const lg=el('g',{class:'eg'},gLabels); const tx=el('text',{x:mid.x,y:mid.y+3,class:'elabel','text-anchor':'middle'},lg); tx.textContent=e[2]||'';
+    const bb=(e[2]||'').length*6.1+8; lg.insertBefore(el('rect',{x:mid.x-bb/2,y:mid.y-7,width:bb,height:14,class:'elabel-bg'}),tx);
+    edgeEls.push({el:p,lg,from:a.id,to:b.id,kind,label:e[2]}); });
+  // chain auto edges
+  GROUPS.filter(g=>g.chain).forEach(g=>{ for(let i=0;i<g.nodes.length-1;i++){ const a=g.nodes[i], b=g.nodes[i+1];
+    const p=el('path',{d:`M${a.x+a.w},${a.y+a.h/2} L${b.x},${b.y+b.h/2}`,class:'edge k-flow','marker-end':'url(#arr)'},gEdges); edgeEls.push({el:p,lg:null,from:a.id,to:b.id,kind:'flow',label:''}); } });
+  NODES.forEach(n=>{ const l=laneById[groupById[n.g].lane]; const g=el('g',{class:'node','data-id':n.id,tabindex:'0',role:'button','aria-label':n.label+' '+(n.sub||'')},gNodes); n.el=g;
+    el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,class:'box',fill:'var(--panel2)',stroke:`var(${l.color})`},g);
+    el('rect',{x:n.x,y:n.y,width:4,height:n.h,fill:`var(${l.color})`,rx:2},g);
+    const lbl=el('text',{x:n.x+11,y:n.y+17,class:'lbl'},g); lbl.textContent=fit(n.label,n.w-18,6.9);
+    if(n.sub){ const s=el('text',{x:n.x+11,y:n.y+31,class:'sub'},g); s.textContent=fit(n.sub,n.w-18,6.2); }
+    if(n.h>=52 && n.d && n.d[0]){ const s2=el('text',{x:n.x+11,y:n.y+n.h-8,class:'chip'},g); s2.textContent=fit(n.d[0].replace(/\.$/,''),n.w-18,5.7).toUpperCase(); }
+    if(n.st) el('circle',{cx:n.x+n.w-9,cy:n.y+9,r:4.5,class:'status-dot s-'+n.st},g);
+    g.addEventListener('click',ev=>{ ev.stopPropagation(); select(n.id,true); });
+    g.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); select(n.id,true);} });
+    g.addEventListener('pointerenter',()=>hover(n.id,true)); g.addEventListener('pointerleave',()=>hover(n.id,false));
+  });
+  document.getElementById('countLabel').textContent=NODES.length+' boxes · '+edgeEls.length+' arrows';
+  const stc={ok:0,warn:0,bad:0,off:0}; NODES.forEach(n=>{ if(n.st) stc[n.st]=(stc[n.st]||0)+1; });
+  document.querySelectorAll('#legend [data-st]').forEach(sp=>{ const k=sp.dataset.st; sp.querySelector('.cnt').textContent=stc[k]; sp.hidden=!stc[k]; });
+  document.getElementById('statusLabel').textContent='services: '+stc.ok+' running · '+stc.off+' off/on demand · '+stc.warn+' unmanaged · '+stc.bad+' failed';
+}
+function fit(s,w,cw){ const max=Math.floor(w/cw); return s.length>max? s.slice(0,max-1)+'…' : s; }
+function wrapText(parent,text,x,y,w,lh,cls){ const words=text.split(' '); let line='', yy=y; const cw=5.6; words.forEach(wd=>{ if((line+' '+wd).trim().length*cw>w){ const t=el('text',{x,y:yy,class:cls},parent); t.textContent=line.trim(); yy+=lh; line=wd; } else line=(line+' '+wd); }); if(line.trim()){ const t=el('text',{x,y:yy,class:cls},parent); t.textContent=line.trim(); } }
+function anchors(a,b){ const ac={x:a.x+a.w/2,y:a.y+a.h/2}, bc={x:b.x+b.w/2,y:b.y+b.h/2};
+  if(b.y>a.y+a.h+20) return [{x:ac.x,y:a.y+a.h},{x:bc.x,y:b.y},'v'];
+  if(a.y>b.y+b.h+20) return [{x:ac.x,y:a.y},{x:bc.x,y:b.y+b.h},'v'];
+  if(bc.x>ac.x) return [{x:a.x+a.w,y:ac.y},{x:b.x,y:bc.y},'h'];
+  return [{x:a.x,y:ac.y},{x:b.x+b.w,y:bc.y},'h']; }
+function pathFor(a,b){ const [p,q,o]=anchors(a,b); if(o==='v'){ const dy=(q.y-p.y)/2; return `M${p.x},${p.y} C${p.x},${p.y+dy} ${q.x},${q.y-dy} ${q.x},${q.y}`; } const dx=(q.x-p.x)/2; return `M${p.x},${p.y} C${p.x+dx},${p.y} ${q.x-dx},${q.y} ${q.x},${q.y}`; }
+function midPoint(a,b){ const [p,q]=anchors(a,b); return {x:(p.x+q.x)/2,y:(p.y+q.y)/2}; }
+
+// ---------- view ----------
+const view={k:1,x:0,y:0};
+const main=document.querySelector('main');
+function apply(){ root.setAttribute('transform',`translate(${view.x},${view.y}) scale(${view.k})`); document.getElementById('zoomLabel').textContent=Math.round(view.k*100)+'%';
+  stage.classList.toggle('zoom-mid', view.k>=0.62 || labelsOn); updateMini(); }
+function fitRect(r,pad=40){ const W=main.clientWidth, H=main.clientHeight; const k=Math.min((W-pad*2)/r.w,(H-pad*2)/r.h,2.2); view.k=k; view.x=(W-r.w*k)/2-r.x*k; view.y=(H-r.h*k)/2-r.y*k; apply(); }
+function fitAll(){ const W=main.clientWidth,H=main.clientHeight; const top=(window.innerWidth>860)?120:16; const k=Math.min((W-40)/WORLD.w,(H-top-30)/WORLD.h,2.2); view.k=k; view.x=(W-WORLD.w*k)/2; view.y=top+(H-top-WORLD.h*k)/2; apply(); }
+function flyTo(n,k){ const W=main.clientWidth,H=main.clientHeight; const kk=k||Math.max(view.k,1.1); view.k=kk; view.x=W/2-(n.x+n.w/2)*kk; view.y=H/2-(n.y+n.h/2)*kk; apply(); }
+function zoomAt(f,cx,cy){ const nk=Math.min(4,Math.max(0.06,view.k*f)); view.x=cx-(cx-view.x)*(nk/view.k); view.y=cy-(cy-view.y)*(nk/view.k); view.k=nk; apply(); }
+let drag=null, pts=new Map(), pinch=null;
+stage.addEventListener('pointerdown',e=>{ pts.set(e.pointerId,{x:e.clientX,y:e.clientY}); if(pts.size===1){ drag={x:e.clientX,y:e.clientY,vx:view.x,vy:view.y,moved:false}; stage.setPointerCapture(e.pointerId); } else if(pts.size===2){ const [a,b]=[...pts.values()]; pinch={d:Math.hypot(a.x-b.x,a.y-b.y),k:view.k,cx:(a.x+b.x)/2,cy:(a.y+b.y)/2}; drag=null; } });
+stage.addEventListener('pointermove',e=>{ if(!pts.has(e.pointerId)) return; pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch && pts.size===2){ const [a,b]=[...pts.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); const r=main.getBoundingClientRect(); const cx=(a.x+b.x)/2-r.left, cy=(a.y+b.y)/2-r.top; const nk=Math.min(4,Math.max(0.06,pinch.k*d/pinch.d)); view.x=cx-(cx-view.x)*(nk/view.k); view.y=cy-(cy-view.y)*(nk/view.k); view.k=nk; apply(); return; }
+  if(drag){ const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3){ drag.moved=true; stage.classList.add('dragging'); } view.x=drag.vx+dx; view.y=drag.vy+dy; apply(); } });
+const endPtr=e=>{ pts.delete(e.pointerId); if(pts.size<2) pinch=null; if(drag && !drag.moved && e.target===stage.firstElementChild?.nextElementSibling?.firstElementChild){} if(drag&&!drag.moved && (e.target.tagName==='rect' && e.target.getAttribute('fill')==='url(#grid)')) clearSel(); drag=null; stage.classList.remove('dragging'); };
+stage.addEventListener('pointerup',endPtr); stage.addEventListener('pointercancel',endPtr);
+stage.addEventListener('wheel',e=>{ e.preventDefault(); const r=main.getBoundingClientRect(); const f=Math.exp(-e.deltaY*(e.deltaMode===1?0.05:0.0015)); zoomAt(f,e.clientX-r.left,e.clientY-r.top); },{passive:false});
+stage.addEventListener('dblclick',e=>{ const r=main.getBoundingClientRect(); zoomAt(1.6,e.clientX-r.left,e.clientY-r.top); });
+
+// ---------- minimap ----------
+const mini=document.getElementById('mini'); let miniVp;
+function buildMini(){ mini.innerHTML=''; mini.setAttribute('viewBox',`0 0 ${WORLD.w} ${WORLD.h}`); mini.setAttribute('preserveAspectRatio','xMidYMid meet');
+  LANES.forEach(l=>el('rect',{x:l.x,y:l.y,width:l.w,height:l.h,fill:`var(${l.bg})`,stroke:`var(${l.color})`,'stroke-width':8},mini));
+  NODES.forEach(n=>el('rect',{x:n.x,y:n.y,width:n.w,height:n.h,fill:`var(${laneById[groupById[n.g].lane].color})`,'fill-opacity':.7},mini));
+  miniVp=el('rect',{class:'vp'},mini); }
+function updateMini(){ if(!miniVp) return; const W=main.clientWidth,H=main.clientHeight; miniVp.setAttribute('x',(-view.x)/view.k); miniVp.setAttribute('y',(-view.y)/view.k); miniVp.setAttribute('width',W/view.k); miniVp.setAttribute('height',H/view.k); }
+function miniNav(e){ const r=mini.getBoundingClientRect(); const sx=WORLD.w/r.width, sy=WORLD.h/r.height; const s=Math.max(sx,sy); const ox=(r.width-WORLD.w/s)/2, oy=(r.height-WORLD.h/s)/2; const wx=(e.clientX-r.left-ox)*s, wy=(e.clientY-r.top-oy)*s; const W=main.clientWidth,H=main.clientHeight; view.x=W/2-wx*view.k; view.y=H/2-wy*view.k; apply(); }
+let miniDrag=false; mini.addEventListener('pointerdown',e=>{ miniDrag=true; mini.setPointerCapture(e.pointerId); miniNav(e); }); mini.addEventListener('pointermove',e=>{ if(miniDrag) miniNav(e); }); mini.addEventListener('pointerup',()=>miniDrag=false);
+
+// ---------- selection / detail ----------
+let selected=null, activeTrace=null, traceStep=-1, labelsOn=false;
+const detail=document.getElementById('detail'), body=document.getElementById('detailBody');
+function clearSel(){ selected=null; activeTrace=null; traceStep=-1; NODES.forEach(n=>n.el.classList.remove('sel','hl','trace')); edgeEls.forEach(e=>{ e.el.classList.remove('hl','tr'); e.el.setAttribute('marker-end','url(#'+(e.kind==='claude'?'arrc':e.kind==='gpu'?'arrg':'arr')+')'); if(e.lg) e.lg.classList.remove('hl','tr'); }); gBadges.innerHTML=''; stage.classList.remove('dimmed'); detail.classList.remove('open'); document.querySelectorAll('#traceNav .navitem').forEach(b=>b.removeAttribute('aria-current')); }
+function hover(id,on){ if(selected||activeTrace) return; edgeEls.forEach(e=>{ if(e.from===id||e.to===id){ e.el.classList.toggle('hl',on); if(e.lg) e.lg.classList.toggle('hl',on); const o=e.from===id?e.to:e.from; nodeById[o].el.classList.toggle('hot',on); } }); }
+function select(id,fly){ clearSel(); selected=id; const n=nodeById[id]; n.el.classList.add('sel'); stage.classList.add('dimmed');
+  const links=[]; edgeEls.forEach(e=>{ if(e.from===id||e.to===id){ e.el.classList.add('hl'); e.el.setAttribute('marker-end','url(#arrhl)'); if(e.lg) e.lg.classList.add('hl'); const o=e.from===id?e.to:e.from; nodeById[o].el.classList.add('hl'); links.push({o,dir:e.from===id?'→':'←',label:e.label||'next stage'}); } });
+  const g=groupById[n.g], l=laneById[g.lane]; const st=n.st?`<span class="pill ${n.st}">${({ok:'running',warn:'running, unmanaged',bad:'failed / unreachable',off:'off / retired'})[n.st]}</span>`:'';
+  body.innerHTML=`<div class="kicker">${l.title} · ${g.title}</div><h3>${esc(n.label)}</h3><div class="mono">${esc(n.sub||'')}</div>${st}<ul>${(n.d||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`+(links.length?`<div class="kicker" style="margin-top:12px">Connections (${links.length})</div><div class="links">${links.map(k=>`<button data-go="${k.o}" title="${esc(k.label)}">${k.dir} ${esc(nodeById[k.o].label)}</button>`).join('')}</div>`:'');
+  body.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>select(b.dataset.go,true)));
+  detail.classList.add('open'); if(fly) flyTo(n, Math.max(view.k,0.9)); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function runTrace(t){ clearSel(); activeTrace=t; stage.classList.add('dimmed'); const ids=t.steps.map(s=>s[0]);
+  ids.forEach(id=>nodeById[id]?.el.classList.add('trace'));
+  for(let i=0;i<ids.length-1;i++){ const a=ids[i], b=ids[i+1]; let hit=false; edgeEls.forEach(e=>{ if((e.from===a&&e.to===b)||(e.from===b&&e.to===a)){ e.el.classList.add('tr'); e.el.setAttribute('marker-end','url(#arrt)'); if(e.lg) e.lg.classList.add('tr'); hit=true; } });
+    if(!hit){ const na=nodeById[a], nb=nodeById[b]; if(na&&nb){ el('path',{d:pathFor(na,nb),class:'edge tr','stroke-dasharray':'6 5','marker-end':'url(#arrt)'},gBadges); } } }
+  t.steps.forEach((s,i)=>{ const n=nodeById[s[0]]; if(!n) return; const b=el('g',{class:'step-badge'},gBadges); el('circle',{cx:n.x-2,cy:n.y-2,r:9},b); const tx=el('text',{x:n.x-2,y:n.y+1.5},b); tx.textContent=i+1; });
+  body.innerHTML=`<div class="kicker">Workflow trace · ${t.steps.length} steps</div><h3>${esc(t.title)}</h3><div class="mono">${esc(t.note)}</div><div class="steps">${t.steps.map((s,i)=>`<button class="step" data-i="${i}"><b>${i+1}</b><span>${esc(nodeById[s[0]]?.label||s[0])}<small>${esc(s[1])}</small></span></button>`).join('')}</div><div class="stepnav"><button id="prevStep">◀ Prev</button><button id="nextStep" class="primary">Next ▶</button><button id="fitTrace">Fit trace</button></div>`;
+  body.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>gotoStep(+b.dataset.i)));
+  body.querySelector('#prevStep').addEventListener('click',()=>gotoStep(Math.max(0,traceStep-1)));
+  body.querySelector('#nextStep').addEventListener('click',()=>gotoStep(Math.min(t.steps.length-1,traceStep+1)));
+  body.querySelector('#fitTrace').addEventListener('click',fitTrace);
+  detail.classList.add('open'); document.querySelectorAll('#traceNav .navitem').forEach(b=>b.setAttribute('aria-current',b.dataset.id===t.id)); fitTrace(); }
+function fitTrace(){ if(!activeTrace) return; const ns=activeTrace.steps.map(s=>nodeById[s[0]]).filter(Boolean); const x0=Math.min(...ns.map(n=>n.x)), y0=Math.min(...ns.map(n=>n.y)), x1=Math.max(...ns.map(n=>n.x+n.w)), y1=Math.max(...ns.map(n=>n.y+n.h)); fitRect({x:x0,y:y0,w:x1-x0,h:y1-y0},60); }
+function gotoStep(i){ if(!activeTrace) return; traceStep=i; const n=nodeById[activeTrace.steps[i][0]]; body.querySelectorAll('.step').forEach(b=>b.setAttribute('aria-current',+b.dataset.i===i)); body.querySelector(`.step[data-i="${i}"]`)?.scrollIntoView({block:'nearest'}); if(n) flyTo(n,1.3); }
+
+// ---------- nav ----------
+function buildNav(){ const ln=document.getElementById('laneNav'); LANES.forEach(l=>{ const b=document.createElement('button'); b.className='navitem'; b.innerHTML=`<span class="sw" style="background:var(${l.color})"></span><span>${esc(l.title)}</span><span class="n">${NODES.filter(n=>groupById[n.g].lane===l.id).length}</span>`; b.addEventListener('click',()=>{ clearSel(); fitRect({x:0,y:l.y,w:l.w,h:l.h},30); document.querySelectorAll('#laneNav .navitem').forEach(x=>x.removeAttribute('aria-current')); b.setAttribute('aria-current','true'); closeSide(); }); ln.appendChild(b); });
+  const tn=document.getElementById('traceNav'); TRACES.forEach(t=>{ const b=document.createElement('button'); b.className='navitem'; b.dataset.id=t.id; b.innerHTML=`<span><span>${esc(t.title)}</span><small>${esc(t.note)}</small></span>`; b.addEventListener('click',()=>{ runTrace(t); closeSide(); }); tn.appendChild(b); }); }
+const search=document.getElementById('search'), results=document.getElementById('results');
+search.addEventListener('input',()=>{ const q=search.value.trim().toLowerCase(); results.innerHTML=''; if(q.length<2) return; const hits=NODES.filter(n=>(n.label+' '+(n.sub||'')+' '+(n.d||[]).join(' ')).toLowerCase().includes(q)).slice(0,14);
+  hits.forEach(n=>{ const b=document.createElement('button'); b.className='navitem'; const l=laneById[groupById[n.g].lane]; b.innerHTML=`<span class="sw" style="background:var(${l.color})"></span><span>${esc(n.label)}<small>${esc(n.sub||'')}</small></span>`; b.addEventListener('click',()=>{ select(n.id,true); closeSide(); }); results.appendChild(b); });
+  if(!hits.length){ results.innerHTML='<div style="font-size:12px;color:var(--ink3);padding:6px 8px">No box matches.</div>'; } });
+function closeSide(){ if(window.innerWidth<=860) document.getElementById('side').classList.remove('open'); }
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('side').classList.toggle('open'));
+document.getElementById('fitBtn').addEventListener('click',fitAll);
+document.getElementById('zoomIn').addEventListener('click',()=>zoomAt(1.3,main.clientWidth/2,main.clientHeight/2));
+document.getElementById('zoomOut').addEventListener('click',()=>zoomAt(1/1.3,main.clientWidth/2,main.clientHeight/2));
+document.getElementById('clearBtn').addEventListener('click',clearSel);
+document.getElementById('detailClose').addEventListener('click',clearSel);
+document.getElementById('labelsBtn').addEventListener('click',e=>{ labelsOn=!labelsOn; e.currentTarget.setAttribute('aria-pressed',labelsOn); apply(); });
+document.addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT'){ if(e.key==='Escape') e.target.blur(); return; } const c=main.clientWidth/2, m=main.clientHeight/2;
+  if(e.key==='+'||e.key==='=') zoomAt(1.25,c,m); else if(e.key==='-') zoomAt(0.8,c,m); else if(e.key==='0') fitAll(); else if(e.key==='Escape') clearSel(); else if(e.key==='/'){ e.preventDefault(); search.focus(); }
+  else if(e.key==='ArrowLeft'){ view.x+=80; apply(); } else if(e.key==='ArrowRight'){ view.x-=80; apply(); } else if(e.key==='ArrowUp'){ view.y+=80; apply(); } else if(e.key==='ArrowDown'){ view.y-=80; apply(); }
+  else if(e.key==='n'&&activeTrace) gotoStep(Math.min(activeTrace.steps.length-1,traceStep+1)); else if(e.key==='p'&&activeTrace) gotoStep(Math.max(0,traceStep-1)); });
+window.addEventListener('resize',()=>{ apply(); });
+
+// ---------- boot ----------
+function start(data){ layout(); draw(); buildMini(); buildNav(); fitAll();
+  if(data&&data.sel&&nodeById[data.sel]) select(data.sel,true); else if(data&&data.trace){ const t=TRACES.find(x=>x.id===data.trace); if(t) runTrace(t); }
+  try{ const v=localStorage.getItem('atlas-view'); if(v&&!(data&&(data.sel||data.trace))){ const o=JSON.parse(v); if(o&&o.k){ Object.assign(view,o); apply(); } } }catch(_){}
+  setInterval(()=>{ try{ localStorage.setItem('atlas-view',JSON.stringify(view)); }catch(_){} },2000); }
+window.claude?.hot?.snapshot?.(()=>({sel:selected,trace:activeTrace?.id||null}));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+
+</body>
+</html>

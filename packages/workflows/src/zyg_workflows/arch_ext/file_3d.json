@@ -1,0 +1,10 @@
+{"section_key": "imports", "section_label": "Imported files",
+ "groups": [{"g": "Mesh files",
+             "items": [["mesh_file", "Imported mesh", {"id": "sample", "ext": "glb", "sx": 1, "name": "sample.glb"},
+                        "A mesh file (.glb, .gltf, .obj or .stl) uploaded to the server and placed as one block. Drops a crate first, then swaps in the real mesh when the file has parsed. sx scales it."]]},
+            {"g": "Survey data",
+             "items": [["point_cloud", "Point cloud", {"id": "sample_cloud", "ext": "xyz", "size": 0.03, "n": 5000},
+                        "A survey point cloud (.xyz, .pts or .ply) drawn as coloured dots. size is the dot width in metres; beyond two million points it is decimated."]]},
+            {"g": "References",
+             "items": [["link", "Linked drawing", {"pid": "", "name": ""},
+                        "Another saved drawing referenced in place: its records are fetched once and built as parts of this one block. Set pid to the id of the drawing to link."]]}]}

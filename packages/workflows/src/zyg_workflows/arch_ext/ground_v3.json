@@ -1,0 +1,33 @@
+{"section_key": "site", "section_label": "Site",
+ "groups": [
+   {"g": "The ground",
+    "items": [
+      ["ground", "Ground (sculpted)", {"w": 200, "d": 200, "res": 100, "seed": 1, "base": 0, "amp": 1.5, "snow_h": 60, "water_h": -0.15, "grass_max_slope": 32},
+       "ONE per drawing. Every landform below is a sculpt of THIS surface, not a solid on top of it. amp is the base roll: 0.2 flat, 1.5 a garden, 5 real country."]]},
+   {"g": "Sculpt: raise",
+    "items": [
+      ["sculpt_peak", "Peak", {"r": 40, "h": 30, "rug": 0.45, "seed": 1, "feather": 8},
+       "A rocky summit exactly h above the land around it, feathered to nothing at radius r."],
+      ["sculpt_ridge", "Ridge", {"len": 120, "w": 40, "h": 25, "rug": 0.35, "seed": 1, "feather": 12},
+       "A crest along the record's local X with a wandering spine. Rotate it with ry."],
+      ["sculpt_mesa", "Mesa", {"r": 40, "h": 25, "top_r": 28, "rug": 0.25, "seed": 1, "feather": 8},
+       "A table mountain: flat top h inside top_r, eroded flank out to r."],
+      ["sculpt_step", "Escarpment", {"len": 120, "h": 20, "d": 40, "rug": 0.3, "seed": 1, "feather": 12},
+       "A cliff line: everything behind the face (local +Z) lifted h."],
+      ["sculpt_dunes", "Dunes", {"w": 160, "d": 80, "h": 10, "seed": 1, "dir": 0, "feather": 16},
+       "A belt of ridged dune noise. Its whole footprint colours the ground SAND."]]},
+   {"g": "Sculpt: lower",
+    "items": [
+      ["sculpt_cut", "Valley", {"len": 200, "w": 60, "depth": 15, "floor_w": 15, "profile": 0, "feather": 20},
+       "A trough along local X. profile 0 is a V (a gorge), 1 a U (a glacial valley)."],
+      ["sculpt_channel", "River bed", {"len": 120, "w": 12, "depth": 2, "meander": 6, "seed": 1, "bank": 2, "feather": 12},
+       "A meandering bed — the same wander as the river kind, so the water sits in it."],
+      ["sculpt_basin", "Lake bed", {"rx": 40, "rz": 28, "depth": 6, "wobble": 0.25, "seed": 1, "shore": 6, "feather": 0},
+       "An elliptical hollow with the lake kind's own wobbled shoreline."],
+      ["sculpt_shelf", "Sea bed", {"w": 200, "d": 120, "depth": 8, "feather": 20},
+       "A broad shallow dish under the sea. Its footprint colours the ground SAND."]]},
+   {"g": "Sculpt: level",
+    "items": [
+      ["sculpt_flat", "Level pad", {"w": 40, "d": 40, "level": 0, "feather": 6},
+       "The one SET sculpt: cut AND fill to `level`, battered over `feather` at its edge. The flatten for a building footprint."]]}
+ ]}

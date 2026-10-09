@@ -1,0 +1,18 @@
+{"section_key": "organise", "section_label": "Organisation",
+ "groups": [{"g": "Components",
+             "items": [["component", "Component",
+                        {"name": "Bay", "children": [
+                          {"kind": "column_rect", "p": {"w": 0.3, "d": 0.3, "h": 2.7}, "x": -1.5, "y": 0, "z": 0,
+                           "rx": 0, "ry": 0, "rz": 0, "s": 1, "mat": "mat_concrete"},
+                          {"kind": "column_rect", "p": {"w": 0.3, "d": 0.3, "h": 2.7}, "x": 1.5, "y": 0, "z": 0,
+                           "rx": 0, "ry": 0, "rz": 0, "s": 1, "mat": "mat_concrete"},
+                          {"kind": "beam", "p": {"len": 3.3, "w": 0.2, "h": 0.4}, "x": 0, "y": 2.7, "z": 0,
+                           "rx": 0, "ry": 0, "rz": 0, "s": 1, "mat": "mat_concrete"}]},
+                        "One definition, many instances: an example bay of two columns and a beam. Make your own from a selection with Organise > Make component."]]},
+            {"g": "Grid and zones",
+             "items": [["gridline", "Grid line",
+                        {"len": 30.0, "label": "A", "axis": "z"},
+                        "One line of the structural grid, with its label at the end. Local +X, so ry turns it; the whole lettered/numbered grid comes from Organise > Grid lines."],
+                       ["zone", "Room / zone",
+                        {"pts": [[-2, -2], [2, -2], [2, 2], [-2, 2]], "name": "Room", "use": "living", "h": 0.05},
+                        "A named enclosed area, labelled with its own floor area in m2. Draw one by its corners with Organise > Rooms."]]}]}

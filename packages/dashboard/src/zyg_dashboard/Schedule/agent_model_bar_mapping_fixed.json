@@ -1,0 +1,1876 @@
+{
+  "d3a0beb1-49c2-4450-a167-15c8d4e50e85": {
+    "name": "Affiliate-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "623b4214"
+      },
+      {
+        "model": "1018",
+        "bar_id": "da8c3ae2"
+      }
+    ]
+  },
+  "7e74e435-0b3b-431f-a62c-71be51f6a6d1": {
+    "name": "Affiliate-Marketing-Overseer",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "26ecf25d"
+      },
+      {
+        "model": "1018",
+        "bar_id": "d1385721"
+      },
+      {
+        "model": "1021",
+        "bar_id": "c362c925"
+      }
+    ]
+  },
+  "ae6d9768-e628-4cc3-aa3b-a9532df0b798": {
+    "name": "Arabic-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "3fe4233d"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3bdb9246"
+      }
+    ]
+  },
+  "761c8bd2-ff4b-46a0-8b0d-6585fe2b510c": {
+    "name": "Bengali-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "0143c716"
+      },
+      {
+        "model": "1018",
+        "bar_id": "d493bb34"
+      }
+    ]
+  },
+  "b3421cb3-5a56-4cd0-b293-99195b14e31b": {
+    "name": "Campaign-Builder-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "66a5f41a"
+      },
+      {
+        "model": "1018",
+        "bar_id": "5fca531c"
+      }
+    ]
+  },
+  "e6ea1049-f65f-43c9-b5f5-55e317d69ae8": {
+    "name": "Conversion-Optimizer-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "a893f365"
+      },
+      {
+        "model": "1018",
+        "bar_id": "797b9005"
+      }
+    ]
+  },
+  "7b083b4c-b376-4a27-8fea-368edfaed912": {
+    "name": "Email-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "1ffc7acf"
+      },
+      {
+        "model": "1018",
+        "bar_id": "1e28d8fd"
+      }
+    ]
+  },
+  "6f799e6a-e64a-4051-b237-d1f9cf4586e5": {
+    "name": "English-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "eed4593b"
+      },
+      {
+        "model": "1018",
+        "bar_id": "f6996baf"
+      }
+    ]
+  },
+  "121c8256-b3b3-4f01-8d2a-8ecc692ce3ca": {
+    "name": "French-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "44bd05b7"
+      },
+      {
+        "model": "1018",
+        "bar_id": "badb7eac"
+      }
+    ]
+  },
+  "05a7b6c3-a4d5-4f13-ac8b-bac92dcdef45": {
+    "name": "Hindi-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "42647bd6"
+      },
+      {
+        "model": "1018",
+        "bar_id": "c7bd405a"
+      }
+    ]
+  },
+  "840f5c0a-defe-4ef7-8ddc-424ec4a20e23": {
+    "name": "Mandarin-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "0899a4ff"
+      },
+      {
+        "model": "1018",
+        "bar_id": "79085025"
+      }
+    ]
+  },
+  "a12a0511-f4fa-4df1-9f1d-3a2169a5fb0e": {
+    "name": "Portuguese-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "49cfd71f"
+      },
+      {
+        "model": "1018",
+        "bar_id": "fdca6c2b"
+      }
+    ]
+  },
+  "2431dea8-90c6-4686-9038-66f9573c040c": {
+    "name": "PPC-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "bc73457d"
+      },
+      {
+        "model": "1018",
+        "bar_id": "4b2e7095"
+      }
+    ]
+  },
+  "cfc0c234-a580-44cd-ac57-c1caecc97dbe": {
+    "name": "SEO-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "70cd8915"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2f26e08a"
+      }
+    ]
+  },
+  "99c727bb-b410-44cd-be04-7410d7890cb5": {
+    "name": "Social-Media-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "afcbd753"
+      },
+      {
+        "model": "1018",
+        "bar_id": "c0f2ed9b"
+      }
+    ]
+  },
+  "ef3964ed-b511-4c44-b26c-f86f0d064bff": {
+    "name": "Spanish-Marketing-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "83d7c028"
+      },
+      {
+        "model": "1018",
+        "bar_id": "adef1ab3"
+      }
+    ]
+  },
+  "93e004f2-9829-424a-b1a5-19459811a9f9": {
+    "name": "YouTube-SEO-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "0a5f49c3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "54be543d"
+      }
+    ]
+  },
+  "680eacc7-09ed-4fee-bad3-4fad32a17950": {
+    "name": "2D-Animation-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "f53c91eb"
+      },
+      {
+        "model": "1003",
+        "bar_id": "7ce9e459"
+      },
+      {
+        "model": "1026",
+        "bar_id": "d5316817"
+      }
+    ]
+  },
+  "1a1d31b8-e852-41a1-b672-ae317d5d186b": {
+    "name": "2D-Character-Designer-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "e1e0c599"
+      },
+      {
+        "model": "1002",
+        "bar_id": "a5df90d0"
+      },
+      {
+        "model": "1005",
+        "bar_id": "e2804915"
+      },
+      {
+        "model": "1013",
+        "bar_id": "fe897497"
+      }
+    ]
+  },
+  "1f04c996-f2a6-43d6-97b5-eadd993dc6a6": {
+    "name": "2D-Script-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "091de237"
+      },
+      {
+        "model": "1018",
+        "bar_id": "ff8d8c06"
+      }
+    ]
+  },
+  "ff5d8549-4197-4c74-821d-2d7c7ef5a5a0": {
+    "name": "2D-Series-1-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "da8c23e0"
+      },
+      {
+        "model": "1003",
+        "bar_id": "0b14f674"
+      },
+      {
+        "model": "1026",
+        "bar_id": "019d40dd"
+      }
+    ]
+  },
+  "7a96231c-c868-4ffe-a61f-ec4c6a56189c": {
+    "name": "2D-Series-10-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "f35c0efd"
+      },
+      {
+        "model": "1003",
+        "bar_id": "744aeb41"
+      },
+      {
+        "model": "1026",
+        "bar_id": "988d9247"
+      }
+    ]
+  },
+  "627877b4-6d17-42bd-a7d3-8bc16fdefcd2": {
+    "name": "2D-Series-2-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "14726a2f"
+      },
+      {
+        "model": "1003",
+        "bar_id": "5813e7a3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "bda33f7e"
+      }
+    ]
+  },
+  "a3566027-2018-486c-bb58-58dc35aacb9a": {
+    "name": "2D-Series-3-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "e3b045e1"
+      },
+      {
+        "model": "1003",
+        "bar_id": "d80aee6c"
+      },
+      {
+        "model": "1026",
+        "bar_id": "61e1d9ba"
+      }
+    ]
+  },
+  "749048b0-539e-4d45-aa0a-427435552975": {
+    "name": "2D-Series-4-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "963df22e"
+      },
+      {
+        "model": "1003",
+        "bar_id": "b3bf01cb"
+      },
+      {
+        "model": "1026",
+        "bar_id": "0fac3c40"
+      }
+    ]
+  },
+  "920609ce-2380-4b05-8519-43d63a3bb074": {
+    "name": "2D-Series-5-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "f50e5907"
+      },
+      {
+        "model": "1003",
+        "bar_id": "86268875"
+      },
+      {
+        "model": "1026",
+        "bar_id": "f18c63f0"
+      }
+    ]
+  },
+  "befdb330-c63e-4dbb-b2d1-3d41579a4ab7": {
+    "name": "2D-Series-6-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "c74364e1"
+      },
+      {
+        "model": "1003",
+        "bar_id": "24e3a318"
+      },
+      {
+        "model": "1026",
+        "bar_id": "7ec36bd6"
+      }
+    ]
+  },
+  "6f83203d-8654-4468-813d-1546baa808ed": {
+    "name": "2D-Series-7-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "e4a8012e"
+      },
+      {
+        "model": "1003",
+        "bar_id": "37d87b7f"
+      },
+      {
+        "model": "1026",
+        "bar_id": "4881f0f9"
+      }
+    ]
+  },
+  "2153370b-6bb9-44c9-ab92-9334efe248b3": {
+    "name": "2D-Series-8-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "6413ab1b"
+      },
+      {
+        "model": "1003",
+        "bar_id": "288dd9ea"
+      },
+      {
+        "model": "1026",
+        "bar_id": "04741e2a"
+      }
+    ]
+  },
+  "23fba4ec-4837-4fa9-a850-7202a5552496": {
+    "name": "2D-Series-9-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "7c8e8701"
+      },
+      {
+        "model": "1003",
+        "bar_id": "b150850a"
+      },
+      {
+        "model": "1026",
+        "bar_id": "46d0326a"
+      }
+    ]
+  },
+  "7c28b713-081b-4046-987a-3ff2567c07f6": {
+    "name": "2D-Series-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "5fb672d9"
+      },
+      {
+        "model": "1003",
+        "bar_id": "bbb2046a"
+      },
+      {
+        "model": "1026",
+        "bar_id": "97c21c86"
+      }
+    ]
+  },
+  "557818a3-f10c-44a4-84e8-d3bf101a0e53": {
+    "name": "2D-Series-Overseer",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "5b08e229"
+      },
+      {
+        "model": "1018",
+        "bar_id": "509a545b"
+      },
+      {
+        "model": "1019",
+        "bar_id": "88d580ea"
+      },
+      {
+        "model": "1021",
+        "bar_id": "81c4e69f"
+      }
+    ]
+  },
+  "9b357982-9e9d-4317-9d40-79ca8eddd859": {
+    "name": "2D-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "e5103be2"
+      },
+      {
+        "model": "1032",
+        "bar_id": "bff8d74a"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "e65e9e39"
+      },
+      {
+        "model": "1026",
+        "bar_id": "e1af5bb8"
+      }
+    ]
+  },
+  "0397888c-eea0-4b3d-919e-a8624dfa8e99": {
+    "name": "3D-Animation-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "c4887657"
+      },
+      {
+        "model": "1003",
+        "bar_id": "4817ad9e"
+      },
+      {
+        "model": "1026",
+        "bar_id": "bc9528fd"
+      },
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "db18c0f0"
+      }
+    ]
+  },
+  "9f42bd2b-e3d5-4fc6-9e3e-d9622a469ab7": {
+    "name": "3D-Character-Designer-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "2590e4fb"
+      },
+      {
+        "model": "1002",
+        "bar_id": "018fe064"
+      },
+      {
+        "model": "1005",
+        "bar_id": "21583966"
+      },
+      {
+        "model": "1013",
+        "bar_id": "7b8b9aff"
+      }
+    ]
+  },
+  "1c299e06-06d2-4f9f-b245-46d510f214b5": {
+    "name": "3D-Script-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "3b5fb6a4"
+      },
+      {
+        "model": "1018",
+        "bar_id": "e78cc576"
+      }
+    ]
+  },
+  "e093a560-3dff-412e-b60a-9329f8ec1931": {
+    "name": "3D-Series-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "0679326c"
+      },
+      {
+        "model": "1003",
+        "bar_id": "cd38d3bb"
+      },
+      {
+        "model": "1026",
+        "bar_id": "d9b1e4e8"
+      }
+    ]
+  },
+  "190ce9f0-713b-44c5-b791-82c61fbbb234": {
+    "name": "3D-Series-Overseer",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "c2698802"
+      },
+      {
+        "model": "1018",
+        "bar_id": "366dd175"
+      },
+      {
+        "model": "1019",
+        "bar_id": "50720d6c"
+      },
+      {
+        "model": "1021",
+        "bar_id": "c83e695c"
+      }
+    ]
+  },
+  "49d9d501-98da-4116-a4f8-bb4fbe608528": {
+    "name": "3D-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "e9c9840c"
+      },
+      {
+        "model": "1032",
+        "bar_id": "5c35d485"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "3af4f0c6"
+      },
+      {
+        "model": "1026",
+        "bar_id": "4afae406"
+      }
+    ]
+  },
+  "4a9d4467-7816-4b18-a832-fd3883767c4a": {
+    "name": "Arabic-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "0936fe88"
+      },
+      {
+        "model": "1018",
+        "bar_id": "af05d247"
+      }
+    ]
+  },
+  "4eab19f6-61e9-4611-899f-075bbe82b2e3": {
+    "name": "Arabic-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "58615510"
+      },
+      {
+        "model": "1032",
+        "bar_id": "59d36ad0"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "1b24942e"
+      },
+      {
+        "model": "1026",
+        "bar_id": "df9ab58f"
+      }
+    ]
+  },
+  "6eaf48f7-fc9b-4a7e-9d09-11618ab67597": {
+    "name": "Bengali-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "985fb284"
+      },
+      {
+        "model": "1018",
+        "bar_id": "ab4c6add"
+      }
+    ]
+  },
+  "afe540cc-cf83-4f3b-b044-40f71b1e8798": {
+    "name": "Bengali-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "6e17d39b"
+      },
+      {
+        "model": "1032",
+        "bar_id": "083874da"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "939c627a"
+      },
+      {
+        "model": "1026",
+        "bar_id": "71b22e2b"
+      }
+    ]
+  },
+  "1f924eae-ef64-4f6f-9bc2-2755f1826428": {
+    "name": "English-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "976b02c0"
+      },
+      {
+        "model": "1018",
+        "bar_id": "54a1944a"
+      }
+    ]
+  },
+  "06bcb8b3-c54a-4c56-a8ed-9ec0b498e94d": {
+    "name": "English-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "cd0e1508"
+      },
+      {
+        "model": "1032",
+        "bar_id": "5d0a7594"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "80d28c15"
+      },
+      {
+        "model": "1026",
+        "bar_id": "fd33bde0"
+      }
+    ]
+  },
+  "10b19882-0437-46ca-93ed-78f7d55e9ed5": {
+    "name": "French-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "013c7bc1"
+      },
+      {
+        "model": "1018",
+        "bar_id": "6c000119"
+      }
+    ]
+  },
+  "b64b6561-4141-4564-9e17-ee5a17208c99": {
+    "name": "French-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "6bc15167"
+      },
+      {
+        "model": "1032",
+        "bar_id": "92b1d345"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "c7a4c2ce"
+      },
+      {
+        "model": "1026",
+        "bar_id": "8a3f32dd"
+      }
+    ]
+  },
+  "0911188e-9623-481b-98cc-ec2d6ffb1abb": {
+    "name": "Hindi-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "272ff6ff"
+      },
+      {
+        "model": "1018",
+        "bar_id": "00cf9302"
+      }
+    ]
+  },
+  "a518363d-09f5-4479-9f89-af40ba125707": {
+    "name": "Hindi-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "bb3b0ada"
+      },
+      {
+        "model": "1032",
+        "bar_id": "a7757d1c"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "8d614713"
+      },
+      {
+        "model": "1026",
+        "bar_id": "73720018"
+      }
+    ]
+  },
+  "aa582132-f66d-4b1f-90b4-27fecc865497": {
+    "name": "Invoice-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "45ff074e"
+      },
+      {
+        "model": "1018",
+        "bar_id": "c3b23ba5"
+      }
+    ]
+  },
+  "873a536e-85e9-4047-a358-34ff083d0179": {
+    "name": "Localization-Master-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "9a6a6665"
+      },
+      {
+        "model": "1018",
+        "bar_id": "74058ba8"
+      }
+    ]
+  },
+  "28d584e8-439c-4f7b-9083-05225052c0a5": {
+    "name": "Mandarin-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "7566c36d"
+      },
+      {
+        "model": "1018",
+        "bar_id": "899cd200"
+      }
+    ]
+  },
+  "0cd0dde5-240f-4465-adb5-2b2f68a3e461": {
+    "name": "Mandarin-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "3e215562"
+      },
+      {
+        "model": "1032",
+        "bar_id": "00b2e9db"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "73376b07"
+      },
+      {
+        "model": "1026",
+        "bar_id": "6934b3ce"
+      }
+    ]
+  },
+  "0728226f-5cf0-4854-b513-b1176d1e8ebc": {
+    "name": "Portuguese-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "4570a23b"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3a7a7e73"
+      }
+    ]
+  },
+  "84db2f8b-3d22-4790-8737-2d4cf27e5aef": {
+    "name": "Portuguese-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "b2ea080c"
+      },
+      {
+        "model": "1032",
+        "bar_id": "355cf223"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "73d4f7ce"
+      },
+      {
+        "model": "1026",
+        "bar_id": "98b018a3"
+      }
+    ]
+  },
+  "fca93fba-2b89-4318-afb1-06630605338c": {
+    "name": "Scene-Editor-Agent",
+    "models": [
+      {
+        "model": "1037",
+        "bar_id": "5633f729"
+      },
+      {
+        "model": "Effects-Agent",
+        "bar_id": "eeb41930"
+      }
+    ]
+  },
+  "fa48ce12-bfb1-401d-a615-552fa23e6f50": {
+    "name": "Script-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "0635f890"
+      },
+      {
+        "model": "1018",
+        "bar_id": "dc696e58"
+      }
+    ]
+  },
+  "5c672447-86fb-4ef5-8fa8-25e7859c8711": {
+    "name": "Spanish-Localization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "1e5078dd"
+      },
+      {
+        "model": "1018",
+        "bar_id": "0181a1ba"
+      }
+    ]
+  },
+  "34ee6a74-906f-4a44-a0cd-253cca9f352b": {
+    "name": "Spanish-Voice-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "938efa6d"
+      },
+      {
+        "model": "1032",
+        "bar_id": "fea36d9f"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "16d272d3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "e7fd0c0f"
+      }
+    ]
+  },
+  "06f0cbc9-0f46-4e41-a5ac-9e35a6893d48": {
+    "name": "Voice-Localization-Master-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "bb97c2c5"
+      },
+      {
+        "model": "1018",
+        "bar_id": "26ed61f5"
+      }
+    ]
+  },
+  "f731c916-46f0-4ebf-b0ad-b89cba993be9": {
+    "name": "YouTube-Script-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "37961f20"
+      },
+      {
+        "model": "1018",
+        "bar_id": "7aede19e"
+      }
+    ]
+  },
+  "b9dc4226-19f4-4c10-a1b3-abb27cb28cf9": {
+    "name": "2D-Quality-Control-Agent",
+    "models": [
+      {
+        "model": "Ai Qc Engine",
+        "bar_id": "14d0dc2d"
+      }
+    ]
+  },
+  "ddf0b5fe-6ad7-4b9d-93b5-ee97985b22b0": {
+    "name": "3D-Quality-Control-Agent",
+    "models": [
+      {
+        "model": "Ai Qc Engine",
+        "bar_id": "9374b84a"
+      }
+    ]
+  },
+  "70a185ac-1ee5-4dc4-9500-0f1cc605065f": {
+    "name": "Business-Support-Overseer",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "b17ffba4"
+      },
+      {
+        "model": "1018",
+        "bar_id": "0e6c83e7"
+      },
+      {
+        "model": "1019",
+        "bar_id": "fbea3b77"
+      },
+      {
+        "model": "1021",
+        "bar_id": "77d9c312"
+      }
+    ]
+  },
+  "535a1922-ba6b-4fb5-827b-002fc172eecc": {
+    "name": "Case-Tracker-Agent",
+    "models": [
+      {
+        "model": "1034",
+        "bar_id": "17adb07c"
+      }
+    ]
+  },
+  "b627dff5-f205-40d8-87ef-9ceba9062bfd": {
+    "name": "Compliance-Checker-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "70c7936f"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2c8c1fe8"
+      }
+    ]
+  },
+  "79f2b5b5-6f5f-44bf-818d-2d7a17a0cbb6": {
+    "name": "Contract-Generator-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "ad363be7"
+      },
+      {
+        "model": "1018",
+        "bar_id": "69948798"
+      }
+    ]
+  },
+  "2dee8b40-fb16-41ae-947d-7f631b0217b2": {
+    "name": "Customer-Support-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "46bcdec5"
+      },
+      {
+        "model": "1018",
+        "bar_id": "4011a64b"
+      }
+    ]
+  },
+  "f3ab6af9-9a73-497a-88d6-23ad939a37a6": {
+    "name": "Expense-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "3e5ee52a"
+      },
+      {
+        "model": "1018",
+        "bar_id": "dfc98839"
+      }
+    ]
+  },
+  "828b7b72-e5c9-4ee6-a8a5-454e793dd48a": {
+    "name": "FAQ-Updater-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "5e999ce4"
+      },
+      {
+        "model": "1018",
+        "bar_id": "aba96e97"
+      }
+    ]
+  },
+  "a7674096-fbaa-440c-bdc3-6daeb20cfa6d": {
+    "name": "Financial-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "c8695563"
+      },
+      {
+        "model": "1018",
+        "bar_id": "85684f6f"
+      }
+    ]
+  },
+  "b6897816-f79e-4f70-a583-f657f700e747": {
+    "name": "Financial-Report-Agent",
+    "models": [
+      {
+        "model": "1023",
+        "bar_id": "3c2b5015"
+      }
+    ]
+  },
+  "b3d599df-a9a7-4633-bc5f-6e0d741e58c9": {
+    "name": "Legal-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "82025ba3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "8d2dec83"
+      }
+    ]
+  },
+  "bdfa2d2e-e588-4228-b173-7dddb95a8f80": {
+    "name": "Payroll-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "68aaa5a0"
+      },
+      {
+        "model": "1018",
+        "bar_id": "7478ef4c"
+      }
+    ]
+  },
+  "5a6e5151-1cb6-4468-85e8-4df5c07c423f": {
+    "name": "Performance-Evaluator-Agent",
+    "models": [
+      {
+        "model": "1023",
+        "bar_id": "ac22bc29"
+      }
+    ]
+  },
+  "4eb4c7e7-8ff4-48c7-98c7-0528907271aa": {
+    "name": "Quality-Control-Agent",
+    "models": [
+      {
+        "model": "Ai Qc Engine",
+        "bar_id": "632f43db"
+      }
+    ]
+  },
+  "be80e879-7f47-409d-8bfd-3d0e9008681a": {
+    "name": "Review-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "3484fb3a"
+      },
+      {
+        "model": "1018",
+        "bar_id": "6b713db6"
+      }
+    ]
+  },
+  "e8219ae5-05e0-4790-a165-eea483abc2a2": {
+    "name": "Tax-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "ea3b664e"
+      },
+      {
+        "model": "1018",
+        "bar_id": "e96fac3c"
+      }
+    ]
+  },
+  "31ab8c4b-6eaa-45d4-be4d-15c9125e8baf": {
+    "name": "Ticket-Processor-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "a0965ccb"
+      },
+      {
+        "model": "1018",
+        "bar_id": "0ebb571f"
+      }
+    ]
+  },
+  "240354dc-74e5-4a88-9d25-e1505da59b4f": {
+    "name": "2D-Asset-Manager-Agent",
+    "models": [
+      {
+        "model": "1034",
+        "bar_id": "da998ea8"
+      }
+    ]
+  },
+  "3f00d455-f6ce-4bd2-b511-530ef6b22e22": {
+    "name": "2D-Background-Artist-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "ff36db96"
+      },
+      {
+        "model": "1002",
+        "bar_id": "fd96f0e4"
+      }
+    ]
+  },
+  "6582bc63-943a-44cc-8aed-3e2cbc3de9af": {
+    "name": "2D-Colorist-Agent",
+    "models": [
+      {
+        "model": "1006",
+        "bar_id": "ea8046dd"
+      }
+    ]
+  },
+  "c5735fd8-95ad-4894-955c-ba02f53e6c5f": {
+    "name": "2D-Compositor-Agent",
+    "models": [
+      {
+        "model": "1006",
+        "bar_id": "33c9ed23"
+      }
+    ]
+  },
+  "83ed7e83-3557-4e4e-845c-607dab77e3e4": {
+    "name": "2D-Music-Agent",
+    "models": [
+      {
+        "model": "1020",
+        "bar_id": "f0a0a6f3"
+      }
+    ]
+  },
+  "c4dc45f5-4c4f-41bd-97d5-d1657ca57c6b": {
+    "name": "2D-Scheduling-Agent",
+    "models": [
+      {
+        "model": "1033",
+        "bar_id": "7e5f169a"
+      }
+    ]
+  },
+  "1c9bcff7-d49b-4373-94da-d782be56d2cf": {
+    "name": "2D-Storyboard-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "222a5c9a"
+      },
+      {
+        "model": "1018",
+        "bar_id": "7b99a954"
+      }
+    ]
+  },
+  "208db5bc-e408-4911-b228-cb4cc864f54a": {
+    "name": "3D-Asset-Manager-Agent",
+    "models": [
+      {
+        "model": "1034",
+        "bar_id": "9aa77e29"
+      }
+    ]
+  },
+  "dce4eb1a-6635-476a-abbc-bf5b7fdbc887": {
+    "name": "3D-Compositor-Agent",
+    "models": [
+      {
+        "model": "1006",
+        "bar_id": "3441ec21"
+      },
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "5117f85c"
+      }
+    ]
+  },
+  "37301d01-0ce4-49da-be9f-28c4984fb5a1": {
+    "name": "3D-Environment-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "f838d4da"
+      },
+      {
+        "model": "1002",
+        "bar_id": "093393a1"
+      },
+      {
+        "model": "1005",
+        "bar_id": "abf62e82"
+      }
+    ]
+  },
+  "49280bec-662d-4ed1-8b20-a3eb808a6ece": {
+    "name": "3D-Lighting-Agent",
+    "models": [
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "f495a7e0"
+      }
+    ]
+  },
+  "3c0fcf90-0671-423a-a990-e1ec7a1a158b": {
+    "name": "3D-Modeling-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "be1d2e69"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3cefef03"
+      },
+      {
+        "model": "1005",
+        "bar_id": "06ee0194"
+      },
+      {
+        "model": "1013",
+        "bar_id": "29d238b4"
+      },
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "01b7d475"
+      }
+    ]
+  },
+  "0f2fefb7-2e71-47c5-9902-420994c9dd71": {
+    "name": "3D-Music-Agent",
+    "models": [
+      {
+        "model": "1020",
+        "bar_id": "b5f35e58"
+      }
+    ]
+  },
+  "8d23e89d-689b-4acf-aa6d-9a0158c88558": {
+    "name": "3D-Rigging-Agent",
+    "models": [
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "bd38b28a"
+      }
+    ]
+  },
+  "0d5b2bc9-a4cb-4f1c-bb10-8b9e9690b3e3": {
+    "name": "3D-Scheduling-Agent",
+    "models": [
+      {
+        "model": "1033",
+        "bar_id": "29ec3ac0"
+      }
+    ]
+  },
+  "a93ab8f0-be2e-4aae-9592-4750b004ff81": {
+    "name": "3D-Storyboard-Agent",
+    "models": [
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "5c4819ec"
+      }
+    ]
+  },
+  "40ff826b-7469-4156-97fa-885a0b41cab0": {
+    "name": "3D-Texturing-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "5adf9deb"
+      },
+      {
+        "model": "1002",
+        "bar_id": "cd41bacf"
+      },
+      {
+        "model": "1013",
+        "bar_id": "bb2e740e"
+      },
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "cd0fab50"
+      }
+    ]
+  },
+  "f35e8e61-0e87-44fd-beed-87be2ef4ba31": {
+    "name": "Audience-Targeting-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "ab00ca91"
+      },
+      {
+        "model": "1018",
+        "bar_id": "9adb0f77"
+      }
+    ]
+  },
+  "1a9a40da-0f1f-45f3-b86d-c24e63e6902d": {
+    "name": "Cultural-Adaptation-Master-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "4f174b3a"
+      },
+      {
+        "model": "1018",
+        "bar_id": "66468ce0"
+      }
+    ]
+  },
+  "791ac628-314f-487e-a44a-e62c963f870d": {
+    "name": "Document-Filing-Agent",
+    "models": [
+      {
+        "model": "1034",
+        "bar_id": "22e235aa"
+      }
+    ]
+  },
+  "c95861ad-cb10-4127-95b5-477767ceb1b9": {
+    "name": "Movies-of-Peoples-Lives-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "5bb48eb5"
+      },
+      {
+        "model": "1018",
+        "bar_id": "c9a1cfa0"
+      }
+    ]
+  },
+  "0a5dbf14-95da-4f24-8834-80fd496175f1": {
+    "name": "Multi-Language-QC-Agent",
+    "models": [
+      {
+        "model": "Ai Qc Engine",
+        "bar_id": "befe1d66"
+      }
+    ]
+  },
+  "0366a945-bf3d-4800-98fe-5d1b9beb25e0": {
+    "name": "Revenue-Optimization-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "16dbbb61"
+      },
+      {
+        "model": "1018",
+        "bar_id": "ea8ef939"
+      }
+    ]
+  },
+  "ffd45f1e-05ea-413b-851d-2b975aeb8d84": {
+    "name": "2D-Sound-Effects-Agent",
+    "models": [
+      {
+        "model": "1020",
+        "bar_id": "447a8dc1"
+      }
+    ]
+  },
+  "a21cd7fd-c3a9-47cb-8d61-0fd5d53a7dab": {
+    "name": "3D-Effects-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "b1ed5d39"
+      },
+      {
+        "model": "1006",
+        "bar_id": "57cd3774"
+      }
+    ]
+  },
+  "34cafcba-988e-4e73-8049-241ab9dd802f": {
+    "name": "3D-Render-Farm-Manager-Agent",
+    "models": [
+      {
+        "model": "3D-Render-Farm-Manager-Agent",
+        "bar_id": "e9bfc4ea"
+      }
+    ]
+  },
+  "1eaddb6b-d8f3-4207-b5d5-f254b94100e3": {
+    "name": "3D-Rendering-Agent",
+    "models": [
+      {
+        "model": "1006",
+        "bar_id": "e1468831"
+      },
+      {
+        "model": "Blender (Bpy)",
+        "bar_id": "2efead23"
+      },
+      {
+        "model": "3D-Render-Farm-Manager-Agent",
+        "bar_id": "6d43e12f"
+      }
+    ]
+  },
+  "841d2a9a-9efb-483c-bdf9-3b3ac5d35a03": {
+    "name": "Analytics-Agent",
+    "models": [
+      {
+        "model": "1016",
+        "bar_id": "06f17973"
+      },
+      {
+        "model": "1023",
+        "bar_id": "cd1d128b"
+      }
+    ]
+  },
+  "b10e5387-9d96-4c2b-aa07-cd7dfe1e1b54": {
+    "name": "Analytics-Reporting-Agent",
+    "models": [
+      {
+        "model": "1016",
+        "bar_id": "58cf39aa"
+      },
+      {
+        "model": "1023",
+        "bar_id": "6ed946ed"
+      }
+    ]
+  },
+  "01dbb116-884c-4937-a58b-d571c1fc868e": {
+    "name": "Channel-Manager-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "0ed7609e"
+      },
+      {
+        "model": "1018",
+        "bar_id": "5bd93807"
+      }
+    ]
+  },
+  "061b15f0-a5b7-4a74-b58d-0be261c79b0f": {
+    "name": "Comment-Moderator-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "55d03369"
+      },
+      {
+        "model": "1018",
+        "bar_id": "6192e9f6"
+      }
+    ]
+  },
+  "d8f9f7e8-f2c1-4d0d-a706-067138b21ece": {
+    "name": "Content-Production-Overseer",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "4c016ea7"
+      },
+      {
+        "model": "1018",
+        "bar_id": "48a3fa21"
+      },
+      {
+        "model": "1019",
+        "bar_id": "7c6d7524"
+      },
+      {
+        "model": "1021",
+        "bar_id": "bd874b56"
+      }
+    ]
+  },
+  "c1766b7e-20b0-4204-a58b-4f64ca7026a7": {
+    "name": "Content-Writer-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "2cfe6940"
+      },
+      {
+        "model": "1018",
+        "bar_id": "fa31253d"
+      }
+    ]
+  },
+  "c9387f85-a5e6-4ac0-9f85-508fe58e5ac7": {
+    "name": "Daily-Production-Scheduler-Agent",
+    "models": [
+      {
+        "model": "1033",
+        "bar_id": "65f6211a"
+      }
+    ]
+  },
+  "c1151eaf-1048-4b29-b23d-220676aa28d2": {
+    "name": "Effects-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "a7024fd8"
+      },
+      {
+        "model": "1006",
+        "bar_id": "9231bd28"
+      }
+    ]
+  },
+  "b57221c6-c043-4699-834f-a425e30c542a": {
+    "name": "Footage-Organizer-Agent",
+    "models": [
+      {
+        "model": "1034",
+        "bar_id": "e96c4edf"
+      }
+    ]
+  },
+  "2477830f-858e-4fb7-a776-43731c3d38c5": {
+    "name": "Metadata-Agent",
+    "models": [
+      {
+        "model": "1016",
+        "bar_id": "959b8c38"
+      }
+    ]
+  },
+  "3c2146e3-2a59-45c5-984d-11f5a9d08c60": {
+    "name": "Progress-Tracker-Agent",
+    "models": [
+      {
+        "model": "1016",
+        "bar_id": "4bdecffe"
+      }
+    ]
+  },
+  "b7a14fbe-a97d-4d49-94ef-0632921ec7ae": {
+    "name": "Reminder-Agent",
+    "models": [
+      {
+        "model": "1033",
+        "bar_id": "a9ee36b5"
+      }
+    ]
+  },
+  "b67328a5-13fd-4e31-8b57-c2f2f215eb4a": {
+    "name": "Render-Agent",
+    "models": [
+      {
+        "model": "1006",
+        "bar_id": "a57b9ca4"
+      },
+      {
+        "model": "3D-Render-Farm-Manager-Agent",
+        "bar_id": "e11ea38a"
+      }
+    ]
+  },
+  "34455026-0c49-48c5-8ce0-2f470b466eaa": {
+    "name": "Task-Scheduler-Agent",
+    "models": [
+      {
+        "model": "1033",
+        "bar_id": "3a4dbf08"
+      }
+    ]
+  },
+  "af66847c-527e-4824-94a4-97ff1f41fe50": {
+    "name": "Thumbnail-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "ca1aa3eb"
+      },
+      {
+        "model": "1002",
+        "bar_id": "77bc561c"
+      }
+    ]
+  },
+  "7d25cba1-2a55-45bf-a229-bba8e9b1be4b": {
+    "name": "Upload-Agent",
+    "models": [
+      {
+        "model": "1024",
+        "bar_id": "f320fb62"
+      }
+    ]
+  },
+  "df88257c-b0cc-4053-9937-0799a901b2ba": {
+    "name": "Video-Scheduler-Agent",
+    "models": [
+      {
+        "model": "1033",
+        "bar_id": "8d36d6e1"
+      }
+    ]
+  },
+  "045bbe80-e095-4873-be25-b4d326760159": {
+    "name": "YouTube-Analytics-Agent",
+    "models": [
+      {
+        "model": "1016",
+        "bar_id": "925fce98"
+      },
+      {
+        "model": "1023",
+        "bar_id": "8a8bd091"
+      }
+    ]
+  },
+  "cdd27548-06fd-4c75-9490-f9982047779c": {
+    "name": "YouTube-Audio-Agent",
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "75054bb8"
+      },
+      {
+        "model": "1032",
+        "bar_id": "bd8d0caf"
+      },
+      {
+        "model": "Tortoise Tts",
+        "bar_id": "c8bc6589"
+      },
+      {
+        "model": "1026",
+        "bar_id": "1c8af4dc"
+      },
+      {
+        "model": "1020",
+        "bar_id": "ea380e2c"
+      }
+    ]
+  },
+  "9b06b0fb-1dcf-4130-a44a-ec1225efff40": {
+    "name": "YouTube-Channel-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "b39e8b95"
+      },
+      {
+        "model": "1018",
+        "bar_id": "c9b72601"
+      }
+    ]
+  },
+  "fc94b1bd-d77f-4157-afe7-31068e4a93c2": {
+    "name": "YouTube-Community-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "22036888"
+      },
+      {
+        "model": "1018",
+        "bar_id": "e6953e93"
+      }
+    ]
+  },
+  "5500cf8b-6724-4b52-b5f6-b6dcc814aaf9": {
+    "name": "YouTube-Content-Overseer",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "21f055ed"
+      },
+      {
+        "model": "1018",
+        "bar_id": "0d175055"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2eaa03d8"
+      },
+      {
+        "model": "1021",
+        "bar_id": "eb1fbf0f"
+      }
+    ]
+  },
+  "49e1e376-b04e-469d-bdb9-803256c9000d": {
+    "name": "YouTube-Scheduling-Agent",
+    "models": [
+      {
+        "model": "1033",
+        "bar_id": "58f1aeeb"
+      }
+    ]
+  },
+  "a8318fb6-b4f5-4d00-a1ad-8431a89e7095": {
+    "name": "YouTube-Thumbnail-Agent",
+    "models": [
+      {
+        "model": "Stable Diffusion 1.5 Xl",
+        "bar_id": "ac41a2df"
+      },
+      {
+        "model": "1002",
+        "bar_id": "929b1ce8"
+      }
+    ]
+  },
+  "9521ed56-2fd8-46b0-b58c-d61f6e666cc4": {
+    "name": "YouTube-Trend-Analyst-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "91ccc8e3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3dd5475f"
+      }
+    ]
+  },
+  "6ec012bb-2be6-4511-b588-b97568354320": {
+    "name": "YouTube-Video-Editor-Agent",
+    "models": [
+      {
+        "model": "1004",
+        "bar_id": "b8b69723"
+      },
+      {
+        "model": "1003",
+        "bar_id": "c0e25026"
+      },
+      {
+        "model": "1006",
+        "bar_id": "46cf9077"
+      },
+      {
+        "model": "1037",
+        "bar_id": "c575ef98"
+      },
+      {
+        "model": "1026",
+        "bar_id": "7bb215f0"
+      }
+    ]
+  },
+  "09deb1ab-b343-49c8-b4a9-d79f91d87908": {
+    "name": "Error-Detector-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "e9441e83"
+      },
+      {
+        "model": "1018",
+        "bar_id": "f5bf5803"
+      }
+    ]
+  },
+  "3deca3a0-89a7-4eef-868c-85d0cf8bd737": {
+    "name": "Feedback-Collector-Agent",
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "58e8a99a"
+      },
+      {
+        "model": "1018",
+        "bar_id": "eb4501ff"
+      }
+    ]
+  }
+}

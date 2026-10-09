@@ -1,0 +1,1172 @@
+{
+ "part": "B",
+ "blueprints": [
+  "melody_daily",
+  "metrics",
+  "movement",
+  "picture_studio",
+  "pipeline_api",
+  "preempt",
+  "remix",
+  "remixai",
+  "safety",
+  "schedule",
+  "skill_sandbox",
+  "sports",
+  "storyteller_daily",
+  "storyteller_internal",
+  "themes_users",
+  "timeline_legacy",
+  "voices",
+  "zero",
+  "zero_public_store"
+ ],
+ "generated": "2026-10-02",
+ "method": "Each handler was read from its first line to the first write/subprocess/thread/network call or return. No handler was executed. risk=safe: no write and no external call. risk=validate: an empty JSON body {} is provably rejected with a 4xx before any side effect AND the success path neither destroys state nor starts/stops/deletes/approves/trains/installs/restarts pipeline work. risk=exclude: everything else; where such a route still has a provable empty-body 4xx it is recorded in empty_body_status for reference only.",
+ "counts": {
+  "safe": 7,
+  "validate": 17,
+  "exclude": 61
+ },
+ "routes": [
+  {
+   "rule": "/api/cpu/timeline/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.add_entry_cpu_timeline",
+   "blueprint": "timeline_legacy",
+   "func": "bp_timeline_legacy.py:224",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_timeline_legacy.py:228-232 — api_adapter imports cleanly so API_ADAPTER_AVAILABLE is True; {} then answers 400 \"Missing required field: agent\" before submit_schedule_request."
+  },
+  {
+   "rule": "/api/cpu/timeline/delete_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.delete_entry_cpu_timeline",
+   "blueprint": "timeline_legacy",
+   "func": "bp_timeline_legacy.py:251",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_timeline_legacy.py:257-261 — {} answers 400 \"Missing entry ID\" before any call, but this is a delete route (it submits a DELETE schedule request)."
+  },
+  {
+   "rule": "/api/dashboard/blueprint",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_blueprint_create",
+   "blueprint": "themes_users",
+   "func": "bp_themes_users.py:110",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_themes_users.py:112-121 — exec_module()s scripts/create_dashboard_blueprint.py and calls save_blueprint(), which writes dashboard_blueprint.md. Body irrelevant."
+  },
+  {
+   "rule": "/api/dashboard/themes/config",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_themes_config_save",
+   "blueprint": "themes_users",
+   "func": "bp_themes_users.py:39",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": null,
+   "why": "bp_themes_users.py:39-43 — a disabled stub: returns 501 \"Theme config is read-only\" with no disk write and no external call, whatever the body."
+  },
+  {
+   "rule": "/api/dashboard/users",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_users_save",
+   "blueprint": "themes_users",
+   "func": "bp_themes_users.py:99",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": null,
+   "why": "bp_themes_users.py:99-102 — a disabled stub: 501 \"User management is read-only\"; no write, no external call."
+  },
+  {
+   "rule": "/api/dashboard/users/avatar/<user_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_users_avatar_upload",
+   "blueprint": "themes_users",
+   "func": "bp_themes_users.py:104",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": null,
+   "why": "bp_themes_users.py:104-107 — a disabled stub: 501 \"Avatar upload disabled\"; the file is never read and nothing is written."
+  },
+  {
+   "rule": "/api/flagged/save",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.save_flagged_element",
+   "blueprint": "timeline_legacy",
+   "func": "bp_timeline_legacy.py:35",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_timeline_legacy.py:40-55 — builds an entry out of whatever (or nothing) was sent and appends it to Flagged.json; no validation, always 200."
+  },
+  {
+   "rule": "/api/frontend_log",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.frontend_log",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:2807",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:2809-2811 — the disk write is disabled; the handler returns {'success': True} unconditionally. No write, no external call."
+  },
+  {
+   "rule": "/api/gpu/timeline/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.add_gpu_timeline_entry",
+   "blueprint": "timeline_legacy",
+   "func": "bp_timeline_legacy.py:298",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_timeline_legacy.py:301-310 — ai_model None is not in the GPU model registry, so the route answers 400 \"Invalid AI model: None\" before submit_schedule_request."
+  },
+  {
+   "rule": "/api/gpu/timeline/delete_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.delete_gpu_schedule_entry",
+   "blueprint": "timeline_legacy",
+   "func": "bp_timeline_legacy.py:357",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_timeline_legacy.py:363-367 — {} answers 400 \"Missing entry ID\" first, but this is a delete route (submits a DELETE schedule request to the control plane)."
+  },
+  {
+   "rule": "/api/internal/creature/<creature_id>/approve",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_creature_approve",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:582",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:582-587 — body is never read; approve_creature_review(creature_id) releases a parked creature run past its review gate (an approve route)."
+  },
+  {
+   "rule": "/api/internal/creature/<creature_id>/reject",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_creature_reject",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:613",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:613-619 — body only supplies a reason; reject_creature_review mutates the review state for any body (a reject route)."
+  },
+  {
+   "rule": "/api/internal/creature/<creature_id>/resume",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_creature_resume",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:590",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:590-610 — the 400 comes from the PATH id regex, not from the body; with a real id {} takes phase=\"full\" and starts the creature GPU pipeline."
+  },
+  {
+   "rule": "/api/internal/movement/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_delete",
+   "blueprint": "movement",
+   "func": "bp_movement.py:626",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_movement.py:626-646 — {} is rejected 400 by _JOB_ID_RE, but the success path is shutil.rmtree of a job directory: a delete route, never called with a session."
+  },
+  {
+   "rule": "/api/internal/movement/driver",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "movement.mv_driver",
+   "blueprint": "movement",
+   "func": "bp_movement.py:557",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": 404,
+   "why": "bp_movement.py:557-600 — {} gives 404 \"driver clip not found\" before makedirs/_write_job, but the success path STARTS a SAM-3D-Body GPU job (geom.pose_track + geom.track_plates)."
+  },
+  {
+   "rule": "/api/internal/movement/plate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_plate",
+   "blueprint": "movement",
+   "func": "bp_movement.py:435",
+   "gate": "localhost",
+   "risk": "safe",
+   "empty_body_status": null,
+   "why": "bp_movement.py:435-444 — MS.plate_chip sanitizes the dials, resolves a view and stats the control map (\"Never a render\", movement_studio.plate_chip); read-only."
+  },
+  {
+   "rule": "/api/internal/movement/presets",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "movement.mv_presets",
+   "blueprint": "movement",
+   "func": "bp_movement.py:603",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_movement.py:603-623 — {} takes op=\"save\"; movement_studio._safe_name(None) raises ValueError(\"bad preset name\") BEFORE os.makedirs/open, caught at :621 -> 400."
+  },
+  {
+   "rule": "/api/internal/movement/prompt",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_prompt",
+   "blueprint": "movement",
+   "func": "bp_movement.py:403",
+   "gate": "localhost",
+   "risk": "safe",
+   "empty_body_status": null,
+   "why": "bp_movement.py:403-427 — pure composition: MS.sanitize/compose_prompt/nondefault/render_kwargs/env_overrides only read the spec and stat files. With {} subject_type is empty so no resolver runs; no write, no subprocess, no network."
+  },
+  {
+   "rule": "/api/internal/movement/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_start",
+   "blueprint": "movement",
+   "func": "bp_movement.py:649",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_movement.py:649-700 — {} gives 400 \"unknown subject_type\", but the success path writes a run dir and starts a Wan VACE render thread (one GPU)."
+  },
+  {
+   "rule": "/api/internal/movement/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_stop",
+   "blueprint": "movement",
+   "func": "bp_movement.py:716",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_movement.py:716-732 — {} gives 400 \"bad job_id\", but the success path writes an ABORT file that stops a live render."
+  },
+  {
+   "rule": "/api/internal/picture_studio/submit",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "picture_studio.api_internal_picture_studio_submit",
+   "blueprint": "picture_studio",
+   "func": "bp_picture_studio.py:176",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_picture_studio.py:188-189 — {} gives 400 \"tool must be one of ...\" before any write, but the success path registers a job and starts the _pe_worker thread (upscale/inpaint on GPU)."
+  },
+  {
+   "rule": "/api/internal/pipeline/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_pipeline_start",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:268",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:272-273 — pipeline_type defaults to \"scholarly\", so {} starts a documentary pipeline; no empty-body guard."
+  },
+  {
+   "rule": "/api/internal/storyteller/analyze-character-photo",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_analyze_character_photo",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:487",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_storyteller.py:491-492 — a JSON body means content_type is application/json, so the multipart check answers 400 \"multipart/form-data required with photo field\" before the VLM is imported or any file is read."
+  },
+  {
+   "rule": "/api/internal/storyteller/character/<char_id>/preview/regenerate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_regen_preview",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:2039",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:2053-2075 — the 400/404 come from the path char_id and its dataset dir; with a real character {} starts a FLUX/SDXL preview render job."
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/approve/<char_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_approve",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:660",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:660-694 — an approve route: sets job[\"approved\"], rewrites the manifest and lets the worker continue past the gate. The body is never read."
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/pause/<char_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_pause",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:697",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:708-710 — _pc.pause(char_id, reason) runs for ANY body (the early return only fires for an already-paused job), writing the pause state; a stop route."
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/resume/<char_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_resume",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:718",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:718-724 — _contact_sheet_resume_run() relaunches the worker thread at its parked stage; the body is never read."
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_start",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:515",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:528-546 — every field defaults; {} writes a preq_ record into data/runtime/zpub_pending.json under _ZPUB_PENDING_LOCK (or starts the pipeline when the zero-approval gate is off)."
+  },
+  {
+   "rule": "/api/internal/storyteller/gen-char-previews",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_gen_char_previews",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:2170",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:2202-2214 — body is never read; claims _SWEEP_LOCK and starts the one-at-a-time GPU preview sweep (200 {\"started\": false} only when the env flag is off)."
+  },
+  {
+   "rule": "/api/internal/storyteller/generate-character",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_generate_character",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:945",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:965-1000+ — every identity field has a default, so {} is a valid request: Blender character generation plus background LoRA training. No empty-body guard."
+  },
+  {
+   "rule": "/api/internal/storyteller/pipeline/pause",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_pipeline_pause",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:727",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_storyteller.py:736-737 — scope \"\" -> 400 before _pc.pause, but the success path parks every running production run and blocks new starts: a stop route."
+  },
+  {
+   "rule": "/api/internal/storyteller/pipeline/resume",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_pipeline_resume",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:763",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_storyteller.py:770-771 — scope \"\" -> 400 before _pc.resume, but the success path relaunches every parked run (GPU)."
+  },
+  {
+   "rule": "/api/internal/zero/classify",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.api_internal_zero_classify",
+   "blueprint": "zero",
+   "func": "bp_zero.py:583",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": null,
+   "why": "bp_zero.py:583-598 — pure keyword regex over the prompt string; returns crime|scholarly. No write, no external call."
+  },
+  {
+   "rule": "/api/kanban/clear_errors",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.kanban_clear_errors",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:1974",
+   "gate": "open",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:1994-1996 — mutates the module-level _workflow_jobs dict (errors_cleared_at_index) on the live job for any body; always 200."
+  },
+  {
+   "rule": "/api/melody/daily_mode",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "melody_daily.api_melody_daily_mode",
+   "blueprint": "melody_daily",
+   "func": "bp_melody_daily.py:757",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_melody_daily.py:762 — POST reads {enabled} with no validation and calls _mel_daily_set(False) for an empty body, writing the daily-mode state file; no 4xx guard."
+  },
+  {
+   "rule": "/api/metrics/analytics/config",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "metrics.api_metrics_analytics_config",
+   "blueprint": "metrics",
+   "func": "bp_metrics.py:149",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_metrics.py:157-163 — POST passes the body straight to analytics save_config(), so {} merges and rewrites data/runtime/analytics_config.json; the only 4xx is an exception 400."
+  },
+  {
+   "rule": "/api/pipeline/test",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_pipeline_test",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:2301",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:2326-2339 — _chk_anthropic calls the real Anthropic API (spends tokens) and other checks probe CUDA/Ollama/ComfyUI; external calls, no empty-body guard."
+  },
+  {
+   "rule": "/api/preempt/action",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "preempt.api_preempt_action",
+   "blueprint": "preempt",
+   "func": "bp_preempt.py:502",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_preempt.py:504-515 — action \"\" matches no branch, so the else returns 400 \"unknown action\" before play()/pause()/abort() are reached."
+  },
+  {
+   "rule": "/api/preempt/entry/<entry_id>/verify",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "preempt.api_preempt_verify",
+   "blueprint": "preempt",
+   "func": "bp_preempt.py:519",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_preempt.py:519-536 — the body is never read; the 404 comes from the path entry_id. With a banked entry it calls _start_scholarly_pipeline_internal — a pipeline start."
+  },
+  {
+   "rule": "/api/remix/channels",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_channels_add",
+   "blueprint": "remix",
+   "func": "bp_remix.py:72",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_remix.py:72-78 — {} gives input \"\"; remix_ingest.resolve_channel returns {'error': 'empty input'} at its 4th line, before the _LOCK/_save, so the route answers 400."
+  },
+  {
+   "rule": "/api/remix/channels/<channel_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "remix.api_channels_del",
+   "blueprint": "remix",
+   "func": "bp_remix.py:81",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remix.py:81-83 — a delete route: remove_channel loads, filters and _saves the channel file. A miss returns 200 {\"removed\": false}, never a 4xx."
+  },
+  {
+   "rule": "/api/remix/channels/<channel_id>/toggle",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_channels_toggle",
+   "blueprint": "remix",
+   "func": "bp_remix.py:86",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remix.py:86-89 — toggle_channel flips a field and _saves when the id exists; a miss still answers 200 {\"error\": \"not found\"}, so there is no 4xx empty-body path."
+  },
+  {
+   "rule": "/api/remix/compile",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_compile",
+   "blueprint": "remix",
+   "func": "bp_remix.py:109",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remix.py:109-117 — start_compilation makes a job and starts _run_compilation for an empty body (clip_ids defaults to []); a pipeline start."
+  },
+  {
+   "rule": "/api/remix/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_run",
+   "blueprint": "remix",
+   "func": "bp_remix.py:99",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remix.py:99-106 — with no video id start_remix picks the top ranked candidate and starts the clip job thread; only a candidate-less bank yields 400, which is not guaranteed."
+  },
+  {
+   "rule": "/api/remix/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_settings_post",
+   "blueprint": "remix",
+   "func": "bp_remix.py:127",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remix.py:127-129 — remix_ingest.update_settings _saves the settings file unconditionally, even for an empty patch; always 200."
+  },
+  {
+   "rule": "/api/remixai/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_run",
+   "blueprint": "remixai",
+   "func": "bp_remixai.py:118",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remixai.py:118-126 — start_remix_ai makes a job dir and starts the _run_pipeline GPU thread for an empty body (video_id \"\" = top candidate)."
+  },
+  {
+   "rule": "/api/remixai/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_settings_post",
+   "blueprint": "remixai",
+   "func": "bp_remixai.py:55",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remixai.py:55-57 — RI.save_settings(body) writes remixai_settings.json for any body, including {}; always 200."
+  },
+  {
+   "rule": "/api/remixai/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_stop",
+   "blueprint": "remixai",
+   "func": "bp_remixai.py:129",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_remixai.py:129-133 — pipeline_id \"\" gives 400 \"unknown pipeline\" with no write, but the success path sets the stop event of a live GPU render: a stop route."
+  },
+  {
+   "rule": "/api/remixai/sweep",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_sweep",
+   "blueprint": "remixai",
+   "func": "bp_remixai.py:88",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remixai.py:88-101 — runs RI.sweep() synchronously: live yt-dlp searches plus up to 40 metadata probes, and writes the sweep state. External calls, no guard."
+  },
+  {
+   "rule": "/api/remixai/terms",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_terms_add",
+   "blueprint": "remixai",
+   "func": "bp_remixai.py:65",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_remixai.py:65-69 — {} gives term \"\" -> 400 {\"error\": \"empty term\"} before RI.settings() is even read and before save_settings."
+  },
+  {
+   "rule": "/api/remixai/terms",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "remixai.api_terms_del",
+   "blueprint": "remixai",
+   "func": "bp_remixai.py:78",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_remixai.py:78-83 — term \"\" matches nothing, yet RI.save_settings({\"terms\": terms}) is still called, so an empty body rewrites the settings file and answers 200."
+  },
+  {
+   "rule": "/api/restart_dashboard",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.restart_dashboard",
+   "blueprint": "timeline_legacy",
+   "func": "bp_timeline_legacy.py:60",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_timeline_legacy.py:65-70 — starts a thread that calls os._exit(100) one second later, killing the live dashboard process. Never call."
+  },
+  {
+   "rule": "/api/run_single_agent",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.run_single_agent",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:141",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_pipeline_api.py:152-153 — {} gives 400 \"Missing agent or task description\", but the success path runs crew.kickoff() (live LLM calls)."
+  },
+  {
+   "rule": "/api/run_task",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.run_task",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:88",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_pipeline_api.py:99-100 — {} gives 400 \"Missing agents or task description\", but the success path builds a Crew and calls crew.kickoff() (live LLM calls)."
+  },
+  {
+   "rule": "/api/safety/confirm_recovery",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "safety.post_safety_confirm_recovery",
+   "blueprint": "safety",
+   "func": "bp_safety.py:168",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_safety.py:178-179 — {} gives level None -> 400 \"level must be 3 or 4\" before confirm_recovery(), but the success path changes the live safety protection state."
+  },
+  {
+   "rule": "/api/safety/emergency_stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "safety.post_safety_emergency_stop",
+   "blueprint": "safety",
+   "func": "bp_safety.py:92",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_safety.py:99 — the FIRST statement is _halt_all_pipeline_activity(): it stops every job and kills worker PIDs, then pauses the remote schedule. Never call with a session."
+  },
+  {
+   "rule": "/api/safety/emergency_stop_full",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "safety.post_safety_emergency_stop_full",
+   "blueprint": "safety",
+   "func": "bp_safety.py:125",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_safety.py:135-152 — admin session passes the 403, then halts all local pipelines, kills PIDs and terminates every running remote job run."
+  },
+  {
+   "rule": "/api/safety/thresholds",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "safety.patch_safety_thresholds",
+   "blueprint": "safety",
+   "func": "bp_safety.py:208",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_safety.py:217-219 — update_thresholds() bumps _version/_updated_at and _save_thresholds() writes safety_thresholds.json even for an empty patch; answers 200."
+  },
+  {
+   "rule": "/api/schedule/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "schedule.api_schedule_add_entry",
+   "blueprint": "schedule",
+   "func": "bp_schedule.py:105",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_schedule.py:105-115 — schedule_service.add_manual_entry validates first: empty start_time/end_time -> (False, {\"error\": \"start_time/end_time must be HH:MM\"}) before the _lock/_load/_write_manual, so the route answers 400."
+  },
+  {
+   "rule": "/api/schedule/delete_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "schedule.api_schedule_delete_entry",
+   "blueprint": "schedule",
+   "func": "bp_schedule.py:118",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 404,
+   "why": "bp_schedule.py:118-126 — {} answers 404 \"entry not found\" before _write_manual, but this is a delete route for real schedule entries."
+  },
+  {
+   "rule": "/api/skill/sandbox/check",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "skill_sandbox.api_skill_sandbox_check",
+   "blueprint": "skill_sandbox",
+   "func": "bp_skill_sandbox.py:82",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_skill_sandbox.py:89-90 — skill_id \"\" -> 400 \"skill_id required\" before _skill_sandbox.run_check (which shells out to bandit/pip-audit)."
+  },
+  {
+   "rule": "/api/sports/icebox/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_icebox_delete",
+   "blueprint": "sports",
+   "func": "bp_sports.py:195",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_sports.py:195-199 — a delete route, and icebox_delete() _saves the ice-box file even when the (channel, event_id) pair matched nothing."
+  },
+  {
+   "rule": "/api/sports/icebox/used",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_icebox_used",
+   "blueprint": "sports",
+   "func": "bp_sports.py:188",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_sports.py:188-192 — icebox_mark_used() calls _save(_ICEBOX_PATH, d) unconditionally even when nothing matched; always 200."
+  },
+  {
+   "rule": "/api/sports/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_run",
+   "blueprint": "sports",
+   "func": "bp_sports.py:49",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_sports.py:49-58 — {} gives department \"\" -> start_episode returns {\"error\": \"unknown department\"} -> 400 with no write, but the success path starts an episode pipeline and spends Odds-API credits."
+  },
+  {
+   "rule": "/api/sports/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_settings_post",
+   "blueprint": "sports",
+   "func": "bp_sports.py:98",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_sports.py:98-100 — sports_ingest.update_settings _saves the settings file for any patch, including {}; always 200."
+  },
+  {
+   "rule": "/api/start_clipfarm_workflow",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.start_clipfarm_workflow",
+   "blueprint": "pipeline_api",
+   "func": "bp_pipeline_api.py:184",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_pipeline_api.py:197-257 — every field defaults, so {} falls through the niche ladder to _start_clipfarm_internal(None) and STARTS a pipeline. No 4xx path at all."
+  },
+  {
+   "rule": "/api/storyteller/daily_mode",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "storyteller_daily.api_storyteller_daily_mode",
+   "blueprint": "storyteller_daily",
+   "func": "bp_storyteller_daily.py:700",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller_daily.py:705-711 — POST reads {enabled} with no validation and calls _std_daily_set(False) for an empty body, writing the daily-serial state."
+  },
+  {
+   "rule": "/api/storyteller/training/characters/<char_id>/retrain",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_storyteller_char_retrain",
+   "blueprint": "storyteller_internal",
+   "func": "bp_storyteller.py:1973",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_storyteller.py:1988-2012 — the 404/400 come from the path char_id and its dataset, not from the body; the success path calls get_trainer().start_training() — LoRA training."
+  },
+  {
+   "rule": "/api/timeline/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.add_entry_timeline",
+   "blueprint": "timeline_legacy",
+   "func": "bp_timeline_legacy.py:99",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 404,
+   "why": "bp_timeline_legacy.py:101-130 — entry {} gives agent None, which is absent from FULL_TASK_SPECIFICATIONS.json, so the route answers 404 \"Agent None not found\" before orchestrator.add_gpu_schedule_entry."
+  },
+  {
+   "rule": "/api/voices/assign",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "voices.api_voices_assign",
+   "blueprint": "voices",
+   "func": "bp_voices.py:60",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_voices.py:63-68 — {} gives empty channel_id/profile_id -> 400 \"channel_id and profile_id required\" before channel_voices.json is opened for writing."
+  },
+  {
+   "rule": "/api/voices/play",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "voices.api_voices_play",
+   "blueprint": "voices",
+   "func": "bp_voices.py:85",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 404,
+   "why": "bp_voices.py:90-99 — profile_id \"\" is absent from the voice library -> 404 \"Voice profile not found\" before any TTS. Only an empty body is safe here: the success path loads IndexTTS-2/Chatterbox onto the GPU."
+  },
+  {
+   "rule": "/api/zero/auto_mode",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "zero.api_zero_auto_mode",
+   "blueprint": "zero",
+   "func": "bp_zero.py:1724",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_zero.py:1729-1736 — enabled=bool({}.get(\"enabled\")) is False and _zero_auto_mode_set() is called regardless, writing zero_auto_mode.json (and on True it builds the batch and starts pipeline 1)."
+  },
+  {
+   "rule": "/api/zero/change-impact",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "zero.zero_change_impact",
+   "blueprint": "zero",
+   "func": "bp_zero.py:1669",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_zero.py:1672-1678 — POST with {} gives no paths -> 400 \"Provide paths or files array\" before _zero_change_impact; the analysis itself is read-only anyway."
+  },
+  {
+   "rule": "/api/zero/chat",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_chat",
+   "blueprint": "zero",
+   "func": "bp_zero.py:379",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_zero.py:383-390 — {} gives no message and no image -> 400 \"Please provide a message or question.\" before _zero_gather_context/_zero_load_config and before any LLM call. Matches the creator's measured 400."
+  },
+  {
+   "rule": "/api/zero/decompose",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_decompose",
+   "blueprint": "zero",
+   "func": "bp_zero.py:1522",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_zero.py:1526-1529 — goal \"\" -> 400 {\"error\": \"Provide a goal.\"} before _zero_audit_log and _zero_write_task_state."
+  },
+  {
+   "rule": "/api/zero/install-llms",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_install_llms",
+   "blueprint": "zero",
+   "func": "bp_zero.py:321",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_zero.py:325-346 — queries the Ollama tag list and POSTs /api/pull (timeout 3600) for every missing model: a model install over the network."
+  },
+  {
+   "rule": "/api/zero/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_stop",
+   "blueprint": "zero",
+   "func": "bp_zero.py:1494",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_zero.py:1497 — the FIRST statement is _halt_all_pipeline_activity(): stops every job, kills subprocesses and interrupts ComfyUI. Body never read."
+  },
+  {
+   "rule": "/api/zero/stop/reset",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_stop_reset",
+   "blueprint": "zero",
+   "func": "bp_zero.py:1515",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_zero.py:1518 — _clear_pipeline_halt() rewrites the halt flag for any body, re-enabling pipeline starts; always 200."
+  },
+  {
+   "rule": "/api/zero/task-state",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_set_task_state",
+   "blueprint": "zero",
+   "func": "bp_zero.py:1570",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_zero.py:1574-1580 — no key check: _zero_write_task_state(state) and _zero_audit_log run even when the body is {}, rewriting Zero task memory; always 200."
+  },
+  {
+   "rule": "/api/zero/workflow-override",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_workflow_override",
+   "blueprint": "zero",
+   "func": "bp_zero.py:225",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_zero.py:228-232 — {} gives empty issue_id and an action outside (skip, ignore) -> 400 before clipfarm_workflow_overrides.json is read or written."
+  },
+  {
+   "rule": "/api/zero_public/pending/<req_id>/decide",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero_public_store.api_zpub_pending_decide",
+   "blueprint": "zero_public_store",
+   "func": "bp_zero_public_store.py:257",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": 400,
+   "why": "bp_zero_public_store.py:260-263 — action \"\" -> 400 before any write, but this is the approve/decline route for public requests (allow releases a real job)."
+  },
+  {
+   "rule": "/api/zero_public/token_use/<token>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero_public_store.api_zpub_token_use",
+   "blueprint": "zero_public_store",
+   "func": "bp_zero_public_store.py:213",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_zero_public_store.py:213-219 — _zpub_atomic_increment(token) consumes an invite quota and writes the store; the body is never read."
+  },
+  {
+   "rule": "/api/zero_public/urls",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero_public_store.api_zpub_create",
+   "blueprint": "zero_public_store",
+   "func": "bp_zero_public_store.py:159",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "bp_zero_public_store.py:167-168 — label \"\" -> 400 \"label is required\" before the token is minted and before _zpub_save_raw."
+  },
+  {
+   "rule": "/api/zero_public/urls/<token>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "zero_public_store.api_zpub_revoke",
+   "blueprint": "zero_public_store",
+   "func": "bp_zero_public_store.py:190",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_zero_public_store.py:190-200 — a revoke (delete) route: sets status=\"revoked\" and _zpub_save_raw()s the store. The body is never read; the 404 is path-driven."
+  },
+  {
+   "rule": "/api/jackmona/abort",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jackmona.api_jackmona_abort",
+   "blueprint": "jackmona",
+   "func": "bp_jackmona_daily.py:517",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_jackmona_daily.py:517-521 — the body is never read, so there is nothing to reject: _abort() marks every scheduled/in_production episode \"aborted by operator\", _batch_save()s the batch and writes a jackmona_abort audit line (bp_jackmona_daily.py:475-479)."
+  },
+  {
+   "rule": "/api/jackmona/daily_mode",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "jackmona.api_jackmona_daily_mode",
+   "blueprint": "jackmona",
+   "func": "bp_jackmona_daily.py:485",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_jackmona_daily.py:492-499 — an empty body is NOT rejected: data.get(\"enabled\") is None, so _set_enabled(False) runs and persists the two-series daily toggle as disabled. A POST {} silently turns the workflow off."
+  },
+  {
+   "rule": "/api/jackmona/run_now",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jackmona.api_jackmona_run_now",
+   "blueprint": "jackmona",
+   "func": "bp_jackmona_daily.py:524",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "bp_jackmona_daily.py:531-541 — the body is never read: unless a pair is already in flight it calls _create_batch() and _daily_save() straight away, i.e. it starts today's production pair."
+  }
+ ]
+}

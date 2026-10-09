@@ -1,0 +1,1980 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero — Zygomatic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161a22'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='38' fill='url(%23g)'%3EZ%3C/text%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c6ff7'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/assets/zero/css/zpub_main.css?v=7">
+
+
+{# 2026-07-17 modularization: operator-disabled recruitment modals ({% if false %} block, 253 lines) removed — original in crews_modularization_backups_20260717 #}
+
+</head>
+<body>
+
+<div class="neural-net-bg" aria-hidden="true">
+  <div class="neural-net-frame">
+    <div class="neural-net-layer">
+      <img class="neural-net-glow" src="/assets/zero/neural-network.svg?v=2" alt="" decoding="async">
+    </div>
+    <canvas id="neural-drop-canvas" class="neural-drop-canvas"></canvas>
+  </div>
+</div>
+
+{% if invite_mode in ('active', 'exhausted') and invite_token != '__admin__' %}
+<aside class="sidebar collapsed" id="sidebar">
+  <div class="nexus-honeycomb-layer" aria-hidden="true"></div>
+  <div class="sidebar-header">Library</div>
+  {% if invite_mode == 'active' and invite_max %}
+  <div class="sidebar-invite-counter">{{ invite_used }} of {{ invite_max }} request{{ 's' if invite_max != 1 else '' }} used</div>
+  {% endif %}
+  <div class="sidebar-body" id="sidebar-content">
+  </div>
+</aside>
+{% endif %}
+
+<div class="main-content">
+
+  <div class="header">
+    <h1 class="brand-title"><span class="brand-title-main">Zygomatic</span></h1>
+  </div>
+
+  {# ── Invite mode: no invite / direct access blocked ── #}
+  {% if invite_mode == 'locked' %}
+  <div class="gate-card">
+    <div class="gate-icon">🔐</div>
+    <div class="gate-title">Invite required</div>
+    <div class="gate-body">
+      This service is invite-only.<br>
+      You need a valid invite link to access Zero.
+    </div>
+    <span class="gate-pill gate-pill-expired">Access Restricted</span>
+  </div>
+
+  {# ── Invite mode: expired / revoked ── #}
+  {% elif invite_mode == 'expired' %}
+  <div class="gate-card">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">This link has expired</div>
+    <div class="gate-body">
+      The invite link you followed is no longer valid.<br>
+      It may have expired (7-day limit) or been revoked by the host.
+    </div>
+    <span class="gate-pill gate-pill-expired">Link Expired / Revoked</span>
+  </div>
+
+  {# ── Invite mode: exhausted ── #}
+  {% elif invite_mode == 'exhausted' %}
+  <div class="gate-card">
+    <div class="gate-icon">⛔</div>
+    <div class="gate-title">Request limit reached</div>
+    <div class="gate-body">
+      {% if invite_label %}<strong>{{ invite_label }}</strong> — {% endif %}
+      This invite link has used all its available requests
+      ({{ invite_used }} / {{ invite_max }}).<br>
+      The page is still viewable but no new jobs can be submitted.
+    </div>
+    <span class="gate-pill gate-pill-exhausted">{{ invite_used }} / {{ invite_max }} requests used</span>
+  </div>
+
+  {# ── Invite mode: server error ── #}
+  {% elif invite_mode == 'error' %}
+  <div class="gate-card">
+    <div class="gate-icon">⚠️</div>
+    <div class="gate-title">Temporarily unavailable</div>
+    <div class="gate-body">
+      We couldn't verify your invite link right now.<br>
+      Please try again in a few moments.
+    </div>
+    <span class="gate-pill gate-pill-error">Server Error</span>
+  </div>
+
+  {# ── Normal / invite-active form ── #}
+  {% else %}
+
+  <!-- ── Prompt form ── -->
+  <div class="form-card" id="form-section">
+    <div class="textarea-wrap">
+      <textarea id="prompt-input" maxlength="2000"
+        placeholder="e.g. Make a documentary about the fall of the Roman Empire…"></textarea>
+      <span class="char-count"><span id="char-count">0</span> / 2000</span>
+    </div>
+
+    <!-- Upload panel (visible only for Video style) -->
+    <div class="upload-area" id="upload-area" onclick="document.getElementById('image-file-input').click()"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event)">
+      <p>📷 Drop your images here or click to select<br><span style="font-size:0.75rem;color:var(--muted)">JPG / PNG — optional, AI will generate missing scenes</span></p>
+      <p id="video-still-hint" style="display:none;font-size:0.75rem;color:var(--muted);margin:8px 0 0;line-height:1.4">Video animates the FLUX still — subject and scene must appear in the generated image before WAN adds motion.</p>
+      <div class="upload-thumbs" id="upload-thumbs"></div>
+      <span class="upload-clear" id="upload-clear" onclick="event.stopPropagation();clearUploads()">✕ Clear images</span>
+    </div>
+    <input type="file" id="image-file-input" accept="image/jpeg,image/png" multiple style="display:none" onchange="handleFileInput(this.files)">
+
+    <!-- Character library (Video mode) -->
+    <div id="vid-char-library-wrap" style="display:none">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:0.82rem;color:var(--muted);flex:1">🧑 Character from library <span style="font-weight:400;opacity:0.7">(optional — lock identity in FLUX stills)</span></span>
+        <button type="button" onclick="vidToggleCharLibrary()" id="vid-char-library-toggle"
+          style="font-size:0.78rem;color:var(--accent);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Show library</button>
+      </div>
+      <div id="vid-char-library-panel" style="display:none">
+        <div id="vid-char-library-filter" style="font-size:0.72rem;color:var(--accent);margin-bottom:4px;font-weight:600">FLUX characters only</div>
+        <div id="vid-char-library-loading" style="font-size:0.82rem;color:var(--muted);padding:8px 0">Loading characters…</div>
+        <div id="vid-char-library-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:4px"></div>
+        <div id="vid-char-library-empty" style="display:none;font-size:0.82rem;color:var(--muted);padding:8px 0;font-style:italic">No LoRA-trained characters found.</div>
+        <div id="vid-char-selected-info" style="display:none;margin-top:8px;padding:8px;background:var(--surface2);border-radius:8px;border:1px solid var(--accent);font-size:0.82rem">
+          <strong>Selected:</strong> <span id="vid-char-selected-name"></span>
+          <button type="button" onclick="vidClearSelectedChar()" style="margin-left:8px;color:var(--muted);background:none;border:none;cursor:pointer;font-size:0.78rem">✕ clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="creature-options-wrap" style="display:none;margin:8px 0 6px 0;padding:10px 12px;background:var(--surface2);border-radius:10px;border:1px solid var(--border,rgba(255,255,255,0.08))">
+      <div style="font-size:0.82rem;color:var(--muted);margin-bottom:6px">🐉 Creature source</div>
+      <label style="font-size:0.85rem;margin-right:14px;cursor:pointer"><input type="radio" name="cr-source" id="cr-source-ref" value="reference" checked> From reference image(s) — upload 1 or more above</label>
+      <label style="font-size:0.85rem;cursor:pointer"><input type="radio" name="cr-source" id="cr-source-scratch" value="scratch"> From scratch — text description only</label>
+      <div style="margin-top:8px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+        <label style="font-size:0.85rem;cursor:pointer"><input type="checkbox" id="cr-review-gate" checked> Pause for sheet review before LoRA training</label>
+        <label style="font-size:0.85rem">Angles
+          <select id="cr-angles" style="margin-left:6px;font-size:0.85rem">
+            <option value="standard" selected>standard (16)</option>
+            <option value="compact">compact (8)</option>
+          </select>
+        </label>
+      </div>
+      <div style="font-size:0.76rem;color:var(--muted);margin-top:6px">The sheet is built by camera-rotation edits of your reference (Qwen-Image-Edit) and every cell is judged (Qwen3-VL + DINOv2). Training uses FLUX.2 klein-4B (Apache-2.0).</div>
+    </div>
+    <div id="creature-library-wrap" style="display:none">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:0.82rem;color:var(--muted);flex:1">🐉 Creature library <span style="font-weight:400;opacity:0.7">(trained LoRAs — click to view trigger token)</span></span>
+        <button type="button" onclick="crToggleCreatureLibrary()" id="creature-library-toggle"
+          style="font-size:0.78rem;color:var(--accent);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Hide library</button>
+      </div>
+      <div id="creature-library-panel">
+        <div id="creature-library-loading" style="font-size:0.82rem;color:var(--muted);padding:8px 0">Loading creatures…</div>
+        <div id="creature-library-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:4px"></div>
+        <div id="creature-library-empty" style="display:none;font-size:0.82rem;color:var(--muted);padding:8px 0;font-style:italic">No trained creatures yet. Describe a creature below to train your first LoRA.</div>
+        <div id="creature-selected-info" style="display:none;margin-top:8px;padding:8px;background:var(--surface2);border-radius:8px;border:1px solid var(--accent);font-size:0.82rem">
+          <strong>Selected:</strong> <span id="creature-selected-name"></span>
+          <span id="creature-selected-trigger" style="display:block;margin-top:4px;color:var(--muted);font-size:0.78rem"></span>
+          <span id="creature-selected-download" style="display:none;margin-top:6px"></span>
+          <button type="button" onclick="crClearSelectedCreature()" style="margin-top:6px;color:var(--muted);background:none;border:none;cursor:pointer;font-size:0.78rem">✕ clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:nowrap;flex-shrink:0;width:100%;justify-content:flex-end;">
+        <!-- Duration picker (Video mode only) -->
+        <div id="duration-wrap" style="display:none;">
+          <select id="duration-select" style="border-radius:8px;padding:6px 8px;font-size:0.82rem;cursor:pointer;white-space:nowrap;"
+                  onchange="onDurationChange(this.value)">
+            <option value="3.5">3.5 sec (1 clip)</option>
+            <option value="7">7 sec (2 clips)</option>
+            <option value="11">11 sec (3 clips)</option>
+            <option value="15">15 sec (4 clips)</option>
+            <option value="30" selected>30 sec</option>
+            <option value="60">1 min</option>
+            <option value="120">2 min</option>
+            <option value="180">3 min</option>
+          </select>
+        </div>
+        <!-- Narrator toggle -->
+        <button id="narration-btn" class="btn-narration" onclick="toggleNarration()" title="Toggle narrator voice">
+          🎙️ <span id="narration-label">Voice On</span>
+        </button>
+        <!-- Scene mode dropdown (Video mode only) -->
+        <select id="scene-mode-select" style="display:none;" title="Scene chaining mode"
+                onchange="setSceneMode(this.value)">
+          <option value="single_scene" disabled style="display:none;">Single Scene</option>
+          <option value="continuous" selected>Chained Scenes</option>
+          <option value="independent">Stitched Scenes</option>
+        </select>
+        <!-- Visual style dropdown -->
+        <select id="vs-select" title="Video / story visual style (does not change character training)">
+          <option value="cinematic"  selected>🎬 Cinematic</option>
+          <option value="realism">📷 Realism</option>
+          <option value="anime">⛩️ Anime</option>
+          <option value="disney">✨ Disney 2D</option>
+          <option value="art">🖌️ Digital Art</option>
+          <option value="3d_render">🧊 3D Render</option>
+          <option value="scenery">🏔️ Scenery</option>
+          <option value="filmic">🎞️ Filmic</option>
+          <option value="mjv6">💎 Artistic</option>
+        </select>
+        <!-- Image model family (FLUX vs SDXL). FLUX is hidden while the
+             licence pause is active (ZYG_FLUX_RENDERS) — see zpub_routes_public. -->
+        <select id="model-family-select" title="Image model" onchange="_syncModelFamilySelect(this.value)" style="border-radius:8px;padding:6px 8px;font-size:0.82rem;cursor:pointer;white-space:nowrap;">
+          {% if not flux_renders_paused %}<option value="flux" selected>FLUX</option>{% endif %}
+          <option value="sdxl"{% if flux_renders_paused %} selected{% endif %}>SDXL</option>
+        </select>
+        <!-- Styles picker -->
+        <div class="styles-wrap" id="styles-wrap">
+          <button class="btn-styles" id="styles-btn" onclick="toggleStylesDropdown(event)">
+            <span id="styles-icon">🎬</span> <span id="styles-label">Documentary</span> ▾
+          </button>
+          <div class="styles-dropdown" id="styles-dropdown">
+            <div class="styles-dropdown-section">Pipeline</div>
+            <div class="style-option active" data-style="documentary" onclick="selectStyle('documentary',this)">🎬 Documentary</div>
+            <div class="style-option" data-style="video" onclick="selectStyle('video',this)">🎥 Video</div>
+            <div class="style-option" data-style="manga" onclick="selectStyle('manga',this)">📖 Manga</div>
+            <div class="style-option" data-style="intro" onclick="selectStyle('intro',this)">🎞 Intro</div>
+            <div class="style-option" data-style="storyteller" onclick="selectStyle('storyteller',this)">🎭 Storyteller</div>
+            <div class="style-option" data-style="contact_sheet" onclick="selectStyle('contact_sheet',this)">📋 Multi-Angle Contact Sheet</div>
+            <div class="style-option" data-style="creature" onclick="selectStyle('creature',this)">🐉 Creature Creation</div>
+            <div class="style-option" data-style="character" onclick="selectStyle('character',this)">👤 Character Generation</div>
+            <div class="style-option" data-style="templates" onclick="selectStyle('templates',this)">🗂 Templates</div>
+          </div>
+        </div>
+        <!-- Ending text input for Intro mode -->
+        <div id="ending-text-wrap" style="display:none;margin-top:8px;">
+          <input id="ending-text-input" type="text" maxlength="120"
+            placeholder="e.g. A Zygomatic Production"
+            style="width:100%;box-sizing:border-box;background:#1e2332;color:#c9d1d9;border:1px solid #3fb950;border-radius:6px;padding:8px 12px;font-size:0.9rem;outline:none;"
+          />
+          <div style="font-size:0.75rem;color:#8b949e;margin-top:4px;">This text appears as a title card at the end of the video — like a classic studio opening.</div>
+        </div>
+        <button class="btn-submit" id="submit-btn" onclick="submitPrompt()">Create →</button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <!-- ── Portfolio videos — two SMALL cards; a click on the card enlarges it and plays ── -->
+  <!-- 2026-10-06: no poster (black cover with the title), preload="none" so no
+       frame is fetched before play; the card itself is the click target and
+       grows to the full column while it plays (operator's request). -->
+  <div class="pf-row pf-row-video" id="pf-row-main">
+    <div class="pf-card pf-card-mini" id="pf-card" onclick="pfPlay('pf-card', 'pf-video')">
+      <video id="pf-video" playsinline preload="none"
+             controlsList="nodownload noremoteplayback" disablePictureInPicture
+             oncontextmenu="return false"
+             src="/portfolio-stream"></video>
+      <button type="button" class="pf-play pf-play-video" id="pf-play" aria-label="Play the portfolio video, 17 minutes 36 seconds">
+        <span class="pf-video-title">Portfolio video</span>
+        <span class="pf-play-tri"></span>
+        <span class="pf-duration">17:36</span>
+      </button>
+    </div>
+    <div class="pf-label">&#8592; Portfolio video &middot; 17:36
+      <span class="pf-label-sub">click the card to enlarge it and play</span>
+    </div>
+  </div>
+  <div class="pf-row pf-row-video" id="speedrun">
+    <div class="pf-card pf-card-mini" id="pf-card-speedrun" onclick="pfPlay('pf-card-speedrun', 'pf-video-speedrun')">
+      <video id="pf-video-speedrun" playsinline preload="none"
+             controlsList="nodownload noremoteplayback" disablePictureInPicture
+             oncontextmenu="return false"
+             src="/portfolio-speedrun-stream"></video>
+      <button type="button" class="pf-play pf-play-video" id="pf-play-speedrun" aria-label="Play the portfolio speedrun, 3 minutes 3 seconds">
+        <span class="pf-video-title">Portfolio speedrun</span>
+        <span class="pf-play-tri"></span>
+        <span class="pf-duration">3:03</span>
+      </button>
+    </div>
+    <div class="pf-label">&#8592; Portfolio speedrun &middot; 3:03
+      <span class="pf-label-sub">the whole studio in three minutes. Scroll down for the Zygomatic Atlas, the compact Architecture and GitHub <span class="pf-arrow-down" aria-hidden="true">&#8595;</span></span>
+    </div>
+  </div>
+  <!-- ── Atlas + GitHub — plain clickable text, no preview cards ─────────── -->
+  <!-- 2026-10-05: the atlas preview card was dropped at the operator's request;
+       both destinations are text links only. The atlas file is served by
+       /atlas (inline) and /atlas/download (attachment) from
+       templates/assets/portfolio/zygomatic_atlas.html. -->
+  <div class="pf-links">
+    <div class="pf-link-row">
+      <a class="pf-link" href="/atlas" target="_blank" rel="noopener">Zygomatic Atlas</a>
+      <span class="pf-link-note">zoomable map of the whole studio &middot; <a href="/atlas/download" download="Zygomatic_Atlas_2026-10-05.html">download the file</a></span>
+    </div>
+    <div class="pf-link-row">
+      <a class="pf-link" href="/architecture" target="_blank" rel="noopener">Zygomatic Architecture</a>
+      <span class="pf-link-note">compact edition, structure only, one screen &middot; <a href="/architecture/download" download="Zygomatic_Architecture_compact_2026-10-05.html">download the file</a></span>
+    </div>
+    <div class="pf-link-row">
+      <a class="pf-link" href="https://github.com/Realbadatmath" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="pf-link-note">the repositories behind it</span>
+    </div>
+  </div>
+
+{# 2026-10-05: the atlas PREVIEW CARD is hidden — the operator asked for plain
+   text links (above) instead. The card markup is kept here; unwrap this Jinja
+   comment to bring it back. Its CSS (.pf-card-atlas / .pf-atlas-*) is still in
+   zpub_main.css. #}
+{#
+  <!-- ── Architecture atlas — one HTML file: view it or take it with you ──── -->
+  <!-- 2026-10-05: sits under the portfolio video. The file is served by
+       /atlas (inline) and /atlas/download (attachment) from
+       templates/assets/portfolio/zygomatic_atlas.html. -->
+  <div class="pf-row">
+    <div class="pf-card pf-card-atlas" id="pf-atlas-card">
+      <div class="pf-atlas-cover">
+        <span class="pf-atlas-eyebrow">Architecture</span>
+        <span class="pf-atlas-title">Zygomatic Atlas</span>
+        <span class="pf-atlas-sub">Zoomable map of the whole studio &middot; 270 components &middot; 9 layers &middot; 10 traced workflows</span>
+        <span class="pf-atlas-actions">
+          <a class="pf-atlas-btn pf-atlas-btn-view" href="/atlas" target="_blank" rel="noopener">View &#10530;</a>
+          <a class="pf-atlas-btn" href="/atlas/download" download="Zygomatic_Atlas_2026-10-05.html">Download file</a>
+        </span>
+      </div>
+    </div>
+    <div class="pf-label">&lt;---- Architecture atlas here<br><span class="pf-label-sub">one HTML file, opens in any browser, no install</span></div>
+  </div>
+  <!-- ── Compact architecture — the structure-only edition, one screen ──── -->
+  <div class="pf-row">
+    <div class="pf-card pf-card-atlas pf-card-arch" id="pf-arch-card">
+      <div class="pf-atlas-cover">
+        <span class="pf-atlas-eyebrow">Architecture &middot; compact</span>
+        <span class="pf-atlas-title">Zygomatic Architecture</span>
+        <span class="pf-atlas-sub">Structure only, fits one screen &middot; 59 components &middot; 7 layers &middot; 5 key paths</span>
+        <span class="pf-atlas-actions">
+          <a class="pf-atlas-btn pf-atlas-btn-view" href="/architecture" target="_blank" rel="noopener">View &#10530;</a>
+          <a class="pf-atlas-btn" href="/architecture/download" download="Zygomatic_Architecture_compact_2026-10-05.html">Download file</a>
+        </span>
+      </div>
+    </div>
+    <div class="pf-label">&lt;---- Compact architecture here<br><span class="pf-label-sub">the same map without the workflow chains</span></div>
+  </div>
+#}
+
+  <script>
+    function pfPlay(cardId, videoId) {
+      var card = document.getElementById(cardId);
+      var v = document.getElementById(videoId);
+      if (!card || !v || card.classList.contains('pf-playing')) return;
+      // one film at a time: shrink and pause the other card
+      document.querySelectorAll('.pf-card.pf-playing').forEach(function (c) {
+        if (c === card) return;
+        c.classList.remove('pf-playing');
+        var r = c.closest('.pf-row'); if (r) r.classList.remove('pf-row-playing');
+        var ov = c.querySelector('video'); if (ov) { ov.pause(); ov.controls = false; }
+      });
+      var row = card.closest('.pf-row');
+      card.classList.add('pf-playing'); if (row) row.classList.add('pf-row-playing');
+      v.controls = true;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {
+        card.classList.remove('pf-playing'); if (row) row.classList.remove('pf-row-playing');
+      });
+    }
+  </script>
+
+  {# 2026-10-05: portfolio slideshow card HIDDEN at the operator's request ("for now").
+     The whole card + engine load is commented out below, so nothing is fetched and
+     neither the movie stylesheet nor its script is pulled in. The full page at
+     /portfolio-slideshow and its routes are untouched — unwrap the Jinja comment
+     that follows to bring the card back. #}
+  {#
+  <!-- ── Portfolio slideshow — the deck plays like a film INSIDE this card ── -->
+  <!-- 2026-10-04: the card is a live player. Press play: the deck
+       (/portfolio-slideshow/deck.json) is fetched and PortfolioMovie runs it
+       here with Ken Burns drift, crossfades and lower-third captions; the
+       mini controls offer fullscreen and "open" (the full page with the
+       chapter rail). Nothing is fetched until play is pressed. -->
+  <div class="pf-row">
+    <div class="pf-card pf-card-slides" id="pf-slides-card">
+      <div class="pf-movie" id="pf-movie"></div>
+      <div class="pf-slides-cover" id="pf-slides-cover">
+        <span class="pf-slides-title">Portfolio Slideshow</span>
+        <span class="pf-slides-sub">{% if portfolio_deck and portfolio_deck.count %}{{ portfolio_deck.count }} pictures &middot; {{ portfolio_deck.chapters | length }} chapters &middot; plays like a film{% else %}Plays like a film{% endif %}</span>
+        <button type="button" class="pf-play pf-play-slides" aria-label="Play the portfolio slideshow" onclick="pfSlidesPlay()">
+          <span class="pf-play-tri"></span>
+        </button>
+        <a class="pf-slides-open" href="/portfolio-slideshow" onclick="event.stopPropagation()">Open full presentation &#10530;</a>
+      </div>
+    </div>
+    <div class="pf-label">&lt;---- Portfolio slideshow here</div>
+  </div>
+  <link rel="stylesheet" href="/assets/zero/css/zpub_portfolio_movie.css">
+  <script src="/assets/zero/js/zpub_portfolio_movie.js" defer></script>
+  <script>
+    var _pfMovie = null;
+    function pfSlidesPlay() {
+      var card = document.getElementById('pf-slides-card');
+      var host = document.getElementById('pf-movie');
+      if (!card || !host) return;
+      if (_pfMovie) { _pfMovie.play(); card.classList.add('pf-playing'); return; }
+      card.classList.add('pf-loading');
+      fetch('/portfolio-slideshow/deck.json', { credentials: 'same-origin' })
+        .then(function (r) { if (!r.ok) throw new Error('deck ' + r.status); return r.json(); })
+        .then(function (deck) {
+          if (!window.PortfolioMovie) throw new Error('engine not loaded');
+          _pfMovie = new PortfolioMovie(host, deck, {
+            fit: 'cover',
+            controls: 'mini',
+            autoplay: true,
+            openUrl: '/portfolio-slideshow',
+            fullscreenTarget: card,
+            onEnd: function () { card.classList.remove('pf-playing'); }
+          });
+          card.classList.remove('pf-loading');
+          card.classList.add('pf-playing');
+        })
+        .catch(function (err) {
+          card.classList.remove('pf-loading');
+          // Fall back to the full page rather than leaving a dead button.
+          window.location.href = '/portfolio-slideshow';
+          if (window.console) console.warn('portfolio card:', err);
+        });
+    }
+    document.addEventListener('fullscreenchange', function () {
+      var card = document.getElementById('pf-slides-card');
+      if (card) card.classList.toggle('pf-fullscreen', document.fullscreenElement === card);
+    });
+  </script>
+  #}
+
+  <!-- ── Templates / Sports Video Panel ──────────────────────────────────── -->
+  <div id="templates-panel" style="display:none;">
+    <div class="form-card" style="padding:24px 28px;">
+      <div style="font-size:1.05rem;font-weight:600;margin-bottom:5px;color:#c4b5fd;">🗂 Sports Betting Video</div>
+      <div style="font-size:0.81rem;color:var(--muted);margin-bottom:20px;">Select a sport — the pipeline renders today's match data into a full analysis video</div>
+      <div id="sv-sport-grid">
+        <div class="sv-sport-card active" data-sport="football" onclick="svSelectSport('football',this)">⚽<br>Football</div>
+        <div class="sv-sport-card" data-sport="tennis" onclick="svSelectSport('tennis',this)">🎾<br>Tennis</div>
+        <div class="sv-sport-card" data-sport="basketball" onclick="svSelectSport('basketball',this)">🏀<br>Basketball</div>
+        <div class="sv-sport-card" data-sport="mma" onclick="svSelectSport('mma',this)">🥊<br>MMA</div>
+        <div class="sv-sport-card" data-sport="f1" onclick="svSelectSport('f1',this)">🏎 F1</div>
+        <div class="sv-sport-card" data-sport="american_football" onclick="svSelectSport('american_football',this)">🏈<br>Amer. Football</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+        <label style="font-size:0.82rem;color:var(--muted);flex-shrink:0;">Match date</label>
+        <input type="date" id="sv-date-input"
+               style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:7px 11px;color:#e4e4e7;font-size:0.85rem;cursor:pointer;flex:1;max-width:180px;color-scheme:dark;">
+      </div>
+      <!-- Tournament filter -->
+      <div id="sv-tournament-wrap" style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+        <label style="font-size:0.82rem;color:var(--muted);flex-shrink:0;">Tournament</label>
+        <select id="sv-tournament-select"
+                style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:7px 11px;color:#e4e4e7;font-size:0.85rem;cursor:pointer;flex:1;max-width:280px;">
+          <option value="">All tournaments</option>
+        </select>
+        <span id="sv-tournament-loading" style="font-size:0.75rem;color:var(--muted);display:none;">Loading…</span>
+      </div>
+      <!-- Pipeline status strip -->
+      <div id="sv-status-panel" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:13px 16px;margin-bottom:18px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span id="sv-state-dot" style="width:8px;height:8px;border-radius:50%;background:#4b5563;flex-shrink:0;display:inline-block;"></span>
+          <span id="sv-state-label" style="font-size:0.82rem;color:var(--muted);">Pipeline idle</span>
+          <span id="sv-progress-label" style="font-size:0.78rem;color:var(--muted);margin-left:auto;"></span>
+        </div>
+        <div id="sv-progress-bar-wrap" style="margin-top:9px;display:none;">
+          <div style="height:3px;background:rgba(255,255,255,0.10);border-radius:2px;overflow:hidden;">
+            <div id="sv-progress-bar" style="height:100%;width:0%;background:#7c3aed;transition:width 0.5s;border-radius:2px;"></div>
+          </div>
+        </div>
+        <div id="sv-last-video-info" style="font-size:0.75rem;color:var(--muted);margin-top:7px;display:none;"></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-submit" id="sv-generate-btn" onclick="triggerSportsBettingPipeline(false)" style="background:#7c3aed;border-color:#6d28d9;flex:1;min-width:160px;">Generate Sports Video →</button>
+        <button class="btn-submit" id="sv-test-btn" onclick="triggerSportsBettingPipeline(true)" style="background:#1e3a5f;border-color:#2563eb;color:#93c5fd;flex:0 0 auto;" title="2 matches max · no voice · 960×540 · ~34s clip">⚗ Test</button>
+      </div>
+      <div id="sv-trigger-msg" style="font-size:0.8rem;margin-top:10px;color:#a78bfa;"></div>
+    </div>
+  </div>
+
+  <!-- ── Storyteller Wizard (hidden until Storyteller style is selected) ── -->
+  <div id="storyteller-wizard" style="display:none">
+    <!-- Step 1: Create Character -->
+    <div class="form-card" id="st-step1">
+      <div id="st-step1-header" style="font-size:1.05rem;font-weight:600;margin-bottom:14px;color:var(--accent)">Step 1 — Create Your Character</div>
+
+      <!-- Pipeline mode (top of form — contact sheet vs standard Blender/photos) -->
+      <div id="st-pipeline-mode-wrap" style="margin-bottom:14px;padding:10px 12px;border:1px solid var(--accent);border-radius:10px;background:rgba(167,139,250,0.06)">
+        <div style="font-size:0.82rem;font-weight:600;color:var(--accent);margin-bottom:8px">Character pipeline</div>
+        <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.78rem;color:var(--muted);margin-bottom:8px;cursor:pointer">
+          <input type="radio" name="st-pipeline-mode" value="standard" checked style="margin-top:3px" onchange="stOnPipelineModeChange()">
+          <span><strong style="color:var(--text)">Standard</strong> — Blender 3D turntable or photo upload (many separate angles)</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:8px;font-size:0.78rem;color:var(--muted);cursor:pointer">
+          <input type="radio" name="st-pipeline-mode" value="contact_sheet" style="margin-top:3px" onchange="stOnPipelineModeChange()">
+          <span><strong style="color:var(--text)">Multi-angle contact sheet</strong> — 48 angles (8×2×3 sheets: yaw + pitch rings, crown/chin, T-pose turnaround), ArcFace identity QC with auto-repair, then tiles → LoRA v1 → hard-angle flywheel → LoRA v2</span>
+        </label>
+      </div>
+
+      <!-- Contact sheet library (pending + trained) -->
+      <div id="st-cs-library-wrap" style="display:none;margin-bottom:14px;padding:10px 12px;border:1px solid var(--accent);border-radius:10px;background:rgba(167,139,250,0.06)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:0.82rem;color:var(--accent);font-weight:600;flex:1;cursor:pointer" onclick="stToggleCsLibrary()">📋 Contact sheet library</span>
+          <button type="button" onclick="stToggleCsLibrary(false);stLoadContactSheetLibrary()" style="font-size:0.74rem;color:var(--accent);background:none;border:none;cursor:pointer;text-decoration:underline">Refresh</button>
+          <button type="button" id="st-cs-library-toggle" onclick="stToggleCsLibrary()" title="Collapse library" aria-expanded="true" aria-controls="st-cs-library-body" style="font-size:0.92rem;color:var(--accent);background:none;border:none;cursor:pointer;line-height:1;padding:0 2px">▾</button>
+        </div>
+        <div id="st-cs-library-body">
+          <!-- Pipeline pause / resume control (admin only; hidden if not admin) -->
+          <div id="st-pipe-ctrl" style="display:none;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:rgba(0,0,0,0.12)">
+            <span id="st-pipe-ctrl-status" style="font-size:0.72rem;color:var(--muted);flex:1;min-width:130px">Pipeline: idle</span>
+            <button type="button" id="st-btn-pause-prod" onclick="stPipelinePause('production')" title="Park every running pipeline and free VRAM" style="font-size:0.7rem;color:#fca5a5;background:none;border:1px solid #7f1d1d;border-radius:6px;padding:3px 7px;cursor:pointer">⏸ Pause production</button>
+            <button type="button" id="st-btn-resume-prod" onclick="stPipelineResume('production')" title="Resume every parked pipeline where it left off" style="display:none;font-size:0.7rem;color:#86efac;background:none;border:1px solid #14532d;border-radius:6px;padding:3px 7px;cursor:pointer">▶ Resume production</button>
+            <button type="button" id="st-btn-pause-sched" onclick="stPipelinePause('scheduled')" title="Block new/queued runs from starting" style="font-size:0.7rem;color:#fcd34d;background:none;border:1px solid #78350f;border-radius:6px;padding:3px 7px;cursor:pointer">⏸ Pause queue</button>
+            <button type="button" id="st-btn-resume-sched" onclick="stPipelineResume('scheduled')" title="Allow new/queued runs to start" style="display:none;font-size:0.7rem;color:#86efac;background:none;border:1px solid #14532d;border-radius:6px;padding:3px 7px;cursor:pointer">▶ Resume queue</button>
+          </div>
+          <div id="st-pipe-runs" style="font-size:0.72rem;color:var(--muted);margin-bottom:6px"></div>
+          <div id="st-cs-library-loading" style="font-size:0.78rem;color:var(--muted)">Loading…</div>
+          <div id="st-cs-library-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:6px"></div>
+          <div id="st-cs-library-empty" style="display:none;font-size:0.78rem;color:var(--muted);font-style:italic">No contact sheet characters yet.</div>
+        </div>
+      </div>
+
+      <!-- Form fields wrapper — collapsed while the pipeline is running so the
+           user sees just the progress ring and status, not the whole form. -->
+      <div id="st-step1-form">
+      <label class="st-field-name" style="font-size:0.82rem;color:var(--muted)">Character Name <span style="font-weight:400;opacity:0.7">(optional)</span>
+        <input type="text" id="st-char-name" maxlength="40" autocomplete="off"
+          placeholder="e.g. Maya Jackson, Marcus Reed… (optional)"
+          style="display:block;box-sizing:border-box;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+      </label>
+      <div class="st-field-grid">
+        <label style="font-size:0.82rem;color:var(--muted)">Gender
+          <select id="st-gender" onchange="stGenderChange()" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="auto" selected>Auto (random)</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </label>
+        <label style="font-size:0.82rem;color:var(--muted)">Image Model
+          <select id="model-family-select-st" onchange="_syncModelFamilySelect(this.value)" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            {% if not flux_renders_paused %}<option value="flux" selected>FLUX</option>{% endif %}
+            <option value="sdxl"{% if flux_renders_paused %} selected{% endif %}>SDXL</option>
+          </select>
+          <div id="model-family-hint-st" style="font-size:0.72rem;color:var(--muted);margin-top:6px;line-height:1.35">
+            {% if flux_renders_paused %}
+            <strong>Photorealistic</strong> trains an SDXL LoRA and uses Juggernaut XL for body previews. Upload real photos for best results. Top-bar Anime/Cinematic style affects videos only, not character training.
+            {% else %}
+            <strong>Photorealistic</strong> trains dual LoRAs (SDXL + FLUX) and uses Juggernaut XL for body previews. Upload real photos for best results. Top-bar Anime/Cinematic style affects videos only, not character training.
+            {% endif %}
+          </div>
+        </label>
+        <label style="font-size:0.82rem;color:var(--muted)">Character Look
+          <select id="st-char-style" title="Training + preview render style for this character" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="animated">Animated (3D / toon)</option>
+            <option value="photorealistic" selected>Photorealistic (photo-like)</option>
+          </select>
+        </label>
+        <label style="font-size:0.82rem;color:var(--muted)">Hair Colour
+          <select id="st-hair" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="auto" selected>Auto (AI chooses)</option>
+            <option value="blonde">Blonde</option>
+            <option value="brown">Brown</option>
+            <option value="auburn">Auburn</option>
+            <option value="red">Red</option>
+            <option value="black">Black</option>
+            <option value="dark brown">Dark Brown</option>
+            <option value="grey">Grey</option>
+            <option value="white">White</option>
+          </select>
+        </label>
+        <label style="font-size:0.82rem;color:var(--muted)">Eye Colour
+          <select id="st-eyes" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="auto" selected>Auto (AI chooses)</option>
+            <option value="brown">Brown</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="hazel">Hazel</option>
+            <option value="grey">Grey</option>
+            <option value="amber">Amber</option>
+          </select>
+        </label>
+        <label class="st-field-block st-field-wide" style="font-size:0.82rem;color:var(--muted)">Skin Tone
+          <!-- hidden value holder so existing JS reads .value correctly -->
+          <input type="hidden" id="st-skin" value="auto">
+          <div id="st-skin-swatches" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+            <button type="button" onclick="stPickSkin(this,'auto')"    title="Auto — AI picks a skin tone" style="width:32px;height:32px;border-radius:50%;background:conic-gradient(#fde8d2,#e8a87c,#a0522d,#3b1f14,#fde8d2);border:2px solid #a78bfa;cursor:pointer;padding:0;font-size:0.62rem;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)">A</button>
+            <button type="button" onclick="stPickSkin(this,'fair')"    title="Fair — renders pale skin"   style="width:32px;height:32px;border-radius:50%;background:#fde8d2;border:2px solid transparent;cursor:pointer;padding:0"></button>
+            <button type="button" onclick="stPickSkin(this,'light')"   title="Light — renders light skin"  style="width:32px;height:32px;border-radius:50%;background:#f5cba7;border:2px solid transparent;cursor:pointer;padding:0"></button>
+            <button type="button" onclick="stPickSkin(this,'medium-light')" title="Medium-Light — renders neutral light-medium" style="width:32px;height:32px;border-radius:50%;background:#f0bc94;border:2px solid transparent;cursor:pointer;padding:0"></button>
+            <button type="button" onclick="stPickSkin(this,'medium')"  title="Medium — renders warm/tan-leaning" style="width:32px;height:32px;border-radius:50%;background:#e8a87c;border:2px solid transparent;cursor:pointer;padding:0"></button>
+            <button type="button" onclick="stPickSkin(this,'olive')"   title="Olive — warm olive/green undertone"  style="width:32px;height:32px;border-radius:50%;background:#c68642;border:2px solid transparent;cursor:pointer;padding:0"></button>
+            <button type="button" onclick="stPickSkin(this,'tan')"     title="Tan — warm light-brown"    style="width:32px;height:32px;border-radius:50%;background:#a0522d;border:2px solid transparent;cursor:pointer;padding:0"></button>
+            <button type="button" onclick="stPickSkin(this,'dark')"    title="Dark — renders rich dark brown"   style="width:32px;height:32px;border-radius:50%;background:#6b3a2a;border:2px solid transparent;cursor:pointer;padding:0"></button>
+            <button type="button" onclick="stPickSkin(this,'deep')"    title="Deep — renders very dark ebony"   style="width:32px;height:32px;border-radius:50%;background:#3b1f14;border:2px solid transparent;cursor:pointer;padding:0"></button>
+          </div>
+          <div id="st-skin-label" style="font-size:0.78rem;color:var(--muted);margin-top:4px">Selected: Auto</div>
+          <div style="font-size:0.72rem;color:var(--muted);margin-top:2px">Skin tone is independent of ethnicity — any tone can be paired with any heritage (e.g. a light-skinned Caribbean character).</div>
+        </label>
+        <label style="font-size:0.82rem;color:var(--muted)">Ethnicity
+          <select id="st-ethnic-heritage" class="st-adv-input"
+            style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="auto" selected>Auto (AI chooses)</option>
+            <optgroup label="Europe">
+              <option value="Northern European">Northern European</option>
+              <option value="Scandinavian">Scandinavian</option>
+              <option value="British">British</option>
+              <option value="Irish">Irish</option>
+              <option value="Central European">Central European</option>
+              <option value="Southern European">Southern European</option>
+              <option value="Mediterranean">Mediterranean</option>
+              <option value="Slavic">Slavic</option>
+            </optgroup>
+            <optgroup label="Asia">
+              <option value="East Asian">East Asian</option>
+              <option value="Southeast Asian">Southeast Asian</option>
+              <option value="South Asian">South Asian</option>
+              <option value="Central Asian">Central Asian</option>
+              <option value="Middle Eastern">Middle Eastern</option>
+            </optgroup>
+            <optgroup label="Africa">
+              <option value="North African">North African</option>
+              <option value="West African">West African</option>
+              <option value="East African">East African</option>
+            </optgroup>
+            <optgroup label="Americas &amp; Oceania">
+              <option value="Latin American">Latin American</option>
+              <option value="Afro-Latin American">Afro-Latin American</option>
+              <option value="Caribbean">Caribbean</option>
+              <option value="Indigenous American">Indigenous American</option>
+              <option value="Pacific Islander">Pacific Islander</option>
+              <option value="Aboriginal Australian">Aboriginal Australian</option>
+            </optgroup>
+            <option value="Mixed heritage">Mixed heritage</option>
+          </select>
+        </label>
+        <label style="font-size:0.82rem;color:var(--muted)">Height
+          <select id="st-height" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="auto" selected>Auto (AI chooses)</option>
+            <option value="1.10">Child (1.10 m)</option>
+            <option value="1.20">Child (1.20 m)</option>
+            <option value="1.30">Child (1.30 m)</option>
+            <option value="1.40">Very short (1.40 m)</option>
+            <option value="1.45">Very short (1.45 m)</option>
+            <option value="1.50">Petite (1.50 m)</option>
+            <option value="1.55">Short (1.55 m)</option>
+            <option value="1.60">Below average (1.60 m)</option>
+            <option value="1.65">Below average (1.65 m)</option>
+            <option value="1.70">Average (1.70 m)</option>
+            <option value="1.75">Average (1.75 m)</option>
+            <option value="1.80">Above average (1.80 m)</option>
+            <option value="1.85">Tall (1.85 m)</option>
+            <option value="1.90">Tall (1.90 m)</option>
+            <option value="1.95">Very tall (1.95 m)</option>
+            <option value="2.00">Very tall (2.00 m)</option>
+            <option value="2.05">Giant (2.05 m)</option>
+            <option value="2.10">Giant (2.10 m)</option>
+          </select>
+        </label>
+        <label style="font-size:0.82rem;color:var(--muted)">Age
+          <input type="number" id="st-age" min="1" max="99" placeholder="Auto"
+            style="display:block;box-sizing:border-box;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+        </label>
+        <!-- Hair Style Picker -->
+        <div class="st-field-block">
+          <div style="font-size:0.82rem;color:var(--muted);margin-bottom:4px">Hair Style</div>
+          <input type="hidden" id="st-hair-style" value="auto">
+          <button type="button" id="st-hair-trigger" onclick="stOpenHairModal()"
+            style="display:flex;align-items:center;gap:6px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;font-size:0.88rem;text-align:left">
+            <span id="st-hair-icon" style="display:none" aria-hidden="true"></span>
+            <span id="st-hair-label">Auto</span>
+            <span style="opacity:0.45;font-size:0.73rem;white-space:nowrap">✎ change</span>
+          </button>
+        </div>
+      </div>
+      <!-- Facial hair (males only) -->
+      <div id="st-facial-hair-wrap" style="display:none;margin-bottom:12px">
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:6px">Facial Hair</div>
+        <input type="hidden" id="st-facial-hair" value="none">
+        <button type="button" id="st-facial-trigger" onclick="stOpenFacialHairModal()"
+          style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;color:var(--text)">
+          <span id="st-facial-icon" style="font-size:1.2rem;flex-shrink:0">🪒</span>
+          <span id="st-facial-label" style="flex:1">None</span>
+          <span style="opacity:0.45;font-size:0.73rem;white-space:nowrap">✎ change</span>
+        </button>
+      </div>
+      <!-- Muscle mass slider -->
+      <div style="margin-bottom:10px">
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:6px">Muscle Mass — <span id="st-muscle-label" style="color:var(--accent)">Average</span></div>
+        <div class="st-muscle-row">
+          <div style="flex:1">
+            <input type="range" id="st-muscle-mass" min="1" max="100" value="20"
+              oninput="stMuscleMassChange()"
+              style="width:100%;accent-color:var(--accent)">
+            <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:var(--muted);margin-top:2px">
+              <span>Slim</span><span>Average</span><span>Athletic</span><span>Muscular</span><span>Very Muscular</span>
+            </div>
+          </div>
+          <div id="st-muscle-preview" style="flex-shrink:0;width:52px;height:68px"><!-- SVG injected by JS --></div>
+        </div>
+      </div>
+      <!-- Genre selector -->
+      <label class="st-field-genre" style="font-size:0.82rem;color:var(--muted)">Genre
+        <select id="st-char-genre" style="display:block;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+          <option value="general">General</option>
+          <option value="action">Action</option>
+          <option value="romance">Romance</option>
+          <option value="religion">Religion</option>
+          <option value="finance">Finance</option>
+          <option value="medieval">Medieval</option>
+          <option value="education">Education</option>
+        </select>
+      </label>
+
+      <!-- ════════════════════════════════════════════════════════════════════
+           Advanced Identity (optional) — every field below defaults to
+           "Auto" so the server picks a coherent value based on
+           gender / genre / age / hair_color.  Users only fill what they
+           actually care about.
+           ═══════════════════════════════════════════════════════════════════ -->
+      <div style="margin-bottom:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface2)">
+        <button type="button" id="st-adv-identity-toggle" onclick="stToggleAdvIdentity()"
+          style="display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;cursor:pointer;padding:10px 12px;color:var(--text);font-size:0.88rem;text-align:left">
+          <span id="st-adv-identity-icon" style="font-size:1.05rem">▶</span>
+          <span style="flex:1;font-weight:600">Advanced Identity</span>
+          <span style="font-size:0.74rem;color:var(--muted);font-weight:400">Optional — defaults to Auto</span>
+        </button>
+        <div id="st-adv-identity-body" style="display:none;padding:0 12px 12px;border-top:1px solid var(--border)">
+          <div style="font-size:0.74rem;color:var(--muted);margin:10px 0 8px;line-height:1.4">
+            Any field you leave on <strong>Auto</strong> will be picked for you based on the
+            choices above (gender, genre, age, hair colour, etc.). The richer the
+            description, the more identity-stable ComfyUI renders will be across scenes.
+          </div>
+
+          <!-- Face features -->
+          <div class="st-adv-grid">
+            <label style="font-size:0.78rem;color:var(--muted)">Face shape
+              <select id="st-face-shape" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="oval">Oval</option>
+                <option value="round">Round</option>
+                <option value="square">Square</option>
+                <option value="heart">Heart-shaped</option>
+                <option value="long">Long / rectangular</option>
+                <option value="diamond">Diamond</option>
+              </select>
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Eye shape
+              <select id="st-eye-shape" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="almond">Almond</option>
+                <option value="round">Round</option>
+                <option value="hooded">Hooded</option>
+                <option value="monolid">Monolid</option>
+                <option value="upturned">Upturned</option>
+                <option value="downturned">Downturned</option>
+              </select>
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Eyebrow style
+              <select id="st-eyebrow-style" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="natural">Natural</option>
+                <option value="natural arched">Natural arched</option>
+                <option value="thick">Thick</option>
+                <option value="sparse">Sparse</option>
+                <option value="bold straight">Bold straight</option>
+              </select>
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Nose shape
+              <select id="st-nose-shape" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="balanced">Balanced</option>
+                <option value="aquiline">Aquiline</option>
+                <option value="button">Button</option>
+                <option value="broad">Broad</option>
+                <option value="narrow">Narrow</option>
+              </select>
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Lip shape
+              <select id="st-lip-shape" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="natural">Natural</option>
+                <option value="natural full">Natural full</option>
+                <option value="full">Full</option>
+                <option value="thin">Thin</option>
+                <option value="wide">Wide</option>
+              </select>
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Hair length
+              <select id="st-hair-length" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="shaved">Shaved</option>
+                <option value="short">Short</option>
+                <option value="medium">Medium</option>
+                <option value="shoulder">Shoulder-length</option>
+                <option value="long">Long</option>
+                <option value="waist-length">Waist-length</option>
+              </select>
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Hair texture
+              <select id="st-hair-texture" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="straight">Straight</option>
+                <option value="wavy">Wavy</option>
+                <option value="curly">Curly</option>
+                <option value="coily">Coily</option>
+                <option value="kinky">Kinky</option>
+              </select>
+            </label>
+          </div>
+
+          <!-- Distinctive marks -->
+          <label style="display:block;font-size:0.78rem;color:var(--muted);margin-bottom:8px">Distinctive marks <span style="opacity:0.7">(freckles, scars, dimples, tattoos…)</span>
+            <input type="text" id="st-distinctive-marks" class="st-adv-input" maxlength="120"
+              placeholder="Auto = none. Type to add, e.g. 'freckles across nose, small scar over left eyebrow'"
+              style="display:block;width:100%;box-sizing:border-box;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+          </label>
+
+          <!-- Wardrobe -->
+          <div class="st-adv-grid">
+            <label style="font-size:0.78rem;color:var(--muted)">Default clothing
+              <input type="text" id="st-default-clothing" class="st-adv-input" maxlength="100"
+                placeholder="Auto by genre — or describe outfit"
+                style="display:block;width:100%;box-sizing:border-box;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Accessories
+              <input type="text" id="st-accessories" class="st-adv-input" maxlength="80"
+                placeholder="Auto, or e.g. 'silver pendant, leather gloves'"
+                style="display:block;width:100%;box-sizing:border-box;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Default expression
+              <select id="st-default-expression" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (neutral confident)</option>
+                <option value="happy smiling">Happy smiling (visible teeth)</option>
+                <option value="neutral confident">Neutral confident</option>
+                <option value="warm welcoming">Warm welcoming smile</option>
+                <option value="stern serious">Stern serious</option>
+                <option value="contemplative">Contemplative</option>
+                <option value="playful">Playful smile</option>
+                <option value="determined">Determined</option>
+              </select>
+            </label>
+            <label style="font-size:0.78rem;color:var(--muted)">Posture
+              <select id="st-posture" class="st-adv-input"
+                style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                <option value="auto">Auto (AI chooses)</option>
+                <option value="upright relaxed">Upright relaxed</option>
+                <option value="upright confident">Upright confident</option>
+                <option value="regal poised">Regal poised</option>
+                <option value="coiled tense">Coiled tense</option>
+                <option value="weary stooped">Weary stooped</option>
+                <option value="combat ready">Combat ready</option>
+              </select>
+            </label>
+          </div>
+
+          <!-- Quality knobs (collapsed by default — expert mode) -->
+          <details style="margin-top:6px">
+            <summary style="font-size:0.78rem;color:var(--muted);cursor:pointer;padding:4px 0">ComfyUI quality knobs (expert)</summary>
+            <div style="margin-top:6px">
+              <label style="display:block;font-size:0.78rem;color:var(--muted);margin-bottom:6px">Custom quality suffix
+                <input type="text" id="st-quality-suffix" class="st-adv-input" maxlength="200"
+                  placeholder="Auto = '85mm f/5.6, visible pores, unretouched, fine film grain, 8k'"
+                  style="display:block;width:100%;box-sizing:border-box;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+              </label>
+              <label style="display:block;font-size:0.78rem;color:var(--muted);margin-bottom:6px">Custom negative prompt
+                <textarea id="st-negative-prompt" class="st-adv-input" rows="2" maxlength="300"
+                  placeholder="Auto includes: blurry, deformed face, extra fingers, watermark, …"
+                  style="display:block;width:100%;box-sizing:border-box;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem;resize:vertical;font-family:inherit"></textarea>
+              </label>
+
+              <!-- ── Identity lock & FaceDetailer toggles (auto-degrade if the
+                       corresponding ComfyUI nodes aren't installed) ───────── -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+                <label style="font-size:0.78rem;color:var(--muted)">InstantID face-lock
+                  <select id="st-instantid-enabled" class="st-adv-input"
+                    style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                    <option value="auto">Auto (on when a face reference is available)</option>
+                    <option value="true">Force on (needs ComfyUI_InstantID nodes)</option>
+                    <option value="false">Off (rely on LoRA + IPAdapter only)</option>
+                  </select>
+                </label>
+                <label style="font-size:0.78rem;color:var(--muted)">FaceDetailer second pass
+                  <select id="st-face-detail-pass" class="st-adv-input"
+                    style="display:block;width:100%;margin-top:3px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:0.84rem">
+                    <option value="auto">Auto (on if Impact-Pack is installed)</option>
+                    <option value="true">Force on</option>
+                    <option value="false">Off (faster, less detailed faces)</option>
+                  </select>
+                </label>
+              </div>
+              <div style="font-size:0.7rem;color:var(--muted);margin-top:4px;line-height:1.4">
+                Both features auto-degrade gracefully — if the operator hasn't installed the corresponding ComfyUI custom node, the workflow simply isn't selected and rendering continues with the next-best fallback.
+              </div>
+            </div>
+          </details>
+
+          <div style="text-align:right;margin-top:6px">
+            <button type="button" onclick="stResetAdvIdentity()"
+              style="font-size:0.74rem;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline">↺ Reset all to Auto</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extra character prompt -->
+      <label style="display:block;font-size:0.82rem;color:var(--muted);margin-bottom:12px">Additional Character Details <span style="font-weight:400;opacity:0.7">(optional — describe clothing, personality, setting, etc.)</span>
+        <textarea id="st-char-extra-prompt" rows="3" placeholder="e.g. wearing a red hooded cloak, confident expression, warrior outfit…" style="display:block;width:100%;margin-top:4px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:0.88rem;resize:vertical;font-family:inherit;box-sizing:border-box"></textarea>
+      </label>
+
+      <!-- Photo upload zone (optional — skip Blender if provided) -->
+      <div id="st-photo-upload-wrap" style="margin-bottom:14px">
+        <div style="font-size:0.82rem;color:var(--muted);margin-bottom:6px">
+          📸 Upload Character Photos <span style="font-weight:400;opacity:0.7">(optional — 1–15 images, replaces Blender 3D generation; auto-fills traits from photo)</span>
+        </div>
+        <div id="st-photo-dropzone"
+          onclick="document.getElementById('st-photo-input').click()"
+          ondragover="event.preventDefault();this.style.borderColor='var(--accent)'"
+          ondragleave="this.style.borderColor='var(--border)'"
+          ondrop="stHandlePhotoDrop(event)"
+          style="border:1px dashed var(--border);border-radius:8px;padding:7px 12px;text-align:left;cursor:pointer;transition:border-color 0.2s;color:var(--muted);font-size:0.78rem;background:var(--surface2)">
+          <span class="st-photo-drop-icon" aria-hidden="true">🖼️</span>
+          <span>Drop photos or <span style="color:var(--accent);text-decoration:underline">browse</span></span>
+          <div class="st-photo-drop-hint">JPEG / PNG / WEBP · up to 15</div>
+        </div>
+        <input type="file" id="st-photo-input" accept="image/*" multiple style="display:none"
+          onchange="stHandlePhotoFiles(this.files)">
+        <div id="st-photo-thumbs" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
+        <div id="st-photo-count" style="font-size:0.77rem;color:var(--muted);margin-top:4px"></div>
+        <div id="st-photo-analysis-status" aria-live="polite"></div>
+      </div>
+      <!-- Use existing character section -->
+      <div id="st-existing-char-wrap" style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:0.82rem;color:var(--muted);flex:1">♻️ Use an Existing Character <span style="font-weight:400;opacity:0.7">(skip generation entirely)</span></span>
+          <button type="button" onclick="stToggleExistingChars()" id="st-existing-toggle-btn"
+            style="font-size:0.78rem;color:var(--accent);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Show library</button>
+        </div>
+        <div id="st-existing-chars-panel" style="display:none">
+          <div id="st-char-library-filter" style="font-size:0.72rem;color:var(--accent);margin-bottom:4px;font-weight:600">FLUX characters only</div>
+          <div id="st-existing-chars-loading" style="font-size:0.82rem;color:var(--muted);padding:8px 0">Loading characters…</div>
+          <div id="st-existing-chars-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:4px"></div>
+          <div id="st-existing-chars-empty" style="display:none;font-size:0.82rem;color:var(--muted);padding:8px 0;font-style:italic">No previously trained characters found.</div>
+          <div id="st-existing-selected-info" style="display:none;margin-top:8px;padding:8px;background:var(--surface2);border-radius:8px;border:1px solid var(--accent);font-size:0.82rem">
+            <strong>Selected:</strong> <span id="st-existing-selected-name"></span>
+            <button type="button" onclick="stClearExistingChar()" style="margin-left:8px;color:var(--muted);background:none;border:none;cursor:pointer;font-size:0.78rem">✕ clear</button>
+          </div>
+        </div>
+      </div>
+
+      </div>  <!-- /st-step1-form -->
+
+      <!-- Character generation progress ring (shown while generating) -->
+      <div id="st-char-progress-wrap" style="display:none;margin:16px 0;text-align:center">
+        <div style="position:relative;display:inline-block;width:100px;height:100px">
+          <svg width="100" height="100" viewBox="0 0 100 100" style="transform:rotate(-90deg)">
+            <!-- track -->
+            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+            <!-- animated fill -->
+            <circle id="st-ring-fill" cx="50" cy="50" r="42" fill="none"
+              stroke="#a78bfa" stroke-width="8" stroke-linecap="round"
+              stroke-dasharray="264" stroke-dashoffset="264"
+              style="transition:stroke-dashoffset 0.7s ease"/>
+          </svg>
+          <div id="st-ring-pct" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.1rem;font-weight:700;color:var(--text)">0%</div>
+        </div>
+        <div id="st-ring-stage" style="margin-top:8px;font-size:0.88rem;color:var(--accent);letter-spacing:0.03em;font-weight:500"></div>
+        <div id="st-fun-msg" style="margin-top:6px;font-size:0.8rem;color:var(--muted);font-style:italic;min-height:18px"></div>
+      </div>
+      <!-- Character preview (moved to Step 2; hidden in step 1) -->
+      <div id="st-char-preview" style="display:none"></div>
+      <div id="st-gen-status" style="display:none"></div>
+      <!-- Contact sheet review preview (approval happens in Agent Zero only) -->
+      <div id="st-cs-approve-wrap" style="display:none;margin:16px 0;padding:12px;border:1px solid var(--accent);border-radius:10px;background:var(--surface2);text-align:center">
+        <div style="font-size:0.85rem;font-weight:600;color:var(--accent);margin-bottom:8px">Contact sheet ready for review</div>
+        <div style="font-size:0.76rem;color:var(--muted);margin-bottom:10px">Inspect the stacked preview below, then approve or decline via <strong style="color:var(--accent)">Agent Zero</strong> — Zero has the review card waiting. Generation continues automatically after approval.</div>
+        <div id="st-cs-preview-wrap" class="st-cs-preview-wrap" style="display:none">
+          <div style="margin-bottom:6px">
+            <a id="st-cs-training-link" href="#" target="_blank"
+               style="font-size:0.78rem;color:#a78bfa;text-decoration:underline">
+              📋 View training-set sheet (only the tiles that will train)
+            </a>
+          </div>
+          <img id="st-cs-preview-img" alt="Contact sheet preview">
+          <button type="button" id="st-cs-preview-dl" class="st-cs-preview-dl" title="Download contact sheet preview"
+                  aria-label="Download contact sheet" onclick="stDownloadContactSheetPreview(event)">⬇</button>
+        </div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:4px">🕐 Awaiting your decision in Agent Zero…</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button class="btn-submit" id="st-gen-char-btn" onclick="stGenerateCharacter()" style="background:var(--accent)">Generate Character →</button>
+      </div>
+      <!-- Failure card — LoRA crash or preview render failure -->
+      <div id="st-lora-failed-card" style="display:none;margin-top:18px;padding:14px 16px;background:linear-gradient(135deg,#2a1a1a,#331a1a);border:1px solid #e57373;border-radius:10px">
+        <div id="st-lora-fail-title" style="font-size:1.2rem;margin-bottom:6px;text-align:center">⚠️ Character Generation Failed</div>
+        <div id="st-lora-fail-subtitle" style="font-size:0.88rem;font-weight:600;color:#ef9a9a;margin-bottom:6px"></div>
+        <div id="st-lora-fail-reason" style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;word-break:break-word"></div>
+        <div id="st-lora-fail-hint" style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;display:none"></div>
+        <div style="text-align:center">
+          <button class="btn-submit" onclick="stRetryCharacter()" style="background:#c62828;font-size:0.88rem;padding:8px 18px">🔄 Retry Character</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Voice (hidden until Step 1 complete) -->
+    <div class="form-card" id="st-step2" style="display:none">
+      <!-- Character preview injected here when step 2 becomes visible -->
+      <div id="st-step2-char-preview" style="display:none;margin-bottom:18px;border-radius:12px;overflow:hidden;background:var(--surface2);padding:12px;text-align:center">
+        <div style="font-size:0.82rem;color:var(--accent);font-weight:600;margin-bottom:8px;letter-spacing:0.04em">✨ Your Character</div>
+        <div id="st-step2-preview-imgs" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center"></div>
+        <div id="st-step2-lora-status" style="font-size:0.78rem;color:var(--muted);margin-top:8px"></div>
+      </div>
+      <div style="font-size:1.05rem;font-weight:600;margin-bottom:14px;color:var(--accent)">🎙️ Step 2 — Narration Style</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface2)">
+          <input type="radio" name="st-voice" value="narration" id="st-voice-narration" checked onchange="stVoiceChange()">
+          <span><strong>Narration</strong> — A narrator tells the story over the images</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface2)">
+          <input type="radio" name="st-voice" value="character" id="st-voice-char" onchange="stVoiceChange()">
+          <span><strong>Character Voice</strong> — The character speaks in first person</span>
+        </label>
+      </div>
+      <div id="st-voice-type-wrap" style="margin-top:12px;display:none">
+        <label style="font-size:0.82rem;color:var(--muted)">Voice Type
+          <select id="st-voice-type" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="en-US-AriaNeural">Aria (US, neutral)</option>
+          </select>
+          <div id="st-voice-type-picker-loading" class="st-voice-preview-hint" style="display:none">Loading voices…</div>
+          <div id="st-voice-type-picker" class="st-voice-picker-panel" role="listbox" aria-label="Character voice"></div>
+        </label>
+        <audio id="st-voice-sample-audio" preload="none" style="display:none" aria-hidden="true"></audio>
+        <div id="st-voice-preview-hint-char" class="st-voice-preview-hint">Click a row to select. Use <strong>V1</strong> / <strong>V2</strong> to play pre-recorded Azure samples.</div>
+      </div>
+      <div id="st-narrator-voice-wrap" style="margin-top:12px;display:none">
+        <label style="font-size:0.82rem;color:var(--muted)">Narrator Voice
+          <select id="st-narrator-voice" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="en-US-JennyNeural">Jenny (US, warm narrator)</option>
+          </select>
+          <div id="st-narrator-voice-picker-loading" class="st-voice-preview-hint" style="display:none">Loading voices…</div>
+          <div id="st-narrator-voice-picker" class="st-voice-picker-panel" role="listbox" aria-label="Narrator voice"></div>
+        </label>
+        <div id="st-voice-preview-hint-nar" class="st-voice-preview-hint">Click a row to select. <strong>V1</strong> / <strong>V2</strong> play local Azure samples. Auto-matched to character gender.</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:14px">
+        <button class="btn-submit" onclick="stNextStep(2)" style="background:var(--accent)">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Duration & Era (hidden) -->
+    <div class="form-card" id="st-step3" style="display:none">
+      <div style="font-size:1.05rem;font-weight:600;margin-bottom:14px;color:var(--accent)">⏱️ Step 3 — Duration & Era</div>
+      <div style="display:grid;grid-template-columns:1fr;gap:12px">
+        <label style="font-size:0.82rem;color:var(--muted)">Clip Duration
+          <select id="st-duration" style="display:block;width:100%;margin-top:4px;background:#f0f0f5;color:#111;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+            <option value="0.167">10 seconds</option>
+            <option value="0.333">20 seconds</option>
+            <option value="0.5">30 seconds</option>
+            <option value="1">1 minute</option>
+            <option value="2">2 minutes</option>
+            <option value="3">3 minutes</option>
+            <option value="9">9 minutes</option>
+            <option value="10" selected>10 minutes</option>
+            <option value="12">12 minutes</option>
+            <option value="15">15 minutes</option>
+            <option value="20">20 minutes</option>
+          </select>
+        </label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <label style="font-size:0.82rem;color:var(--muted)">Story Starts (year)
+            <input type="number" id="st-era-start" min="1" max="2100" placeholder="e.g. 1920"
+              style="display:block;width:100%;box-sizing:border-box;margin-top:4px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+          </label>
+          <label style="font-size:0.82rem;color:var(--muted)">Story Ends (year)
+            <input type="number" id="st-era-end" min="1" max="2100" placeholder="e.g. 1945"
+              style="display:block;width:100%;box-sizing:border-box;margin-top:4px;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:0.88rem">
+          </label>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:14px">
+        <button class="btn-submit" onclick="stNextStep(3)" style="background:var(--accent)">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Camera Angles (hidden) -->
+    <div class="form-card" id="st-step4" style="display:none">
+      <div style="font-size:1.05rem;font-weight:600;margin-bottom:14px;color:var(--accent)">🎥 Step 4 — Camera Angles</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-bottom:12px">
+        <label id="st-cam-automatic" class="st-cam-option active" data-cam="automatic" onclick="stSelectCam('automatic',this)"
+          style="cursor:pointer;padding:8px;border-radius:8px;border:2px solid var(--accent);background:rgba(124,111,247,0.12);text-align:center;font-size:0.80rem">
+          <div style="font-size:1.4rem">🔄</div>
+          <div style="font-weight:600;margin-top:2px">Automatic</div>
+          <div style="color:var(--muted);font-size:0.70rem">AI picks angles</div>
+        </label>
+        <label class="st-cam-option" data-cam="front" onclick="stSelectCam('front',this)"
+          style="cursor:pointer;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);text-align:center;font-size:0.80rem">
+          <div style="font-size:1.4rem">🧍</div>
+          <div style="font-weight:600;margin-top:2px">Front</div>
+          <div style="color:var(--muted);font-size:0.70rem">Face-on shot</div>
+        </label>
+        <label class="st-cam-option" data-cam="3quarter" onclick="stSelectCam('3quarter',this)"
+          style="cursor:pointer;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);text-align:center;font-size:0.80rem">
+          <div style="font-size:1.4rem">↗️</div>
+          <div style="font-weight:600;margin-top:2px">¾ Angle</div>
+          <div style="color:var(--muted);font-size:0.70rem">Three-quarter</div>
+        </label>
+        <label class="st-cam-option" data-cam="side" onclick="stSelectCam('side',this)"
+          style="cursor:pointer;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);text-align:center;font-size:0.80rem">
+          <div style="font-size:1.4rem">👤</div>
+          <div style="font-weight:600;margin-top:2px">Side</div>
+          <div style="color:var(--muted);font-size:0.70rem">Profile view</div>
+        </label>
+        <label class="st-cam-option" data-cam="closeup" onclick="stSelectCam('closeup',this)"
+          style="cursor:pointer;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);text-align:center;font-size:0.80rem">
+          <div style="font-size:1.4rem">🔍</div>
+          <div style="font-weight:600;margin-top:2px">Close-up</div>
+          <div style="color:var(--muted);font-size:0.70rem">Face portrait</div>
+        </label>
+        <label class="st-cam-option" data-cam="overhead" onclick="stSelectCam('overhead',this)"
+          style="cursor:pointer;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);text-align:center;font-size:0.80rem">
+          <div style="font-size:1.4rem">🦅</div>
+          <div style="font-weight:600;margin-top:2px">Overhead</div>
+          <div style="color:var(--muted);font-size:0.70rem">Bird's eye</div>
+        </label>
+        <label class="st-cam-option" data-cam="low" onclick="stSelectCam('low',this)"
+          style="cursor:pointer;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);text-align:center;font-size:0.80rem">
+          <div style="font-size:1.4rem">⬆️</div>
+          <div style="font-weight:600;margin-top:2px">Low Angle</div>
+          <div style="color:var(--muted);font-size:0.70rem">Heroic look</div>
+        </label>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn-submit" onclick="stNextStep(4)" style="background:var(--accent)">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Story Prompt + Generate (hidden) -->
+    <div class="form-card" id="st-step5" style="display:none">
+      <div style="font-size:1.05rem;font-weight:600;margin-bottom:14px;color:var(--accent)">✍️ Step 5 — Your Story</div>
+      <div id="st-lora-notice" style="display:none;padding:8px 12px;background:rgba(124,111,247,0.1);border:1px solid var(--accent);border-radius:8px;font-size:0.82rem;margin-bottom:10px;color:var(--text)">
+        ⚡ Character LoRA training in progress (<span id="st-lora-pct">0</span>%) — it will complete before generation starts.
+      </div>
+      <div class="textarea-wrap" style="position:relative">
+        <textarea id="st-story-prompt" maxlength="2000"
+          placeholder="Describe the story: e.g. A detective in 1940s Paris searches for a stolen painting, uncovering a conspiracy…"
+          style="min-height:110px;resize:vertical"></textarea>
+        <span class="char-count"><span id="st-char-count">0</span> / 2000</span>
+      </div>
+      <div id="st-error-msg" style="color:#f87171;font-size:0.82rem;margin-top:6px;display:none"></div>
+      <div style="display:flex;justify-content:flex-end;margin-top:12px">
+        <button class="btn-submit" id="st-generate-btn" onclick="stGenerate()">🎬 Generate Story →</button>
+      </div>
+    </div>
+  </div>
+  <!-- ── End Storyteller Wizard ── -->
+
+  <!-- ── Character preview modal (shown after a character is fully generated in
+       character-only mode). Caption sits *below* the image, never overlaid. ── -->
+  <div id="st-char-preview-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(8,10,18,0.82);backdrop-filter:blur(6px);justify-content:center;align-items:center;padding:24px"
+       onclick="if(event.target===this)stClosePreviewModal()">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;max-width:520px;width:100%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 48px rgba(0,0,0,0.55)">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)">
+        <div style="font-size:0.95rem;font-weight:600;color:var(--accent)">Character Preview</div>
+        <button type="button" onclick="stClosePreviewModal()" aria-label="Close"
+                style="background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:0 4px;line-height:1">×</button>
+      </div>
+      <!-- Image area (caption is OUTSIDE this block so it never lands on the picture) -->
+      <div style="background:#0c0e14;display:flex;align-items:center;justify-content:center;padding:14px;min-height:280px">
+        <img id="st-char-preview-modal-img" alt="Character preview"
+             style="max-width:100%;max-height:60vh;object-fit:contain;border-radius:8px;background:#000;display:block">
+      </div>
+      <!-- Caption / footer — strictly below the image -->
+      <div style="padding:14px 18px;border-top:1px solid var(--border);background:var(--surface)">
+        <div style="font-size:0.88rem;color:var(--text);text-align:center;line-height:1.45">
+          Character ready. You can now use it in a Storyteller clip.
+        </div>
+        <div style="display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button type="button" onclick="stDownloadPreviewImage()" class="btn-submit"
+                  style="background:var(--surface2);color:var(--text);font-size:0.86rem;padding:7px 14px;border:1px solid var(--border)">↓ Download</button>
+          <button type="button" onclick="stClosePreviewModal()" class="btn-submit"
+                  style="background:var(--accent);font-size:0.86rem;padding:7px 18px">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Status section ── -->
+  <div class="status-section" id="status-section" style="display:none">
+
+    <!-- Queue card -->
+    <div class="card" id="queue-card" style="display:none">
+      <div class="queue-icon">⏳</div>
+      <div class="queue-headline">Manual Permission Requested</div>
+      <div class="queue-sub">
+        Server running continuously. Manual permission requested , This might take a while. You can close and re-open this page it will not affect your request. Your download will arrive in the library
+      </div>
+      <div style="margin-top:14px; display: none;">
+        <span class="queue-eta">⏱ Estimated wait: <strong id="eta-text">calculating…</strong></span>
+        <span class="queue-position-badge" id="position-text"></span>
+      </div>
+    </div>
+
+    <!-- SVG gradient defs (hidden) -->
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#7c6ff7"/>
+          <stop offset="100%" stop-color="#a78bfa"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <!-- Progress card -->
+    <div class="card" id="progress-card" style="display:none">
+      <div class="progress-header">
+        <div class="progress-ring-wrap">
+          <svg class="progress-ring" width="52" height="52" viewBox="0 0 52 52">
+            <circle class="progress-ring-bg" cx="26" cy="26" r="22" fill="none" stroke-width="4"/>
+            <circle class="progress-ring-arc" id="ring-arc" cx="26" cy="26" r="22" fill="none" stroke-width="4"/>
+          </svg>
+          <span class="progress-ring-pct" id="ring-pct">—</span>
+        </div>
+        <div class="progress-center">
+          <div class="progress-title">In Progress</div>
+          <div class="progress-stage" id="stage-text">Initialising…</div>
+        </div>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Result card -->
+    <div class="card" id="result-card" style="display:none">
+      <div class="result-headline">✅ Your content is ready</div>
+      <div class="file-list" id="file-list"></div>
+      <div style="margin-top:18px;text-align:center">
+        <button class="btn-submit" onclick="resetForm()" style="padding:10px 28px;font-size:0.95rem">
+          ✦ Create Another
+        </button>
+        <div id="result-countdown" style="margin-top:8px;font-size:0.78rem;color:var(--muted)"></div>
+      </div>
+    </div>
+
+    <!-- Error card -->
+    <div class="card" id="error-card" style="display:none">
+      <div class="card-title">Error</div>
+      <div class="error-text" id="error-text"></div>
+      <div style="margin-top:14px">
+        <button class="btn-submit" onclick="resetForm()">Try again</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Recent jobs: now rendered by sidebar JS instead ── -->
+
+  <script>window.ZPUB_BOOT = { activeJobId: {{ active_job_id | tojson }}, inviteToken: {{ invite_token | tojson }} };</script>
+  <script src="/assets/zero/js/zpub_app.js?v=2"></script>
+
+<!-- ── Advanced Settings Modal ─────────────────────────────────────────── -->
+<div class="adv-overlay" id="adv-overlay" onclick="advModalClose(event)">
+  <div class="adv-modal" id="adv-modal">
+
+    <!-- Header -->
+    <div class="adv-modal-hdr">
+      <span class="adv-modal-title">⚙️ Advanced Settings</span>
+      <button class="adv-close-btn" onclick="closeAdvModal()" title="Close">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div class="adv-modal-body">
+
+      <!-- Left: tab list -->
+      <nav class="adv-tabs" id="adv-tab-list">
+        <div class="adv-tab active"      onclick="advSelectTab('scenes',this)">🎬 Scenes</div>
+        <div class="adv-tab"             onclick="advSelectTab('characters',this)">🧍 Characters</div>
+        <div class="adv-tab"             onclick="advSelectTab('objects',this)">📦 Objects</div>
+        <div class="adv-tab"             onclick="advSelectTab('animals',this)">🐾 Animals</div>
+        <div class="adv-tab"             onclick="advSelectTab('subtitles',this)">💬 Subtitles</div>
+        <div class="adv-tab"             onclick="advSelectTab('style',this)">🎨 Style</div>
+        <div class="adv-tab"             onclick="advSelectTab('narrator',this)">🎙️ Narrator</div>
+        <div class="adv-tab"             onclick="advSelectTab('duration',this)">⏱ Duration</div>
+        <div class="adv-tab"             onclick="advSelectTab('output',this)">📤 Output</div>
+        <div class="adv-tab"             onclick="advSelectTab('benchmark',this)">📊 Benchmark</div>
+        <div class="adv-generate-wrap">
+          <button class="adv-generate-btn" id="adv-generate-btn" onclick="advGenerate()">▶ Generate</button>
+        </div>
+      </nav>
+
+      <!-- Right: panel content -->
+      <div class="adv-content">
+
+        <!-- ── SCENES ── -->
+        <div class="adv-panel active" id="adv-panel-scenes">
+          <div class="adv-panel-title">Scenes</div>
+          <div class="adv-panel-desc">Each image (or AI-generated prompt) marks the opening visual of a scene. The pipeline will animate from there. Add up to 10 scenes.</div>
+          <div class="adv-img-grid" id="scenes-grid"></div>
+          <div class="adv-action-row">
+            <button class="adv-add-btn" id="scenes-add-btn" onclick="advAddSlot('scenes')" style="margin-top:0">+ Add Scene</button>
+            <button class="adv-create-btn" id="scenes-create-btn" onclick="advOpenCreate('scenes')">✨ Create Scene</button>
+          </div>
+        </div>
+
+        <!-- ── CHARACTERS ── -->
+        <div class="adv-panel" id="adv-panel-characters">
+          <div class="adv-panel-title">Characters</div>
+          <div class="adv-panel-desc">Upload or generate characters. Each card lets you attach a related <strong>Object</strong> and <strong>Animal</strong>. Add up to 10 characters.</div>
+          <div class="adv-img-grid" id="characters-grid"></div>
+          <div class="adv-action-row">
+            <button class="adv-add-btn" id="characters-add-btn" onclick="advAddSlot('characters')" style="margin-top:0">+ Add Character</button>
+            <button class="adv-create-btn" id="characters-create-btn" onclick="advOpenCreate('characters')">✨ Create Character</button>
+          </div>
+        </div>
+
+        <!-- ── OBJECTS ── -->
+        <div class="adv-panel" id="adv-panel-objects">
+          <div class="adv-panel-title">Objects</div>
+          <div class="adv-panel-desc">Upload or generate objects you want featured in your video. Add up to 10 objects.</div>
+          <div class="adv-img-grid" id="objects-grid"></div>
+          <div class="adv-action-row">
+            <button class="adv-add-btn" id="objects-add-btn" onclick="advAddSlot('objects')" style="margin-top:0">+ Add Object</button>
+            <button class="adv-create-btn" id="objects-create-btn" onclick="advOpenCreate('objects')">✨ Create Object</button>
+          </div>
+        </div>
+
+        <!-- ── ANIMALS ── -->
+        <div class="adv-panel" id="adv-panel-animals">
+          <div class="adv-panel-title">Animals</div>
+          <div class="adv-panel-desc">Upload or generate animals. Each card lets you attach a related <strong>Object</strong>. Add up to 10 animals.</div>
+          <div class="adv-img-grid" id="animals-grid"></div>
+          <div class="adv-action-row">
+            <button class="adv-add-btn" id="animals-add-btn" onclick="advAddSlot('animals')" style="margin-top:0">+ Add Animal</button>
+            <button class="adv-create-btn" id="animals-create-btn" onclick="advOpenCreate('animals')">✨ Create Animal</button>
+          </div>
+        </div>
+
+        <!-- ── SUBTITLES ── -->
+        <div class="adv-panel" id="adv-panel-subtitles">
+          <div class="adv-panel-title">Subtitles</div>
+          <div class="adv-panel-desc">Configure subtitle options for your video output.</div>
+
+          <div class="adv-toggle-row">
+            <div>
+              <div class="adv-toggle-label">Enable Subtitles</div>
+              <div class="adv-toggle-sub">Burn subtitles into the final video</div>
+            </div>
+            <label class="adv-toggle">
+              <input type="checkbox" id="adv-sub-enabled" checked>
+              <span class="adv-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="adv-field">
+            <label>Language</label>
+            <select id="adv-sub-lang">
+              <option value="en">🇬🇧 English</option>
+              <option value="nl">🇳🇱 Dutch</option>
+              <option value="es">🇪🇸 Spanish</option>
+              <option value="fr">🇫🇷 French</option>
+              <option value="de">🇩🇪 German</option>
+              <option value="it">🇮🇹 Italian</option>
+              <option value="pt">🇵🇹 Portuguese</option>
+              <option value="ja">🇯🇵 Japanese</option>
+              <option value="zh">🇨🇳 Chinese (Simplified)</option>
+              <option value="ar">🇸🇦 Arabic</option>
+              <option value="hi">🇮🇳 Hindi</option>
+              <option value="ru">🇷🇺 Russian</option>
+            </select>
+          </div>
+
+          <div class="adv-field">
+            <label>Position</label>
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('sub-pos',this)" data-val="bottom">⬇ Bottom</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-pos',this)" data-val="middle">↔ Middle</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-pos',this)" data-val="top">⬆ Top</button>
+            </div>
+          </div>
+
+          <div class="adv-field">
+            <label>Font Size — <span id="adv-sub-size-val">28px</span></label>
+            <input type="range" min="16" max="52" value="28" id="adv-sub-size"
+                   oninput="document.getElementById('adv-sub-size-val').textContent=this.value+'px'">
+          </div>
+
+          <div class="adv-field">
+            <label>Color</label>
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('sub-color',this)" data-val="white">⬜ White</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-color',this)" data-val="yellow">🟡 Yellow</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-color',this)" data-val="cyan">🔵 Cyan</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-color',this)" data-val="green">🟢 Green</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-color',this)" data-val="orange">🟠 Orange</button>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Style</div>
+          <div class="adv-field">
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('sub-style',this)" data-val="plain">Plain</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-style',this)" data-val="shadow">Drop Shadow</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-style',this)" data-val="outline">Outline</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('sub-style',this)" data-val="box">Box BG</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── STYLE ── -->
+        <div class="adv-panel" id="adv-panel-style">
+          <div class="adv-panel-title">Visual Style</div>
+          <div class="adv-panel-desc">Choose your pipeline type and the overall visual aesthetic of your video.</div>
+
+          <div class="adv-section-hdr" style="margin-top:0">Pipeline Type</div>
+          <div class="adv-field">
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt active" data-val="documentary"
+                      onclick="advSetBtnOpt('pipeline-type',this);advUpdatePipelineType(this.dataset.val)">🎬 Documentary</button>
+              <button class="adv-btn-opt" data-val="video"
+                      onclick="advSetBtnOpt('pipeline-type',this);advUpdatePipelineType(this.dataset.val)">🎥 Video</button>
+              <button class="adv-btn-opt" data-val="intro"
+                      onclick="advSetBtnOpt('pipeline-type',this);advUpdatePipelineType(this.dataset.val)">🎞 Intro</button>
+            </div>
+          </div>
+          <div class="adv-intro-note" id="adv-intro-note">
+            <div class="adv-intro-note-title">🎞 Intro Mode</div>
+            <div class="adv-intro-note-body">Creates a cinematic intro for series, films, or brands. Duration is fixed between <strong style="color:var(--text)">10 – 12 seconds</strong>. Optimised for high-impact visuals, a strong opening hook, and no narration. Same pipeline as Video but fully intro-focused.</div>
+          </div>
+
+          <div class="adv-section-hdr">Visual Style</div>
+          <div class="adv-style-grid" id="adv-style-grid">
+            <div class="adv-style-card active" onclick="advSetStyleCard(this)" data-val="cinematic">
+              <div class="adv-style-card-icon">🎬</div>
+              <div class="adv-style-card-name">Cinematic</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="realism">
+              <div class="adv-style-card-icon">📷</div>
+              <div class="adv-style-card-name">Realism</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="anime">
+              <div class="adv-style-card-icon">⛩️</div>
+              <div class="adv-style-card-name">Anime</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="disney">
+              <div class="adv-style-card-icon">✨</div>
+              <div class="adv-style-card-name">Disney 2D</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="art">
+              <div class="adv-style-card-icon">🖌️</div>
+              <div class="adv-style-card-name">Digital Art</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="3d_render">
+              <div class="adv-style-card-icon">🧊</div>
+              <div class="adv-style-card-name">3D Render</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="scenery">
+              <div class="adv-style-card-icon">🏔️</div>
+              <div class="adv-style-card-name">Scenery</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="filmic">
+              <div class="adv-style-card-icon">🎞️</div>
+              <div class="adv-style-card-name">Filmic</div>
+            </div>
+            <div class="adv-style-card" onclick="advSetStyleCard(this)" data-val="artistic">
+              <div class="adv-style-card-icon">💎</div>
+              <div class="adv-style-card-name">Artistic</div>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Camera Motion</div>
+          <div class="adv-field">
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('cam-motion',this)" data-val="auto">🎯 Auto</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="static">⏹ Static</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="pan">↔ Pan</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="tilt">↕ Tilt</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="zoom_in">🔍 Zoom In</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="zoom_out">🔭 Zoom Out</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="dolly">🎥 Dolly</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="push_in">➡ Push In</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="pull_out">⬅ Pull Out</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="orbit">🔄 Orbit</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="crane">🏗 Crane</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="handheld">📳 Handheld</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('cam-motion',this)" data-val="whip_pan">⚡ Whip Pan</button>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Color Grading</div>
+          <div class="adv-field">
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('color-grade',this)" data-val="neutral">⬜ Neutral</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="warm">🔶 Warm</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="cool">🔷 Cool</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="noir">⬛ Noir</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="vivid">🌈 Vivid</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="teal_orange">🎞 Teal &amp; Orange</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="golden_hour">🌅 Golden Hour</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="vintage">📽 Vintage</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="desaturated">🩶 Desaturated</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="high_contrast">◑ High Contrast</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="matte">🪵 Matte/Log</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('color-grade',this)" data-val="neon">💜 Neon</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── NARRATOR ── -->
+        <div class="adv-panel" id="adv-panel-narrator">
+          <div class="adv-panel-title">Narrator</div>
+          <div class="adv-panel-desc">Configure the narrator's language, voice gender, speed, and delivery tone.</div>
+
+          <div class="adv-field">
+            <label>Language</label>
+            <select id="adv-nar-lang">
+              <option value="en">🇬🇧 English</option>
+              <option value="nl">🇳🇱 Dutch</option>
+              <option value="es">🇪🇸 Spanish</option>
+              <option value="fr">🇫🇷 French</option>
+              <option value="de">🇩🇪 German</option>
+              <option value="it">🇮🇹 Italian</option>
+              <option value="pt">🇵🇹 Portuguese</option>
+              <option value="ja">🇯🇵 Japanese</option>
+              <option value="zh">🇨🇳 Chinese (Mandarin)</option>
+              <option value="ar">🇸🇦 Arabic</option>
+              <option value="hi">🇮🇳 Hindi</option>
+              <option value="ru">🇷🇺 Russian</option>
+            </select>
+          </div>
+
+          <div class="adv-section-hdr">Voice Gender</div>
+          <div class="adv-field">
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('nar-gender',this)" data-val="male">👨 Male</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-gender',this)" data-val="female">👩 Female</button>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Speed</div>
+          <div class="adv-field">
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-speed',this)" data-val="slow">🐢 Slow</button>
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('nar-speed',this)" data-val="normal">▶ Normal</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-speed',this)" data-val="fast">⚡ Fast</button>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Tone</div>
+          <div class="adv-field">
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('nar-tone',this)" data-val="neutral">📰 Neutral</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-tone',this)" data-val="authoritative">🎓 Authoritative</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-tone',this)" data-val="dramatic">🎭 Dramatic</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-tone',this)" data-val="calm">🧘 Calm</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-tone',this)" data-val="enthusiastic">🔥 Enthusiastic</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-tone',this)" data-val="whispering">🤫 Whispering</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-tone',this)" data-val="melancholic">😔 Melancholic</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-tone',this)" data-val="comedic">😄 Comedic</button>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Voice Age</div>
+          <div class="adv-field">
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-age',this)" data-val="young">👶 Young</button>
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('nar-age',this)" data-val="adult">🧑 Adult</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('nar-age',this)" data-val="mature">🧓 Mature</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── DURATION ── -->
+        <div class="adv-panel" id="adv-panel-duration">
+          <div class="adv-panel-title">Duration</div>
+          <div class="adv-panel-desc">Control the total length and pacing of your video.</div>
+
+          <div class="adv-intro-note visible" id="adv-doc-cap-hint" style="display:none;margin-bottom:14px;">
+            <div class="adv-intro-note-title">Documentary mode</div>
+            <div class="adv-intro-note-body">Pick a total duration below to cap script length and image count. Leave unselected for the default ~10–14 minute documentary.</div>
+          </div>
+
+          <div class="adv-field">
+            <label>Total Duration <span style="font-weight:400;color:var(--muted);font-size:0.78rem">(optional — default ~10–14 min)</span></label>
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="3.5">3.5 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="7">7 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="11">11 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="15">15 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="30">30 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="60">1 min</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="120">2 min</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="180">3 min</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('total-dur',this)" data-val="300">5 min</button>
+            </div>
+          </div>
+
+          <div class="adv-field" style="margin-top:20px;">
+            <label>Number of Scenes — <span id="adv-scene-count-val">3</span> <span style="font-weight:400;color:var(--muted);font-size:0.78rem">(optional cap)</span></label>
+            <input type="range" min="1" max="10" value="3" id="adv-scene-count"
+                   oninput="document.getElementById('adv-scene-count-val').textContent=this.value;_advMarkSceneCountExplicit()">
+          </div>
+
+          <div class="adv-section-hdr">Scene Length</div>
+          <div class="adv-field">
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('scene-dur',this)" data-val="3.5">3.5 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('scene-dur',this)" data-val="7">7 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('scene-dur',this)" data-val="11">11 sec</button>
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('scene-dur',this)" data-val="15">15 sec</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('scene-dur',this)" data-val="20">20 sec</button>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Transitions</div>
+          <div class="adv-field">
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('transition',this)" data-val="none">⬛ None</button>
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('transition',this)" data-val="fade">🌅 Fade</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('transition',this)" data-val="cut">✂ Hard Cut</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('transition',this)" data-val="dissolve">💧 Dissolve</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('transition',this)" data-val="wipe">🔲 Wipe</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('transition',this)" data-val="slide">➡ Slide</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('transition',this)" data-val="zoom_trans">🔍 Zoom</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('transition',this)" data-val="glitch">⚡ Glitch</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── OUTPUT ── -->
+        <div class="adv-panel" id="adv-panel-output">
+          <div class="adv-panel-title">Output</div>
+          <div class="adv-panel-desc">Configure the format, resolution, and quality of your exported video.</div>
+
+          <div class="adv-field">
+            <label>Resolution</label>
+            <div class="adv-btn-group" style="flex-wrap:wrap">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('resolution',this)" data-val="720p">📺 720p</button>
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('resolution',this)" data-val="1080p">🖥 1080p</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('resolution',this)" data-val="4k">✨ 4K</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('resolution',this)" data-val="vertical_1080">📱 Vertical (9:16)</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('resolution',this)" data-val="square_1080">⬛ Square (1:1)</button>
+            </div>
+          </div>
+
+          <div class="adv-field">
+            <label>Frame Rate</label>
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('fps',this)" data-val="24">🎞 24 fps</button>
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('fps',this)" data-val="30">▶ 30 fps</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('fps',this)" data-val="60">⚡ 60 fps</button>
+            </div>
+          </div>
+
+          <div class="adv-field">
+            <label>Format</label>
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('format',this)" data-val="mp4">🎬 MP4</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('format',this)" data-val="mov">🎞 MOV</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('format',this)" data-val="webm">🌐 WebM</button>
+            </div>
+          </div>
+
+          <div class="adv-field">
+            <label>Quality</label>
+            <div class="adv-btn-group">
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('quality',this)" data-val="standard">⚡ Standard</button>
+              <button class="adv-btn-opt active" onclick="advSetBtnOpt('quality',this)" data-val="high">🔥 High</button>
+              <button class="adv-btn-opt" onclick="advSetBtnOpt('quality',this)" data-val="ultra">💎 Ultra</button>
+            </div>
+          </div>
+
+          <div class="adv-section-hdr">Extras</div>
+
+          <div class="adv-toggle-row">
+            <div>
+              <div class="adv-toggle-label">Background Music</div>
+              <div class="adv-toggle-sub">Add AI-generated background music to the video</div>
+            </div>
+            <label class="adv-toggle">
+              <input type="checkbox" id="adv-out-bgm" checked>
+              <span class="adv-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="adv-toggle-row">
+            <div>
+              <div class="adv-toggle-label">Burn Subtitles</div>
+              <div class="adv-toggle-sub">Overlay subtitles into the video (always on for Documentary when voice is enabled)</div>
+            </div>
+            <label class="adv-toggle">
+              <input type="checkbox" id="adv-out-subs" checked>
+              <span class="adv-toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="adv-toggle-row">
+            <div>
+              <div class="adv-toggle-label">Zygomatic Watermark</div>
+              <div class="adv-toggle-sub">Add a subtle watermark to the output</div>
+            </div>
+            <label class="adv-toggle">
+              <input type="checkbox" id="adv-out-watermark">
+              <span class="adv-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- ── BENCHMARK ── -->
+        <div class="adv-panel" id="adv-panel-benchmark">
+          <div class="adv-panel-title">Benchmark</div>
+          <div class="adv-panel-desc">Expected production times per AI tool, based on observed run data. Used to estimate pipeline duration.</div>
+
+          <div style="margin-bottom:12px">
+            <button class="adv-add-btn" onclick="advLoadBenchmark()" style="margin-top:0">↻ Refresh</button>
+          </div>
+
+          <div id="adv-bm-loading" style="color:var(--text-muted);font-size:0.85rem;display:none">Loading benchmark data…</div>
+          <div id="adv-bm-error"   style="color:#e57373;font-size:0.85rem;display:none"></div>
+
+          <table id="adv-bm-table" style="width:100%;border-collapse:collapse;font-size:0.83rem;display:none">
+            <thead>
+              <tr style="color:var(--text-muted);border-bottom:1px solid var(--border)">
+                <th style="text-align:left;padding:6px 8px">Tool</th>
+                <th style="text-align:right;padding:6px 8px">Avg / unit</th>
+                <th style="text-align:right;padding:6px 8px">Last run</th>
+                <th style="text-align:right;padding:6px 8px">Samples</th>
+                <th style="text-align:right;padding:6px 8px">Last seen</th>
+              </tr>
+            </thead>
+            <tbody id="adv-bm-tbody"></tbody>
+          </table>
+
+          <div id="adv-bm-empty" style="color:var(--text-muted);font-size:0.85rem;display:none">
+            No benchmark data yet — run a pipeline to start collecting timing data.
+          </div>
+        </div>
+
+      </div><!-- /.adv-content -->
+    </div><!-- /.adv-modal-body -->
+  </div><!-- /.adv-modal -->
+</div><!-- /.adv-overlay -->
+
+<!-- Hidden file inputs for adv settings image uploads (one per category) -->
+<input type="file" id="adv-file-input-scenes"     accept="image/jpeg,image/png" style="display:none" onchange="advHandleFile('scenes')">
+<input type="file" id="adv-file-input-characters" accept="image/jpeg,image/png" style="display:none" onchange="advHandleFile('characters')">
+<input type="file" id="adv-file-input-objects"    accept="image/jpeg,image/png" style="display:none" onchange="advHandleFile('objects')">
+<input type="file" id="adv-file-input-animals"    accept="image/jpeg,image/png" style="display:none" onchange="advHandleFile('animals')">
+<!-- Sub-slot file inputs (char: obj + animal attachments; animal: obj attachment) -->
+<input type="file" id="adv-file-input-char-obj"   accept="image/jpeg,image/png" style="display:none" onchange="advHandleSubFile('adv-file-input-char-obj','characters','obj')">
+<input type="file" id="adv-file-input-char-ani"   accept="image/jpeg,image/png" style="display:none" onchange="advHandleSubFile('adv-file-input-char-ani','characters','ani')">
+<input type="file" id="adv-file-input-ani-obj"    accept="image/jpeg,image/png" style="display:none" onchange="advHandleSubFile('adv-file-input-ani-obj','animals','obj')">
+<!-- ── Create Prompt Dialog ─────────────────────────────────────────────── -->
+<div class="adv-create-overlay" id="adv-create-overlay" onclick="advCloseCreate(event)">
+  <div class="adv-create-dialog" id="adv-create-dialog">
+    <div class="adv-create-hdr">
+      <span class="adv-create-title" id="adv-create-title">✨ Create Scene</span>
+      <button class="adv-close-btn" onclick="advCloseCreate()" title="Close">✕</button>
+    </div>
+    <div class="adv-create-body">
+      <p class="adv-create-hint" id="adv-create-hint">Describe the scene you want to generate.</p>
+      <textarea class="adv-create-textarea" id="adv-create-prompt"
+                placeholder="e.g. A misty mountain valley at sunrise with golden light filtering through the pine trees..."></textarea>
+      <div class="adv-create-actions">
+        <button class="adv-create-cancel" onclick="advCloseCreate()">Cancel</button>
+        <button class="adv-create-generate" onclick="advDoCreate()">✨ Generate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.main-content -->
+
+<!-- ── Advanced Settings Corner Launcher ──────────────────────────────── -->
+{% if invite_mode == 'active' %}
+<div class="adv-corner-launcher" onclick="openAdvModal()" title="Advanced Settings">
+  <div class="adv-corner-label-wrap">
+    <span class="adv-corner-text">Advanced Settings</span>
+    <span class="adv-corner-arrow">→</span>
+  </div>
+  <div class="adv-corner-gear">
+    <svg viewBox="0 0 64 64" width="14" height="14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;min-width:14px;min-height:14px;max-width:14px;max-height:14px;">
+      <defs>
+        <linearGradient id="settingsGearSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e8e6e2"/>
+          <stop offset="40%" stop-color="#b8b6b2"/>
+          <stop offset="100%" stop-color="#585858"/>
+        </linearGradient>
+      </defs>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="url(#settingsGearSilver)" stroke-width="2.5"/>
+      <circle cx="32" cy="32" r="9" fill="url(#settingsGearSilver)"/>
+      <circle cx="32" cy="6" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/>
+      <circle cx="32" cy="6" r="1.5" fill="url(#settingsGearSilver)"/>
+      <circle cx="55" cy="20" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/>
+      <circle cx="55" cy="20" r="1.5" fill="url(#settingsGearSilver)"/>
+      <circle cx="55" cy="44" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/>
+      <circle cx="55" cy="44" r="1.5" fill="url(#settingsGearSilver)"/>
+      <circle cx="9" cy="20" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/>
+      <circle cx="9" cy="20" r="1.5" fill="url(#settingsGearSilver)"/>
+      <circle cx="9" cy="44" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/>
+      <circle cx="9" cy="44" r="1.5" fill="url(#settingsGearSilver)"/>
+      <circle cx="32" cy="58" r="5" fill="none" stroke="url(#settingsGearSilver)" stroke-width="1.5"/>
+      <circle cx="32" cy="58" r="1.5" fill="url(#settingsGearSilver)"/>
+    </svg>
+  </div>
+</div>
+{% endif %}
+
+<!-- Global tooltip element (used by Advanced Settings hover tooltips) -->
+<div id="adv-tt"></div>
+
+<!-- Live Amsterdam clock — bottom-left corner -->
+<div id="ams-clock" style="
+  position:fixed;bottom:14px;left:16px;z-index:9000;
+  font-family:'Segoe UI',system-ui,monospace;font-size:11px;
+  color:#5c5650;line-height:1.4;pointer-events:none;user-select:none;
+  text-shadow:0 1px 2px rgba(255,255,255,0.6);">
+</div>
+<script src="/assets/zero/js/zpub_storyteller.js?v=3"></script>
+
+<script src="/assets/zero/js/zpub_wizard_extras.js?v=1"></script>
+
+
+<!-- ═══════════════════════════════ Hair Style Modal ═══════════════════════════ -->
+<div id="st-hair-modal" style="display:none;position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,0.6);overflow-y:auto;padding:16px 10px" onclick="stHairModalBg(event)">
+  <div id="st-hair-modal-box" style="background:var(--surface);max-width:660px;width:100%;margin:0 auto;border-radius:14px;padding:20px;position:relative">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div style="font-size:1rem;font-weight:700;color:var(--accent)">✂️ Choose Hair Style</div>
+      <button type="button" onclick="stCloseHairModal()" style="background:rgba(255,255,255,0.08);border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:4px 10px;border-radius:6px;line-height:1">✕</button>
+    </div>
+    <div id="st-hair-modal-body" style="max-height:65vh;overflow-y:auto;padding-right:2px"></div>
+  </div>
+</div>
+
+<!-- Facial Hair Modal -->
+<div id="st-facial-modal" style="display:none;position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,0.6);overflow-y:auto;padding:16px 10px" onclick="stFacialHairModalBg(event)">
+  <div id="st-facial-modal-box" style="background:var(--surface);max-width:500px;width:100%;margin:0 auto;border-radius:14px;padding:20px;position:relative">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div style="font-size:1rem;font-weight:700;color:var(--accent)">🪒 Choose Facial Hair</div>
+      <button type="button" onclick="stCloseFacialHairModal()" style="background:rgba(255,255,255,0.08);border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:4px 10px;border-radius:6px;line-height:1">✕</button>
+    </div>
+    <div id="st-facial-modal-body" style="max-height:65vh;overflow-y:auto;padding-right:2px"></div>
+  </div>
+</div>
+
+<!-- Preview Windows System -->
+<link rel="stylesheet" href="/assets/zero/css/zpub_preview_windows.css?v=1">
+
+<script src="/assets/zero/js/zpub_preview_windows.js?v=2"></script>
+
+<!-- ── Persistent pending-request notification ──────────────────────────── -->
+<script src="/assets/zero/js/zpub_pending_notification.js?v=1"></script>
+
+<script src="/assets/zero/js/zpub_background_fx.js?v=1"></script>
+
+
+<!-- ── Fingerprint gate — private cinema entrance ───────────────────────────── -->
+<button class="fp-dot" id="fp-dot" type="button" aria-label="Private access" title="Private access">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M2.6 10.4a9.8 9.8 0 0 1 18.8 0"/>
+    <path d="M4.6 15.4A15.4 15.4 0 0 0 5.2 20"/>
+    <path d="M19.4 15.4A15.4 15.4 0 0 1 18.8 20"/>
+    <path d="M5.1 12.4a6.9 6.9 0 0 1 13.8 0c0 1.2-.06 2.4-.2 3.5"/>
+    <path d="M5.2 15.9c-.1-1.1-.15-2.3-.15-3.5"/>
+    <path d="M8.3 12.4a3.7 3.7 0 0 1 7.4 0c0 3.3-.4 6.5-1.2 9.4"/>
+    <path d="M9.5 21.8c.7-2.4 1.1-4.9 1.2-7.4"/>
+    <path d="M12 12.4v2.2"/>
+  </svg>
+</button>
+
+<div class="fp-veil" id="fp-veil" role="dialog" aria-modal="true" aria-labelledby="fp-title">
+  <div class="fp-panel">
+    <div class="fp-panel-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2.6 10.4a9.8 9.8 0 0 1 18.8 0"/>
+        <path d="M4.6 15.4A15.4 15.4 0 0 0 5.2 20"/>
+        <path d="M19.4 15.4A15.4 15.4 0 0 1 18.8 20"/>
+        <path d="M5.1 12.4a6.9 6.9 0 0 1 13.8 0c0 1.2-.06 2.4-.2 3.5"/>
+        <path d="M5.2 15.9c-.1-1.1-.15-2.3-.15-3.5"/>
+        <path d="M8.3 12.4a3.7 3.7 0 0 1 7.4 0c0 3.3-.4 6.5-1.2 9.4"/>
+        <path d="M9.5 21.8c.7-2.4 1.1-4.9 1.2-7.4"/>
+        <path d="M12 12.4v2.2"/>
+      </svg>
+    </div>
+    <h3 id="fp-title">Private access</h3>
+    <p>Enter your password to continue.</p>
+    <form id="fp-form" autocomplete="off">
+      <input class="fp-input" id="fp-pass" type="password" inputmode="numeric"
+             placeholder="••••••••" autocomplete="current-password" aria-label="Password">
+      <div class="fp-msg" id="fp-msg" role="alert"></div>
+      <div class="fp-actions">
+        <button class="fp-btn" type="button" id="fp-cancel">Cancel</button>
+        <button class="fp-btn fp-btn-go" type="submit" id="fp-go">Unlock</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  var dot = document.getElementById('fp-dot');
+  var veil = document.getElementById('fp-veil');
+  var form = document.getElementById('fp-form');
+  var pass = document.getElementById('fp-pass');
+  var msg = document.getElementById('fp-msg');
+  var go = document.getElementById('fp-go');
+  if (!dot || !veil) return;
+
+  function open() {
+    veil.classList.add('open');
+    msg.textContent = '';
+    pass.value = '';
+    setTimeout(function () { pass.focus(); }, 30);
+  }
+  function close() {
+    veil.classList.remove('open');
+    pass.value = '';
+    msg.textContent = '';
+  }
+
+  dot.addEventListener('click', open);
+  document.getElementById('fp-cancel').addEventListener('click', close);
+  veil.addEventListener('mousedown', function (e) { if (e.target === veil) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && veil.classList.contains('open')) close();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var value = pass.value.trim();
+    if (!value) { pass.focus(); return; }
+    go.disabled = true;
+    msg.style.color = '';
+    msg.textContent = 'Checking…';
+    fetch('/api/cinema/unlock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: value })
+    }).then(function (r) {
+      // flask-limiter answers 429 with an HTML page, so r.json() throws and the
+      // user would otherwise be told "Server error" for a rate limit.
+      if (r.status === 429) return { success: false, error: 'Too many attempts — wait a minute and try again.' };
+      return r.json().catch(function () { return { success: false, error: 'Server error' }; });
+    }).then(function (d) {
+      if (d && d.success) {
+        msg.style.color = '#22c55e';
+        msg.textContent = 'Unlocked — opening…';
+        window.location.href = d.redirect || '/cinema';
+        return;
+      }
+      go.disabled = false;
+      msg.textContent = (d && d.error) || 'Incorrect password';
+      pass.value = '';
+      pass.focus();
+      veil.querySelector('.fp-panel').classList.remove('fp-shake');
+      void veil.querySelector('.fp-panel').offsetWidth;
+      veil.querySelector('.fp-panel').classList.add('fp-shake');
+    }).catch(function () {
+      go.disabled = false;
+      msg.textContent = 'Connection failed';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

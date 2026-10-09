@@ -1,0 +1,10 @@
+{"section_key": "site", "section_label": "Site",
+ "groups": [{"g": "Fields & meadows",
+             "items": [["crop_field", "Crop field", {"w": 60, "d": 40, "crop": 0, "spacing": 0.75, "h": 0.3, "dir": 0, "gx": 0, "gz": 0},
+                        "One farmed field (akker): a soil plate w x d with a row of crop every `spacing` metres, each row 0.6 x spacing wide so the soil shows between them and the field reads as stripes. crop 0 wheat (0.6 m), 1 corn (2.2), 2 potatoes (0.5), 3 hay (0.25), 4 tulips (0.3, red/white/yellow). dir turns the rows on the plan. gx/gz are the ground's rise per metre along the record's own x and z: the plate becomes a tilted quad and every row drops onto that plane with its sides upright, so the crop stands on a hillside instead of leaning over. 0/0 is flat ground."],
+                       ["meadow", "Meadow", {"w": 60, "d": 40, "flowers": 200, "seed": 1, "h": 0.25, "gx": 0, "gz": 0},
+                        "Rough grass (weiland) w x d with `flowers` heads scattered by the seed at height h. Same seed = same meadow in every engine. gx/gz drape it on the ground plane — the grass plate tilts, every flower stands up out of it."],
+                       ["marsh", "Marsh", {"w": 60, "d": 40, "depth": 0.4, "reeds": 150, "seed": 1, "reed_h": 1.8},
+                        "Shallow water (moeras): a basin `depth` deep with the surface just under the ground and `reeds` reed stems reed_h tall (1.5-2.5 m) scattered by the seed. Water lies LEVEL, so a marsh has no gx/gz and is never draped — the assistant refuses uneven ground for it."],
+                       ["vineyard", "Vineyard", {"w": 60, "d": 40, "row_spacing": 2.5, "h": 1.8, "dir": 0, "gx": 0, "gz": 0},
+                        "Vines in rows: a timber post 0.1 m square every 6 m and a continuous vine mass 0.5 m wide from 0.4h to h, h being 1.6-2.0 m. row_spacing is the gap between rows, dir turns them, gx/gz drape the whole planting on the hillside with every post still vertical."]]}]}

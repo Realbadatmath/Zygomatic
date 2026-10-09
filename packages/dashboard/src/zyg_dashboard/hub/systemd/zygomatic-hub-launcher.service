@@ -1,0 +1,16 @@
+[Unit]
+Description=Zygomatic hub launcher, headless (port 7777)
+PartOf=zygomatic.target
+After=network.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+User=zygomatic
+WorkingDirectory=/home/zygomatic/Zygomatic/hub
+ExecStart=/usr/bin/python3 hub_launcher_headless.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target zygomatic.target

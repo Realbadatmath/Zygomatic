@@ -1,0 +1,8 @@
+{"section_key": "lighting", "section_label": "Lighting",
+ "groups": [{"g": "Lamps",
+             "items": [["light_point", "Point light", {"w": 12, "r": 8, "col": "#ffe9c4"},
+                        "An omnidirectional lamp: `w` watts-ish (intensity), `r` the metres it reaches, `col` its colour. The record is a 0.12 m marker centred on the light itself; the real light follows it every frame."],
+                       ["light_spot", "Spot light", {"w": 20, "r": 12, "angle": 35, "pen": 0.3, "col": "#ffe9c4"},
+                        "A downlight aimed 2 m along its own -Y, so rx/rz tilt the beam. `angle` is the cone HALF-angle in degrees, `pen` the soft edge 0-1. Photometric ▸ IES replaces angle and flux with a measured luminaire's."],
+                       ["light_area", "Area light", {"w": 30, "x": 1.0, "z": 0.6, "col": "#ffe9c4"},
+                        "A softbox `x` by `z` metres facing the floor — a light shelf, a coffer, a window as a light source."]]}]}

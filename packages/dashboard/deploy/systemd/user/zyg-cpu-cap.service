@@ -1,0 +1,7 @@
+[Unit]
+Description=Zygomatic CPU core cap (pin Claude Code / VS Code tree to 20 of 24 cores)
+
+[Service]
+Type=oneshot
+# Host-local helper script, not shipped by this repository.
+ExecStart=%h/bin/zyg_cpu_cap.sh

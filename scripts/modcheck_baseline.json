@@ -1,0 +1,9 @@
+{
+ "generated": "2026-10-08T02:13:30+00:00",
+ "limit": 1000,
+ "files": {},
+ "exempt": {
+  "packages/workflows/src/zyg_workflows/prop_mesh/pufferball_look.py": "cumulative look-dev provenance; later sections shadow earlier names on purpose and the numbers are the spec \u2014 never tidy without re-rendering against the anchors (file's own header)",
+  "packages/workflows/src/zyg_workflows/prop_mesh/pbopt.py": "reads the pufferball source files by path and line position as its optimization substrate; reorganizing it invalidates recorded probe provenance"
+ }
+}

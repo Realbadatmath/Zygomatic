@@ -1,0 +1,67 @@
+# Root hooks. `pre-commit install` once at the root covers every package.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.10
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.9.4
+    hooks:
+      - id: bandit
+        name: bandit (workflows)
+        args: ["-c", "packages/workflows/pyproject.toml", "-q", "-ll"]
+        files: ^packages/workflows/src/
+        additional_dependencies: ["bandit[toml]"]
+      - id: bandit
+        name: bandit (dashboard)
+        args: ["-c", "packages/dashboard/pyproject.toml", "-q", "-ll"]
+        files: ^packages/dashboard/src/
+        additional_dependencies: ["bandit[toml]"]
+      - id: bandit
+        name: bandit (zero-public)
+        args: ["-c", "packages/zero-public/pyproject.toml", "-q", "-ll"]
+        files: ^packages/zero-public/src/
+        additional_dependencies: ["bandit[toml]"]
+      - id: bandit
+        name: bandit (creator-nexus)
+        args: ["-c", "packages/creator-nexus/pyproject.toml", "-q", "-ll"]
+        files: ^packages/creator-nexus/src/
+        additional_dependencies: ["bandit[toml]"]
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v6.2.0
+    hooks:
+      - id: reuse
+  # Pushes run the full publishability gate, not just the per-file hooks above.
+  - repo: local
+    hooks:
+      - id: zyg-modcheck
+        name: modularization gate (line caps + brand rule)
+        entry: python3 scripts/modcheck.py check
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: zyg-ratchet
+        name: quality ratchet (counts only go down)
+        entry: python3 scripts/ratchet.py check
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: zyg-commit-msg
+        name: commit message (≤72 subject, body, no trailers)
+        entry: python3 scripts/commit_msg_check.py
+        language: system
+        stages: [commit-msg]
+        pass_filenames: true
+      - id: zyg-gate
+        name: publishability gate (scripts/scan.sh)
+        entry: bash scripts/scan.sh
+        language: system
+        stages: [pre-push]
+        pass_filenames: false
+        always_run: true

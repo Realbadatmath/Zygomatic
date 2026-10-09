@@ -1,0 +1,17 @@
+{
+  "2025-07-13": [
+    {
+      "ai_model": "Bark",
+      "agent": "Arabic-Voice-Agent",
+      "start_time": "13:40",
+      "end_time": "14:40",
+      "cpu_percent": "1",
+      "memory_fraction": "0.1",
+      "cpu_device": "CPU 1",
+      "priority": "High",
+      "bar_id": "350a22e6",
+      "date": "2025-07-13",
+      "id": "1d6986a3-fe28-43aa-b627-01ad0ccaff13"
+    }
+  ]
+}

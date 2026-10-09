@@ -1,0 +1,522 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanban Board — Clipfarm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="kanban_assets/kanban.css?v=16">
+<style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<style id="mel-excluded">
+  /* A melody style excluded by operator decision (MELODY_EXCLUDED in
+     kanban_main.js). The row stays in the flyout, dimmed and inert, so the
+     absence reads as a decision rather than a menu entry someone lost. */
+  .kb-ch-item.kb-ch-off { opacity: .45; cursor: not-allowed; }
+
+/* ── "also running" chips (2026-10-02) ─────────────────────────────────── */
+.kb-other-runs{display:none;align-items:center;gap:6px;margin-left:10px;flex-wrap:wrap;}
+.kb-other-runs.on{display:flex;}
+.kb-other-runs .kb-or-label{font-size:0.72rem;opacity:0.75;letter-spacing:0.04em;text-transform:uppercase;}
+.kb-or-chip{display:inline-flex;align-items:center;gap:6px;background:#3a2f22;color:#ffd9a0;
+  border:1px solid rgba(255,190,110,0.38);border-radius:999px;padding:3px 10px;font-size:0.76rem;
+  cursor:pointer;white-space:nowrap;}
+.kb-or-chip:hover{background:#4a3a28;}
+.kb-or-chip.pinned{background:#24405a;color:#bfe3ff;border-color:rgba(130,200,255,0.5);}
+.kb-or-chip .kb-or-dot{width:7px;height:7px;border-radius:50%;background:#ffb44d;
+  box-shadow:0 0 0 0 rgba(255,180,77,0.7);animation:kbOrPulse 1.8s infinite;}
+@keyframes kbOrPulse{70%{box-shadow:0 0 0 7px rgba(255,180,77,0);}100%{box-shadow:0 0 0 0 rgba(255,180,77,0);}}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+</head>
+<body>
+
+<!-- Header -->
+<div class="kb-header">
+  <div class="kb-header-title">Workflows</div>
+  <div class="kb-header-badge">Clipfarm</div>
+  <div class="kb-header-badge" id="total-badge">0 jobs</div>
+  <!-- 2026-10-02: the board renders ONE department at a time, so a run in
+       another department used to be invisible while it burned GPU. These
+       chips name every live run the board is NOT showing; clicking one
+       pins the board to it. Empty and hidden when nothing else runs. -->
+  <div class="kb-other-runs" id="kb-other-runs"></div>
+  <select id="kb-model-family-select" style="margin-left:12px;background:#2f3a47;color:#e9eff8;border:1px solid rgba(190,215,245,0.18);border-radius:6px;padding:4px 10px;font-size:0.8rem;cursor:pointer;" title="Kanban model family view">
+    <option value="sdxl" selected>SDXL</option>
+    <option value="flux">FLUX</option>
+  </select>
+  <!-- Environments/Effects render mode: 3D (video, default) vs 2D (still) -->
+  <select id="kb-render-mode-select" style="margin-left:8px;background:#2f3a47;color:#e9eff8;border:1px solid rgba(190,215,245,0.18);border-radius:6px;padding:4px 10px;font-size:0.8rem;cursor:pointer;" title="Environments / Effects render mode — 3D video vs 2D still" onchange="_setRenderMode(this.value)">
+    <option value="3d" selected>3D</option>
+    <option value="2d">2D</option>
+  </select>
+  <!-- Custom channel/pipeline picker -->
+  <div class="kb-ch-picker-wrap" id="kb-ch-picker-wrap">
+    <div class="kb-ch-trigger" id="kb-ch-trigger" onclick="_toggleChPicker(event)" title="View a board">
+      <span id="kb-ch-label">Documentary</span>
+      <span class="kb-ch-arrow">▼</span>
+    </div>
+    <div class="kb-ch-menu" id="kb-ch-menu">
+      <!-- 2026-09-16: the picker is three side-by-side columns (.kb-ch-col) instead of
+           one tall list — Pipelines | Channels | Blueprints. The menu itself is the
+           flex row (.kb-ch-menu.open{display:flex}); each column keeps the old
+           min-width:230px so no item's markup, onclick or data-key had to change. -->
+      <div class="kb-ch-col" id="kb-ch-col-pipelines">
+      <!-- ── Pipelines ── -->
+      <div class="kb-ch-section">Pipelines</div>
+      <div class="kb-ch-item active" data-key="documentary"          onclick="_selectTemplate('documentary')">Documentary</div>
+      <!-- Video (with a side flyout listing the prepared series) -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="video" onclick="_selectTemplate('video')">Video</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'video')" title="Series">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-video">
+          <div class="kb-ch-item kb-ch-sub" style="opacity:.55;cursor:default">Loading series…</div>
+        </div>
+      </div>
+      <div class="kb-ch-item"        data-key="manga"                onclick="_selectTemplate('manga')">Manga</div>
+      <div class="kb-ch-item"        data-key="intro"                onclick="_selectTemplate('intro')">Intro</div>
+      <div class="kb-ch-item"        data-key="storyteller"          onclick="_selectTemplate('storyteller')">Storyteller</div>
+      <div class="kb-ch-item"        data-key="character_creation"   onclick="_selectTemplate('character_creation')">Character Creation</div>
+      <div class="kb-ch-item"        data-key="contact_sheet_creation" onclick="_selectTemplate('contact_sheet_creation')">Multi-Angle Contact Sheet</div>
+      <div class="kb-ch-item"        data-key="creature_creation"    onclick="_selectTemplate('creature_creation')">Creature Creation</div>
+      <div class="kb-ch-item"        data-key="templates"             onclick="_selectTemplate('templates')">Templates</div>
+      <div class="kb-ch-item"        data-key="medusa"                onclick="_selectTemplate('medusa')">Medusa</div>
+      <div class="kb-ch-item"        data-key="environments"          onclick="_selectTemplate('environments')">Environments</div>
+      <div class="kb-ch-item"        data-key="effects"               onclick="_selectTemplate('effects')">Effects</div>
+      <div class="kb-ch-item"        data-key="wardrobe"              onclick="_selectTemplate('wardrobe')">Wardrobe</div>
+      <div class="kb-ch-item"        data-key="remix"                 onclick="_selectTemplate('remix')">Remix</div>
+      <div class="kb-ch-item"        data-key="remix_ai"              onclick="_selectTemplate('remix_ai')">Remix Ai</div>
+      <!-- Melodies (2026-09-06): was the flat "Children's Music" item. The group
+           name still opens the LIVE composer board (kidsmusic, the only melody
+           runner that exists); the flyout lists every melody style. Its children
+           are built by _buildMelodyMenu() from MELODY_FAMILIES in kanban_main.js
+           rather than written out here — 127 hand-written <div>s is 127 chances
+           for a menu entry and its board to drift apart. -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="kidsmusic" onclick="_selectTemplate('kidsmusic')">Melodies</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'melodies')" title="Melody styles">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-melodies"></div>
+      </div>
+      <!-- Kids Series (2026-09-06): the ten children's series. Children are
+           built by _buildKidsMenu() from /kanban/api/kids_series — which is
+           kids_series_common.discover(), re-globbed on every call — rather than
+           written out here, so a new pipeline_kids_<slug>.py appears in this
+           menu without an edit to this file. The group name opens an overview
+           board listing the series; each child opens that series' own board,
+           whose columns ARE its STAGES. -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="kids_series_home" onclick="_selectTemplate('kids_series_home')">Kids Series</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'kids')" title="Children's series">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-kids"></div>
+      </div>
+      </div><!-- /kb-ch-col-pipelines -->
+
+      <div class="kb-ch-col" id="kb-ch-col-channels">
+      <!-- ── Channels ── -->
+      <div class="kb-ch-section">Channels</div>
+
+      <!-- Benchmark -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="ch_benchmark" onclick="_selectTemplate('ch_benchmark')">Benchmark</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'benchmark')" title="Expand subchannels">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-benchmark">
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_benchmark_phones"   onclick="_selectTemplate('ch_benchmark_phones')">Phones</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_benchmark_gpus_cpus" onclick="_selectTemplate('ch_benchmark_gpus_cpus')">GPUS &amp; CPUS</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_benchmark_cars"     onclick="_selectTemplate('ch_benchmark_cars')">Cars</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_benchmark_llm"      onclick="_selectTemplate('ch_benchmark_llm')">Large language models</div>
+        </div>
+      </div>
+
+      <!-- Cars -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="ch_cars" onclick="_selectTemplate('ch_cars')">Cars</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'cars')" title="Expand subchannels">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-cars">
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_cars_future"    onclick="_selectTemplate('ch_cars_future')">Future Cars</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_cars_oldtimers" onclick="_selectTemplate('ch_cars_oldtimers')">Oldtimers</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_cars_mechanics" onclick="_selectTemplate('ch_cars_mechanics')">Car Mechanics</div>
+        </div>
+      </div>
+
+      <!-- Financials -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="ch_financials" onclick="_selectTemplate('ch_financials')">Financials</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'financials')" title="Expand subchannels">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-financials">
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_fin_wyscamus"    onclick="_selectTemplate('ch_fin_wyscamus')">wyscamus</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_fin_stockmarket" onclick="_selectTemplate('ch_fin_stockmarket')">Stockmarket</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_fin_crypto"      onclick="_selectTemplate('ch_fin_crypto')">Cryptodaily</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_fin_history"     onclick="_selectTemplate('ch_fin_history')">Future and past financial events</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_fin_housing"     onclick="_selectTemplate('ch_fin_housing')">Housing</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_fin_landplots"   onclick="_selectTemplate('ch_fin_landplots')">Developmental Landplots</div>
+        </div>
+      </div>
+
+      <!-- News -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="ch_news" onclick="_selectTemplate('ch_news')">News</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'news')" title="Expand subchannels">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-news">
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_news_world"  onclick="_selectTemplate('ch_news_world')">Impactfull Worldnews</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_news_ru"     onclick="_selectTemplate('ch_news_ru')">Daily News Russian</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_news_en"     onclick="_selectTemplate('ch_news_en')">Daily News Western</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_news_eu"     onclick="_selectTemplate('ch_news_eu')">Daily News Europe</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_news_cn"     onclick="_selectTemplate('ch_news_cn')">Daily News China</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_news_sa"     onclick="_selectTemplate('ch_news_sa')">Daily News South America</div>
+        </div>
+      </div>
+
+      <!-- Storyteller -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="ch_storyteller" onclick="_selectTemplate('ch_storyteller')">Storyteller</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'storyteller')" title="Expand subchannels">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-storyteller">
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_story_her"    onclick="_selectTemplate('ch_story_her')">Her Stories</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_story_his"    onclick="_selectTemplate('ch_story_his')">His Stories</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_story_madeup" onclick="_selectTemplate('ch_story_madeup')">Made up stories</div>
+        </div>
+      </div>
+
+      <!-- Arena -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="ch_arena" onclick="_selectTemplate('ch_arena')">Arena</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'arena')" title="Expand subchannels">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-arena">
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_arena_soccer"  onclick="_selectTemplate('ch_arena_soccer')">ArenaSoccer</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_arena_nba"     onclick="_selectTemplate('ch_arena_nba')">ArenaNBA</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_arena_ufc"     onclick="_selectTemplate('ch_arena_ufc')">ArenaUFC</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_arena_tennis"  onclick="_selectTemplate('ch_arena_tennis')">ArenaTennis</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_arena_nfl"     onclick="_selectTemplate('ch_arena_nfl')">Arena|NFL</div>
+        </div>
+      </div>
+
+      <!-- TokiToki -->
+      <div class="kb-ch-group">
+        <div class="kb-ch-group-hdr">
+          <span class="kb-ch-group-name" data-key="ch_tokitoki" onclick="_selectTemplate('ch_tokitoki')">TokiToki</span>
+          <button class="kb-ch-chevron-btn" onclick="_toggleChGroup(event,'tokitoki')" title="Expand subchannels">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2.5 1.5L6 4.5L2.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="kb-ch-group-children" id="kb-chgrp-tokitoki">
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_tokitoki_soccer" onclick="_selectTemplate('ch_tokitoki_soccer')">TokiTokiSoccer</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_tokitoki_nba"    onclick="_selectTemplate('ch_tokitoki_nba')">TokiTokiNBA</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_tokitoki_ufc"    onclick="_selectTemplate('ch_tokitoki_ufc')">TokiTokiUFC</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_tokitoki_tennis" onclick="_selectTemplate('ch_tokitoki_tennis')">TokiTokiTennis</div>
+          <div class="kb-ch-item kb-ch-sub" data-key="ch_tokitoki_nfl"    onclick="_selectTemplate('ch_tokitoki_nfl')">TokiTokiNFL</div>
+        </div>
+      </div>
+
+      <!-- Standalone channels (no subchannels) -->
+      <div class="kb-ch-item" data-key="ch_luxury"    onclick="_selectTemplate('ch_luxury')">Luxury</div>
+      <div class="kb-ch-item" data-key="ch_traveling" onclick="_selectTemplate('ch_traveling')">Traveling</div>
+      <div class="kb-ch-item" data-key="ch_clipped"   onclick="_selectTemplate('ch_clipped')">Clipped</div>
+      <div class="kb-ch-item" data-key="ch_crime"     onclick="_selectTemplate('ch_crime')">Crime</div>
+      <div class="kb-ch-item" data-key="ch_docudocu"  onclick="_selectTemplate('ch_docudocu')">DocuDocu</div>
+      <div class="kb-ch-item" data-key="ch_religion"  onclick="_selectTemplate('ch_religion')">Religion</div>
+      </div><!-- /kb-ch-col-channels -->
+
+      <!-- ── Blueprints ── (2026-09-16) the 2D character course boards. Only the
+           roman numeral carries the steel gradient (.kb-roman); the words stay
+           ordinary menu text. -->
+      <div class="kb-ch-col" id="kb-ch-col-blueprints">
+      <div class="kb-ch-section">Blueprints</div>
+      <div class="kb-ch-item" data-key="char2d_basics_1" onclick="_selectTemplate('char2d_basics_1')">2D Character Basics <span class="kb-roman">I</span></div>
+      <div class="kb-ch-item" data-key="char2d_basics_2" onclick="_selectTemplate('char2d_basics_2')">2D Character Basics <span class="kb-roman">II</span></div>
+      <div class="kb-ch-item" data-key="char2d_basics_3" onclick="_selectTemplate('char2d_basics_3')">2D Character Basics <span class="kb-roman">III</span></div>
+      <div class="kb-ch-item" data-key="char2d_basics_4" onclick="_selectTemplate('char2d_basics_4')">2D Character Basics <span class="kb-roman">IV</span></div>
+      </div><!-- /kb-ch-col-blueprints -->
+    </div>
+    <!-- Flyout submenu — populated+positioned by _toggleChGroup() -->
+    <div id="kb-ch-flyout" class="kb-ch-flyout"></div>
+  </div>
+  <!-- Hidden native select kept for backward-compat (JS references kb-template-select for value reads) -->
+  <select id="kb-template-select" style="display:none;" title="View a pipeline template (read-only)">
+    <option value="documentary">Documentary</option>
+    <option value="video">Video</option>
+    <option value="second_ledger">Second Ledger</option>
+    <option value="manga">Manga</option>
+    <option value="intro">Intro</option>
+    <option value="storyteller">Storyteller</option>
+    <option value="character_creation">Character Creation</option>
+    <option value="contact_sheet_creation">Multi-Angle Contact Sheet</option>
+    <option value="creature_creation">Creature Creation</option>
+    <option value="templates">Templates</option>
+    <option value="medusa">Medusa</option>
+    <option value="ch_benchmark">Benchmark</option>
+    <option value="ch_cars">Cars</option>
+    <option value="ch_financials">Financials</option>
+    <option value="ch_news">News</option>
+    <option value="ch_storyteller">Storyteller Channel</option>
+    <option value="ch_arena">Arena</option>
+    <option value="ch_tokitoki">TokiToki</option>
+    <option value="ch_luxury">Luxury</option>
+    <option value="ch_traveling">Traveling</option>
+    <option value="ch_clipped">Clipped</option>
+    <option value="ch_crime">Crime</option>
+    <option value="ch_docudocu">DocuDocu</option>
+    <option value="ch_religion">Religion</option>
+    <option value="ch_benchmark_phones">Phones</option>
+    <option value="ch_benchmark_gpus_cpus">GPUS &amp; CPUS</option>
+    <option value="ch_benchmark_cars">Cars (Benchmark)</option>
+    <option value="ch_benchmark_llm">Large language models</option>
+    <option value="ch_cars_future">Future Cars</option>
+    <option value="ch_cars_oldtimers">Oldtimers</option>
+    <option value="ch_cars_mechanics">Car Mechanics</option>
+    <option value="ch_fin_wyscamus">wyscamus</option>
+    <option value="ch_fin_stockmarket">Stockmarket</option>
+    <option value="ch_fin_crypto">Cryptodaily</option>
+    <option value="ch_fin_history">Future and past financial events</option>
+    <option value="ch_fin_housing">Housing</option>
+    <option value="ch_fin_landplots">Developmental Landplots</option>
+    <option value="ch_news_world">Impactfull Worldnews</option>
+    <option value="ch_news_ru">Daily News Russian</option>
+    <option value="ch_news_en">Daily News Western</option>
+    <option value="ch_news_eu">Daily News Europe</option>
+    <option value="ch_news_cn">Daily News China</option>
+    <option value="ch_news_sa">Daily News South America</option>
+    <option value="ch_story_her">Her Stories</option>
+    <option value="ch_story_his">His Stories</option>
+    <option value="ch_story_madeup">Made up stories</option>
+    <option value="ch_arena_soccer">ArenaSoccer</option>
+    <option value="ch_arena_nba">ArenaNBA</option>
+    <option value="ch_arena_ufc">ArenaUFC</option>
+    <option value="ch_arena_tennis">ArenaTennis</option>
+    <option value="ch_arena_nfl">Arena|NFL</option>
+    <option value="ch_tokitoki_soccer">TokiTokiSoccer</option>
+    <option value="ch_tokitoki_nba">TokiTokiNBA</option>
+    <option value="ch_tokitoki_ufc">TokiTokiUFC</option>
+    <option value="ch_tokitoki_tennis">TokiTokiTennis</option>
+    <option value="ch_tokitoki_nfl">TokiTokiNFL</option>
+    <option value="char2d_basics_1">2D Character Basics I</option>
+    <option value="char2d_basics_2">2D Character Basics II</option>
+    <option value="char2d_basics_3">2D Character Basics III</option>
+    <option value="char2d_basics_4">2D Character Basics IV</option>
+  </select>
+  <span id="kb-family-mismatch" style="display:none;margin-left:10px;font-size:0.75rem;color:#ffd46b;background:rgba(255,212,107,0.08);border:1px solid rgba(255,212,107,0.28);border-radius:4px;padding:2px 8px;font-weight:700;letter-spacing:0.01em;"></span>
+  <!-- Active pipeline status text -->
+  <span id="kb-active-status" style="display:none;margin-left:14px;font-size:0.8rem;font-weight:600;color:#5fe08e;letter-spacing:0.01em;"></span>
+  <span id="kb-live-badge" class="kb-live-badge" style="display:none;" role="button" tabindex="0" title="Switch to the active pipeline board">Active: <span id="kb-live-badge-name">Documentary</span></span>
+  <span id="kb-test-badge" style="display:none;margin-left:8px;font-size:0.75rem;color:#ffd46b;background:rgba(255,212,107,0.08);border:1px solid rgba(255,212,107,0.28);border-radius:4px;padding:2px 8px;font-weight:600;">⚗ Test Run</span>
+  <div class="kb-live-dot" style="margin-left:auto;"></div>
+  <div class="kb-live-label" style="margin-left:6px;">Live</div>
+</div>
+
+<div style="display:flex;align-items:center;">
+  <div class="kb-pipeline-label" id="kb-pipeline-label">[ DOCUMENTARY PIPELINE ]</div>
+  <!-- 2026-09-16: shown by _char2dRunVisible() on the 2D Character Basics I
+       board only — every other board here is view-only. -->
+  <button id="kb-char2d-run" class="kb-header-badge"
+          style="display:none;margin:9px 0 0 12px;cursor:pointer;color:#5fe08e;border-color:rgba(95,224,142,.35);"
+          onclick="_char2dRun()" title="Run the 2D Character Basics I workflow">▶ Run</button>
+  <a id="kb-inspect-eye" href="https://studio.zygomaticszero.com/#library" target="_blank" rel="noopener"
+     title="Open contact-sheet inspection — Abel (Arcane run postmortem)"
+     style="display:none;align-items:center;margin:9px 0 0 4px;text-decoration:none;">
+    <img src="inspect_eye.png?v=2" alt="Inspect" width="34" height="22"
+         style="display:block;opacity:.82;cursor:pointer;transition:opacity .15s,transform .15s;"
+         onmouseover="this.style.opacity=1;this.style.transform='scale(1.14)';"
+         onmouseout="this.style.opacity=.82;this.style.transform='none';">
+  </a>
+</div>
+<script>
+  /* Show the inspection eye only on the Multi-Angle Contact Sheet board. */
+  (function(){
+    var lbl=document.getElementById('kb-pipeline-label'), eye=document.getElementById('kb-inspect-eye');
+    function upd(){ if(lbl&&eye) eye.style.display=/CONTACT SHEET/i.test(lbl.textContent||'')?'inline-flex':'none'; }
+    upd();
+    try{ new MutationObserver(upd).observe(lbl,{childList:true,characterData:true,subtree:true}); }
+    catch(e){ setInterval(upd,1200); }
+  })();
+</script>
+
+<!-- Operator review gate (2026-08-26). A pipeline parked at awaiting_review is
+     at REST, so every "is it running" check on this page treated it as idle and
+     drew nothing — the run sat waiting on an approval the operator was never
+     shown. Rendered by _updateReviewGate() in kanban_main.js. -->
+<div id="kb-review-gate" style="display:none;"></div>
+
+<!-- Board + telemetry side panel -->
+<div class="kb-body">
+  <div class="kb-board" id="kb-board"></div>
+  <div class="kb-telemetry" id="kb-telemetry"><!-- rendered by JS --></div>
+</div>
+
+<!-- Job detail dialog -->
+<div id="kb-dialog-overlay">
+  <div id="kb-dialog">
+    <button id="kb-dialog-close" onclick="closeDialog()">✕</button>
+    <div class="dlg-title" id="dlg-title"></div>
+    <div class="dlg-stage" id="dlg-stage"></div>
+    <div class="dlg-tabs">
+      <button class="dlg-tab active" data-tab="overview">Overview</button>
+      <button class="dlg-tab" data-tab="function">Function</button>
+      <button class="dlg-tab" data-tab="agents">Agents</button>
+      <button class="dlg-tab" data-tab="llms">LLMs</button>
+      <button class="dlg-tab" data-tab="tools">Tools</button>
+    </div>
+    <div id="dlg-panel-overview" class="dlg-panel active" id="dlg-body"></div>
+    <div id="dlg-panel-function" class="dlg-panel dlg-rich dlg-loading">Loading…</div>
+    <div id="dlg-panel-agents"   class="dlg-panel dlg-rich dlg-loading">Loading…</div>
+    <div id="dlg-panel-llms"     class="dlg-panel dlg-rich dlg-loading">Loading…</div>
+    <div id="dlg-panel-tools"    class="dlg-panel dlg-rich dlg-loading">Loading…</div>
+  </div>
+</div>
+
+<script src="kanban_assets/kanban_main.js?v=47"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     LIVE TAIL — FAB + floating panel (matches Agent Zero style)
+     ═════════════════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="kanban_assets/kanban_livetail.css?v=4">
+
+<!-- FAB button -->
+<button id="lt-fab" title="Live Tail" onclick="ltToggle()">
+  <svg viewBox="0 0 21 18" fill="none" stroke="#58a6ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="1 9 5 9 7 18 13 0 16 9 20 9"/>
+    <circle class="hb-dot" r="1.8" cx="0" cy="0"/>
+  </svg>
+</button>
+
+<!-- Floating live tail panel -->
+<div id="lt-panel">
+  <div id="lt-header">
+    <span class="lt-title">&#9654; Live Tail — Workflows</span>
+    <div class="lt-btns">
+      <button id="lt-sim-btn" title="Simulate concurrent pipelines">⚗ Test</button>
+      <!-- Agent sessions (2026-08-30). The badge counts Claude Code sessions
+           measurably on this box's CPU/GPU right now — a workflow launched from
+           an agent, a render, a smoke test. Click to list them as subtabs. -->
+      <button id="lt-agents-btn" title="Agent sessions on the hardware">
+        <svg class="lt-skull" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+          <path d="M12 2C7 2 3.4 5.3 3.4 9.8c0 2.5 1.1 4.3 2.5 5.5.5.4.8 1 .8 1.7v1.3c0 .9.7 1.7 1.7 1.7h7.2c.9 0 1.7-.7 1.7-1.7V17c0-.7.3-1.3.8-1.7 1.4-1.2 2.5-3 2.5-5.5C20.6 5.3 17 2 12 2z"
+                fill="currentColor" opacity=".18"/>
+          <path d="M12 2.4C7.3 2.4 3.8 5.5 3.8 9.8c0 2.4 1 4 2.4 5.2.6.5 1 1.3 1 2.1v1.2c0 .7.6 1.3 1.3 1.3h7c.7 0 1.3-.6 1.3-1.3V17c0-.8.4-1.6 1-2.1 1.4-1.2 2.4-2.8 2.4-5.2 0-4.3-3.5-7.4-8.2-7.4z"
+                fill="none" stroke="currentColor" stroke-width="1.3"/>
+          <circle cx="8.7" cy="10.2" r="2.1" fill="currentColor"/>
+          <circle cx="15.3" cy="10.2" r="2.1" fill="currentColor"/>
+          <path d="M12 13.1l-.9 2.1h1.8L12 13.1z" fill="currentColor"/>
+          <path d="M9.6 18.2v2M12 18.2v2M14.4 18.2v2" stroke="currentColor"
+                stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <span id="lt-agents-count" class="lt-agents-count">0</span>
+      </button>
+      <button id="lt-clear">Clear</button>
+      <button id="lt-close">&#10005;</button>
+    </div>
+  </div>
+  <div id="lt-tabbar">
+    <button class="lt-tab active" data-tab="log">Pipeline Log</button>
+    <button class="lt-tab" data-tab="telem">Telemetry</button>
+    <button class="lt-tab" data-tab="debug">⚙ Debug</button>
+  </div>
+  <div id="lt-pane-log"   class="lt-pane active"></div>
+  <div id="lt-pane-telem" class="lt-pane"></div>
+  <div id="lt-pane-debug" class="lt-pane"></div>
+  <div id="lt-pane-agents" class="lt-pane"></div>
+  <div id="lt-status"><span id="lt-status-text">Idle</span><button id="lt-copy-btn" title="Copy tab contents">📋 Copy</button></div>
+</div>
+
+<script src="kanban_assets/kanban_livetail.js?v=7"></script>
+
+<!-- Agent-session rail — a vertical list of the live sessions, docked flush to
+     the LEFT edge of the live tail. Body level for the same reason the sim popup
+     is: #lt-panel is overflow:hidden, so anything docked outside its box would be
+     clipped. Its position tracks the panel on open, drag, resize and poll. -->
+<div id="lt-agent-rail"></div>
+
+<!-- Sim popup lives at body level so it escapes #lt-panel overflow:hidden -->
+<div id="lt-sim-popup">
+  <span class="sim-label">Simulate N concurrent pipelines</span>
+  <div class="sim-nums" id="lt-sim-nums"></div>
+</div>
+
+<script src="kanban_assets/kanban_sim.js?v=2"></script>
+</body>
+</html>

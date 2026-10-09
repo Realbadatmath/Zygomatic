@@ -1,0 +1,131 @@
+{
+  "10": {
+    "inputs": {
+      "unet_name": "flux1-dev.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Flux UNet"}
+  },
+  "11": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "DualCLIPLoader"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux_ae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load Flux VAE"}
+  },
+  "14": {
+    "inputs": {
+      "ipadatper": "flux-ip-adapter.safetensors",
+      "clip_vision": "clip-vit-large-patch14-ipa.safetensors",
+      "provider": "GPU"
+    },
+    "class_type": "LoadFluxIPAdapter",
+    "_meta": {"title": "Load Flux IPAdapter"}
+  },
+  "15": {
+    "inputs": {"image": "identity_ref.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "Identity Reference (cell 00)"}
+  },
+  "16": {
+    "inputs": {
+      "model": ["10", 0],
+      "ip_adapter_flux": ["14", 0],
+      "image": ["15", 0],
+      "ip_scale": 0.72
+    },
+    "class_type": "ApplyFluxIPAdapter",
+    "_meta": {"title": "Apply Flux IPAdapter"}
+  },
+  "17": {
+    "inputs": {"control_net_name": "FLUX.1-dev-ControlNet-Union-Pro.safetensors"},
+    "class_type": "ControlNetLoader",
+    "_meta": {"title": "Load Union ControlNet"}
+  },
+  "18": {
+    "inputs": {
+      "control_net": ["17", 0],
+      "type": "pose"
+    },
+    "class_type": "SetShakkerLabsUnionControlNetType",
+    "_meta": {"title": "Union pose mode"}
+  },
+  "19": {
+    "inputs": {"image": "openpose_pose.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "OpenPose skeleton map"}
+  },
+  "20": {
+    "inputs": {
+      "clip": ["11", 0],
+      "clip_l": "ZYG_CHAR character, studio portrait, photorealistic",
+      "t5xxl": "ZYG_CHAR character, studio portrait, photorealistic",
+      "guidance": 3.5
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {
+      "clip": ["11", 0],
+      "clip_l": "",
+      "t5xxl": "",
+      "guidance": 3.5
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "22": {
+    "inputs": {
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "control_net": ["18", 0],
+      "image": ["19", 0],
+      "strength": 0.85,
+      "start_percent": 0.0,
+      "end_percent": 0.65,
+      "vae": ["12", 0]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {"title": "Apply pose ControlNet"}
+  },
+  "30": {
+    "inputs": {"width": 640, "height": 720, "batch_size": 1},
+    "class_type": "EmptyLatentImage",
+    "_meta": {"title": "Empty Latent"}
+  },
+  "31": {
+    "inputs": {
+      "model": ["16", 0],
+      "conditioning": ["22", 0],
+      "neg_conditioning": ["22", 1],
+      "noise_seed": 42,
+      "steps": 28,
+      "timestep_to_start_cfg": 28,
+      "true_gs": 3.5,
+      "image_to_image_strength": 0.0,
+      "denoise_strength": 1.0,
+      "latent_image": ["30", 0]
+    },
+    "class_type": "XlabsSampler",
+    "_meta": {"title": "XlabsSampler"}
+  },
+  "40": {
+    "inputs": {"samples": ["31", 0], "vae": ["12", 0]},
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygFluxPoseIPA", "images": ["40", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}

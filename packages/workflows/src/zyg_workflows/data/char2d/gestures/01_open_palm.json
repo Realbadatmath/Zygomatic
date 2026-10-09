@@ -1,0 +1,321 @@
+{
+  "name": "01_open_palm",
+  "label": "Open-palm offering",
+  "hands": "R",
+  "meaning": "The right hand opens towards the viewer: giving, inviting, nothing held back. Rest, a short anticipation as the arm lifts, an apex with the palm turned up and five fingers separated, then an eased return.",
+  "reads_well": [
+    "front",
+    "front45L",
+    "profileR"
+  ],
+  "keys": [
+    {
+      "name": "rest",
+      "hold_frames": 12,
+      "bones": {}
+    },
+    {
+      "name": "lift",
+      "hold_frames": 6,
+      "bones": {
+        "upperarm01.R": [
+          8.0,
+          25.0,
+          55.0
+        ],
+        "lowerarm01.R": [
+          16.0,
+          0.0,
+          0.0
+        ],
+        "lowerarm02.R": [
+          16.0,
+          0.0,
+          0.0
+        ],
+        "wrist.R": [
+          0.0,
+          5.0,
+          0.0
+        ],
+        "finger2-1.R": [
+          10.0,
+          2.0,
+          -7.0
+        ],
+        "finger2-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger2-3.R": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger3-1.R": [
+          10.0,
+          0.8,
+          -2.5
+        ],
+        "finger3-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger3-3.R": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger4-1.R": [
+          10.0,
+          -0.8,
+          2.5
+        ],
+        "finger4-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger4-3.R": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger5-1.R": [
+          10.0,
+          -2.0,
+          7.0
+        ],
+        "finger5-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger5-3.R": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger1-1.R": [
+          0.0,
+          -12.0,
+          0.0
+        ],
+        "finger1-2.R": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger1-3.R": [
+          8.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "apex",
+      "hold_frames": 18,
+      "bones": {
+        "upperarm01.R": [
+          20.0,
+          60.0,
+          70.0
+        ],
+        "lowerarm01.R": [
+          30.0,
+          0.0,
+          0.0
+        ],
+        "lowerarm02.R": [
+          30.0,
+          0.0,
+          0.0
+        ],
+        "wrist.R": [
+          0.0,
+          20.0,
+          0.0
+        ],
+        "finger2-1.R": [
+          5.0,
+          8.0,
+          -7.0
+        ],
+        "finger2-2.R": [
+          5.0,
+          0.0,
+          0.0
+        ],
+        "finger2-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger3-1.R": [
+          5.0,
+          3.0,
+          -2.5
+        ],
+        "finger3-2.R": [
+          5.0,
+          0.0,
+          0.0
+        ],
+        "finger3-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger4-1.R": [
+          5.0,
+          -3.0,
+          2.5
+        ],
+        "finger4-2.R": [
+          5.0,
+          0.0,
+          0.0
+        ],
+        "finger4-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger5-1.R": [
+          5.0,
+          -8.0,
+          7.0
+        ],
+        "finger5-2.R": [
+          5.0,
+          0.0,
+          0.0
+        ],
+        "finger5-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger1-1.R": [
+          0.0,
+          -25.0,
+          0.0
+        ],
+        "finger1-2.R": [
+          5.0,
+          0.0,
+          0.0
+        ],
+        "finger1-3.R": [
+          5.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "return",
+      "hold_frames": 8,
+      "bones": {
+        "upperarm01.R": [
+          6.0,
+          18.0,
+          50.0
+        ],
+        "lowerarm01.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "lowerarm02.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "wrist.R": [
+          0.0,
+          8.0,
+          0.0
+        ],
+        "finger2-1.R": [
+          10.0,
+          2.8,
+          -7.0
+        ],
+        "finger2-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger2-3.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger3-1.R": [
+          10.0,
+          1.0,
+          -2.5
+        ],
+        "finger3-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger3-3.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger4-1.R": [
+          10.0,
+          -1.0,
+          2.5
+        ],
+        "finger4-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger4-3.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger5-1.R": [
+          10.0,
+          -2.8,
+          7.0
+        ],
+        "finger5-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger5-3.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger1-1.R": [
+          0.0,
+          -14.0,
+          0.0
+        ],
+        "finger1-2.R": [
+          7.0,
+          0.0,
+          0.0
+        ],
+        "finger1-3.R": [
+          7.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ]
+}

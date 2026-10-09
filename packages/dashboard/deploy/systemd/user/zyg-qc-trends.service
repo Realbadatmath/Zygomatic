@@ -1,0 +1,14 @@
+[Unit]
+Description=Zygomatic QC — cross-run gate trend detection
+After=network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/repos/zygomatic-dashboard
+EnvironmentFile=%h/.config/zygomatic/env
+# The ledger belongs to the base library (zyg_dashboard.run_ledger is a shim), and it
+# imports psycopg, so it needs the project venv, never the system python.
+ExecStart=%h/repos/.venv/bin/python -m zyg_workflows.run_ledger --trends
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=zyg-qc-trends

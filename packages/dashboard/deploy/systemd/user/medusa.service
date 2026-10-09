@@ -1,0 +1,17 @@
+[Unit]
+Description=Medusa — standalone 8-tab GUI (port 5300)
+# Medusa's code lives in the zygomatic-zero-public repository (zyg_zero.medusa), not here.
+# This unit is kept with the dashboard units only because the hub launcher restarts it;
+# move it to zygomatic-zero-public/deploy/systemd when that repo grows a deploy tree.
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/repos/zygomatic-zero-public
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_zero.medusa.medusa_server
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

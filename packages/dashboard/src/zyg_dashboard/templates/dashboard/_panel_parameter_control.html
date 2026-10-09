@@ -1,0 +1,55 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+        <div id="panel-parameter_control" class="dashboard-tab-panel{% if _dtab == 'parameter_control' %} active{% endif %}" style="{% if _dtab == 'parameter_control' %}display: block;{% else %}display: none;{% endif %}">
+            <div class="parameter-control-ownership-box" style="background:#f8f9fa;border:1px solid #e5e7eb;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#555;">
+                <strong>Canonical ownership model</strong> — four distinct truths (do not collapse):<br>
+                <strong>A. Planned</strong> <code>/api/gpu/timeline/24h</code>, <code>/api/cpu/timeline/24h</code> → approved schedule entries (intended allocation)<br>
+                <strong>B. Live</strong> <code>/api/telemetry</code> → actual machine state (observed usage)<br>
+                <strong>C. Runtime claims</strong> <code>/api/jobs/runs</code> → who holds a lease right now (worker_id, lease_expires_at)<br>
+                <strong>D. Policy</strong> <code>/api/integrity-gate</code> → caps, thresholds, auto-pause
+            </div>
+            <div id="parameter-control-active-claims" style="margin-bottom:16px;padding:10px 14px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;min-height:60px;">
+                <strong>Active claims</strong> <span id="parameter-control-claims-count" style="color:#666;font-weight:normal;"></span>
+                <div id="parameter-control-claims-list" style="margin-top:8px;font-size:12px;color:#444;"></div>
+            </div>
+            <div class="schedule-tabs parameter-control-tabs" role="tablist" aria-label="Parameter control mode" style="display:inline-flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+                <button type="button" class="tab-btn parameter-control-mode" data-mode="cpu" role="tab" tabindex="-1">Cpu</button>
+                <button type="button" class="tab-btn parameter-control-mode" data-mode="gpu" role="tab" tabindex="-1">Gpu</button>
+                <button type="button" class="tab-btn parameter-control-mode" data-mode="3d" role="tab" tabindex="-1">Vram</button>
+                <button type="button" class="tab-btn parameter-control-mode active" data-mode="both" role="tab" tabindex="0">ALL</button>
+            </div>
+            <div id="parameter-control-tables">
+                <div id="parameter-control-both" class="parameter-control-table-wrap">
+                    <div id="parameter-control-both-circles" class="parameter-control-circles dashboard-overview-circles" style="display:flex;flex-wrap:wrap;gap:24px;margin-bottom:20px;justify-content:center;"></div>
+                    <table class="dashboard-table" style="width:100%;">
+                        <thead><tr><th>Agent id</th><th>Bar Id</th><th>Gpu % Assigned</th><th>Gpu % Usage</th><th>Gpu % Overall</th><th>Cpu % Assigned</th><th>Cpu % Usage</th><th>Cpu % Overall</th><th>Vram % Assigned</th><th>Vram % Usage</th><th>Vram % Overall</th><th>Performance</th></tr></thead>
+                        <tbody id="parameter-control-both-tbody"><tr><td colspan="13">No schedule entries for today. Add entries in GPU/CPU Schedule.</td></tr></tbody>
+                    </table>
+                </div>
+                <div id="parameter-control-cpu" class="parameter-control-table-wrap" style="display:none;">
+                    <div id="parameter-control-cpu-circles" class="parameter-control-circles dashboard-overview-circles" style="display:flex;flex-wrap:wrap;gap:24px;margin-bottom:20px;justify-content:center;"></div>
+                    <table class="dashboard-table" style="width:100%;">
+                        <thead><tr><th>Agent id</th><th>Bar Id</th><th>Cpu % Assigned</th><th>Cpu % Usage</th><th>Cpu % Overall</th><th>Performance</th></tr></thead>
+                        <tbody id="parameter-control-cpu-tbody"><tr><td colspan="6">No CPU schedule entries for today.</td></tr></tbody>
+                    </table>
+                </div>
+                <div id="parameter-control-gpu" class="parameter-control-table-wrap" style="display:none;">
+                    <div id="parameter-control-gpu-circles" class="parameter-control-circles dashboard-overview-circles" style="display:flex;flex-wrap:wrap;gap:24px;margin-bottom:20px;justify-content:center;"></div>
+                    <table class="dashboard-table" style="width:100%;">
+                        <thead><tr><th>Agent id</th><th>Bar Id</th><th>Gpu % Assigned</th><th>Gpu % Usage</th><th>Gpu % Overall</th><th>Performance</th></tr></thead>
+                        <tbody id="parameter-control-gpu-tbody"><tr><td colspan="6">No GPU schedule entries for today.</td></tr></tbody>
+                    </table>
+                </div>
+                <div id="parameter-control-3d" class="parameter-control-table-wrap" style="display:none;">
+                    <div id="parameter-control-3d-circles" class="parameter-control-circles dashboard-overview-circles" style="display:flex;flex-wrap:wrap;gap:24px;margin-bottom:20px;justify-content:center;"></div>
+                    <table class="dashboard-table" style="width:100%;">
+                        <thead><tr><th>Agent id</th><th>Bar Id</th><th>Vram % Assigned</th><th>Vram % Usage</th><th>Vram % Overall</th><th>Performance</th></tr></thead>
+                        <tbody id="parameter-control-3d-tbody"><tr><td colspan="6">No VRAM schedule entries for today.</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>

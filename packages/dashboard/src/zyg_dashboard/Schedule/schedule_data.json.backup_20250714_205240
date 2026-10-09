@@ -1,0 +1,17 @@
+{
+  "2025-07-09": [
+    {
+      "ai_model": "Whisper",
+      "agent": "3D-Animation-Agent",
+      "start_time": "13:51",
+      "end_time": "17:51",
+      "gpu_percent": "99.9",
+      "memory_fraction": "0.10",
+      "gpu_device": "NVIDIA GeForce GTX 970",
+      "priority": "High",
+      "bar_id": "726",
+      "id": "5cbbc213-5867-4787-9223-354585cd5de7",
+      "date": "2025-07-09"
+    }
+  ]
+}

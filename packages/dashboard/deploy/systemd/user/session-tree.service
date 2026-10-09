@@ -1,0 +1,17 @@
+[Unit]
+Description=Zygomatic Session Tree (Claude agent job board, :7100)
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/repos/zygomatic-dashboard
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_dashboard.session_tree.session_tree_server
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=session-tree
+
+[Install]
+WantedBy=default.target

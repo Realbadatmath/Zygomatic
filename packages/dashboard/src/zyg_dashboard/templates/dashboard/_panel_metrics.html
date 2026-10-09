@@ -1,0 +1,76 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+        <div id="panel-metrics" class="dashboard-tab-panel{% if _dtab == 'metrics' %} active{% endif %}" {% if _dtab == 'metrics' %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+            <link rel="stylesheet" href="/static/css/dashboard_metrics.css?v=10">
+            <link rel="stylesheet" href="/static/css/dashboard_analytics.css?v=2">
+            <link rel="stylesheet" href="/static/css/dashboard_testdata.css?v=2">
+            <link rel="stylesheet" href="/static/css/dashboard_capabilities.css?v=13">
+            <link rel="stylesheet" href="/static/css/dashboard_lineage.css?v=1">
+            <link rel="stylesheet" href="/static/css/dashboard_expansion.css?v=1">
+            <div class="metrics-header">
+                <div>
+                    <h3 class="metrics-header-title">Metrics</h3>
+                    <div class="metrics-header-meta" id="metrics-generated-at">Loading…</div>
+                </div>
+                <div class="metrics-toolbar">
+                    <span class="mh-live mh-live-idle" id="metrics-live" title="Waiting for the first read"><i></i><span id="metrics-live-text">Checking…</span></span>
+                    <div class="mh-range" id="metrics-range" role="group" aria-label="Time range">
+                        <button type="button" data-days="7" aria-pressed="false">7 days</button>
+                        <button type="button" data-days="30" aria-pressed="true">30 days</button>
+                        <button type="button" data-days="90" aria-pressed="false">90 days</button>
+                        <button type="button" data-days="0" aria-pressed="false">All time</button>
+                    </div>
+                    <button type="button" class="metrics-btn-refresh" id="metrics-refresh-btn" title="Re-read every source now (skips the server's short cache)">Refresh</button>
+                </div>
+            </div>
+            <div class="metrics-subtabs" role="tablist" aria-label="Metrics views">
+                <button type="button" class="btn dashboard-btn metrics-subtab active" data-metric="overview" role="tab" aria-selected="true">Overview</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab metrics-subtab-analytics" data-metric="analytics" role="tab" aria-selected="false">Analytics</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="pipelines" role="tab" aria-selected="false">Pipelines</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="characters" role="tab" aria-selected="false">Characters</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="llm" role="tab" aria-selected="false">LLM &amp; costs</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="quota" role="tab" aria-selected="false">Quota</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="quality" role="tab" aria-selected="false">Quality</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="system" role="tab" aria-selected="false">System</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="agents" role="tab" aria-selected="false">Agents</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="zero" role="tab" aria-selected="false">Agent Zero</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="test_data" role="tab" aria-selected="false">Test Data</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="mechanics" role="tab" aria-selected="false">Mechanics</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="capabilities" role="tab" aria-selected="false">Capabilities</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="stack_lineage" role="tab" aria-selected="false">Lineage</button>
+                <button type="button" class="btn dashboard-btn metrics-subtab" data-metric="expansion" role="tab" aria-selected="false">Expansion</button>
+            </div>
+            <div id="metrics-content-overview" class="metrics-panel metrics-panel-inner active" role="tabpanel"></div>
+            <div id="metrics-content-analytics" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-pipelines" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-characters" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-llm" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-quota" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-quality" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-system" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-agents" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <!-- Agent Zero (2026-10-08): the per-turn ledger of Agent Zero v2, filled from
+                 /api/metrics/hub/zero (agent_zero/metrics.py, CONTRACT F); drawn by
+                 renderZero() in dashboard_tab_metrics.js. -->
+            <div id="metrics-content-zero" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <div id="metrics-content-test_data" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <!-- Mechanics (2026-09-30): moved in from its own dashboard tab. The panel is
+                 server-rendered markup owned by dashboard_tab_mechanics.js, so unlike the
+                 other subtabs it is not filled from /api/metrics/hub/<section>. -->
+            <div id="metrics-content-mechanics" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel">
+{% include 'dashboard/_panel_mechanics.html' %}
+            </div>
+            <div id="metrics-content-capabilities" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <!-- Lineage (2026-10-04): one card per model/tool, filled from
+                 /api/metrics/hub/stack_lineage (stack_lineage_hub.py over
+                 data/stack_lineage/*.json); the board is dashboard_lineage.js. -->
+            <div id="metrics-content-stack_lineage" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+            <!-- Expansion (2026-10-04): the census of the program's own structural files, filled
+                 from /api/metrics/hub/expansion (expansion_hub.py walks the component roots);
+                 the board is dashboard_expansion.js. -->
+            <div id="metrics-content-expansion" class="metrics-panel metrics-panel-inner" style="display:none;" role="tabpanel"></div>
+        </div>

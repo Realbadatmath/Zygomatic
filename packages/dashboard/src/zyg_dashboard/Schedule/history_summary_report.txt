@@ -1,0 +1,19 @@
+CrewAI Agent Schedule - Historical Summary Report
+==================================================
+
+Total Schedule Entries: 0
+Total Days with Activity: 0
+Total GPU Hours: 0.0
+Date Range: None to None
+
+AI Models Used: 0
+Agents Used: 0
+
+Monthly Breakdown:
+--------------------
+
+Yearly Breakdown:
+--------------------
+
+Top AI Models by Usage:
+--------------------

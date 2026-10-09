@@ -1,0 +1,278 @@
+{
+  "_doc": "remedy_kb.json — THE AUTHORED LEARNED RULES (2026-07-30). Consumed by remedy_kb.py. A REMEDY turns a MEASURED failure signature into a CONCRETE parameter change. Rules are DATA, never code: preconditions are a tiny JSON predicate AST evaluated by remedy_kb._eval (no eval(), no exec(), no imports) so the whole knowledge base stays auditable by reading this file. WHY this file exists: three separate renders (scene20 v7, v8a) were misdiagnosed by humans as 'frozen Abel' / 'the prompt gave him no action' when the pixel metrics already contained the answer (his motion was 0.254 pre-paste-back and 0.080 post). The diagnosis must be SELECTED from measurements by machine, not narrated by a human. Nothing in here names a specific run in a precondition — evidence names runs, preconditions name MEASUREMENTS.",
+  "_updated": "2026-07-30 — seeded from the scene20 v7/v8a/v8b paste-back investigation",
+  "_state_note": "This file holds AUTHORED rules only. Live learning (attempts / successes / posterior confidence) is persisted separately to data/runtime/remedy_kb_state.json, and rules discovered at runtime by add_remedy() go to data/runtime/remedy_kb_learned.json, so this file stays hand-authored and diffable.",
+
+  "_predicate_language": {
+    "_doc": "A predicate is a JSON object with EXACTLY ONE operator key (or a bare true/false). Everything is total: a malformed node, an unknown operator, a missing path or a non-numeric comparison evaluates to FALSE and is recorded in the trace — it never raises and never accidentally matches. Max nesting depth 24.",
+    "_malformed_clauses": "STRUCTURAL invalidity (a malformed node, an unknown operator, a blown depth limit) is tracked separately from an honest measured false, and it POISONS its whole predicate: any all/any/not/exists/forall containing a malformed clause is forced to false. Without this, 'not' over a malformed child inverts to true and one corrupt rule fires on every run. Consequence to know when authoring: a typo'd operator does not merely weaken a rule, it disables it — which is the safe direction, and it is visible in explain()'s output as 'contains a MALFORMED clause, forced false'.",
+    "operands": {
+      "\"dotted.path\"": "a bare STRING is a dotted lookup into the signature, e.g. \"regions.a_hand.flow_mean\". Longest-key-first resolution, so names containing dots or colons still resolve. Missing -> MISSING sentinel.",
+      "\"$name\" / \"$name.sub.path\"": "a binding introduced by an enclosing exists/forall. \"$r\" is the bound VALUE; \"$r._key\" is its key in the mapping; \"$r.flow_mean\" is a dotted lookup inside the bound value.",
+      "{\"lit\": <any>}": "an explicit literal (use this for string and list constants so they are never mistaken for paths)",
+      "{\"path\": \"a.b\"}": "an explicit dotted lookup (same as a bare string, for clarity)",
+      "<number|bool|null>": "literal",
+      "[ ... ]": "a bare JSON list operand is a LITERAL list — its elements are NOT resolved"
+    },
+    "operators": {
+      "all": "[p, ...] logical AND. Empty list -> true.",
+      "any": "[p, ...] logical OR. Empty list -> false.",
+      "not": "p — negation. A false child (including a MISSING-driven false) negates to true, so prefer 'present'/'absent' over 'not' when you mean 'unknown'.",
+      "lt / lte / gt / gte": "[a, b] numeric comparison. Either side MISSING or non-numeric -> false.",
+      "eq / ne": "[a, b]. BOTH fail closed on ignorance: if either side is MISSING the result is false, so a rule never fires from a gap in the signature.",
+      "in": "[needle, haystack] — haystack may be a list, a string, or a mapping (tests its keys).",
+      "present / absent": "a single path operand — 'present' is true when the path resolves to a non-null value.",
+      "exists": "{in: <path to mapping or list>, as: <name>, filter: <p optional>, where: <p>, min_count: <int, default 1>} — EXISTENTIAL quantifier. Iterates the collection, keeps items passing 'filter', and is true when at least min_count of them satisfy 'where'. The FIRST satisfying item is captured as a binding for action templating.",
+      "forall": "{in: ..., as: ..., filter: <p optional>, where: <p>, min_count: <int, default 1>} — UNIVERSAL quantifier over the filtered items. min_count guards against VACUOUS TRUTH: 'all character regions are frozen' must be FALSE when there are no character regions, so at least min_count items must survive the filter.",
+      "boxes_overlap": "{a: <box operand>, b: <box operand>, min_frac: <float, default 0.05>, min_iou: <float optional>} — geometric overlap of two fractional [x0,y0,x1,y1] boxes. min_frac is the fraction of box A's AREA covered by the intersection (i.e. 'how much of the moving region is pinned by the keep box'). This is a builtin because box containment cannot be expressed with comparisons alone."
+    }
+  },
+
+  "_signature_contract": {
+    "_doc": "The dict self_improve.py builds from a run's measurements and feeds to match(). Every field is OPTIONAL — a precondition that needs a missing field simply does not fire. remedy_kb.normalize_signature() fills the derivable gaps (region role, min_flow, ncc_min) from the production calibration and reports exactly what it inferred, so a partial signature still matches without silently inventing evidence.",
+    "gates": "{gate_name: {ok: bool, score: float, threshold: float}} — every QC gate outcome of the run",
+    "regions": "{name: {flow_mean, flow_p95, churn_mean, churn_p95, ok, min_flow, max_churn, box: [x0,y0,x1,y1], role}} — from pipeline_debug.qc_region_flow. role is one of character_hand | character_head | character | prop | background; inferred from the name when absent.",
+    "props": "{name: {min_ncc, ncc_min, box, pinned: bool, raw_min_ncc}} — from pipeline_debug.qc_prop_consistency. min_ncc is the worst seam on the DELIVERED clip; raw_min_ncc is the worst seam measured on the RAW pre-post-process render, which is what decides whether a pin was ever necessary.",
+    "keep_boxes": "{name: [x0,y0,x1,y1]} — the fractional boxes the paste-back keep-mask pins",
+    "chain": "['render','pasteback_static'|'pasteback_dynamic','ink','smoke','upscale', ...] — the post-process stages that actually ran, in order",
+    "params": "the run's parameter dict — the object apply() returns a modified copy of",
+    "probe": "{verdict: 'frozen'|'ok'|'skipped', context_windows: bool, skipped: bool}",
+    "run": "{context_windows: bool, config_proven: bool} — config_proven marks a recipe that has already delivered a passing run",
+    "loras": "{total_weight: float, items: [{name, scale, trained_on: 'stills'|'video'}]}",
+    "vlm": "{flags: [item_id, ...], findings: [{id, severity, bbox}]} — from vlm_inspector.inspect_frames; flags are the checklist ids whose answer did NOT match 'expected'",
+    "deltas": "{metric: {before: float, after: float}} — same-clip before/after measurements"
+  },
+
+  "severity_weights": {"critical": 1.0, "major": 0.7, "minor": 0.4, "info": 0.2},
+
+  "_calibration": {
+    "_doc": "Literal thresholds used inside preconditions, recorded here so they are auditable without re-reading every rule.",
+    "region_flow_min_hands": 0.12,
+    "region_flow_min_head": 0.06,
+    "region_churn_max": 0.55,
+    "prop_ncc_min": 0.70,
+    "pin_stable_ncc": 0.90,
+    "pin_stable_ncc_note": "A prop whose worst seam NCC on the RAW render is >= 0.90 is already stable without any pin. Measured on the scene20_v8 raw render: book 0.936-0.986, candle 0.976-0.995 — both comfortably above, i.e. both pins were unnecessary. 0.90 sits well above the 0.70 morph gate and below every measured stable value.",
+    "keep_overlap_min_frac": 0.10,
+    "lora_total_max": 1.2
+  },
+
+  "remedies": [
+    {
+      "id": "static_keep_mask_freezes_occluders",
+      "title": "A static keep-mask pastes anchor pixels over whatever MOVES across the pinned surface",
+      "severity": "critical",
+      "status": "proven",
+      "confidence": 0.92,
+      "prior_weight": 2.0,
+      "tags": ["pasteback", "motion", "post-process", "frozen"],
+      "precondition": {
+        "all": [
+          {"in": [{"lit": "pasteback_static"}, "chain"]},
+          {"exists": {
+            "in": "regions",
+            "as": "r",
+            "filter": {"in": ["$r.role", {"lit": ["character_hand", "character_head", "character"]}]},
+            "where": {
+              "all": [
+                {"lt": ["$r.flow_mean", "$r.min_flow"]},
+                {"exists": {
+                  "in": "keep_boxes",
+                  "as": "k",
+                  "where": {"boxes_overlap": {"a": "$r.box", "b": "$k", "min_frac": 0.10}}
+                }}
+              ]
+            }
+          }}
+        ]
+      },
+      "action": {
+        "branches": [
+          {
+            "when": {
+              "forall": {
+                "in": "props",
+                "as": "p",
+                "filter": {"eq": ["$p.pinned", true]},
+                "where": {"gte": ["$p.raw_min_ncc", 0.90]},
+                "min_count": 1
+              }
+            },
+            "set": {"pasteback": "none"},
+            "because": "every pinned prop is independently stable on the RAW render (worst-seam NCC >= 0.90), so the pin buys nothing and costs the occluder its motion — drop the paste-back entirely and deliver the raw render"
+          },
+          {
+            "set": {"pasteback": "dynamic"},
+            "because": "at least one pinned prop is NOT independently stable (or was never measured on the raw render), so the pin is still earning its keep — switch to the per-frame keep-mask that subtracts detected occluders (pasteback_dynamic.paste_back_keep_regions_dynamic) instead of removing the pin"
+          }
+        ]
+      },
+      "rationale": "A keep-region pins a WORLD-STATIC surface. Restoring the anchor's pixels over that whole rectangle also restores anything that moves ACROSS it. Abel's writing hand (0.58-0.83 x 0.60-0.90) lives inside the pinned book box (0.495-0.825 x 0.700-0.920), so every animated frame of his hand was overwritten by the anchor's static hand. The model had animated him correctly all along — the post-process erased it, and two runs were misdiagnosed as a frozen render before anyone measured the SAME clip pre- and post-paste-back.",
+      "evidence": [
+        {"run_id": "scene20_v8a", "metric": "regions.a_hand.flow_mean", "before": 0.254, "after": 0.080, "delta": -0.174, "note": "same clip, measured pre vs post static paste-back — 68% of the hand's motion destroyed, crossing below the 0.12 gate"},
+        {"run_id": "scene20_v8a", "metric": "regions.a_head.flow_mean", "before": 0.150, "after": 0.127, "delta": -0.023, "note": "head only clipped by the keep box — stayed above its 0.06 head gate"},
+        {"run_id": "scene20_v8a", "metric": "regions.c_hands.flow_mean", "before": 0.141, "after": 0.112, "delta": -0.029, "note": "crossed below the 0.12 gate"},
+        {"run_id": "scene20_v8b", "metric": "regions.a_hand.flow_mean", "before": 0.080, "after": 0.364, "delta": 0.284, "note": "FIX VERIFIED — rebuilt from the raw render with no paste-back; every region gate passed"}
+      ],
+      "attempts": 0,
+      "successes": 0
+    },
+
+    {
+      "id": "unnecessary_pin",
+      "title": "A pinned prop that is already stable on the raw render does not need pinning",
+      "severity": "major",
+      "status": "proven",
+      "confidence": 0.85,
+      "prior_weight": 2.0,
+      "tags": ["pasteback", "keep-mask", "props", "cost"],
+      "precondition": {
+        "exists": {
+          "in": "props",
+          "as": "p",
+          "filter": {"eq": ["$p.pinned", true]},
+          "where": {
+            "all": [
+              {"gte": ["$p.raw_min_ncc", 0.90]},
+              {"exists": {"in": "keep_boxes", "as": "k", "where": {"eq": ["$k._key", "$p._key"]}}}
+            ]
+          }
+        }
+      },
+      "action": {
+        "remove": ["keep_boxes.{$p._key}"],
+        "because": "prop '{$p._key}' holds NCC {$p.raw_min_ncc} across every seam of the RAW render — it is stable on its own, so pinning it only creates a static rectangle for moving limbs to be frozen against"
+      },
+      "rationale": "The keep-mask is a cost, not a free safety net: every pinned rectangle is a place where a moving occluder can be frozen (see static_keep_mask_freezes_occluders). A pin is only justified when the prop actually morphs on the raw render. Measure first, pin second — and measure on the RAW render, because measuring on the pasted clip is circular (the paste-back guarantees a perfect NCC for exactly the pixels it pasted). NOTE ON MULTIPLICITY: an action binds the FIRST qualifying item, so when several pins are unnecessary this rule drops one per application by design — re-run match() on the updated signature and it fires again for the next. One change per measured re-check is what keeps the evidence attributable.",
+      "evidence": [
+        {"run_id": "scene20_v8", "metric": "props.book.raw_min_ncc", "before": null, "after": 0.936, "delta": null, "note": "raw render, worst of every context-window seam (range 0.936-0.986) — never needed the pin"},
+        {"run_id": "scene20_v8", "metric": "props.candle.raw_min_ncc", "before": null, "after": 0.976, "delta": null, "note": "raw render, seam range 0.976-0.995 — never needed the pin"}
+      ],
+      "attempts": 0,
+      "successes": 0
+    },
+
+    {
+      "id": "prop_morph_at_seam",
+      "title": "A rigid prop re-imagined at a context-window boundary needs a targeted restore, not a whole-frame pin",
+      "severity": "major",
+      "status": "provisional",
+      "confidence": 0.70,
+      "prior_weight": 2.0,
+      "tags": ["props", "context-windows", "morph", "seam"],
+      "precondition": {
+        "exists": {
+          "in": "props",
+          "as": "p",
+          "where": {"lt": ["$p.min_ncc", "$p.ncc_min"]}
+        }
+      },
+      "action": {
+        "set": {
+          "prop_restore.enabled": true,
+          "prop_restore.target": "{$p._key}",
+          "prop_restore.box": "{$p.box}"
+        },
+        "because": "prop '{$p._key}' morphs across a context-window seam (worst NCC {$p.min_ncc} below its {$p.ncc_min} gate) — restore that BOX only, so the surrounding animation is untouched"
+      },
+      "rationale": "VACE re-imagines rigid props at chain boundaries (the v7 pipe morph: bowl inflates, grip flips). The fix is the narrowest possible one — a post-pass targeting that prop's box, or the prop LoRA applied inside the restore only. Deliberately NOT a keep-mask over the whole region: that is the mistake static_keep_mask_freezes_occluders documents.",
+      "evidence": [
+        {"run_id": "scene20_v7", "metric": "props.pipe.min_ncc", "before": 0.677, "after": null, "delta": null, "note": "morphed at the seam, below the calibrated 0.70 gate — this is the failure this remedy targets; the targeted-restore fix is not yet verified end to end, hence status 'provisional'"}
+      ],
+      "attempts": 0,
+      "successes": 0
+    },
+
+    {
+      "id": "probe_regime_mismatch",
+      "title": "The probe must render the SAME regime as the run it gates",
+      "severity": "major",
+      "status": "proven",
+      "confidence": 0.80,
+      "prior_weight": 2.0,
+      "tags": ["probe", "false-negative", "context-windows"],
+      "precondition": {
+        "all": [
+          {"eq": ["probe.verdict", {"lit": "frozen"}]},
+          {"eq": ["run.config_proven", true]},
+          {"ne": ["probe.context_windows", "run.context_windows"]}
+        ]
+      },
+      "action": {
+        "set": {"probe.context_windows": "inherit"},
+        "because": "the probe declared a recipe frozen while running a DIFFERENT renderer regime from the run it gates — make it inherit the run's context_windows and merely clamp the window length"
+      },
+      "rationale": "A gate that runs a different renderer from the thing it gates measures the gate, not the render. Forcing context_windows=False in the probe left the static neutral-grey control dominating the denoise with no FreeNoise/overlap variation to break its grip: v7's exact proven-alive recipe measured 82px of track-path in the 341-frame context-window run and 1.5-1.6px in the single-window probe. That FALSE FAILURE blocked two good renders. Single-window is only alive at the historical vace_end_percent ~0.42; v7/v8 run 0.6, which is safe only WITH context windows.",
+      "evidence": [
+        {"run_id": "scene20_v7", "metric": "probe.track_path_px", "before": 82.0, "after": 1.6, "delta": -80.4, "note": "identical recipe, single-window probe regime vs context-window run regime — the difference is the REGIME, not the recipe"}
+      ],
+      "attempts": 0,
+      "successes": 0
+    },
+
+    {
+      "id": "ink_off_page",
+      "title": "Ink composited onto the table instead of the page means the write path has no measured quad",
+      "severity": "major",
+      "status": "provisional",
+      "confidence": 0.65,
+      "prior_weight": 2.0,
+      "tags": ["ink", "compositing", "vlm"],
+      "precondition": {
+        "all": [
+          {"in": [{"lit": "ink_off_page"}, "vlm.flags"]},
+          {"any": [
+            {"absent": "params.page_quad"},
+            {"eq": ["params.page_quad_kind", {"lit": "rect"}]}
+          ]}
+        ]
+      },
+      "action": {
+        "set": {
+          "ink.method": "composite_write_on_quad",
+          "ink.page_quad": "measured"
+        },
+        "because": "the judge sees ink off the page and the write path is compositing onto an axis-aligned rectangle — a page seen in perspective needs its four measured corners, not a bounding box"
+      },
+      "rationale": "The page in a table shot is a trapezoid, not a rectangle. Writing into the page's bounding RECT puts strokes on the table either side of it. shot_metadata.json already carries a measured page_quad (four corners); the ink pass has to use it. This is the one defect class in the taxonomy the pixel metrics cannot see and the VLM judge can — it is attributed to the judge on purpose.",
+      "evidence": [
+        {"run_id": "scene20_v7", "metric": "vlm.flags.ink_off_page", "before": null, "after": 1, "delta": null, "note": "judge flagged ink off the page; note the judge is measurably WEAK on this item (0/7 on full frames in the crop study), so absence of the flag is not evidence of absence"}
+      ],
+      "attempts": 0,
+      "successes": 0
+    },
+
+    {
+      "id": "lora_motion_suppression",
+      "title": "Still-trained LoRAs at high total weight may suppress character motion",
+      "severity": "minor",
+      "status": "unproven",
+      "confidence": 0.15,
+      "prior_weight": 2.0,
+      "tags": ["lora", "motion", "confounded"],
+      "precondition": {
+        "all": [
+          {"forall": {
+            "in": "regions",
+            "as": "r",
+            "filter": {"in": ["$r.role", {"lit": ["character_hand", "character_head", "character"]}]},
+            "where": {"lt": ["$r.flow_mean", "$r.min_flow"]},
+            "min_count": 2
+          }},
+          {"gt": ["loras.total_weight", 1.2]},
+          {"exists": {"in": "loras.items", "as": "l", "where": {"eq": ["$l.trained_on", {"lit": "stills"}]}}}
+        ]
+      },
+      "action": {
+        "set": {"loras.prop_scale": 0.0},
+        "because": "hypothesis only — drop the prop LoRA to 0 and re-measure; do NOT ship this as a diagnosis"
+      },
+      "rationale": "HONEST STATUS: UNPROVEN AND LATER REFUTED IN ITS ORIGINAL FORM. This session first blamed still-trained LoRAs for frozen characters, but the evidence was CONFOUNDED — the same runs also carried the static paste-back, and rebuilding from the raw render with the LoRAs UNCHANGED restored a_hand from 0.080 to 0.364. The paste-back was the whole effect; the LoRA hypothesis explained nothing that was left over. It is kept in the KB at low confidence rather than deleted for two reasons: the mechanism (a LoRA trained only on stills pulling generations toward stillness) is plausible and untested in isolation, and a knowledge base that quietly deletes its wrong guesses cannot be audited for how it learns. It is deliberately ranked below every proven remedy and requires at least TWO character regions to be frozen (min_count 2), so it cannot fire on the single-region case the paste-back rule already explains.",
+      "evidence": [
+        {"run_id": "scene20_v8b", "metric": "regions.a_hand.flow_mean", "before": 0.080, "after": 0.364, "delta": 0.284, "note": "REFUTES the original claim — LoRA stack UNCHANGED between these two measurements; removing the paste-back alone restored the motion"}
+      ],
+      "attempts": 1,
+      "successes": 0
+    }
+  ]
+}

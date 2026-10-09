@@ -1,0 +1,636 @@
+{
+  "lane": "infra",
+  "label": "Runtime & infrastructure",
+  "note": "The layer the pipelines run on: process management, storage, attention kernels, the two ComfyUI instances, delivery and the boards. Swaps here are rarely about quality — they are about a thing that silently did not work.",
+  "entities": [
+    {
+      "id": "adhoc_launchers",
+      "name": "Ad-hoc launchers (kill_port + Popen)",
+      "kind": "tool",
+      "role": "first process management",
+      "status": "retired",
+      "licence": "own code",
+      "ended": "2026-07-06",
+      "replaced_by": [
+        "systemd_units"
+      ],
+      "summary": "Services were started by killing whatever held the port and spawning a child process.",
+      "issues": [
+        {
+          "text": "Nothing was restartable or supervised; a crash was invisible.",
+          "state": "solved",
+          "found": "2026-07-06",
+          "fixed": "2026-07-06",
+          "by": "systemd_units",
+          "grade": "receipt",
+          "evidence": "project_workflows_gui"
+        }
+      ],
+      "sources": [
+        "project_workflows_gui"
+      ]
+    },
+    {
+      "id": "systemd_units",
+      "name": "systemd user units",
+      "kind": "tool",
+      "role": "service supervision",
+      "status": "live",
+      "licence": "LGPL",
+      "adopted": "2026-07-06",
+      "replaced": [
+        "adhoc_launchers"
+      ],
+      "summary": "Every service became a unit, which is why a restart is now a one-line operation. It also introduced a failure mode that looks like a broken model.",
+      "issues": [
+        {
+          "text": "Made services restartable and supervised.",
+          "state": "solved",
+          "fixed": "2026-07-06",
+          "grade": "receipt",
+          "evidence": "project_workflows_gui"
+        },
+        {
+          "text": "crewai-gui.service has Wants=comfyui.service, so EVERY GUI restart pulls in a ComfyUI start that crash-loops against an orphan holding :8188 until the start limit — the unit starts were not someone fixing ComfyUI. Service state must be read as port ownership by cgroup BEFORE unit state.",
+          "state": "mitigated",
+          "found": "2026-09-11",
+          "grade": "measured",
+          "evidence": "project_metrics_hub"
+        },
+        {
+          "text": "crewai-gui is a SYSTEM unit, so it cannot order itself after the user-level Postgres; the connection pool's lazy open and retry covers boot ordering instead.",
+          "state": "mitigated",
+          "found": "2026-10-02",
+          "grade": "receipt",
+          "evidence": "project_postgres_pg16"
+        },
+        {
+          "text": "The executor sandbox refuses sudo, so a unit restart inside a task has to be handed back to the creator.",
+          "state": "accepted",
+          "grade": "receipt",
+          "evidence": "feedback_executor_sandbox_no_installs"
+        }
+      ],
+      "sources": [
+        "project_workflows_gui",
+        "project_metrics_hub",
+        "project_postgres_pg16"
+      ]
+    },
+    {
+      "id": "pipeline_pause_resume",
+      "name": "Pause / resume registry",
+      "kind": "tool",
+      "role": "pipeline control",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-07-07",
+      "summary": "Before this a run could only be halted. Now there is a scoped registry with stage-level resume.",
+      "issues": [
+        {
+          "text": "Halt-only control meant a stopped run lost everything done so far.",
+          "state": "solved",
+          "found": "2026-07-07",
+          "fixed": "2026-07-07",
+          "grade": "receipt",
+          "evidence": "project_pipeline_pause_resume"
+        }
+      ],
+      "sources": [
+        "project_pipeline_pause_resume"
+      ]
+    },
+    {
+      "id": "json_state_files",
+      "name": "JSON / JSONL state files",
+      "kind": "tool",
+      "role": "the original storage layer",
+      "status": "retired",
+      "licence": "own code",
+      "ended": "2026-10-01",
+      "replaced_by": [
+        "sqlite",
+        "postgres16"
+      ],
+      "summary": "52,582 JSON/JSONL files and 1.15 GB in data/. Measured, not estimated, in the 10-01 audit that started the database migration.",
+      "issues": [
+        {
+          "text": "prompt_log.json (37.1 MB, capped at exactly 10,000 entries with the cap already binding) read one pipeline in 81 ms and appended one entry in 185 ms, against 0.5 ms / 21 ms in SQLite.",
+          "state": "solved",
+          "found": "2026-10-01",
+          "fixed": "2026-10-01",
+          "by": "sqlite",
+          "grade": "measured",
+          "evidence": "project_storage_api_audit"
+        },
+        {
+          "text": "The write path was a bare open(path,'w') truncate, so those 185 ms are a corruption window — and the reader's bare except hid the loss.",
+          "state": "solved",
+          "found": "2026-10-01",
+          "fixed": "2026-10-01",
+          "grade": "measured",
+          "evidence": "project_storage_api_audit"
+        },
+        {
+          "text": "Worse offenders remain: asset_library_instruments_meta.json is 62.5 MB / 66,028 entries rebuilt whole per call, and 563 pipeline state files (127 MB) are parsed up to 200 at a time per request.",
+          "state": "open",
+          "found": "2026-10-01",
+          "grade": "measured",
+          "evidence": "project_storage_api_audit"
+        },
+        {
+          "text": "Write safety is still split across ~505 bare truncate sites against ~133 atomic tmp+os.replace and 12 modules using flock.",
+          "state": "open",
+          "found": "2026-10-01",
+          "grade": "measured",
+          "evidence": "project_storage_api_audit"
+        }
+      ],
+      "sources": [
+        "project_storage_api_audit"
+      ]
+    },
+    {
+      "id": "sqlite",
+      "name": "SQLite",
+      "kind": "tool",
+      "role": "first real database",
+      "status": "retired",
+      "licence": "public domain",
+      "adopted": "2026-10-01",
+      "ended": "2026-10-02",
+      "replaced": [
+        "json_state_files"
+      ],
+      "replaced_by": [
+        "postgres16"
+      ],
+      "summary": "Recommended as the first step because it was already in the program and needs no server. It held three live DBs for one day before the operator chose Postgres.",
+      "issues": [
+        {
+          "text": "Fixed the JSON read/write cost immediately (prompt_log 185 ms → 21 ms) with no new service to run.",
+          "state": "solved",
+          "fixed": "2026-10-01",
+          "grade": "measured",
+          "evidence": "project_storage_api_audit"
+        },
+        {
+          "text": "Single-writer: the advice was 'Postgres when several processes need to write at once', which is this program's shape.",
+          "state": "solved",
+          "found": "2026-10-02",
+          "fixed": "2026-10-02",
+          "by": "postgres16",
+          "grade": "operator",
+          "evidence": "project_postgres_pg16"
+        },
+        {
+          "text": "The retired files are RENAMED *.pre-postgres-20261002 and never deleted — a fresh .sqlite3 appearing in data/runtime means a missed import sqlite3 path.",
+          "state": "mitigated",
+          "found": "2026-10-02",
+          "grade": "receipt",
+          "evidence": "project_postgres_pg16"
+        }
+      ],
+      "sources": [
+        "project_storage_api_audit",
+        "project_postgres_pg16"
+      ]
+    },
+    {
+      "id": "postgres16",
+      "name": "Postgres 16.15",
+      "kind": "service",
+      "role": "the database",
+      "status": "live",
+      "licence": "PostgreSQL licence",
+      "adopted": "2026-10-02",
+      "replaced": [
+        "sqlite",
+        "json_state_files"
+      ],
+      "where": "~/pg16 (micromamba), zyg-postgres.service, unix socket only, pgdb.py + crews/alembic",
+      "summary": "Installed WITHOUT root via micromamba, listening on a unix socket with no TCP. Schema is owned by Alembic; modules never CREATE TABLE and all access goes through pgdb.py.",
+      "issues": [
+        {
+          "text": "Cutover verified rather than assumed: final sync 0 new rows, --verify compared id sets (553/3119/3579/24/111/2028 all OK) and no fresh .sqlite3 appeared.",
+          "state": "solved",
+          "fixed": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_postgres_pg16"
+        },
+        {
+          "text": "A dead server costs callers microseconds for 15 s via a down-marker instead of a 10 s wait each; call sites already degrade.",
+          "state": "solved",
+          "fixed": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_postgres_pg16"
+        },
+        {
+          "text": "The FIRST ping() on an unreachable DSN still costs the full 10 s pool.open timeout before the down-marker kicks in.",
+          "state": "open",
+          "found": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_postgres_pg16"
+        },
+        {
+          "text": "Installed with the disk at 99% (34 GB free) — ~/pg16/data/log growth is unwatched.",
+          "state": "open",
+          "found": "2026-10-02",
+          "grade": "receipt",
+          "evidence": "project_postgres_pg16"
+        }
+      ],
+      "sources": [
+        "project_postgres_pg16"
+      ]
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "kind": "service",
+      "role": "candidate database",
+      "status": "rejected",
+      "licence": "SSPL",
+      "ended": "2026-10-01",
+      "summary": "Rejected on the reasoning that produced the problem in the first place: the JSON-document habit is what created 52k files, and the data is genuinely relational.",
+      "issues": [
+        {
+          "text": "No measured win for this workload, and a document store would have re-created the storage shape being migrated away from.",
+          "state": "open",
+          "found": "2026-10-01",
+          "grade": "measured",
+          "evidence": "project_storage_api_audit"
+        }
+      ],
+      "sources": [
+        "project_storage_api_audit"
+      ]
+    },
+    {
+      "id": "teacache",
+      "name": "TeaCache",
+      "kind": "tool",
+      "role": "diffusion step cache",
+      "status": "removed",
+      "licence": "Apache-2.0",
+      "ended": "2026-08-09",
+      "replaced_by": [
+        "sageattention"
+      ],
+      "summary": "Retired because it was import-dead: it had not been running at all.",
+      "issues": [
+        {
+          "text": "Import-dead — a speed feature nobody was getting. Found by audit, not by a symptom.",
+          "state": "solved",
+          "found": "2026-08-09",
+          "fixed": "2026-08-09",
+          "by": "sageattention",
+          "grade": "measured",
+          "evidence": "project_stack_upgrade_aug2026"
+        }
+      ],
+      "sources": [
+        "project_stack_upgrade_aug2026"
+      ]
+    },
+    {
+      "id": "sageattention",
+      "name": "SageAttention (triton)",
+      "kind": "tool",
+      "role": "attention kernel for video",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-08-09",
+      "replaced": [
+        "teacache"
+      ],
+      "where": "ZYG_WAN_ATTENTION=sageattn in the comfy venv",
+      "summary": "The triton build of SageAttention, switched on by env for the Wan path.",
+      "issues": [
+        {
+          "text": "The SageAttention 2.2 CUDA build needs nvcc, which is not installed system-wide — so the stack runs the triton build.",
+          "state": "open",
+          "found": "2026-08-09",
+          "grade": "measured",
+          "evidence": "project_stack_upgrade_aug2026"
+        }
+      ],
+      "sources": [
+        "project_stack_upgrade_aug2026"
+      ]
+    },
+    {
+      "id": "comfyui_022",
+      "name": "ComfyUI 0.22 (:8188)",
+      "kind": "service",
+      "role": "production graph runtime",
+      "status": "live",
+      "licence": "GPL-3.0",
+      "adopted": "",
+      "summary": "The production instance, carrying hand-written queue-survival patches in main.py and model_management.py. Deliberately NOT upgraded: an 0.22→0.28 jump would conflict exactly where those patches live.",
+      "issues": [
+        {
+          "text": "It accepts unknown inputs SILENTLY — writing seed/steps/cfg onto the wrong sampler node is inert, and the graph runs looking correct.",
+          "state": "mitigated",
+          "found": "2026-08-25",
+          "grade": "measured",
+          "evidence": "project_klein_pathway"
+        },
+        {
+          "text": "It leaves omitted workflow inputs as None rather than defaulting them.",
+          "state": "mitigated",
+          "grade": "measured",
+          "evidence": "project_video_studio_options"
+        },
+        {
+          "text": "LoraLoader silently applied NOTHING for PEFT-format LoRAs, logging one line per tensor — 453,440 lines. The verification rule is now a COUNT: 'lora key not loaded' must not rise after a submit.",
+          "state": "solved",
+          "found": "2026-09-23",
+          "fixed": "2026-09-23",
+          "by": "convert_lora",
+          "grade": "measured",
+          "evidence": "project_comfy_lora_never_applied"
+        },
+        {
+          "text": "Cannot be upgraded in place: the local clone is depth-1 shallow with 0 tags, and 'take upstream' in model_management.py would delete the queue-survival patches.",
+          "state": "accepted",
+          "found": "2026-08-09",
+          "grade": "measured",
+          "evidence": "project_seedvr2_rejected"
+        },
+        {
+          "text": "An orphan process from an interactive session held :8188 for four days while the health probe saw a healthy port.",
+          "state": "solved",
+          "found": "2026-09-11",
+          "fixed": "2026-09-11",
+          "grade": "measured",
+          "evidence": "project_metrics_hub"
+        }
+      ],
+      "sources": [
+        "project_comfy_lora_never_applied",
+        "project_seedvr2_rejected",
+        "project_metrics_hub"
+      ]
+    },
+    {
+      "id": "comfyui_0381",
+      "name": "ComfyUI 0.38.1 (:8189)",
+      "kind": "service",
+      "role": "second graph runtime for the new engines",
+      "status": "live",
+      "licence": "GPL-3.0",
+      "adopted": "2026-10-02",
+      "summary": "A second instance with its own venv, sharing the production weights library, so LTX-2.5 and HiDream could be adopted without touching the patched production runtime. The two never run GPU work at once.",
+      "issues": [
+        {
+          "text": "Let a new engine be adopted without upgrading, and therefore without breaking, the production instance.",
+          "state": "solved",
+          "fixed": "2026-10-02",
+          "grade": "receipt",
+          "evidence": "project_ltx25_instance"
+        },
+        {
+          "text": "Started with nohup, not a unit: a user systemd unit was refused by the auto-mode classifier, so comfyui-ltx.service does not exist and the operator has to add it.",
+          "state": "open",
+          "found": "2026-10-02",
+          "grade": "receipt",
+          "evidence": "project_ltx25_instance"
+        },
+        {
+          "text": "Both instances must share one GPU, so :8189 work runs under the production lock.",
+          "state": "mitigated",
+          "found": "2026-10-02",
+          "grade": "receipt",
+          "evidence": "project_kids_hidream_ltx_build"
+        }
+      ],
+      "sources": [
+        "project_ltx25_instance",
+        "project_kids_hidream_ltx_build"
+      ]
+    },
+    {
+      "id": "onboard",
+      "name": "onboard",
+      "kind": "tool",
+      "role": "on-screen keyboard",
+      "status": "removed",
+      "licence": "GPL",
+      "ended": "2026-08-26",
+      "replaced_by": [
+        "xvkbd"
+      ],
+      "summary": "Replaced because it segfaults on python3.12.",
+      "issues": [
+        {
+          "text": "Segfaults on python3.12.",
+          "state": "solved",
+          "found": "2026-08-26",
+          "fixed": "2026-08-26",
+          "by": "xvkbd",
+          "grade": "measured",
+          "evidence": "project_virtual_keyboard_setup"
+        }
+      ],
+      "sources": [
+        "project_virtual_keyboard_setup"
+      ]
+    },
+    {
+      "id": "xvkbd",
+      "name": "xvkbd",
+      "kind": "tool",
+      "role": "on-screen keyboard",
+      "status": "live",
+      "licence": "GPL",
+      "adopted": "2026-08-26",
+      "replaced": [
+        "onboard"
+      ],
+      "summary": "The working on-screen keyboard for the streamed desktop.",
+      "issues": [],
+      "sources": [
+        "project_virtual_keyboard_setup"
+      ]
+    },
+    {
+      "id": "hls_hlsjs",
+      "name": "HLS + hls.js",
+      "kind": "tool",
+      "role": "cinema delivery",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-09-04",
+      "summary": "Replaced direct file playback because the browser caps preload at 2.4 s — a limit no server-side change could have fixed.",
+      "issues": [
+        {
+          "text": "Direct file playback stalled: the browser caps preload at 2.4 s.",
+          "state": "solved",
+          "found": "2026-09-04",
+          "fixed": "2026-09-04",
+          "grade": "measured",
+          "evidence": "project_zero_cinema_hls"
+        }
+      ],
+      "sources": [
+        "project_zero_cinema_hls"
+      ]
+    },
+    {
+      "id": "ffmpeg_nvenc",
+      "name": "ffmpeg + NVENC",
+      "kind": "tool",
+      "role": "encode, mux, crop, loudness",
+      "status": "live",
+      "licence": "LGPL/GPL",
+      "adopted": "",
+      "summary": "A pre-July survivor doing more work than any model: every mux, crop, loudness pass and Ken-Burns render. Camera moves that LTX cannot be trusted with are done here instead.",
+      "issues": [
+        {
+          "text": "Ken-Burns/NVENC throughput caps at 8 concurrent jobs.",
+          "state": "accepted",
+          "found": "2026-09-23",
+          "grade": "measured",
+          "evidence": "project_kenburns_nvenc_bench"
+        },
+        {
+          "text": "The limiter must run BEFORE loudnorm, or scene audio levels come out wrong.",
+          "state": "mitigated",
+          "grade": "measured",
+          "evidence": "project_scene_audio_levels"
+        },
+        {
+          "text": "It is the fix for LTX inventing camera moves: the move is never prompted, it is cropped in afterwards.",
+          "state": "solved",
+          "fixed": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_documentary_ltx_motion"
+        }
+      ],
+      "sources": [
+        "project_kenburns_nvenc_bench",
+        "project_documentary_ltx_motion"
+      ]
+    },
+    {
+      "id": "metrics_hub",
+      "name": "metrics_hub.py (:5000/metrics)",
+      "kind": "tool",
+      "role": "the measurement surface",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-09-11",
+      "summary": "The rebuilt metrics hub: mtime-cached collectors, hot-reloaded without a GUI restart, 454 ms cold against the old hub's 11.7 s. This lineage tab is a section of it.",
+      "issues": [
+        {
+          "text": "The old hub was structurally wrong, not just slow: success meant 'has an ended timestamp' (kidsmusic read 0% with 61 completed runs), 95 of 170 character records were synthesized backfills counted as real runs, spend read a dead rolling file, and Haiku was priced 4x low.",
+          "state": "solved",
+          "found": "2026-09-11",
+          "fixed": "2026-09-11",
+          "grade": "measured",
+          "evidence": "project_metrics_hub"
+        },
+        {
+          "text": "Eight of the eleven subtabs have no automatic poll, so their 'Checked' badge is only as fresh as the last Refresh.",
+          "state": "accepted",
+          "found": "2026-09-28",
+          "grade": "receipt",
+          "evidence": "project_metrics_hub"
+        }
+      ],
+      "sources": [
+        "project_metrics_hub"
+      ]
+    },
+    {
+      "id": "hf_uv_cache",
+      "name": "HF cache + uv venvs (weights on disk)",
+      "kind": "tool",
+      "role": "how weights and environments are stored",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "",
+      "summary": "One shared weights library plus per-engine venvs. Six disk audits produced rules that are not obvious and have each cost real time.",
+      "issues": [
+        {
+          "text": "The uv cache HARDLINKS into venvs, so du double-counts and deleting the cache frees almost nothing.",
+          "state": "mitigated",
+          "found": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_disk_audit_aug25"
+        },
+        {
+          "text": "HF blob names ARE sha256, so same-size blobs in one repo are shards, not duplicates — and deleting a weight cache does not disable an engine, because guards test the VENV.",
+          "state": "mitigated",
+          "found": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_disk_audit_aug25"
+        },
+        {
+          "text": "A disk sweep deleted the Chatterbox venv and silently removed the only TTS fallback, which later cost an episode.",
+          "state": "solved",
+          "found": "2026-10-02",
+          "fixed": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_tts_stack, project_disk_audit_aug25"
+        },
+        {
+          "text": "For the crews repo use `git prune`, NOT `git gc` — gc needs 48 GB of headroom to repack, while prune freed 4.78 GiB of loose objects with history intact. The orphans come from auto_snapshot.py losing a race with creator_nexus state files.",
+          "state": "mitigated",
+          "found": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_disk_audit_aug25"
+        }
+      ],
+      "sources": [
+        "project_disk_audit_aug25"
+      ]
+    },
+    {
+      "id": "kanban_board",
+      "name": "Kanban board (kanban_server.py)",
+      "kind": "service",
+      "role": "the production board",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "",
+      "summary": "The board every pipeline reports to, and the only place a creator may edit a running task's brief or verifier.",
+      "issues": [
+        {
+          "text": "Card TITLES are the join keys into the server's stage map, so renaming an engine on a card silently queues the whole department — 24 of 28 documentary cards could never leave queued after the music swap.",
+          "state": "solved",
+          "found": "2026-08-30",
+          "fixed": "2026-08-30",
+          "grade": "measured",
+          "evidence": "project_kanban_card_sync"
+        },
+        {
+          "text": "It showed only ONE run until other_runs/live_runs and ?pipeline_id= focus were added.",
+          "state": "solved",
+          "found": "2026-10-02",
+          "fixed": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_kanban_multi_department"
+        },
+        {
+          "text": "The Videos scan SKIPS every path containing the word 'medusa' (a swimwear-app guard), so clips must be named around it.",
+          "state": "mitigated",
+          "found": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_ltx25_instance"
+        },
+        {
+          "text": "A restart kills any live drawing assistant job — /assistant/active must read 0 first.",
+          "state": "mitigated",
+          "grade": "receipt",
+          "evidence": "feedback_kanban_restart_kills_assistant"
+        }
+      ],
+      "sources": [
+        "project_kanban_card_sync",
+        "project_kanban_multi_department"
+      ]
+    }
+  ]
+}

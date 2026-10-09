@@ -1,0 +1,304 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# ruff: noqa: F401
+
+"""arch_assistant.py — the drawing assistant behind Architecture Studio's chat
+panel (2026-09-06).
+
+WHAT IT IS. A request typed in the studio ("on grid C4 build 10x10 squares,
+100 squares high, glass every 2 floors") is turned into DRAWING RECORDS here,
+on the server, by a language model that calls the tools in this file. The
+records are the same parametric objects the studio stores — kind + numbers,
+never geometry — so the client injects them through the same path it loads a
+saved file through. The model never touches the scene; it edits a COPY of the
+document, and the finished copy goes back as one undoable step.
+
+THE GRID IS THE LANGUAGE. The studio's ground grid is 300 x 300 one-metre
+cells. Shift+R in the viewport paints a label on every cell of a 150 x 150
+field around where the user is looking, and every tool here takes those
+labels as arguments — columns are letters (A..Z, AA..KN) along +X, rows are
+numbers (1..300) along +Z, so cell A1 is the corner at (-150, -150) and "C4"
+means the square whose x runs -148..-147 and z -147..-146.
+Height is STOREYS (one storey = the catalogue's wall height, 2.7 m), never
+squares: "100 squares high" is ambiguous, and the model is told to ask once
+before it draws.
+
+WHERE IT RUNS. "auto" runs the LOCAL Ollama model (qwen3.6:35b-a3b, vision +
+tools) when the GPU has room — guarded by a free-VRAM check, the same lesson
+as the typography gate: a 23 GB model does not fit next to a resident
+render — and falls back to Anthropic (claude-haiku-4-5, tool use, no
+thinking; Opus/Fable are refused by name — see CHEAP_MODEL) when it does not,
+or when asked for. Every call is recorded by llm_audit.
+
+SEEING. The client sends a downscaled screenshot of the viewport with the
+request, and the model can ask for another view mid-job (the `look` tool):
+the job parks in `need_client` until the studio renders it and posts it back.
+2026-09-07: the default backend is the Claude Code CLI on the operator's login
+(`claude -p --model sonnet`), tools via arch_mcp_shim.py -> /assistant/tool.
+Only the newest image stays in the context — older ones are replaced with a
+one-line note — so a long job does not drown in pixels.
+
+The HTTP surface (mounted by kanban_server under /inspect/api/architecture/
+assistant/...): start, job, render, cancel, blender.
+"""
+
+from __future__ import annotations
+
+import json
+import math
+import os
+import re
+import secrets
+import shutil
+import subprocess
+import sys
+import threading
+import time
+import uuid
+
+from zyg_workflows import arch_blend_store as BSTORE  # retention: nothing here ever read a build back
+from zyg_workflows import paths
+from zyg_workflows.bin import exe
+import logging as _zyg_logging
+
+from zyg_workflows.arch_assistant._base import ARCH_DIR, BLEND_DIR, HERE, _zyg_log
+
+from zyg_workflows.arch_assistant.config import (
+    GRID_N,
+    CELL_M,
+    ORIGIN,
+    CELL_SIZES,
+    _CELL,
+    STOREY_M,
+    WALL_T,
+    MAX_OBJECTS,
+    _max_calls,
+    MAX_CALLS,
+    _turn_headroom,
+    CLI_TURN_HEADROOM,
+    READONLY_TOOLS,
+    READONLY_PREFIXES,
+    FIX_TOOLS,
+    draws,
+    CHEAP_MODEL,
+    EXPENSIVE,
+    _cheap_model,
+    ANTHROPIC_MODEL,
+    OLLAMA_MODEL,
+    OLLAMA_URL,
+    OLLAMA_NEED_GB,
+    OLLAMA_NUM_PREDICT,
+    OLLAMA_NUM_CTX,
+    CLI_BIN,
+    CLI_MODEL,
+    CLI_TIMEOUT,
+    CLI_MAX_OUTPUT,
+    CLI_DIR,
+    SHIM,
+    SERVER_URL,
+    MCP_SERVER,
+    _MaterialList,
+    MATERIALS,
+    KINDS,
+    OPENINGS,
+    DEFAULT_MAT,
+    FINISHES,
+    finish_level,
+    finish_mat,
+    col_letters,
+    parse_cell,
+    cell_name,
+    cell_size,
+    cell_origin,
+    _set_cell_m,
+    _cell_size_of,
+    _Scale,
+    cell_centre,
+    cell_of,
+    block_bounds,
+    storey_of,
+    block_around,
+    cell_offset,
+    resolve_block,
+    _num,
+)
+
+from zyg_workflows.arch_assistant.drawing import (
+    _FS_CACHE,
+    Drawing,
+    _label,
+)
+
+from zyg_workflows.arch_assistant.tools import (
+    _wall_world,
+    t_draw_box,
+    t_draw_wall,
+    t_add_slab,
+    t_add_roof,
+    t_add_windows,
+)
+
+from zyg_workflows.arch_assistant.walls import (
+    SIDE_WORDS,
+    openings_in_wall,
+    wall_on_side,
+    host_wall,
+    t_add_opening,
+    _p_footprint,
+    t_add_object,
+    WALL_KINDS_DEL,
+    _on_segment,
+    t_delete,
+    t_set_material,
+    t_set_finish,
+    t_set_grid_scale,
+    t_get_state,
+    TOOL_DEFS,
+    TOOL_FN,
+)
+
+from zyg_workflows.arch_assistant.ground import (
+    EXT_PROMPTS,
+    EXT_EXAMPLES,
+    EXT_KINDS,
+    EXT_MODULES,
+    load_extensions,
+    OPENINGS_EXT,
+    EXT_BUTTONS,
+    EXT_HEIGHTS,
+    world_to_local,
+    _CTX,
+    _Current,
+    current_drawing,
+    sculpts_of,
+    WATER_SURFACES,
+    is_sculpt,
+    ground_height,
+    ground_at,
+    ground_plane,
+    ground_tilt,
+    place_height,
+    DECK_KINDS,
+    DECK_TOL,
+    _deck_covers,
+    deck_tops,
+    deck_top,
+    surface_top,
+    LEVEL_TOL,
+    LEVEL_BATTER,
+    _sculpt_flat_weight,
+    pad_level,
+    has_ground,
+    footprint_level,
+    level_ground,
+    footprint_base,
+    storey_index,
+    _with_base,
+    is_opening,
+    t_help,
+)
+
+from zyg_workflows.arch_assistant.prompts import (
+    PROMPT_FAMILIES,
+    _PHRASE_STRIP,
+    LAST_PROMPT_INFO,
+    prompt_families,
+    tower_recipe,
+    system_prompt,
+    t_block_around,
+    t_cell_offset,
+    _relax_material_enums,
+    _coerce_args,
+    call_tool,
+    SYSTEM,
+)
+
+from zyg_workflows.arch_assistant.backends import (
+    _load_env,
+    free_vram_gb,
+    _audit,
+    ollama_loaded,
+    pick_backend,
+    _img_parts,
+    _adaptive_family,
+    _Anthropic,
+    _Ollama,
+)
+
+from zyg_workflows.arch_assistant.cli_backend import (
+    _UUID_RE,
+    _is_uuid,
+    cli_available,
+    cli_login_present,
+    _cli_model,
+    _cli_env,
+    _mcp_config,
+    _cli_cmd,
+    _cli_first_message,
+    _history_text,
+    server_summary,
+    _run_cli,
+    _cli_event,
+    _add_thought,
+    _kill,
+    _shim_job,
+)
+
+from zyg_workflows.arch_assistant.gate import (
+    GATE_MAX,
+    _ID_RE,
+    _finding_shape,
+    dedupe_findings,
+    design_findings,
+    design_gate,
+    design_note,
+    shim_tools,
+    shim_tool,
+)
+
+from zyg_workflows.arch_assistant.ledger import (
+    CONV_DIR,
+    TRANSCRIPT_DIR,
+    PARTIAL_DIR,
+    PARTIAL_FLUSH_S,
+    PARTIAL_FLUSH_CHARS,
+    _CLOCK,
+    _transcript_src,
+    _archive_transcript,
+    _conv_path,
+    _conv_write,
+    _partial_path,
+    _partial_write,
+    _partial_clear,
+    _partial_read,
+    _partial_sweep,
+    _conv_start,
+    _conv_end,
+    _close_orphans,
+    conversations,
+    active_jobs,
+)
+
+from zyg_workflows.arch_assistant.jobs import (
+    JOBS,
+    _JLOCK,
+    _JOB_TTL,
+    _gc,
+    _job_view,
+    start_job,
+    job_status,
+    provide_render,
+    cancel_job,
+    _run_loop,
+    RENDER_DIR,
+    _hero_pass,
+    _picture,
+    _run,
+    start_blender,
+    PREFIX,
+    BODY_LIMIT,
+    handle_get,
+    handle_post,
+)

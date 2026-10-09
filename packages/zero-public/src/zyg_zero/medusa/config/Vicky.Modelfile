@@ -1,0 +1,89 @@
+# Vicky — the strong local brain behind Medusa's chat assistant (2026-09-17).
+#
+# Vicky used to be `claude -p --model sonnet` on the operator's metered Anthropic
+# login. She is now Dolphin-Mistral-24B-Venice-Edition at Q8_0, on this machine,
+# costing nothing per turn. The Claude engine still exists in medusa_vicky.py's
+# ENGINES table but is disabled — one env var (ZYG_VICKY_CLAUDE=on) brings it
+# back, and every Claude chat keeps its session id, so re-enabling resumes them.
+#
+# Why Q8_0 and not the usual Q4/Q6: this box's 4090 reports 49140 MiB, so the
+# 25 GB of weights sit entirely in VRAM with room to spare for a 32k KV cache.
+# The "generally unneeded" note on Q8 in the quant tables is written for 24 GB
+# cards. Here the strong quant is free.
+#
+# Dense 24B, not an MoE like Victor's qwen3.6:35b-a3b — every token reads all
+# 25 GB, so expect roughly a third of Victor's tokens per second. That is the
+# trade that was accepted for the better brain.
+#
+# Deliberately NO `SYSTEM` line, for the same reason as Victor.Modelfile: the
+# standing rules are read fresh from VICKY_RULES.md on every single turn
+# (medusa_victor.system_prompt()). Baking them in here would freeze them at
+# build time and an edit to the rules file would silently stop taking effect.
+#
+# Build with:  ollama create vicky -f config/Vicky.Modelfile
+#
+# FROM below is home-relative. Ollama does NOT expand `~`, so substitute the absolute
+# path of your model store ($ZYG_MODELS_DIR, default ~/models) before building:
+#   sed "s|^FROM ~|FROM $HOME|" config/Vicky.Modelfile | ollama create vicky -f -
+FROM ~/models/gguf/Dolphin-Mistral-24B-Venice-Edition-Q8_0.gguf
+
+# ── TEMPLATE: why this file has to carry one ─────────────────────────────────
+# The first build of this model came out with `ollama show --template` printing
+# `{{ .Prompt }}` and Capabilities listing `completion` alone — no `tools`. That
+# is not Ollama being coy; it is Ollama failing to convert the template baked
+# into the GGUF and falling back to raw completion, SILENTLY. Two separate
+# reasons, both worth knowing before anyone "simplifies" this block away:
+#
+#  1. The GGUF's own Jinja template calls strftime_now("%Y-%m-%d"), an extension
+#     Ollama's Go template engine does not implement. Conversion fails whole.
+#  2. That template has NO tool support in the first place. It handles exactly
+#     three roles and calls raise_exception() on anything else — Dolphin's
+#     fine-tune shipped a simplified template in place of Mistral's tool-capable
+#     one. So even a perfect conversion would have produced a model that cannot
+#     be handed a tool schema.
+#
+# Left alone, the result is the worst kind of working: the model answers, fluent
+# and confident, having been fed the raw transcript with no [INST] markers and
+# no tools, and every image_* / video_* / run_bash call this app is built around
+# silently becomes prose describing a call it never made.
+#
+# So the template below is Mistral v7 (tekken) written by hand, the format the
+# BASE model — mistralai/Mistral-Small-24B-Instruct-2501 — was instruction-tuned
+# on and whose tool tokens the weights still carry. Ollama infers the `tools`
+# capability from the presence of .Tools here, and infers the parser for tool
+# calls coming back from the literal `[TOOL_CALLS]` prefix, which is why that
+# marker has to stay exactly as written.
+#
+# Tools are emitted immediately before the LAST user message, not at the top.
+# That is Mistral's convention, not a stylistic choice — the model was trained
+# with the schema in that position and moving it measurably degrades tool use.
+#
+# No <s> in the template: the GGUF sets add_bos_token, so Ollama's tokenizer
+# adds BOS itself. Writing it here as well doubles it.
+TEMPLATE """
+{{- range $index, $_ := .Messages }}
+{{- if eq .Role "system" }}[SYSTEM_PROMPT]{{ .Content }}[/SYSTEM_PROMPT]
+{{- else if eq .Role "user" }}
+{{- if and (le (len (slice $.Messages $index)) 2) $.Tools }}[AVAILABLE_TOOLS]{{ $.Tools }}[/AVAILABLE_TOOLS]
+{{- end }}[INST]{{ .Content }}[/INST]
+{{- else if eq .Role "assistant" }}
+{{- if .Content }}{{ .Content }}
+{{- if not (eq (len (slice $.Messages $index)) 1) }}</s>
+{{- end }}
+{{- else if .ToolCalls }}[TOOL_CALLS][
+{{- range .ToolCalls }}{"name": "{{ .Function.Name }}", "arguments": {{ .Function.Arguments }}}
+{{- end }}]</s>
+{{- end }}
+{{- else if eq .Role "tool" }}[TOOL_RESULTS]{"content": {{ .Content }}}[/TOOL_RESULTS]
+{{- end }}
+{{- end }}"""
+
+# A tool loop replays the whole transcript every turn (Ollama has no session to
+# resume), so the context holds a conversation plus tool results, not one
+# question. 32k costs ~5 GB of KV here; there is headroom to raise it.
+PARAMETER num_ctx 32768
+
+# Mistral-Small-24B's own recommendation is a low temperature — it is noticeably
+# more prone to drift at the 0.6 Victor uses than qwen is.
+PARAMETER temperature 0.15
+PARAMETER top_p 0.95

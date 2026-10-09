@@ -1,0 +1,14 @@
+[importlinter]
+root_packages =
+    zyg_workflows
+    zyg_dashboard
+    zyg_zero
+    zyg_nexus
+
+[importlinter:contract:layers]
+name = Workflows is the base library; dashboard, zero-public and creator-nexus build on it and never the reverse
+type = layers
+layers =
+    zyg_dashboard
+    zyg_zero | zyg_nexus
+    zyg_workflows

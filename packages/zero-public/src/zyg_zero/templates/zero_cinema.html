@@ -1,0 +1,200 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cinema — Zygomatic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d12'/%3E%3Cpath d='M25 20l20 12-20 12z' fill='%237c6ff7'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/assets/zero/css/zpub_cinema.css?v=12">
+</head>
+<body>
+
+<!-- ══ Video surface — covers the whole page ══════════════════════════════ -->
+<div class="stage" id="stage">
+  <video id="player" playsinline preload="metadata" crossorigin="anonymous"></video>
+
+  <div class="stage-idle" id="stage-idle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+      <path d="M8 5.5v13l11-6.5z" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="10.2"/>
+    </svg>
+    <h2>Pick something to watch</h2>
+    <p id="idle-hint">Choose a title from the board on the left.</p>
+  </div>
+
+  <div class="stage-spinner" id="stage-spinner" hidden><div class="spin"></div><span id="spin-label">Loading…</span></div>
+  <div class="stage-error" id="stage-error" hidden></div>
+
+  <!-- Centre tap feedback -->
+  <div class="pulse" id="pulse" aria-hidden="true"></div>
+
+  <!-- ── Skip intro — shown on its own timer, not with the control bar ──── -->
+  <button class="skip-card" id="btn-skip-intro" type="button" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5.5 13 12l-8 6.5z"/><path d="M18.5 5.5v13"/></svg>
+    <span id="skip-intro-label">Skip intro</span>
+  </button>
+
+  <!-- ── Controls ─────────────────────────────────────────────────────── -->
+  <div class="controls" id="controls">
+    <div class="ctl-title" id="ctl-title"></div>
+
+    <div class="scrub" id="scrub">
+      <div class="scrub-hit" id="scrub-hit">
+        <div class="scrub-rail">
+          <div class="scrub-buffer" id="scrub-buffer"></div>
+          <div class="scrub-played" id="scrub-played"></div>
+          <div class="scrub-ball" id="scrub-ball"></div>
+        </div>
+      </div>
+      <div class="scrub-tip" id="scrub-tip">0:00</div>
+    </div>
+
+    <div class="ctl-row">
+      <button class="ctl-btn" id="btn-play" title="Play / Pause  (Space)" aria-label="Play">
+        <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" hidden aria-hidden="true"><path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg>
+      </button>
+      <button class="ctl-btn" id="btn-back" title="Back 10s  (←)" aria-label="Back 10 seconds">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.2 3.6v4.2h4.2"/></svg>
+      </button>
+      <button class="ctl-btn" id="btn-fwd" title="Forward 10s  (→)" aria-label="Forward 10 seconds">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.8 3.6v4.2h-4.2"/></svg>
+      </button>
+
+      <div class="ctl-vol">
+        <button class="ctl-btn" id="btn-mute" title="Mute  (M)" aria-label="Mute">
+          <svg class="ic-vol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h3.5L12 19V5L7.5 9z"/><path d="M15.5 9.2a4 4 0 0 1 0 5.6"/><path d="M18 6.7a7.5 7.5 0 0 1 0 10.6"/></svg>
+          <svg class="ic-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" hidden aria-hidden="true"><path d="M4 9v6h3.5L12 19V5L7.5 9z"/><path d="M16 10l4 4M20 10l-4 4"/></svg>
+        </button>
+        <input class="vol-range" id="vol-range" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+      </div>
+
+      <div class="ctl-time"><span id="t-cur">0:00</span> <span class="dim">/</span> <span id="t-dur">0:00</span></div>
+
+      <div class="ctl-spacer"></div>
+
+      <span class="ctl-badge" id="badge-mode" hidden></span>
+
+      <button class="ctl-btn" id="btn-subs" title="Subtitles  (C)" aria-label="Subtitles">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="5" width="18.8" height="14" rx="2.6"/><path d="M6.6 14.2h4M13.4 14.2h4M6.6 10.4h2.4M12 10.4h5.4"/></svg>
+      </button>
+      <button class="ctl-btn" id="btn-settings" title="Options  (right-click the video)" aria-label="Options">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7.9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H2a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 7.9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V2a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H22a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
+      </button>
+      <button class="ctl-btn" id="btn-pip" title="Picture-in-picture" aria-label="Picture in picture">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="4.6" width="18.8" height="14.8" rx="2.4"/><rect x="12.4" y="11.6" width="7.4" height="6.2" rx="1.4" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button class="ctl-btn" id="btn-full" title="Fullscreen  (F)" aria-label="Fullscreen">
+        <svg class="ic-fs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9V3.5H9M15 3.5h5.5V9M20.5 15v5.5H15M9 20.5H3.5V15"/></svg>
+        <svg class="ic-fsx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" hidden aria-hidden="true"><path d="M9 3.5V9H3.5M20.5 9H15V3.5M15 20.5V15h5.5M3.5 15H9v5.5"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Top bar ═══════════════════════════════════════════════════════════ -->
+<header class="topbar" id="topbar">
+  <div class="tb-left">
+    <button class="rail-toggle" id="rail-toggle" title="Show / hide the board" aria-label="Toggle board">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h16"/></svg>
+    </button>
+
+    <div class="dd" id="dd-view">
+      <button class="dd-btn" id="dd-btn" aria-haspopup="listbox" aria-expanded="false">
+        <span id="dd-label">Movies</span>
+        <svg class="dd-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg>
+      </button>
+      <div class="dd-menu" id="dd-menu" role="listbox">
+        <button class="dd-item" data-view="movies" role="option">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 7.2h17.6v11.6H3.2z"/><path d="M3.2 7.2 6 3.4M9.6 7.2 12.4 3.4M16 7.2l2.8-3.8"/></svg>
+          <span>Movies</span><em id="dd-count-movies"></em>
+        </button>
+        <button class="dd-item" data-view="series" role="option">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="7" width="18.8" height="13" rx="2.4"/><path d="m8 3.4 4 3.6 4-3.6"/></svg>
+          <span>Series</span><em id="dd-count-series"></em>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tb-right">
+    <button class="tb-btn" id="btn-upload" title="Scan a folder for new movies and series">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16.5V4.2"/><path d="m7.5 8.7 4.5-4.5 4.5 4.5"/><path d="M4 15v3.4A2.1 2.1 0 0 0 6.1 20.5h11.8A2.1 2.1 0 0 0 20 18.4V15"/></svg>
+      <span>Upload</span>
+    </button>
+    <button class="tb-btn tb-icon" id="btn-lock" title="Lock and sign out" aria-label="Lock">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.4" y="10.4" width="15.2" height="10.2" rx="2.3"/><path d="M8.2 10.4V7.6a3.8 3.8 0 0 1 7.6 0v2.8"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ══ Vertical kanban board ═════════════════════════════════════════════ -->
+<aside class="rail" id="rail">
+  <div class="rail-head">
+    <div class="rail-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="m15.6 15.6 4.2 4.2"/></svg>
+      <input id="rail-filter" type="search" placeholder="Filter…" aria-label="Filter titles">
+    </div>
+  </div>
+  <div class="rail-crumb" id="rail-crumb" hidden>
+    <button id="crumb-back" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
+      <span id="crumb-text">All series</span>
+    </button>
+    <button id="crumb-rename" class="crumb-view" type="button" hidden
+            title="Rename this series" aria-label="Rename this series">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17z"/><path d="M14.5 5.5 18.5 9.5"/></svg>
+    </button>
+    <button id="crumb-view" class="crumb-view" type="button" hidden
+            aria-label="Toggle episode layout"></button>
+  </div>
+  <div class="rail-body" id="rail-body"></div>
+  <div class="rail-foot" id="rail-foot"></div>
+</aside>
+
+<!-- ══ Right-click menu ══════════════════════════════════════════════════ -->
+<div class="ctxmenu" id="ctxmenu" role="menu"></div>
+
+<!-- ══ Folder scan dialog ════════════════════════════════════════════════ -->
+<div class="modal" id="scan-modal" role="dialog" aria-modal="true" aria-labelledby="scan-title">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="scan-title">Add movies &amp; series</h3>
+      <button class="modal-x" id="scan-close" aria-label="Close">&times;</button>
+    </div>
+    <p class="modal-sub">Pick a folder on this machine. Everything below it is scanned for
+      movies and series — subtitles and artwork included.</p>
+
+    <div class="picker">
+      <div class="picker-path" id="picker-path">—</div>
+      <div class="picker-list" id="picker-list"></div>
+      <div class="picker-note" id="picker-note"></div>
+    </div>
+
+    <div class="scan-progress" id="scan-progress" hidden>
+      <div class="bar"><div class="bar-fill" id="scan-bar"></div></div>
+      <div class="scan-text" id="scan-text">Starting…</div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="fpx-btn" id="scan-cancel" type="button">Close</button>
+      <button class="fpx-btn fpx-go" id="scan-start" type="button" disabled>Scan this folder</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/zero/js/hls.min.js?v=1.5.20"></script>
+<script src="/assets/zero/js/zpub_cinema.js?v=13"></script>
+</body>
+</html>

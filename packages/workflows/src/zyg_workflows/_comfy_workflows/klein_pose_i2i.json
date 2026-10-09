@@ -1,0 +1,220 @@
+{
+  "10": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "flux-2-klein-base-4b.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "11": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen_3_4b.safetensors",
+      "type": "flux2",
+      "device": "default"
+    }
+  },
+  "12": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    }
+  },
+  "20": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "portrait photo",
+      "clip": [
+        "13",
+        1
+      ]
+    }
+  },
+  "21": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "",
+      "clip": [
+        "13",
+        1
+      ]
+    }
+  },
+  "22": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "init.png",
+      "upload": "image"
+    }
+  },
+  "23": {
+    "class_type": "ImageScaleToTotalPixels",
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "megapixels": 1.0,
+      "image": [
+        "22",
+        0
+      ]
+    }
+  },
+  "24": {
+    "class_type": "VAEEncode",
+    "inputs": {
+      "pixels": [
+        "23",
+        0
+      ],
+      "vae": [
+        "12",
+        0
+      ]
+    }
+  },
+  "26": {
+    "class_type": "ReferenceLatent",
+    "inputs": {
+      "conditioning": [
+        "20",
+        0
+      ],
+      "latent": [
+        "24",
+        0
+      ]
+    }
+  },
+  "27": {
+    "class_type": "ReferenceLatent",
+    "inputs": {
+      "conditioning": [
+        "21",
+        0
+      ],
+      "latent": [
+        "24",
+        0
+      ]
+    }
+  },
+  "30": {
+    "class_type": "EmptyFlux2LatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    }
+  },
+  "32": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 42
+    }
+  },
+  "33": {
+    "class_type": "Flux2Scheduler",
+    "inputs": {
+      "steps": 20,
+      "width": 1024,
+      "height": 1024
+    }
+  },
+  "34": {
+    "class_type": "CFGGuider",
+    "inputs": {
+      "model": [
+        "13",
+        0
+      ],
+      "positive": [
+        "26",
+        0
+      ],
+      "negative": [
+        "27",
+        0
+      ],
+      "cfg": 5.0
+    }
+  },
+  "35": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "31": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "32",
+        0
+      ],
+      "guider": [
+        "34",
+        0
+      ],
+      "sampler": [
+        "35",
+        0
+      ],
+      "sigmas": [
+        "36",
+        1
+      ],
+      "latent_image": [
+        "24",
+        0
+      ]
+    }
+  },
+  "40": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "31",
+        0
+      ],
+      "vae": [
+        "12",
+        0
+      ]
+    }
+  },
+  "50": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "40",
+        0
+      ],
+      "filename_prefix": "ZygKleinEdit"
+    }
+  },
+  "13": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "lora_name": "zygchar_PLACEHOLDER_klein.safetensors",
+      "strength_model": 1.0,
+      "strength_clip": 1.0,
+      "model": [
+        "10",
+        0
+      ],
+      "clip": [
+        "11",
+        0
+      ]
+    }
+  },
+  "36": {
+    "class_type": "SplitSigmasDenoise",
+    "inputs": {
+      "sigmas": [
+        "33",
+        0
+      ],
+      "denoise": 0.62
+    }
+  }
+}

@@ -1,0 +1,367 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+"""arch_spec_seed.seeds_fabric — service rooms and building fabric — plant_room, bike_store, refuse_store,
+loading_bay, reception_desk, atrium, escalator, column, window, wall, slab,
+colonnade.
+
+Moved verbatim out of the 1,179-line arch_spec_seed.py; original lines 785-1136.
+"""
+
+from __future__ import annotations
+
+SEEDS_FABRIC = [
+    {
+        'key': 'plant_room',
+        'title': 'Plant room / rooftop plant',
+        'aliases': ['plant', 'mechanical', 'hvac', 'technische ruimte'],
+        'kinds': ['hvac_unit', 'water_tank'],
+        'tools': ['add_rooftop_plant', 'add_utility'],
+        'what': 'The machinery a building needs to work: lift motor, air handling, tanks. On a flat roof it is what '
+        'stops the roof reading as a model.',
+        'looks': 'A low enclosure or a group of units on the roof, next to the lift overrun, screened from the street.',
+        'how': 'add_rooftop_plant(group) puts the standard set on the roof of a group.',
+        'avoid': [
+            'A flat roof with nothing on it at all',
+            'Plant in the middle of an occupied roof terrace',
+            'Plant with no access route from the stair',
+        ],
+        'quality': [
+            'Screen it, or set it back from the parapet by its own height',
+            'Keep it on the core side so the terrace side stays clear',
+            '1.0 m clear all round each unit for maintenance',
+        ],
+        'space': {
+            'clear_r': 1.0,
+            'host': 'deck',
+            'severity': 'warn',
+            'note': '1.0 m maintenance clearance round every unit',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'bike_store',
+        'title': 'Cycle store',
+        'aliases': ['bike store', 'bicycle parking', 'fietsenstalling'],
+        'kinds': ['bicycle'],
+        'tools': ['add_room', 'place_asset'],
+        'what': 'A secure room or rack area for cycles, on the ground storey, on the route between the entrance and '
+        'the street.',
+        'looks': 'A room off the lobby or a covered rack run outside; 2.0 m deep per rack row plus a 1.5 m aisle.',
+        'how': 'add_room(..., name="Cycle store") on the ground storey near the entrance, then place_asset cycles.',
+        'avoid': [
+            'Putting it where a cycle must go through the lobby carpet to reach it',
+            'A store reached only by the lift',
+            'Under 1.5 m of aisle between rack rows',
+        ],
+        'quality': [
+            'One space per apartment as a working default',
+            '2.0 m per rack row, 1.5 m aisle, door 1.0 m wide',
+            'On the ground storey, on the street side',
+        ],
+        'space': {
+            'd': [2.0, 6.0],
+            'clear_front': 1.5,
+            'facing': '+z',
+            'host': 'floor',
+            'severity': 'warn',
+            'per': {'unit': 'apartments', 'n': 1},
+            'note': '2.0 m per rack row plus a 1.5 m aisle',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'refuse_store',
+        'title': 'Refuse store',
+        'aliases': ['bin store', 'waste', 'afvalberging'],
+        'kinds': ['dumpster', 'bin'],
+        'tools': ['add_room', 'add_street_furniture'],
+        'what': 'Where the bins live between collections, and the route a full bin is wheeled along to the street.',
+        'looks': 'A room or enclosure on the ground storey with a door wide enough for a bin and a level route out.',
+        'how': 'add_room(..., name="Refuse store") on the ground storey with a door onto the street side.',
+        'avoid': [
+            'A bin route through the lobby',
+            'Steps on the bin route',
+            'A store more than 25 m from where the truck stops',
+        ],
+        'quality': [
+            '1.2 m wide door and a level route to the kerb',
+            'Under 25 m from the collection point',
+            'Away from the entrance axis and from habitable windows',
+        ],
+        'space': {
+            'w': [1.5, 8.0],
+            'd': [1.5, 6.0],
+            'clear_front': 1.2,
+            'facing': '+z',
+            'host': 'floor',
+            'severity': 'warn',
+            'note': 'level route to the kerb, under 25 m',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'loading_bay',
+        'title': 'Loading bay',
+        'aliases': ['service yard', 'delivery', 'laad en losplaats'],
+        'kinds': ['truck'],
+        'tools': ['add_parking', 'add_vehicles'],
+        'what': 'Where a delivery vehicle stops and unloads, off the arrival route so a lorry never meets the entrance.',
+        'looks': 'A hard-surfaced bay on the service side, 3.5 x 12 m for a rigid truck, with room to turn.',
+        'how': 'add_parking(...) sized for a truck on the service side, or a flat pad plus add_vehicles(kind="truck").',
+        'avoid': [
+            'A loading bay on the entrance facade',
+            'No turning space — a lorry must not reverse onto the street',
+            'A bay shared with the accessible parking',
+        ],
+        'quality': [
+            '3.5 x 12 m per rigid vehicle, 4.5 m clear height',
+            'On the opposite side of the building from the entrance',
+            'A level route from the bay to a service door',
+        ],
+        'space': {
+            'w': [3.0, 5.0],
+            'd': [10.0, 18.0],
+            'clear_front': 12.0,
+            'facing': '+z',
+            'host': 'ground',
+            'severity': 'warn',
+            'note': '12 m of manoeuvring space in front; 4.5 m clear height',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'reception_desk',
+        'title': 'Reception desk',
+        'aliases': ['reception', 'front desk', 'balie'],
+        'kinds': ['desk'],
+        'tools': ['place_asset'],
+        'what': 'The staffed counter in a lobby, placed so it sees the entrance and the lifts.',
+        'looks': '0.75 m working side, 1.1 m public side, 2-4 m long; behind it a solid wall, not glass.',
+        'how': 'place_asset(cell, query="reception desk", storey=0) in the lobby, facing the entrance door.',
+        'avoid': [
+            'A desk with its back to the entrance',
+            'A desk in the middle of the walking line between door and lift',
+            'Less than 1.5 m of queueing space in front',
+        ],
+        'quality': [
+            '1.5-2.0 m of clear queueing space on the public side',
+            '1.0 m of working space behind',
+            'Sight line to both the entrance and the lift doors',
+        ],
+        'space': {
+            'w': [2.0, 6.0],
+            'd': [0.8, 1.2],
+            'clear_front': 1.5,
+            'facing': '+z',
+            'host': 'floor',
+            'severity': 'warn',
+            'note': '1.5 m queueing in front, 1.0 m working space behind',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'atrium',
+        'title': 'Atrium',
+        'aliases': ['void', 'lightwell', 'vide'],
+        'kinds': ['zone'],
+        'tools': ['add_atrium'],
+        'what': 'A hole through several floor plates that brings daylight into the middle of a deep building.',
+        'looks': 'A void with guarded edges on every floor it passes, roof-lit at the top.',
+        'how': 'add_atrium(cell_from, cell_to, from_storey, to_storey) — it cuts the slabs it passes through.',
+        'avoid': [
+            'An atrium that does not reach a roof light',
+            'Unguarded slab edges around the void',
+            'An atrium that eats the lettable area without lighting anything',
+        ],
+        'quality': [
+            'At least 6 m across, or it lights nothing',
+            '1.1 m guarding on every edge',
+            'Glazed at the top and open to the lobby at the bottom',
+        ],
+        'space': {
+            'w': [6.0, 40.0],
+            'd': [6.0, 40.0],
+            'host': 'floor',
+            'severity': 'warn',
+            'note': 'under 6 m across it is a lightwell, not an atrium',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'escalator',
+        'title': 'Escalator',
+        'aliases': ['moving stair', 'roltrap'],
+        'kinds': ['escalator'],
+        'tools': ['add_escalator'],
+        'what': 'A moving stair between two storeys, for volume rather than for access — it never replaces the lift '
+        'or the escape stair.',
+        'looks': 'A 30-degree incline with a flat run at each end; in pairs, up and down side by side.',
+        'how': 'add_escalator(cell, from_storey, to_storey, direction_deg, width=1.0, angle=30).',
+        'avoid': [
+            'An escalator as the only way between two floors',
+            'No flat landing at the top or bottom',
+            'A single escalator serving both directions',
+        ],
+        'quality': [
+            '2.5-3.0 m of flat landing at each end',
+            'In pairs where the traffic goes both ways',
+            'A lift as well: an escalator is not accessible',
+        ],
+        'space': {
+            'w': [0.8, 1.4],
+            'clear_front': 2.5,
+            'facing': '+z',
+            'headroom': 2.3,
+            'host': 'floor',
+            'severity': 'warn',
+            'note': '2.5 m of flat landing at both ends',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'column',
+        'title': 'Column',
+        'aliases': ['pillar', 'pier', 'kolom', 'stütze'],
+        'kinds': ['column_round', 'column_rect', 'column_h'],
+        'tools': ['add_column_grid', 'add_colonnade'],
+        'what': 'A vertical member that carries what it meets. Its height is set by what sits on top of it, never '
+        'chosen separately.',
+        'looks': 'A regular grid; in an office 6-9 m centres, in a car park 7.5-8.0 m so the bays fit between.',
+        'how': 'add_column_grid(cell_from, cell_to, spacing, storeys) — or, under a canopy, add_canopy(columns=N), '
+        'which sizes them to the soffit itself.',
+        'avoid': [
+            'A column taller than the plate it holds up — it pierces it',
+            'A colonnade of one height under a canopy of another',
+            'A column grid that lands in the middle of a parking bay or a corridor',
+        ],
+        'quality': [
+            '6-9 m centres for an office plate',
+            'Line the grid up with the parking bays and the facade mullions',
+            'A column exactly as tall as the soffit above it',
+        ],
+        'space': {
+            'clear_r': 0.3,
+            'host': 'floor',
+            'severity': 'warn',
+            'note': 'a column must be exactly as tall as the plate it carries',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'window',
+        'title': 'Window',
+        'aliases': ['raam', 'fenster', 'fenetre', 'glazing opening'],
+        'kinds': ['window', 'window_strip', 'window_bay', 'window_round', 'window_arch'],
+        'tools': ['add_windows'],
+        'what': 'A glazed hole that gives a room its daylight and its view out, sized and placed by the room behind it.',
+        'looks': 'Sill 0.9 m in a habitable room (0.6 m where the view matters), head aligned across the whole facade.',
+        'how': 'add_windows(walls, kind="window", width, height, sill=0.9, count|spacing) after the wall exists.',
+        'avoid': [
+            'Windows at different head heights on one facade',
+            'A habitable room with no window',
+            'A window where a floor slab or a stair is behind it',
+            'A sill under 0.8 m with no guarding above ground storey',
+        ],
+        'quality': [
+            'Glazing about 20 % of the floor area of the room behind it',
+            'Head height common across the facade, sills allowed to vary',
+            'Reveal depth: a window flush with the face reads as a sticker',
+        ],
+        'space': {
+            'w': [0.4, 6.0],
+            'host': 'wall',
+            'severity': 'warn',
+            'note': 'sill 0.9 m habitable; guarding needed if the sill is under 0.8 m above the ground storey',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'wall',
+        'title': 'Wall / partition',
+        'aliases': ['partition', 'party wall', 'muur', 'wand'],
+        'kinds': ['wall', 'partition', 'wall_arc', 'wall_ring'],
+        'tools': ['draw_wall', 'draw_box', 'add_room'],
+        'what': 'The vertical plane that encloses or divides. An external wall carries load and weather; a partition '
+        'only divides, and is thinner.',
+        'looks': 'External 0.25-0.35 m thick, internal partition 0.1-0.15 m; both run from the floor to the underside '
+        'of the slab over them, not to an arbitrary height.',
+        'how': 'draw_wall(cell_a, cell_b, storeys) or draw_box for a whole shell; add_room and layout_floor place their '
+        'partitions themselves.',
+        'avoid': [
+            'A partition that stops short of the ceiling in a room meant to be private',
+            'External walls the same thickness as partitions',
+            'Walls on a storey that has no slab under them',
+        ],
+        'quality': [
+            '0.3 m external, 0.1 m partition as the working defaults',
+            'Line partitions up between storeys where they carry',
+            'A real library material on anything visible in a render',
+        ],
+        'space': {
+            'd': [0.08, 0.6],
+            'host': 'floor',
+            'severity': 'info',
+            'note': 'a partition is 0.1 m, an external wall 0.25-0.35 m',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'slab',
+        'title': 'Floor slab',
+        'aliases': ['floor', 'deck slab', 'vloer'],
+        'kinds': ['slab', 'slab_poly'],
+        'tools': ['add_slab', 'draw_box'],
+        'what': 'The horizontal plate a storey stands on. Every storey with walls has one, and its TOP is the walkable '
+        'level: the record sits at the storey base and the deck is base plus thickness.',
+        'looks': '0.2-0.35 m thick; behind a glazed facade its edge is hidden, which is why a string course is what '
+        'makes the floor line read.',
+        'how': 'draw_box makes them per storey by default; add_slab(cell_from, cell_to, storey) for a single one.',
+        'avoid': [
+            'slabs=false on anything habitable',
+            'Placing furniture at the slab record y instead of its top',
+            'A storey of walls with no slab — check_floors reports it as an error',
+        ],
+        'quality': [
+            '0.25-0.3 m for a normal span',
+            'Leave base_height out and the tools land on the deck by themselves',
+            'Show the edge on a glazed facade with add_facade_bands',
+        ],
+        'space': {
+            'host': 'floor',
+            'severity': 'info',
+            'note': 'the deck is the slab y plus its thickness; deck_top() does this for you',
+        },
+        'source': 'seeded',
+    },
+    {
+        'key': 'colonnade',
+        'title': 'Colonnade',
+        'aliases': ['arcade', 'portico'],
+        'kinds': ['column_h'],
+        'tools': ['add_colonnade'],
+        'what': 'A row of columns carrying a continuous plate or beam: an arcade you walk under.',
+        'looks': 'Even spacing, all the same height, all carrying the same thing.',
+        'how': 'add_colonnade(...) only where there is a plate for them to carry; under a canopy use '
+        'add_canopy(columns=N) instead, so the two heights cannot disagree.',
+        'avoid': [
+            'A colonnade under a canopy of a different height — the columns pierce it',
+            'Uneven spacing on a symmetrical facade',
+            'A colonnade that carries nothing',
+        ],
+        'quality': [
+            'Spacing 3-6 m, the same all along',
+            'Height exactly the soffit it meets',
+            '2.4 m minimum clear walking height under the beam',
+        ],
+        'space': {
+            'clear_r': 0.3,
+            'headroom': 2.4,
+            'host': 'floor',
+            'severity': 'warn',
+            'note': 'a column is exactly as tall as what it carries',
+        },
+        'source': 'seeded',
+    },
+]

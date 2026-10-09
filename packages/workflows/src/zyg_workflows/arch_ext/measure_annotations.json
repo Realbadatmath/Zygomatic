@@ -1,0 +1,8 @@
+{"section_key": "annotations", "section_label": "Annotations",
+ "groups": [{"g": "Measure & note",
+             "items": [["dim_linear", "Dimension", {"x2": 5.0, "z2": 0.0, "off": 0.6, "txt": ""},
+                        "A linear dimension: the measured span runs from the object's own point to (x2, z2) in its local frame, with the dimension line offset off metres to the left of it. The text is the length in metres unless txt says otherwise."],
+                       ["dim_angle", "Angle", {"x1": 2.0, "z1": 0.0, "x2": 0.0, "z2": -2.0, "r": 1.0},
+                        "A three-point angle: the object's point is the vertex, (x1, z1) and (x2, z2) are the two arms in its local frame, and r is the radius of the arc. The text is the angle in degrees."],
+                       ["label_text", "Label", {"txt": "Note", "size": 0.35},
+                        "A text note pinned to a point: txt is the note (\\n starts a new line), size its height in metres. Edit txt in the Properties panel."]]}]}

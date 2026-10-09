@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "category": "soundtracks",
+  "files": {
+    "crowd_agony.wav": {
+      "source": "344 Audio Limited \u2014 Human Mouth Noises (DERIVED)",
+      "license_id": "royalty-free-verified",
+      "commercial_ok": true,
+      "attribution_required": false,
+      "attribution": "",
+      "purchased_from": "Sonniss (1-user licence)",
+      "purchase_date": "2026-08-21",
+      "no_ai_training": true,
+      "no_redistribute": true,
+      "derived": true,
+      "notes": "Crowd-in-agony bed built by build_agony_bed.py from 20 layered, pitch-spread pain vocalisations in the vocal_fx library, with distance treatment. A DERIVED work: the 344 Audio EULA permits modify/edit/combine, and it carries the SAME restrictions as its sources \u2014 mix-only, never a model input, never redistributed. Built with ffmpeg DSP only (resample + filters); no model was involved, so the no-AI-training clause is not engaged.",
+      "added_date": "2026-08-21 16:35:02"
+    },
+    "crowd_agony_16s.wav": {
+      "source": "344 Audio Limited \u2014 Human Mouth Noises (DERIVED)",
+      "license_id": "royalty-free-verified",
+      "commercial_ok": true,
+      "attribution_required": false,
+      "attribution": "",
+      "purchased_from": "Sonniss (1-user licence)",
+      "purchase_date": "2026-08-21",
+      "no_ai_training": true,
+      "no_redistribute": true,
+      "derived": true,
+      "notes": "Crowd-in-agony bed built by build_agony_bed.py from 55 layered, pitch-spread pain vocalisations in the vocal_fx library (3 wave(s), 16 s), with distance treatment. A DERIVED work: the 344 Audio EULA permits modify/edit/combine, and it carries the SAME restrictions as its sources \u2014 mix-only, never a model input, never redistributed. Built with ffmpeg DSP only (resample + filters); no model was involved, so the no-AI-training clause is not engaged.",
+      "added_date": "2026-08-25 14:19:48"
+    }
+  }
+}

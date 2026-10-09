@@ -1,0 +1,106 @@
+{
+  "1007": {
+    "name": "Bark",
+    "gradient": "gradient_01.png"
+  },
+  "1008": {
+    "name": "Tortoise TTS",
+    "gradient": "gradient_02.png"
+  },
+  "1014": {
+    "name": "Ffmpeg",
+    "gradient": "gradient_03.png"
+  },
+  "1015": {
+    "name": "Pydub",
+    "gradient": "gradient_04.png"
+  },
+  "1020": {
+    "name": "HumanEval",
+    "gradient": "gradient_05.png"
+  },
+  "1021": {
+    "name": "Crewai Openagents",
+    "gradient": "gradient_06.png"
+  },
+  "1022": {
+    "name": "Langchain Llamalend",
+    "gradient": "gradient_07.png"
+  },
+  "1023": {
+    "name": "Plotly",
+    "gradient": "gradient_08.png"
+  },
+  "1024": {
+    "name": "Fastapi",
+    "gradient": "gradient_09.png"
+  },
+  "1025": {
+    "name": "AI QC Engine",
+    "gradient": "gradient_10.png"
+  },
+  "1027": {
+    "name": "Librosa",
+    "gradient": "gradient_11.png"
+  },
+  "1028": {
+    "name": "AssemblyAI",
+    "gradient": "gradient_12.png"
+  },
+  "1029": {
+    "name": "Deepgram",
+    "gradient": "gradient_13.png"
+  },
+  "1030": {
+    "name": "Claude 3",
+    "gradient": "gradient_14.png"
+  },
+  "1031": {
+    "name": "GPT-4",
+    "gradient": "03_peach_yellow.png"
+  },
+  "1032": {
+    "name": "Bark-Voice-Cloning",
+    "gradient": "gradient_16.png"
+  },
+  "1033": {
+    "name": "Airflow",
+    "gradient": "gradient_17.png"
+  },
+  "1034": {
+    "name": "autosave_daemon",
+    "gradient": "gradient_18.png"
+  },
+  "1038": {
+    "name": "pyDub",
+    "gradient": "gradient_19.png"
+  },
+  "1039": {
+    "name": "LangChain Llamalend",
+    "gradient": "gradient_20.png"
+  },
+  "1040": {
+    "name": "CrewAI OpenAgents",
+    "gradient": "gradient_21.png"
+  },
+  "1041": {
+    "name": "ElevenLabs",
+    "gradient": "gradient_22.png"
+  },
+  "1043": {
+    "name": "SEMrush",
+    "gradient": "gradient_23.png"
+  },
+  "1047": {
+    "name": "Google Analytics",
+    "gradient": "gradient_24.png"
+  },
+  "1018": {
+    "name": "Llama 3",
+    "gradient": "gradient_25.png"
+  },
+  "1019": {
+    "name": "Mistral Mixtral",
+    "gradient": "01_peach_white.png"
+  }
+} 

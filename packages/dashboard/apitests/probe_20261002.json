@@ -1,0 +1,5644 @@
+{
+ "inventory": [
+  {
+   "rule": "/login",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "login_page",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "index",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/apple-touch-icon-precomposed.png",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "_root_icon_probe",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/apple-touch-icon.png",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "_root_icon_probe",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/favicon.ico",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "_root_icon_probe",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/test_gradients.html",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "test_gradients",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/internal/creature/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_creature_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/internal/storyteller/list-chars",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_list_chars",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 253
+  },
+  {
+   "rule": "/api/internal/storyteller/analyze-character-photo",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_analyze_character_photo",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_start",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 74
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/status/<char_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_status",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 67
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/approve/<char_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_approve",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 35
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/pause/<char_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_pause",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/resume/<char_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_resume",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/internal/storyteller/pipeline/pause",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_pipeline_pause",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 34
+  },
+  {
+   "rule": "/api/internal/storyteller/pipeline/resume",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_pipeline_resume",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/internal/storyteller/pipeline/pause-state",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_pipeline_pause_state",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 23
+  },
+  {
+   "rule": "/api/internal/storyteller/contact-sheet/image/<char_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_contact_sheet_image",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 112
+  },
+  {
+   "rule": "/api/internal/storyteller/list-contact-sheets",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_list_contact_sheets",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/internal/storyteller/generate-character",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_generate_character",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 778
+  },
+  {
+   "rule": "/api/internal/storyteller/voices",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_voices",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/internal/storyteller/voice-sample/<voice_id>/<variant>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_voice_sample",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/internal/storyteller/character-bible/<char_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_character_bible",
+   "params": true,
+   "danger": false,
+   "external": true,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/internal/storyteller/character-status/<char_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_character_status",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 64
+  },
+  {
+   "rule": "/api/storyteller/training/characters/<char_id>/retrain",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_storyteller_char_retrain",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 45
+  },
+  {
+   "rule": "/api/storyteller/training/characters/<char_id>/retrain/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_storyteller_char_retrain_status",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 17
+  },
+  {
+   "rule": "/api/internal/storyteller/character/<char_id>/preview/regenerate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_regen_preview",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 113
+  },
+  {
+   "rule": "/api/internal/storyteller/character/<char_id>/preview/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_regen_preview_status",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/internal/storyteller/gen-char-previews",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_gen_char_previews",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 205
+  },
+  {
+   "rule": "/api/internal/storyteller/char-preview-status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_internal.api_internal_storyteller_char_preview_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 28
+  },
+  {
+   "rule": "/api/zero/workflow-health",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero.zero_workflow_health",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 17
+  },
+  {
+   "rule": "/api/zero/workflow-override",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_workflow_override",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/zero/context",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero.zero_context",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 41
+  },
+  {
+   "rule": "/api/zero/llms-status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero.get_zero_llms_status",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 24
+  },
+  {
+   "rule": "/api/zero/install-llms",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_install_llms",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 31
+  },
+  {
+   "rule": "/api/zero/chat",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_chat",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 202
+  },
+  {
+   "rule": "/api/internal/zero/classify",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.api_internal_zero_classify",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/zero/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_stop",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/zero/stop/reset",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_stop_reset",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/zero/decompose",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_decompose",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 40
+  },
+  {
+   "rule": "/api/zero/task-state",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero.zero_get_task_state",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/zero/task-state",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero.zero_set_task_state",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/zero/validation-checklist",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero.zero_validation_checklist",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/zero/change-impact",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "zero.zero_change_impact",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/zero/audit-trail",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero.zero_audit_trail",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 27
+  },
+  {
+   "rule": "/api/zero/kanban",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero.api_zero_kanban",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/zero/auto_mode",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "zero.api_zero_auto_mode",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/storyteller/daily_mode",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "storyteller_daily.api_storyteller_daily_mode",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/storyteller/daily_batch",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_daily.api_storyteller_daily_batch",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/storyteller/templates/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_daily.api_storyteller_templates_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/storyteller/templates/<tid>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "storyteller_daily.api_storyteller_template_detail",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/run_task",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.run_task",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 51
+  },
+  {
+   "rule": "/api/run_single_agent",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.run_single_agent",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 41
+  },
+  {
+   "rule": "/api/start_clipfarm_workflow",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.start_clipfarm_workflow",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 82
+  },
+  {
+   "rule": "/api/internal/pipeline/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_pipeline_start",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 256
+  },
+  {
+   "rule": "/api/internal/creature/<creature_id>/approve",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_creature_approve",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/internal/creature/<creature_id>/resume",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_creature_resume",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/internal/creature/<creature_id>/reject",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_internal_creature_reject",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/internal/creature/<creature_id>/sheet",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_internal_creature_sheet",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/internal/pipeline/status/<pipeline_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_internal_pipeline_status",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 154
+  },
+  {
+   "rule": "/api/internal/pipeline/download/<pipeline_id>/<path:filename>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_internal_pipeline_download",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/workflow_status/<job_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.workflow_status",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 30
+  },
+  {
+   "rule": "/api/workflow_status/active",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.workflow_status_active",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 29
+  },
+  {
+   "rule": "/api/kanban/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.kanban_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 1049
+  },
+  {
+   "rule": "/api/kanban/clear_errors",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.kanban_clear_errors",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/subprocesses",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_subprocesses",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/subprocesses/<int:pid>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.get_subprocess_by_pid",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/pipeline/timeline/<pipeline_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_pipeline_timeline",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 101
+  },
+  {
+   "rule": "/api/pipeline/timeline/<pipeline_id>/download",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_pipeline_timeline_download",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 114
+  },
+  {
+   "rule": "/api/pipeline/murch_debug/<pipeline_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_pipeline_murch_debug",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/pipeline/active",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.api_pipeline_active",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 32
+  },
+  {
+   "rule": "/api/pipeline/test",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.api_pipeline_test",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 504
+  },
+  {
+   "rule": "/api/frontend_log",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "pipeline_api.frontend_log",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/live_log",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.live_log",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 36
+  },
+  {
+   "rule": "/api/pipeline/flags",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "pipeline_api.pipeline_flags",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 35
+  },
+  {
+   "rule": "/api/medusa/generate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa.api_medusa_generate",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 52
+  },
+  {
+   "rule": "/api/medusa/angles",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa.api_medusa_angles",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/medusa/pending",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa.api_medusa_pending",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/medusa/pending/<req_id>/decide",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa.api_medusa_decide",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 35
+  },
+  {
+   "rule": "/api/medusa/jobs",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa.api_medusa_jobs",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/medusa/kanban_status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa.api_medusa_kanban_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 37
+  },
+  {
+   "rule": "/api/medusa/training/import-root",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_import_root",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/medusa/training/scan-folder",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_scan_folder",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/medusa/training/import-folders",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_import_folders",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 51
+  },
+  {
+   "rule": "/api/medusa/training/import/<batch_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_import_status",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/sheet",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_build_sheet",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/sheet",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_get_sheet",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/sheet/page/<page>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_sheet_page",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/body-prepare",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_body_prepare",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 53
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/body-prepare",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_body_status",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/medusa/training/sheets",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_list_sheets",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 49
+  },
+  {
+   "rule": "/api/medusa/training/sheets/build-all",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_build_all_sheets",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 37
+  },
+  {
+   "rule": "/api/medusa/training/characters",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_create_character",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 44
+  },
+  {
+   "rule": "/api/medusa/training/characters",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_list_characters",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_get_character",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_training.api_training_delete_character",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 29
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/images",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_upload_images",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 39
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/images/<image_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_get_image",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/images/<image_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_training.api_training_delete_image",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/train",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_start",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 69
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_status",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/medusa/training/loras",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_list_loras",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 53
+  },
+  {
+   "rule": "/api/medusa/training/loras/<char_id>/<family>/sample/<name>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_training.api_training_lora_sample",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/medusa/models",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_models.api_models_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/medusa/models",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_models_create",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/medusa/models/active",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_models.api_models_active",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_models.api_model_detail",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "medusa_models.api_model_patch",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 33
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_models.api_model_delete",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/attest",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_attest",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/images",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_models.api_model_images",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/images",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_images_upload",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 31
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/images/<name>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_models.api_model_image_get",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/images/<name>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_models.api_model_image_delete",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/ingest/urls",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_ingest_urls",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 65
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/ingest/folder",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_ingest_folder",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 52
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/train",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_train",
+   "params": true,
+   "danger": true,
+   "external": true,
+   "src_lines": 33
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_models.api_model_status",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/activate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_activate",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/deactivate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_deactivate",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/sample",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_sample",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/sample/<name>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "medusa_models.api_model_sample_get",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/captions/reset",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_captions_reset",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/remix",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remix.remix_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/remix/channels",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remix.api_channels",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/remix/channels",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_channels_add",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/remix/channels/<channel_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "remix.api_channels_del",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/remix/channels/<channel_id>/toggle",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_channels_toggle",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/remix/candidates",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remix.api_candidates",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/remix/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_run",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/remix/compile",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_compile",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/remix/settings",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remix.api_settings",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/remix/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remix.api_settings_post",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/remix/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remix.api_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 23
+  },
+  {
+   "rule": "/api/remix/clips",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remix.api_clips",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/remix/media/<pid>/<path:fname>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remix.api_media",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/remix-ai",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remixai.remixai_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/remixai/settings",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remixai.api_settings",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/remixai/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_settings_post",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/remixai/terms",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remixai.api_terms",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/remixai/terms",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_terms_add",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/remixai/terms",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "remixai.api_terms_del",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/remixai/sweep",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_sweep",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/remixai/candidates",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remixai.api_candidates",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/remixai/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_run",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/remixai/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "remixai.api_stop",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/remixai/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remixai.api_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/remixai/library",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remixai.api_library",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/remixai/media/<pid>/<path:fname>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "remixai.api_media",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/markets",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.markets_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/market/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_run",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/market/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.api_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/market/settings",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.api_settings",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/market/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_settings_post",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/market/episodes",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.api_episodes",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/market/media/<dept>/<pid>/<path:fname>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.api_media",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/market/icebox",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.api_icebox",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/market/icebox/used",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_icebox_used",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/market/icebox/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_icebox_delete",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/market/history",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.api_history",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/market/preview/<dept>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "market.api_preview",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/betting",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.betting_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/sports/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_run",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/sports/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 30
+  },
+  {
+   "rule": "/api/sports/settings",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_settings",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/sports/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_settings_post",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/sports/fixtures/<category>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_fixtures",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 17
+  },
+  {
+   "rule": "/api/sports/preview/<department>/<category>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_preview",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/sports/episodes",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_episodes",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/sports/media/<dept>/<cat>/<pid>/<path:fname>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_media",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/sports/icebox",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_icebox",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/sports/icebox/used",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_icebox_used",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/sports/icebox/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "sports.api_icebox_delete",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/sports/history",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "sports.api_history",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/gpu_schedule.html",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "schedule.gpu_schedule",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/cpu_schedule.html",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "schedule.cpu_schedule",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/schedule/meta",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "schedule.api_schedule_meta",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/schedule/live",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "schedule.api_schedule_live",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/schedule/upcoming",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "schedule.api_schedule_upcoming",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/schedule/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "schedule.api_schedule_add_entry",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/schedule/delete_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "schedule.api_schedule_delete_entry",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/schedule/telemetry_window",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "schedule.api_schedule_telemetry_window",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/dashboard/themes/config",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_themes_config",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/dashboard/themes/config",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_themes_config_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/dashboard/themes/buttons/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_themes_buttons_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/dashboard/themes/buttons/file/<path:filename>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_themes_buttons_file",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/dashboard/themes/backgrounds/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_themes_backgrounds_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/dashboard/themes/backgrounds/file/<path:filename>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_themes_backgrounds_file",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/dashboard/themes/sidebar/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_themes_sidebar_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/dashboard/themes/sidebar/file/<path:filename>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_themes_sidebar_file",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/dashboard/users",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "themes_users.dashboard_users",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/dashboard/users",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_users_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/dashboard/users/avatar/<user_id>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_users_avatar_upload",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/dashboard/blueprint",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "themes_users.dashboard_blueprint_create",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/context_ledger",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "skill_sandbox.api_context_ledger",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 53
+  },
+  {
+   "rule": "/api/skill/sandbox/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "skill_sandbox.api_skill_sandbox_status",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/skill/sandbox/check",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "skill_sandbox.api_skill_sandbox_check",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/skill/sandbox/result/<skill_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "skill_sandbox.api_skill_sandbox_result",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/skill/inbound",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "skill_sandbox.api_skill_inbound",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 37
+  },
+  {
+   "rule": "/api/safety/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "safety.get_safety_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 28
+  },
+  {
+   "rule": "/api/safety/emergency_stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "safety.post_safety_emergency_stop",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 31
+  },
+  {
+   "rule": "/api/safety/emergency_stop_full",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "safety.post_safety_emergency_stop_full",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 41
+  },
+  {
+   "rule": "/api/safety/confirm_recovery",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "safety.post_safety_confirm_recovery",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/safety/thresholds",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "safety.get_safety_thresholds",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/safety/thresholds",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "safety.patch_safety_thresholds",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 17
+  },
+  {
+   "rule": "/api/zero_public/urls",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero_public_store.api_zpub_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/zero_public/urls",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero_public_store.api_zpub_create",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 29
+  },
+  {
+   "rule": "/api/zero_public/urls/<token>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "zero_public_store.api_zpub_revoke",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/zero_public/token_check/<token>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero_public_store.api_zpub_token_check",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/zero_public/token_use/<token>",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero_public_store.api_zpub_token_use",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/zero_public/pending",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "zero_public_store.api_zpub_pending_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/zero_public/pending/<req_id>/decide",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "zero_public_store.api_zpub_pending_decide",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 219
+  },
+  {
+   "rule": "/error_logs",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_error_logs_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/job_status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_job_status_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/monitoring_ui",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_monitoring_ui_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/parameter_control",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_parameter_control_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/settings",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_settings_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/approval_queue",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_approval_queue_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/audit",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_audit_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/integrity_gate",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_integrity_gate_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/job_lifecycle",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_job_lifecycle_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/metrics",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_metrics_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/mechanics",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_mechanics_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/publics_zero",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_publics_zero_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/frequency",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_frequency_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/benchmark",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_benchmark_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/workflows",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_workflows_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/sandbox",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.dashboard_sandbox_page",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/zero-admin-url",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "dashboard_pages.zero_admin_url",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/flagged/save",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.save_flagged_element",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 24
+  },
+  {
+   "rule": "/api/restart_dashboard",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.restart_dashboard",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/timeline/24h",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "timeline_legacy.get_24h_timeline",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/timeline/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.add_entry_timeline",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 48
+  },
+  {
+   "rule": "/api/cpu/timeline/24h",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "timeline_legacy.cpu_timeline_24h",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/cpu/timeline/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.add_entry_cpu_timeline",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/cpu/timeline/delete_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.delete_entry_cpu_timeline",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/gpu/timeline/24h",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "timeline_legacy.gpu_timeline_24h",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/gpu/timeline/add_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.add_gpu_timeline_entry",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 58
+  },
+  {
+   "rule": "/api/gpu/timeline/delete_entry",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "timeline_legacy.delete_gpu_schedule_entry",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/history",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "timeline_legacy.api_history",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 17
+  },
+  {
+   "rule": "/api/gpu/timeline/generate",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "timeline_legacy.generate_gpu_timeline",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 28
+  },
+  {
+   "rule": "/api/gpu/timeline/image/<date>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "timeline_legacy.get_gpu_timeline_image",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/approvals/queue",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "jobs_audit.api_approvals_queue",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 55
+  },
+  {
+   "rule": "/api/approvals",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jobs_audit.api_approvals_create",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/audit",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "jobs_audit.api_audit",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 82
+  },
+  {
+   "rule": "/api/jobs/specs",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "jobs_audit.api_jobs_specs",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 51
+  },
+  {
+   "rule": "/api/jobs/runs",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "jobs_audit.api_jobs_runs",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 83
+  },
+  {
+   "rule": "/api/jobs/events",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "jobs_audit.api_jobs_events",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 135
+  },
+  {
+   "rule": "/api/jobs/runs/expire-leases",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jobs_audit.api_jobs_expire_leases",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/admin/schedule-pause",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "jobs_audit.api_schedule_pause_get",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/admin/schedule-pause",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jobs_audit.api_schedule_pause_post",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/voices",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "voices.api_voices",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/voices/channel-assignments",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "voices.api_voices_channel_assignments",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/voices/assign",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "voices.api_voices_assign",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 23
+  },
+  {
+   "rule": "/api/voices/play",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "voices.api_voices_play",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 28
+  },
+  {
+   "rule": "/api/sources",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "voices.api_sources",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/court-cases",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "voices.api_court_cases",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/login",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.api_login",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 53
+  },
+  {
+   "rule": "/logout",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "auth.logout_page",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/logout",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.api_logout",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/health",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "auth.api_health",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/restart",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.api_restart",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 37
+  },
+  {
+   "rule": "/api/dashboard/my_account",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "auth.dashboard_my_account_get",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/dashboard/my_account",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.dashboard_my_account_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/csrf-token",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "auth.api_csrf_token",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/zero/analyze",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "claude_clip.api_analyze_video",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/zero/execute_plan",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "claude_clip.api_execute_plan",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 31
+  },
+  {
+   "rule": "/api/zero/token_usage",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "claude_clip.api_token_usage",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 36
+  },
+  {
+   "rule": "/api/metrics/character-quality",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "metrics.api_character_quality_metrics",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 51
+  },
+  {
+   "rule": "/api/metrics/hub/<section>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "metrics.api_metrics_hub",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/metrics/analytics/config",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "metrics.api_metrics_analytics_config",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/metrics/summary",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "metrics.get_metrics_summary",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/metrics/all",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "metrics.get_metrics_all",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/metrics/dashboard",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "metrics.get_metrics_dashboard",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/frequency/data",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_frequency_data",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 72
+  },
+  {
+   "rule": "/api/frequency/history",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_frequency_history",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 27
+  },
+  {
+   "rule": "/api/frequency/history/<pipeline_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_frequency_history_run",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 63
+  },
+  {
+   "rule": "/api/calibrate",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_calibrate_get",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/calibrate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "benchmark.api_calibrate_post",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 36
+  },
+  {
+   "rule": "/api/benchmark/pipeline_history",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_benchmark_pipeline_history",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 115
+  },
+  {
+   "rule": "/api/benchmark/seeds",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_benchmark_seeds",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 42
+  },
+  {
+   "rule": "/api/benchmark/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "benchmark.api_benchmark_run_infra",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/benchmark/status/<run_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_benchmark_status",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/benchmark/multirun",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "benchmark.api_benchmark_multirun_start",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/benchmark/multirun/<session_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_benchmark_multirun_status",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/benchmark/system",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_benchmark_system",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 49
+  },
+  {
+   "rule": "/api/benchmark",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "benchmark.api_benchmark",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 59
+  },
+  {
+   "rule": "/api/output-scp/config",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.get_scp_config",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/output-scp/config",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "assets_media.patch_scp_config",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/assets/download",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.trigger_asset_download",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/assets/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.asset_status",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 29
+  },
+  {
+   "rule": "/api/assets/preview/<asset_type>/<path:filename>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.asset_preview",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/rfd/clips",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_rfd_clips",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 86
+  },
+  {
+   "rule": "/api/scholarly/imagery",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_scholarly_imagery",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 38
+  },
+  {
+   "rule": "/api/scholarly/imagery/thumb",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_scholarly_imagery_thumb",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/scholarly/videos",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_scholarly_videos",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 60
+  },
+  {
+   "rule": "/api/storyteller/episodes",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_storyteller_episodes",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 82
+  },
+  {
+   "rule": "/api/storyteller/episodes/<pipeline_id>/video",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_storyteller_episode_video",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 36
+  },
+  {
+   "rule": "/api/environments/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_environments_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/effects/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_effects_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/wardrobe/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_wardrobe_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/wardrobe/outfits",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_wardrobe_outfits",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/wardrobe/preview",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_wardrobe_preview",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/wardrobe/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_wardrobe_delete",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/effects/library",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_effects_library",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/effects/preview",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_effects_preview",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/effects/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_effects_delete",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/assetlib/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_assetlib_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/assetlib/preview",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_assetlib_preview",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/assetlib/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_assetlib_delete",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 24
+  },
+  {
+   "rule": "/api/assetlib/generated",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_assetlib_generated",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/envfx/media",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_envfx_media",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/marketing/dismissed",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_marketing_dismissed",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/marketing/dismiss",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_marketing_dismiss",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 24
+  },
+  {
+   "rule": "/api/marketing/undismiss",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_marketing_undismiss",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 17
+  },
+  {
+   "rule": "/api/output/new-videos",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_output_new_videos",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 111
+  },
+  {
+   "rule": "/api/youtube/channel-videos",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_youtube_channel_videos",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 90
+  },
+  {
+   "rule": "/api/marketing/upload",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_marketing_upload",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 245
+  },
+  {
+   "rule": "/api/asset_manager/prompts",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_asset_manager_prompts",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 77
+  },
+  {
+   "rule": "/api/prompt_registry/update",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_prompt_registry_update",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 43
+  },
+  {
+   "rule": "/api/prompt_registry/revert",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_prompt_registry_revert",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 35
+  },
+  {
+   "rule": "/api/channel-data/groups",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_channel_data_groups",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/channel-data/<channel_key>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_channel_data_fetch",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/sports-video/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.sv_status_proxy",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/templates/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_templates_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/templates/store",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_templates_store",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/templates/delete/<tmpl_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "assets_media.api_templates_delete",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/templates/outputs",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_templates_outputs",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 72
+  },
+  {
+   "rule": "/api/templates/thumb/<clip_id>/<fname>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.api_templates_thumb",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/asset_manager/templates_board",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "assets_media.asset_manager_templates_board",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/integrity-gate",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.api_integrity_gate",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 874
+  },
+  {
+   "rule": "/api/vram/free",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.api_vram_free",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 41
+  },
+  {
+   "rule": "/api/telemetry",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.api_telemetry",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/disk_usage",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.api_disk_usage",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/telemetry_log/<pipeline_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.api_telemetry_log",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/admin/security-controls",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.api_security_controls_get",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/admin/security-controls/<control_id>",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "integrity_ops.api_security_controls_patch",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/integrity-gate/force-override",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.api_integrity_gate_force_override",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/dashboard/error_logs",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.dashboard_error_logs",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/dashboard/error_logs",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.dashboard_error_logs_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/dashboard/job_status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.dashboard_job_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 92
+  },
+  {
+   "rule": "/api/dashboard/job_status",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.dashboard_job_status_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/dashboard/monitoring_jobs",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.dashboard_monitoring_jobs",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 83
+  },
+  {
+   "rule": "/api/dashboard/monitoring_jobs",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.dashboard_monitoring_jobs_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/dashboard/language_pack/<language_name>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.dashboard_language_pack_check",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 14
+  },
+  {
+   "rule": "/api/dashboard/language_link/<language_name>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.dashboard_language_link",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/azure/usage",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.azure_usage",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/azure/config",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.azure_config_get",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 19
+  },
+  {
+   "rule": "/api/azure/config",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.azure_config_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/azure/reset_counter",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.azure_reset_counter",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 16
+  },
+  {
+   "rule": "/api/smoke-test/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.smoke_test_run",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 70
+  },
+  {
+   "rule": "/api/smoke-test/status/<run_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.smoke_test_status",
+   "params": true,
+   "danger": true,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/smoke-test/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.smoke_test_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/settings/huggingface",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.hf_settings_get",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/settings/huggingface",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.hf_settings_save",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 23
+  },
+  {
+   "rule": "/api/settings/huggingface/test",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.hf_settings_test",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 27
+  },
+  {
+   "rule": "/api/settings/huggingface/download",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.hf_settings_download",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 58
+  },
+  {
+   "rule": "/api/llms/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.get_llms_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/dependencies/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "integrity_ops.get_dependencies_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/creator-nexus/state",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "creator_nexus.creator_nexus_state",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 99
+  },
+  {
+   "rule": "/api/creator-nexus/snapshots",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "creator_nexus.creator_nexus_snapshots",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/creator-nexus/snapshots/<name>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "creator_nexus.creator_nexus_snapshot_one",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 24
+  },
+  {
+   "rule": "/api/control-settings/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "control_settings.cs_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/control-settings/setup",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "control_settings.cs_setup",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/control-settings/unlock",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "control_settings.cs_unlock",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/control-settings/lock",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "control_settings.cs_lock",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/control-settings/data",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "control_settings.cs_data_all",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/control-settings/data/<category>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "control_settings.cs_data_get",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/control-settings/data/<category>",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "control_settings.cs_data_patch",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/agents",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agents",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 103
+  },
+  {
+   "rule": "/api/agents/tier1",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_tier1_agents",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 42
+  },
+  {
+   "rule": "/api/agents/department/<department>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_department_agents",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/agents/face/<path:identifier>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agent_face",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/agents/assigned-to/<user_id>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agents_assigned_to_user",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 35
+  },
+  {
+   "rule": "/api/departments",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_departments",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/gpu/schedule",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_gpu_schedule",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 26
+  },
+  {
+   "rule": "/api/gpu/release",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "agents_api.release_gpu",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/agents/config",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agents_config",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 45
+  },
+  {
+   "rule": "/api/agents/config/<path:agent_name>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agent_config_by_name",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 57
+  },
+  {
+   "rule": "/api/agents/<path:agent_name>/logbook",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agent_logbook",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 29
+  },
+  {
+   "rule": "/api/prompt_log",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.api_prompt_log",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 36
+  },
+  {
+   "rule": "/api/agent_model_bar_mapping",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agent_model_bar_mapping",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/cpu/agent_model_bar_mapping",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_cpu_agent_model_bar_mapping",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/workflow/steps/agents",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_workflow_step_agents",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 228
+  },
+  {
+   "rule": "/api/agents/active",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_agents_active",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 22
+  },
+  {
+   "rule": "/api/available_models",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.available_models",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/agent_model_audit",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.agent_model_audit",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/workflow_box_ids",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_workflow_box_ids",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/agent_tree",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.agent_tree",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/agent_network",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.agent_network",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 4
+  },
+  {
+   "rule": "/api/pipeline_stages",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.pipeline_stages",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 8
+  },
+  {
+   "rule": "/api/hardware_table",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_hardware_table",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 33
+  },
+  {
+   "rule": "/api/model_ids",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_model_ids",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/orchestration/permissions",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.get_orchestration_permissions",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 20
+  },
+  {
+   "rule": "/api/tools",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "agents_api.api_tools",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 9
+  },
+  {
+   "rule": "/api/internal/kidsmusic/spec",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "kidsmusic.km_spec",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/internal/kidsmusic/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_start",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 91
+  },
+  {
+   "rule": "/api/internal/kidsmusic/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "kidsmusic.km_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 33
+  },
+  {
+   "rule": "/api/internal/kidsmusic/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_stop",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/internal/kidsmusic/remix",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_remix",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 41
+  },
+  {
+   "rule": "/api/internal/kidsmusic/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_delete",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 60
+  },
+  {
+   "rule": "/api/internal/kidseries/list",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "kidseries.ks_list",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/internal/kidseries/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidseries.ks_start",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 42
+  },
+  {
+   "rule": "/api/internal/kidseries/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "kidseries.ks_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 39
+  },
+  {
+   "rule": "/api/internal/kidseries/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidseries.ks_stop",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/internal/char2d/spec",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "char2d.c2d_spec",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/internal/char2d/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "char2d.c2d_start",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/melody/daily_mode",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "melody_daily.api_melody_daily_mode",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 12
+  },
+  {
+   "rule": "/api/melody/daily_batch",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "melody_daily.api_melody_daily_batch",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/preempt/state",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "preempt.api_preempt_state",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 3
+  },
+  {
+   "rule": "/api/preempt/action",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "preempt.api_preempt_action",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/preempt/entry/<entry_id>/verify",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "preempt.api_preempt_verify",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/preempt/job/<pid>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "preempt.api_preempt_job",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 5
+  },
+  {
+   "rule": "/api/approval_queue/board",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "approval_queue.api_board",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 13
+  },
+  {
+   "rule": "/api/approval_queue/calendar",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "approval_queue.api_calendar",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/approval_queue/<wf>/action",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "approval_queue.api_action",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 27
+  },
+  {
+   "rule": "/api/approval_queue/<wf>/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "approval_queue.api_settings",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 18
+  },
+  {
+   "rule": "/api/approval_queue/preempt/item/<item_id>/action",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "approval_queue.api_preempt_item",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 15
+  },
+  {
+   "rule": "/api/internal/movement/spec",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "movement.mv_spec",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 6
+  },
+  {
+   "rule": "/api/internal/movement/prompt",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_prompt",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 25
+  },
+  {
+   "rule": "/api/internal/movement/plate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_plate",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 10
+  },
+  {
+   "rule": "/api/internal/movement/driver",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "movement.mv_driver",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 44
+  },
+  {
+   "rule": "/api/internal/movement/presets",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "movement.mv_presets",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/internal/movement/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_delete",
+   "params": false,
+   "danger": true,
+   "external": true,
+   "src_lines": 21
+  },
+  {
+   "rule": "/api/internal/movement/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_start",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 52
+  },
+  {
+   "rule": "/api/internal/movement/status",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "movement.mv_status",
+   "params": false,
+   "danger": false,
+   "external": false,
+   "src_lines": 11
+  },
+  {
+   "rule": "/api/internal/movement/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "movement.mv_stop",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 17
+  },
+  {
+   "rule": "/api/internal/picture_studio/submit",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "picture_studio.api_internal_picture_studio_submit",
+   "params": false,
+   "danger": true,
+   "external": false,
+   "src_lines": 40
+  },
+  {
+   "rule": "/api/internal/picture_studio/job/<jid>",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "picture_studio.api_internal_picture_studio_job",
+   "params": true,
+   "danger": false,
+   "external": false,
+   "src_lines": 7
+  },
+  {
+   "rule": "/api/internal/picture_studio/capability",
+   "methods": [
+    "GET"
+   ],
+   "endpoint": "picture_studio.api_internal_picture_studio_capability",
+   "params": false,
+   "danger": false,
+   "external": true,
+   "src_lines": 19
+  }
+ ],
+ "sweep": [
+  {
+   "rule": "/",
+   "code": 200,
+   "ms": 23
+  },
+  {
+   "rule": "/apple-touch-icon-precomposed.png",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/apple-touch-icon.png",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/favicon.ico",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/test_gradients.html",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/internal/creature/list",
+   "code": 200,
+   "ms": 61
+  },
+  {
+   "rule": "/api/internal/storyteller/list-chars",
+   "code": 200,
+   "ms": 339
+  },
+  {
+   "rule": "/api/internal/storyteller/list-contact-sheets",
+   "code": 200,
+   "ms": 24
+  },
+  {
+   "rule": "/api/internal/storyteller/voices",
+   "code": 200,
+   "ms": 7
+  },
+  {
+   "rule": "/api/internal/storyteller/char-preview-status",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/zero/workflow-health",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/zero/context",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/zero/task-state",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/zero/validation-checklist",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/zero/audit-trail",
+   "code": 200,
+   "ms": 3
+  },
+  {
+   "rule": "/api/zero/kanban",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/storyteller/daily_batch",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/storyteller/templates/list",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/workflow_status/active",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/kanban/status",
+   "code": 200,
+   "ms": 71
+  },
+  {
+   "rule": "/api/subprocesses",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/pipeline/active",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/live_log",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/pipeline/flags",
+   "code": 200,
+   "ms": 6
+  },
+  {
+   "rule": "/api/medusa/angles",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/medusa/pending",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/medusa/jobs",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/medusa/kanban_status",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/medusa/models",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/medusa/models/active",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/remix",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/remix/channels",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/remix/candidates",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/remix/settings",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/remix/status",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/remix/clips",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/remix-ai",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/remixai/settings",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/remixai/terms",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/remixai/candidates",
+   "code": 200,
+   "ms": 5
+  },
+  {
+   "rule": "/api/remixai/status",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/remixai/library",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/markets",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/market/status",
+   "code": 200,
+   "ms": 3218
+  },
+  {
+   "rule": "/api/market/settings",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/market/episodes",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/market/icebox",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/market/history",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/betting",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/sports/status",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/sports/settings",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/sports/episodes",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/sports/icebox",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/sports/history",
+   "code": 200,
+   "ms": 99
+  },
+  {
+   "rule": "/gpu_schedule.html",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/cpu_schedule.html",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/schedule/meta",
+   "code": 200,
+   "ms": 18
+  },
+  {
+   "rule": "/api/schedule/live",
+   "code": 200,
+   "ms": 7
+  },
+  {
+   "rule": "/api/schedule/upcoming",
+   "code": 200,
+   "ms": 10
+  },
+  {
+   "rule": "/api/schedule/telemetry_window",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/dashboard/themes/config",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/dashboard/themes/buttons/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/dashboard/themes/backgrounds/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/dashboard/themes/sidebar/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/dashboard/users",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/safety/status",
+   "code": 200,
+   "ms": 101
+  },
+  {
+   "rule": "/api/safety/thresholds",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/zero_public/urls",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/zero_public/pending",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/error_logs",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/job_status",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/monitoring_ui",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/parameter_control",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/settings",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/approval_queue",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/audit",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/integrity_gate",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/job_lifecycle",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/metrics",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/mechanics",
+   "code": 302,
+   "ms": 0
+  },
+  {
+   "rule": "/publics_zero",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/frequency",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/benchmark",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/workflows",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/sandbox",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/zero-admin-url",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/timeline/24h",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/cpu/timeline/24h",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/gpu/timeline/24h",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/history",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/approvals/queue",
+   "code": 200,
+   "ms": 118
+  },
+  {
+   "rule": "/api/audit",
+   "code": 200,
+   "ms": 102
+  },
+  {
+   "rule": "/api/jobs/specs",
+   "code": 200,
+   "ms": 209
+  },
+  {
+   "rule": "/api/jobs/events",
+   "code": 200,
+   "ms": 3
+  },
+  {
+   "rule": "/api/voices",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/voices/channel-assignments",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/sources",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/court-cases",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/health",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/dashboard/my_account",
+   "code": 403,
+   "ms": 0
+  },
+  {
+   "rule": "/api/csrf-token",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/zero/token_usage",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/metrics/character-quality",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/metrics/summary",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/metrics/all",
+   "code": 200,
+   "ms": 13126
+  },
+  {
+   "rule": "/api/metrics/dashboard",
+   "code": 200,
+   "ms": 11496
+  },
+  {
+   "rule": "/api/frequency/data",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/frequency/history",
+   "code": 200,
+   "ms": 216
+  },
+  {
+   "rule": "/api/calibrate",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/benchmark/pipeline_history",
+   "code": 200,
+   "ms": 445
+  },
+  {
+   "rule": "/api/benchmark/seeds",
+   "code": 200,
+   "ms": 289
+  },
+  {
+   "rule": "/api/benchmark",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/output-scp/config",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/rfd/clips",
+   "code": 200,
+   "ms": 528
+  },
+  {
+   "rule": "/api/scholarly/imagery",
+   "code": 200,
+   "ms": 3
+  },
+  {
+   "rule": "/api/scholarly/imagery/thumb",
+   "code": 404,
+   "ms": 0
+  },
+  {
+   "rule": "/api/scholarly/videos",
+   "code": 200,
+   "ms": 363
+  },
+  {
+   "rule": "/api/storyteller/episodes",
+   "code": 200,
+   "ms": 67
+  },
+  {
+   "rule": "/api/environments/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/effects/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/wardrobe/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/wardrobe/outfits",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/wardrobe/preview",
+   "code": 400,
+   "ms": 0
+  },
+  {
+   "rule": "/api/effects/library",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/effects/preview",
+   "code": 400,
+   "ms": 0
+  },
+  {
+   "rule": "/api/assetlib/list",
+   "code": 400,
+   "ms": 1
+  },
+  {
+   "rule": "/api/assetlib/preview",
+   "code": 400,
+   "ms": 0
+  },
+  {
+   "rule": "/api/envfx/media",
+   "code": 400,
+   "ms": 0
+  },
+  {
+   "rule": "/api/marketing/dismissed",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/output/new-videos",
+   "code": 200,
+   "ms": 206
+  },
+  {
+   "rule": "/api/youtube/channel-videos",
+   "code": 200,
+   "ms": 1249
+  },
+  {
+   "rule": "/api/channel-data/groups",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/sports-video/status",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/templates/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/templates/outputs",
+   "code": 200,
+   "ms": 119
+  },
+  {
+   "rule": "/api/telemetry",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/disk_usage",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/admin/security-controls",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/dashboard/error_logs",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/dashboard/job_status",
+   "code": 200,
+   "ms": 220
+  },
+  {
+   "rule": "/api/dashboard/monitoring_jobs",
+   "code": 200,
+   "ms": 128
+  },
+  {
+   "rule": "/api/azure/usage",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/azure/config",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/smoke-test/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/settings/huggingface",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/llms/list",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/dependencies/status",
+   "code": 200,
+   "ms": 8528
+  },
+  {
+   "rule": "/api/creator-nexus/snapshots",
+   "code": 200,
+   "ms": 209
+  },
+  {
+   "rule": "/api/control-settings/status",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/control-settings/data",
+   "code": 401,
+   "ms": 0
+  },
+  {
+   "rule": "/api/agents",
+   "code": 503,
+   "ms": 1
+  },
+  {
+   "rule": "/api/agents/tier1",
+   "code": 200,
+   "ms": 4
+  },
+  {
+   "rule": "/api/departments",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/gpu/schedule",
+   "code": 503,
+   "ms": 1
+  },
+  {
+   "rule": "/api/agents/config",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/agent_model_bar_mapping",
+   "code": 200,
+   "ms": 3
+  },
+  {
+   "rule": "/api/cpu/agent_model_bar_mapping",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/workflow/steps/agents",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/agents/active",
+   "code": 500,
+   "ms": 1
+  },
+  {
+   "rule": "/api/available_models",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/agent_model_audit",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/workflow_box_ids",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/agent_tree",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/agent_network",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/pipeline_stages",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/hardware_table",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/model_ids",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/orchestration/permissions",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/tools",
+   "code": 200,
+   "ms": 0
+  },
+  {
+   "rule": "/api/internal/kidsmusic/spec",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/internal/kidsmusic/status",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/internal/kidseries/list",
+   "code": 200,
+   "ms": 4
+  },
+  {
+   "rule": "/api/internal/kidseries/status",
+   "code": 200,
+   "ms": 2
+  },
+  {
+   "rule": "/api/internal/char2d/spec",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/melody/daily_batch",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/preempt/state",
+   "code": 200,
+   "ms": 304
+  },
+  {
+   "rule": "/api/approval_queue/board",
+   "code": 200,
+   "ms": 17
+  },
+  {
+   "rule": "/api/approval_queue/calendar",
+   "code": 200,
+   "ms": 763
+  },
+  {
+   "rule": "/api/internal/movement/spec",
+   "code": 200,
+   "ms": 1
+  },
+  {
+   "rule": "/api/internal/movement/status",
+   "code": 404,
+   "ms": 0
+  }
+ ]
+}

@@ -1,0 +1,126 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Zygomatic
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+/* GPU Model Gradient Backgrounds */
+
+.model-animatediff {
+    background-image: url('/static/Gradients/gradient_01.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-bark {
+    background-image: url('/static/Gradients/gradient_02.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-blender_bpy {
+    background-image: url('/static/Gradients/gradient_03.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-comfyui {
+    background-image: url('/static/Gradients/gradient_04.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-controlnet {
+    background-image: url('/static/Gradients/gradient_05.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-davinci_resolve {
+    background-image: url('/static/Gradients/gradient_06.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-deforum {
+    background-image: url('/static/Gradients/gradient_07.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-dreambooth {
+    background-image: url('/static/Gradients/gradient_08.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-dreamshaper_realisticvision {
+    background-image: url('/static/Gradients/gradient_09.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-ffmpeg {
+    background-image: url('/static/Gradients/gradient_10.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-lora {
+    background-image: url('/static/Gradients/gradient_11.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-pydub {
+    background-image: url('/static/Gradients/gradient_12.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-realesrgan {
+    background-image: url('/static/Gradients/gradient_13.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-stable_diffusion_15_xl {
+    background-image: url('/static/Gradients/gradient_14.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-stable_video_diffusion {
+    background-image: url('/static/Gradients/gradient_15.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-tortoise_tts {
+    background-image: url('/static/Gradients/gradient_16.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.model-vae {
+    background-image: url('/static/Gradients/gradient_17.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

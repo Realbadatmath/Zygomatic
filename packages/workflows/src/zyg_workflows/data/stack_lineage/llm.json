@@ -1,0 +1,650 @@
+{
+  "lane": "llm",
+  "label": "Language models & agents",
+  "note": "Three separate populations: local Ollama models that do bulk work for free, Anthropic models reached through the operator's subscription rather than an API key, and the orchestration that spends them.",
+  "entities": [
+    {
+      "id": "gpt4_claude3",
+      "name": "GPT-4 / Claude 3",
+      "kind": "service",
+      "role": "first hosted LLMs",
+      "status": "retired",
+      "licence": "commercial API",
+      "ended": "2026-07-15",
+      "replaced_by": [
+        "haiku_45",
+        "sonnet_46"
+      ],
+      "summary": "In the 1xxx roster. Several entries there were cloud services this box never held keys for, so the roster describes what the program was built around, not what it ran.",
+      "issues": [
+        {
+          "text": "Roster entries do not prove use — some of the hosted names in the old roster were never called from this box.",
+          "state": "accepted",
+          "found": "2026-07-15",
+          "grade": "receipt",
+          "evidence": "docs/stack_upgrade_history.md §5"
+        }
+      ],
+      "sources": [
+        "docs/stack_upgrade_history.md §5"
+      ]
+    },
+    {
+      "id": "llama3_70b",
+      "name": "LLaMA 3 70B Q4",
+      "kind": "model",
+      "role": "heavy local model",
+      "status": "retired",
+      "licence": "Llama Community",
+      "ended": "2026-08-09",
+      "replaced_by": [
+        "qwen36_35b_a3b"
+      ],
+      "summary": "The heavy local tier until the August roster swap moved heavy work to a mixture-of-experts model that fits the same box far better.",
+      "issues": [
+        {
+          "text": "Replaced by qwen3.6:35b-a3b as the heavy tier on 2026-08-09.",
+          "state": "solved",
+          "found": "2026-08-09",
+          "fixed": "2026-08-09",
+          "by": "qwen36_35b_a3b",
+          "grade": "receipt",
+          "evidence": "project_stack_upgrade_aug2026"
+        }
+      ],
+      "sources": [
+        "project_stack_upgrade_aug2026"
+      ]
+    },
+    {
+      "id": "qwen25_72b",
+      "name": "qwen2.5:72b",
+      "kind": "model",
+      "role": "heavy local model",
+      "status": "fallback",
+      "licence": "Qwen licence",
+      "adopted": "",
+      "ended": "2026-08-09",
+      "replaced_by": [
+        "qwen36_35b_a3b"
+      ],
+      "summary": "Dropped from the heavy tier in the August swap but deliberately KEPT for murch, so the roster change did not silently change that pipeline's output.",
+      "issues": [
+        {
+          "text": "Kept for murch rather than removed — a swap that would have changed a working pipeline's behaviour was scoped out of the roster change.",
+          "state": "accepted",
+          "found": "2026-08-09",
+          "grade": "receipt",
+          "evidence": "project_stack_upgrade_aug2026"
+        }
+      ],
+      "sources": [
+        "project_stack_upgrade_aug2026"
+      ]
+    },
+    {
+      "id": "mistral_7b",
+      "name": "mistral:7b / Mixtral",
+      "kind": "model",
+      "role": "light local model",
+      "status": "retired",
+      "licence": "Apache-2.0",
+      "ended": "2026-08-09",
+      "replaced_by": [
+        "gpt_oss_20b"
+      ],
+      "summary": "The light tier before gpt-oss:20b took it.",
+      "issues": [],
+      "sources": [
+        "project_stack_upgrade_aug2026"
+      ]
+    },
+    {
+      "id": "llama32_vision",
+      "name": "llama3.2-vision",
+      "kind": "model",
+      "role": "local vision model",
+      "status": "removed",
+      "licence": "Llama Community (EU excluded)",
+      "ended": "2026-08-09",
+      "replaced_by": [
+        "qwen35_9b"
+      ],
+      "summary": "Deleted, not merely replaced: the Llama 3.2 vision licence excludes the EU.",
+      "issues": [
+        {
+          "text": "EU exclusion in the licence — removed from disk the day it was read.",
+          "state": "solved",
+          "found": "2026-08-09",
+          "fixed": "2026-08-09",
+          "by": "qwen35_9b",
+          "grade": "licence",
+          "evidence": "project_stack_upgrade_aug2026"
+        }
+      ],
+      "sources": [
+        "project_stack_upgrade_aug2026"
+      ]
+    },
+    {
+      "id": "qwen36_35b_a3b",
+      "name": "qwen3.6:35b-a3b",
+      "kind": "model",
+      "role": "heavy local tier",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-08-09",
+      "replaced": [
+        "llama3_70b",
+        "qwen25_72b"
+      ],
+      "where": "Ollama roster (heavy), arch assistant local path",
+      "summary": "The heavy local model: mixture-of-experts, vision- and tool-capable, and cheap enough to try before any paid call. It built the same house as Opus in 3 steps / 48 s / 11k in, 2.5k out.",
+      "issues": [
+        {
+          "text": "Replaced two much larger models as the heavy tier at a fraction of the resident cost.",
+          "state": "solved",
+          "fixed": "2026-08-09",
+          "grade": "receipt",
+          "evidence": "project_stack_upgrade_aug2026"
+        },
+        {
+          "text": "It is a THINKING model: a VLM caller must send think:false conditionally, because non-thinking models return 500 on the key.",
+          "state": "mitigated",
+          "found": "2026-08-09",
+          "grade": "measured",
+          "evidence": "project_stack_upgrade_aug2026"
+        },
+        {
+          "text": "Needs 26 GB free to be chosen by the arch assistant's auto path, and a resident model's own 27 GB failed that check until ollama_loaded() began polling /api/ps — Auto silently went to Anthropic instead.",
+          "state": "solved",
+          "found": "2026-09-06",
+          "fixed": "2026-09-06",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "As a defect judge it has the best local recall (0.82) and false-alarms on approved frames (specificity 0.48).",
+          "state": "open",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench"
+        }
+      ],
+      "sources": [
+        "project_stack_upgrade_aug2026",
+        "project_arch_assistant"
+      ]
+    },
+    {
+      "id": "gpt_oss_20b",
+      "name": "gpt-oss:20b",
+      "kind": "model",
+      "role": "light local tier",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-08-09",
+      "replaced": [
+        "mistral_7b"
+      ],
+      "summary": "The light tier for cheap bulk text. Explicitly NOT usable for two jobs, both found by measurement rather than by reasoning.",
+      "issues": [
+        {
+          "text": "Returns an EMPTY response under format:'json' (harmony channels against the format grammar), verified on ollama 0.17.7 — so strict-JSON callers must use qwen3.5:9b.",
+          "state": "open",
+          "found": "2026-08-13",
+          "grade": "measured",
+          "evidence": "project_kanban_card_sync"
+        },
+        {
+          "text": "No vision, so it is not offered to the arch assistant at all.",
+          "state": "accepted",
+          "found": "2026-09-06",
+          "grade": "receipt",
+          "evidence": "project_arch_assistant"
+        }
+      ],
+      "sources": [
+        "project_kanban_card_sync",
+        "project_arch_assistant"
+      ]
+    },
+    {
+      "id": "qwen35_9b",
+      "name": "qwen3.5:9b",
+      "kind": "model",
+      "role": "local vision + strict-JSON model",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-08-09",
+      "replaced": [
+        "llama32_vision",
+        "qwen25_7b"
+      ],
+      "summary": "The local workhorse for vision and for anything that must return parseable JSON, and the fallback writer for kids lyrics when the subscription path is unavailable.",
+      "issues": [
+        {
+          "text": "Took strict-JSON work from qwen2.5:7b and from gpt-oss:20b, which returns nothing in JSON mode.",
+          "state": "solved",
+          "fixed": "2026-08-13",
+          "grade": "measured",
+          "evidence": "project_kanban_card_sync"
+        },
+        {
+          "text": "As a writer it is weak: on the same theme it shipped 6 lyric lines padded to 12, with a chorus that came back as different text on every return.",
+          "state": "solved",
+          "found": "2026-10-02",
+          "fixed": "2026-10-02",
+          "by": "opus_5_subscription",
+          "grade": "measured",
+          "evidence": "project_kids_opus_subscription"
+        }
+      ],
+      "sources": [
+        "project_kanban_card_sync",
+        "project_kids_opus_subscription"
+      ]
+    },
+    {
+      "id": "qwen25_7b",
+      "name": "qwen2.5:7b",
+      "kind": "model",
+      "role": "strict-JSON model (remix + briefing)",
+      "status": "retired",
+      "licence": "Qwen licence",
+      "ended": "2026-08-13",
+      "replaced_by": [
+        "qwen35_9b"
+      ],
+      "summary": "The strict-JSON model until the 08-13 verification moved that role to qwen3.5:9b.",
+      "issues": [],
+      "sources": [
+        "project_kanban_card_sync"
+      ]
+    },
+    {
+      "id": "haiku_45",
+      "name": "Claude Haiku 4.5",
+      "kind": "service",
+      "role": "cheap hosted reasoning",
+      "status": "retired",
+      "licence": "commercial API / subscription",
+      "adopted": "2026-09-06",
+      "ended": "2026-09-17",
+      "replaced": [
+        "opus_5_api"
+      ],
+      "replaced_by": [
+        "sonnet_cli",
+        "opus_5_subscription"
+      ],
+      "summary": "Briefly the arch assistant's model (~$0.01 per request against Opus's ~$0.11) and the documentary's outline/fact-check/vision judge, until both moved onto the subscription.",
+      "issues": [
+        {
+          "text": "Chosen over Opus 5 for tool mapping on the explicit ground that tool mapping is not reasoning — ~$0.11 per 5-call request became ~$0.01.",
+          "state": "solved",
+          "fixed": "2026-09-06",
+          "grade": "measured",
+          "evidence": "feedback_arch_assistant_no_opus"
+        },
+        {
+          "text": "Was priced in the metrics hub at $0.25/$1.25 per 1M tokens against a list price of $1/$5 — spend was understated 4x until the hub rebuild.",
+          "state": "solved",
+          "found": "2026-09-11",
+          "fixed": "2026-09-11",
+          "grade": "measured",
+          "evidence": "project_metrics_hub"
+        },
+        {
+          "text": "Everything it did on the documentary cost $0.62-0.92 per episode on the API key; the same work through the subscription costs ~2-3 cents of the weekly allowance.",
+          "state": "solved",
+          "found": "2026-09-17",
+          "fixed": "2026-09-17",
+          "by": "opus_5_subscription",
+          "grade": "measured",
+          "evidence": "project_scholarly_opus_subscription"
+        }
+      ],
+      "sources": [
+        "feedback_arch_assistant_no_opus",
+        "project_scholarly_opus_subscription",
+        "project_metrics_hub"
+      ]
+    },
+    {
+      "id": "sonnet_46",
+      "name": "Claude Sonnet 4.6 (API key)",
+      "kind": "service",
+      "role": "documentary script, scenes and prompts",
+      "status": "retired",
+      "licence": "commercial API",
+      "adopted": "",
+      "ended": "2026-09-17",
+      "replaced_by": [
+        "opus_5_subscription"
+      ],
+      "summary": "The writing model for documentary scripts, scenes and prompts while the pipeline ran on the API key, alongside Haiku 4.5 for outlines and judges.",
+      "issues": [
+        {
+          "text": "Cost $0.62-0.92 per episode on the API key for work the operator's Max subscription already covers.",
+          "state": "solved",
+          "found": "2026-09-17",
+          "fixed": "2026-09-17",
+          "by": "opus_5_subscription",
+          "grade": "measured",
+          "evidence": "project_scholarly_opus_subscription"
+        },
+        {
+          "text": "It is still the model the drawing assistant runs through the CLI, and the only reason thinking is logged there at all — 4.6 defaults to summarised thinking.",
+          "state": "accepted",
+          "found": "2026-09-08",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        }
+      ],
+      "sources": [
+        "project_scholarly_opus_subscription",
+        "project_arch_assistant"
+      ]
+    },
+    {
+      "id": "sonnet_cli",
+      "name": "Claude Sonnet via `claude -p` CLI",
+      "kind": "service",
+      "role": "the drawing assistant's model",
+      "status": "live",
+      "licence": "operator subscription",
+      "adopted": "2026-09-07",
+      "replaced": [
+        "haiku_45"
+      ],
+      "where": "arch_assistant.py _run_cli + arch_mcp_shim.py",
+      "summary": "The Architecture Studio assistant runs headless Claude Code on the operator's login with the drawing tools exposed as an MCP server. opus and fable requests are mapped down to sonnet by policy.",
+      "issues": [
+        {
+          "text": "Moved the assistant off the API key entirely ('subscription, not API'). The spawn env strips every ANTHROPIC_* var and CLAUDECODE, because the CLI prefers a key over the login whenever one is set and the .env key would have silently billed the API.",
+          "state": "solved",
+          "fixed": "2026-09-07",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "One request burned the entire 32,000-token output cap on a single up-front planning thought (561 s, zero tool calls) and was then SIGKILLed by the 900 s watchdog. Fixed by raising the cap to 64k (the CLI's hard ceiling) and the watchdog to 1800 s, and by rewriting the prompt to 'work from results, do not pre-plan'.",
+          "state": "solved",
+          "found": "2026-09-09",
+          "fixed": "2026-09-10",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "The cached prefix is ~75k tokens per step (12k system + 41k of schemas for 203 tools), so cost here is quota, not dollars; a resumed session wrote 1,950 cache tokens against 76,203 for a fresh spawn.",
+          "state": "mitigated",
+          "found": "2026-09-07",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "Thinking is only logged because Sonnet 4.6 defaults to summarised thinking. On Sonnet 5 / Opus 5 the default flips to omitted and the ledger would keep writing thought lines with EMPTY text, silently. Pin display explicitly before any model bump.",
+          "state": "open",
+          "found": "2026-09-08",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "It sent list arguments as JSON STRINGS ('[1, 3, 5]') to untyped tool properties, which read as -999 and refused five times before it glazed all 80 walls. Arguments are now coerced.",
+          "state": "solved",
+          "found": "2026-09-07",
+          "fixed": "2026-09-07",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "The trimmed-prompt rebuild (93.7k → 43k chars) has NOT been measured on a live run.",
+          "state": "open",
+          "found": "2026-09-10",
+          "grade": "receipt",
+          "evidence": "project_arch_assistant"
+        }
+      ],
+      "sources": [
+        "project_arch_assistant",
+        "feedback_arch_assistant_no_opus"
+      ]
+    },
+    {
+      "id": "opus_5_api",
+      "name": "Claude Opus 5 on the API key",
+      "kind": "service",
+      "role": "first assistant backend",
+      "status": "retired",
+      "licence": "commercial API",
+      "adopted": "2026-09-06",
+      "ended": "2026-09-06",
+      "replaced_by": [
+        "haiku_45"
+      ],
+      "summary": "The arch assistant's first backend, replaced within the day on cost grounds. _cheap_model() now refuses opus/fable/mythos outright on that path.",
+      "issues": [
+        {
+          "text": "~$0.11 per 5-call request for work that is tool mapping, not reasoning. The refusal is coded, not remembered: _cheap_model() rejects opus/fable/mythos.",
+          "state": "solved",
+          "found": "2026-09-06",
+          "fixed": "2026-09-06",
+          "by": "haiku_45",
+          "grade": "measured",
+          "evidence": "feedback_arch_assistant_no_opus"
+        }
+      ],
+      "sources": [
+        "feedback_arch_assistant_no_opus"
+      ]
+    },
+    {
+      "id": "opus_5_subscription",
+      "name": "Claude Opus 5 via the Max subscription",
+      "kind": "service",
+      "role": "the writing model",
+      "status": "live",
+      "licence": "operator subscription",
+      "adopted": "2026-09-17",
+      "replaced": [
+        "haiku_45",
+        "qwen35_9b"
+      ],
+      "where": "subscription_llm.run_turn, kids_llm.py, scholarly writing stages",
+      "summary": "Headless `claude -p` turns over stream-json, image blocks included, on the operator's Max login. It writes documentary scripts and scenes and, since 10-02, kids lyrics, storyboards and daily-series moments. Never the API key.",
+      "issues": [
+        {
+          "text": "Replaced $0.62-0.92 per documentary episode on the API key with ~2-3 cents of the weekly subscription; local Ollama calls stay local.",
+          "state": "solved",
+          "fixed": "2026-09-17",
+          "grade": "measured",
+          "evidence": "project_scholarly_opus_subscription"
+        },
+        {
+          "text": "Measured against the 9B it replaced on the same theme: 30 distinct lyric lines with one verbatim hook and a 32-picture storyboard with zero motif-deck filler, in one 11 s turn.",
+          "state": "solved",
+          "fixed": "2026-10-02",
+          "grade": "measured",
+          "evidence": "project_kids_opus_subscription"
+        },
+        {
+          "text": "Spends a SHARED meter — the subscription quota is one pool across every session, so a heavy writing run competes with the agent board.",
+          "state": "accepted",
+          "found": "2026-09-17",
+          "grade": "measured",
+          "evidence": "feedback_meter_is_shared, project_quota_meter"
+        },
+        {
+          "text": "A run on the arch path once logged 'rate limit: allowed_warning (seven_day)' — the weekly login quota is near its edge under this load.",
+          "state": "open",
+          "found": "2026-09-10",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        }
+      ],
+      "sources": [
+        "project_scholarly_opus_subscription",
+        "project_kids_opus_subscription",
+        "project_quota_meter"
+      ]
+    },
+    {
+      "id": "dolphin_mistral_venice",
+      "name": "Dolphin-Mistral-24B-Venice Q8_0",
+      "kind": "model",
+      "role": "Vicky's brain",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-09-17",
+      "replaced": [
+        "sonnet_cli"
+      ],
+      "summary": "25 GB local model that replaced Claude Sonnet as the conversational character's brain, with ZYG_VICKY_CLAUDE=on left in place to restore Sonnet.",
+      "issues": [
+        {
+          "text": "Moved a chat workload off a paid model onto local weights, with an env switch back.",
+          "state": "solved",
+          "fixed": "2026-09-17",
+          "grade": "receipt",
+          "evidence": "project_vicky_chat_store"
+        }
+      ],
+      "sources": [
+        "project_vicky_chat_store"
+      ]
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama",
+      "kind": "tool",
+      "role": "local model runtime",
+      "status": "live",
+      "licence": "MIT",
+      "adopted": "",
+      "summary": "The runtime every local model is reached through. Version-specific behaviour here has twice been the cause of a defect that looked like a model problem.",
+      "issues": [
+        {
+          "text": "format:'json' returns an empty response for gpt-oss:20b on 0.17.7 — a runtime/grammar interaction, not a prompt problem.",
+          "state": "open",
+          "found": "2026-08-13",
+          "grade": "measured",
+          "evidence": "project_kanban_card_sync"
+        },
+        {
+          "text": "A resident model's VRAM did not count as available until /api/ps was polled, so capacity checks silently failed.",
+          "state": "solved",
+          "found": "2026-09-06",
+          "fixed": "2026-09-06",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        }
+      ],
+      "sources": [
+        "project_kanban_card_sync",
+        "project_arch_assistant"
+      ]
+    },
+    {
+      "id": "crewai_langchain",
+      "name": "CrewAI / LangChain",
+      "kind": "tool",
+      "role": "first agent framework",
+      "status": "retired",
+      "licence": "MIT",
+      "ended": "",
+      "replaced_by": [
+        "session_tree"
+      ],
+      "summary": "In the pre-July roster, and the origin of the repo name. Agent work moved to a job board that spawns real Claude Code sessions instead.",
+      "issues": [
+        {
+          "text": "No dated decision records the move; the CrewAI index tables survive in the Postgres 'tools' schema.",
+          "state": "accepted",
+          "grade": "receipt",
+          "evidence": "docs/stack_upgrade_history.md §5, project_postgres_pg16"
+        }
+      ],
+      "sources": [
+        "docs/stack_upgrade_history.md §5"
+      ]
+    },
+    {
+      "id": "session_tree",
+      "name": "Session Tree board (:7100)",
+      "kind": "service",
+      "role": "agent orchestration",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-09-02",
+      "replaced": [
+        "crewai_langchain"
+      ],
+      "summary": "The job board that replaced ad-hoc chat sessions: Fable creates trees, the board spawns Opus executors, one task per session, up to 30 live. Brief-only reads and verified reports are enforced by the board, not by habit.",
+      "issues": [
+        {
+          "text": "Replaced ad-hoc chat sessions with a queue that enforces one task per session and a verified report.",
+          "state": "solved",
+          "fixed": "2026-09-02",
+          "grade": "receipt",
+          "evidence": "project_session_tree"
+        },
+        {
+          "text": "Agent cost is quadratic in session lifetime, so fan-out is capped at 8-10 agents and trees run one at a time.",
+          "state": "mitigated",
+          "grade": "measured",
+          "evidence": "feedback_agent_token_economics, feedback_agent_fanout_budget"
+        },
+        {
+          "text": "The executor sandbox refuses installs, sudo and production operations, so submodules, LFS, binaries and cutovers fall back to the creator by hand.",
+          "state": "accepted",
+          "grade": "receipt",
+          "evidence": "feedback_executor_sandbox_no_installs, project_postgres_pg16"
+        }
+      ],
+      "sources": [
+        "project_session_tree",
+        "project_session_tree_planned"
+      ]
+    },
+    {
+      "id": "llm_audit",
+      "name": "llm_audit",
+      "kind": "tool",
+      "role": "token and cost ledger",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-08-20",
+      "summary": "An SDK patch that records every Anthropic call. Since 2026-08-20 11:56 it duplicates the context ledger's Anthropic rows, so the hub keeps the audit copy and drops the ledger copy.",
+      "issues": [
+        {
+          "text": "It only records if install() runs in the calling thread's path BEFORE the client is used, and set_context is per-thread — the arch assistant's first live run was not logged at all.",
+          "state": "solved",
+          "found": "2026-09-06",
+          "fixed": "2026-09-06",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "Errors used to leave no trace anywhere but the CLI transcript; failures now land in the audit with direction='error'.",
+          "state": "solved",
+          "found": "2026-09-07",
+          "fixed": "2026-09-07",
+          "grade": "measured",
+          "evidence": "project_arch_assistant"
+        },
+        {
+          "text": "Overlaps context_ledger.jsonl after the 08-20 cutover — double-counting spend is the default failure if both are summed.",
+          "state": "mitigated",
+          "found": "2026-09-11",
+          "grade": "measured",
+          "evidence": "project_metrics_hub"
+        }
+      ],
+      "sources": [
+        "project_llm_audit",
+        "project_metrics_hub"
+      ]
+    }
+  ]
+}

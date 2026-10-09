@@ -1,0 +1,253 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Portfolio — Levi Harley</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161a22'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='38' fill='url(%23g)'%3EZ%3C/text%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c6ff7'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/assets/zero/css/zpub_portfolio_movie.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-0: #05070c;
+      --bg-1: #10172a;
+      --line: #223047;
+      --text: #eef5ff;
+      --dim:  #97abc9;
+      --accent: #6dc6ff;
+      --accent2: #a78bfa;
+    }
+    html, body { height: 100%; }
+    body {
+      background: radial-gradient(circle at 20% 0%, var(--bg-1) 0%, var(--bg-0) 60%);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Top bar ─────────────────────────────────────────────────────────── */
+    .ss-bar {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(5, 7, 12, 0.72);
+    }
+    .ss-back { font-size: 0.82rem; font-weight: 500; color: var(--dim); text-decoration: none; white-space: nowrap; }
+    .ss-back:hover { color: var(--text); }
+    .ss-brand { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+    .ss-brand small { font-weight: 500; color: var(--dim); margin-left: 8px; }
+    .ss-chapter {
+      flex: 1 1 auto;
+      min-width: 0;
+      font-size: 0.84rem;
+      color: var(--dim);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .ss-chapter b { color: var(--text); font-weight: 600; }
+    .ss-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--dim);
+      white-space: nowrap;
+    }
+
+    /* ── Body: chapter rail + stage ───────────────────────────────────────── */
+    .ss-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 232px minmax(0, 1fr);
+    }
+    .ss-rail {
+      border-right: 1px solid var(--line);
+      background: rgba(5, 7, 12, 0.55);
+      overflow: auto;
+      padding: 12px 10px 18px;
+    }
+    .ss-rail-head {
+      padding: 4px 8px 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .ss-rail ol { list-style: none; }
+    .ss-rail li {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      padding: 7px 8px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      line-height: 1.3;
+      cursor: pointer;
+      color: var(--dim);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .ss-rail li:hover { background: rgba(255, 255, 255, 0.05); color: var(--text); }
+    .ss-rail li.ss-current { background: rgba(109, 198, 255, 0.14); color: var(--text); }
+    .ss-rail li.ss-done { color: var(--text); opacity: 0.75; }
+    .ss-rail .n { min-width: 1.4em; font-size: 0.72rem; font-variant-numeric: tabular-nums; opacity: 0.7; }
+    .ss-rail .c { margin-left: auto; font-size: 0.68rem; opacity: 0.6; font-variant-numeric: tabular-nums; }
+    .ss-rail-foot {
+      margin-top: 14px;
+      padding: 10px 8px 0;
+      border-top: 1px solid var(--line);
+      font-size: 0.72rem;
+      line-height: 1.6;
+      color: var(--dim);
+    }
+    .ss-rail-foot kbd {
+      display: inline-block;
+      min-width: 1.5em;
+      padding: 0 5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font: inherit;
+      font-size: 0.68rem;
+      text-align: center;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .ss-stage-wrap {
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 14px 16px 16px;
+    }
+    #ss-movie {
+      flex: 1 1 auto;
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
+    }
+    .ss-empty {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      color: var(--dim);
+      text-align: center;
+      line-height: 1.6;
+    }
+    @media (max-width: 900px) {
+      .ss-body { grid-template-columns: minmax(0, 1fr); }
+      .ss-rail { display: none; }
+      .ss-stage-wrap { padding: 8px; }
+      .ss-chapter { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ss-bar">
+  <a class="ss-back" href="/portfolio">&larr; Back</a>
+  <span class="ss-brand">{{ deck.hero.name }}<small>Portfolio</small></span>
+  <span class="ss-chapter" id="ss-chapter"></span>
+  <span class="ss-pill" id="ss-pill">{{ deck.count }} pictures &middot; {{ deck.chapters | length }} chapters</span>
+</div>
+
+<div class="ss-body">
+  <nav class="ss-rail" aria-label="Chapters">
+    <div class="ss-rail-head">Contents</div>
+    <ol id="ss-toc">
+      <li data-chapter="__hero" class="ss-current"><span class="n">&#9654;</span><span>Start</span></li>
+      {% for ch in deck.chapters %}
+      <li data-chapter="{{ ch.id }}"><span class="n">{{ loop.index }}</span><span>{{ ch.title }}</span><span class="c">{{ ch.slides | length }}</span></li>
+      {% endfor %}
+    </ol>
+    <div class="ss-rail-foot">
+      <kbd>Space</kbd> play / pause &nbsp; <kbd>&larr;</kbd><kbd>&rarr;</kbd> move<br>
+      <kbd>C</kbd> chapters &nbsp; <kbd>F</kbd> fullscreen &nbsp; <kbd>Esc</kbd> back<br>
+      Click a picture to step. Click the bar to seek.
+    </div>
+  </nav>
+
+  <div class="ss-stage-wrap">
+    {% if deck.count %}
+    <div id="ss-movie" aria-label="Portfolio movie"></div>
+    {% else %}
+    <div class="ss-empty">
+      No pictures found.<br>
+      Drop the screenshot set into the slideshow folder (or point <code>ZPUB_PORTFOLIO_SLIDES</code> at it) and reload.
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if deck.count %}
+<script src="/assets/zero/js/zpub_portfolio_movie.js"></script>
+<script>
+  var DECK = {{ deck | tojson }};
+  var toc = document.getElementById('ss-toc');
+  var chapterLabel = document.getElementById('ss-chapter');
+
+  var movie = new PortfolioMovie(document.getElementById('ss-movie'), DECK, {
+    fit: 'contain',
+    controls: true,
+    keys: true,
+    autoplay: false,
+    fullscreenTarget: document.documentElement,
+    onFrame: function (i, f) {
+      var items = toc.querySelectorAll('li');
+      var cur = f.kind === 'hero' ? '__hero' : f.chapterId;
+      var seen = true;
+      for (var k = 0; k < items.length; k++) {
+        var id = items[k].getAttribute('data-chapter');
+        var isCur = id === cur;
+        items[k].classList.toggle('ss-current', isCur);
+        if (isCur) seen = false;
+        items[k].classList.toggle('ss-done', seen && !isCur);
+      }
+      if (f.kind === 'hero') chapterLabel.innerHTML = '';
+      else if (f.kind === 'chapter') chapterLabel.innerHTML = '<b>Chapter ' + f.num + '</b> &middot; ' + f.title;
+      else chapterLabel.innerHTML = '<b>' + f.chapter + '</b> &middot; ' + f.title;
+    }
+  });
+
+  toc.addEventListener('click', function (e) {
+    var li = e.target.closest('li');
+    if (!li) return;
+    var id = li.getAttribute('data-chapter');
+    if (id === '__hero') movie.goto(0); else movie.gotoChapter(id);
+    movie.play();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !document.fullscreenElement &&
+        !(movie.index && movie.index.classList.contains('pm-open'))) {
+      window.location.href = '/portfolio';
+    }
+  });
+</script>
+{% endif %}
+
+</body>
+</html>

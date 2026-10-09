@@ -1,0 +1,7 @@
+{"section_key": "primitives", "section_label": "Primitives",
+ "groups": [{"g": "Booleans",
+             "items": [["csg", "Boolean solid",
+                        {"op": "subtract",
+                         "a": {"kind": "box", "p": {"w": 2, "h": 2, "d": 2}, "x": 0, "y": 0, "z": 0, "rx": 0, "ry": 0, "rz": 0, "s": 1},
+                         "b": {"kind": "cylinder", "p": {"r": 0.6, "h": 3, "seg": 32}, "x": 0, "y": -0.5, "z": 0, "rx": 0, "ry": 0, "rz": 0, "s": 1}},
+                        "Two solids cut into one: a 2 m cube with a 1.2 m bore through it. Normally you make one by selecting two objects and pressing Union, Subtract or Intersect on the Solids bar — the drawing keeps both operands' parameters, so a boolean stays editable."]]}]}

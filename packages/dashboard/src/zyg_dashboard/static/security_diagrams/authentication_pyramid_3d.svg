@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Authentication 8-level pyramid 3D">
+  <defs>
+    <!-- Light gray background (matches dialog / tablist #f5f5f7) -->
+    <linearGradient id="dashboardSmokyPearl" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5f5f7"/>
+      <stop offset="1" stop-color="#f5f5f7"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="220%">
+      <feDropShadow dx="8" dy="20" stdDeviation="16" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+
+    <!-- Realistic steel: front face (soft center highlight like light on metal) -->
+    <linearGradient id="steelFront" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="700">
+      <stop offset="0" stop-color="#5c6d7a"/>
+      <stop offset="0.25" stop-color="#728492"/>
+      <stop offset="0.5" stop-color="#8a9ba8"/>
+      <stop offset="0.75" stop-color="#728492"/>
+      <stop offset="1" stop-color="#5c6d7a"/>
+    </linearGradient>
+    <!-- Right face (lit side) -->
+    <linearGradient id="steelRight" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="200" y2="400">
+      <stop offset="0" stop-color="#7a8b98"/>
+      <stop offset="0.5" stop-color="#8e9fad"/>
+      <stop offset="1" stop-color="#9aabb8"/>
+    </linearGradient>
+    <!-- Left face (shadow side) -->
+    <linearGradient id="steelLeft" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="-200" y2="400">
+      <stop offset="0" stop-color="#3d4a56"/>
+      <stop offset="0.5" stop-color="#4d5c68"/>
+      <stop offset="1" stop-color="#5c6d7a"/>
+    </linearGradient>
+    <!-- Back face (top, receding) -->
+    <linearGradient id="steelBack" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="700">
+      <stop offset="0" stop-color="#36424d"/>
+      <stop offset="0.5" stop-color="#44515c"/>
+      <stop offset="1" stop-color="#4d5a66"/>
+    </linearGradient>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;display=swap');
+      .titleText, .levelLabel, .stepWord, .stepNum { text-rendering: geometricPrecision; }
+      .titleText { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 40px; fill: #b8c0c8; text-anchor: middle; }
+      .levelLabel { font-family: Inter, Segoe UI, Arial, sans-serif; font-weight: 600; fill: #ffffff; font-size: 21px; }
+      .stepWord { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; fill: rgba(255,255,255,0.95); font-size: 14px; text-anchor: middle; }
+      .stepNum { font-family: Inter, Segoe UI, Arial, sans-serif; font-weight: 800; fill: #ffffff; font-size: 22px; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#dashboardSmokyPearl)"/>
+
+  <g transform="translate(800,135) translate(0,320.0) scale(0.72) translate(0,-320.0)" filter="url(#softShadow)">
+    <text x="500" y="-120" class="titleText">Authentication</text>
+
+    <!-- Digital shield under Authentication -->
+    <image href="digital_shield_transparent.png" x="425.6" y="-95" width="148.75" height="166.25" preserveAspectRatio="xMidYMin meet"/>
+
+
+    <!-- Level 1 3D (semi-transparent, former color scheme) -->
+    <polygon points="-69.0,-24 141.0,-24 176.75,28 -104.75,28" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-105.0,0 -140.75,52 -104.75,28 -69.0,-24" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="105.0,0 141.0,-24 176.75,28 140.75,52" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-1" points="-105.0,0 105.0,0 140.75,52 -140.75,52" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(143.875, 20) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">1</text></g>
+    <text x="0" y="36.0" text-anchor="middle" class="levelLabel">Central IdP</text>
+
+    <!-- Level 2 3D (semi-transparent, former color scheme) -->
+    <polygon points="-126.75,60 198.75,60 234.5,112 -162.5,112" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-162.75,84 -198.5,136 -162.5,112 -126.75,60" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="162.75,84 198.75,60 234.5,112 198.5,136" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-2" points="-162.75,84 162.75,84 198.5,136 -198.5,136" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(201.625, 104) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">2</text></g>
+    <text x="0" y="120.0" text-anchor="middle" class="levelLabel">Phishing-resistant MFA</text>
+
+    <!-- Level 3 3D (semi-transparent, former color scheme) -->
+    <polygon points="-184.5,144 256.5,144 292.25,196 -220.25,196" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-220.5,168 -256.25,220 -220.25,196 -184.5,144" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="220.5,168 256.5,144 292.25,196 256.25,220" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-3" points="-220.5,168 220.5,168 256.25,220 -256.25,220" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(259.375, 188) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">3</text></g>
+    <text x="0" y="204.0" text-anchor="middle" class="levelLabel">OIDC Authorization Code + PKCE</text>
+
+    <!-- Level 4 3D (semi-transparent, former color scheme) -->
+    <polygon points="-242.25,228 314.25,228 350.0,280 -278.0,280" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-278.25,252 -314.0,304 -278.0,280 -242.25,228" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="278.25,252 314.25,228 350.0,280 314.0,304" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-4" points="-278.25,252 278.25,252 314.0,304 -314.0,304" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(317.125, 272) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">4</text></g>
+    <text x="0" y="288.0" text-anchor="middle" class="levelLabel">No tokens in localStorage</text>
+
+    <!-- Level 5 3D (semi-transparent, former color scheme) -->
+    <polygon points="-300.0,312 372.0,312 407.75,364 -335.75,364" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-336.0,336 -371.75,388 -335.75,364 -300.0,312" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="336.0,336 372.0,312 407.75,364 371.75,388" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-5" points="-336.0,336 336.0,336 371.75,388 -371.75,388" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(374.875, 356) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">5</text></g>
+    <text x="0" y="372.0" text-anchor="middle" class="levelLabel">Privileged protections</text>
+
+    <!-- Level 6 3D (semi-transparent, former color scheme) -->
+    <polygon points="-357.75,396 429.75,396 465.5,448 -393.5,448" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-393.75,420 -429.5,472 -393.5,448 -357.75,396" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="393.75,420 429.75,396 465.5,448 429.5,472" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-6" points="-393.75,420 393.75,420 429.5,472 -429.5,472" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(432.625, 440) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">6</text></g>
+    <text x="0" y="456.0" text-anchor="middle" class="levelLabel">Short-lived access tokens + refresh rotation</text>
+
+    <!-- Level 7 3D (semi-transparent, former color scheme) -->
+    <polygon points="-415.5,480 487.5,480 523.25,532 -451.25,532" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-451.5,504 -487.25,556 -451.25,532 -415.5,480" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="451.5,504 487.5,480 523.25,532 487.25,556" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-7" points="-451.5,504 451.5,504 487.25,556 -487.25,556" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(490.375, 524) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">7</text></g>
+    <text x="0" y="540.0" text-anchor="middle" class="levelLabel">Step-up auth</text>
+
+    <!-- Level 8 3D (semi-transparent, former color scheme) -->
+    <polygon points="-473.25,564 545.25,564 581.0,616 -509.0,616" fill="url(#steelBack)" opacity="1"/>
+    <polygon points="-509.25,588 -545.0,640 -509.0,616 -473.25,564" fill="url(#steelLeft)" opacity="1"/>
+    <polygon points="509.25,588 545.25,564 581.0,616 545.0,640" fill="url(#steelRight)" opacity="1"/>
+    <polygon id="band-8" points="-509.25,588 509.25,588 545.0,640 -545.0,640" fill="url(#steelFront)" opacity="1" style="cursor:pointer"/>
+    <g transform="translate(548.125, 608) rotate(325.5)" class="stepGroup"><text x="0" y="-8" class="stepWord">Step</text><text x="0" y="16" class="stepNum">8</text></g>
+    <text x="0" y="624.0" text-anchor="middle" class="levelLabel">Conditional access/device trust</text>
+
+  </g>
+</svg>

@@ -1,0 +1,10 @@
+{
+  "calm_period_drama": {
+    "sentence": 700,
+    "paragraph": 1200,
+    "dramatic_beat": 1500,
+    "scene_break": 2200,
+    "head": 500,
+    "tail": 1500
+  }
+}

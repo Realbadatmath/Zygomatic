@@ -1,0 +1,435 @@
+{
+ "name": "07_spread_both",
+ "label": "Two-handed spread",
+ "hands": "both",
+ "meaning": "'Big, all of it, the whole thing': both hands start together in front of the body and open wide to the sides until the arms are almost horizontal, the ten fingers separated and the hands open, so the span of the arms measures the size of what is being described.",
+ "reads_well": [
+  "front"
+ ],
+ "keys": [
+  {
+   "name": "rest",
+   "hold_frames": 8,
+   "bones": {
+    "upperarm01.R": [
+     10.0,
+     0.0,
+     50.0
+    ],
+    "upperarm01.L": [
+     10.0,
+     0.0,
+     -50.0
+    ],
+    "lowerarm01.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.R": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm01.L": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.L": [
+     45.0,
+     0.0,
+     0.0
+    ],
+    "wrist.R": [
+     0.0,
+     -25.0,
+     0.0
+    ],
+    "wrist.L": [
+     0.0,
+     25.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "name": "opening",
+   "hold_frames": 6,
+   "bones": {
+    "upperarm01.R": [
+     0.0,
+     0.0,
+     12.0
+    ],
+    "upperarm01.L": [
+     0.0,
+     0.0,
+     -12.0
+    ],
+    "lowerarm01.R": [
+     25.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.R": [
+     25.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm01.L": [
+     25.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.L": [
+     25.0,
+     0.0,
+     0.0
+    ],
+    "wrist.R": [
+     0.0,
+     20.0,
+     0.0
+    ],
+    "wrist.L": [
+     0.0,
+     -20.0,
+     0.0
+    ],
+    "finger2-1.R": [
+     8.0,
+     6.0,
+     -7.0
+    ],
+    "finger3-1.R": [
+     8.0,
+     2.0,
+     -2.5
+    ],
+    "finger4-1.R": [
+     8.0,
+     -2.0,
+     2.5
+    ],
+    "finger5-1.R": [
+     8.0,
+     -6.0,
+     7.0
+    ],
+    "finger2-1.L": [
+     8.0,
+     -6.0,
+     7.0
+    ],
+    "finger3-1.L": [
+     8.0,
+     -2.0,
+     2.5
+    ],
+    "finger4-1.L": [
+     8.0,
+     2.0,
+     -2.5
+    ],
+    "finger5-1.L": [
+     8.0,
+     6.0,
+     -7.0
+    ]
+   }
+  },
+  {
+   "name": "apex",
+   "hold_frames": 16,
+   "bones": {
+    "upperarm01.R": [
+     0,
+     0,
+     -25
+    ],
+    "upperarm01.L": [
+     0,
+     0,
+     25
+    ],
+    "lowerarm01.R": [
+     15,
+     0,
+     0
+    ],
+    "lowerarm02.R": [
+     15,
+     0,
+     0
+    ],
+    "lowerarm01.L": [
+     15,
+     0,
+     0
+    ],
+    "lowerarm02.L": [
+     15,
+     0,
+     0
+    ],
+    "wrist.R": [
+     0,
+     72,
+     0
+    ],
+    "wrist.L": [
+     0,
+     -72,
+     0
+    ],
+    "finger2-1.R": [
+     3.0,
+     14.0,
+     -7.0
+    ],
+    "finger2-2.R": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger2-3.R": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger3-1.R": [
+     3.0,
+     5.0,
+     -2.5
+    ],
+    "finger3-2.R": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger3-3.R": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger4-1.R": [
+     3.0,
+     -5.0,
+     2.5
+    ],
+    "finger4-2.R": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger4-3.R": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger5-1.R": [
+     3.0,
+     -14.0,
+     7.0
+    ],
+    "finger5-2.R": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger5-3.R": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger1-1.R": [
+     0.0,
+     -25.0,
+     0.0
+    ],
+    "finger1-2.R": [
+     5.0,
+     0.0,
+     0.0
+    ],
+    "finger1-3.R": [
+     5.0,
+     0.0,
+     0.0
+    ],
+    "finger2-1.L": [
+     3.0,
+     -14.0,
+     7.0
+    ],
+    "finger2-2.L": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger2-3.L": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger3-1.L": [
+     3.0,
+     -5.0,
+     2.5
+    ],
+    "finger3-2.L": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger3-3.L": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger4-1.L": [
+     3.0,
+     5.0,
+     -2.5
+    ],
+    "finger4-2.L": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger4-3.L": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger5-1.L": [
+     3.0,
+     14.0,
+     -7.0
+    ],
+    "finger5-2.L": [
+     3.0,
+     0.0,
+     0.0
+    ],
+    "finger5-3.L": [
+     2.0,
+     0.0,
+     0.0
+    ],
+    "finger1-1.L": [
+     0.0,
+     25.0,
+     0.0
+    ],
+    "finger1-2.L": [
+     5.0,
+     0.0,
+     0.0
+    ],
+    "finger1-3.L": [
+     5.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "name": "return",
+   "hold_frames": 10,
+   "bones": {
+    "upperarm01.R": [
+     -4,
+     0,
+     10
+    ],
+    "upperarm01.L": [
+     -4,
+     0,
+     -10
+    ],
+    "lowerarm01.R": [
+     10.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.R": [
+     8.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm01.L": [
+     10.0,
+     0.0,
+     0.0
+    ],
+    "lowerarm02.L": [
+     8.0,
+     0.0,
+     0.0
+    ],
+    "wrist.R": [
+     0,
+     40,
+     0
+    ],
+    "wrist.L": [
+     0,
+     -40,
+     0
+    ],
+    "finger2-1.R": [
+     6,
+     14,
+     -7
+    ],
+    "finger3-1.R": [
+     6,
+     5,
+     -2.5
+    ],
+    "finger4-1.R": [
+     6,
+     -5,
+     2.5
+    ],
+    "finger5-1.R": [
+     6,
+     -14,
+     7
+    ],
+    "finger2-1.L": [
+     6,
+     -14,
+     7
+    ],
+    "finger3-1.L": [
+     6,
+     -5,
+     2.5
+    ],
+    "finger4-1.L": [
+     6,
+     5,
+     -2.5
+    ],
+    "finger5-1.L": [
+     6,
+     14,
+     -7
+    ],
+    "finger1-1.R": [
+     0,
+     -22,
+     0
+    ],
+    "finger1-1.L": [
+     0,
+     22,
+     0
+    ]
+   }
+  }
+ ]
+}

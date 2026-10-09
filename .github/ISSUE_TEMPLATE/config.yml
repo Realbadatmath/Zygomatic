@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+# SPDX-License-Identifier: AGPL-3.0-or-later
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Realbadatmath/Zygomatic/security/advisories/new
+    about: Never open a public issue for a vulnerability — use a private advisory (see SECURITY.md).

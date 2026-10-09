@@ -1,0 +1,387 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token|default('') }}">
+<title>Remix Ai — sweep, study, rebuild</title>
+<link rel="icon" href="/static/favicon.ico?v=20260825" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png?v=20260825">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png?v=20260825">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png?v=20260825">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0d1117; color:#d7dde5; font:14px/1.5 system-ui, sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:24px 20px 60px; }
+  h1 { font-size:22px; margin:0 0 4px; } h1 .tag { color:#7a5cd6; }
+  h2 { font-size:15px; margin:34px 0 10px; color:#9fb0c3; text-transform:uppercase; letter-spacing:.08em; }
+  .sub { color:#8b96a5; margin:0 0 18px; }
+  .pills { display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0; }
+  .pill { background:#161d27; border:1px solid #263041; border-radius:999px; padding:5px 14px; font-size:12.5px; }
+  .pill b { color:#fff; } .pill.ok b{color:#43c383;} .pill.warn b{color:#e0a832;} .pill.err b{color:#e05252;}
+  table { width:100%; border-collapse:collapse; background:#11161d; border:1px solid #232b38; border-radius:8px; overflow:hidden; }
+  th, td { padding:8px 10px; text-align:left; border-bottom:1px solid #1c2430; font-size:13px; vertical-align:top; }
+  th { background:#151c26; color:#93a2b4; font-weight:600; font-size:12px; }
+  tr:last-child td { border-bottom:none; }
+  input[type=text], input[type=number] { background:#0d1320; border:1px solid #2a3546; color:#e6ecf3; border-radius:6px; padding:7px 10px; font-size:13px; }
+  input[type=text] { width:100%; }
+  button { background:#1d2836; border:1px solid #33415a; color:#dfe7f0; border-radius:6px; padding:6px 13px; font-size:12.5px; cursor:pointer; }
+  button:hover { background:#26344a; }
+  button.primary { background:#4a3a8f; border-color:#6350b8; } button.primary:hover { background:#5646a5; }
+  button.danger { background:#4a2026; border-color:#75333c; } button.danger:hover { background:#5c2830; }
+  button.small { padding:3px 9px; font-size:11.5px; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  .row { display:flex; gap:10px; align-items:center; margin:10px 0 12px; flex-wrap:wrap; }
+  .muted { color:#77828f; } .good { color:#43c383; } .warn { color:#e0a832; } .bad { color:#e05252; }
+  label.chk { display:flex; gap:6px; align-items:center; font-size:12.5px; color:#a9b5c2; cursor:pointer; }
+  a { color:#6fa8ff; text-decoration:none; } a:hover { text-decoration:underline; }
+  #toast { position:fixed; bottom:18px; right:18px; background:#20304a; border:1px solid #3a537c; padding:10px 16px; border-radius:8px; display:none; max-width:440px; font-size:13px; }
+  .note { background:#151b14; border:1px solid #2c3a24; border-radius:8px; padding:10px 14px; font-size:12.5px; color:#a9c39a; margin:8px 0 0; }
+  .terms { display:flex; flex-wrap:wrap; gap:7px; margin:8px 0 4px; }
+  .term { background:#161d27; border:1px solid #2b3648; border-radius:999px; padding:4px 8px 4px 12px;
+          font-size:12.5px; display:flex; align-items:center; gap:8px; }
+  .term span.x { color:#8b96a5; cursor:pointer; font-weight:700; }
+  .term span.x:hover { color:#e05252; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; }
+  .fld { background:#11161d; border:1px solid #232b38; border-radius:8px; padding:9px 11px; }
+  .fld label { display:block; font-size:11.5px; color:#93a2b4; margin-bottom:5px; }
+  .fld input { width:100%; }
+  .stages { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; }
+  .stg { font-size:11.5px; padding:3px 9px; border-radius:6px; border:1px solid #263041;
+         background:#141a23; color:#77828f; }
+  .stg.run { border-color:#6350b8; background:#231d3d; color:#c4b6ff; }
+  .stg.done { border-color:#2b5138; background:#14231a; color:#6fcf97; }
+  .stg.fail { border-color:#75333c; background:#2a1418; color:#e88; }
+  pre.log { background:#0b0f15; border:1px solid #1c2430; border-radius:8px; padding:10px 12px;
+            font-size:11.5px; color:#9fb0c3; max-height:230px; overflow:auto; margin:8px 0 0; }
+  .vel { color:#c4b6ff; font-weight:600; }
+</style>
+<style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+  <h1>Remix Ai <span class="tag">[ operator console ]</span></h1>
+  <p class="sub">Sweep for popular AI-generated video &rarr; study its format &rarr; build an original in that format.
+     Board: <a href="/workflows">/workflows &rarr; Remix Ai</a>.
+     Output: <a id="remixai-inspection-link" href="http://127.0.0.1:8899/inspection.html#videos/remix-ai">inspection &rarr; Videos &rarr; remix ai</a>.</p>
+
+  <div class="note">
+    <b>What is copied and what is not.</b> The <b>aesthetic</b> and the <b>structure</b> are studied and reused —
+    a look and a beat-shape are not ownable. The pictures, the sentences, the title and the music are not:
+    images are generated, the script is written from an abstract brief (never from the source's wording),
+    the title is written to the source's <i>format</i> rather than its words, and the soundtrack is replaced
+    with a different track of the same genre from our own library.
+    <b>The source video is deleted as soon as analysis finishes.</b> Nothing delivered here contains a frame,
+    a waveform or a sentence of it. Nothing auto-publishes — each job leaves an upload sheet for you to read.
+  </div>
+
+  <div class="pills" id="pills"></div>
+
+  <h2>Active job</h2>
+  <div id="active"><p class="muted">nothing running</p></div>
+
+  <h2>Search terms</h2>
+  <p class="sub" style="margin:0 0 8px">These drive discovery. Each is one flat <code>ytsearch</code> — zero API quota.
+     A term that returns nothing useful is costing you a request per sweep; drop it.</p>
+  <div class="terms" id="terms"></div>
+  <div class="row">
+    <input type="text" id="term-input" placeholder="e.g. veo 3 ai short film" style="max-width:380px"
+           onkeydown="if(event.key==='Enter')addTerm()">
+    <button class="primary" onclick="addTerm()">+ Add term</button>
+    <button onclick="runSweep()" id="sweep-btn">&#8635; Sweep now</button>
+    <span class="muted" id="sweep-note"></span>
+  </div>
+
+  <h2>Settings</h2>
+  <div class="grid2" id="settings"></div>
+  <div class="row" style="margin-top:12px">
+    <label class="chk"><input type="checkbox" id="auto-mode" onchange="saveSettings()"> auto mode
+      <span class="muted">&mdash; sweep and start jobs unattended (gated on a free GPU, free RAM, disk, and the daily cap)</span></label>
+    <button class="primary" onclick="saveSettings()">Save settings</button>
+  </div>
+
+  <h2>Candidates <span class="muted" style="text-transform:none">(ranked by view velocity)</span></h2>
+  <table><thead><tr>
+    <th>Title</th><th>Channel</th><th>Views/h</th><th>Views</th><th>Age</th>
+    <th>AI</th><th>Length</th><th>State</th><th></th></tr></thead>
+    <tbody id="cand-body"><tr><td colspan="9" class="muted">loading&hellip;</td></tr></tbody></table>
+
+  <h2>Delivered</h2>
+  <table><thead><tr>
+    <th>Title</th><th>Format</th><th>Length</th><th>Studied</th><th>Music</th><th>When</th><th></th></tr></thead>
+    <tbody id="lib-body"><tr><td colspan="7" class="muted">loading&hellip;</td></tr></tbody></table>
+</div>
+<div id="toast"></div>
+
+<script>
+var CSRF = document.querySelector('meta[name="csrf-token"]').content || '';
+var SETTINGS = {}, STAGES = [];
+
+// inspection.html is served by kanban_server on :8899 — same machine, different port,
+// so the link cannot be relative. Point it at whatever host the viewer reached us on.
+(function(){
+  var a = document.getElementById('remixai-inspection-link');
+  if (a) a.href = location.protocol + '//' + location.hostname + ':8899/inspection.html#videos/remix-ai';
+})();
+
+function toast(msg, bad){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.borderColor = bad ? '#75333c' : '#3a537c';
+  t.style.display = 'block';
+  clearTimeout(t._h); t._h = setTimeout(function(){ t.style.display='none'; }, 4200);
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function api(url, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({'Content-Type':'application/json','X-CSRFToken':CSRF}, opts.headers||{});
+  return fetch(url, opts).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(j){
+      if(!r.ok) throw new Error(j.error || ('HTTP '+r.status));
+      return j;
+    });
+  });
+}
+function ago(ts){
+  if(!ts) return '—';
+  var d = (Date.now()/1000) - ts;
+  if(d < 3600) return Math.round(d/60)+'m ago';
+  if(d < 86400) return Math.round(d/3600)+'h ago';
+  return Math.round(d/86400)+'d ago';
+}
+function mmss(s){
+  s = Math.round(s||0);
+  return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+}
+
+/* ── status ── */
+function loadStatus(){
+  api('/api/remixai/status').then(function(d){
+    SETTINGS = d.settings || {}; STAGES = d.stages || [];
+    var sw = d.sweeper || {}, au = d.auto_state || {}, dk = d.disk || {};
+    document.getElementById('pills').innerHTML =
+      '<span class="pill '+(dk.ok?'ok':'err')+'">disk <b>'+(dk.free_gb||0)+' GB free</b></span>'
+      + '<span class="pill">terms <b>'+((SETTINGS.terms||[]).length)+'</b></span>'
+      + '<span class="pill">last sweep <b>'+esc(sw.last_tick||'never')+'</b></span>'
+      + '<span class="pill">found <b>'+(sw.candidates_found||0)+'</b></span>'
+      + '<span class="pill '+(SETTINGS.auto_mode?'ok':'')+'">auto <b>'+(SETTINGS.auto_mode?'ON':'off')+'</b></span>'
+      + '<span class="pill">today <b>'+(au.started||0)+'/'+(SETTINGS.daily_cap||4)+'</b></span>'
+      + (d.other_pipeline_busy?'<span class="pill warn">another pipeline <b>running</b></span>':'');
+    document.getElementById('auto-mode').checked = !!SETTINGS.auto_mode;
+    renderSettings();
+    renderActive(d.active_job);
+  }).catch(function(e){ toast('status: '+e.message, true); });
+}
+
+function renderActive(j){
+  var host = document.getElementById('active');
+  if(!j){ host.innerHTML = '<p class="muted">nothing running</p>'; return; }
+  var tl = {}; (j.stage_timeline||[]).forEach(function(e){ tl[e.name] = e.status; });
+  var chips = STAGES.map(function(n){
+    var st = tl[n] || '';
+    var cls = st==='running'?'run':(st==='completed'?'done':(st==='failed'?'fail':''));
+    return '<span class="stg '+cls+'">'+esc(n)+'</span>';
+  }).join('');
+  var log = (j.recent||[]).map(function(e){
+    return '['+esc(e.level)+'] '+esc(e.stage)+' — '+esc(e.msg); }).join('\n');
+  host.innerHTML =
+    '<div class="row"><b>'+esc(j.pipeline_id)+'</b>'
+    + '<span class="muted">'+esc(j.current_stage||'—')+'</span>'
+    + '<span class="muted">'+(j.progress_pct||0)+'%</span>'
+    + '<button class="danger small" onclick="stopJob(\''+esc(j.pipeline_id)+'\')">Stop</button></div>'
+    + '<div class="stages">'+chips+'</div>'
+    + (log ? '<pre class="log">'+log+'</pre>' : '');
+}
+
+function stopJob(pid){
+  api('/api/remixai/stop', {method:'POST', body:JSON.stringify({pipeline_id:pid})})
+    .then(function(){ toast('stop requested'); loadStatus(); })
+    .catch(function(e){ toast(e.message, true); });
+}
+
+/* ── terms ── */
+function renderTerms(){
+  var t = SETTINGS.terms || [];
+  document.getElementById('terms').innerHTML = t.length ? t.map(function(x){
+    return '<span class="term">'+esc(x)+'<span class="x" title="remove" onclick="delTerm('
+      + JSON.stringify(x).replace(/"/g,'&quot;') + ')">&times;</span></span>';
+  }).join('') : '<span class="muted">no terms — discovery will find nothing</span>';
+}
+function addTerm(){
+  var el = document.getElementById('term-input'), v = el.value.trim();
+  if(!v) return;
+  api('/api/remixai/terms', {method:'POST', body:JSON.stringify({term:v})})
+    .then(function(s){ SETTINGS = s; el.value=''; renderTerms(); toast('term added'); })
+    .catch(function(e){ toast(e.message, true); });
+}
+function delTerm(t){
+  api('/api/remixai/terms', {method:'DELETE', body:JSON.stringify({term:t})})
+    .then(function(s){ SETTINGS = s; renderTerms(); toast('term removed'); })
+    .catch(function(e){ toast(e.message, true); });
+}
+
+/* ── settings ── */
+var FIELDS = [
+  ['per_term',       'Results per term',        'how deep each ytsearch goes'],
+  ['sweep_sec',      'Sweep interval (s)',      'view velocity moves slowly; 3600 is plenty'],
+  ['min_views',      'Minimum views',           'below this, "popular" is noise'],
+  ['max_age_days',   'Max age (days)',          'an older format is no longer current'],
+  ['min_duration_s', 'Min source length (s)',   ''],
+  ['max_duration_s', 'Max source length (s)',   ''],
+  ['min_ai_score',   'Min AI-provenance score', 'named generator = 2, bare "ai video" = 1'],
+  ['daily_cap',      'Auto jobs per day',       'ceiling for auto mode only']
+];
+function renderSettings(){
+  document.getElementById('settings').innerHTML = FIELDS.map(function(f){
+    return '<div class="fld"><label>'+esc(f[1])
+      + (f[2]?' <span class="muted">— '+esc(f[2])+'</span>':'')
+      + '</label><input type="number" id="s-'+f[0]+'" value="'+(SETTINGS[f[0]]!=null?SETTINGS[f[0]]:'')+'"></div>';
+  }).join('');
+  renderTerms();
+}
+function saveSettings(){
+  var patch = {auto_mode: document.getElementById('auto-mode').checked};
+  FIELDS.forEach(function(f){
+    var el = document.getElementById('s-'+f[0]);
+    if(el && el.value !== '') patch[f[0]] = Number(el.value);
+  });
+  api('/api/remixai/settings', {method:'POST', body:JSON.stringify(patch)})
+    .then(function(s){ SETTINGS = s; toast('settings saved'); loadStatus(); })
+    .catch(function(e){ toast(e.message, true); });
+}
+
+/* ── sweep + candidates ── */
+function runSweep(){
+  var b = document.getElementById('sweep-btn');
+  b.disabled = true; b.textContent = 'sweeping…';
+  document.getElementById('sweep-note').textContent = 'this takes a minute — one search per term, then metadata probes';
+  api('/api/remixai/sweep', {method:'POST'}).then(function(d){
+    var dr = d.dropped || {};
+    document.getElementById('sweep-note').textContent =
+      (d.candidates||[]).length + ' candidate(s) · dropped '
+      + (dr.views||0)+' on views, '+(dr.duration||0)+' on length, '+(dr.ai||0)+' on provenance · '
+      + (d.skipped_seen||0)+' already seen';
+    renderCandidates(d.candidates||[]);
+    toast('sweep complete');
+  }).catch(function(e){
+    document.getElementById('sweep-note').textContent = '';
+    toast('sweep: '+e.message, true);
+  }).finally(function(){ b.disabled=false; b.textContent='↻ Sweep now'; });
+}
+
+function loadCandidates(){
+  api('/api/remixai/candidates').then(function(d){ renderCandidates(d.candidates||[]); })
+    .catch(function(){ document.getElementById('cand-body').innerHTML =
+      '<tr><td colspan="9" class="bad">failed to load</td></tr>'; });
+}
+function renderCandidates(c){
+  var b = document.getElementById('cand-body');
+  if(!c.length){ b.innerHTML = '<tr><td colspan="9" class="muted">no candidates — run a sweep, '
+    + 'or loosen the filters above</td></tr>'; return; }
+  b.innerHTML = c.map(function(x){
+    var worked = x.state === 'worked';
+    return '<tr>'
+      + '<td><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc((x.title||'').slice(0,80))+'</a></td>'
+      + '<td class="muted">'+esc((x.channel||'').slice(0,26))+'</td>'
+      + '<td class="vel">'+Math.round(x.velocity||0)+'</td>'
+      + '<td class="muted">'+((x.view_count||0)/1000).toFixed(0)+'k</td>'
+      + '<td class="muted">'+(x.age_days||0).toFixed(1)+'d</td>'
+      + '<td>'+(x.ai_score||0)+'</td>'
+      + '<td class="muted">'+mmss(x.duration)+'</td>'
+      + '<td class="'+(worked?'good':'muted')+'">'+esc(x.state||'')+'</td>'
+      + '<td><button class="primary small"'+(worked?' disabled title="already built from"':'')
+      + ' onclick="runOne(\''+esc(x.video_id)+'\',this)">Build</button></td>'
+      + '</tr>';
+  }).join('');
+}
+function runOne(vid, btn){
+  btn.disabled = true; btn.textContent = 'starting…';
+  api('/api/remixai/run', {method:'POST', body:JSON.stringify({video_id:vid})})
+    .then(function(r){ toast('started '+r.pipeline_id); loadStatus(); })
+    .catch(function(e){
+      toast(e.message, true); btn.disabled=false; btn.textContent='Build';
+    });
+}
+
+/* ── library ── */
+function loadLibrary(){
+  api('/api/remixai/library').then(function(d){
+    var b = document.getElementById('lib-body'), it = d.items||[];
+    if(!it.length){ b.innerHTML = '<tr><td colspan="7" class="muted">nothing delivered yet</td></tr>'; return; }
+    b.innerHTML = it.map(function(x){
+      var mus = x.music||{};
+      return '<tr>'
+        + '<td>'+esc((x.title||'').slice(0,70))+'</td>'
+        + '<td class="muted">'+esc(x.geometry||'')+'</td>'
+        + '<td class="muted">'+mmss(x.duration_s)+'</td>'
+        + '<td class="muted">'+esc((x.source_channel||'').slice(0,22))+'</td>'
+        + '<td class="muted">'+(mus.replaced?esc((mus.track||'').slice(0,24)):'—')+'</td>'
+        + '<td class="muted">'+ago(x.ts)+'</td>'
+        + '<td>'+(x.file_exists
+            ? '<a href="/api/remixai/media/'+esc(x.pipeline_id)+'/'+esc(x.file_name)+'" target="_blank">open</a>'
+            : '<span class="muted">gone</span>')+'</td>'
+        + '</tr>';
+    }).join('');
+  }).catch(function(){ document.getElementById('lib-body').innerHTML =
+      '<tr><td colspan="7" class="bad">failed to load</td></tr>'; });
+}
+
+loadStatus(); loadCandidates(); loadLibrary();
+setInterval(loadStatus, 5000);
+setInterval(loadLibrary, 30000);
+</script>
+</body>
+</html>

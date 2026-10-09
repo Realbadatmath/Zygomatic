@@ -1,0 +1,184 @@
+{
+  "lane": "video",
+  "label": "Video generation & motion",
+  "note": "Everything that turns a still into moving pictures, plus the control recipes layered on top and the candidates that were refused for licence or hardware reasons.",
+  "entities": [
+    {
+      "id": "animatediff", "name": "AnimateDiff", "kind": "model", "role": "first motion engine",
+      "status": "retired", "licence": "Apache-2.0", "ended": "2026-07-15",
+      "replaced_by": ["wan21_i2v"],
+      "summary": "1xxx-roster motion for SD1.5-era stills. Gone by the time the 2xxx roster was written; no measured comparison survives.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "svd", "name": "Stable Video Diffusion", "kind": "model", "role": "image-to-video candidate",
+      "status": "retired", "licence": "Stability non-commercial", "ended": "2026-07-15",
+      "replaced_by": ["wan21_i2v"],
+      "summary": "In the pre-July roster as the I2V option; replaced by Wan2.1 before any dated bench on this box.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "deforum", "name": "Deforum", "kind": "tool", "role": "keyframe camera animation",
+      "status": "retired", "licence": "MIT", "ended": "2026-07-15",
+      "replaced_by": ["vace"],
+      "summary": "Camera/keyframe animation from the SD1.5 era, replaced by control-frame recipes on a real video model.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "wan21_i2v", "name": "Wan2.1-I2V-14B", "kind": "model", "role": "production video engine until LTX",
+      "status": "retired", "licence": "Apache-2.0", "adopted": "2026-05-08", "ended": "2026-10-02",
+      "replaced": ["animatediff", "svd"], "replaced_by": ["ltx25_distilled"],
+      "where": "comfy workflows wan22_i2v.json / VACE graphs on :8188",
+      "summary": "The engine that carried every clip for five months, always through the VACE control recipe. Apache-2.0 throughout, which is why all 41 captured video graphs passed the licence gate.",
+      "issues": [
+        {"text": "Plain I2V ignored prompted motion — the shift parameter turned out to be the lever, not the prompt.", "state": "solved", "found": "2026-07-29", "fixed": "2026-07-29", "by": "vace", "grade": "measured", "evidence": "project_wan_motion_debug"},
+        {"text": "609 s for a 5 s clip at 832x480, and 2074.8 s (34.6 min) for 5 s at 960² with 20 steps cfg 5 — the reason the lane was replaced.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-02", "by": "ltx25_distilled", "grade": "measured", "evidence": "project_ltx25_instance, project_kids_wan_lightning_bench"},
+        {"text": "480p only on the VACE recipe.", "state": "accepted", "found": "2026-07-29", "grade": "measured", "evidence": "project_wan_motion_debug"},
+        {"text": "Still keeps finer skin and freckle texture than its replacement, measured side by side on the same still and seed. The texture gap is a real regression the new engine has not closed.", "state": "open", "found": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "No audio.", "state": "solved", "fixed": "2026-10-02", "by": "ltx25_distilled", "grade": "measured", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_wan_motion_debug", "project_ltx25_instance"]
+    },
+    {
+      "id": "vace", "name": "VACE control-frame recipe", "kind": "tool", "role": "identity + motion control over Wan",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-07-29",
+      "replaced": ["deforum"],
+      "where": "VACE graphs, control_blend / control_dir",
+      "summary": "The recipe that made Wan usable: control frames carrying identity from PIXELS, with strength for motion and modality for identity. Chunked on 09-20 into 5 x 25 frames with a 7-frame overlap cross-fade at strength 0.8.",
+      "issues": [
+        {"text": "Single-pass VACE could not hold a long clip; the chained-chunk recipe (5 x 25 frames, 7-frame overlap, strength 0.8) was accepted at take 10 of 8 full takes.", "state": "solved", "found": "2026-09-20", "fixed": "2026-09-20", "grade": "measured", "evidence": "project_vace_character_recipe"},
+        {"text": "VACE can paint the CONTROL PLATE itself — a flat grey humanoid with the OpenPose limb bars visible — instead of the character. Same failure family as the 09-15 blob/fire fixture.", "state": "open", "found": "2026-09-20", "grade": "measured", "evidence": "project_movement_capture_path, project_vace_plate_levers"},
+        {"text": "97 frames cost 999 s at 29.3 GB peak.", "state": "accepted", "found": "2026-09-20", "grade": "measured", "evidence": "project_movement_capture_path"}
+      ],
+      "sources": ["project_vace_character_recipe", "project_vace_plate_levers"]
+    },
+    {
+      "id": "wan22_a14b", "name": "Wan2.2-I2V-A14B", "kind": "model", "role": "dual-expert successor to Wan2.1",
+      "status": "gated_off", "licence": "Apache-2.0", "adopted": "2026-08-09",
+      "where": "ZYG_WAN22 (default OFF)",
+      "summary": "Installed and validated on 2026-08-09 but never cut over: the production switch waits on a motion gate and an identity A/B that were never run. Character LoRAs fit the LOW expert only.",
+      "issues": [
+        {"text": "Production cutover held pending a motion-gate and identity A/B — still not run, so the lane skipped past it to LTX-2.5.", "state": "open", "found": "2026-08-09", "grade": "receipt", "evidence": "project_stack_upgrade_aug2026"},
+        {"text": "Character LoRAs fit the LOW expert only in the dual-expert split.", "state": "accepted", "found": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026"]
+    },
+    {
+      "id": "wan_lightning", "name": "Wan Lightning 4-step", "kind": "model", "role": "distilled fast sampler for Wan",
+      "status": "gated_off", "licence": "Apache-2.0", "adopted": "2026-08-09",
+      "where": "ZYG_WAN_LIGHTNING (default OFF)",
+      "summary": "4x faster than full Wan sampling and left off on purpose: it buys speed by trading away the motion that was prompted.",
+      "issues": [
+        {"text": "Swaps prompted motion for a camera pan — the subject stops doing what the prompt asked. Same motion drop later seen on an LTX tractor clip.", "state": "open", "found": "2026-09-06", "grade": "measured", "evidence": "project_kids_wan_lightning_bench"}
+      ],
+      "sources": ["project_kids_wan_lightning_bench"]
+    },
+    {
+      "id": "wan_animate", "name": "Wan-Animate", "kind": "model", "role": "candidate full-body reference animation",
+      "status": "rejected", "licence": "Apache-2.0", "ended": "2026-09-15",
+      "summary": "Tried as a full-body-reference replacement for VACE and refused on the first real take.",
+      "issues": [
+        {"text": "Rendered a frozen grey statue and ignored the pose entirely.", "state": "open", "found": "2026-09-15", "grade": "measured", "evidence": "docs/stack_upgrade_history.md §3"}
+      ],
+      "sources": ["docs/stack_upgrade_history.md §3"]
+    },
+    {
+      "id": "ltx25_distilled", "name": "LTX-2.5 22B distilled", "kind": "model", "role": "default video engine",
+      "status": "live", "licence": "LTX-2.x Community (free under $10M revenue)", "adopted": "2026-10-02",
+      "replaced": ["wan21_i2v"],
+      "where": "~/ai-models/comfyui-ltx (ComfyUI 0.38.1, :8189), run_i2v.py",
+      "summary": "5 s at 960² with stereo audio in 25 s wall against Wan's 609 s, identity held, on its own ComfyUI instance sharing the production weights library. The only open-weights candidate that is both legal here and runnable on one 4090.",
+      "issues": [
+        {"text": "24x faster than the engine it replaced: 25.4 s wall for 5 s 960² 24 fps with AAC stereo, against 609 s (and 2074.8 s at matched settings) for Wan 2.2.", "state": "solved", "fixed": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "Brought audio into the same pass — Wan had none.", "state": "solved", "fixed": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "Goes soft/smoothed in mid-clip profile frames where Wan kept skin and freckle texture. Not closed by the dev checkpoint: dev + distilled LoRA looks like distilled, and dev full with a hand-rolled 15-step schedule came out SOFTER (freckles lost mid-clip).", "state": "open", "found": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "30 s / 721 frames at 960² is the hard ceiling on the 4090 (peak 48217 of 49140 MiB); 33 s will not fit.", "state": "accepted", "found": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "A free-running 30 s render DRIFTS BADLY — by 15 s a snake mane dissolved into ordinary human hair and never came back. 10 s holds. Fixed by pinning the last frame (LTXVAddGuide frame_idx=-1, strength 0.7 = 0 frozen frames, best seam), not by a better prompt.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "The painted/Arcane look drifts toward smooth photoreal mid-clip and the face wanders — the distilled model leans photoreal. A style LoRA is the predicted fix; not built.", "state": "open", "found": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "It invents camera moves and framing unless the prompt forbids them: an early take pulled the camera back and invented a window. The fix is direction, not a seed — 'Locked-off static camera, no camera movement, no zoom, the framing never changes' held all three later takes.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-04", "grade": "measured", "evidence": "project_ltx25_instance, project_documentary_ltx_motion"},
+        {"text": "Any reach-away action turns the face to profile and can lose it (a 'dips the quill' take went profile for ~2 s; a character told to turn his head turned his back instead).", "state": "mitigated", "found": "2026-10-04", "grade": "measured", "evidence": "project_ltx25_instance"},
+        {"text": "No identity bench for Abel or Cornelis, no 9:16 run, and IC-LoRA union control (depth/pose/canny) is not installed.", "state": "open", "found": "2026-10-02", "grade": "receipt", "evidence": "project_ltx25_instance"},
+        {"text": "Loop clips ship silent — a 30 s audio track does not loop.", "state": "accepted", "found": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance", "project_documentary_ltx_motion", "project_kids_hidream_ltx_build"]
+    },
+    {
+      "id": "ltx25_dev", "name": "LTX-2.5 22B dev (full)", "kind": "model", "role": "quality checkpoint for the same engine",
+      "status": "gated_off", "licence": "LTX-2.x Community", "adopted": "2026-10-02",
+      "summary": "The undistilled 21.5 GB checkpoint, installed and measured against the distilled default on the same seed. It did not win, so the default stayed distilled.",
+      "issues": [
+        {"text": "dev + distilled-LoRA-450 at 8 steps = 40 s and looks like distilled; dev full at 15 steps with the official guider values = 50 s and came out SOFTER. The official Full workflow needs RES4LYF ClownSampler + MultimodalGuider, which is not installed.", "state": "open", "found": "2026-10-02", "grade": "measured", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance"]
+    },
+    {
+      "id": "ltx25_a2v", "name": "LTX-2.5 A2V (audio-to-video)", "kind": "tool", "role": "lip-synced clips from a narration wav",
+      "status": "live", "licence": "LTX-2.x Community", "adopted": "2026-10-04",
+      "where": "render_a2v.py (portfolio film)",
+      "summary": "The audio-driven mode that renders a talking character against a narration track. It drove all 138 clips of the portfolio film.",
+      "issues": [
+        {"text": "Floors clip length to 8-frame blocks, which cut the tail off a line. Fixed by padding the wav rather than by changing the render.", "state": "solved", "found": "2026-10-04", "fixed": "2026-10-04", "grade": "measured", "evidence": "project_portfolio_character_scenes"},
+        {"text": "It invents PROPS from the action text — 'points to the list' produced a parchment. The cure is to rewrite the action ('nothing in his paws'), not to re-seed: rewritten actions killed every invented prop, but 15 clips still carry props read out of their action text.", "state": "mitigated", "found": "2026-10-04", "grade": "measured", "evidence": "project_portfolio_character_scenes"}
+      ],
+      "sources": ["project_portfolio_character_scenes"]
+    },
+    {
+      "id": "ltx_ic_loras", "name": "LTX-2.5 IC-LoRA pack (14 official)", "kind": "model", "role": "refine, upscale, restore, control adapters",
+      "status": "gated_off", "licence": "LTX-2.x Community", "adopted": "2026-10-02",
+      "summary": "All 14 official 2.5 IC-LoRAs plus the three 2.3 control adapters the official workflows load, in the shared library and not yet wired into any pipeline.",
+      "issues": [
+        {"text": "Installed but unused: the refine-details pass is the next untried lever for the texture gap against Wan, and union/motion-track control is not installed at all.", "state": "open", "found": "2026-10-02", "grade": "receipt", "evidence": "project_ltx25_instance"},
+        {"text": "§3.5 of the licence says LoRAs cannot be transferred to a commercial entity.", "state": "accepted", "found": "2026-10-02", "grade": "licence", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance"]
+    },
+    {
+      "id": "minimax_h3", "name": "MiniMax H3", "kind": "model", "role": "candidate video engine",
+      "status": "rejected", "licence": "territory-excluded", "ended": "2026-10-02",
+      "summary": "Refused on licence: the terms exclude the EU — outputs may not be used outside the licensed territory.",
+      "issues": [
+        {"text": "EU exclusion. No measurement was attempted; the licence ends it.", "state": "open", "found": "2026-10-02", "grade": "licence", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance"]
+    },
+    {
+      "id": "magi2", "name": "MAGI-2", "kind": "model", "role": "candidate video engine",
+      "status": "rejected", "licence": "open weights", "ended": "2026-10-02",
+      "summary": "Refused on hardware: it needs 8 Hopper GPUs and 307 GB. Nothing wrong with it that this box can fix.",
+      "issues": [
+        {"text": "Requires 8 Hopper GPUs + 307 GB — unrunnable on one 4090.", "state": "open", "found": "2026-10-02", "grade": "vendor", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance"]
+    },
+    {
+      "id": "wan25_plus", "name": "Wan 2.5 / 2.6 / 2.7 / 3.0", "kind": "service", "role": "candidate video engine",
+      "status": "rejected", "licence": "closed / API-only", "ended": "2026-10-02",
+      "summary": "The later Wan generations are API-only, not open weights — a first read wrongly called 2.7 open, corrected the same day.",
+      "issues": [
+        {"text": "API-only: no weights to run locally, so the whole lane's local-first rule rules them out.", "state": "open", "found": "2026-10-02", "grade": "vendor", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance"]
+    },
+    {
+      "id": "hunyuanvideo", "name": "HunyuanVideo", "kind": "model", "role": "candidate video engine",
+      "status": "rejected", "licence": "Tencent territory exclusion", "ended": "2026-10-02",
+      "summary": "Same Tencent EU exclusion that removed the image→mesh family. Refused without a bench.",
+      "issues": [
+        {"text": "Tencent EU exclusion.", "state": "open", "found": "2026-10-02", "grade": "licence", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance"]
+    },
+    {
+      "id": "seedance", "name": "Seedance 2.x (CapCut)", "kind": "service", "role": "the quality bar that triggered the migration",
+      "status": "rejected", "licence": "closed", "ended": "2026-10-02",
+      "summary": "The hosted model whose 10 s photoreal clip embarrassed the local stack into the LTX migration. Closed weights, served on a fleet, 10x distilled with RLHF over three reward models and cherry-picked demos.",
+      "issues": [
+        {"text": "Closed: cannot be run or licensed here. Kept in the record as the reference point for what a fleet-served distilled model looks like.", "state": "open", "found": "2026-10-02", "grade": "vendor", "evidence": "project_ltx25_instance"}
+      ],
+      "sources": ["project_ltx25_instance"]
+    }
+  ]
+}

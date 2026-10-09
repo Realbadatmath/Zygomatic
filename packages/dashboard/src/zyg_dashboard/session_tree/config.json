@@ -1,0 +1,32 @@
+{
+  "port": 7100,
+  "creator_models": [
+    "claude-fable"
+  ],
+  "executor_models": [
+    "claude-opus"
+  ],
+  "max_tasks_per_tree": 30,
+  "heavy_slots": 1,
+  "light_slots": 30,
+  "lease_minutes": 180,
+  "max_tasks_per_session": 1,
+  "vram_reserve_gb": 2.0,
+  "ram_reserve_gb": 6.0,
+  "gpu_busy_util_pct": 60,
+  "verify_timeout_s": 180,
+  "min_summary_chars": 40,
+  "min_fail_reason_chars": 10,
+  "auto_spawn": true,
+  "max_executors": 30,
+  "executor_model": "claude-opus-5",
+  "spawn_permission_mode": "auto",
+  "spawn_budget_usd": 0,
+  "spawn_sweep_s": 20,
+  "spawn_reserve_minutes": 15,
+  "spawn_cooldown_s": 120,
+  "spawn_brake_after": 5,
+  "spawn_brake_minutes": 10,
+  "spawn_cwd_default": "~/zygomatics-zero",
+  "settle_archive_minutes": 20
+}

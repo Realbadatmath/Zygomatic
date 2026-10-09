@@ -1,0 +1,22 @@
+{
+ "1": {"class_type": "CheckpointLoaderSimple",
+       "inputs": {"ckpt_name": "ace_step_1.5_turbo_aio.safetensors"}},
+ "2": {"class_type": "TextEncodeAceStepAudio1.5",
+       "inputs": {"clip": ["1", 1], "tags": "children's music", "lyrics": "[inst]", "seed": 0,
+                  "bpm": 110, "duration": 40.0, "timesignature": "4", "language": "en",
+                  "keyscale": "C major", "generate_audio_codes": true, "cfg_scale": 2.0,
+                  "temperature": 0.85, "top_p": 0.9, "top_k": 0, "min_p": 0.0}},
+ "3": {"class_type": "ConditioningZeroOut", "inputs": {"conditioning": ["2", 0]}},
+ "8": {"class_type": "LoadAudio", "inputs": {"audio": "kidsmusic_repaint.wav"}},
+ "9": {"class_type": "VAEEncodeAudio", "inputs": {"audio": ["8", 0], "vae": ["1", 2]}},
+ "10": {"class_type": "LTXVAudioVideoMask",
+        "inputs": {"audio_latent": ["9", 0], "video_fps": 25.0, "video_start_time": 0.0,
+                   "video_end_time": 0.0, "audio_start_time": 0.0, "audio_end_time": 1.0,
+                   "max_length": "partial", "existing_mask_mode": "overwrite"}},
+ "5": {"class_type": "KSampler",
+       "inputs": {"model": ["1", 0], "seed": 0, "steps": 8, "cfg": 1.0, "sampler_name": "euler",
+                  "scheduler": "simple", "positive": ["2", 0], "negative": ["3", 0],
+                  "latent_image": ["10", 1], "denoise": 0.7}},
+ "6": {"class_type": "VAEDecodeAudio", "inputs": {"samples": ["5", 0], "vae": ["1", 2]}},
+ "7": {"class_type": "SaveAudio", "inputs": {"audio": ["6", 0], "filename_prefix": "kidsmusic_repaint"}}
+}

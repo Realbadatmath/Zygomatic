@@ -1,0 +1,14 @@
+[Unit]
+Description=Zygomatic hub supervisor — keeps hub (7000/7001/7777) up whenever :5000 (crewai-gui) is active
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/repos/zygomatic-dashboard
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_dashboard.hub.hub_watch
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

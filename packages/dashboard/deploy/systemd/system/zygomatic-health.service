@@ -1,0 +1,6 @@
+[Unit]
+Description=Zygomatic health probe (wedge/unresponsive detection)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/zygomatic-health-probe.sh

@@ -1,0 +1,172 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!doctype html>
+<!-- tests/vb_mic_smoke.html — headless smoke for voice_ext/02_mic.js.
+     Runs with no server and no microphone: fetch, EventSource and getUserMedia
+     are stubbed here, so the only real code under test is the bundle's own.
+
+     google-chrome --headless=new --disable-gpu --dump-dom --virtual-time-budget=3000 \
+       "file://$PWD/tests/vb_mic_smoke.html" | grep data-vb-smoke   (from the repository root)
+     PASS => the <html> tag carries data-vb-smoke="ok". -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>vb mic smoke</title>
+<style>:root{--ui-zoom:1;--panel:#1e1e22;--panel2:#2a2a30;--line:#383842;--txt:#e4e4e7;--muted:#a1a1aa;--acc:#00e5ff;}</style>
+<script>
+/* ── stubs, installed before any voice_ext file runs ─────────────────────── */
+(function () {
+  window.__vbCalls = { hello: 0, utterance: 0, sse: 0, gum: 0, devices: 0 };
+
+  window.fetch = function (url) {
+    var u = String(url);
+    if (u.indexOf('/hello') >= 0) window.__vbCalls.hello++;
+    if (u.indexOf('/utterance') >= 0) window.__vbCalls.utterance++;
+    return Promise.resolve({
+      ok: true, status: 200,
+      text: function () { return Promise.resolve('{"ok":true}'); },
+      json: function () { return Promise.resolve({ ok: true }); }
+    });
+  };
+
+  window.EventSource = function () {
+    window.__vbCalls.sse++;
+    this.close = function () {};
+    this.addEventListener = function () {};
+  };
+
+  /* a microphone that yields no audio: enough for the button/panel path, and
+     the VAD is driven directly through VB.mic.feedSamples() below */
+  var fakeTrack = { stop: function () {}, kind: 'audio' };
+  var fakeStream = { getTracks: function () { return [fakeTrack]; } };
+  navigator.mediaDevices = navigator.mediaDevices || {};
+  navigator.mediaDevices.getUserMedia = function () {
+    window.__vbCalls.gum++;
+    return Promise.resolve(fakeStream);
+  };
+  navigator.mediaDevices.enumerateDevices = function () {
+    window.__vbCalls.devices++;
+    return Promise.resolve([
+      { kind: 'audioinput', deviceId: 'default', label: 'Fake Focusrite' },
+      { kind: 'audiooutput', deviceId: 'out', label: 'Fake speakers' }
+    ]);
+  };
+
+  /* Music Studio's own device helper — 02_mic.js must CALL it, not copy it */
+  window.mgRecDevices = function () {
+    return navigator.mediaDevices.enumerateDevices().then(function (l) {
+      return l.filter(function (d) { return d.kind === 'audioinput'; });
+    });
+  };
+
+  try { localStorage.setItem('vb.mode', 'open'); } catch (e) { /* opaque origin */ }
+})();
+</script>
+</head>
+<body>
+
+<!-- the only markup 02_mic.js is allowed to assume: the topbar and its gear -->
+<div id="topbar">
+  <button class="top-tab" data-view="inspections">Library</button>
+  <button class="top-tab active" data-view="home">Home</button>
+  <button class="top-tab top-icon top-right" data-view="settings" title="Settings">&#9881;</button>
+</div>
+
+<script src="../voice_ext/00_core.js"></script>
+<script src="../voice_ext/02_mic.js"></script>
+
+<script>
+(function () {
+  var fails = [];
+  function ck(name, cond, extra) {
+    if (cond) { console.log('PASS ' + name); return; }
+    fails.push(name + (extra ? ' (' + extra + ')' : ''));
+    console.log('FAIL ' + name + (extra ? ' (' + extra + ')' : ''));
+  }
+
+  function run() {
+    var VB = window.VB || {};
+    var bar = document.getElementById('topbar');
+    var btn = document.getElementById('vb-mic');
+    var gear = bar.querySelector('button.top-tab.top-right[data-view="settings"]');
+    var panel = document.getElementById('vb-panel');
+
+    ck('mic button exists', !!btn);
+    ck('mic button is a top-tab top-icon',
+       !!btn && btn.className.indexOf('top-tab') >= 0 && btn.className.indexOf('top-icon') >= 0,
+       btn ? btn.className : 'no button');
+    ck('mic button sits before the settings gear',
+       !!btn && !!gear && (btn.compareDocumentPosition(gear) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0);
+    ck('inspection.html markup untouched — gear still last',
+       !!gear && gear === bar.lastElementChild);
+
+    ck('panel exists', !!panel);
+    ck('panel width is capped at 360px',
+       !!panel && parseFloat(getComputedStyle(panel).maxWidth) <= 360,
+       panel ? getComputedStyle(panel).maxWidth : 'no panel');
+    ck('speaker placeholder', !!document.getElementById('vb-panel-speaker'));
+    ck('voice placeholder', !!document.getElementById('vb-panel-voice'));
+    ck('driver toggle', !!document.getElementById('vb-driver'));
+    ck('mode toggles', !!document.getElementById('vb-mode-ptt') && !!document.getElementById('vb-mode-open'));
+    ck('device select', !!document.getElementById('vb-device'));
+    ck('live state readout', !!document.getElementById('vb-state'));
+    ck('registry count', !!document.getElementById('vb-regcount'));
+    ck('utterance log', !!document.getElementById('vb-log'));
+
+    ck('VB.speak is a function', typeof VB.speak === 'function');
+    ck('VB.mic.feedSamples is a function', !!VB.mic && typeof VB.mic.feedSamples === 'function');
+
+    /* ── the VAD: one second of 48 kHz speech-loud noise must trip it ────── */
+    if (VB.mic && typeof VB.mic.feedSamples === 'function') {
+      VB.mic.mode = 'open';
+      VB.mic.armed = true;
+      VB.mic.speaking = false;
+      var before = VB.mic.vadTrips;
+
+      var sr = 48000;
+      var loud = new Float32Array(sr);          /* 1.000 s */
+      for (var i = 0; i < sr; i++) loud[i] = Math.sin(i * 0.05) * 0.30;   /* rms ~0.21 */
+      VB.mic.feedSamples(loud, sr);
+      ck('1 s of loud PCM trips the VAD', VB.mic.vadTrips === before + 1,
+         'trips ' + before + ' -> ' + VB.mic.vadTrips);
+      ck('VAD moved the state to listening', VB.mic.state === 'listening', 'state ' + VB.mic.state);
+
+      /* 1 s of silence is longer than the 700 ms hangover: speech must end */
+      var quiet = new Float32Array(sr);
+      VB.mic.feedSamples(quiet, sr);
+      ck('silence ends the utterance', VB.mic.state === 'idle', 'state ' + VB.mic.state);
+
+      /* below the threshold nothing may trip */
+      var faint = new Float32Array(sr);
+      for (var j = 0; j < sr; j++) faint[j] = Math.sin(j * 0.05) * 0.004;
+      var t2 = VB.mic.vadTrips;
+      VB.mic.feedSamples(faint, sr);
+      ck('faint PCM does not trip the VAD', VB.mic.vadTrips === t2, 'trips now ' + VB.mic.vadTrips);
+
+      /* muted while a reply plays */
+      VB.mic.speaking = true;
+      var t3 = VB.mic.vadTrips;
+      VB.mic.feedSamples(loud, sr);
+      ck('VAD is muted while speaking', VB.mic.vadTrips === t3, 'trips now ' + VB.mic.vadTrips);
+      VB.mic.speaking = false;
+    }
+
+    var verdict = fails.length ? ('fail: ' + fails.join('; ')) : 'ok';
+    console.log('SMOKE ' + verdict);
+    document.documentElement.setAttribute('data-vb-smoke', verdict);
+    var out = document.createElement('pre');
+    out.id = 'vb-smoke-out';
+    out.textContent = 'data-vb-smoke=' + verdict;
+    document.body.appendChild(out);
+  }
+
+  /* core boots on DOMContentLoaded and drains VB.ready; give it a turn first */
+  window.addEventListener('DOMContentLoaded', function () { setTimeout(run, 250); });
+})();
+</script>
+</body>
+</html>

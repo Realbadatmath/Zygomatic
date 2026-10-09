@@ -1,0 +1,220 @@
+{
+  "name": "02_palm_down_settle",
+  "label": "Palm-down settle",
+  "hands": "R",
+  "meaning": "The flat right hand turns palm-down at mid-torso and presses gently downwards: calming, \"easy now\", asking the room to settle. Rest, a press with the palm level and the fingers held together, then a lower, softer settle that holds.",
+  "reads_well": [
+    "front",
+    "front45R",
+    "profileR"
+  ],
+  "keys": [
+    {
+      "name": "rest",
+      "hold_frames": 8,
+      "bones": {}
+    },
+    {
+      "name": "press",
+      "hold_frames": 14,
+      "bones": {
+        "upperarm01.R": [
+          20,
+          0,
+          25
+        ],
+        "lowerarm01.R": [
+          25.0,
+          0.0,
+          0.0
+        ],
+        "lowerarm02.R": [
+          25.0,
+          0.0,
+          0.0
+        ],
+        "wrist.R": [
+          -30,
+          -80,
+          0.0
+        ],
+        "finger2-1.R": [
+          6.0,
+          0.0,
+          -7.0
+        ],
+        "finger2-2.R": [
+          4.0,
+          0.0,
+          0.0
+        ],
+        "finger2-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger3-1.R": [
+          6.0,
+          0.0,
+          -2.5
+        ],
+        "finger3-2.R": [
+          4.0,
+          0.0,
+          0.0
+        ],
+        "finger3-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger4-1.R": [
+          6.0,
+          0.0,
+          2.5
+        ],
+        "finger4-2.R": [
+          4.0,
+          0.0,
+          0.0
+        ],
+        "finger4-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger5-1.R": [
+          6.0,
+          0.0,
+          7.0
+        ],
+        "finger5-2.R": [
+          4.0,
+          0.0,
+          0.0
+        ],
+        "finger5-3.R": [
+          3.0,
+          0.0,
+          0.0
+        ],
+        "finger1-1.R": [
+          0.0,
+          -18.0,
+          0.0
+        ],
+        "finger1-2.R": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger1-3.R": [
+          8.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "settle",
+      "hold_frames": 10,
+      "bones": {
+        "upperarm01.R": [
+          8,
+          0,
+          25
+        ],
+        "lowerarm01.R": [
+          27.5,
+          0.0,
+          0.0
+        ],
+        "lowerarm02.R": [
+          27.5,
+          0.0,
+          0.0
+        ],
+        "wrist.R": [
+          -30,
+          -80,
+          0.0
+        ],
+        "finger2-1.R": [
+          12.0,
+          0.0,
+          -7.0
+        ],
+        "finger2-2.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger2-3.R": [
+          6.0,
+          0.0,
+          0.0
+        ],
+        "finger3-1.R": [
+          12.0,
+          0.0,
+          -2.5
+        ],
+        "finger3-2.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger3-3.R": [
+          6.0,
+          0.0,
+          0.0
+        ],
+        "finger4-1.R": [
+          12.0,
+          0.0,
+          2.5
+        ],
+        "finger4-2.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger4-3.R": [
+          6.0,
+          0.0,
+          0.0
+        ],
+        "finger5-1.R": [
+          12.0,
+          0.0,
+          7.0
+        ],
+        "finger5-2.R": [
+          9.0,
+          0.0,
+          0.0
+        ],
+        "finger5-3.R": [
+          6.0,
+          0.0,
+          0.0
+        ],
+        "finger1-1.R": [
+          0.0,
+          -15.0,
+          0.0
+        ],
+        "finger1-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger1-3.R": [
+          10.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ]
+}

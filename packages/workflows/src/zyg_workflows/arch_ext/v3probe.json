@@ -1,0 +1,17 @@
+{
+  "section_key": "site",
+  "section_label": "Site",
+  "groups": [
+    {
+      "g": "Seam probe",
+      "items": [
+        [
+          "v3probe",
+          "V3 seam probe",
+          {},
+          "test fixture — a 2 x 2 quad coloured per vertex, as tall as the number of boxes in the drawing"
+        ]
+      ]
+    }
+  ]
+}

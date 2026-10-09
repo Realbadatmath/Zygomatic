@@ -1,0 +1,14 @@
+{
+  "name": "nomologin-driver",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Loopback driver sidecar: attaches puppeteer-core to a Nomologin persona's already-signed-in Chrome",
+  "type": "module",
+  "main": "driver.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "puppeteer-core": "^25.12.0"
+  }
+}

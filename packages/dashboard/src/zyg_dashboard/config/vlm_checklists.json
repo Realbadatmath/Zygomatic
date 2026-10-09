@@ -1,0 +1,334 @@
+{
+  "_doc": "VLM judge checklists as DATA (2026-07-30). Consumed by vlm_inspector.load_checklist(). Each checklist is a set of ATOMIC BINARY questions with an expected answer — never an open 'find the errors' prompt. Evidence (Spotlight arXiv:2511.18102): open error-finding matches only ~13% of human-found errors, while per-failure-class binary decomposition nearly DOUBLES a local 8B judge to frontier parity (0.148 -> 0.254). TIFA/DSG add: atomic yes/no probes correlate with humans far better than holistic scoring, but VLMs carry a YES-BIAS, so question polarity is deliberately balanced here (expected 'yes' and expected 'no' items in both checklists). Temporal defects (frozen limbs, seam morphing) are NOT in these checklists — they stay owned by pipeline_debug's pixel metrics (qc_region_flow / qc_prop_consistency); video-LLMs demonstrably fail temporal perception (TempCompass).",
+  "_updated": "2026-08-26",
+  "_item_schema": {
+    "id": "stable slug — used as the flag name and the bbox key",
+    "question": "atomic binary question, answerable yes/no from the frames alone",
+    "expected": "'yes' or 'no' — the answer a CORRECT render gives",
+    "severity": "'critical' (fails the aggregate verdict) or 'major' (listed, non-fatal unless ZYG_VLM_STRICT=1)",
+    "grounding": "true -> also ask for a bounding box on failure, so region-repair tools get a target",
+    "frames": "'all' (ask on any frame set, including single blurry previews) or 'beats' (ask only on sharp, beat-relevant decoded frames)",
+    "needs_refs": "optional; true -> only asked when reference images are supplied"
+  },
+  "checklists": {
+    "scene20_binary": {
+      "description": "scene20 (Cornelis + Abel at the ledger table) failure taxonomy as binary checks. Derived from the frame-by-frame confirmed v6/v7 defects: pipe morph at the context seam, hand cupping/covering the bowl, stray smoke, the boy taking over the smoking action, extra hands, a cut/floating candle, ink written onto the table instead of the page, and identity drift. Ask on SHARP decoded frames only (81f probe decode, final decode) — never on TAESD previews.",
+      "preamble": "This is a frame from a candle-lit 17th-century Dutch interior. A grown man sits at the LEFT of a table smoking a long white clay pipe; a boy sits at the RIGHT writing in an open ledger book with a quill pen. Answer the question about what is ACTUALLY VISIBLE in the image, not about what the scene is supposed to show. Answer strictly 'yes' or 'no'.",
+      "items": [
+        {
+          "id": "pipe_held_by_stem",
+          "question": "Is the white clay pipe held by its slender stem in one of the man's hands?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": true,
+          "frames": "all"
+        },
+        {
+          "id": "pipe_at_lips",
+          "question": "Is the mouthpiece at the end of the pipe stem touching or inside the man's lips?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "frames": "beats"
+        },
+        {
+          "id": "hand_covers_bowl",
+          "question": "Is a hand cupping, covering or wrapped around the open bowl of the pipe?",
+          "expected": "no",
+          "severity": "critical",
+          "grounding": true,
+          "frames": "all",
+          "_note": "VALIDATED 2026-07-30 against the real scene20 v7 defect (Qwen3-VL-8B-Instruct-FP8, cuda): 5/5 correct — the 13.88s and 13.7s cupped-bowl frames were flagged, the 12.7s/9.0s/4.94s stem-grip frames passed, and both grounding boxes landed on the offending hand ([0.41,0.22,0.7,0.52] and [0.333,0.16,0.656,0.52]). RUN THIS ON THE c_hands REGION CROP, NOT THE FULL FRAME: on the whole 832x480 frame the same question answered 'no' on the SAME defective frame (0/2 recall, both devices) because the hand is only ~100 px wide there. DO NOT 'sharpen' this wording — a retry that added 'answer no if the hand only grips the thin straight stem' gave the judge an escape hatch and dropped recall to 0/2. Prefer the FP8 GPU tier for this item: the same crops on CPU bf16 still caught the defect but false-positived on the 4.94s frame (where the pipe is separately morphed), i.e. CPU trades precision away."
+        },
+        {
+          "id": "stray_smoke",
+          "question": "Is smoke rising from anywhere other than the bowl of the pipe or the man's mouth?",
+          "expected": "no",
+          "severity": "major",
+          "grounding": false,
+          "frames": "all"
+        },
+        {
+          "id": "boy_smoking",
+          "question": "Is the boy smoking, or is a pipe in the boy's mouth or in the boy's hands?",
+          "expected": "no",
+          "severity": "critical",
+          "grounding": false,
+          "frames": "all"
+        },
+        {
+          "id": "two_hands_each",
+          "question": "Does each person in the image have exactly two hands, with no extra, missing or duplicated hands?",
+          "expected": "yes",
+          "severity": "critical",
+          "grounding": false,
+          "frames": "all"
+        },
+        {
+          "id": "candle_intact",
+          "question": "Is the candle a complete candle standing in or on its holder on the table, rather than cut off, broken or floating in mid-air?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "frames": "all"
+        },
+        {
+          "id": "ink_off_page",
+          "question": "Is there any handwriting, ink or written text anywhere outside the pages of the book, for example directly on the table surface?",
+          "expected": "no",
+          "severity": "major",
+          "grounding": true,
+          "frames": "all",
+          "_note": "MEASURED BLIND SPOT 2026-07-30 — DO NOT TRUST A 'no' HERE. On the confirmed v7 ink defect (beat_12.7: squiggles drawn across the boy's hand and over the book's front edge) the 8B judge answered 'no' on 0/7 defect attempts — 3 phrasings (this one; one enumerating hand/sleeve/cover/table; one asking only about ink drawn ON TOP OF the hand) x full frame and tight page crop x CPU bf16 and GPU FP8. It volunteered the confidently false reason 'no marks on the boy's hand'. Specificity was perfect (8/8 clean ink-v2 frames passed), so a 'yes' is worth acting on, but a 'no' proves nothing — ink-on-page containment must stay owned by the measured/pixel route until the 32B boundary tier is benchmarked on it. Phrasing deliberately LEFT UNCHANGED because no rewrite beat it."
+        },
+        {
+          "id": "quill_at_page",
+          "question": "Is the boy holding a quill pen with its tip at the page of the open book?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "frames": "beats"
+        },
+        {
+          "id": "identity_match",
+          "question": "Are the man and the boy in the video frames the same two people as in the reference portraits?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "frames": "beats",
+          "needs_refs": true,
+          "_note": "MAJOR on purpose, not critical: multimodal judges are documented as lenient and narrative-biased (MLLM-as-a-Judge), so identity stays owned by the measured embedding gate (pipeline_debug.qc_identity). This item is a second opinion, never the gate."
+        }
+      ]
+    },
+    "catastrophic_preview": {
+      "description": "TIER-0 gross triage for BLURRY TAESD mid-sampling previews during the uninterruptible render. Advisory ONLY: judging partial-denoise previews is unvalidated territory (VLM-RobustBench: blur/resampling corruptions cause the largest VLM accuracy drops), so these questions ask only about composition-scale facts that survive heavy blur. Never use this checklist to auto-kill a render — a false positive would destroy unrecoverable progress; it writes an operator alert file and nothing else.",
+      "preamble": "This is a blurry, low-quality preview frame from a video that is still being generated, so fine detail, faces and textures are expected to look smeared and unfinished. Judge only the large-scale layout of the image and ignore blur, noise and missing detail. The intended scene is a candle-lit interior with a grown man seated at the LEFT of a table and a boy seated at the RIGHT of the same table. Answer strictly 'yes' or 'no'.",
+      "items": [
+        {
+          "id": "two_people_at_table",
+          "question": "Are two people seated at a table in this image?",
+          "expected": "yes",
+          "severity": "critical",
+          "grounding": false,
+          "frames": "all"
+        },
+        {
+          "id": "rough_composition",
+          "question": "Is the larger adult figure on the LEFT half of the image and the smaller child figure on the RIGHT half, both at the table?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "frames": "all"
+        },
+        {
+          "id": "candlelit_interior",
+          "question": "Is this an indoor scene lit warmly, as if by candlelight, rather than an outdoor or brightly daylit scene?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "frames": "all"
+        },
+        {
+          "id": "giant_artifact",
+          "question": "Is most of the image a flat solid colour, completely black or white, or covered by one huge glitch block or band of garbage?",
+          "expected": "no",
+          "severity": "critical",
+          "grounding": false,
+          "frames": "all"
+        }
+      ]
+    },
+    "documentary_typography": {
+      "description": "Documentary render QC: FLUX cannot render real writing, it produces lettering that looks readable but is gibberish. One atomic question. Calibrated on the 45 frames of scholarly run 77bbbfd4 (Revolutions of 1848): 10 flagged, 0 skipped, 69s wall for 45 frames on the resident tier. NOTE the question deliberately does NOT ask whether the text is large or prominent — that phrasing was measured at 0/6 recall, because the judge reasons itself out of every positive by deciding the lettering is 'too small and blurry to be legible'. Asking for ANY visible lettering scored 6/6 recall with 0/6 false positives on the same frames.",
+      "preamble": "This is a still frame from a historical documentary, generated by a diffusion model. Answer about what is ACTUALLY VISIBLE in this image, not about what the scene is supposed to contain.",
+      "items": [
+        {
+          "id": "legible_text",
+          "question": "Does this image contain any visible lettering, writing, printed words or characters anywhere — including gibberish or unreadable script? Answer yes or no.",
+          "expected": "no",
+          "severity": "critical",
+          "grounding": true,
+          "frames": "all"
+        }
+      ]
+    },
+    "creature_anchor": {
+      "description": "Creature sheet ANCHOR check (single image, no reference). Used on operator reference images and on from-scratch txt2img candidates. Binary per failure class; {brief} is substituted with the creature brief in scratch mode.",
+      "preamble": "This is a single image of a creature (an animal, monster or fantasy being) intended as a reference for a character sheet. Answer only about what is ACTUALLY VISIBLE. Answer strictly 'yes' or 'no'.",
+      "items": [
+        {
+          "id": "single_subject",
+          "question": "Is there exactly one creature in the image (no second creature, no duplicate, no reflected copy)?",
+          "expected": "yes",
+          "severity": "critical",
+          "grounding": false
+        },
+        {
+          "id": "no_human",
+          "question": "Is there any human being, human face or human hand visible anywhere in the image?",
+          "expected": "no",
+          "severity": "critical",
+          "grounding": false
+        },
+        {
+          "id": "no_text",
+          "question": "Is there any text, lettering, logo or watermark in the image?",
+          "expected": "no",
+          "severity": "major",
+          "grounding": false
+        },
+        {
+          "id": "anatomy_ok",
+          "question": "Does the creature have obviously broken anatomy — melted or smeared body parts, detached parts, extra limbs or extra eyes, or a body dissolving into the background?",
+          "expected": "no",
+          "severity": "major",
+          "grounding": false
+        },
+        {
+          "id": "whole_body",
+          "question": "Is the creature's whole body visible from top to bottom, not cut off by the edges of the frame?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false
+        },
+        {
+          "id": "plain_background",
+          "question": "Is the background plain or simple, without other creatures, people or heavy clutter?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false
+        },
+        {
+          "id": "matches_brief",
+          "question": "Does the creature match this description: {brief} ?",
+          "expected": "yes",
+          "severity": "critical",
+          "grounding": false
+        }
+      ]
+    },
+    "creature_cell": {
+      "description": "Creature sheet CELL check. The judged image is a side-by-side STRIP: LEFT panel labelled REFERENCE (the intended creature), RIGHT panel labelled CANDIDATE (a newly edited view). {angle_desc} is substituted per cell; items with 'kinds' only apply to those cell kinds (body/head/wide/detail). Items with 'bands' only apply to those view bands (a back view cannot show the eyes).",
+      "preamble": "The image shows two panels side by side. The LEFT panel labelled REFERENCE is the intended creature. The RIGHT panel labelled CANDIDATE is a newly generated view that should show the SAME creature. Unless the question says otherwise, answer about the RIGHT (CANDIDATE) panel only, based on what is ACTUALLY VISIBLE. Answer strictly 'yes' or 'no'.",
+      "items": [
+        {
+          "id": "same_creature",
+          "question": "Does the creature in the RIGHT panel look like the same creature as in the LEFT panel — same species, same body shape, same colours, same eyes and the same fur, skin or scale texture?",
+          "expected": "yes",
+          "severity": "critical",
+          "grounding": false,
+          "bands": [
+            "front",
+            "quarter",
+            "side",
+            "close",
+            "wide",
+            "detail"
+          ]
+        },
+        {
+          "id": "same_creature_back",
+          "question": "Ignoring that the face and eyes may be hidden in this view, does the creature in the RIGHT panel look like the same creature as in the LEFT panel — same species, same body shape, same colours and the same fur, skin or scale texture?",
+          "expected": "yes",
+          "severity": "critical",
+          "grounding": false,
+          "bands": [
+            "back",
+            "top"
+          ],
+          "_note": "2026-08-25: the eye-level same_creature question answered 'no' on a correct from-behind cell because no eyes were visible. Back/top views get this variant."
+        },
+        {
+          "id": "single_subject",
+          "question": "Is there exactly one creature in the RIGHT panel (no second creature, no duplicate, no reflected copy)?",
+          "expected": "yes",
+          "severity": "critical",
+          "grounding": false
+        },
+        {
+          "id": "no_human",
+          "question": "Is there any human being, human face or human hand visible anywhere in the RIGHT panel?",
+          "expected": "no",
+          "severity": "critical",
+          "grounding": false
+        },
+        {
+          "id": "no_text",
+          "question": "Is there any text, lettering, logo or watermark inside the RIGHT panel's picture (ignore the panel label at the top)?",
+          "expected": "no",
+          "severity": "major",
+          "grounding": false
+        },
+        {
+          "id": "anatomy_ok",
+          "question": "Does the creature in the RIGHT panel have obviously broken anatomy — melted or smeared body parts, detached parts, extra limbs or extra eyes, or a body dissolving into the background?",
+          "expected": "no",
+          "severity": "major",
+          "grounding": false
+        },
+        {
+          "id": "angle_match",
+          "question": "Is the creature in the RIGHT panel shown from this viewpoint: {angle_desc}?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false
+        },
+        {
+          "id": "whole_body",
+          "question": "Is the creature's whole body visible in the RIGHT panel, not cut off by the edges of the frame?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "kinds": [
+            "body",
+            "wide"
+          ]
+        },
+        {
+          "id": "body_plan",
+          "question": "This creature is meant to have: {body_plan}. Looking at the RIGHT panel, does the creature’s visible anatomy match that list — each listed part present where it would be visible from this viewpoint, and no extra tail, wings, fins or limbs that are not listed?",
+          "expected": "yes",
+          "severity": "major",
+          "grounding": false,
+          "kinds": [
+            "body",
+            "wide"
+          ],
+          "_note": "2026-08-25 body-plan lock: asked only when brief.body_plan is set (creature_judge.cell_items drops it otherwise). SOFT flag in creature_sheet_service: never excludes, marks the cell on the sheet and earns one regen round. A front view cannot show a tail behind the body, so the question says “where it would be visible”."
+        }
+      ]
+    },
+    "creature_anchor_pair": {
+      "description": "Agreement between the two OPERATOR LOCKS (front full-body, side profile), asked before any cell renders. The sheet routes side/back/top cells off the side lock and the rest off the front lock, so locks that disagree about an appendage split the sheet into two families that no per-cell check can see. DINO is blind to it (front-vs-side lock measured 0.9237 with visibly different tails). MEASURED 2026-08-26: asking a judge to compare the two panels DIRECTLY does not work - across a front and a side view the projected angle of every limb genuinely differs, so 'held at the same angle in both panels?' answered 'no' on all four pairs tested, good and bad alike. So each question is asked of ONE panel at a time and the two answers are COMPARED in code: viewpoint-invariant properties only (does it reach above the head, is it longer than half the body). Templates are selected by the part words present in the body plan; a plan naming no covered part skips the check. Question set MEASURED 2026-08-26 on four front/side pairs (one known-bad, three candidates): 'tail_long' separated them correctly (known-bad yes/no, all good pairs yes/yes). 'does the tail reach above the head' was DROPPED - it mismatched on all four, because a tail is foreshortened in a front view and reads lower there regardless of its real carriage. A question whose answer differs for every pair cannot arbitrate anything, so height is not asked; length and markings are.",
+      "preamble": "This is a single image of one creature. Answer only about what is ACTUALLY VISIBLE in this image. Answer strictly 'yes' or 'no'.",
+      "parts": {
+        "tail": [
+          {
+            "id": "tail_present",
+            "question": "Does this creature have a tail?"
+          },
+          {
+            "id": "tail_long",
+            "question": "Is the creature's tail longer than half the height of its body?"
+          },
+          {
+            "id": "tail_banded",
+            "question": "Does the creature's tail have stripes or bands in a different colour from the rest of its body?"
+          }
+        ],
+        "wing": [
+          {
+            "id": "wings_present",
+            "question": "Does this creature have wings?"
+          },
+          {
+            "id": "wings_spread",
+            "question": "Are the creature's wings spread open rather than folded against its body?"
+          }
+        ]
+      },
+      "items": []
+    }
+  }
+}

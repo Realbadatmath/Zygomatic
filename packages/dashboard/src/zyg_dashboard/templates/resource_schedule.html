@@ -1,0 +1,1293 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resource Schedule</title>
+<link rel="icon" href="/static/favicon.ico?v=20260825" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png?v=20260825">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png?v=20260825">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png?v=20260825">
+<script src="/static/js/dashboard_csrf.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at 0 0, #f4f2ef, transparent 55%), linear-gradient(145deg, #e0dbd4, #b8b1aa);
+    min-height: calc(100vh / var(--ui-zoom,1)); margin: 0; color: #333;
+  }
+  /* ── Sidebar: copied verbatim from enhanced_dashboard.html so the schedule
+     pages render an identical tablist to every other dashboard page. Keep in
+     sync with that file's sidebar block. ── */
+  .dashboard-sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 192px; background: rgba(20,23,33,0.97); border-right: 1px solid rgba(255,255,255,0.06); padding: 0; z-index: 1000; display: flex; flex-direction: column; gap: 0; pointer-events: auto; }
+  .dashboard-sidebar-tabs-wrap, .dashboard-sidebar-tab { pointer-events: auto; }
+  .dashboard-sidebar-clock { padding: 10px 12px; font-size: 0.85rem; font-weight: 600; color: #9be6ff !important; background: rgba(0,0,0,0.35) !important; border-top: 1px solid rgba(255,255,255,0.12); text-align: center; margin-top: auto; cursor: pointer; flex-shrink: 0; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-shadow: 0 0 4px rgba(0,0,0,0.5); }
+  .dashboard-sidebar-clock span { display: block; }
+  .dashboard-sidebar-clock #clock-time { margin-left: 0.2em; font-size: 0.9rem; }
+  .dashboard-sidebar-clock #clock-date { font-size: 0.75rem; opacity: 0.95; margin-top: 1px; }
+  .dashboard-sidebar-tabs-wrap { padding-top: 88px; padding-bottom: 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; min-height: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none; }
+  .dashboard-sidebar-tabs-wrap::-webkit-scrollbar { display: none; }
+  .dashboard-sidebar-spacer { height: 32px; flex-shrink: 0; }
+  .dashboard-sidebar-tab { padding: 6px 10px; min-height: 30px; min-width: 0; display: flex; align-items: center; justify-content: center; color: #181b22; cursor: pointer; border-radius: 8px; margin: 0 6px; font-size: 12px; font-weight: 500; transition: all 0.2s; text-align: center; background: linear-gradient(140deg, #f3f5f9, #ccd1da 50%, #8d95a7); box-shadow: 0 1px 0 rgba(255,255,255,0.12), 0 2px 4px rgba(0,0,0,0.08); border: none; box-sizing: border-box; text-decoration: none; }
+  .dashboard-sidebar-tab:hover { filter: brightness(1.08); box-shadow: 0 1px 0 rgba(255,255,255,0.15), 0 3px 6px rgba(0,0,0,0.1); }
+  .dashboard-sidebar-tab.active { background: linear-gradient(140deg, #e8ecf7, #b8c5e0 50%, #7a8bb3); color: #0d1117; box-shadow: 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.1); font-weight: 600; }
+  .dashboard-sidebar-bottom-row { display: flex; gap: 8px; margin-top: 8px; }
+  .dashboard-sidebar-zero-btn { position:relative; display:block; width:100%; margin:0 0 6px 0; padding:10px 16px; font-size:0.9rem; font-weight:600; color:#cdd6f4; background:rgba(122,139,179,0.18); border:1px solid rgba(122,139,179,0.35); border-radius:8px; cursor:pointer; text-align:center; letter-spacing:0.03em; transition:background 0.5s ease,border-color 0.5s ease,box-shadow 0.5s ease,color 0.3s ease; }
+  .dashboard-sidebar-zero-btn:hover { background:rgba(122,139,179,0.32); color:#e8ecf7; }
+  .dashboard-sidebar-logout { display: block; flex: 1; margin: 0; padding: 10px 16px; font-size: 0.9rem; font-weight: 500; color: #9be6ff; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; text-align: center; text-decoration: none; }
+  .dashboard-sidebar-logout:hover { background: rgba(0,0,0,0.35); color: #9be6ff; }
+  .dashboard-sidebar-restart { display: flex; align-items: center; justify-content: center; padding: 10px 13px; font-size: 1rem; color: #9be6ff; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.3s; }
+  .dashboard-sidebar-restart:hover { background: rgba(0,0,0,0.35); color: #7df9aa; }
+  .dashboard-sidebar-restart.spinning svg { animation: restart-spin 1s linear infinite; }
+  @keyframes restart-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .sidebar-telemetry { padding: 8px 10px; border-top: 1px solid rgba(255,255,255,0.10); flex-shrink: 0; }
+  .sidebar-telemetry-row { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
+  .sidebar-telemetry-label { font-size: 10px; color: rgba(255,255,255,0.65); width: 28px; flex-shrink: 0; }
+  .sidebar-telemetry-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; overflow: hidden; }
+  .sidebar-telemetry-bar { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+  .sidebar-telemetry-bar.cpu  { background: #4fc3f7; }
+  .sidebar-telemetry-bar.ram  { background: #81c784; }
+  .sidebar-telemetry-bar.gpu  { background: #ce93d8; }
+  .sidebar-telemetry-bar.vram { background: #ffb74d; }
+  .sidebar-telemetry-val { font-size: 10px; color: rgba(255,255,255,0.75); width: 42px; text-align: right; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+  .sidebar-telemetry-bar.disk { background: #b0bec5; }
+  /* ── Hover breakdown: "what is using this?" ───────────────────────────
+     One panel per row, a child of the row itself and placed with CSS only
+     (left of nothing, bottom-anchored so it grows upward). The dashboard
+     runs at html{zoom:.67}; fixed-position pixel math would land the panel
+     in the wrong place there, while left:100% cannot. Nothing in the panel
+     is clickable, so pointer-events stay off and the board beneath keeps
+     its clicks. */
+  .sidebar-telemetry-row { position: relative; cursor: help; border-radius: 4px;
+    padding: 1px 3px; margin-left: -3px; margin-right: -3px; transition: background .15s ease; }
+  .sidebar-telemetry-row:hover { background: rgba(155,230,255,0.10); }
+  .st-pop { position: absolute; left: calc(100% + 10px); bottom: -4px; width: 372px;
+    max-height: 70vh; overflow: hidden; padding: 12px 14px 10px;
+    background: linear-gradient(160deg, #10203f 0%, #0a1428 100%);
+    border: 1px solid rgba(155,230,255,0.22); border-radius: 10px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.65); color: #aac4de;
+    font-size: 11.5px; line-height: 1.45; text-align: left; letter-spacing: 0;
+    opacity: 0; visibility: hidden; transform: translateY(-4px); pointer-events: none;
+    transition: opacity .12s ease, transform .12s ease, visibility .12s; }
+  .sidebar-telemetry-row:hover .st-pop { opacity: 1; visibility: visible; transform: translateY(0); }
+  .st-pop-title { color: #9be6ff; font-weight: 600; font-size: 11px; letter-spacing: .04em;
+    text-transform: uppercase; margin-bottom: 8px; }
+  .st-pop-stats { display: grid; grid-template-columns: 96px 1fr; gap: 2px 10px; margin: 0 0 8px; }
+  .st-pop-stats dt { color: rgba(255,255,255,0.45); }
+  .st-pop-stats dd { margin: 0; color: #dbe9f7; }
+  .st-pop-strong { color: #9be6ff !important; font-weight: 700; font-size: 13px; }
+  .st-pop-dim { color: rgba(255,255,255,0.42); }
+  .st-pop-note { margin: 8px 0 0; padding: 6px 8px; border-left: 2px solid #9be6ff;
+    background: rgba(66,200,255,0.07); border-radius: 0 4px 4px 0; }
+  .st-pop-stats + .st-pop-note { margin: 0 0 8px; }
+  .st-pop-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .st-pop-table th { text-align: right; font-weight: 600; color: rgba(255,255,255,0.45);
+    border-bottom: 1px solid rgba(190,215,245,0.18); padding: 3px 0 4px; }
+  .st-pop-table th:first-child, .st-pop-table td:first-child { text-align: left; }
+  .st-pop-table th + th, .st-pop-table td + td { padding-left: 10px; }
+  .st-pop-table td { padding: 3px 0; border-bottom: 1px solid rgba(190,215,245,0.07); color: #dbe9f7; }
+  .st-pop-table tr:last-child td { border-bottom: none; }
+  .st-pop-proc { max-width: 196px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .st-pop-num { text-align: right; font-variant-numeric: tabular-nums; }
+  #page-wrap { margin-left: 192px; }
+  header {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding: 14px 24px; background: #f5f5f7; box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  header h1 { font-size: 20px; margin: 0; color: #667eea; }
+  header .sub { color: #888; font-size: 12px; }
+  header a { color: #667eea; text-decoration: none; font-size: 13px; }
+  header .spacer { flex: 1; }
+  #clock { font-variant-numeric: tabular-nums; font-size: 13px; color: #555; }
+  #refresh-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; margin-right: 4px; }
+
+  nav.tabs { display: flex; gap: 4px; padding: 10px 24px 0; flex-wrap: wrap; }
+  nav.tabs button {
+    border: 1px solid #ccc; border-bottom: none; background: #eceae6; color: #555;
+    padding: 8px 18px; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 13px;
+  }
+  nav.tabs button.on { background: #fff; color: #667eea; font-weight: 600; }
+  main { background: #fff; margin: 0 24px 24px; border-radius: 0 10px 10px 10px; padding: 18px; min-height: calc(60vh / var(--ui-zoom,1)); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  .pane { display: none; }
+  .pane.on { display: block; }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+  .toolbar input[type="date"] { padding: 5px 8px; border: 1px solid #ccc; border-radius: 5px; }
+  .toolbar button { padding: 5px 12px; border: 1px solid #ccc; border-radius: 5px; background: #f5f5f7; cursor: pointer; }
+  .toolbar button:hover { background: #eee; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: #666; flex-wrap: wrap; }
+  .legend .chip { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 4px; }
+
+  /* 24h grid */
+  #grid24-wrap { overflow-x: auto; border: 1px solid #e2e0dc; border-radius: 8px; position: relative; }
+  #grid24 { position: relative; min-width: 100%; }
+  .hour-col { position: absolute; left: 0; top: 0; width: 56px; }
+  .hour-label { height: 40px; line-height: 40px; font-size: 11px; color: #888; text-align: right; padding-right: 8px; border-top: 1px solid #f0eeea; }
+  .model-head {
+    height: 44px; display: flex; align-items: center; justify-content: center; text-align: center;
+    color: #fff; font-size: 12px; font-weight: 600; border-radius: 8px 8px 0 0; padding: 0 6px; overflow: hidden;
+  }
+  .lane-label {
+    position: absolute; top: 4px; left: 2px; font-size: 9px; color: #999;
+    writing-mode: vertical-rl; text-orientation: mixed; max-height: 200px; overflow: hidden; white-space: nowrap;
+  }
+  .bar {
+    position: absolute; border-radius: 5px; font-size: 10px; overflow: hidden; cursor: pointer;
+    border: 1px solid rgba(0,0,0,.15); color: #1a2b1a; padding: 2px 3px; line-height: 1.2;
+  }
+  .bar.active { background: linear-gradient(180deg, #bbf7d0, #86efac); border-color: #22c55e; animation: pulse 2.4s infinite; }
+  .bar.active .prog { position: absolute; left: 0; top: 0; bottom: 0; background: rgba(34,197,94,.35); }
+  .bar.scheduled { background: linear-gradient(180deg, #dbeafe, #bfdbfe); border-color: #3b82f6; color: #1e3a5f; }
+  .bar.queued { background: repeating-linear-gradient(45deg, #ede9fe, #ede9fe 6px, #ddd6fe 6px, #ddd6fe 12px); border-color: #8b5cf6; color: #3c1d95; }
+  .bar.manual { background: #ececec; border-color: #999; color: #444; }
+  .bar.forecast { background: repeating-linear-gradient(45deg, #fef9c3, #fef9c3 6px, #fde68a 6px, #fde68a 12px); border: 1px dashed #f59e0b; color: #7c4a03; opacity: .9; }
+  .bar.history { background: linear-gradient(180deg, #e0f2f1, #b2dfdb); border-color: #26a69a; color: #0d4f4a; }
+  /* agent sessions (Claude Code in VS Code) — orange, like the Live Tail skull badge */
+  .bar.agent { background: linear-gradient(180deg, #ffedd5, #fdba74); border-color: #f97316; color: #7c2d12; }
+  .bar.agent.running { animation: pulse-orange 2.4s infinite; }
+  @keyframes pulse-orange { 0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,.35); } 50% { box-shadow: 0 0 0 4px rgba(249,115,22,.12); } }
+  /* a bar cut by the day boundary: the cut edge is dashed and carries an arrow
+     that opens the day it continues on (2026-09-05) */
+  .bar.cut-after { border-bottom: 2px dashed rgba(0,0,0,.45); border-radius: 5px 5px 0 0; }
+  .bar.cut-before { border-top: 2px dashed rgba(0,0,0,.45); border-radius: 0 0 5px 5px; padding-top: 17px; }
+  .bar .cont {
+    position: absolute; left: 50%; transform: translateX(-50%); z-index: 2; cursor: pointer;
+    font-size: 11px; line-height: 14px; width: 18px; height: 14px; text-align: center; border-radius: 4px;
+    background: rgba(255,255,255,.85); border: 1px solid rgba(0,0,0,.3); color: #333;
+  }
+  .bar .cont:hover { background: #fff; color: #000; box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+  .bar .cont.down { bottom: 1px; } .bar .cont.up { top: 1px; }
+  .bar .t { position: relative; z-index: 1; display: block; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,.35); } 50% { box-shadow: 0 0 0 4px rgba(34,197,94,.12); } }
+  .nowline { position: absolute; left: 0; right: 0; height: 0; border-top: 2px solid #ef4444; z-index: 5; pointer-events: none; }
+  .nowline::before { content: 'now'; position: absolute; left: 2px; top: -8px; font-size: 9px; color: #ef4444; background: #fff; padding: 0 3px; border-radius: 3px; }
+
+  /* 7 day view */
+  #grid7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .day-col { border: 1px solid #e2e0dc; border-radius: 8px; min-height: 320px; background: #fbfaf8; }
+  .day-col h4 { margin: 0; padding: 8px; font-size: 12px; text-align: center; background: #667eea; color: #fff; border-radius: 8px 8px 0 0; font-weight: 600; }
+  .day-col h4.today { background: #4f46e5; }
+  .mini { margin: 6px; padding: 5px 7px; border-radius: 6px; font-size: 11px; border: 1px solid rgba(0,0,0,.12); cursor: pointer; }
+  .mini.active { background: #dcfce7; border-color: #22c55e; }
+  .mini.scheduled { background: #dbeafe; border-color: #3b82f6; }
+  .mini.queued { background: #ede9fe; border-color: #8b5cf6; }
+  .mini.manual { background: #ececec; border-color: #999; }
+  .mini.agent { background: #ffedd5; border-color: #f97316; }
+  .mini .when { color: #666; font-size: 10px; }
+
+  /* calendars */
+  .cal-month { max-width: 760px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .cal-grid .dow { text-align: center; font-size: 11px; color: #888; padding: 4px 0; font-weight: 600; }
+  .cal-day {
+    min-height: 74px; border: 1px solid #e2e0dc; border-radius: 8px; background: #fbfaf8;
+    padding: 5px 7px; cursor: pointer; position: relative; transition: box-shadow .12s;
+  }
+  .cal-day:hover { box-shadow: 0 3px 10px rgba(102,126,234,.25); border-color: #667eea; }
+  .cal-day .num { font-size: 13px; font-weight: 600; color: #444; }
+  .cal-day.today { border-color: #4f46e5; background: #eef2ff; }
+  /* passed days: faded like the 1-Year outside days (user preference) —
+     still clickable, hover restores visibility */
+  .cal-day.passed { opacity: .32; }
+  .cal-day.passed:hover { opacity: .75; }
+  .cal-day.today .num { color: #4f46e5; }
+  .cal-day.empty { visibility: hidden; }
+  /* count balls, bottom-right: blue = production jobs, orange = Claude Code
+     agent sessions, stacked with the orange ball ABOVE the blue one; a ball
+     is only drawn when its count is > 0 (2026-09-06) */
+  .cal-day .cnts { position: absolute; bottom: 5px; right: 7px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .cal-day .cnt {
+    font-size: 10px; font-weight: 700; line-height: 14px;
+    background: #667eea; color: #fff; border-radius: 9px; padding: 1px 7px;
+  }
+  .cal-day .cnt.agent { background: #f97316; color: #fff; }
+  .cal-day .dots { position: absolute; bottom: 7px; left: 7px; display: flex; gap: 3px; }
+  .cal-day .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot.active { background: #22c55e; } .dot.scheduled { background: #3b82f6; }
+  .dot.queued { background: #8b5cf6; } .dot.manual { background: #9ca3af; }
+  .dot.history { background: #26a69a; }
+  .dot.agent { background: #f97316; }
+  .cal-year { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+  .cal-mini h5 { margin: 0 0 6px; text-align: center; color: #667eea; font-size: 12px; }
+  .cal-mini .cal-grid { gap: 2px; }
+  .cal-mini .cal-day { min-height: 26px; padding: 2px 4px; border-radius: 4px; }
+  .cal-mini .cal-day .num { font-size: 10px; font-weight: 500; }
+  .cal-mini .cal-day .cnts { bottom: 1px; right: 2px; gap: 1px; }
+  .cal-mini .cal-day .cnt { font-size: 8px; line-height: 11px; padding: 0 4px; }
+  /* two stacked balls need a little more height than one */
+  .cal-mini .cal-day.two { min-height: 30px; }
+  .cal-mini .dots { display: none; }
+
+  /* entries tab */
+  form.add { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; max-width: 1100px; }
+  form.add label { font-size: 11px; color: #777; display: block; margin-bottom: 3px; }
+  form.add input, form.add select { width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 5px; }
+  form.add .full { grid-column: 1 / -1; }
+  #add-msg { margin-top: 10px; font-size: 13px; }
+  #add-msg .conflict { background: #fef2f2; border: 1px solid #ef4444; color: #7f1d1d; border-radius: 6px; padding: 8px 12px; margin-top: 6px; }
+  #add-msg .ok { background: #f0fdf4; border: 1px solid #22c55e; color: #14532d; border-radius: 6px; padding: 8px 12px; }
+  table.list { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 12px; }
+  table.list th, table.list td { border: 1px solid #e5e3df; padding: 6px 9px; text-align: left; }
+  table.list th { background: #f5f5f7; }
+  .kbadge { padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+  .kbadge.active { background: #dcfce7; color: #166534; }
+  .kbadge.scheduled { background: #dbeafe; color: #1e40af; }
+  .kbadge.queued { background: #ede9fe; color: #5b21b6; }
+  .kbadge.manual { background: #ececec; color: #555; }
+  .kbadge.awaiting-approval { background: #fef3c7; color: #92400e; }
+  .kbadge.history { background: #e0f2f1; color: #0d4f4a; }
+  .kbadge.agent { background: #ffedd5; color: #7c2d12; }
+  .cal-day.cal7 { min-height: 128px; }
+  .cal-day.outside { opacity: .28; pointer-events: none; }
+  button.del { border: 1px solid #ef4444; color: #ef4444; background: #fff; border-radius: 5px; padding: 2px 9px; cursor: pointer; font-size: 11px; }
+
+  /* vram */
+  .vram-bar { height: 34px; border-radius: 8px; background: #eee; overflow: hidden; display: flex; margin: 8px 0 4px; border: 1px solid #ddd; }
+  .vram-bar .used { background: #4ade80; }
+  .vram-bar .sched { background: #93c5fd; }
+  .vram-note { font-size: 12px; color: #666; }
+
+  #detail {
+    position: fixed; width: 340px; background: #fff; border: 1px solid #ccc;
+    border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.2); padding: 14px; font-size: 12px; display: none; z-index: 50;
+  }
+  #detail h4 { margin: 0 0 8px; font-size: 13px; color: #667eea; }
+  #detail table { width: 100%; } #detail td { padding: 2px 4px; vertical-align: top; }
+  #detail td:first-child { color: #888; width: 34%; }
+  #detail .x { position: absolute; top: 8px; right: 10px; cursor: pointer; color: #999; }
+  .muted { color: #999; font-size: 12px; }
+</style>
+<style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+</head>
+<body>
+<nav class="dashboard-sidebar">
+    <div class="dashboard-sidebar-tabs-wrap">
+    <a href="/gpu_schedule.html" class="dashboard-sidebar-tab" data-tab="gpu_schedule" id="side-gpu" data-help="Open the GPU schedule page to add and manage GPU timeline entries.">GPU Schedule</a>
+    <a href="/cpu_schedule.html" class="dashboard-sidebar-tab" data-tab="cpu_schedule" id="side-cpu" data-help="Open the CPU schedule page to add and manage CPU timeline entries.">CPU Schedule</a>
+    <div class="dashboard-sidebar-spacer"></div>
+    <a href="/?tab=agent_overview" class="dashboard-sidebar-tab" data-tab="agent_overview" data-help="View agent overview: active agents, tasks, GPU and CPU usage at a glance.">Agent Overview</a>
+    <a href="/error_logs" class="dashboard-sidebar-tab" data-tab="error_logs" data-help="View error logs and troubleshoot issues.">Error Logs</a>
+    <a href="/job_status" class="dashboard-sidebar-tab" data-tab="job_status" data-help="View job status and running tasks.">Job Status</a>
+    <a href="/monitoring_ui" class="dashboard-sidebar-tab" data-tab="monitoring_ui" data-help="Open the monitoring UI for live system and job monitoring.">Monitoring UI</a>
+    <a href="/parameter_control" class="dashboard-sidebar-tab" data-tab="parameter_control" data-help="Live track CPU and GPU usage vs assigned from schedules; view Performance and % Overall.">Parameter Control</a>
+    <a href="/approval_queue" class="dashboard-sidebar-tab" data-tab="approval_queue" data-help="Pending schedule requests awaiting approval (Admin).">Approval Queue</a>
+    <a href="/audit" class="dashboard-sidebar-tab" data-tab="audit" data-help="Audit log: who changed what (Admin).">Audit</a>
+    <a href="/integrity_gate" class="dashboard-sidebar-tab" data-tab="integrity_gate" data-help="Integrity Gate: checks passed/failed, blocked reason, force override (Admin).">Integrity Gate</a>
+    <a href="/job_lifecycle" class="dashboard-sidebar-tab" data-tab="job_lifecycle" data-help="Job lifecycle: specs and runs linked to schedule requests.">Job Lifecycle</a>
+    <a href="/metrics" class="dashboard-sidebar-tab" data-tab="metrics" data-help="View metrics: performance, feedback loops, agent and workflow metrics. Mechanics lives here too, as a subtab.">Metrics</a>
+    <a href="/workflows" class="dashboard-sidebar-tab" data-tab="workflows" data-help="Workflows: live Clipfarm pipeline Kanban board with telemetry.">Workflows</a>
+    <a href="/frequency" class="dashboard-sidebar-tab" data-tab="frequency" data-help="Frequency: FL Studio-style waveform activity monitor for all LLMs, tools and dependencies.">Frequency</a>
+    <a href="/benchmark" class="dashboard-sidebar-tab" data-tab="benchmark" data-help="Benchmark: historical pipeline performance analytics and infrastructure health checks.">Benchmark</a>
+    <a href="/sandbox" class="dashboard-sidebar-tab" data-tab="sandbox" data-help="Sandbox: dedicated skill security scanner — static analysis, CVE audit, behavioral probe.">Sandbox</a>
+    </div>
+    <!-- ── Sidebar telemetry widget — hover any row for "what is using this?" ── -->
+    <div class="sidebar-telemetry" id="sidebar-telemetry">
+      <div class="sidebar-telemetry-row" id="strow-disk">
+        <span class="sidebar-telemetry-label">Disk</span>
+        <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar disk" id="stbar-disk" style="width:0%"></div></div>
+        <span class="sidebar-telemetry-val" id="stval-disk">&mdash;</span>
+      </div>
+      <div class="sidebar-telemetry-row" id="strow-cpu">
+        <span class="sidebar-telemetry-label">CPU</span>
+        <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar cpu" id="stbar-cpu" style="width:0%"></div></div>
+        <span class="sidebar-telemetry-val" id="stval-cpu">&mdash;</span>
+      </div>
+      <div class="sidebar-telemetry-row" id="strow-ram">
+        <span class="sidebar-telemetry-label">RAM</span>
+        <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar ram" id="stbar-ram" style="width:0%"></div></div>
+        <span class="sidebar-telemetry-val" id="stval-ram">&mdash;</span>
+      </div>
+      <div class="sidebar-telemetry-row" id="strow-gpu">
+        <span class="sidebar-telemetry-label">GPU</span>
+        <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar gpu" id="stbar-gpu" style="width:0%"></div></div>
+        <span class="sidebar-telemetry-val" id="stval-gpu">&mdash;</span>
+      </div>
+      <div class="sidebar-telemetry-row" id="strow-vram">
+        <span class="sidebar-telemetry-label">VRAM</span>
+        <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar vram" id="stbar-vram" style="width:0%"></div></div>
+        <span class="sidebar-telemetry-val" id="stval-vram">&mdash;</span>
+      </div>
+    </div>
+    <div id="amsterdam-clock" class="dashboard-sidebar-clock" title="Live clock">
+      <span id="clock-time">--:--:--</span>
+      <span id="clock-date">--/--/----</span>
+    </div>
+    <button id="dashboard-sidebar-agent-zero" class="dashboard-sidebar-zero-btn" onclick="window.AgentZero&&window.AgentZero.open()" title="Agent Zero — AI assistant (or press Z)" style="display:none;">Zero</button>
+    <div class="dashboard-sidebar-bottom-row">
+      <a href="/logout" id="dashboard-sidebar-logout" class="dashboard-sidebar-logout" data-help="Sign out and return to the login page." title="Logout">Logout</a>
+      <button id="dashboard-sidebar-restart" class="dashboard-sidebar-restart" title="Restart server" onclick="dashboardRestartServer(this)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </button>
+    </div>
+
+    <!-- Restart overlay -->
+    <div id="restart-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:10000; flex-direction:column; align-items:center; justify-content:center; gap:24px;">
+      <svg id="restart-spinner" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#9be6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:restart-spin 1s linear infinite;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      <div id="restart-overlay-msg" style="color:#e0f4ff; font-size:1.25rem; font-weight:600; letter-spacing:0.02em; text-align:center;">Restarting, Please Wait…</div>
+    </div>
+
+    <!-- Custom confirm dialog (matches the dashboard's) -->
+    <div id="zyg-confirm-backdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:10000; align-items:center; justify-content:center;">
+      <div style="background:#1a1f2e; border:1px solid rgba(155,230,255,0.18); border-radius:14px; padding:32px 36px 24px; min-width:320px; max-width:420px; box-shadow:0 24px 64px rgba(0,0,0,0.7); display:flex; flex-direction:column; gap:0;">
+        <div style="display:flex; justify-content:center; margin-bottom:18px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9be6ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <div id="zyg-confirm-title" style="color:#e0f4ff; font-size:1.1rem; font-weight:700; text-align:center; margin-bottom:10px; letter-spacing:0.01em;"></div>
+        <div id="zyg-confirm-msg" style="color:#8ba8c4; font-size:0.9rem; text-align:center; margin-bottom:28px; line-height:1.5;"></div>
+        <div style="display:flex; gap:12px; justify-content:center;">
+          <button id="zyg-confirm-cancel" style="flex:1; padding:10px 0; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06); color:#aac4de; font-size:0.9rem; font-weight:600; cursor:pointer;">Cancel</button>
+          <button id="zyg-confirm-ok" style="flex:1; padding:10px 0; border-radius:8px; border:none; background:linear-gradient(135deg,#1e7fcb,#0e5fa0); color:#e0f4ff; font-size:0.9rem; font-weight:700; cursor:pointer;">Restart</button>
+        </div>
+      </div>
+    </div>
+</nav>
+<div id="page-wrap">
+<header>
+  <h1 id="page-title">Schedule</h1>
+  <span class="spacer"></span>
+  <span id="refresh-info"><span id="refresh-dot"></span><span class="sub">auto-refresh 30s</span></span>
+  <span id="clock"></span>
+</header>
+
+<nav class="tabs">
+  <button data-pane="pentries" class="on">Entries</button>
+  <button data-pane="p24">24 Hours</button>
+  <button data-pane="p7">7 Days</button>
+  <button data-pane="p28">28 Days</button>
+  <button data-pane="p1y">1 Year</button>
+  <button data-pane="phist">History</button>
+  <button data-pane="ppending">Pending Approvals <span id="pending-count"></span></button>
+  <button data-pane="pvram" id="tab-vram">VRAM Map</button>
+</nav>
+
+<main>
+  <!-- 24 Hours -->
+  <section class="pane" id="p24">
+    <div class="toolbar">
+      <button id="d-prev">◀</button>
+      <input type="date" id="d24">
+      <button id="d-next">▶</button>
+      <button id="d-today">Today</button>
+      <span class="legend">
+        <span><span class="chip" style="background:#86efac"></span>active</span>
+        <span><span class="chip" style="background:#bfdbfe"></span>scheduled (reserved)</span>
+        <span><span class="chip" style="background:#ddd6fe"></span>queued</span>
+        <span><span class="chip" style="background:#fde68a"></span>forecast (auto-adjusts)</span>
+        <span><span class="chip" style="background:#b2dfdb"></span>done (clears at midnight)</span>
+        <span><span class="chip" style="background:#ececec"></span>manual</span>
+        <span><span class="chip" style="background:#fdba74"></span>agent session (Claude Code)</span>
+        <span title="a bar cut by the day boundary carries an arrow — click it to open the day it continues on">▼ continues next day</span>
+      </span>
+      <span class="muted" id="comfy-q"></span>
+    </div>
+    <div id="grid24-wrap"><div id="grid24"></div></div>
+  </section>
+
+  <!-- 7 Days -->
+  <section class="pane" id="p7">
+    <div class="calview"><div id="grid7"></div></div>
+  </section>
+
+  <!-- 28 Days (month calendar) -->
+  <section class="pane" id="p28">
+    <div class="calview">
+    <div class="toolbar">
+      <button id="m-prev">◀</button>
+      <span id="m-label" style="font-size:14px;color:#555;font-weight:600"></span>
+      <button id="m-next">▶</button>
+      <span class="muted">click a day to open its 24-hour view</span>
+    </div>
+    <div id="cal28" class="cal-month"></div>
+    </div>
+  </section>
+
+  <!-- 1 Year (12 month calendars) -->
+  <section class="pane" id="p1y">
+    <div class="calview"><div id="cal1y" class="cal-year"></div></div>
+  </section>
+
+  <!-- History (past years — 12 month calendars like 1 Year) -->
+  <section class="pane" id="phist">
+    <div class="calview">
+    <div class="toolbar">
+      <button id="h-prev">◀</button>
+      <span id="h-label" style="font-size:14px;color:#555;font-weight:600"></span>
+      <button id="h-next">▶</button>
+      <span class="muted">past schedule — click a day to open its 24-hour view</span>
+    </div>
+    <div id="calhist" class="cal-year"></div>
+    </div>
+  </section>
+
+  <!-- Entries -->
+  <section class="pane on" id="pentries">
+    <h3 style="color:#667eea;margin-top:0">Add manual entry</h3>
+    <p class="muted">Manual entries are <b>blocked</b> when they overlap a reserved pipeline window (active or scheduled workflow) on this device.</p>
+    <form class="add" id="add-form">
+      <div><label>Date</label><input type="date" id="f-date" required></div>
+      <div><label>Start</label><input type="time" id="f-start" required></div>
+      <div><label>End</label><input type="time" id="f-end" required></div>
+      <div><label>Agent</label><select id="f-agent"></select></div>
+      <div><label>Model</label><select id="f-model"></select></div>
+      <div><label>Device</label><select id="f-device"></select></div>
+      <div><label>Priority</label><select id="f-prio"><option>High</option><option>Mid</option><option>Low</option></select></div>
+      <div><label>Load %</label><input type="number" id="f-pct" value="50" min="1" max="100"></div>
+      <div><label>Memory fraction</label><input type="number" id="f-mem" value="0.1" min="0.01" max="1" step="0.01"></div>
+      <div class="full"><button type="submit" style="padding:8px 22px;background:#667eea;color:#fff;border:none;border-radius:6px;cursor:pointer">Add entry</button></div>
+    </form>
+    <div id="add-msg"></div>
+    <h3 style="color:#667eea">Entries for <span id="list-day"></span></h3>
+    <table class="list"><thead><tr>
+      <th>Kind</th><th>Start–End</th><th>Pipeline / Label</th><th>Agent</th><th>Model</th><th>Status</th><th></th>
+    </tr></thead><tbody id="list-body"></tbody></table>
+  </section>
+
+  <!-- Pending approvals -->
+  <section class="pane" id="ppending">
+    <h3 style="color:#667eea;margin-top:0">Public requests awaiting approval</h3>
+    <p class="muted">These run only after approval (Agent Zero gate). Approve or reject in the <a href="/approval_queue">approval queue</a>.</p>
+    <table class="list"><thead><tr><th>Request</th><th>Pipeline</th><th>Est. duration</th></tr></thead><tbody id="pending-body"></tbody></table>
+  </section>
+
+  <!-- VRAM -->
+  <section class="pane" id="pvram">
+    <h3 style="color:#667eea;margin-top:0">VRAM map</h3>
+    <div id="vram-box"></div>
+  </section>
+</main>
+</div><!-- /page-wrap -->
+
+<div id="detail"><span class="x" onclick="this.parentElement.style.display='none'">✕</span><h4 id="dt-title"></h4><table id="dt-body"></table></div>
+
+<script>
+'use strict';
+const SCOPE = location.pathname.includes('cpu') ? 'cpu' : 'gpu';
+let HOUR_PX = 40;
+const HEAD_PX = 44, LANE_W = 58, COL_GAP = 14, LEFT_W = 56;
+let META = null, day24 = null, week0 = null, refreshTimer = null;
+const $ = s => document.querySelector(s);
+let RENDER_SEQ = 0;
+
+function api(path, params) {
+  const u = new URL(path, location.origin);
+  u.searchParams.set('scope', SCOPE);
+  for (const [k, v] of Object.entries(params || {})) if (v != null) u.searchParams.set(k, v);
+  return fetch(u, { credentials: 'same-origin' }).then(r => {
+    if (!r.ok) throw new Error(path + ' HTTP ' + r.status);
+    return r.json();
+  });
+}
+
+/* deterministic pastel-dark color per model slug */
+function modelColor(slug) {
+  let h = 0;
+  for (const c of slug) h = (h * 31 + c.charCodeAt(0)) % 360;
+  return `linear-gradient(135deg, hsl(${h},55%,45%), hsl(${(h + 40) % 360},60%,35%))`;
+}
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+/* date arithmetic in local calendar terms (never toISOString — that is UTC and
+   shifts the date around midnight vs the server's Europe/Amsterdam day) */
+function addDays(iso, n) {
+  const [y, m, d] = iso.split('-').map(Number);
+  const dt = new Date(y, m - 1, d + n);
+  return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+}
+/* calendar-day difference b - a (both ISO dates), in whole days */
+function dayDiff(a, b) {
+  const [ay, am, ad] = a.split('-').map(Number), [by, bm, bd] = b.split('-').map(Number);
+  return Math.round((Date.UTC(by, bm - 1, bd) - Date.UTC(ay, am - 1, ad)) / 86400000);
+}
+function endDayOf(e) { return (e.end_iso || '').slice(0, 10) || e.date; }
+/* an entry belongs to every calendar day it touches — a stage that crosses
+   midnight is on both days' pages (2026-09-05) */
+function covers(e, day) { return e.date <= day && endDayOf(e) >= day; }
+function daysOf(e) {
+  const out = [];
+  const n = Math.min(31, Math.max(0, dayDiff(e.date, endDayOf(e))));
+  for (let i = 0; i <= n; i++) out.push(addDays(e.date, i));
+  return out;
+}
+/* count balls for a calendar cell: production (blue) and agent sessions
+   (orange, above); each only when > 0 — so a day with only agent sessions
+   shows a lone orange ball and a day with only production a lone blue one */
+function countBalls(list) {
+  const agents = list.filter(e => e.kind === 'agent').length;
+  const prod = list.length - agents;
+  let html = '';
+  if (agents) html += `<span class="cnt agent" title="${agents} agent session${agents === 1 ? '' : 's'}">${agents}</span>`;
+  if (prod) html += `<span class="cnt" title="${prod} production job${prod === 1 ? '' : 's'}">${prod}</span>`;
+  return { html: html ? `<span class="cnts">${html}</span>` : '', agents, prod, two: !!(agents && prod) };
+}
+function countTitle(list, tail) {
+  const { agents, prod } = countBalls(list);
+  const parts = [];
+  if (prod) parts.push(`${prod} production job${prod === 1 ? '' : 's'}`);
+  if (agents) parts.push(`${agents} agent session${agents === 1 ? '' : 's'}`);
+  return (parts.length ? parts.join(', ') + ' — ' : '') + tail;
+}
+function groupByDay(entries) {
+  const byDay = {};
+  for (const e of entries) {
+    if (e.kind === 'awaiting-approval') continue;
+    for (const d of daysOf(e)) (byDay[d] = byDay[d] || []).push(e);
+  }
+  return byDay;
+}
+
+/* ── 24h grid ─────────────────────────────────────────────────────────── */
+let PENDING_CACHE = null;
+async function refreshPendingBadge() {
+  try {
+    const t = await api('/api/schedule/upcoming', { window: '24h', date: META ? META.today : undefined });
+    PENDING_CACHE = t.entries.filter(e => e.kind === 'awaiting-approval');
+    renderPendingUI();
+  } catch (e) { showErr(e); }
+}
+function buildDayGrid(wrapEl, gridEl, data, day, gotoDay) {
+  gridEl.innerHTML = '';
+  /* size the hour rows so 00:00–23:00 fits the viewport without scrolling */
+  {
+    const visible = wrapEl.offsetParent !== null;
+    const topOff = visible ? wrapEl.getBoundingClientRect().top : 240;
+    const avail = window.innerHeight - topOff - 30;
+    HOUR_PX = Math.max(22, Math.floor((avail - HEAD_PX) / 24));
+  }
+  const entries = data.entries.filter(e => e.kind !== 'awaiting-approval' && covers(e, day));
+
+  /* FIXED skeleton: every model bracket renders one sub-column per pipeline
+     that uses it. 2026-07-19: the always-present 'manual' lane is gone — it
+     added a permanently empty sub-column to every model. A manual lane now
+     appears ONLY when an actual manual entry targets that model. */
+  const modelPipes = (META && META.model_pipelines) || {};
+  const byModel = new Map();
+  for (const slug of Object.keys(modelPipes)) byModel.set(slug, new Map());
+  for (const e of entries) if (!byModel.has(e.model)) byModel.set(e.model, new Map());
+  for (const [slug, lanes] of byModel) {
+    for (const pipe of (modelPipes[slug] || [])) lanes.set(pipe, []);
+  }
+  for (const e of entries) {
+    const lanes = byModel.get(e.model);
+    const lane = e.kind === 'manual' ? 'manual' : (e.pipeline || 'other');
+    if (!lanes.has(lane)) lanes.set(lane, []);
+    lanes.get(lane).push(e);
+  }
+  /* a model with no mapped pipelines and no entries still needs one blank
+     slot so the column body paints white instead of collapsing */
+  for (const [, lanes] of byModel) if (lanes.size === 0) lanes.set('', []);
+  const nameOf = slug => (META && (META.models.find(m => m.slug === slug) || {}).name) || slug;
+
+  const totalH = HEAD_PX + 24 * HOUR_PX;
+  gridEl.style.height = totalH + 'px';
+
+  const rail = document.createElement('div');
+  rail.className = 'hour-col';
+  rail.style.height = totalH + 'px';
+  rail.innerHTML = '<div style="height:' + HEAD_PX + 'px"></div>' +
+    Array.from({ length: 24 }, (_, h) =>
+      `<div class="hour-label" style="height:${HOUR_PX}px;line-height:${HOUR_PX}px">${String(h).padStart(2, '0')}:00</div>`).join('');
+  gridEl.appendChild(rail);
+
+  let x = LEFT_W + 6;
+  const entryCount = m => [...m.values()].reduce((n, l) => n + l.length, 0);
+  const sorted = [...byModel.entries()].sort((a, b) =>
+    entryCount(b[1]) - entryCount(a[1]) || a[0].localeCompare(b[0]));
+  for (const [slug, agents] of sorted) {
+    const laneCount = Math.max(1, agents.size);
+    const laneW = Math.max(150 / laneCount, 26);
+    const colW = Math.max(150, laneCount * laneW);
+    const col = document.createElement('div');
+    col.style.cssText = `position:absolute;left:${x}px;top:0;width:${colW}px;height:${totalH}px;border-left:1px dashed #eee`;
+    const head = document.createElement('div');
+    head.className = 'model-head';
+    head.style.background = modelColor(slug);
+    head.textContent = nameOf(slug);
+    head.title = slug;
+    col.appendChild(head);
+    let li = 0;
+    const laneOrder = [...(modelPipes[slug] || []), 'manual'];
+    const laneKeys = [...agents.keys()].sort((a, b) => {
+      const ia = laneOrder.indexOf(a), ib = laneOrder.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+    });
+    for (const lane of laneKeys) {
+      const list = agents.get(lane) || [];
+      const lx = li * laneW;
+      const slot = document.createElement('div');
+      slot.className = 'slot';
+      slot.style.cssText = `position:absolute;left:${lx}px;top:${HEAD_PX}px;width:${laneW}px;` +
+        `height:${24 * HOUR_PX}px;border:1px solid #ccc;background:#fff;box-sizing:border-box;overflow:hidden`;
+      const lbl = document.createElement('div');
+      lbl.style.cssText = 'position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg);' +
+        'font-size:11px;font-weight:bold;color:#c2beb8;white-space:nowrap;pointer-events:none';
+      lbl.textContent = lane;
+      slot.appendChild(lbl);
+      col.appendChild(slot);
+      for (const e of list) {
+        const [sh, sm] = e.start_time.split(':').map(Number);
+        const [eh, em] = e.end_time.split(':').map(Number);
+        /* 2026-09-05: place both ends by their real calendar day relative to
+           the page's day, so a bar that crosses midnight is CUT at 00:00 on
+           the first day and resumes at 00:00 on the next — the old
+           `en < s → +24h` heuristic drew it past the bottom of the grid and
+           the next day never showed it at all. */
+        let s = sh + sm / 60 + 24 * dayDiff(day, e.date);
+        let en = eh + em / 60 + 24 * dayDiff(day, endDayOf(e));
+        if (!e.end_iso && en < s) en += 24;
+        /* 2026-07-19: strict < — sub-minute stages collapse to identical
+           hh:mm; equal times render as a minimum sliver instead of 24 h. */
+        if (en - s < 0.08) en = s + 0.08;
+        if (en <= 0 || s >= 24) continue;
+        const cutBefore = s < 0, cutAfter = en > 24;
+        if (cutBefore) s = 0;
+        if (cutAfter) en = 24;
+        const bar = document.createElement('div');
+        bar.className = 'bar ' + e.kind + (e.open ? ' running' : '') +
+          (cutBefore ? ' cut-before' : '') + (cutAfter ? ' cut-after' : '');
+        bar.style.cssText += `left:${lx + 2}px;width:${laneW - 5}px;top:${HEAD_PX + s * HOUR_PX}px;height:${Math.max(14, (en - s) * HOUR_PX - 2)}px`;
+        if (cutAfter || cutBefore) {
+          const mk = (cls, glyph, target, what) => {
+            const a = document.createElement('span');
+            a.className = 'cont ' + cls;
+            a.textContent = glyph;
+            a.title = `${what} ${target} — click to open that day`;
+            a.onclick = (ev) => { ev.stopPropagation(); if (gotoDay) gotoDay(target); };
+            bar.appendChild(a);
+          };
+          if (cutBefore) mk('up', '▲', addDays(day, -1), 'started on');
+          if (cutAfter) mk('down', '▼', addDays(day, 1), 'continues on');
+        }
+        if (e.kind === 'active' && e.progress != null) {
+          bar.innerHTML = `<div class="prog" style="width:${e.progress}%"></div>`;
+        }
+        if (laneW >= 46) {
+          const t = document.createElement('span');
+          t.className = 't';
+          t.textContent = `${e.start_time} ${e.label}`;
+          bar.appendChild(t);
+        }
+        bar.title = `${fmtIso(e.start_iso) || e.start_time}–${fmtIso(e.end_iso) || e.end_time} ${e.label}` +
+          (cutAfter ? ` (continues ${addDays(day, 1)})` : '') + (cutBefore ? ` (started ${addDays(day, -1)})` : '');
+        bar.onclick = (ev) => showDetail(e, ev);
+        col.appendChild(bar);
+      }
+      li++;
+    }
+    gridEl.appendChild(col);
+    x += colW + COL_GAP;
+  }
+  gridEl.style.minWidth = x + 'px';
+
+  /* full-width hour gridlines painted over the slots (original-page look) */
+  for (let h = 0; h <= 24; h++) {
+    const gl = document.createElement('div');
+    gl.style.cssText = `position:absolute;left:0;top:${HEAD_PX + h * HOUR_PX}px;` +
+      `width:${x}px;height:1px;background:lightgray;opacity:.3;pointer-events:none;z-index:3`;
+    gridEl.appendChild(gl);
+  }
+
+  if (META && day === META.today) {
+    const hm = String(data.now).slice(11, 16).split(':').map(Number);
+    const mins = hm[0] * 60 + hm[1];
+    const nl = document.createElement('div');
+    nl.className = 'nowline';
+    nl.style.top = (HEAD_PX + mins / 60 * HOUR_PX) + 'px';
+    gridEl.appendChild(nl);
+  }
+}
+
+async function render24() {
+  const seq = ++RENDER_SEQ;
+  const data = await api('/api/schedule/upcoming', { window: '24h', date: day24 });
+  if (seq !== RENDER_SEQ) return;
+  updatePendingBadge(data.entries);
+  buildDayGrid($('#grid24-wrap'), $('#grid24'), data, day24, d => {
+    day24 = d; $('#d24').value = d; render24().catch(showErr);
+  });
+  renderList(data);
+}
+
+/* ── dedicated in-tab day views (History / 28 Days / 1 Year / 7 Days) ──── */
+const PANE_DAY = {};
+async function openDayIn(paneId, day) {
+  PANE_DAY[paneId] = day;
+  const pane = document.getElementById(paneId);
+  const cal = pane.querySelector('.calview');
+  let dv = pane.querySelector('.dayview');
+  if (!dv) {
+    dv = document.createElement('div');
+    dv.className = 'dayview';
+    dv.innerHTML = `<div class="toolbar"><button class="dv-back">← Back to calendar</button>` +
+      `<span class="dv-title" style="font-size:14px;font-weight:600;color:#555"></span></div>` +
+      `<div class="dv-wrap" style="overflow-x:auto;border:1px solid #e2e0dc;border-radius:8px;position:relative">` +
+      `<div class="dv-grid" style="position:relative;min-width:100%"></div></div>`;
+    dv.querySelector('.dv-back').onclick = () => {
+      dv.style.display = 'none';
+      if (cal) cal.style.display = '';
+      delete PANE_DAY[paneId];
+    };
+    pane.appendChild(dv);
+  }
+  if (cal) cal.style.display = 'none';
+  dv.style.display = '';
+  dv.querySelector('.dv-title').textContent = day;
+  const data = await api('/api/schedule/upcoming', { window: '24h', date: day });
+  buildDayGrid(dv.querySelector('.dv-wrap'), dv.querySelector('.dv-grid'), data, day,
+    d => openDayIn(paneId, d).catch(showErr));
+}
+
+/* ── 7 days ───────────────────────────────────────────────────────────── */
+async function render7() {
+  const seq = ++RENDER_SEQ;
+  const data = await api('/api/schedule/upcoming', { window: '7d', date: week0 });
+  if (seq !== RENDER_SEQ) return;
+  updatePendingBadge(data.entries);
+  const wrap = $('#grid7');
+  wrap.innerHTML = '';
+  const byDay = groupByDay(data.entries);
+  /* same card anatomy as the 28 Days tab, one card per day */
+  for (const day of data.days) {
+    const list = byDay[day] || [];
+    const isToday = day === data.today;
+    const isPassed = day < data.today;
+    const cell = document.createElement('div');
+    cell.className = 'cal-day cal7' + (isToday ? ' today' : '') + (isPassed ? ' passed' : '');
+    const dt = new Date(day + 'T12:00:00');
+    cell.innerHTML = `<span class="num">${dt.toLocaleDateString('en-GB', { weekday: 'short' })} ${dt.getDate()}</span>`;
+    if (list.length) {
+      const kinds = [...new Set(list.map(e => e.kind))].slice(0, 4);
+      cell.insertAdjacentHTML('beforeend',
+        `<span class="dots">${kinds.map(k => `<span class="dot ${esc(k)}"></span>`).join('')}</span>` + countBalls(list).html);
+    }
+    cell.title = countTitle(list, 'open 24h view');
+    cell.onclick = () => openDayIn('p7', day).catch(showErr);
+    wrap.appendChild(cell);
+  }
+}
+
+/* ── entries list + add form ──────────────────────────────────────────── */
+function renderList(data) {
+  $('#list-day').textContent = day24;
+  const tb = $('#list-body');
+  tb.innerHTML = '';
+  const rows = data.entries
+    .filter(e => covers(e, day24) && e.kind !== 'awaiting-approval')
+    .sort((a, b) => a.start_time.localeCompare(b.start_time));
+  for (const e of rows) {
+    const tr = document.createElement('tr');
+    const del = e.kind === 'manual'
+      ? `<button class="del" data-id="${e.id}" data-date="${e.date}">delete</button>` : '';
+    tr.innerHTML = `<td><span class="kbadge ${esc(e.kind)}">${esc(e.kind)}</span></td>
+      <td>${e.start_time}–${e.end_time}</td><td>${esc(e.label)}</td>
+      <td>${esc(e.agent)}</td><td>${esc(e.model)}</td><td>${esc(e.status)}${e.progress != null ? ' ' + e.progress + '%' : ''}</td><td>${del}</td>`;
+    tb.appendChild(tr);
+  }
+  if (!rows.length) tb.innerHTML = '<tr><td colspan="7" class="muted">no entries for this date</td></tr>';
+  tb.querySelectorAll('button.del').forEach(b => b.onclick = async () => {
+    const r = await fetch(`/api/schedule/delete_entry?scope=${SCOPE}`, {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: b.dataset.id, date: b.dataset.date }),
+    });
+    if (r.ok) render24().catch(showErr);
+  });
+}
+
+function updatePendingBadge(entries) {
+  // day-view fetches only update the badge when looking at today; the
+  // authoritative refresh is refreshPendingBadge() on the 30s timer
+  if (META && day24 === META.today) {
+    PENDING_CACHE = entries.filter(e => e.kind === 'awaiting-approval');
+  }
+  renderPendingUI();
+}
+function renderPendingUI() {
+  const pend = PENDING_CACHE || [];
+  $('#pending-count').textContent = pend.length ? `(${pend.length})` : '';
+  const tb = $('#pending-body');
+  tb.innerHTML = '';
+  for (const e of pend) {
+    const mins = Math.round((new Date(e.end_iso) - new Date(e.start_iso)) / 60000);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${esc(e.label)}</td><td>${esc(e.pipeline)}</td><td>~${mins} min</td>`;
+    tb.appendChild(tr);
+  }
+  if (!pend.length) tb.innerHTML = '<tr><td colspan="3" class="muted">none pending</td></tr>';
+}
+
+function populateForm() {
+  $('#f-date').value = META.today;
+  const agents = Object.keys(META.agent_slots).sort();
+  $('#f-agent').innerHTML = '<option value="Manual">Manual (no agent)</option>' +
+    agents.map(a => `<option>${a}</option>`).join('');
+  const allModels = () => META.models.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+  const fillModels = () => {
+    const a = $('#f-agent').value;
+    const slots = META.agent_slots[a];
+    $('#f-model').innerHTML = slots && slots.length
+      ? slots.map(s => {
+          const m = META.models.find(x => x.slug === s.slug) || { id: s.model_id, name: s.slug };
+          return `<option value="${m.id}">${m.name}</option>`;
+        }).join('') + '<option disabled>──────</option>' + allModels()
+      : allModels();
+  };
+  $('#f-agent').onchange = fillModels;
+  fillModels();
+  $('#f-device').innerHTML = META.devices.map(d => `<option>${d}</option>`).join('');
+}
+
+async function submitAdd(ev) {
+  ev.preventDefault();
+  const msg = $('#add-msg');
+  msg.innerHTML = '';
+  if ($('#f-start').value === $('#f-end').value) {
+    msg.innerHTML = '<div class="conflict">start and end are identical — an entry must have a duration (end before start means overnight)</div>';
+    return;
+  }
+  const body = {
+    date: $('#f-date').value,
+    start_time: $('#f-start').value,
+    end_time: $('#f-end').value,
+    agent: $('#f-agent').value,
+    ai_model: $('#f-model').value,
+    priority: $('#f-prio').value,
+    percent: $('#f-pct').value,
+    memory_fraction: $('#f-mem').value,
+    device: $('#f-device').value,
+  };
+  const r = await fetch(`/api/schedule/add_entry?scope=${SCOPE}`, {
+    method: 'POST', credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const d = await r.json().catch(() => ({}));
+  if (r.status === 409) {
+    msg.innerHTML = '<div class="conflict"><b>Blocked — overlaps a reserved pipeline window:</b><br>' +
+      (d.conflicts || []).map(c => `• ${esc(c.date)} ${esc(c.start)}–${esc(c.end)} — ${esc(c.label)} <i>(${esc(c.kind)})</i>`).join('<br>') + '</div>';
+  } else if (!r.ok || !d.success) {
+    msg.innerHTML = `<div class="conflict">${esc(d.error || 'failed')}</div>`;
+  } else {
+    msg.innerHTML = '<div class="ok">Entry added ✓</div>';
+    if ($('#f-date').value === day24) render24().catch(showErr);
+  }
+}
+
+/* ── vram ─────────────────────────────────────────────────────────────── */
+async function renderVram() {
+  const box = $('#vram-box');
+  try {
+    const [tele, live] = await Promise.all([
+      fetch('/api/telemetry').then(r => r.json()),
+      api('/api/schedule/live'),
+    ]);
+    const schedMb = live.entries.reduce((s, e) => s + (e.vram_mb || 0), 0);
+    box.innerHTML = '';
+    for (const g of (tele.gpus || [])) {
+      const total = g.memory_total_mb || 1;
+      const usedPct = Math.min(100, 100 * (g.memory_used_mb || 0) / total);
+      const schedPct = Math.min(100 - usedPct, 100 * schedMb / total);
+      box.insertAdjacentHTML('beforeend', `
+        <div><b>${META && META.devices[g.index] ? META.devices[g.index] : 'GPU ' + g.index}</b>
+        — ${(total / 1024).toFixed(0)} GB · util ${g.utilization_pct ?? '?'}% · ${g.temperature_c ?? '?'}°C</div>
+        <div class="vram-bar">
+          <div class="used" style="width:${usedPct}%" title="in use"></div>
+          <div class="sched" style="width:${schedPct}%" title="reserved by active schedule"></div>
+        </div>
+        <div class="vram-note">${(g.memory_used_mb / 1024).toFixed(1)} GB in use ·
+        ${(schedMb / 1024).toFixed(1)} GB reserved by ${live.entries.length} active run(s)</div>`);
+    }
+    if (live.comfy_queue && live.comfy_queue.pending != null) {
+      box.insertAdjacentHTML('beforeend',
+        `<p class="vram-note">ComfyUI queue: ${live.comfy_queue.running} running, ${live.comfy_queue.pending} pending</p>`);
+    }
+  } catch (e) { box.innerHTML = `<p class="muted">${e}</p>`; }
+}
+
+/* ── shared ───────────────────────────────────────────────────────────── */
+function fmtIso(iso) { return iso ? `${iso.slice(0, 10)} ${iso.slice(11, 16)}` : '—'; }
+
+let DETAIL_SEQ = 0;
+function showDetail(e, ev) {
+  $('#dt-title').textContent = e.label;
+  $('#dt-body').innerHTML = [
+    ['Kind', e.kind], ['Pipeline', e.pipeline], ['Stage', e.stage], ['Agent', e.agent],
+    ['Model', e.model], ['Slot', e.bar_id],
+    ['Started', fmtIso(e.start_iso)],
+    ['Ended', fmtIso(e.end_iso)],
+    ['Progress', e.progress != null ? e.progress + '%' : '—'],
+    ['Status', e.status], ['Reserved', e.reserved ? 'yes — blocks manual entries' : 'no'],
+    ['VRAM required (est.)', e.vram_mb ? (e.vram_mb / 1024).toFixed(1) + ' GB' : '—'],
+    ['Source', e.source],
+  ].concat(e.kind === 'agent' ? [
+    ['Session', `${e.session_name || ''} (${(e.session_id || '').slice(0, 8)}) · ${e.entrypoint || ''}`],
+    ['Project', e.project],
+    ['Peak', SCOPE === 'gpu'
+      ? (e.peak_vram_mb != null ? (e.peak_vram_mb / 1024).toFixed(1) + ' GB VRAM' : '—')
+      : `${e.peak_cpu_cores != null ? e.peak_cpu_cores + ' cores' : '—'} · ${e.peak_ram_mb != null ? (e.peak_ram_mb / 1024).toFixed(1) + ' GB RSS' : '—'}`],
+    ['Commands', (e.cmds || []).join('\n') || '—'],
+  ] : []).map(([k, v]) => `<tr><td>${k}</td><td style="white-space:pre-wrap;word-break:break-all">${esc(v)}</td></tr>`).join('') +
+  `<tr><td>RAM min/avg/max</td><td id="dt-ram">measuring…</td></tr>` +
+  `<tr><td>VRAM min/avg/max</td><td id="dt-vram">measuring…</td></tr>`;
+
+  const box = $('#detail');
+  box.style.display = 'block';
+  /* open 60px to the RIGHT of the click point, clamped to the viewport */
+  if (ev) {
+    const w = 340, h = box.offsetHeight || 360;
+    let left = ev.clientX + 60;
+    let top = ev.clientY - 20;
+    if (left + w > window.innerWidth - 8) left = Math.max(8, ev.clientX - w - 60);
+    top = Math.max(8, Math.min(top, window.innerHeight - h - 8));
+    box.style.left = left + 'px';
+    box.style.top = top + 'px';
+  } else {
+    box.style.left = (window.innerWidth - 360) + 'px';
+    box.style.top = '80px';
+  }
+
+  /* measured resource stats over this entry's window (1s telemetry samples) */
+  const seq = ++DETAIL_SEQ;
+  const gb = v => (v / 1024).toFixed(1);
+  const fill = (sel, st) => {
+    const el = $(sel);
+    if (el) el.textContent = st ? `${gb(st.min)} / ${gb(st.avg)} / ${gb(st.max)} GB` : 'no samples';
+  };
+  api('/api/schedule/telemetry_window', { from: e.start_iso, to: e.end_iso })
+    .then(d => {
+      if (seq !== DETAIL_SEQ) return;
+      fill('#dt-ram', d.ram_mb);
+      fill('#dt-vram', d.vram_mb);
+    })
+    .catch(() => { fill('#dt-ram', null); fill('#dt-vram', null); });
+}
+
+function showErr(e) { console.error(e); }
+
+/* ── calendars (28 Days / 1 Year / History) ─────────────────────────── */
+const MONTHS = ['January','February','March','April','May','June','July',
+                'August','September','October','November','December'];
+let calMonth = null;   // {y, m} for the 28 Days tab
+let histYear = null;   // History tab — current year and past
+
+function monthFirst(y, m) { return `${y}-${String(m + 1).padStart(2, '0')}-01`; }
+
+async function fetchMonthEntries(y, m) {
+  const data = await api('/api/schedule/upcoming', { window: 'month', date: monthFirst(y, m) });
+  return groupByDay(data.entries);
+}
+
+function buildMonthGrid(y, m, byDay, opts) {
+  const { mini = false, markPassed = true, min = null, max = null, hideOutside = false, onDay = null } = opts || {};
+  const wrap = document.createElement('div');
+  if (mini) wrap.className = 'cal-mini';
+  const grid = document.createElement('div');
+  grid.className = 'cal-grid';
+  for (const d of ['Mo','Tu','We','Th','Fr','Sa','Su']) {
+    const h = document.createElement('div'); h.className = 'dow'; h.textContent = d;
+    grid.appendChild(h);
+  }
+  const firstDow = (new Date(y, m, 1).getDay() + 6) % 7;   // Monday-start
+  const daysIn = new Date(y, m + 1, 0).getDate();
+  for (let i = 0; i < firstDow; i++) {
+    const c = document.createElement('div'); c.className = 'cal-day empty';
+    grid.appendChild(c);
+  }
+  for (let d = 1; d <= daysIn; d++) {
+    const iso = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    const cell = document.createElement('div');
+    const isToday = META && iso === META.today;
+    const isPassed = META && iso < META.today;
+    const outside = (min && iso < min) || (max && iso > max);
+    cell.className = 'cal-day' + (isToday ? ' today' : '')
+      + (isPassed && markPassed && !outside ? ' passed' : '')
+      + (outside ? (hideOutside ? ' empty' : ' outside') : '');
+    cell.innerHTML = `<span class="num">${d}</span>`;
+    const list = byDay[iso] || [];
+    if (list.length) {
+      const kinds = [...new Set(list.map(e => e.kind))].slice(0, 4);
+      const cb = countBalls(list);
+      if (cb.two) cell.classList.add('two');
+      cell.insertAdjacentHTML('beforeend',
+        `<span class="dots">${kinds.map(k => `<span class="dot ${esc(k)}"></span>`).join('')}</span>` + cb.html);
+    }
+    cell.title = countTitle(list, 'open 24h view');
+    cell.onclick = () => { if (onDay) onDay(iso); };
+    grid.appendChild(cell);
+  }
+  wrap.appendChild(grid);
+  return wrap;
+}
+
+async function renderMonthTab(state, labelEl, boxEl) {
+  const { y, m } = state;
+  $(labelEl).textContent = `${MONTHS[m]} ${y}`;
+  const byDay = await fetchMonthEntries(y, m);
+  const box = $(boxEl);
+  box.innerHTML = '';
+  box.appendChild(buildMonthGrid(y, m, byDay, {
+    mini: false, markPassed: true, onDay: iso => openDayIn('p28', iso).catch(showErr),
+  }));
+}
+
+async function fetchDays(window_, dateStr) {
+  const data = await api('/api/schedule/upcoming', { window: window_, date: dateStr });
+  return groupByDay(data.entries);
+}
+
+/* 1 Year: LOCKED rolling window — yesterday through one year from today. */
+async function renderYearTab() {
+  const start = addDays(META.today, -1);
+  const end = addDays(META.today, 366);
+  const box = $('#cal1y');
+  box.innerHTML = '<p class="muted">loading year…</p>';
+  const byDay = await fetchDays('1y', start);
+  box.innerHTML = '';
+  let [y, m] = start.split('-').map(Number); m -= 1;
+  const [ey, em] = end.split('-').map(Number);
+  while (y < ey || m <= em - 1 || (y === ey && m === em - 1)) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-mini-wrap';
+    cell.innerHTML = `<h5 style="margin:0 0 6px;text-align:center;color:#667eea;font-size:12px">${MONTHS[m]} ${y}</h5>`;
+    cell.appendChild(buildMonthGrid(y, m, byDay, {
+      mini: true, markPassed: true, min: start, max: end,
+      onDay: iso => openDayIn('p1y', iso).catch(showErr),
+    }));
+    box.appendChild(cell);
+    if (y === ey && m === em - 1) break;
+    m++; if (m > 11) { m = 0; y++; }
+  }
+}
+
+/* History: past years, 12-month view like 1 Year, real production data. */
+async function renderHistTab() {
+  $('#h-label').textContent = String(histYear);
+  const box = $('#calhist');
+  box.innerHTML = '<p class="muted">loading year…</p>';
+  const byDay = await fetchDays('1y', `${histYear}-01-01`);
+  box.innerHTML = '';
+  /* history = the past only: stop at the current month and hide any day
+     after today, so nothing in the future ever shows here */
+  const [ty2, tm2] = META.today.split('-').map(Number);
+  const lastMonth = histYear === ty2 ? tm2 - 1 : 11;
+  for (let m = 0; m <= lastMonth; m++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-mini-wrap';
+    cell.innerHTML = `<h5 style="margin:0 0 6px;text-align:center;color:#667eea;font-size:12px">${MONTHS[m]}</h5>`;
+    cell.appendChild(buildMonthGrid(histYear, m, byDay, {
+      mini: true, markPassed: false, max: META.today, hideOutside: true,
+      onDay: iso => openDayIn('phist', iso).catch(showErr),
+    }));
+    box.appendChild(cell);
+  }
+}
+
+function switchPane(id) {
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('on', b.dataset.pane === id));
+  document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.id === id));
+  if (PANE_DAY[id]) { openDayIn(id, PANE_DAY[id]).catch(showErr); return; }
+  if (id === 'p24') render24().catch(showErr);
+  if (id === 'p7') render7().catch(showErr);
+  if (id === 'p28') renderMonthTab(calMonth, '#m-label', '#cal28').catch(showErr);
+  if (id === 'p1y') renderYearTab().catch(showErr);
+  if (id === 'phist') renderHistTab().catch(showErr);
+  if (id === 'pvram') renderVram();
+}
+
+function tick() {
+  const now = new Date();
+  $('#clock').textContent = now.toLocaleString('en-GB', { timeZone: 'Europe/Amsterdam', hour12: false });
+  updateAmsterdamClock();
+}
+
+/* sidebar clock — same format + localStorage settings as enhanced_dashboard.html */
+function updateAmsterdamClock() {
+  const clockTime = document.getElementById('clock-time');
+  const clockDate = document.getElementById('clock-date');
+  if (!clockTime || !clockDate) return;
+  const manual = localStorage.getItem('dashboard_clock_manual');
+  const tz = localStorage.getItem('dashboard_clock_timezone') || 'Europe/Amsterdam';
+  let displayDate;
+  if (manual === '1') {
+    const stored = localStorage.getItem('dashboard_clock_datetime');
+    const savedAt = parseInt(localStorage.getItem('dashboard_clock_manual_saved_at'), 10);
+    if (stored && !isNaN(savedAt)) displayDate = new Date(new Date(stored).getTime() + (Date.now() - savedAt));
+    else if (stored) displayDate = new Date(stored);
+    else displayDate = new Date();
+  } else {
+    displayDate = new Date();
+  }
+  const tzOpts = (tz && tz !== 'Local') ? { timeZone: tz } : {};
+  clockTime.textContent = displayDate.toLocaleTimeString('en-GB', Object.assign({ hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }, tzOpts));
+  clockDate.textContent = displayDate.toLocaleDateString('en-GB', Object.assign({ year: 'numeric', month: '2-digit', day: '2-digit' }, tzOpts));
+}
+
+/* Sidebar telemetry (bars + hover breakdowns) lives in
+   static/js/dashboard_sidebar_telemetry.js — loaded at the bottom of this page.
+   It self-starts and owns window._dashboardTelemetryInterval. */
+
+/* restart button — same confirm + two-phase poll as enhanced_dashboard.html */
+function zygConfirm(title, message, okLabel, onConfirm) {
+  const backdrop = document.getElementById('zyg-confirm-backdrop');
+  document.getElementById('zyg-confirm-title').textContent = title;
+  document.getElementById('zyg-confirm-msg').textContent = message;
+  document.getElementById('zyg-confirm-ok').textContent = okLabel || 'Confirm';
+  backdrop.style.display = 'flex';
+  function cleanup() { backdrop.style.display = 'none'; }
+  document.getElementById('zyg-confirm-cancel').onclick = cleanup;
+  document.getElementById('zyg-confirm-ok').onclick = function () { cleanup(); onConfirm(); };
+  backdrop.onclick = function (e) { if (e.target === backdrop) cleanup(); };
+}
+
+function dashboardRestartServer(btn) {
+  zygConfirm('Restart Server', 'This halts all pipelines, restarts the dashboard (port 5000) and Zero Public / zero.zygomaticszero.com (port 5001), and marks interrupted jobs as failed.', 'Restart', function () {
+    window._serverRestarting = true;
+    document.getElementById('restart-overlay').style.display = 'flex';
+    btn.disabled = true;
+    if (window._dashboardTelemetryInterval) { clearInterval(window._dashboardTelemetryInterval); window._dashboardTelemetryInterval = null; }
+    if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+    const csrfToken = (document.querySelector('meta[name="csrf-token"]') || {}).getAttribute?.('content') || '';
+    fetch('/api/restart', {
+      method: 'POST', credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+    })
+      .catch(function () { /* server may close the connection mid-response */ })
+      .finally(function () {
+        let _wentDown = false;
+        const _msgEl = document.getElementById('restart-overlay-msg');
+        setTimeout(function poll() {
+          fetch('/api/health', { credentials: 'same-origin', cache: 'no-store' })
+            .then(function (r) {
+              if (!_wentDown) { setTimeout(poll, 1000); return; }
+              if (!r.ok) { setTimeout(poll, 1500); return; }
+              if (_msgEl) _msgEl.textContent = 'Restarted. Redirecting to login…';
+              const sp = document.getElementById('restart-spinner');
+              sp.style.animation = 'none'; sp.style.stroke = '#7df9aa';
+              window._serverRestarting = false;
+              setTimeout(function () { window.location.href = '/logout'; }, 1200);
+            })
+            .catch(function () {
+              _wentDown = true;
+              if (_msgEl) _msgEl.textContent = 'Server stopped. Waiting for restart…';
+              setTimeout(poll, 1500);
+            });
+        }, 1500);
+      });
+  });
+}
+
+async function init() {
+  $('#page-title').textContent = SCOPE.toUpperCase() + ' Schedule';
+  document.title = SCOPE.toUpperCase() + ' Schedule';
+  if (SCOPE === 'cpu') $('#tab-vram').style.display = 'none';
+  $(SCOPE === 'gpu' ? '#side-gpu' : '#side-cpu').classList.add('active');
+  META = await api('/api/schedule/meta');
+  day24 = META.today;
+  week0 = META.today;
+  $('#d24').value = day24;
+  populateForm();
+  await render24();
+  const live = await api('/api/schedule/live');
+  if (live.comfy_queue && live.comfy_queue.pending != null) {
+    $('#comfy-q').textContent = `ComfyUI: ${live.comfy_queue.running} running / ${live.comfy_queue.pending} queued`;
+  }
+  document.querySelectorAll('nav.tabs button').forEach(b => b.onclick = () => switchPane(b.dataset.pane));
+  $('#d24').onchange = () => { day24 = $('#d24').value; render24().catch(showErr); };
+  $('#d-prev').onclick = () => { day24 = addDays(day24, -1); $('#d24').value = day24; render24().catch(showErr); };
+  $('#d-next').onclick = () => { day24 = addDays(day24, 1); $('#d24').value = day24; render24().catch(showErr); };
+  $('#d-today').onclick = () => { day24 = META.today; $('#d24').value = day24; render24().catch(showErr); };
+  const [ty, tm] = META.today.split('-').map(Number);
+  calMonth = { y: ty, m: tm - 1 };
+  histYear = ty;     // History: current year and back only
+  const _shiftMonth = (st, n) => { st.m += n; while (st.m < 0) { st.m += 12; st.y--; } while (st.m > 11) { st.m -= 12; st.y++; } };
+  $('#m-prev').onclick = () => { _shiftMonth(calMonth, -1); renderMonthTab(calMonth, '#m-label', '#cal28').catch(showErr); };
+  $('#m-next').onclick = () => { _shiftMonth(calMonth, 1); renderMonthTab(calMonth, '#m-label', '#cal28').catch(showErr); };
+
+  $('#h-prev').onclick = () => { histYear--; renderHistTab().catch(showErr); };
+  $('#h-next').onclick = () => { if (histYear < ty) { histYear++; renderHistTab().catch(showErr); } };
+  $('#add-form').onsubmit = submitAdd;
+  setInterval(tick, 1000); tick();
+  let _rsz = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(_rsz);
+    _rsz = setTimeout(() => {
+      const on = document.querySelector('.pane.on');
+      if (on && on.id === 'p24') render24().catch(showErr);
+    }, 200);
+  });
+  refreshTimer = setInterval(() => {
+    const on = document.querySelector('.pane.on');
+    if (!on) return;
+    if (PANE_DAY[on.id]) { openDayIn(on.id, PANE_DAY[on.id]).catch(showErr); return; }
+    if (on.id === 'p24') render24().catch(showErr);
+    else if (on.id === 'p7') render7().catch(showErr);
+    else if (on.id === 'p28') renderMonthTab(calMonth, '#m-label', '#cal28').catch(showErr);
+    else if (on.id === 'phist') renderHistTab().catch(showErr);
+    else if (on.id === 'pvram') renderVram();
+    else refreshPendingBadge();
+  }, 30000);
+}
+document.addEventListener('DOMContentLoaded', () => init().catch(e => {
+  document.querySelector('main').insertAdjacentHTML('afterbegin',
+    `<div style="background:#fef2f2;border:1px solid #ef4444;padding:10px;border-radius:8px">init failed: ${e}</div>`);
+}));
+</script>
+<script src="/static/js/dashboard_help.js"></script>
+<script src="/static/js/dashboard_settings_hotkeys.js"></script>
+<script src="/static/js/dashboard_command_center.js"></script>
+<script src="/static/js/dashboard_agent_zero.js"></script>
+<script src="/static/js/dashboard_sidebar_telemetry.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,993 @@
+{
+ "_README": [
+  "Licence registry for licence_provenance.py. Seeded 2026-08-09.",
+  "",
+  "RULE: an entry appears here ONLY when its licence was read at the primary",
+  "source (the LICENSE file or the vendor's legal page), and 'source' records",
+  "where. A weight that is absent from this file classifies as UNKNOWN, which is",
+  "NOT a pass. That is deliberate and is the whole design: guessing 'probably",
+  "fine' into this file converts an unread licence into a green gate, which is",
+  "the exact failure mode the gate exists to prevent.",
+  "",
+  "'commercial': true = licence permits commercial use.",
+  "'commercial': false = it does not.",
+  "'commercial' absent = not established -> UNKNOWN.",
+  "'territory_excluded': territories where the licence forbids use OF THE OUTPUTS.",
+  "",
+  "'families' keys are the model_family values the LoRA trainer writes into",
+  "training_status_<family>.json. A character LoRA is charged with its BASE",
+  "model's licence, because a LoRA is a derivative work of the model it was",
+  "fine-tuned from.",
+  "2026-09-03: merged model_licences_pending/S06..S10.json (mesh identity plan, ten sessions). Each merged entry carries session= and merged=; the pending files were moved to model_licences_pending/merged/. Backup: model_licences_backups/model_licences.json.bak-20260903-premerge-S06-S10.",
+  "",
+  "2026-10-05: every path in a 'source' or 'note' field is written against a NAMED",
+  "ROOT from zyg_workflows.paths — 'ZYG_MODELS_ROOT/gnm/LICENSE' and never one",
+  "machine's home directory — so this file reads the same on every box.",
+  "licence_provenance.resolve_root_path() expands the roots; a field that",
+  "still carries an absolute path keeps working and is returned unchanged."
+ ],
+ "families": {
+  "flux": {
+   "licence": "FLUX.1 [dev] Non-Commercial License v2.0",
+   "commercial": false,
+   "territory_excluded": [],
+   "base_model": "black-forest-labs/FLUX.1-dev",
+   "source": "https://bfl.ai/legal/non-commercial-license-terms",
+   "verified": "2026-08-09",
+   "note": "lora_trainer_service.py trains on flux1-dev and rejects schnell, so every character LoRA in this family is a derivative of a non-commercial base. Commercial licence available self-serve from Black Forest Labs."
+  },
+  "wan": {
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "base_model": "Wan-AI/Wan2.1-I2V-14B-720P",
+   "source": "https://github.com/Wan-Video/Wan2.2",
+   "verified": "2026-08-09",
+   "note": "Video character/prop LoRAs trained by wan_lora/train_char.sh via musubi-tuner (--task i2v-14B) on the Apache-2.0 Wan2.1 base. A DIFFERENT LoRA from the FLUX image LoRA of the same character, despite sharing the char_id."
+  },
+  "qwen": {
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "base_model": "Qwen/Qwen-Image-Edit",
+   "source": "https://github.com/QwenLM/Qwen-Image",
+   "verified": "2026-08-09",
+   "note": "Phase 3 migration target. 2026-08-09: generator = Qwen-Image-2512, editor = Qwen-Image-Edit-2511, inpaint = InstantX Qwen CN — all Apache-2.0, revisions pinned in the upgrade vault."
+  },
+  "sdxl": {
+   "licence": "CreativeML Open RAIL++-M",
+   "commercial": true,
+   "territory_excluded": [],
+   "base_model": "stabilityai/stable-diffusion-xl-base-1.0",
+   "source": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/main/LICENSE.md",
+   "verified": "2026-08-09",
+   "note": "SDXL identity LoRAs are TRAINED on SDXL base 1.0 (lora_trainer_service._SDXL_DIFFUSERS_HF_ID, and ensure_sdxl_comfy_checkpoint stages sd_xl_base_1.0.safetensors 'to match the LoRA train base'), which is OpenRAIL++-M and commercially permitted. This clears the LoRA ONLY. The checkpoint those LoRAs are RENDERED on - Juggernaut-XL / DynaVisionXL - is a separate weight with its own unresolved terms, and the graph-level verdict picks that up independently. Do not read this entry as clearing the SDXL render path."
+  },
+  "klein": {
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "base_model": "black-forest-labs/FLUX.2-klein-base-4B",
+   "source": "https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B",
+   "verified": "2026-08-23",
+   "note": "FLUX.2 [klein] 4B. ONLY the 4B is Apache-2.0 — verified via the HF model_info cardData on both black-forest-labs/FLUX.2-klein-base-4B and .../FLUX.2-klein-4B. FLUX.2-klein-base-9B is license=other / flux-non-commercial-license, and FLUX.2 [dev] likewise, so the weight globs below name the 4B files EXACTLY and never wildcard the size. Undistilled 'base' is the LoRA-training base (schnell cannot train); the distilled 'flux-2-klein-4b' is the 4-step throughput variant."
+  }
+ },
+ "_lora_lineage_README": [
+  "Maps a LoRA NAME or staged sub-folder to the base family it was fine-tuned",
+  "from, for LoRAs whose lineage cannot be read off the filesystem.",
+  "",
+  "This exists because char_id is NOT a lineage key. One character has several",
+  "LoRAs trained on DIFFERENT bases for different stages: an image LoRA on",
+  "flux1-dev (lora-outputs/storyteller_chars/<id>/lora-weights-flux) and a video",
+  "LoRA on Wan2.1 (wan_chars/wan_char_<id>.safetensors, musubi-tuner). Resolving",
+  "wan_char_<id> by char id finds the FLUX leg and charges a licence that weight",
+  "never touched - a false FAIL on every VACE graph in the repo.",
+  "",
+  "Checked AFTER exact path evidence (lora-weights-<family>/ or a status file",
+  "pointing at this exact file) and BEFORE the ambiguous char-id fallback."
+ ],
+ "lora_lineage": [
+  {
+   "match": [
+    "wan_chars/*",
+    "wan_char_*",
+    "wan_props/*",
+    "wan_prop_*",
+    "wan_antireal/*"
+   ],
+   "family": "wan",
+   "source": "$ZYG_CREWS_ROOT/wan_lora/train_char.sh --task i2v-14B; setup_musubi.sh pulls Wan-AI/Wan2.1-I2V-14B-720P",
+   "verified": "2026-08-09",
+   "note": "Wan video LoRAs. lora_attest._SEED_GLOBS pins the same two folders as the identity-deciding weights."
+  },
+  {
+   "match": [
+    "qwen_edit_*",
+    "*_qwen.safetensors"
+   ],
+   "family": "qwen",
+   "source": "https://github.com/QwenLM/Qwen-Image",
+   "verified": "2026-08-09",
+   "note": "Qwen-Image-Edit adapters."
+  },
+  {
+   "match": [
+    "zygchar_*_sdxl.safetensors",
+    "*_char_sdxl.safetensors",
+    "*_sdxl.safetensors"
+   ],
+   "family": "sdxl",
+   "source": "comfy_generation_service.py:1385 stages zygchar_<cid>_<mf>.safetensors",
+   "verified": "2026-08-09",
+   "note": "SDXL identity LoRAs. Listed before the flux rule so the family suffix wins over the broad flux glob."
+  },
+  {
+   "match": [
+    "zygchar_*_flux.safetensors",
+    "flux_*",
+    "*_flux.safetensors"
+   ],
+   "family": "flux",
+   "source": "lora_trainer_service.py:39-44 (_TRAIN_MODEL_PATH prefers flux1-dev)",
+   "verified": "2026-08-09",
+   "note": "FLUX image LoRAs. Deliberately does NOT match the BARE zygchar_<id>.safetensors: arcane_restyle.py:112 stages the SDXL LoRA under that exact name while comfy_generation_service.py:1385 stages family-suffixed ones, so the bare name is a two-writer collision with no family in it. Bare names fall through to the char-id scan and are charged the worst of the character's legs - honest ambiguity beats a coin-flip in either direction."
+  },
+  {
+   "match": [
+    "zygchar_*_klein.safetensors",
+    "*_klein.safetensors",
+    "klein_chars/*",
+    "klein_char_*"
+   ],
+   "family": "klein",
+   "source": "lora_trainer_service.py _write_st_config_klein (SimpleTuner flux2 / klein-4b); comfy_generation_service._stage_character_lora stages zygchar_<cid>_klein.safetensors",
+   "verified": "2026-08-23",
+   "note": "Character LoRAs trained on the undistilled FLUX.2 klein-4B base. The first version of this rule matched zygchar_klein_* — a name nothing ever writes; the stager emits zygchar_<cid>_<family>, so a staged klein LoRA fell through to the char-id scan and was charged the worst of the character's OTHER legs (FLUX). Fixed before any klein LoRA existed."
+  }
+ ],
+ "weights": [
+  {
+   "match": [
+    "flux-2-klein-base-4b.safetensors",
+    "flux-2-klein-base-4b-fp8.safetensors",
+    "flux-2-klein-4b.safetensors",
+    "flux-2-klein-4b-fp8.safetensors"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B",
+   "verified": "2026-08-23",
+   "note": "FLUX.2 [klein] 4B, base (undistilled) and distilled. Apache-2.0 on the BFL repo itself, not merely on the Comfy-Org repackage. Names are literal: a `flux-2-klein-*` glob would also clear the 9B, which is NON-COMMERCIAL."
+  },
+  {
+   "match": [
+    "*flux-2-klein*9b*",
+    "*FLUX.2-klein*9B*",
+    "flux2_dev*",
+    "*FLUX.2-dev*"
+   ],
+   "licence": "FLUX [dev] Non-Commercial License v2.1",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "https://bfl.ai/legal/non-commercial-license-terms",
+   "verified": "2026-08-23",
+   "note": "Explicit DENY so the 9B klein and FLUX.2 dev cannot be mistaken for their Apache-2.0 4B sibling. Registered before anything downloads them: an unregistered weight is UNKNOWN, and UNKNOWN reads as 'not looked at' rather than 'refused'."
+  },
+  {
+   "match": [
+    "qwen_3_4b.safetensors",
+    "qwen_3_4b_fp4_flux2.safetensors",
+    "flux2-vae.safetensors"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/Comfy-Org/flux2-klein",
+   "verified": "2026-08-23",
+   "note": "Text encoder (Qwen3-4B, bundled with klein) and the FLUX.2 VAE, both pulled from Comfy-Org/flux2-klein which is apache-2.0. The identical VAE also sits in Comfy-Org/flux2-dev (license=other) — it is fetched from the Apache repo deliberately so provenance stays clean."
+  },
+  {
+   "match": [
+    "flux1-dev*",
+    "*FLUX.1-dev*",
+    "flux1-dev.safetensors",
+    "flux1-dev-fp8*"
+   ],
+   "licence": "FLUX.1 [dev] Non-Commercial License v2.0",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "https://bfl.ai/legal/non-commercial-license-terms",
+   "verified": "2026-08-09",
+   "note": "Non-commercial and non-production use only. Commercial activity requires a paid licence from BFL."
+  },
+  {
+   "match": [
+    "*FLUX.1-Fill-dev*",
+    "flux1-fill-dev*"
+   ],
+   "licence": "FLUX.1 [dev] Non-Commercial License v2.0",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "https://bfl.ai/legal/non-commercial-license-terms",
+   "verified": "2026-08-09",
+   "note": "Same non-commercial terms as FLUX.1-dev. Wired at flux_fill_service.py:49 (HandFixer)."
+  },
+  {
+   "match": [
+    "ip_adapter.safetensors",
+    "*XLabs-AI*flux-ip-adapter*",
+    "*flux-ip-adapter*"
+   ],
+   "licence": "FLUX.1 [dev] Non-Commercial License v2.0",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/XLabs-AI/flux-ip-adapter (cardData license_name: flux-1-dev-non-commercial-license)",
+   "verified": "2026-08-26",
+   "note": "XLabs FLUX IP-Adapter, loaded by ipadapter_service.py:33 into pipeline_video Stage 2. Weights DELETED from the HF cache 2026-08-26. Registered by EXACT FILENAME because 'ip_adapter.safetensors' carries no model identity at all — the gate read it as UNKNOWN, the same blind spot the ema_vae_fp16.safetensors rule exists to close. An unknown weight is merely unexamined; this one was examined and refused."
+  },
+  {
+   "match": [
+    "flux1-schnell*",
+    "*FLUX.1-schnell*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://bfl.ai/legal/non-commercial-license-terms",
+   "verified": "2026-08-09",
+   "note": "schnell is the one FLUX open weight licensed for commercial use. Trainer comment says it yields poor LoRAs, so it is not a drop-in training substitute."
+  },
+  {
+   "match": [
+    "Wan2_1*",
+    "Wan2_2*",
+    "wan2.1*",
+    "wan2.2*",
+    "*Wan2_1-T2V*",
+    "*Wan2_1-VACE*",
+    "*Wan2_1_VAE*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/Wan-Video/Wan2.2",
+   "verified": "2026-08-09",
+   "note": "Alibaba Tongyi ships the Wan open-weight line under Apache 2.0 with no territory clause. Wan 2.2 is the last OPEN Wan; Wan 3.0 is API-only and closed."
+  },
+  {
+   "match": [
+    "*Qwen-Image*",
+    "qwen-image*",
+    "*Qwen_Image*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/QwenLM/Qwen-Image",
+   "verified": "2026-08-09",
+   "note": "Qwen-Image and Qwen-Image-Edit are Apache 2.0, no revenue cap, no territory clause. Phase 3 migration target."
+  },
+  {
+   "match": [
+    "*SeedVR2*",
+    "seedvr2*",
+    "ema_vae_fp16.safetensors"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler/blob/main/LICENSE (node, Apache-2.0 verified on disk) + https://huggingface.co/numz/SeedVR2_comfyUI (weights)",
+   "verified": "2026-08-09",
+   "note": "ByteDance one-step video restoration, INSTALLED 2026-08-09 as models/SEEDVR2/seedvr2_ema_7b_fp16.safetensors (16.48 GB, 1128 tensors) + ema_vae_fp16.safetensors (0.50 GB, 250 tensors). The VAE is matched by EXACT FILENAME because 'ema_vae_fp16.safetensors' carries no model identity at all — the gate correctly read it as UNKNOWN until this rule was added, which is the mechanism working rather than a special case."
+  },
+  {
+   "match": [
+    "*InfiniteTalk*",
+    "infinitetalk*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/MeiGen-AI/InfiniteTalk",
+   "verified": "2026-08-09",
+   "note": "Audio-driven talking video on a Wan2.1-I2V-14B base. Phase 2 lipsync target."
+  },
+  {
+   "match": [
+    "sd_xl_base_1.0*",
+    "stable-diffusion-xl-base-1.0*",
+    "sdxl_base*"
+   ],
+   "licence": "CreativeML Open RAIL++-M",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/main/LICENSE.md",
+   "verified": "2026-08-09",
+   "note": "SDXL base 1.0. OpenRAIL++-M permits commercial use, subject to the use-based restrictions in the licence's Attachment A."
+  },
+  {
+   "match": [
+    "Juggernaut*",
+    "juggernaut*",
+    "*Juggernaut-XL*",
+    "*RunDiffusionPhoto*"
+   ],
+   "licence": "CreativeML Open RAIL-M (RunDiffusion addendum)",
+   "territory_excluded": [],
+   "source": "https://huggingface.co/RunDiffusion/Juggernaut-XL-v9",
+   "verified": "2026-08-09",
+   "note": "DELIBERATELY UNRESOLVED - 'commercial' is absent so this classifies UNKNOWN, not cleared. The model card says 'free to use for personal and creative work under CreativeML Open RAIL-M' and separately that it 'may not be deployed behind paid API services' without licensing, directing commercial enquiries to juggernaut@rundiffusion.com. It does not state whether commercially PUBLISHING OUTPUTS (a monetised video channel) counts as the commercial use requiring that licence - we deploy nothing behind an API. That is the exact question to put to RunDiffusion; do not resolve it by guessing here.",
+   "open_question": "Does monetised publication of generated output require the RunDiffusion commercial licence, given we deploy no paid API?"
+  },
+  {
+   "match": [
+    "DynaVision*",
+    "dynavision*",
+    "*DynaVisionXL*"
+   ],
+   "licence": "CreativeML Open RAIL-M + creator addendum (Civitai)",
+   "territory_excluded": [],
+   "source": "https://civitai.com/models/122606/dynavision-xl-all-in-one-stylized-3d-sfw-and-nsfw-output-no-refiner-needed",
+   "verified": "2026-08-09",
+   "note": "DELIBERATELY UNRESOLVED - 'commercial' is absent so this classifies UNKNOWN. Civitai creators set per-model permission flags (sell generated images / use on paid services / merge) ON TOP of OpenRAIL. The flags are on the model page and were not read at source, so clearance is not established. DynaVision XL is itself a merge of NightVision XL plus LoRAs, so its upstream chain needs the same treatment.",
+   "open_question": "Read the Civitai permission flags for this exact version, and the NightVision XL upstream terms."
+  },
+  {
+   "match": [
+    "umt5-xxl*",
+    "umt5_xxl*",
+    "*umt5-xxl-enc*",
+    "models_t5_umt5-xxl*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B (google/umt5-xxl, Apache-2.0)",
+   "verified": "2026-08-09",
+   "note": "Google's umT5-XXL text encoder, the text tower of the Wan line and redistributed by Wan-AI under Apache 2.0."
+  },
+  {
+   "match": [
+    "RealESRGAN*",
+    "realesrgan*",
+    "*RealESRGAN_x2*",
+    "*RealESRGAN_x4*"
+   ],
+   "licence": "BSD-3-Clause",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/xinntao/Real-ESRGAN/blob/master/LICENSE",
+   "verified": "2026-08-09",
+   "note": "Real-ESRGAN, Xintao Wang 2021. BSD-3-Clause permits commercial use. Currently the finishing upscaler; SeedVR2 (Apache-2.0) is the Phase 1 replacement."
+  },
+  {
+   "match": [
+    "*MiniMax*",
+    "*minimax-h3*",
+    "*MiniMax-H3*",
+    "*H3-Base*"
+   ],
+   "licence": "MiniMax H3 Community License Agreement",
+   "commercial": true,
+   "territory_excluded": [
+    "EU",
+    "UK",
+    "KR",
+    "US"
+   ],
+   "source": "https://huggingface.co/MiniMaxAI/MiniMax-H3/raw/main/LICENSE",
+   "verified": "2026-08-09",
+   "note": "Section V.4 forbids use of the Works OR THEIR OUTPUTS outside the Applicable Territory; I.5 excludes the EU, UK, Republic of Korea and USA. Section V.3 also forbids using outputs to improve any other model."
+  },
+  {
+   "match": [
+    "*Hunyuan*",
+    "hunyuan*",
+    "*HunyuanVideo*"
+   ],
+   "licence": "Tencent Hunyuan Community License Agreement",
+   "commercial": true,
+   "territory_excluded": [
+    "EU",
+    "UK",
+    "KR"
+   ],
+   "source": "https://github.com/Tencent-Hunyuan/HunyuanVideo/blob/main/LICENSE.txt",
+   "verified": "2026-08-09",
+   "note": "Territory is worldwide EXCLUDING the European Union, United Kingdom and South Korea, and the exclusion covers outputs. Applies to the whole Hunyuan family including HunyuanVideo-Foley."
+  },
+  {
+   "match": [
+    "*LTX-2*",
+    "ltx-2*",
+    "ltxv-*",
+    "*LTX-Video*"
+   ],
+   "licence": "LTX-2 Community License Agreement",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/Lightricks/LTX-2/blob/main/LICENSE",
+   "verified": "2026-08-09",
+   "note": "Worldwide except comprehensive-sanctions jurisdictions. Free commercial use below $10M annual revenue. CAUTION: forbids commercial entities using it to train, improve or fine-tune any other model except LTX-2 derivatives - incompatible with feeding output into LoRA training."
+  },
+  {
+   "match": [
+    "ace_step_1.5*",
+    "acestep*",
+    "ace_1.5_*"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/ACE-Step/Ace-Step1.5 (rev 19671f406d60); Comfy repack Comfy-Org/ace_step_1.5_ComfyUI_files (rev 54b2ef4d8af5, Apache-2.0)",
+   "verified": "2026-08-09",
+   "note": "Stage 5b music engine — replaced CC-BY-NC MusicGen. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "*Wan2.2-Lightning*",
+    "wan_lightning/*",
+    "Wan22_A14B_T2V_*Lightning*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/lightx2v/Wan2.2-Lightning (rev 18bccf8884ec); files via Kijai/WanVideo_comfy",
+   "verified": "2026-08-09",
+   "note": "4-step distill LoRA pair, env-gated ZYG_WAN_LIGHTNING. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "qwen_image_2512*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/Qwen/Qwen-Image-2512 (rev 25468b98e327); fp8 via Comfy-Org/Qwen-Image_ComfyUI (rev 46839d338df8)",
+   "verified": "2026-08-09",
+   "note": "FLUX.1-dev exit target — photoreal generator base. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "qwen_image_edit_2511*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/Qwen/Qwen-Image-Edit-2511 (rev 6f3ccc0b56e4); fp8mixed via Comfy-Org/Qwen-Image-Edit_ComfyUI (rev e9e85de74a8f)",
+   "verified": "2026-08-09",
+   "note": "Editor upgrade over Edit-2509; multi-image reference covers the PuLID identity role. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "*Qwen-Image-InstantX-ControlNet-Inpainting*",
+    "*Qwen*ControlNet*Inpaint*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/InstantX/Qwen-Image-ControlNet-Inpainting (rev 5387c47add7b); repack Comfy-Org/Qwen-Image-InstantX-ControlNets (rev f9a43b42da8c)",
+   "verified": "2026-08-09",
+   "note": "Replaces non-commercial FLUX.1-Fill-dev in HandFixer. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "*Qwen-Image-Edit-2511-Multiple-Angles*",
+    "*2511*[Ll]ightning*",
+    "*Qwen-Image-2512-Lightning*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/fal/Qwen-Image-Edit-2511-Multiple-Angles-LoRA (rev e3066224ab74); lightx2v 2511-Lightning (rev d74eba145674) / 2512-Lightning (rev a52649c9d0f6)",
+   "verified": "2026-08-09",
+   "note": "Helper LoRAs for the Qwen migration. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "diar_streaming_sortformer_4spk-v2*"
+   ],
+   "licence": "CC-BY-4.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2 (PINNED rev 6dbf0d69730b — earlier revisions were NC-SA)",
+   "verified": "2026-08-09",
+   "note": "Video-pipeline diarizer v2 (DER 13.24 vs v1 14.76). Local .nemo pin; v1 (CC-BY-NC) retired. Non-graph tool, recorded to close the ASR registry blind spot. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "faster-whisper-large-v2*",
+    "faster-whisper-large-v3*",
+    "*whisper-large-v3-turbo*",
+    "whisper-*"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/openai/whisper + https://github.com/SYSTRAN/faster-whisper (MIT)",
+   "verified": "2026-08-09",
+   "note": "Entire whisper/faster-whisper ASR stack. Non-graph tools, recorded to close the ASR registry blind spot."
+  },
+  {
+   "match": [
+    "pyannote*community-1*"
+   ],
+   "licence": "CC-BY-4.0 (gated)",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/pyannote/speaker-diarization-community-1",
+   "verified": "2026-08-09",
+   "note": "Transcriber (:8500) diarizer. Gated download; HF token now in ~/.config/zygomatic/hf_token.env (0600)."
+  },
+  {
+   "match": [
+    "silero_vad*",
+    "*silero*vad*"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/snakers4/silero-vad",
+   "verified": "2026-08-09",
+   "note": "VAD v6. Non-graph tool entry."
+  },
+  {
+   "match": [
+    "titanet*",
+    "*titanet_large*"
+   ],
+   "licence": "CC-BY-4.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://catalog.ngc.nvidia.com/orgs/nvidia/teams/nemo/models/titanet_large",
+   "verified": "2026-08-09",
+   "note": "Cross-chunk speaker identity in the video diarizer."
+  },
+  {
+   "match": [
+    "*auraface*",
+    "*AuraFace*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/fal/AuraFace-v1 (rev af6d057c9b0e)",
+   "verified": "2026-08-09",
+   "note": "ArcFace-class embedder with commercial weights — A/B candidate vs NC insightface antelopev2. Bundled SCRFD detector is still insightface lineage; pair with MediaPipe detection for a fully clean chain. licence text + model card pinned at ZYG_HOME/backups/stack-upgrade-2026-08-09/licence-pins."
+  },
+  {
+   "match": [
+    "*audiogen-medium*",
+    "*musicgen-small*",
+    "ag_*.mp3"
+   ],
+   "licence": "CC-BY-NC-4.0",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/facebook/audiogen-medium + facebook/musicgen-small (weights CC-BY-NC)",
+   "verified": "2026-08-09",
+   "note": "RETIRED 2026-08-09 — NC weights were generating shipped audio. Entry kept as defense-in-depth: any reappearance of these names must FAIL the gate."
+  },
+  {
+   "match": [
+    "*sam3*",
+    "*/models/sam3/weights/*"
+   ],
+   "licence": "SAM License",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/facebook/sam3 (rev 3c879f39826c; LICENSE read in full: commercial, worldwide, no outputs-train clause, no user caps; text pinned in the 2026-08-09 vault)",
+   "verified": "2026-08-09",
+   "note": "Text-prompted detect+segment+track — QC instrument (internal tool). Worker: models/sam3/sam3_worker.py via crews sam3_service.py. Custom licence: never ship weights or redistribute; outputs used only as QC measurements."
+  },
+  {
+   "match": [
+    "*sam3d_body*",
+    "*sam-3d-body*",
+    "*mhr_model.pt*"
+   ],
+   "licence": "SAM License",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/facebook/sam-3d-body-dinov3 (LICENSE in vault; SAM License family — commercial, no outputs-train clause)",
+   "verified": "2026-08-09",
+   "note": "Single-image → MHR params regressor. Internal TOOL (fitter seed / pose cross-check for anny_fit — outputs are measurements, never published assets; anny remains THE body). Worker: models/sam3/sam3d_body_worker.py in body_venv."
+  },
+  {
+   "match": [
+    "gnm_head.npz",
+    "gnm_neutral.glb",
+    "gnm_id*.glb"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "ZYG_MODELS_ROOT/gnm/LICENSE (Apache-2.0 verified in-clone 2026-08-09; upstream github.com/google/GNM)",
+   "verified": "2026-08-09",
+   "note": "Google GNM Head v3.0 - parametric scan-grade head (253 identity / 383 expression / neck+head+eye joints, 17821 verts). Installed as gnm-shape 3.0.0 editable --no-deps (leaves: etils, typeguard; tensorflow deliberately NOT installed - semantic samplers disabled by design). Built heads + manifest live in data/assets/gnm_head/; geom/gnm_head.py is the wrapper. GLBs derived from the npz are Apache-derivative in-house assets."
+  },
+  {
+   "match": [
+    "Wan2_2-Animate-14B_fp8_scaled_e4m3fn_KJ_v2.safetensors"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "sha256": "b1cd5a67e968e5bb38fcf84dab58f2fb551e0889fd463acb2a657259a70bbbf6",
+   "bytes": 17317143060,
+   "source": "https://huggingface.co/Kijai/WanVideo_comfy_fp8_scaled (card license: apache-2.0); upstream weights https://huggingface.co/Wan-AI/Wan2.2-Animate-14B (card license: apache-2.0); full licence text read at https://raw.githubusercontent.com/Wan-Video/Wan2.2/main/LICENSE.txt (11357 bytes, stock Apache 2.0)",
+   "verified": "2026-09-02",
+   "note": "Wan2.2-Animate-14B, Kijai's fp8_e4m3fn SCALED repack, v2. Grepped the licence text for EUROPEAN UNION / Territory / non-commercial / output restrictions: zero hits. The model card's own License Agreement disclaims rights over generated content. TWO things an operator should know: (a) the model card links LICENSE.txt but that file is NOT present in the HF repo (404 on /raw/main/LICENSE.txt) — the Apache text above comes from the Wan2.2 GitHub repo the card points at, which is why the source field names both; (b) the existing registry glob Wan2_2* already matches this filename, so merging this entry is a pin, not a new permission.",
+   "session": "S06",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "clip_vision_h.safetensors"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "sha256": "64a7ef761bfccbadbaa3da77366aac4185a6c58fa5de5f589b42a65bcc21f161",
+   "bytes": 1264219396,
+   "source": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged (card license: apache-2.0), split_files/clip_vision/clip_vision_h.safetensors",
+   "verified": "2026-09-02",
+   "note": "The CLIP-ViT-H image tower Wan2.2-Animate conditions its reference still with. Downloaded because the box only had Kijai's open-clip-xlm-roberta-large-vit-huge-14_visual_fp32, which is the WRAPPER format and does not load in the native CLIPVisionLoader.",
+   "session": "S06",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "umt5_xxl_fp8_e4m3fn_scaled.safetensors"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "sha256": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+   "bytes": 6735906897,
+   "source": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged (card license: apache-2.0), split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+   "verified": "2026-09-02",
+   "note": "umT5-xxl text encoder in NATIVE ComfyUI key layout. The box's existing umt5-xxl-enc-bf16.safetensors is Kijai's, whose tensors are named blocks.N.attn.* (the original Wan layout) and which therefore cannot be loaded by the native CLIPLoader — checked by reading the safetensors header, not by trying and guessing.",
+   "session": "S06",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "wan_2.1_vae.safetensors"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "sha256": "2fc39d31359a4b0a64f55876d8ff7fa8d780956ae2cb13463b0223e15148976b",
+   "bytes": 253815318,
+   "source": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged (card license: apache-2.0), split_files/vae/wan_2.1_vae.safetensors",
+   "verified": "2026-09-02",
+   "note": "Wan 2.1 VAE in the native layout, used by Wan2.2-Animate. Distinct file from the box's Wan2_1_VAE_bf16.safetensors (253806278 bytes, Kijai).",
+   "session": "S06",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "ict_light_v1.npz",
+    "*/data/assets/ict_facekit/*",
+    "generic_neutral_mesh.obj",
+    "identity0??.obj"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "ZYG_MODELS_ROOT/ICT-FaceKit/LICENSE (clone of https://github.com/ICT-VGL/ICT-FaceKit)",
+   "verified": "2026-09-02",
+   "note": "ICT FaceKit — ICT Face Model LIGHT: 26,719-vertex topology, 100 identity PCA modes, 53 ARKit-named expression morph targets. LICENSE at the clone root is plain MIT (c) 2020 USC Institute for Creative Technologies: no non-commercial clause, no territory clause, no restriction on outputs. Code and shape data are the SAME grant here because the morph targets are repo content, not a separately-licensed weight drop. Scope is deliberately the light model only. The FULL ICT model is not in this clone; README:188 states it 'will be released under a different USC specific license', so it is UNKNOWN and must be registered separately if it is ever fetched. data/assets/ict_facekit/PROVENANCE.json carries the full licence text and the file hashes.",
+   "session": "S07",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "canonical_face_model.obj"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/google-ai-edge/mediapipe/blob/master/LICENSE (file fetched from mediapipe/modules/face_geometry/data/canonical_face_model.obj)",
+   "verified": "2026-09-02",
+   "note": "MediaPipe's 468-vertex canonical face mesh, the metric reference frame the Face Landmarker's landmark indices are defined against. Used by geom/head_fit.py only to DERIVE a MediaPipe-index to iBUG-68 correspondence geometrically; no MediaPipe weight is redistributed. Same Apache-2.0 grant as the four detector .task files already registered in data/assets/detectors/PROVENANCE.json.",
+   "session": "S07",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "*/body_venv/lib/python3.11/site-packages/mhr/*",
+    "mhr==1.0.1",
+    "mhr-1.0.1*"
+   ],
+   "licence": "Apache-2.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "ZYG_MODELS_DIR/sam3/body_venv/lib/python3.11/site-packages/mhr-1.0.1.dist-info/licenses/LICENSE (full Apache-2.0 text, 202 lines, read in the installed wheel 2026-09-02; upstream github.com/facebookresearch/MHR, README line 219: 'MHR is licensed under the Apache Software License 2.0')",
+   "verified": "2026-09-02",
+   "note": "MHR (Momentum Human Rig) reference implementation — the parametric body SAM 3D Body regresses into: 45 identity, 204 model, 72 face-expression parameters, 7 LODs. The PyPI wheel is 15 KB of PURE PYTHON and ships NO assets and NO weights; the rig assets on this box are the ones inside facebook/sam-3d-body-dinov3 (sam3d_body_weights/assets/mhr_model.pt), which are already registered under the SAM License entry and are the governing grant for the geometry. Installed --no-deps into body_venv 2026-09-02 (its trimesh<5 pin would otherwise have downgraded the trimesh 5.0.0 SAM 3D Body itself uses; trimesh is only needed for the package's optional mhr↔SMPL conversion tool, which is never called here and must never be — the SMPL family is banned). NOT CURRENTLY USABLE: mhr.mhr.MHR imports pymomentum, see the rejected entry below.",
+   "session": "S08",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "*TRELLIS.2-4B*",
+    "*slat_flow_imgshape2tex_dit_1_3B*",
+    "*tex_dec_next_dc_f16c32*",
+    "*shape_enc_next_dc_f16c32*"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/microsoft/TRELLIS.2-4B (card front-matter `license: mit`) and ZYG_HOME/TRELLIS.2/LICENSE (MIT, Microsoft Corporation)",
+   "verified": "2026-09-02",
+   "note": "The TEXTURING half of TRELLIS.2 — shape encoder, texture SLat flow models (512 and 1024) and texture decoder — read at file level in the local clone and in the downloaded snapshot, not from a badge. Weights and code are both MIT. This entry covers texturing ONLY: it says nothing about running the image-to-3D half, whose extension stack is where the non-commercial rasterisers live (see the nvdiffrast deny below).",
+   "session": "S09",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "nvdiffrast",
+    "nvdiffrast.torch",
+    "*nvdiffrast*"
+   ],
+   "licence": "NVIDIA Source Code License (non-commercial)",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "https://github.com/NVlabs/nvdiffrast/blob/main/LICENSE.txt",
+   "verified": "2026-09-02",
+   "note": "Explicit DENY. It is NOT installed on this box and must not be, but trellis2/pipelines/trellis2_texturing.py imports it at module scope (line 13), so the texturing pipeline cannot be imported without something standing in its place. Measured 2026-09-02: the only three calls (:316-323) are a UV-atlas rasterise and a barycentric interpolate inside postprocess_mesh, under @torch.no_grad — no gradients, no camera. Replaced by ZYG_HOME/TRELLIS.2/ztest/nvdr_shim.py (pure torch, ours). The shim REFUSES to install if nvdiffrast is ever actually present, so it can never hide a real installation.",
+   "session": "S09",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "data/assets/mesh_packs/kenney/**",
+    "data/assets/mesh_packs/smithsonian/**",
+    "data/assets/prop_meshes/kenney_workbench/**",
+    "data/assets/prop_meshes/si_gorilla_cranium/**"
+   ],
+   "licence": "CC0-1.0",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "data/assets/mesh_packs/kenney/PROVENANCE.json (quote: 'All assets are CC0 licensed, meaning you can use them for any purpose (including commercial) without having to give credit.', https://kenney.nl/assets) and data/assets/mesh_packs/smithsonian/PROVENANCE.json (quote: 'Every 3d_voyager media block in the 3D Models result set carries \"usage\": {\"access\": \"CC0\"} — measured across all 1937 records, 3460/3460 media blocks, zero exceptions.')",
+   "verified": "2026-09-02",
+   "note": "Not a model — the SOURCE GEOMETRY of the two assets prop_mesh/sheet_register.py registered this session. Recorded here because a registered asset's renders reach the same monetised output as a model's do, and because the licence is now inherited into every record automatically rather than retyped: sheet_register.pack_licence copies the pack's own PROVENANCE text, evidence URL and quote verbatim, and REFUSES to register a GLB no pack claims.",
+   "session": "S09",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "*/Pixal3D/ckpts_hf/*",
+    "TencentARC/Pixal3D",
+    "pixal3d_mv*.glb"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "ZYG_HOME/Pixal3D/LICENSE and ZYG_HOME/Pixal3D/NOTICE (codeload tarball of TencentARC/Pixal3D@f7cf38429b0bd264f1995f0f8743a88b1c728b94, master, 2026-09-01) + https://huggingface.co/TencentARC/Pixal3D @ b0cb2e1b794cab9aa0ac38a95d794a4d9337437f",
+   "verified": "2026-09-02",
+   "note": "Pixal3D multi-view image-to-3D (TencentARC). LICENSE is plain MIT, 21 lines, no added clause. NOTICE lists exactly four third-party components: dinov2 (Apache-2.0) and TRELLIS.2 / Direct3D-S2 / MoGe (MIT), and states Pixal3D imposes no restriction beyond the originals. File-level grep over *.py/*.txt/*.md for EUROPEAN UNION|Territory|non-commercial|Hunyuan returns NOTHING. The HF repo is NOT gated. OPEN QUESTION, unresolved: the model card metadata carries extra_gated_eu_disallowed: true, which is inert while gating is off but is a statement of intent by the publisher; re-read the card before ANY re-download or update, because flipping gating on would make this an EU-territory exclusion. sha256 pins below are HuggingFace's published LFS digests for the files actually fetched (the MV geometry + texture set only; the four single-view checkpoints were not downloaded).",
+   "sha256": {
+    "ckpts/ss_flow_img_dit_1_3B_64_bf16_mv.safetensors": "e7ce63050e317cff70ed2c6dfcc549e668cd948c47347f31985fd4996b4ce5a6",
+    "ckpts/ss_dec_conv3d_16l8_fp16.safetensors": "1c76d4a40519aa2d711cc263a8404105231ac26db31d946bed48b84fee79009a",
+    "ckpts/slat_flow_img2shape_dit_1_3B_512_bf16_mv.safetensors": "043a0d7fc7ee81792fcb22f836c91f5aaf69f4fda15e25c38488db13dd7b77ec",
+    "ckpts/slat_flow_img2shape_dit_1_3B_1024_bf16_mv.safetensors": "37b75c8f0f089a7e3e825dec035ac83b9c989efd14d0c8ada6a620d2be561c71",
+    "ckpts/shape_dec_next_dc_f16c32_fp16.safetensors": "e3b718d3e43e4f8780e9a24ac6fff231811a67e3b058e336e10fe654c911d581",
+    "ckpts/slat_flow_imgshape2tex_dit_1_3B_1024_bf16_mv.safetensors": "887fed6155fea44afbdab7130858984765d04a5b809b0993db0d3f0195060d86",
+    "ckpts/tex_dec_next_dc_f16c32_fp16.safetensors": "97ea69addea2ecd9312910f5f548234665eef51c088386180b7cd5b258645e3c"
+   },
+   "session": "S10",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "*/Pixal3D/models/dinov3-vitl16-pretrain-lvd1689m/*",
+    "camenduru/dinov3-vitl16-pretrain-lvd1689m",
+    "facebook/dinov3-vitl16-pretrain-lvd1689m"
+   ],
+   "licence": "DINOv3 License (Meta)",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/camenduru/dinov3-vitl16-pretrain-lvd1689m/raw/main/LICENSE.md (7503 bytes, read in full) and https://ai.meta.com/resources/models-and-libraries/dinov3-license",
+   "verified": "2026-09-02",
+   "note": "The image conditioner Pixal3D actually loads. Read at file level: section 1(a) grants a worldwide, royalty-free licence to use, reproduce, distribute, copy, create derivative works of and modify the materials. The string 'commercial' appears NOWHERE in the licence, so there is no non-commercial clause; the only mention of the European Union is inside the definition of Sanctions, which is a trade-controls clause, not a territory exclusion. No restriction on outputs. Redistribution must carry the agreement, which does not bind us: the operator never distributes tools. OPEN QUESTION, unresolved: the canonical repo facebook/dinov3-vitl16-pretrain-lvd1689m is gated:manual and our token is refused (HTTP 401), so the weights actually on disk came from camenduru/..., a third-party mirror whose own card metadata still carries Meta's gating form. The licence text is the same; the ACCEPTANCE is not. Before production use the operator should request access on the facebook/ repo and re-fetch from it. sha256 of the fetched weight file, HuggingFace's published LFS digest: dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179 (model.safetensors, 1212559808 bytes), repo commit 3c276edd87d6f6e569ff0c4400e086807d0f3881.",
+   "session": "S10",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "*/UniRig/*",
+    "VAST-AI/UniRig",
+    "*_rigged.glb"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "ZYG_HOME/UniRig/LICENSE (codeload tarball of VAST-AI-Research/UniRig@6793c6640ff01c8fb389f3993434124bb43d2933, main) + https://huggingface.co/VAST-AI/UniRig (cardData license: mit, not gated)",
+   "verified": "2026-09-02",
+   "note": "Auto-rigging: skeleton + skinning transformers. Code MIT at the clone root; weights MIT on the HF card. File-level grep over *.py/*.txt/*.md/*.yaml/*.toml for EUROPEAN UNION|Territory|non-commercial|nvdiffrast|diff-gaussian|diffoctreerast|non_commercial|SMPL returns NOTHING, so it is clear of both the banned-rasteriser list and the SMPL family. requirements.txt pins bpy==4.2, hence a separate Python 3.11 venv. Its runtime dependency 'flash_attn' cannot be built on this box (no CUDA toolkit / nvcc); see the receipt for what that cost.",
+   "session": "S10",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "hidream_o1_image*"
+   ],
+   "licence": "MIT",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/HiDream-ai/HiDream-O1-Image-Dev-2604 (README §License: 'The code in this repository and the HiDream-O1-Image-Dev-2604 models are licensed under MIT License'); ComfyUI repack https://huggingface.co/Comfy-Org/HiDream-O1-Image tagged license:mit",
+   "verified": "2026-10-02",
+   "note": "HiDream-O1-Image-Dev: 8B pixel-native unified transformer, one checkpoint = model + text embedding + decoder. No LICENSE file in the repo; the README statement and HF tag are the evidence. Children's Music picture leg default since 2026-10-02."
+  },
+  {
+   "match": [
+    "ltx-2.5-*",
+    "ltx25/*",
+    "gemma4-12b-with-proj-ltx-2.5*"
+   ],
+   "licence": "LTX-2.x Community License Agreement (2026-08-11)",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://github.com/Lightricks/LTX-2/blob/main/LICENSE-2_x — §2.1 'non-exclusive, worldwide, non-transferable and royalty-free limited license ... for any purpose'; paid Commercial Use Agreement only for Entities with annual revenues ≥ $10,000,000; §5 'Licensor claims no rights in the Output you generate'",
+   "verified": "2026-10-02",
+   "note": "LTX-2.5 22B distilled/dev transformers, VAEs, upscalers, IC-LoRA/LoRA adapters under loras/ltx25/, and the LTX-specific Gemma 4 12B text encoder. §3.5: a LoRA trained on it may not be transferred to a ≥$10M entity; nothing is distributed here. §6: Lightricks reserves a remote-restriction right for violations."
+  },
+  {
+   "match": [
+    "gemma4_e2b_it*",
+    "gemma4_e4b_it*",
+    "gemma4_12b*"
+   ],
+   "licence": "Gemma Terms of Use",
+   "commercial": true,
+   "territory_excluded": [],
+   "source": "https://ai.google.dev/gemma/terms — commercial use permitted subject to the Gemma Prohibited Use Policy; repack https://huggingface.co/Comfy-Org/gemma-4",
+   "verified": "2026-10-02",
+   "note": "Optional prompt-enhancer text encoders for the LTX-2.5 and HiDream templates. Not used by the kids graphs (prompt_enhance is off); listed so an enhancer run never reads UNKNOWN."
+  }
+ ],
+ "_rejected_README": [
+  "Components EVALUATED and REJECTED on licence grounds, with the sentence that",
+  "disqualified each one. Recorded so a rejection is not re-litigated in six",
+  "months by someone who only remembers that 'we looked at SVC once'.",
+  "This section is documentation: attest_licences() does not read it."
+ ],
+ "rejected": [
+  {
+   "name": "Applio / RVC",
+   "evaluated_for": "singing-voice conversion — make one of the 294 bank voices sing",
+   "verdict": "REJECTED",
+   "reason": "The MIT repo ships ZERO weights. It FETCHES checkpoints at runtime that are sha256-identical to a project whose own licence reads 'research use only' and which explicitly binds anyone who disseminates exported voices. An MIT wrapper around non-commercial weights is non-commercial.",
+   "verified": "2026-08-29"
+  },
+  {
+   "name": "DiffSinger / DDSP-SVC / so-vits-svc",
+   "evaluated_for": "singing-voice conversion",
+   "verdict": "REJECTED",
+   "reason": "All three default to the openvpi NSF-HiFiGAN vocoder, whose checkpoints are CC BY-NC-SA. The vocoder is literally what emits the published samples, so the NC term attaches to the output, not to a build-time tool.",
+   "verified": "2026-08-29"
+  },
+  {
+   "name": "YingMusic-SVC",
+   "evaluated_for": "singing-voice conversion",
+   "verdict": "REJECTED",
+   "reason": "MIT code over cc-by-nc-4.0 weights. Same shape as Applio.",
+   "verified": "2026-08-29"
+  },
+  {
+   "name": "Open singing corpora (Opencpop, M4Singer, GTSinger, OpenSinger, Kiritan)",
+   "evaluated_for": "training a clean SVC model from scratch",
+   "verdict": "REJECTED — structural",
+   "reason": "EVERY open singing corpus is non-commercial. This is not a shopping problem and will not be solved by looking harder. Building a corpus from IndexTTS-2 output is also closed: its licence section 3.4(c) bars using outputs to improve a commercial AI model.",
+   "verified": "2026-08-29"
+  },
+  {
+   "name": "ACE-Step 1.5 ReferenceTimbreAudio",
+   "evaluated_for": "using a bank voice as the singer via the reference input",
+   "verdict": "REJECTED — not a voice picker",
+   "reason": "Verified by executing the real code: supplying a reference sets is_covers=True, drops the audio codes and makes the reference the SOURCE LATENT. It is a cover path. A 10 s donor on a 60 s song is silence-padded bit-exactly for 83% of the track, and in a live A/B a 98 Hz male donor produced the HIGHEST output pitch of any condition (309 Hz). Not a licence rejection — a capability one.",
+   "verified": "2026-08-29"
+  },
+  {
+   "name": "DWPose (the ComfyUI Wan-Animate tutorial's own preprocessor)",
+   "evaluated_for": "per-frame 2D skeleton for the Wan2.2-Animate pose_video input",
+   "verdict": "REJECTED",
+   "reason": "Already on this house's banned list and the ban holds on inspection: DWPose distills from a COCO-WholeBody-trained teacher and its released weights inherit the dataset's non-commercial terms. The official ComfyUI tutorial wires it by default, which is exactly why S06 draws the skeleton with MediaPipe through geom/keypoints.detect instead — same OpenPose colour and bone convention as geom/char_vace, no DWPose node anywhere in _comfy_workflows/wan22_animate.json.",
+   "verified": "2026-09-02",
+   "session": "S06",
+   "merged": "2026-09-03"
+  },
+  {
+   "name": "FLUX.1-Kontext-dev (the Wan-Animate --use_flux retarget)",
+   "evaluated_for": "retargeting the driver's proportions onto the reference character",
+   "verdict": "REJECTED",
+   "reason": "Non-commercial FLUX.1 [dev] licence family, and the whole FLUX.1-dev family was deleted from this box in the 2026-08-25 disk audit. Not wired. When proportions need retargeting the reference is to be rendered from the character's own registered body (S05 geom/body_plates.py) instead.",
+   "verified": "2026-09-02",
+   "session": "S06",
+   "merged": "2026-09-03"
+  },
+  {
+   "name": "Wan2_2-Animate-14B_fp8_e4m3fn_scaled_KJ.safetensors (the INITIAL upload)",
+   "evaluated_for": "the weights S06's brief names by exact filename",
+   "verdict": "NOT DOWNLOADED - superseded",
+   "reason": "Licence is identical (same repo, Apache-2.0); the objection is technical and comes from the vendor. Kijai's own Wan22Animate/README.md says the initial uploads keep the face-encoder layers in bf16, and that in NATIVE ComfyUI those layers 'get downscaled to normal fp8, which seems to introduce pretty bad noise in a grid pattern', which the _v2 files fix. S06's graph is the native one, so the initial file is the wrong file for it. The v2 of the SAME precision (e4m3fn) was taken instead; the one-precision-only rule is kept.",
+   "verified": "2026-09-02",
+   "session": "S06",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "FLAME*",
+    "flame2020*",
+    "MICA*",
+    "EMOCA*",
+    "SMIRK*",
+    "*BFM*",
+    "01_MorphableModel*"
+   ],
+   "licence": "non-commercial research licence (per-vendor)",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "S07 brief 'Do not' list, 2026-09-02",
+   "verified": "2026-09-02",
+   "note": "Registered as an explicit DENY before anything can download them. FLAME 2020, MICA, EMOCA, SMIRK and the Basel Face Model are the obvious reference heads for a landmark fitter and every one of them is research/non-commercial. NOT fetched by S07, not even as a reference. GNM Head (Apache-2.0) and ICT FaceKit Light (MIT) are the two heads this stack is allowed to use.",
+   "name": "FLAME*, flame2020*, MICA*, EMOCA*, SMIRK*, *BFM*, 01_MorphableModel*",
+   "evaluated_for": "Registered as an explicit DENY before anything can download them. FLAME 2020, MICA, EMOCA, SMIRK and the Basel Face Model are the obvious reference heads for a ",
+   "verdict": "REJECTED — non-commercial research licence (per-vendor)",
+   "reason": "Registered as an explicit DENY before anything can download them. FLAME 2020, MICA, EMOCA, SMIRK and the Basel Face Model are the obvious reference heads for a landmark fitter and every one of them is research/non-commercial. NOT fetched by S07, not even as a reference. GNM Head (Apache-2.0) and ICT FaceKit Light (MIT) are the two heads this stack is allowed to use.",
+   "session": "S07",
+   "merged": "2026-09-03"
+  },
+  {
+   "name": "pymomentum (PyPI)",
+   "evaluated_for": "decoding MHR parameters back to a posed mesh, so a pose track can re-synthesise every frame under one locked identity",
+   "verdict": "REJECTED — WRONG PACKAGE, NAME COLLISION",
+   "reason": "Meta's pymomentum (facebookresearch/momentum, the solver mhr.mhr.MHR imports) is distributed through conda/pixi and has no PyPI release under that name. The PyPI project literally named `pymomentum` is pyMomentum 0.1.4 by Momentum Teknoloji AS — an SMS-gateway client library (MIT, modules pyMomentum.sms.providers.mutlucell / sanalsantral), unrelated in every way. Downloaded the sdist and read PKG-INFO before installing anything: `pip install pymomentum` in the body venv would have silently added a third-party SMS package to the environment that decodes human body geometry. Not installed. `pymomentum-gpu`, which the plan named, does not exist on PyPI at all (pip index: 'No matching distribution found').",
+   "consequence": "geom.pose_track cannot re-pose the rig, so its shape lock is RECORDED and measured, never applied — track.json carries shape_lock_applied=false and the reason. Downstream geometry (geom.track_plates) rasterises the estimator's own per-frame pred_vertices instead, which needs no decoder.",
+   "reopen_if": "Meta publishes pymomentum to PyPI under a name whose LICENSE and repository can be read at file level, or the box grows a conda/pixi environment that can host it beside torch 2.13 cu126.",
+   "verified": "2026-09-02",
+   "session": "S08",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "*/sam-3d-objects/*",
+    "facebook/sam-3d-objects"
+   ],
+   "licence": "SAM License (root) — BLOCKED by two vendored non-commercial source files",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "ZYG_HOME/sam-3d-objects/LICENSE and the file headers named below (codeload tarball of facebookresearch/sam-3d-objects@f91db411c50efee93d8db7aeb323885650f6f722, main)",
+   "verified": "2026-09-02",
+   "note": "The ROOT licence is fine and is the same SAM License already accepted for SAM 3 and SAM 3D Body (contracting entity Meta Platforms Ireland for EEA users; grant is non-exclusive, worldwide, royalty-free; no non-commercial clause; the only European Union mention is the Sanctions definition). The block is at FILE level, which is why the check is done at file level. TWO vendored source files carry the Inria GRAPHDECO 3D Gaussian Splatting header, verbatim: 'This software is free for non-commercial, research and evaluation use under the terms of the LICENSE.md file' — sam3d_objects/model/backbone/tdfy_dit/representations/gaussian/general_utils.py and sam3d_objects/model/backbone/tdfy_dit/renderers/gaussian_render.py. They are NOT optional: renderers/__init__.py imports GaussianRenderer unconditionally, representations/__init__.py imports Gaussian unconditionally, and GaussianRenderer is CALLED in utils/postprocessing_utils.py:711 (the to_glb texture bake) and pipeline/layout_post_optimization_utils.py:620. So the mesh export path runs non-commercially licensed code on a monetised channel. Two related checks came back CLEAN and are recorded so they are not re-litigated: (1) the vendored FlexiCubes (representations/mesh/flexicubes/flexicubes.py) is the 2025 NVIDIA Apache-2.0 relicense and imports kaolin.utils.testing, NOT kaolin/non_commercial/ — grep for non_commercial finds no import anywhere in the tree; (2) the banned rasterisers are avoidable — diff_gaussian_rasterization and diffoctreerast are both behind try/except and the default gsplat backend (Apache-2.0) is what requirements.inference.txt pins, while nvdiffrast is only the DEFAULT rendering_engine and notebook/inference.py:88 already overrides it to pytorch3d. NOT INSTALLED, NOT RUN, NO WEIGHTS DOWNLOADED. Unblocking is the operator's call and would mean either an Inria commercial licence or replacing those two files.",
+   "name": "*/sam-3d-objects/*, facebook/sam-3d-objects",
+   "evaluated_for": "The ROOT licence is fine and is the same SAM License already accepted for SAM 3 and SAM 3D Body (contracting entity Meta Platforms Ireland for EEA users; grant ",
+   "verdict": "REJECTED — SAM License (root) — BLOCKED by two vendored non-commercial source files",
+   "reason": "The ROOT licence is fine and is the same SAM License already accepted for SAM 3 and SAM 3D Body (contracting entity Meta Platforms Ireland for EEA users; grant is non-exclusive, worldwide, royalty-free; no non-commercial clause; the only European Union mention is the Sanctions definition). The block is at FILE level, which is why the check is done at file level. TWO vendored source files carry the Inria GRAPHDECO 3D Gaussian Splatting header, verbatim: 'This software is free for non-commercial, research and evaluation use under the terms of the LICENSE.md file' — sam3d_objects/model/backbone/tdfy_dit/representations/gaussian/general_utils.py and sam3d_objects/model/backbone/tdfy_dit/renderers/gaussian_render.py. They are NOT optional: renderers/__init__.py imports GaussianRenderer unconditionally, representations/__init__.py imports Gaussian unconditionally, and GaussianRenderer is CALLED in utils/postprocessing_utils.py:711 (the to_glb texture bake) and pipeline/layout_post_optimization_utils.py:620. So the mesh export path runs non-commercially licensed code on a monetised channel. Two related checks came back CLEAN and are recorded so they are not re-litigated: (1) the vendored FlexiCubes (representations/mesh/flexicubes/flexicubes.py) is the 2025 NVIDIA Apache-2.0 relicense and imports kaolin.utils.testing, NOT kaolin/non_commercial/ — grep for non_commercial finds no import anywhere in the tree; (2) the banned rasterisers are avoidable — diff_gaussian_rasterization and diffoctreerast are both behind try/except and the default gsplat backend (Apache-2.0) is what requirements.inference.txt pins, while nvdiffrast is only the DEFAULT rendering_engine and notebook/inference.py:88 already overrides it to pytorch3d. NOT INSTALLED, NOT RUN, NO WEIGHTS DOWNLOADED. Unblocking is the operator's call and would mean either an Inria commercial licence or replacing those two files.",
+   "session": "S10",
+   "merged": "2026-09-03"
+  },
+  {
+   "match": [
+    "briaai/RMBG-2.0"
+   ],
+   "licence": "bria-rmbg-2.0 (CC BY-NC 4.0)",
+   "commercial": false,
+   "territory_excluded": [],
+   "source": "https://huggingface.co/api/models/briaai/RMBG-2.0 cardData: license_name bria-rmbg-2.0, license_link https://creativecommons.org/licenses/by-nc/4.0/deed.en, extra_gated_description 'open source for non commercial use only'",
+   "verified": "2026-09-02",
+   "note": "This is the rembg_model named in Pixal3D's shipped pipeline.json / pipeline_mv.json, and pixal3d/pipelines/pixal3d_image_to_3d.py:123 instantiates it UNCONDITIONALLY at from_pretrained time — so running Pixal3D as shipped downloads and loads a non-commercial matting model even when every input already carries alpha. S10 therefore runs with a local pipeline_mv_norembg.json that drops the rembg_model key, and patched that line to tolerate its absence. Alpha is supplied instead by crews/bg_remove_service.py (u2net via rembg, MIT weights). Anyone else standing up Pixal3D on this box must do the same.",
+   "name": "briaai/RMBG-2.0",
+   "evaluated_for": "This is the rembg_model named in Pixal3D's shipped pipeline.json / pipeline_mv.json, and pixal3d/pipelines/pixal3d_image_to_3d.py:123 instantiates it UNCONDITIO",
+   "verdict": "REJECTED — bria-rmbg-2.0 (CC BY-NC 4.0)",
+   "reason": "This is the rembg_model named in Pixal3D's shipped pipeline.json / pipeline_mv.json, and pixal3d/pipelines/pixal3d_image_to_3d.py:123 instantiates it UNCONDITIONALLY at from_pretrained time — so running Pixal3D as shipped downloads and loads a non-commercial matting model even when every input already carries alpha. S10 therefore runs with a local pipeline_mv_norembg.json that drops the rembg_model key, and patched that line to tolerate its absence. Alpha is supplied instead by crews/bg_remove_service.py (u2net via rembg, MIT weights). Anyone else standing up Pixal3D on this box must do the same.",
+   "session": "S10",
+   "merged": "2026-09-03"
+  }
+ ]
+}

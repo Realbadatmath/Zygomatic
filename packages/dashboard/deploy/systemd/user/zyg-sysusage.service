@@ -1,0 +1,23 @@
+[Unit]
+Description=Zygomatic — minute-resolution machine utilisation log (sysusage_sampler)
+After=default.target
+
+# Why (2026-09-18): Metrics > Analytics reports system utilisation per day / week /
+# month and projects it for the approval queue. The GUI's own sampler only logged to
+# disk while a pipeline ran, so idle time was never measured. One JSON line per
+# minute (~150 KB/day) into $ZYG_DATA_ROOT/runtime/system_usage.jsonl.
+
+[Service]
+Type=simple
+WorkingDirectory=%h/repos/zygomatic-dashboard
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_dashboard.sysusage_sampler
+Restart=always
+RestartSec=10
+Nice=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=zyg-sysusage
+
+[Install]
+WantedBy=default.target

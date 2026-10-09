@@ -1,0 +1,113 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  gate:
+    # The same steps as scripts/scan.sh: every package's own gate, then the whole-repository checks.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: install the workspace (CPU deps + dev tools)
+        run: uv sync --no-progress
+      - name: ffmpeg (test collection imports modules that resolve it)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: install gitleaks
+        # The binary, not gitleaks-action: the action scans `<first pushed commit>^..HEAD`, which
+        # has no parent on a fresh repository and aborts. The full history is scanned below.
+        run: |
+          set -e
+          curl -sSL -o /tmp/gitleaks.tgz https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz
+          tar -xzf /tmp/gitleaks.tgz -C /tmp gitleaks
+          sudo install -m 0755 /tmp/gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+      - name: gitleaks (full history, root allowlist)
+        run: gitleaks detect --source . --exit-code 1 --no-banner --redact
+      - name: package gates (ruff, bandit, gitleaks, reuse, import-linter, compileall, test collection, address and path greps)
+        run: |
+          set -e
+          for p in workflows dashboard zero-public creator-nexus; do
+            echo "== packages/$p"
+            ( cd packages/$p && uv run --no-sync bash scripts/scan.sh )
+          done
+      - name: ratchet baseline direction (a counter may not be re-recorded upwards)
+        # Diffs scripts/ratchet_baseline.json against origin/main's, so that ref has to exist:
+        # checkout's fetch-depth: 0 above brings it, and the fetch below covers a shallow runner.
+        run: |
+          set -e
+          git fetch --no-tags --depth=1 origin main:refs/remotes/origin/main 2>/dev/null || true
+          uv run --no-sync python scripts/ratchet.py direction
+      - name: cross-package import contract
+        run: uv run --no-sync lint-imports --config .importlinter
+      - name: reuse (root)
+        run: uv run --no-sync reuse lint
+      - name: workspace sources and stray CI
+        run: |
+          ! grep -nE 'path = "\.\./' packages/*/pyproject.toml
+          ! ls -d packages/*/.github 2>/dev/null | grep .
+      - name: dependency audit
+        run: uv run --no-sync pip-audit --strict --desc off -r packages/workflows/requirements-lock.txt --no-deps
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        # package and module are paired, so they are listed as explicit combinations:
+        # two separate lists would be a 4x4 cross product.
+        include:
+          - package: workflows
+            module: zyg_workflows
+          - package: dashboard
+            module: zyg_dashboard
+          - package: zero-public
+            module: zyg_zero
+          - package: creator-nexus
+            module: zyg_nexus
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --no-progress
+      - name: ffmpeg (the audio and video tests shell out to it)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: tests (CPU, no local services) with coverage
+        working-directory: packages/${{ matrix.package }}
+        # rc 5 is "no tests collected for this marker expression", not a failure.
+        run: >-
+          uv run --no-sync pytest -q -m "not gpu and not service"
+          --cov=${{ matrix.module }} --cov-report=xml:coverage.xml || test $? -eq 5
+      - name: coverage ratchet (line rate may not fall below the recorded baseline)
+        working-directory: packages/${{ matrix.package }}
+        run: uv run --no-sync python ../../scripts/ratchet.py coverage coverage.xml --package ${{ matrix.package }}
+  types:
+    # pyright error counts per package are ratcheted in scripts/ratchet_baseline.json.
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --no-progress
+      - name: type ratchet (pyright)
+        run: uv run --no-sync python scripts/ratchet.py check --with-pyright
+        env:
+          ZYG_PYRIGHT_DUMP: pyright.json
+          NODE_OPTIONS: --max-old-space-size=8192  # pyright is a node program; give it room on the runner
+      - name: keep the pyright diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pyright-diagnostics
+          path: pyright.json
+          if-no-files-found: ignore

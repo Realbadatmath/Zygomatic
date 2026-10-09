@@ -1,0 +1,5 @@
+{"section_key": "elements", "section_label": "Building elements",
+ "groups": [{"g": "Polygon footprints",
+             "items": [["slab_poly", "Polygon slab",
+                        {"pts": [[-3, -2], [3, -2], [3, 2], [-3, 2]], "t": 0.22, "holes": []},
+                        "A floor plate of any shape: pts are [x, z] metres around the object's origin, t is the thickness, holes are polygons cut out of it (an atrium, a stair void). The default is a 6 x 4 m rectangle."]]}]}

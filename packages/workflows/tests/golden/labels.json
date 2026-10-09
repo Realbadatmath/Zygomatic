@@ -1,0 +1,128 @@
+{
+  "_README": [
+    "Hand-labelled ground truth. Each case is a defect this pipeline ACTUALLY shipped,",
+    "with the measured numbers that proved it, taken from the run record.",
+    "",
+    "This file is how your eyes get deposited into the system permanently. Every time",
+    "you spot something on screen that the gates missed, add a case here. From then on",
+    "it is checked in milliseconds, on every gate change, forever — instead of being",
+    "re-discovered by you on the next render.",
+    "",
+    "expect.blocked      — must the ladder STOP this run?",
+    "expect.gates        — gate names that must appear in blocking_failures",
+    "expect.not_blocked_by — gates that must NOT block it (false-positive guards)",
+    "",
+    "Run:  python3 -m pytest tests/ -q"
+  ],
+
+  "cases": [
+    {
+      "id": "v8a-pasteback-freezes-abel",
+      "report": "output/multichar_seated/scene20_v8/debug/report.json",
+      "expect": {
+        "blocked": true,
+        "gates": ["region_flow:abel_hand"]
+      },
+      "defect_class": "frozen-motion",
+      "provenance": [
+        "The paste-back post-process was erasing the animation the model had",
+        "produced correctly all along. Decisive A/B on the SAME clip, before vs",
+        "after paste_back_keep_regions: a_hand 0.254 -> 0.080 (-68%).",
+        "The pinned book box contained Abel's writing hand, so restoring anchor",
+        "pixels over the keep region pasted a static hand over every frame.",
+        "RULE: a keep-region pins a WORLD-STATIC SURFACE, so anything that moves",
+        "across it must be subtracted per frame.",
+        "This is the single most valuable case in the corpus: it is the defect the",
+        "self-improvement loop independently re-derived from measurements alone."
+      ]
+    },
+    {
+      "id": "v19-frozen-hand",
+      "report": "output/multichar_seated/scene20_v19/debug/report.json",
+      "expect": {
+        "blocked": true,
+        "gates": ["region_flow:a_hand"]
+      },
+      "defect_class": "frozen-motion",
+      "margin": "THIN — flow 0.201 vs adaptive floor 0.209 (4%). Kept as a true positive by the gate's own calibration, but flagged: a 4% margin is close to where the churn half was rejected. If this case starts flapping, the floor needs a control arm, not a nudge.",
+      "provenance": ["Early 4-region probe-era run."]
+    },
+
+    {
+      "id": "v28-best-render-must-ship",
+      "report": "output/multichar_seated/scene20_v28/debug/report.json",
+      "expect": {
+        "blocked": false,
+        "not_blocked_by": ["prop_ncc", "region_flow:keep", "region_churn"]
+      },
+      "provenance": [
+        "BEST run on disk: output/multichar_seated/scene20_v28/FINAL_scene20_v28.mp4.",
+        "It finishes with 46 failed checks and 10 defect tags. If arming the ladder",
+        "blocks THIS, the ladder is wrong, not the render.",
+        "Specifically it must not block on prop_ncc: props decay with elapsed",
+        "generated time (wall-stable ~5s, 4-6x worse by ~s12), so the final seam of",
+        "every 20s clip fails a fixed 0.70 floor. That is the model, not a defect."
+      ]
+    },
+    {
+      "id": "v22-known-good-not-blocked-by-churn",
+      "report": "output/multichar_seated/scene20_v22/debug/report.json",
+      "expect": {
+        "blocked": false,
+        "not_blocked_by": ["region_churn", "prop_ncc"]
+      },
+      "provenance": [
+        "Known-good: passes the eye-aperture replay that correctly fails v15/v17/v20.",
+        "Its boy_hands churn_p95 is 0.684 against a 0.55 floor while flow_mean is",
+        "1.184 — moving fine, edges busy. Blocking on that would have stopped a",
+        "good render, which is why the churn half sits at warn."
+      ]
+    },
+    {
+      "id": "v29-churn-noise-margin",
+      "report": "output/multichar_seated/scene20_v29/debug/report.json",
+      "expect": {
+        "blocked": false,
+        "not_blocked_by": ["region_churn"]
+      },
+      "provenance": [
+        "pipe churn_p95 0.553 vs a 0.55 floor — a 0.5% margin, i.e. noise.",
+        "A gate cannot hold authority at its own noise floor. This case exists to",
+        "make any future promotion of region_churn fail loudly."
+      ]
+    },
+    {
+      "id": "v27-known-good-not-blocked",
+      "report": "output/multichar_seated/scene20_v27/debug/report.json",
+      "expect": { "blocked": false }
+    },
+    {
+      "id": "v30-known-good-not-blocked",
+      "report": "output/multichar_seated/scene20_v30/debug/report.json",
+      "expect": { "blocked": false }
+    },
+    {
+      "id": "v20-plate-off-not-blocked-by-churn",
+      "report": "output/multichar_seated/scene20_v20/debug/report.json",
+      "expect": {
+        "blocked": false,
+        "not_blocked_by": ["region_churn"]
+      },
+      "provenance": [
+        "man_head churn 0.636. v20 has a REAL defect — Cornelis 29% eyes closed,",
+        "the pipe plate was off — but region_churn is not the gate that sees it.",
+        "eye_openness is. This case guards against the wrong gate taking credit."
+      ]
+    }
+  ],
+
+  "known_uncovered": {
+    "_note": "Defect classes NO gate in the registry detects. These are the rows where your eyes are still the only instrument. Shrinking this list is the roadmap.",
+    "classes": ["texture-collapse", "style-collapse", "audio-loss"],
+    "why_they_matter": {
+      "texture-collapse": "waxy skin cost ~4.5h of GPU and a full LoRA trained on 48 anime images before a 12-render A/B found the real lever. cheek-band Laplacian exists in the contact-sheet path but is not wired into video QC.",
+      "style-collapse": "the 2026-07-15 anime-collapse incident: 30/49 faces undetectable. A style gate exists for contact sheets (ZYG_ANCHOR_STYLE_GATE); video has none.",
+      "audio-loss": "narration/bed gates exist as CLAP checks in the audio path but emit no pipeline_debug checks, so they are invisible to this ladder."
+    }
+  }
+}

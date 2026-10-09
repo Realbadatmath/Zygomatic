@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# gitleaks configuration for zygomatic-workflows.
+# The default rule set is kept in full; only the three verified false positives
+# below are allowlisted, each by its exact literal.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = 'verified false positives in zyg_workflows'
+regexes = [
+  # subscription_llm.py: MODEL_SMALL_API is a Claude model name, not a key.
+  '''^claude-haiku-4-5-20251001$''',
+  # blender_character_service.py: trigger-token example inside a comment.
+  '''^ZYG_CHAR_abc123$''',
+  # movement_studio.py: 'lora2_strength' is a UI parameter name, not a secret.
+  '''^lora2_strength$''',
+]
+paths = [
+  # Compiled bytecode mirrors the sources that were already scanned.
+  '''(^|/)__pycache__/''',
+]

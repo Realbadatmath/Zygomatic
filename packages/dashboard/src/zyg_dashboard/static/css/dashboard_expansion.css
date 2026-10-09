@@ -1,0 +1,94 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Zygomatic
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+/* Metrics > Expansion v1 (2026-10-04) — the census of the program's own structural
+   files. Ground, ink and the --mh-* tokens come from dashboard_metrics.css; kind colours
+   are set in dashboard_expansion.js (fixed slot order, always with a label). The
+   dashboard applies html{zoom:.67}, so sizes here are layout px. */
+
+.exp { display: flex; flex-direction: column; gap: 14px; }
+.exp code { font-size: 0.92em; background: var(--mh-wash); padding: 1px 5px; border-radius: 4px; }
+.exp-muted { color: var(--mh-muted); font-style: normal; }
+.exp-muted-row td { color: var(--mh-muted); }
+.exp-missing td { color: var(--mh-muted); }
+.exp-nowrap { white-space: nowrap; }
+.exp-empty { color: var(--mh-muted); font-size: 0.9em; margin: 4px 0 0; text-align: left; }
+.exp-note { font-size: 0.84em; color: var(--mh-muted); margin: 6px 0 8px; line-height: 1.45; }
+.exp-h5 { margin: 14px 0 6px; font-size: 0.98em; font-weight: 650; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.exp-root { font-size: 0.8em; color: var(--mh-muted); background: transparent; padding: 0; }
+.exp-foot-h { margin: 10px 0 4px; font-size: 0.9em; font-weight: 650; color: var(--mh-ink-2); }
+
+.exp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+
+/* ── kind strips ──────────────────────────────────────────────────────────── */
+.exp-strips { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.exp-strip { background: var(--mh-surface); border: 1px solid var(--mh-hair); border-radius: 10px; padding: 10px 12px; }
+.exp-strip h5 { margin: 0 0 8px; font-size: 0.92em; font-weight: 650; color: var(--mh-ink-2); }
+.exp-stack { display: flex; gap: 2px; height: 18px; border-radius: 5px; overflow: hidden; background: var(--mh-wash); }
+.exp-stack span { display: block; min-width: 2px; height: 100%; transition: filter .12s; }
+.exp-stack span:hover { filter: brightness(1.12); }
+.exp-legend { display: flex; gap: 8px 18px; flex-wrap: wrap; font-size: 0.86em; color: var(--mh-ink-2); margin: 0 0 10px; }
+.exp-legend i, .exp-kind i, .exp-chip i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.exp-legend em { font-style: normal; color: var(--mh-muted); }
+.exp-kind { display: inline-flex; align-items: center; white-space: nowrap; font-size: 0.92em; }
+
+/* ── tables ───────────────────────────────────────────────────────────────── */
+.exp-tablewrap { overflow-x: auto; }
+.exp-scroll { max-height: 520px; overflow-y: auto; border: 1px solid var(--mh-hair); border-radius: 8px; }
+.exp-files { max-height: 720px; }
+.exp-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+.exp-table th, .exp-table td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--mh-hair); vertical-align: top; }
+.exp-table th { font-weight: 600; color: var(--mh-ink-2); background: var(--mh-wash); position: sticky; top: 0; z-index: 1; white-space: nowrap; }
+.exp-table tbody tr:hover td { background: #faf9f6; }
+.exp-table td.num, .exp-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.exp-table th.exp-sortable { cursor: pointer; user-select: none; }
+.exp-table th.exp-sortable:hover, .exp-table th.exp-sortable:focus-visible { color: var(--mh-ink); text-decoration: underline; outline: none; }
+.exp-table th.exp-sortable.on { color: #184f95; }
+.exp-dir { margin-left: 4px; font-size: 0.8em; }
+.exp-path { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; max-width: 46em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.exp-depth-2 td:first-child { padding-left: 26px; }
+.exp-depth-2 td:first-child code { background: transparent; }
+.exp-unit { display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82em; background: var(--mh-wash); border-radius: 4px; padding: 1px 6px; margin: 1px 0; white-space: nowrap; }
+.exp-scope { font-size: 0.78em; color: var(--mh-muted); margin-left: 4px; }
+.exp-st { display: inline-block; font-size: 0.84em; padding: 1px 7px; border-radius: 10px; white-space: nowrap; }
+.exp-st-ok { background: #dff3df; color: #0a5b0a; }
+.exp-st-bad { background: #f5d0d0; color: #8a1d1d; }
+.exp-st-off { background: var(--mh-wash); color: var(--mh-muted); }
+
+/* ── controls ─────────────────────────────────────────────────────────────── */
+.exp-controls { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.exp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.exp-chip {
+    font: inherit; font-size: 0.86em; padding: 4px 11px; border-radius: 14px; cursor: pointer;
+    background: var(--mh-surface); color: var(--mh-ink-2); border: 1px solid var(--mh-hair);
+}
+.exp-chip:hover { background: var(--mh-wash); }
+.exp-chip.on { background: #e8f0fb; border-color: #9cc0ee; color: #184f95; font-weight: 650; }
+.exp-chip em { font-style: normal; color: var(--mh-muted); font-size: 0.9em; }
+.exp-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.exp-search { display: inline-flex; align-items: center; gap: 6px; background: var(--mh-surface); border: 1px solid var(--mh-hair); border-radius: 8px; padding: 4px 10px; min-width: 280px; }
+.exp-search span { color: var(--mh-muted); }
+.exp-search input { font: inherit; border: 0; outline: none; background: transparent; width: 100%; color: var(--mh-ink); }
+.exp-select { font-size: 0.88em; color: var(--mh-ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.exp-select select { font: inherit; font-size: 0.95em; padding: 3px 6px; border-radius: 6px; border: 1px solid var(--mh-hair); background: var(--mh-surface); color: var(--mh-ink); max-width: 220px; }
+.exp-count { font-size: 0.86em; color: var(--mh-muted); }
+.exp-more { margin-top: 8px; }
+.exp-btn {
+    font: inherit; font-size: 0.86em; padding: 5px 12px; border-radius: 8px; cursor: pointer;
+    background: var(--mh-surface); color: var(--mh-ink-2); border: 1px solid var(--mh-hair);
+}
+.exp-btn:hover:not(:disabled) { background: var(--mh-wash); }
+.exp-btn:disabled { opacity: .5; cursor: default; }
+
+/* ── twins + excluded ─────────────────────────────────────────────────────── */
+.exp-twin { margin-top: 10px; font-size: 0.92em; }
+.exp-twin summary { cursor: pointer; color: var(--mh-ink-2); padding: 4px 0; }
+.exp-twin > .exp-tablewrap { margin-top: 6px; }
+.exp-paths { margin: 6px 0 4px; padding-left: 18px; columns: 2; column-gap: 24px; font-size: 0.9em; line-height: 1.5; }
+.exp-paths li { break-inside: avoid; }
+.exp-rules { font-size: 0.9em; margin: 6px 0 0; }
+.exp-rules dt { font-weight: 650; color: var(--mh-ink-2); margin-top: 8px; }
+.exp-rules dd { margin: 2px 0 0; color: var(--mh-ink); line-height: 1.5; word-break: break-word; }

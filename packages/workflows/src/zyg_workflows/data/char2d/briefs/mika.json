@@ -1,0 +1,11 @@
+{
+  "name": "Mika",
+  "gender": 0.2,
+  "age": 19,
+  "height_m": 1.68,
+  "skin": "#f5cfb5",
+  "hair": "#2a1a12",
+  "top": "#3b5fa3",
+  "bottom": "#2b2f3a",
+  "hair_cut": "bob"
+}

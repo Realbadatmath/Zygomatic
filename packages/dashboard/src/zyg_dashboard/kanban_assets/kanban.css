@@ -1,0 +1,1067 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Zygomatic
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* 2026-08-26: the pearl ground is now FL Studio's desk — a desaturated
+       blue-grey, lit from the top-left and sinking to slate. The variable
+       names are kept: every surface, border and text colour on this page hangs
+       off them, so the whole light layer flips with the six lines below. */
+    --kb-pearl-bg: radial-gradient(circle at 0 0, #4c5d72, transparent 55%), linear-gradient(145deg, #3a4655, #232b36);
+    --kb-pearl-text: #e9eff8;
+    --kb-pearl-text-dim: #b9c8dc;
+    --kb-pearl-text-muted: #93a5bd;
+    --kb-pearl-border: rgba(190, 215, 245, 0.16);
+    --kb-pearl-surface: rgba(255, 255, 255, 0.08);
+    --kb-bg-0: #060c18;
+    --kb-bg-1: #0c1630;
+    --kb-bg-2: #122a52;
+    --kb-col-bg: #142952;
+    --kb-col-bg-2: #0c1e42;
+    --kb-stage-bg: #13213a;
+    --kb-line: rgba(100, 180, 255, 0.32);
+    --kb-line-soft: rgba(120, 195, 255, 0.45);
+    --kb-card-border: rgba(140, 210, 255, 0.55);
+    --kb-text: #f4f8ff;
+    --kb-text-dim: #b8d4f8;
+    --kb-text-muted: #8eb8ef;
+    --kb-accent: #42c8ff;
+    --kb-accent-glow: rgba(66, 200, 255, 0.45);
+    --kb-accent-2: #7affc1;
+    --kb-danger: #ff6f89;
+    --kb-warn: #ffd46b;
+    --kb-card-grad-a: #3d92f8;
+    --kb-card-grad-m: #2878e8;
+    --kb-card-grad-b: #1a58c4;
+  }
+
+  body {
+    font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+    background: var(--kb-pearl-bg);
+    background-attachment: fixed;
+    color: var(--kb-pearl-text);
+    min-height: calc(100vh / var(--ui-zoom,1));
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  @keyframes kb-card-shimmer {
+    0%, 100% { opacity: 1; }
+  }
+
+  @keyframes kb-running-pulse {
+    0%, 100% { box-shadow: 0 4px 18px rgba(40, 120, 232, 0.5), 0 0 20px rgba(66, 200, 255, 0.2), inset 0 1px 0 rgba(200, 235, 255, 0.38); }
+    50%       { box-shadow: 0 4px 22px rgba(40, 120, 232, 0.62), 0 0 32px rgba(66, 200, 255, 0.38), inset 0 1px 0 rgba(220, 245, 255, 0.48); }
+  }
+
+  /* ── Header ────────────────────────────────────────────────────── */
+  .kb-header {
+    background: rgba(26, 33, 42, 0.62);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--kb-pearl-border);
+    padding: 16px 70px 16px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .kb-header-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--kb-pearl-text);
+  }
+  .kb-header-badge {
+    background: var(--kb-pearl-surface);
+    border: 1px solid var(--kb-pearl-border);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 0.78rem;
+    color: var(--kb-pearl-text-dim);
+  }
+  .kb-live-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 1.8s ease-in-out infinite;
+    margin-left: auto;
+  }
+  .kb-live-label { font-size: 0.78rem; color: #5fe08e; font-weight: 600; }
+  .kb-live-badge {
+    margin-left: 8px;
+    font-size: 0.75rem;
+    color: #5fe08e;
+    background: rgba(34, 197, 94, 0.14);
+    border: 1px solid rgba(34, 197, 94, 0.28);
+    border-radius: 4px;
+    padding: 3px 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+  .kb-live-badge:hover {
+    background: rgba(34, 197, 94, 0.22);
+    border-color: rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.12);
+  }
+  .kb-live-badge:active { background: rgba(34, 197, 94, 0.28); }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* ── Pipeline label ────────────────────────────────────────────── */
+  .kb-pipeline-label {
+    padding: 18px 28px 6px 28px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--kb-pearl-text-muted);
+  }
+
+  /* ── Board wrapper (board + telemetry side panel) ──────────────── */
+  .kb-body {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  /* ── Board ─────────────────────────────────────────────────────── */
+  .kb-board {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 12px 28px 16px;
+    overflow-x: auto;
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  /* ── Column (no frame — height follows card count) ─────────────── */
+  .kb-column {
+    flex: 1 1 0;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .kb-column-head {
+    background: transparent;
+    border: none;
+    padding: 0 4px 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .kb-column-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--kb-pearl-text-dim);
+    text-shadow: none;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .kb-column-count {
+    display: none;
+  }
+
+  /* ── Card ──────────────────────────────────────────────────────── */
+  .kb-card {
+    background: linear-gradient(
+      148deg,
+      var(--kb-card-grad-a) 0%,
+      var(--kb-card-grad-m) 42%,
+      var(--kb-card-grad-b) 100%
+    );
+    border: 1px solid var(--kb-card-border);
+    border-left: 3px solid transparent;
+    border-radius: 10px;
+    padding: 11px 13px 34px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, filter 0.2s;
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 4px 18px rgba(40, 120, 232, 0.48),
+      0 0 22px rgba(66, 200, 255, 0.12),
+      inset 0 1px 0 rgba(200, 235, 255, 0.35),
+      inset 0 -10px 18px rgba(8, 30, 90, 0.28);
+  }
+  .kb-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(180, 230, 255, 0.08) 28%,
+      transparent 55%
+    );
+    pointer-events: none;
+    animation: kb-card-shimmer 4s ease-in-out infinite;
+  }
+  .kb-card::after {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 70%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(120, 220, 255, 0.22) 0%, transparent 68%);
+    pointer-events: none;
+  }
+  .kb-card > * {
+    position: relative;
+    z-index: 1;
+  }
+  .kb-card:hover {
+    border-color: rgba(160, 230, 255, 0.85);
+    filter: saturate(1.08) brightness(1.06);
+    box-shadow:
+      0 6px 26px rgba(40, 120, 232, 0.58),
+      0 0 36px var(--kb-accent-glow),
+      inset 0 1px 0 rgba(230, 248, 255, 0.5),
+      inset 0 -10px 18px rgba(8, 30, 90, 0.22);
+    transform: translateY(-2px);
+  }
+  .kb-card.status-done    { border-left-color: var(--kb-accent-2); }
+  .kb-card.status-running {
+    border-left-color: var(--kb-warn);
+    animation: kb-running-pulse 2.2s ease-in-out infinite;
+  }
+  .kb-card.status-error   { border-left-color: var(--kb-danger); }
+  .kb-card.status-queued  { border-left-color: var(--kb-accent); }
+  .kb-card.status-idle    {
+    border-left-color: var(--kb-line-soft);
+  }
+
+  /* ── Multi-pipeline card stacking ──────────────────────────────── */
+  .kb-stack {
+    position: relative;
+    /* extra bottom padding = N peeks × 13px, set inline */
+  }
+  .kb-peek {
+    position: absolute;
+    left: 4px; right: 4px;
+    height: 14px;
+    border-radius: 0 0 9px 9px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.57rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.88);
+    transition: filter 0.15s, transform 0.15s;
+    user-select: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  }
+  .kb-peek:hover {
+    filter: brightness(1.22);
+    transform: translateY(3px);
+    z-index: 10 !important;
+  }
+  .kb-peek-label {
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  /* ── Peer-run grid (>9 concurrent runs) ─────────────────────────────
+     Past 9 concurrent runs the full-width tabs are replaced by a packed
+     grid of one cell per run, so a 40- or 100-run board fits under the
+     card instead of running a metre down the page. The grid is in normal
+     flow (the tabs are absolute), so the stack sizes itself. */
+  .kb-peek-grid {
+    display: grid;
+    gap: 2px;
+    margin: 3px 4px 0 4px;
+    /* grid-template-columns set inline — cell width scales with run count */
+  }
+  .kb-peek-cell {
+    position: relative;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 0.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.55);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.45);
+    transition: filter 0.12s, transform 0.12s;
+    user-select: none;
+  }
+  .kb-peek-cell:hover {
+    filter: brightness(1.3);
+    transform: scale(1.18);
+    z-index: 12;
+  }
+  .kb-peek-cell-n { pointer-events: none; }
+  /* Bottom bar = that run's status for THIS card. */
+  .kb-peek-cell::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background: var(--kb-line-soft);
+  }
+  .kb-peek-cell.st-done::after    { background: var(--kb-accent-2); }
+  .kb-peek-cell.st-running::after {
+    background: var(--kb-warn);
+    animation: kb-running-pulse 2.2s ease-in-out infinite;
+  }
+  .kb-peek-cell.st-error::after   { background: var(--kb-danger); }
+  .kb-peek-cell.st-queued::after  { background: rgba(255,255,255,0.22); }
+  .kb-peek-cell.st-idle::after    { background: rgba(255,255,255,0.10); }
+
+  .kb-card-id {
+    font-size: 0.68rem;
+    color: var(--kb-text-muted);
+    font-family: monospace;
+    margin-bottom: 4px;
+  }
+  .kb-card-prompt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 13px;
+    pointer-events: none;
+  }
+  .kb-card-prompt span {
+    font-size: 0.82rem;
+    color: var(--kb-text);
+    text-shadow: 0 1px 8px rgba(8, 30, 80, 0.35);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+  }
+  .kb-card-meta {
+    position: absolute;
+    bottom: 9px;
+    left: 11px;
+    right: 11px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .kb-status-pill {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+  }
+  .pill-done    { background: rgba(122,255,193,0.12); color: var(--kb-accent-2); border: 1px solid rgba(122,255,193,0.28); }
+  .pill-running { background: rgba(255,212,107,0.12); color: var(--kb-warn); border: 1px solid rgba(255,212,107,0.28); }
+  .pill-error   { background: rgba(255,111,137,0.12); color: var(--kb-danger); border: 1px solid rgba(255,111,137,0.28); }
+  .pill-queued  { background: rgba(66, 200, 255, 0.14); color: var(--kb-accent); border: 1px solid rgba(66, 200, 255, 0.28); }
+  .pill-idle    { background: rgba(66, 200, 255, 0.14); color: var(--kb-accent); border: 1px solid rgba(66, 200, 255, 0.28); }
+
+  .kb-card-time {
+    font-size: 0.68rem;
+    color: var(--kb-text-muted);
+    margin-left: auto;
+  }
+
+  /* Progress bar for running cards */
+  .kb-progress {
+    position: absolute;
+    bottom: 28px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--kb-line);
+    overflow: hidden;
+  }
+  .kb-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffe082, var(--kb-warn), #ffb347);
+    box-shadow: 0 0 8px rgba(255, 212, 107, 0.55);
+    border-radius: 1px;
+    transition: width 0.8s ease;
+  }
+
+  /* ── Hover quick actions ───────────────────────────────────────── */
+  .kb-quick-actions {
+    display: none;
+    position: absolute;
+    top: 8px; right: 8px;
+    gap: 4px;
+  }
+  .kb-card:hover .kb-quick-actions { display: flex; }
+  .kb-qa-btn {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(29, 78, 216, 0.35);
+    border-radius: 5px;
+    color: #1e40af;
+    font-size: 0.72rem;
+    padding: 3px 7px;
+    cursor: pointer;
+    transition: color 0.12s, border-color 0.12s, background 0.12s;
+  }
+  .kb-qa-btn:hover { color: #1d4ed8; border-color: #3b82f6; background: #fff; }
+
+  /* ── Job dialog ────────────────────────────────────────────────── */
+  #kb-dialog-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(3px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  #kb-dialog-overlay.open { display: flex; }
+
+  #kb-dialog {
+    background: linear-gradient(145deg, #e8e4e0 0%, #d8d2cc 40%, #cfc9c3 100%);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 14px;
+    width: 520px;
+    max-width: calc(94vw / var(--ui-zoom,1));
+    padding: 22px 24px 24px;
+    position: relative;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.7);
+    animation: dlg-in 0.15s ease;
+  }
+  @keyframes dlg-in {
+    from { opacity: 0; transform: scale(0.96) translateY(6px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);   }
+  }
+  #kb-dialog-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: rgba(0,0,0,0.08);
+    border: none;
+    color: #333;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 7px;
+    border-radius: 5px;
+    transition: color 0.12s, background 0.12s;
+  }
+  #kb-dialog-close:hover { color: #000; background: rgba(0,0,0,0.18); }
+
+  .dlg-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+    padding-right: 28px;
+  }
+  .dlg-stage {
+    font-size: 0.72rem;
+    color: #666;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  /* ── Dialog tabs ── */
+  .dlg-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    padding-bottom: 0;
+  }
+  .dlg-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #666;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 6px 10px;
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .dlg-tab:hover { color: #222; }
+  .dlg-tab.active { color: #1d4ed8; border-bottom-color: #1d4ed8; }
+  .dlg-panel { display: none; }
+  .dlg-panel.active { display: block; }
+
+  /* ── Status/info rows (Overview tab) ── */
+  .kb-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 0.78rem;
+  }
+  .kb-detail-label { color: #555; }
+  .kb-detail-val   { color: #111; font-family: monospace; }
+  .kb-log {
+    background: rgba(0,0,0,0.08);
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 12px;
+    max-height: 130px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.7rem;
+    line-height: 1.65;
+    color: #444;
+  }
+  .kb-log .log-done  { color: #16a34a; }
+  .kb-log .log-warn  { color: #b45309; }
+  .kb-log .log-error { color: #dc2626; }
+  .kb-log .log-info  { color: #1d4ed8; }
+
+  /* ── Rich info panels (Function/Agents/LLMs/Tools tabs) ── */
+  .dlg-rich {
+    font-size: 0.8rem;
+    color: #222;
+    line-height: 1.6;
+    min-height: 60px;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+  .dlg-rich p { margin: 0 0 6px; }
+  .dlg-rich strong { color: #000; }
+  .dlg-rich em { color: #555; }
+  .dlg-rich ul { margin: 4px 0 8px 0; padding: 0 0 0 1.4em; list-style-type: disc; }
+  .dlg-rich li { margin-bottom: 4px; list-style-type: disc; color: #222; }
+  .dlg-badge {
+    display: inline-block;
+    margin: 0 5px 6px 0;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+  .dlg-badge-exec   { background: #dcfce7; color: #166534; }
+  .dlg-badge-orch   { background: #dbeafe; color: #1e40af; }
+  .dlg-badge-by     { background: #ede9fe; color: #5b21b6; }
+  .dlg-loading { color: #888; font-style: italic; font-size: 0.78rem; }
+
+  /* ── Telemetry side panel ──────────────────────────────────────── */
+  .kb-telemetry {
+    flex: 0 0 240px;
+    background: transparent;
+    border-left: 1px solid var(--kb-pearl-border);
+    padding: 16px 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-content: start;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    min-height: calc(100vh / var(--ui-zoom,1));
+    /* position:sticky always opens a stacking context, so a z-index INSIDE this
+       rail cannot beat the board — the GPU hover panel was painting under the
+       cards. Lift the whole rail above the board (cards top out at 10) while
+       staying under the dialog overlay (200) and the Live Tail dock (9998). */
+    z-index: 30;
+  }
+  .kb-telem-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;          /* anchor for the GPU breakdown panel */
+  }
+
+  /* ── GPU hover breakdown ──────────────────────────────────────────
+     Opens leftward from the sticky telemetry rail, below the ring. Hover
+     only — nothing to click, nothing to dismiss. */
+  .kb-telem-pop {
+    position: absolute;
+    top: 112px;
+    right: 0;
+    width: 360px;
+    padding: 12px 14px 10px;
+    background: linear-gradient(160deg, #10203f 0%, #0a1428 100%);
+    border: 1px solid var(--kb-line);
+    border-radius: 10px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+    color: var(--kb-text-dim);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    text-align: left;
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity .12s ease, transform .12s ease, visibility .12s;
+    pointer-events: none;        /* never swallow clicks on the board beneath */
+  }
+  .kb-telem-item:hover .kb-telem-pop {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .kb-pop-title {
+    color: var(--kb-accent);
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .kb-pop-stats {
+    display: grid;
+    /* 96px, not 88: the CPU panel's "Load average" label wrapped at 88. */
+    grid-template-columns: 96px 1fr;
+    gap: 2px 10px;
+    margin: 0 0 8px;
+  }
+  .kb-pop-stats dt { color: var(--kb-text-muted); }
+  .kb-pop-stats dd { margin: 0; color: var(--kb-text); }
+  .kb-pop-strong {
+    color: var(--kb-accent) !important;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+  .kb-pop-dim { color: var(--kb-text-muted); }
+  .kb-pop-note {
+    margin: 0 0 8px;
+    padding: 6px 8px;
+    border-left: 2px solid var(--kb-accent);
+    background: rgba(66, 200, 255, 0.07);
+    border-radius: 0 4px 4px 0;
+    color: var(--kb-text-dim);
+  }
+  .kb-pop-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+  }
+  .kb-pop-table th {
+    text-align: right;
+    font-weight: 600;
+    color: var(--kb-text-muted);
+    border-bottom: 1px solid var(--kb-pearl-border);
+    padding: 3px 0 4px;
+  }
+  .kb-pop-table th:first-child { text-align: left; }
+  .kb-pop-table th + th { padding-left: 10px; }
+  .kb-pop-table td {
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(190, 215, 245, 0.07);
+  }
+  .kb-pop-table tr:last-child td { border-bottom: none; }
+  .kb-pop-proc {
+    color: var(--kb-text);
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .kb-pop-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    padding-left: 10px !important;
+  }
+  .kb-telem-ring {
+    position: relative;
+    width: 108px;
+    height: 108px;
+  }
+  .kb-telem-ring svg {
+    transform: rotate(-90deg);
+  }
+  .kb-telem-bg {
+    fill: #2a323d;
+    stroke: none;
+  }
+  .kb-telem-track {
+    fill: none;
+    stroke: #46525f;
+    stroke-width: 10;
+  }
+  .kb-telem-fill {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease;
+  }
+  .kb-telem-val {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    pointer-events: none;
+  }
+  .kb-telem-name {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--kb-pearl-text-dim);
+    line-height: 1;
+    text-shadow: none;
+  }
+  .kb-telem-main {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--kb-pearl-text);
+    line-height: 1.1;
+    text-shadow: none;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .kb-telem-row {
+    font-size: 0.56rem;
+    font-weight: 600;
+    color: var(--kb-pearl-text-muted);
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+    text-shadow: none;
+    white-space: nowrap;
+  }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(200, 222, 250, 0.24); border-radius: 3px; }
+
+  /* A native <select> popup takes its colours from the control, so the two
+     header selects are opaque slate rather than a translucent white film —
+     translucent, the option list renders near-white text on near-white. */
+  #kb-model-family-select option, #kb-render-mode-select option {
+    background: #2f3a47;
+    color: var(--kb-pearl-text);
+  }
+
+  /* ── Channel Picker custom dropdown ─────────────────────────────────────── */
+  .kb-ch-picker-wrap { position: relative; display: inline-block; margin-left: 12px; }
+  .kb-ch-trigger {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.08); color: var(--kb-pearl-text);
+    border: 1px solid rgba(24,27,34,0.14); border-radius: 6px;
+    padding: 4px 10px; font-size: 0.8rem; cursor: pointer;
+    white-space: nowrap; user-select: none; transition: background 0.15s;
+  }
+  .kb-ch-trigger:hover { background: rgba(255,255,255,0.15); }
+  .kb-ch-trigger.open  { background: rgba(255,255,255,0.19); }
+  .kb-ch-arrow { font-size: 0.6rem; transition: transform 0.2s; display: inline-block; }
+  .kb-ch-trigger.open .kb-ch-arrow { transform: rotate(180deg); }
+  .kb-ch-menu {
+    display: none; position: fixed;
+    min-width: 230px;
+    background: #1c2230; border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+    z-index: 99999; padding: 4px 0;
+  }
+  /* 2026-09-16: the open menu is a flex ROW of .kb-ch-col columns (Pipelines |
+     Channels | Blueprints) rather than one tall list. align-items:flex-start so a
+     short column does not stretch its separator down the tall one's height.
+     .kb-ch-section:first-child still means "first in its own column" — correct. */
+  .kb-ch-menu.open { display: flex; align-items: flex-start; }
+  .kb-ch-col { min-width: 230px; }
+  .kb-ch-col + .kb-ch-col { border-left: 1px solid rgba(255,255,255,0.08); }
+  /* Brushed-steel roman numeral: the gradient is painted through the glyphs only
+     (background-clip:text + transparent colour), so the words next to it keep the
+     ordinary menu colour. */
+  .kb-roman {
+    font-weight: 800; font-size: 1.22em; line-height: 1; letter-spacing: .06em;
+    background: linear-gradient(180deg,#f7f9fb 0%,#c3cad3 28%,#7d8794 50%,#dfe4ea 68%,#8e98a6 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  /* .kb-ch-item is display:flex, so the whitespace text node between the words and
+     the <span> is dropped and the row read '2D Character BasicsI'. Scoped to the
+     menu item: the trigger label and the board label are inline contexts where the
+     space survives on its own. */
+  .kb-ch-item .kb-roman { margin-left: .32em; }
+  /* Active rows turn #6dc6ff, but the numeral's colour is transparent — give it a
+     blue glow instead so the selected board still reads as selected. */
+  .kb-ch-item.active .kb-roman { filter: drop-shadow(0 0 2px rgba(109,198,255,.45)); }
+  /* Flyout submenu — appears to the right when a channel group is expanded */
+  .kb-ch-flyout {
+    display: none; position: fixed;
+    min-width: 190px;
+    background: #1c2230; border: 1px solid rgba(255,255,255,0.10);
+    border-left: 2px solid rgba(109,198,255,0.18);
+    border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+    z-index: 100000; padding: 4px 0;
+  }
+  .kb-ch-flyout.open { display: block; }
+  .kb-ch-section {
+    padding: 7px 13px 3px; font-size: 0.67rem; font-weight: 700;
+    color: rgba(255,255,255,0.32); letter-spacing: 0.09em; text-transform: uppercase;
+    border-top: 1px solid rgba(255,255,255,0.07); margin-top: 2px;
+  }
+  .kb-ch-section:first-child { border-top: none; margin-top: 0; }
+  .kb-ch-item {
+    display: flex; align-items: center; padding: 6px 14px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.80); cursor: pointer;
+    transition: background 0.11s; white-space: nowrap;
+  }
+  .kb-ch-item:hover { background: rgba(255,255,255,0.07); }
+  .kb-ch-item.active { color: #6dc6ff; font-weight: 600; }
+  .kb-ch-sub { padding-left: 34px; font-size: 0.76rem; color: rgba(255,255,255,0.58); }
+  .kb-ch-sub:hover { background: rgba(255,255,255,0.05); }
+  .kb-ch-sub.active { color: #6dc6ff; }
+  .kb-ch-group-hdr {
+    display: flex; align-items: center; padding: 5px 8px 5px 14px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.80);
+    transition: background 0.11s;
+  }
+  .kb-ch-group-hdr:hover { background: rgba(255,255,255,0.04); }
+  .kb-ch-chevron-btn {
+    display: grid; place-items: center; flex-shrink: 0;
+    width: 22px; height: 22px; border-radius: 5px;
+    border: none; background: transparent; color: #4a7ab5;
+    cursor: pointer; padding: 0; transition: color 0.15s, background 0.15s;
+  }
+  .kb-ch-chevron-btn:hover { color: #6dc6ff; background: rgba(109,198,255,0.10); }
+  .kb-ch-chevron-btn svg { transform: rotate(0deg); transition: transform 0.2s ease; }
+  .kb-ch-chevron-btn.open svg { transform: rotate(90deg); }
+  .kb-ch-group-name {
+    flex: 1; padding: 0; cursor: pointer; line-height: 1;
+  }
+  .kb-ch-group-name:hover { color: #6dc6ff; }
+  .kb-ch-group-name.active { color: #6dc6ff; font-weight: 600; }
+  .kb-ch-group-children { display: none; } /* always hidden — shown in flyout */
+
+  /* ── Melodies flyout (2026-09-06) ─────────────────────────────────────────
+     Every other flyout is four to six sub-channels in one column. Melodies is a
+     whole taxonomy — nine families, 127 style boards — and one column of that is
+     taller than any screen, so THIS flyout flows into as many ~210px columns as
+     the viewport allows and keeps a scrollbar as the backstop.
+     Scoped on the data attribute _openChGroup already writes, so no JS changed
+     and no other flyout is touched. It is written BEFORE offsetWidth/offsetHeight
+     are read there, so the off-screen flip and the top clamp measure the real
+     box rather than a one-column-wide guess. */
+  .kb-ch-flyout[data-active-group="melodies"] {
+    /* vw/vh are divided by --ui-zoom per the ui-zoom contract in kanban.html:
+       Chrome does not scale viewport units with zoom, so a bare 82vh clipped
+       this flyout to 861 of the 1567 layout px actually on screen — measured.
+       52vw is deliberately under half the viewport: the flyout opens to the
+       RIGHT of a menu that already sits mid-header, and anything wider trips
+       _openChGroup's flip-to-the-left at the operator's zoom. */
+    /* width and column-count are set by _openChGroup from the room actually to
+       the right of the menu; these are the fallback if that never runs. */
+    width: 856px;
+    max-height: calc(85vh / var(--ui-zoom, 1));
+    overflow-y: auto;
+    padding-bottom: 8px;
+  }
+  /* The columns live on an INNER box on purpose: a multi-column container that
+     carries the max-height does not balance by width, it FILLS columns to that
+     height and stops making them — measured as four columns down a 1285px box
+     with a third of its width empty. The scroll cap therefore stays on the
+     flyout, where it is only a backstop, and the grid balances freely.
+     column-COUNT, not column-width: a shrink-to-fit fixed box gives a
+     column-width grid an available width it then declines to use, so the count
+     is stated and the flyout is sized to match it. The count itself cannot be a
+     @media breakpoint — a breakpoint sees the REAL viewport, which is 1680 both
+     for the zoomed standalone page (2507 layout px, room for six columns) and
+     for the zoom-1 dashboard iframe (1680 layout px, room for four), so one
+     rule cannot answer both. _openChGroup measures instead. */
+  .kb-ch-flyout[data-active-group="melodies"] .kb-melgrid {
+    column-count: 4;
+    column-gap: 0;
+  }
+  /* A family heading and its styles are one unbreakable block — a column break
+     between them puts a list of styles under the wrong family name. It must be
+     display:BLOCK: as an inline-block each family became a line box, and Chrome
+     balanced the nine of them into four used columns of a 1440px-tall grid while
+     two of the six columns it had been given stood empty. The same markup as
+     blocks balances to 864px across all six — measured both ways. */
+  .kb-ch-flyout[data-active-group="melodies"] .kb-melfam {
+    display: block;
+    break-inside: avoid; -webkit-column-break-inside: avoid;
+  }
+  /* Each family heading is the FIRST CHILD of its own .kb-melfam, so the global
+     `.kb-ch-section:first-child { border-top:none }` rule matches all nine and
+     erases every divider. Put it back per family, and take it off only the one
+     that really is first in the flow. */
+  .kb-ch-flyout[data-active-group="melodies"] .kb-melfam .kb-ch-section {
+    border-top: 1px solid rgba(255,255,255,0.07); margin-top: 6px;
+  }
+  .kb-ch-flyout[data-active-group="melodies"] .kb-melfam:first-child .kb-ch-section {
+    border-top: none; margin-top: 0;
+  }
+
+
+/* ── Empty blueprint placeholder (2026-09-16) ─────────────────────────────────
+   Boards II-IV of the 2D Character course exist as menu entries before they are
+   designed. Without this note an undesigned board is indistinguishable from a
+   board whose poll failed. */
+.kb-empty-blueprint {
+  margin: 60px auto;
+  padding: 28px 40px;
+  max-width: 640px;
+  text-align: center;
+  color: rgba(255,255,255,.55);
+  border: 1px dashed rgba(255,255,255,.18);
+  border-radius: 12px;
+  font-size: .95rem;
+}
+
+  /* ── Medusa splash (2026-09-17) ──────────────────────────────────
+     The Medusa board is not a kanban board any more: Medusa is driven
+     entirely from its own app on :5300, so the columns here only ever
+     mirrored it. The drawing takes the board's place and her snakes
+     carry the status — each snake is its own masked layer, and they
+     slither only while a Medusa workflow is running. Idle, the movement
+     stops and the drawing sits there perfectly still, which is the
+     honest reading of "nothing is happening". No layer is tinted: the
+     drifting colours were dropped on 2026-09-23 for the movement. The face is not a layer and never moves.
+     Regions are baked by kanban_assets/medusa/bake_medusa_masks.py. */
+  .kb-board.kb-board-medusa {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+  }
+  .mdz-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Fallback only: _mdzFit() measures the real gap under the header and sets
+       an exact height. vh does not scale with Chrome's zoom — divide it back,
+       like every other viewport length in this stylesheet. */
+    height: calc(88vh / var(--ui-zoom, 1));
+    min-height: 420px;
+  }
+  .mdz-pic {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    aspect-ratio: 882 / 986;
+    isolation: isolate;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  }
+  .mdz-pic > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* FALLBACK since 2026-09-23: the mane is normally the .mdz-video loop defined
+     below, and this canvas only takes the board back when that cannot load or
+     decode (_mdzVideoFail in kanban_main.js).
+     The moving snakes are one canvas over the drawing: the plate (the drawing
+     with the mane blurred out and the drawn tongues inpainted away) plus all 39
+     cut-outs, each redrawn every frame as sheared strips that curl along its own
+     body, and the eight tongues flicking on top — see _mdzDrawSnake and
+     _mdzDrawTongue in kanban_main.js. Idle, the canvas fades out and the
+     untouched <img> under it is the board, so an idle board is the drawing
+     itself, tongues and all, and costs nothing. */
+  .mdz-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+  }
+  .mdz-stage.is-live .mdz-canvas { opacity: 1; }
+
+  /* 2026-09-23: the mane is a rendered LOOP, not a strip animation. The <video>
+     sits between the still drawing and the canvas and fades in on the same
+     1.2 s curve; the canvas fades OUT on that curve rather than being
+     display:none'd, so the two cross-fade and the untouched drawing never
+     flashes through between them. Equal specificity to the .is-live rule
+     above (0,2,1), so source order decides and no !important is needed.
+     If the video cannot load, _mdzVideoFail drops .mdz-has-video and the 39
+     cut-outs take the board back. */
+  .mdz-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;              /* must match .mdz-pic > img above */
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+  }
+  .mdz-stage.is-live .mdz-video { opacity: 1; }
+  .mdz-stage.mdz-has-video .mdz-canvas { opacity: 0; }
+
+  /* Page-wide backdrop (2026-09-18). On the Medusa board the blurred drawing
+     spreads over the WHOLE page, header included. Framed inside the dashboard
+     (:5000/workflows) this document goes transparent and the dashboard paints
+     the backdrop itself, so it can run under the left tab list too — see the
+     zyg_medusa_bg handler in templates/enhanced_dashboard.html. Opened on its
+     own (:8899), .mdz-solo paints it here instead. */
+  html.mdz-page, html.mdz-page body {
+    background: transparent !important;
+  }
+  html.mdz-page.mdz-solo body::before {
+    content: '';
+    position: fixed;
+    inset: -60px;
+    z-index: -1;
+    background: #0d1219 url('medusa/medusa_base.jpg') center / cover no-repeat;
+    filter: blur(58px) saturate(0.3) brightness(0.34);
+  }
+  html.mdz-page.mdz-solo body { background: #0d1219 !important; }
+  html.mdz-page .kb-header {
+    background: linear-gradient(180deg, rgba(8, 11, 16, 0.55), rgba(8, 11, 16, 0));
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
+
+  /* Status chip — sits in the header beside the workflow picker. */
+  .mdz-status {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(16, 21, 28, 0.6);
+    border: 1px solid var(--kb-pearl-border);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--kb-pearl-text-muted);
+    white-space: nowrap;
+  }
+  html.mdz-page .mdz-status { display: inline-flex; }
+  .mdz-status i {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4a5765;
+    flex: 0 0 auto;
+  }
+  .mdz-status.is-live { color: #cfe6d8; }
+  .mdz-status.is-live i {
+    background: #5fe08e;
+    box-shadow: 0 0 8px rgba(95, 224, 142, 0.8);
+    animation: pulse 1.8s ease-in-out infinite;
+  }

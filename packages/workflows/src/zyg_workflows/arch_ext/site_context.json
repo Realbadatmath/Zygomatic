@@ -1,0 +1,5 @@
+{"section_key": "site", "section_label": "Site & landscape",
+ "groups": [{"g": "Site context",
+             "items": [["site_boundary", "Site boundary",
+                        {"pts": [[-10, -10], [10, -10], [10, 10], [-10, 10]], "closed": 1},
+                        "The legal edge of the site: pts are the corners as [x, z] metres around the record's origin, closed into a loop. It draws no solid — a survey line at ground level with a peg every 5 m, labelled with its area in m2 (ha over a hectare). The Site boundary tool clicks the corners in; a setback makes a second, inset one. Nothing of it is built in Blender."]]}]}

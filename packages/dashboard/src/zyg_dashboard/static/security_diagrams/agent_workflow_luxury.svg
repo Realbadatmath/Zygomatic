@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1920 1080">
+  <defs>
+    <style>text { font-family: 'Myriad Pro', 'Segoe UI', Arial, sans-serif; }</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0a0c14"/><stop offset="100%" stop-color="#0e1020"/></linearGradient>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1920" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#111520"/><stop offset="50%" stop-color="#181c28"/><stop offset="100%" stop-color="#111520"/></linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#111520"/><stop offset="100%" stop-color="#080b14"/></linearGradient>
+    <linearGradient id="boxHL" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#1e2230"/><stop offset="100%" stop-color="#10141e"/></linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#cbd5e1" opacity="0.8"/></marker>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1920" height="80" fill="url(#hdr)"/>
+  <line x1="0" y1="80" x2="1920" y2="80" stroke="#cbd5e1" stroke-width="1" opacity="0.5"/>
+
+  <!-- Header -->
+  <text x="60" y="30" font-size="10" fill="#cbd5e1" opacity="0.5" letter-spacing="2">CHANNEL</text>
+  <text x="60" y="56" font-size="28" font-weight="300" fill="#cbd5e1" letter-spacing="4">LUXURY</text>
+  <text x="1860" y="44" font-size="10" fill="#283048" text-anchor="end" letter-spacing="2">AGENT WORKFLOW PRESET · ASPIRATIONAL LIFESTYLE DOCUMENTARY PIPELINE</text>
+
+  <!-- Stage labels (top) -->
+  <g font-size="9" fill="#283048" letter-spacing="2">
+    <text x="154"  y="140" text-anchor="middle">STAGE 1</text>
+    <text x="394"  y="140" text-anchor="middle">STAGE 2</text>
+    <text x="634"  y="140" text-anchor="middle">STAGE 3</text>
+    <text x="874"  y="140" text-anchor="middle">STAGE 3.5</text>
+    <text x="1114" y="140" text-anchor="middle">STAGE 4</text>
+    <text x="1354" y="140" text-anchor="middle">STAGE 5</text>
+    <text x="1594" y="140" text-anchor="middle">STAGE 6</text>
+    <text x="1806" y="140" text-anchor="middle">OUTPUT</text>
+  </g>
+
+  <!-- Stage tick lines -->
+  <g stroke="#cbd5e1" stroke-width="0.5" opacity="0.2">
+    <line x1="154"  y1="146" x2="154"  y2="160"/>
+    <line x1="394"  y1="146" x2="394"  y2="160"/>
+    <line x1="634"  y1="146" x2="634"  y2="160"/>
+    <line x1="874"  y1="146" x2="874"  y2="160"/>
+    <line x1="1114" y1="146" x2="1114" y2="160"/>
+    <line x1="1354" y1="146" x2="1354" y2="160"/>
+    <line x1="1594" y1="146" x2="1594" y2="160"/>
+    <line x1="1806" y1="146" x2="1806" y2="160"/>
+  </g>
+
+  <!-- Pipeline flow line -->
+  <line x1="60" y1="490" x2="1870" y2="490" stroke="#cbd5e1" stroke-width="0.5" opacity="0.12" stroke-dasharray="8 8"/>
+
+  <!-- ── AGENT BOXES ── -->
+
+  <!-- BOX 1: Source Scan (x=45) -->
+  <rect x="45"   y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="45"  y1="350" x2="263" y2="350" stroke="#cbd5e1" stroke-width="0.8" opacity="0.4"/>
+  <text x="154"  y="400" font-size="13" fill="#cbd5e1" text-anchor="middle">Source Scan</text>
+  <text x="154"  y="418" font-size="9"  fill="#6a7a90" text-anchor="middle" letter-spacing="1">LUXURY DATA AGENT</text>
+  <line x1="65"  y1="430" x2="243" y2="430" stroke="#cbd5e1" stroke-width="0.4" opacity="0.2"/>
+  <text x="154"  y="450" font-size="9" fill="#405068" text-anchor="middle">Robb Report RSS</text>
+  <text x="154"  y="466" font-size="9" fill="#405068" text-anchor="middle">High-end events</text>
+  <text x="154"  y="482" font-size="9" fill="#405068" text-anchor="middle">Seasonal launches</text>
+  <text x="154"  y="498" font-size="9" fill="#405068" text-anchor="middle">Aspirational topics</text>
+  <text x="154"  y="514" font-size="9" fill="#405068" text-anchor="middle">Curation score</text>
+  <text x="154"  y="590" font-size="8" fill="#202838" text-anchor="middle" letter-spacing="1">FLOW0202</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="263" y1="490" x2="285" y2="490" stroke="#cbd5e1" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- BOX 2: Context Agent (x=285) -->
+  <rect x="285"  y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="285" y1="350" x2="503" y2="350" stroke="#cbd5e1" stroke-width="0.8" opacity="0.4"/>
+  <text x="394"  y="400" font-size="13" fill="#cbd5e1" text-anchor="middle">Context Agent</text>
+  <text x="394"  y="418" font-size="9"  fill="#6a7a90" text-anchor="middle" letter-spacing="1">HERITAGE &amp; CULTURE</text>
+  <line x1="305" y1="430" x2="483" y2="430" stroke="#cbd5e1" stroke-width="0.4" opacity="0.2"/>
+  <text x="394"  y="450" font-size="9" fill="#405068" text-anchor="middle">Brand history</text>
+  <text x="394"  y="466" font-size="9" fill="#405068" text-anchor="middle">Cultural context</text>
+  <text x="394"  y="482" font-size="9" fill="#405068" text-anchor="middle">Craftsmanship detail</text>
+  <text x="394"  y="498" font-size="9" fill="#405068" text-anchor="middle">Prestige positioning</text>
+  <text x="394"  y="590" font-size="8" fill="#202838" text-anchor="middle" letter-spacing="1">STAGE 2</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="503" y1="490" x2="525" y2="490" stroke="#cbd5e1" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- BOX 3: Copy Writer (x=525) -->
+  <rect x="525"  y="350" width="218" height="280" rx="10" fill="url(#boxHL)" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="525" y1="350" x2="743" y2="350" stroke="#cbd5e1" stroke-width="0.8" opacity="0.6"/>
+  <text x="634"  y="400" font-size="13" fill="#cbd5e1" text-anchor="middle">Copy Writer</text>
+  <text x="634"  y="418" font-size="9"  fill="#8a9ab0" text-anchor="middle" letter-spacing="1">CLAUDE · CINEMATIC</text>
+  <line x1="545" y1="430" x2="723" y2="430" stroke="#cbd5e1" stroke-width="0.4" opacity="0.3"/>
+  <text x="634"  y="450" font-size="9" fill="#506080" text-anchor="middle">Aspirational, warm tone</text>
+  <text x="634"  y="466" font-size="9" fill="#506080" text-anchor="middle">Sensory descriptions</text>
+  <text x="634"  y="482" font-size="9" fill="#506080" text-anchor="middle">1200–1600 words</text>
+  <text x="634"  y="498" font-size="9" fill="#506080" text-anchor="middle">Product as protagonist</text>
+  <text x="634"  y="514" font-size="9" fill="#506080" text-anchor="middle">Lifestyle fantasy</text>
+  <text x="634"  y="590" font-size="8" fill="#303848" text-anchor="middle" letter-spacing="1">STAGE 3 — LLM</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="743" y1="490" x2="765" y2="490" stroke="#cbd5e1" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- BOX 4: TTS + Stills (x=765) -->
+  <rect x="765"  y="350" width="218" height="280" rx="10" fill="url(#boxHL)" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="765" y1="350" x2="983" y2="350" stroke="#cbd5e1" stroke-width="0.8" opacity="0.6"/>
+  <text x="874"  y="396" font-size="13" fill="#cbd5e1" text-anchor="middle">TTS + Stills</text>
+  <text x="874"  y="414" font-size="9"  fill="#8a9ab0" text-anchor="middle" letter-spacing="1">AZURE TTS · FLUX</text>
+  <line x1="785" y1="426" x2="963" y2="426" stroke="#cbd5e1" stroke-width="0.4" opacity="0.3"/>
+  <text x="874"  y="446" font-size="9" fill="#506080" text-anchor="middle">Azure Neural TTS</text>
+  <text x="874"  y="462" font-size="9" fill="#506080" text-anchor="middle">Warm, cinematic voice</text>
+  <text x="874"  y="478" font-size="9" fill="#506080" text-anchor="middle">FLUX.1-schnell stills</text>
+  <text x="874"  y="494" font-size="9" fill="#506080" text-anchor="middle">Luxury visual palette</text>
+  <text x="874"  y="510" font-size="9" fill="#506080" text-anchor="middle">Platinum/black aesthetic</text>
+  <text x="874"  y="590" font-size="8" fill="#303848" text-anchor="middle" letter-spacing="1">STAGE 3.5 — GPU</text>
+
+  <!-- Arrow 4→5 -->
+  <line x1="983" y1="490" x2="1005" y2="490" stroke="#cbd5e1" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- BOX 5: Video Assembly (x=1005) -->
+  <rect x="1005" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="1005" y1="350" x2="1223" y2="350" stroke="#cbd5e1" stroke-width="0.8" opacity="0.4"/>
+  <text x="1114" y="400" font-size="13" fill="#cbd5e1" text-anchor="middle">Video Assembly</text>
+  <text x="1114" y="418" font-size="9"  fill="#6a7a90" text-anchor="middle" letter-spacing="1">FFMPEG · KEN BURNS</text>
+  <line x1="1025" y1="430" x2="1203" y2="430" stroke="#cbd5e1" stroke-width="0.4" opacity="0.2"/>
+  <text x="1114" y="450" font-size="9" fill="#405068" text-anchor="middle">Slow push-in on hero shots</text>
+  <text x="1114" y="466" font-size="9" fill="#405068" text-anchor="middle">Long dissolves</text>
+  <text x="1114" y="482" font-size="9" fill="#405068" text-anchor="middle">Ambient luxury music</text>
+  <text x="1114" y="498" font-size="9" fill="#405068" text-anchor="middle">Cinematic color grade</text>
+  <text x="1114" y="590" font-size="8" fill="#202838" text-anchor="middle" letter-spacing="1">STAGE 4 — FFMPEG</text>
+
+  <!-- Arrow 5→6 -->
+  <line x1="1223" y1="490" x2="1245" y2="490" stroke="#cbd5e1" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- BOX 6: QC + Approval (x=1245) -->
+  <rect x="1245" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="1245" y1="350" x2="1463" y2="350" stroke="#cbd5e1" stroke-width="0.8" opacity="0.4"/>
+  <text x="1354" y="400" font-size="13" fill="#cbd5e1" text-anchor="middle">QC + Approval</text>
+  <text x="1354" y="418" font-size="9"  fill="#6a7a90" text-anchor="middle" letter-spacing="1">INTEGRITY GATE</text>
+  <line x1="1265" y1="430" x2="1443" y2="430" stroke="#cbd5e1" stroke-width="0.4" opacity="0.2"/>
+  <text x="1354" y="450" font-size="9" fill="#405068" text-anchor="middle">Brand accuracy</text>
+  <text x="1354" y="466" font-size="9" fill="#405068" text-anchor="middle">Taste check</text>
+  <text x="1354" y="482" font-size="9" fill="#405068" text-anchor="middle">Approval queue</text>
+  <text x="1354" y="590" font-size="8" fill="#202838" text-anchor="middle" letter-spacing="1">STAGE 5 — GATE</text>
+
+  <!-- Arrow 6→7 -->
+  <line x1="1463" y1="490" x2="1485" y2="490" stroke="#cbd5e1" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- BOX 7: Distribution (x=1485) -->
+  <rect x="1485" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="1485" y1="350" x2="1703" y2="350" stroke="#cbd5e1" stroke-width="0.8" opacity="0.4"/>
+  <text x="1594" y="400" font-size="13" fill="#cbd5e1" text-anchor="middle">Distribution</text>
+  <text x="1594" y="418" font-size="9"  fill="#6a7a90" text-anchor="middle" letter-spacing="1">MULTI-PLATFORM UPLOAD</text>
+  <line x1="1505" y1="430" x2="1683" y2="430" stroke="#cbd5e1" stroke-width="0.4" opacity="0.2"/>
+  <text x="1594" y="450" font-size="9" fill="#405068" text-anchor="middle">YouTube</text>
+  <text x="1594" y="466" font-size="9" fill="#405068" text-anchor="middle">Instagram (clipped)</text>
+  <text x="1594" y="482" font-size="9" fill="#405068" text-anchor="middle">SEO meta</text>
+  <text x="1594" y="590" font-size="8" fill="#202838" text-anchor="middle" letter-spacing="1">STAGE 6 — DIST.</text>
+
+  <!-- Arrow 7→output -->
+  <line x1="1703" y1="490" x2="1725" y2="490" stroke="#cbd5e1" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- OUTPUT box -->
+  <rect x="1725" y="420" width="162" height="140" rx="10" fill="#060708" stroke="#cbd5e1" stroke-width="2" opacity="0.9"/>
+  <text x="1806" y="468" font-size="11" fill="#cbd5e1" text-anchor="middle">Published</text>
+  <text x="1806" y="488" font-size="9" fill="#6a7a90" text-anchor="middle">YouTube</text>
+  <text x="1806" y="504" font-size="9" fill="#6a7a90" text-anchor="middle">Instagram</text>
+  <text x="1806" y="520" font-size="9" fill="#6a7a90" text-anchor="middle">Luxury</text>
+  <text x="1806" y="536" font-size="9" fill="#405068" text-anchor="middle">Channel</text>
+
+  <!-- Bottom info strip -->
+  <rect x="0" y="930" width="1920" height="150" fill="#040508" opacity="0.9"/>
+  <line x1="0" y1="930" x2="1920" y2="930" stroke="#cbd5e1" stroke-width="0.5" opacity="0.3"/>
+  <text x="60" y="960" font-size="10" fill="#cbd5e1" opacity="0.6" letter-spacing="2">NARRATOR PROFILE</text>
+  <text x="60" y="984" font-size="11" fill="#405068">"Aspirational, cinematic. Warm, poised tone. Describe texture, craftsmanship, lifestyle."</text>
+  <text x="60" y="1002" font-size="11" fill="#405068">TTS: Azure Neural — warm voice profile  |  Visual: Platinum/black Ken Burns slow push-in</text>
+  <text x="60" y="1044" font-size="9" fill="#283040" letter-spacing="1">SOURCE: Robb Report RSS  |  STILLS: FLUX.1-schnell luxury palette  |  MUSIC: Ambient luxury ambient underscore</text>
+</svg>

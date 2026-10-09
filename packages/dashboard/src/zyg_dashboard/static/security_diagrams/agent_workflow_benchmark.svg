@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1920 1080">
+  <defs>
+    <style>text { font-family: 'Myriad Pro', 'Segoe UI', Arial, sans-serif; }</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#04080e"/><stop offset="100%" stop-color="#081018"/></linearGradient>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1920" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#061020"/><stop offset="50%" stop-color="#0a1830"/><stop offset="100%" stop-color="#061020"/></linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#0a1e30"/><stop offset="100%" stop-color="#051018"/></linearGradient>
+    <linearGradient id="boxHL" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#102840"/><stop offset="100%" stop-color="#08182c"/></linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#60a5fa" opacity="0.8"/></marker>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1920" height="80" fill="url(#hdr)"/>
+  <line x1="0" y1="80" x2="1920" y2="80" stroke="#60a5fa" stroke-width="1" opacity="0.4"/>
+  <text x="60" y="30" font-size="10" fill="#60a5fa" opacity="0.5" letter-spacing="2">CHANNEL</text>
+  <text x="60" y="56" font-size="28" font-weight="300" fill="#60a5fa" letter-spacing="4">BENCHMARK</text>
+  <text x="1860" y="44" font-size="10" fill="#1a3050" text-anchor="end" letter-spacing="2">AGENT WORKFLOW PRESET · TECH COMPARISON &amp; PERFORMANCE ANALYSIS</text>
+  <g font-size="9" fill="#1a3050" letter-spacing="2">
+    <text x="154"  y="140" text-anchor="middle">STAGE 1</text><text x="394"  y="140" text-anchor="middle">STAGE 2</text>
+    <text x="634"  y="140" text-anchor="middle">STAGE 3</text><text x="874"  y="140" text-anchor="middle">STAGE 3.5</text>
+    <text x="1114" y="140" text-anchor="middle">STAGE 4</text><text x="1354" y="140" text-anchor="middle">STAGE 5</text>
+    <text x="1594" y="140" text-anchor="middle">STAGE 6</text><text x="1806" y="140" text-anchor="middle">OUTPUT</text>
+  </g>
+  <line x1="60" y1="490" x2="1870" y2="490" stroke="#60a5fa" stroke-width="0.5" opacity="0.08" stroke-dasharray="8 8"/>
+  <rect x="45"   y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#60a5fa" stroke-width="1.5"/>
+  <line x1="45"  y1="350" x2="263" y2="350" stroke="#60a5fa" stroke-width="0.8" opacity="0.4"/>
+  <text x="154"  y="400" font-size="13" fill="#60a5fa" text-anchor="middle">Data Fetch</text>
+  <text x="154"  y="418" font-size="9"  fill="#2a5070" text-anchor="middle" letter-spacing="1">BENCHMARK DATA AGENT</text>
+  <line x1="65"  y1="430" x2="243" y2="430" stroke="#60a5fa" stroke-width="0.4" opacity="0.2"/>
+  <text x="154"  y="450" font-size="9" fill="#1a3050" text-anchor="middle">GSMArena RSS (phones)</text>
+  <text x="154"  y="466" font-size="9" fill="#1a3050" text-anchor="middle">Tom's Hardware (GPU/CPU)</text>
+  <text x="154"  y="482" font-size="9" fill="#1a3050" text-anchor="middle">Top Gear (car benchmarks)</text>
+  <text x="154"  y="498" font-size="9" fill="#1a3050" text-anchor="middle">HuggingFace Hub (LLMs)</text>
+  <text x="154"  y="514" font-size="9" fill="#1a3050" text-anchor="middle">Recency + score delta</text>
+  <text x="154"  y="590" font-size="8" fill="#0e2038" text-anchor="middle" letter-spacing="1">FLOW0205</text>
+  <line x1="263" y1="490" x2="285" y2="490" stroke="#60a5fa" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="285"  y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#60a5fa" stroke-width="1.5"/>
+  <line x1="285" y1="350" x2="503" y2="350" stroke="#60a5fa" stroke-width="0.8" opacity="0.4"/>
+  <text x="394"  y="400" font-size="13" fill="#60a5fa" text-anchor="middle">Spec Parser</text>
+  <text x="394"  y="418" font-size="9"  fill="#2a5070" text-anchor="middle" letter-spacing="1">DATA ANALYSIS AGENT</text>
+  <line x1="305" y1="430" x2="483" y2="430" stroke="#60a5fa" stroke-width="0.4" opacity="0.2"/>
+  <text x="394"  y="450" font-size="9" fill="#1a3050" text-anchor="middle">Spec extraction</text>
+  <text x="394"  y="466" font-size="9" fill="#1a3050" text-anchor="middle">Score normalization</text>
+  <text x="394"  y="482" font-size="9" fill="#1a3050" text-anchor="middle">Comparison matrix</text>
+  <text x="394"  y="498" font-size="9" fill="#1a3050" text-anchor="middle">Winner identification</text>
+  <text x="394"  y="590" font-size="8" fill="#0e2038" text-anchor="middle" letter-spacing="1">STAGE 2</text>
+  <line x1="503" y1="490" x2="525" y2="490" stroke="#60a5fa" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="525"  y="350" width="218" height="280" rx="10" fill="url(#boxHL)" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="525" y1="350" x2="743" y2="350" stroke="#60a5fa" stroke-width="0.8" opacity="0.6"/>
+  <text x="634"  y="400" font-size="13" fill="#60a5fa" text-anchor="middle">Script Writer</text>
+  <text x="634"  y="418" font-size="9"  fill="#3a6080" text-anchor="middle" letter-spacing="1">CLAUDE · TECH</text>
+  <line x1="545" y1="430" x2="723" y2="430" stroke="#60a5fa" stroke-width="0.4" opacity="0.3"/>
+  <text x="634"  y="450" font-size="9" fill="#2a4868" text-anchor="middle">Clear, authoritative tone</text>
+  <text x="634"  y="466" font-size="9" fill="#2a4868" text-anchor="middle">Numbers-first structure</text>
+  <text x="634"  y="482" font-size="9" fill="#2a4868" text-anchor="middle">Spec comparison flow</text>
+  <text x="634"  y="498" font-size="9" fill="#2a4868" text-anchor="middle">800–1200 words</text>
+  <text x="634"  y="514" font-size="9" fill="#2a4868" text-anchor="middle">Rankings + verdict</text>
+  <text x="634"  y="590" font-size="8" fill="#1a3858" text-anchor="middle" letter-spacing="1">STAGE 3 — LLM</text>
+  <line x1="743" y1="490" x2="765" y2="490" stroke="#60a5fa" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="765"  y="350" width="218" height="280" rx="10" fill="url(#boxHL)" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="765" y1="350" x2="983" y2="350" stroke="#60a5fa" stroke-width="0.8" opacity="0.6"/>
+  <text x="874"  y="396" font-size="13" fill="#60a5fa" text-anchor="middle">TTS + Frames</text>
+  <text x="874"  y="414" font-size="9"  fill="#3a6080" text-anchor="middle" letter-spacing="1">AZURE TTS · DATA VIS</text>
+  <line x1="785" y1="426" x2="963" y2="426" stroke="#60a5fa" stroke-width="0.4" opacity="0.3"/>
+  <text x="874"  y="446" font-size="9" fill="#2a4868" text-anchor="middle">Azure Neural TTS</text>
+  <text x="874"  y="462" font-size="9" fill="#2a4868" text-anchor="middle">Neutral tech voice</text>
+  <text x="874"  y="478" font-size="9" fill="#2a4868" text-anchor="middle">Spec overlay frames</text>
+  <text x="874"  y="494" font-size="9" fill="#2a4868" text-anchor="middle">Data visualizations</text>
+  <text x="874"  y="510" font-size="9" fill="#2a4868" text-anchor="middle">Comparison tables</text>
+  <text x="874"  y="590" font-size="8" fill="#1a3858" text-anchor="middle" letter-spacing="1">STAGE 3.5 — TTS+VIS</text>
+  <line x1="983" y1="490" x2="1005" y2="490" stroke="#60a5fa" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1005" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#60a5fa" stroke-width="1.5"/>
+  <line x1="1005" y1="350" x2="1223" y2="350" stroke="#60a5fa" stroke-width="0.8" opacity="0.4"/>
+  <text x="1114" y="400" font-size="13" fill="#60a5fa" text-anchor="middle">Video Build</text>
+  <text x="1114" y="418" font-size="9"  fill="#2a5070" text-anchor="middle" letter-spacing="1">FFMPEG · DATA CUTS</text>
+  <line x1="1025" y1="430" x2="1203" y2="430" stroke="#60a5fa" stroke-width="0.4" opacity="0.2"/>
+  <text x="1114" y="450" font-size="9" fill="#1a3050" text-anchor="middle">Fast spec-cut edits</text>
+  <text x="1114" y="466" font-size="9" fill="#1a3050" text-anchor="middle">Benchmark graph overlay</text>
+  <text x="1114" y="482" font-size="9" fill="#1a3050" text-anchor="middle">Tech ambient music</text>
+  <text x="1114" y="498" font-size="9" fill="#1a3050" text-anchor="middle">Narration sync</text>
+  <text x="1114" y="590" font-size="8" fill="#0e2038" text-anchor="middle" letter-spacing="1">STAGE 4 — FFMPEG</text>
+  <line x1="1223" y1="490" x2="1245" y2="490" stroke="#60a5fa" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1245" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#60a5fa" stroke-width="1.5"/>
+  <line x1="1245" y1="350" x2="1463" y2="350" stroke="#60a5fa" stroke-width="0.8" opacity="0.4"/>
+  <text x="1354" y="400" font-size="13" fill="#60a5fa" text-anchor="middle">QC + Check</text>
+  <text x="1354" y="418" font-size="9"  fill="#2a5070" text-anchor="middle" letter-spacing="1">ACCURACY GATE</text>
+  <line x1="1265" y1="430" x2="1443" y2="430" stroke="#60a5fa" stroke-width="0.4" opacity="0.2"/>
+  <text x="1354" y="450" font-size="9" fill="#1a3050" text-anchor="middle">Spec accuracy check</text>
+  <text x="1354" y="466" font-size="9" fill="#1a3050" text-anchor="middle">Data source verify</text>
+  <text x="1354" y="482" font-size="9" fill="#1a3050" text-anchor="middle">Approval queue</text>
+  <text x="1354" y="590" font-size="8" fill="#0e2038" text-anchor="middle" letter-spacing="1">STAGE 5 — GATE</text>
+  <line x1="1463" y1="490" x2="1485" y2="490" stroke="#60a5fa" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1485" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#60a5fa" stroke-width="1.5"/>
+  <line x1="1485" y1="350" x2="1703" y2="350" stroke="#60a5fa" stroke-width="0.8" opacity="0.4"/>
+  <text x="1594" y="400" font-size="13" fill="#60a5fa" text-anchor="middle">Distribution</text>
+  <text x="1594" y="418" font-size="9"  fill="#2a5070" text-anchor="middle" letter-spacing="1">CLIPFARM UPLOAD</text>
+  <line x1="1505" y1="430" x2="1683" y2="430" stroke="#60a5fa" stroke-width="0.4" opacity="0.2"/>
+  <text x="1594" y="450" font-size="9" fill="#1a3050" text-anchor="middle">YouTube upload</text>
+  <text x="1594" y="466" font-size="9" fill="#1a3050" text-anchor="middle">TikTok (highlight clip)</text>
+  <text x="1594" y="482" font-size="9" fill="#1a3050" text-anchor="middle">SEO meta + schedule</text>
+  <text x="1594" y="590" font-size="8" fill="#0e2038" text-anchor="middle" letter-spacing="1">STAGE 6 — DIST.</text>
+  <line x1="1703" y1="490" x2="1725" y2="490" stroke="#60a5fa" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1725" y="420" width="162" height="140" rx="10" fill="#020608" stroke="#60a5fa" stroke-width="2" opacity="0.9"/>
+  <text x="1806" y="468" font-size="11" fill="#60a5fa" text-anchor="middle">Published</text>
+  <text x="1806" y="488" font-size="9" fill="#2a5070" text-anchor="middle">YouTube</text>
+  <text x="1806" y="504" font-size="9" fill="#2a5070" text-anchor="middle">TikTok</text>
+  <text x="1806" y="520" font-size="9" fill="#2a5070" text-anchor="middle">Benchmark</text>
+  <text x="1806" y="536" font-size="9" fill="#1a3050" text-anchor="middle">Channel</text>
+  <rect x="0" y="930" width="1920" height="150" fill="#020508" opacity="0.9"/>
+  <line x1="0" y1="930" x2="1920" y2="930" stroke="#60a5fa" stroke-width="0.5" opacity="0.3"/>
+  <text x="60" y="960" font-size="10" fill="#60a5fa" opacity="0.6" letter-spacing="2">NARRATOR PROFILE</text>
+  <text x="60" y="984" font-size="11" fill="#1a3050">"Clear, neutral tech voice. Data-first structure: spec comparison then verdict. Numbers before opinion."</text>
+  <text x="60" y="1002" font-size="11" fill="#1a3050">"Rankings: state the winner, then explain the why with reference to the benchmark scores."</text>
+  <text x="60" y="1044" font-size="9" fill="#0e2038" letter-spacing="1">SOURCES: GSMArena · Tom's Hardware · Top Gear · HuggingFace Hub API  |  PIPELINE: Clipfarm  |  NICHE: benchmark</text>
+</svg>

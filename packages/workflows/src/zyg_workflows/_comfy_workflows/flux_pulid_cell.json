@@ -1,0 +1,97 @@
+{
+  "10": {
+    "inputs": {"unet_name": "flux1-dev.safetensors", "weight_dtype": "default"},
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Flux UNet"}
+  },
+  "11": {
+    "inputs": {"clip_name1": "t5xxl_fp8_e4m3fn.safetensors", "clip_name2": "clip_l.safetensors", "type": "flux"},
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "DualCLIPLoader"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux_ae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load Flux VAE"}
+  },
+  "13": {
+    "inputs": {"lora_name": "character_lora.safetensors", "strength_model": 0.85, "strength_clip": 0.85, "model": ["10", 0], "clip": ["11", 0]},
+    "class_type": "LoraLoader",
+    "_meta": {"title": "Character LoRA"}
+  },
+  "14": {
+    "inputs": {"pulid_file": "pulid_flux_v0.9.1.safetensors"},
+    "class_type": "PulidFluxModelLoader",
+    "_meta": {"title": "Load PuLID-FLUX"}
+  },
+  "15": {
+    "inputs": {"image": "reference.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "Identity Reference"}
+  },
+  "17": {
+    "inputs": {},
+    "class_type": "PulidFluxEvaClipLoader",
+    "_meta": {"title": "EVA-CLIP"}
+  },
+  "18": {
+    "inputs": {"provider": "CPU"},
+    "class_type": "PulidFluxInsightFaceLoader",
+    "_meta": {"title": "InsightFace (antelopev2)"}
+  },
+  "16": {
+    "inputs": {
+      "model": ["13", 0],
+      "pulid_flux": ["14", 0],
+      "eva_clip": ["17", 0],
+      "face_analysis": ["18", 0],
+      "image": ["15", 0],
+      "weight": 0.95,
+      "start_at": 0.1,
+      "end_at": 1.0
+    },
+    "class_type": "ApplyPulidFlux",
+    "_meta": {"title": "Apply PuLID-FLUX"}
+  },
+  "20": {
+    "inputs": {"clip": ["13", 1], "clip_l": "ZYG_CHAR character, studio", "t5xxl": "ZYG_CHAR character, studio", "guidance": 3.5},
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {"clip": ["13", 1], "clip_l": "", "t5xxl": "", "guidance": 3.5},
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "30": {
+    "inputs": {"width": 640, "height": 720, "batch_size": 1},
+    "class_type": "EmptyLatentImage",
+    "_meta": {"title": "Empty Latent"}
+  },
+  "31": {
+    "inputs": {
+      "model": ["16", 0],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "latent_image": ["30", 0],
+      "seed": 42,
+      "steps": 28,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    },
+    "class_type": "KSampler",
+    "_meta": {"title": "KSampler (flux-dev, cfg locked 1.0)"}
+  },
+  "40": {
+    "inputs": {"samples": ["31", 0], "vae": ["12", 0]},
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygFluxPuLID", "images": ["40", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}

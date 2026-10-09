@@ -1,0 +1,85 @@
+{
+  "lane": "music",
+  "label": "Music & pitch",
+  "note": "Song generation and the measurement tools that judge it. The biggest single swap here was driven by licence exposure, and the biggest single defect by one sampler parameter.",
+  "entities": [
+    {
+      "id": "musicgen", "name": "MusicGen", "kind": "model", "role": "background music generator",
+      "status": "removed", "licence": "CC-BY-NC", "adopted": "2026-07-15", "ended": "2026-08-09",
+      "replaced_by": ["ace_step_15_turbo"],
+      "where": "was gpu/2017 in data/models.json",
+      "summary": "The music engine until the channel was monetised. Weights removed and 14 generated mp3s quarantined the same day.",
+      "issues": [
+        {"text": "CC-BY-NC on a monetised channel. Removed, not paused — weights deleted and 14 ag_*.mp3 quarantined.", "state": "solved", "found": "2026-08-09", "fixed": "2026-08-09", "by": "ace_step_15_turbo", "grade": "licence", "evidence": "project_stack_upgrade_aug2026, project_licence_gate"},
+        {"text": "The board kept a card titled 'MusicGen Background Music' after the swap, and the server's stage map keys off card titles — so 24 of 28 documentary cards could never leave queued.", "state": "solved", "found": "2026-08-30", "fixed": "2026-08-30", "grade": "measured", "evidence": "project_kanban_card_sync"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026", "project_kanban_card_sync"]
+    },
+    {
+      "id": "audiogen", "name": "AudioGen", "kind": "model", "role": "generative foley",
+      "status": "removed", "licence": "CC-BY-NC", "adopted": "2026-07-15", "ended": "2026-08-09",
+      "summary": "The generative foley tier. Removed with MusicGen and not replaced — SFX come from licensed libraries instead.",
+      "issues": [
+        {"text": "CC-BY-NC. The whole generative foley tier was removed rather than swapped; nothing generates sound effects now.", "state": "accepted", "found": "2026-08-09", "grade": "licence", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026", "project_sfx_library_slates"]
+    },
+    {
+      "id": "ace_step_15_turbo", "name": "ACE-Step 1.5 turbo", "kind": "model", "role": "song generator",
+      "status": "live", "licence": "MIT", "adopted": "2026-08-09",
+      "replaced": ["musicgen"],
+      "where": "ace_step_service.py, _comfy_workflows/ace_step_kidsong.json",
+      "summary": "The MIT engine that cleared the licence exposure and now writes every children's song. Guidance-distilled, 8 steps, cfg 1.0, euler/simple.",
+      "issues": [
+        {"text": "Cleared the CC-BY-NC exposure on a monetised channel, which is why it was adopted at all.", "state": "solved", "fixed": "2026-08-09", "grade": "licence", "evidence": "project_stack_upgrade_aug2026"},
+        {"text": "Singing was only ~74% word-intelligible at the source while the lyric gate reported 96% — the gate prompted Whisper with the lyric sheet. Root cause found 10-04: a2a melody conditioning starts the sampler from the SCORE RENDER's latent, which is instrumental, and denoise 0.45 skipped the high-noise phase where a clearly articulated voice is decided.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-04", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "Fixed by a per-song denoise LADDER (0.45/0.55/0.65) climbed only when under 80% of a take's lines are clear, not by a new default — the two songs that lost the tune at 0.55 were already clear at 0.45. Replayed: 49% → 94% of lines intelligible, melody kept 5/5.", "state": "solved", "fixed": "2026-10-04", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "Measured dead ends, do not retry: more STEPS (8→32) made clarity WORSE (8/12 → 4/12 clear) because it locks the instrumental source latent in harder, and COVER mode re-performs the instrumental reference and sings almost nothing (0/12 clear).", "state": "accepted", "found": "2026-10-04", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "Only the guidance-distilled turbo checkpoint is installed, so whether a non-distilled ACE checkpoint would beat all of this is still unmeasured.", "state": "open", "found": "2026-10-04", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "Text mode (no a2a) is 12/12 clear but chroma z 1.98 — maximum clarity, no tune. That trade is the shape of the lane.", "state": "accepted", "found": "2026-10-04", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "A 210 s song loses its last 5 lines; the shipped rotation is 130/150/170 s and 130 s is clean.", "state": "mitigated", "found": "2026-10-03", "grade": "measured", "evidence": "project_kids_music_workflow"}
+      ],
+      "sources": ["project_kidsmusic_intelligibility", "project_kids_music_workflow", "project_stack_upgrade_aug2026"]
+    },
+    {
+      "id": "praat", "name": "Praat", "kind": "tool", "role": "pitch measurement",
+      "status": "retired", "licence": "GPL", "ended": "2026-09-06",
+      "replaced_by": ["sung_pitch_rmvpe"],
+      "summary": "The pitch meter until sung material broke it. Retired for singing specifically.",
+      "issues": [
+        {"text": "Unreliable on sung material, which is the only material this lane measures.", "state": "solved", "found": "2026-09-06", "fixed": "2026-09-06", "by": "sung_pitch_rmvpe", "grade": "measured", "evidence": "project_farmyard_register_tree"}
+      ],
+      "sources": ["project_farmyard_register_tree"]
+    },
+    {
+      "id": "sung_pitch_rmvpe", "name": "sung_pitch.py (RMVPE)", "kind": "tool", "role": "sung-pitch meter",
+      "status": "live", "licence": "MIT", "adopted": "2026-09-06",
+      "replaced": ["praat"],
+      "summary": "RMVPE-based pitch tracking: raw pitch accuracy 0.971 on clean vocals and 0.967 through a demucs stem, so the register work could finally be measured rather than argued.",
+      "issues": [
+        {"text": "RPA 0.971 clean / 0.967 through demucs — accurate enough that a stem is not a confound.", "state": "solved", "fixed": "2026-09-06", "grade": "measured", "evidence": "project_farmyard_register_tree"},
+        {"text": "The sung register of the male voices turned out to be BIMODAL, which no single target pitch can describe.", "state": "open", "found": "2026-09-06", "grade": "measured", "evidence": "project_redtrain_male_voices"}
+      ],
+      "sources": ["project_farmyard_register_tree", "project_redtrain_male_voices"]
+    },
+    {
+      "id": "demucs", "name": "Demucs", "kind": "tool", "role": "stem separation",
+      "status": "live", "licence": "MIT", "adopted": "",
+      "summary": "Splits a delivered mix into stems for remixing and for measurement. Reliable for pitch, misleading for intelligibility.",
+      "issues": [
+        {"text": "The vocal STEM is a worse intelligibility test than the mix — measured 66.9% coverage unprompted on the stem against 73.6% on the mix, so the gate now judges clarity on the mix.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-03", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"}
+      ],
+      "sources": ["project_kidsmusic_intelligibility"]
+    },
+    {
+      "id": "score_soundfont", "name": "Score render soundfont", "kind": "tool", "role": "the melody the song is conditioned on",
+      "status": "live", "licence": "GPL-2", "adopted": "",
+      "summary": "Renders the written score that a2a conditioning starts from. Its licence is the reason the score render is a tool output, not a shipped asset.",
+      "issues": [
+        {"text": "GPL-2 — usable to produce the conditioning render, but it constrains what can be distributed.", "state": "accepted", "grade": "licence", "evidence": "project_kids_music_workflow"},
+        {"text": "Because the score render is instrumental, it is also the exact cause of the mush defect: the sampler starts from a latent with no voice in it.", "state": "solved", "found": "2026-10-04", "fixed": "2026-10-04", "by": "ace_step_15_turbo", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"}
+      ],
+      "sources": ["project_kids_music_workflow", "project_kidsmusic_intelligibility"]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Zygomatic dashboard — docker compose, CPU only
+#
+#   docker compose -f deploy/docker-compose.cpu.yml up -d
+#
+# Same variables as docker-compose.yml (ZYG_ENV_FILE, ZYG_MODELS_ROOT,
+# REDIS_PASSWORD, FLASK_PORT). Every rendering route needs a GPU and will fail
+# here; see deploy/README.md.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+services:
+
+  zyg:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.cpu
+    image: zygomatic-dashboard:cpu
+    container_name: zygomatic-dashboard-cpu
+    restart: unless-stopped
+    ports:
+      - "${FLASK_PORT:-5000}:5000"
+    env_file:
+      - ${ZYG_ENV_FILE:-../.env}
+    environment:
+      ZYG_OLLAMA_URL: http://ollama:11434
+      ZYG_REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+    volumes:
+      - ${ZYG_MODELS_ROOT:-../models}:/models:ro
+      - zyg-data:/app/data
+      - zyg-output:/app/output
+      - zyg-logs:/tmp
+    depends_on:
+      redis:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: zygomatic-ollama-cpu
+    restart: unless-stopped
+    # No ports — internal network only
+    volumes:
+      - ollama-data:/root/.ollama
+
+  redis:
+    image: redis:7-alpine
+    container_name: zygomatic-redis-cpu
+    restart: unless-stopped
+    # No ports — internal network only, password-protected
+    volumes:
+      - redis-data:/data
+    command: >
+      redis-server
+      --save 60 1
+      --loglevel warning
+      --requirepass ${REDIS_PASSWORD}
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  zyg-data:
+  zyg-output:
+  zyg-logs:
+  ollama-data:
+  redis-data:

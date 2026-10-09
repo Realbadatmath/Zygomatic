@@ -1,0 +1,165 @@
+{
+  "lane": "mesh",
+  "label": "3D, rigging & motion capture",
+  "note": "The lane most shaped by licence reading: three separate times the best-performing candidate was unusable because a file inside an MIT repo carried a territory clause or a non-commercial training ban.",
+  "entities": [
+    {
+      "id": "triposr", "name": "TripoSR", "kind": "model", "role": "first image→mesh",
+      "status": "retired", "licence": "MIT", "ended": "2026-09-19",
+      "replaced_by": ["direct3d_s2"],
+      "summary": "An early image→mesh option, superseded by the 09-19 audit of the whole field.",
+      "issues": [],
+      "sources": ["project_direct3d_s2_install"]
+    },
+    {
+      "id": "instantmesh", "name": "InstantMesh", "kind": "model", "role": "image→mesh",
+      "status": "retired", "licence": "Apache-2.0", "ended": "2026-09-19",
+      "replaced_by": ["direct3d_s2"],
+      "summary": "Replaced in the same audit; no measured defeat recorded, it simply lost the field review.",
+      "issues": [],
+      "sources": ["project_direct3d_s2_install"]
+    },
+    {
+      "id": "trellis2", "name": "TRELLIS.2", "kind": "model", "role": "image→mesh",
+      "status": "retired", "licence": "MIT", "ended": "2026-09-19",
+      "replaced_by": ["direct3d_s2"],
+      "summary": "Retired as a generator, but its install is load-bearing for something else: its leftover micromamba prefix is the only nvcc on this box.",
+      "issues": [
+        {"text": "Its venv imports nvdiffrast at module load, so it is not usable for output on this box.", "state": "open", "found": "2026-09-19", "grade": "measured", "evidence": "project_direct3d_s2_install"},
+        {"text": "There is no system CUDA toolkit and no sudo, so every later CUDA build uses TRELLIS.2's conda-forge nvcc 12.4 at ~/TRELLIS.2/cudatk.", "state": "mitigated", "found": "2026-09-19", "grade": "measured", "evidence": "project_direct3d_s2_install"}
+      ],
+      "sources": ["project_direct3d_s2_install"]
+    },
+    {
+      "id": "tencent_mesh_family", "name": "TripoSG / PartCrafter / DetailGen3D", "kind": "model", "role": "image→mesh candidates",
+      "status": "removed", "licence": "MIT at repo root, Tencent EU exclusion inside", "ended": "2026-09-19",
+      "replaced_by": ["direct3d_s2"],
+      "summary": "Removed on a licence read, not a bench: MIT at the repo root, with a Tencent territory exclusion in the core transformer file.",
+      "issues": [
+        {"text": "The exclusion is inside the core transformer FILE while the repo root says MIT — this is the case that set the rule to read licences at file level.", "state": "solved", "found": "2026-09-19", "fixed": "2026-09-19", "by": "direct3d_s2", "grade": "licence", "evidence": "project_direct3d_s2_install, feedback_licence_policy"}
+      ],
+      "sources": ["project_direct3d_s2_install"]
+    },
+    {
+      "id": "direct3d_s2", "name": "Direct3D-S2", "kind": "model", "role": "image→mesh",
+      "status": "live", "licence": "MIT (code AND weights)", "adopted": "2026-09-19",
+      "replaced": ["triposr", "instantmesh", "trellis2", "tencent_mesh_family"],
+      "where": "~/Direct3D-S2 (own venv)",
+      "summary": "The only candidate in the 09-19 field audit that is MIT in both code and weights and carries no territory clause. Geometry only.",
+      "issues": [
+        {"text": "EU-clean at file level where the whole Tencent family was not — the reason it won.", "state": "solved", "fixed": "2026-09-19", "grade": "licence", "evidence": "project_direct3d_s2_install"},
+        {"text": "Output is geometry only, no texture — the coat has to come from a separate pelage chain.", "state": "accepted", "found": "2026-09-19", "grade": "measured", "evidence": "project_direct3d_s2_install"},
+        {"text": "VRAM scales hard with resolution: sdf_resolution 512 ≈ 10 GB, 1024 ≈ 24 GB.", "state": "accepted", "found": "2026-09-19", "grade": "measured", "evidence": "project_direct3d_s2_install"},
+        {"text": "Needed a hand-built torchsparse against a sparsehash installed into ~/.local, because libsparsehash-dev needs a password this box does not have.", "state": "mitigated", "found": "2026-09-19", "grade": "measured", "evidence": "project_direct3d_s2_install"}
+      ],
+      "sources": ["project_direct3d_s2_install"]
+    },
+    {
+      "id": "human_generator_v4", "name": "Human Generator V4", "kind": "tool", "role": "candidate human base mesh",
+      "status": "rejected", "licence": "no AI-training right at any tier", "ended": "2026-09-10",
+      "replaced_by": ["mpfb"],
+      "summary": "Rejected after the licence was read in full: even the $128 commercial tier grants no AI-training right and no 3D-file distribution.",
+      "issues": [
+        {"text": "No AI-training right at any tier, including the $128 commercial one, and no 3D-file distribution. Nothing about quality — the licence ends it.", "state": "solved", "found": "2026-09-10", "fixed": "2026-09-10", "by": "mpfb", "grade": "licence", "evidence": "project_human_generator_licence"}
+      ],
+      "sources": ["project_human_generator_licence"]
+    },
+    {
+      "id": "mpfb", "name": "MPFB", "kind": "tool", "role": "human base mesh",
+      "status": "live", "licence": "CC0", "adopted": "2026-09-10",
+      "replaced": ["human_generator_v4"],
+      "summary": "CC0 human bases in Blender, with CharMorph, MHR, SOMA-X and Z-Anatomy alongside it. CC0 is what makes training and distribution possible at all.",
+      "issues": [
+        {"text": "CC0 replaced a licence that forbade the two things this stack does with a mesh — train on it and ship it.", "state": "solved", "fixed": "2026-09-10", "grade": "licence", "evidence": "project_human_base_install"}
+      ],
+      "sources": ["project_human_base_install"]
+    },
+    {
+      "id": "unirig", "name": "UniRig", "kind": "model", "role": "candidate skin-weight predictor",
+      "status": "rejected", "licence": "MIT", "adopted": "2026-09-05", "ended": "2026-09-05",
+      "replaced_by": ["blender_auto_weights"],
+      "summary": "Benched against Blender's bone-heat weights on two meshes and lost on both gate metrics, at both bends. The bench also found two traps that each fake a passing result.",
+      "issues": [
+        {"text": "Loses to Blender automatic weights on self-intersecting tris AND area-outlier fraction, at both bends on both meshes.", "state": "open", "found": "2026-09-05", "grade": "measured", "evidence": "project_unirig_rig_bench"},
+        {"text": "torch 2.6 cannot load its skin checkpoint (weights_only now defaults True and the ckpt pickles a Box) — and generate_skin.sh still exits 0 and prints 'done'. Every future run needs the sitecustomize allowlist shim.", "state": "mitigated", "found": "2026-09-05", "grade": "measured", "evidence": "project_unirig_rig_bench"},
+        {"text": "Its merged glb splits every seam vertex, which defeats bone-heat binding AND the self-intersection metric; a stray unit Icosphere is left in every output.", "state": "mitigated", "found": "2026-09-05", "grade": "measured", "evidence": "project_unirig_rig_bench"}
+      ],
+      "sources": ["project_unirig_rig_bench"]
+    },
+    {
+      "id": "blender_auto_weights", "name": "Blender automatic (bone-heat) weights", "kind": "tool", "role": "skin weights",
+      "status": "live", "licence": "GPL (Blender)", "adopted": "",
+      "summary": "The incumbent that kept its place on measurement. Its failure mode is the dangerous kind: it can silently succeed at nothing.",
+      "issues": [
+        {"text": "Bone heat silently makes EMPTY vertex groups: all groups get created, parent_set returns FINISHED, only a warning appears — and because the mesh never moves, every deformation metric reads a perfect 0.00. The bench now counts nonzero weights per posed bone.", "state": "solved", "found": "2026-09-05", "fixed": "2026-09-05", "grade": "measured", "evidence": "project_unirig_rig_bench"},
+        {"text": "It is vertex QUALITY, not count: decimating to 14k verts still fails, welding to 166k succeeds, and the weld threshold is per mesh (1e-4 vs 3e-3).", "state": "mitigated", "found": "2026-09-05", "grade": "measured", "evidence": "project_unirig_rig_bench"}
+      ],
+      "sources": ["project_unirig_rig_bench"]
+    },
+    {
+      "id": "gem_x", "name": "GEM-X", "kind": "model", "role": "monocular motion capture",
+      "status": "live", "licence": "permissive", "adopted": "2026-09-19",
+      "where": "~/models/gemx, tools/gem_capture.py",
+      "summary": "Where there was no usable capture path at all: 192 frames in 57 s on 2 GB of VRAM, out to a SOMA BVH and into the CMU rig.",
+      "issues": [
+        {"text": "Replaced nothing with something — before this there was no usable mocap source, because the SMPL/AMASS route is licence-blocked.", "state": "solved", "fixed": "2026-09-19", "grade": "measured", "evidence": "project_movement_capture_path"},
+        {"text": "Its SOMA BVH zero-rotation pose is a line along +X, NOT a T-pose, so the converter has to use source frame 0 as the reference skeleton. A proper T-pose frame would need SOMA's t_pose_world applied — not done.", "state": "mitigated", "found": "2026-09-19", "grade": "measured", "evidence": "project_movement_capture_path"},
+        {"text": "Visual odometry fell back to a static camera (identity camera.pt), so on a moving-camera clip the 'global' translation is camera-relative — the QA subject fought on the spot.", "state": "open", "found": "2026-09-19", "grade": "measured", "evidence": "project_movement_capture_path"},
+        {"text": "Motion survived the retarget at 8.7% of body height wrist error, and then VACE painted the control plate instead of the boy — the capture was never the weak link.", "state": "open", "found": "2026-09-20", "grade": "measured", "evidence": "project_movement_capture_path"}
+      ],
+      "sources": ["project_movement_capture_path"]
+    },
+    {
+      "id": "smpl_amass", "name": "SMPL / AMASS-trained stacks", "kind": "dataset", "role": "candidate body model + motion corpus",
+      "status": "rejected", "licence": "non-commercial / training forbidden", "ended": "2026-09-19",
+      "replaced_by": ["gem_x", "blender_studio_skeleton"],
+      "summary": "The standard of the field and unusable here: the SMPL files are non-commercial and unobtainable since Epic bought Meshcapade, and AMASS forbids commercial training.",
+      "issues": [
+        {"text": "SMPL files non-commercial and no longer obtainable; AMASS forbids commercial training, which taints anything trained on it. The whole own-rig pipeline exists because of this.", "state": "solved", "found": "2026-09-19", "fixed": "2026-09-19", "grade": "licence", "evidence": "project_movement_base_models_research"}
+      ],
+      "sources": ["project_movement_base_models_research"]
+    },
+    {
+      "id": "procedural_lathes", "name": "Procedural lathe anatomy", "kind": "tool", "role": "abandoned body-geometry approach",
+      "status": "retired", "licence": "own code", "ended": "2026-09-23",
+      "replaced_by": ["blender_studio_skeleton"],
+      "summary": "Three passes of hand-built lathe geometry for anatomy, abandoned in favour of a real CC0 skeleton mesh fitted per segment.",
+      "issues": [
+        {"text": "Abandoned after three passes — the geometry never read as anatomy.", "state": "solved", "found": "2026-09-23", "fixed": "2026-09-23", "by": "blender_studio_skeleton", "grade": "receipt", "evidence": "project_movement_real_anatomy_tree"}
+      ],
+      "sources": ["project_movement_real_anatomy_tree"]
+    },
+    {
+      "id": "blender_studio_skeleton", "name": "Blender Studio 135-bone skeleton mesh", "kind": "dataset", "role": "anatomy geometry",
+      "status": "live", "licence": "CC0", "adopted": "2026-09-23",
+      "replaced": ["procedural_lathes"],
+      "summary": "A real CC0 skeleton MESH fitted per segment to the cmu_mb rig, instead of procedural stand-ins.",
+      "issues": [
+        {"text": "A-pose toe-out leaked through the delta retarget and the clavicles drove the chest wall — both fixed in the stance/chest pass.", "state": "solved", "found": "2026-09-24", "fixed": "2026-09-24", "grade": "measured", "evidence": "project_movement_stance_chest_fix"}
+      ],
+      "sources": ["project_movement_real_anatomy_tree", "project_movement_stance_chest_fix"]
+    },
+    {
+      "id": "sam3d_body", "name": "SAM 3D Body", "kind": "model", "role": "single-image body parameters",
+      "status": "live", "licence": "SAM License (internal tool)", "adopted": "2026-08-09",
+      "where": "models/sam3/sam3d_body_weights, isolated body_venv, sam3d_body_worker.py",
+      "summary": "Full MHR output from one image — 204 parameters, 70 3D keypoints, per-joint rotations — at 1.2 s/image, with a stable global yaw across a still and a video frame of the same scene.",
+      "issues": [
+        {"text": "Validated at 1.2 s/image with near-identical global yaw across still and video frame of the same scene.", "state": "solved", "fixed": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"},
+        {"text": "detectron2 is deliberately absent, so only the single-person branch works.", "state": "accepted", "found": "2026-08-09", "grade": "receipt", "evidence": "project_stack_upgrade_aug2026"},
+        {"text": "char_mesh staging and the anny_fit yaw-seed A/B were queued and not done.", "state": "open", "found": "2026-08-09", "grade": "receipt", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026", "project_pose_track_s08"]
+    },
+    {
+      "id": "blender_bpy", "name": "Blender (bpy)", "kind": "tool", "role": "scene build, rigging, render, export",
+      "status": "live", "licence": "GPL", "adopted": "",
+      "summary": "One of the handful of pre-July tools that survived every swap. It is the scene bridge for Architecture Studio, the rig host, the Cycles renderer for Character Studio and the glTF gateway.",
+      "issues": [
+        {"text": "Its glTF importer maps the glTF front (+Z) to Blender −Y, so a rule written in the procedural frame must be sign-flipped or it picks the head instead of the tail.", "state": "mitigated", "found": "2026-09-05", "grade": "measured", "evidence": "project_body_plates_gltf_upaxis, project_unirig_rig_bench"},
+        {"text": "Wall holes in the architecture bridge need real boolean cuts with the EXACT solver, and a cutter must copy the wall's transform or a translated wall keeps its six faces.", "state": "solved", "found": "2026-09-06", "fixed": "2026-09-06", "grade": "measured", "evidence": "project_arch_assistant"}
+      ],
+      "sources": ["project_blender_scene_bridge_tree", "project_charstudio_cycles_render"]
+    }
+  ]
+}

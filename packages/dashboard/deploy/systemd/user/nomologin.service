@@ -1,0 +1,16 @@
+[Unit]
+Description=Nomologin persona board (127.0.0.1:8750, loopback only)
+# 2026-10-05: was kill_port+Popen from the hub (no unit). The hub button now routes
+# to `systemctl --user restart nomologin.service` like medusa.
+# Code lives in zygomatic-zero-public (zyg_zero.nomologin_board) — see medusa.service.
+After=network.target
+
+[Service]
+WorkingDirectory=%h/repos/zygomatic-zero-public
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_zero.nomologin_board
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

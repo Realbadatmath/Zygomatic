@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Feature request
+description: Propose a change or an addition
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem it solves
+      description: What can't you do today, or what costs more than it should?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed shape
+      description: How you imagine it working. Note which package it belongs in — remember the layering rule (the base library never imports the GUI).
+    validations:
+      required: false

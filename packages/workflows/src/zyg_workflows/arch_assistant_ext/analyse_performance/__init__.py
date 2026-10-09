@@ -1,0 +1,108 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# ruff: noqa: F401
+
+"""analyse_performance — the assistant half of Analyse ▸ Daylight, Energy,
+U-value, Structure, Code check.
+
+Five Python twins of the five icons of arch_ext/analyse_performance.js, run on
+the Drawing instead of the live scene: the same room finder (closed wall loops,
+or `zone` records with a point list), the same BRE average daylight factor, the
+same U = 1/(Rsi + Σ d/λ + Rse), the same H = Σ U·A + ventilation, and the same
+structural rules of thumb — so a number the model quotes matches the number the
+sheet shows.
+
+code_check() runs its own four checks and, in addition, whatever OTHER analysis
+family is installed: it imports arch_assistant_ext/<name>.py BY FILE PATH inside
+try/except (analyse_geometry, analyse_planning, light_studies) and calls the
+`ANALYSES` mapping that family exports (see below), reporting which were
+available and which were not. Every family here exports the same convention:
+
+    ANALYSES = {'<icon id>': ('Human name', fn(Drawing) -> {'issues': [...],
+                                                            'summary': str})}
+    an issue is {'severity': 'error'|'warning'|'info', 'text': str, 'ids': []}
+
+Standard library only.
+"""
+
+from zyg_workflows.arch_assistant_ext.analyse_performance.geometry import (
+    math,
+    os,
+    re,
+    _zyg_logging,
+    _zyg_log,
+    KINDS,
+    OPENINGS,
+    BUTTONS,
+    HERE,
+    FAM,
+    WALLS,
+    OPENING_KINDS,
+    _n,
+    _storey_h,
+    _storey_of,
+    _live,
+    _is_wall,
+    _is_opening,
+    _is_roof,
+    _wall_ends,
+    _shoelace,
+    _perimeter,
+    _centroid,
+    _pt_in_poly,
+    _dist_to_seg,
+    _dist_to_poly,
+    _norm_pts,
+    _zone_rooms,
+    _loops_of,
+    rooms,
+    _wall_room_count,
+    _openings_of,
+)
+from zyg_workflows.arch_assistant_ext.analyse_performance.fabric import (
+    RSI,
+    RSE,
+    DEFAULT_CONS,
+    NL_LIMIT,
+    _ext_bag,
+    _norm_layers,
+    u_of,
+    constructions,
+    _cons_key,
+    _north,
+    _compass,
+    _outward,
+    _top_y,
+    SKIP_OBS,
+    _sky_angle,
+    T_GLASS,
+    R_SURF,
+    FRAME,
+    _LIVING,
+    daylight,
+    uvalues,
+    ACH,
+    C_AIR,
+    energy,
+    SPAN_DEPTH,
+    _supports_under,
+    _gap_along,
+    structure,
+)
+from zyg_workflows.arch_assistant_ext.analyse_performance.tools import (
+    ANALYSES,
+    SIBLINGS,
+    _load_sibling,
+    _norm_issues,
+    code,
+    _lines,
+    t_daylight_check,
+    t_energy_summary,
+    t_u_values,
+    t_structure_check,
+    t_code_check,
+    TOOLS,
+    PROMPT,
+    EXAMPLES,
+)

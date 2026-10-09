@@ -1,0 +1,146 @@
+{
+ "section_key": "site",
+ "section_label": "Site & landscape",
+ "groups": [
+  {
+   "g": "Water",
+   "items": [
+    [
+     "pool",
+     "Swimming pool",
+     {
+      "w": 8,
+      "d": 4,
+      "depth": 1.5,
+      "coping": 0.4,
+      "raised": 0
+     },
+     "A tiled basin sunk into the ground: floor at -depth, coping rim standing 'coping' above the terrace, water surface 0.1 m down. The record's y is the water level; add_pool takes it from the ground under the block and refuses ground varying more than 0.5 m. raised = metres the rim stands above the deck (a rooftop pool); inf = n/s/e/w overflow edge."
+    ],
+    [
+     "pond",
+     "Pond",
+     {
+      "rx": 4,
+      "rz": 3,
+      "depth": 0.6
+     },
+     "An elliptical garden pond, rx across x and rz across z; the water surface sits just under ground level. The top 30% of the bank is turf, the bed under it soil. Level water: add_pond refuses ground varying more than 0.5 m across the pond."
+    ],
+    [
+     "canal",
+     "Canal",
+     {
+      "len": 20,
+      "w": 6,
+      "depth": 1.5
+     },
+     "A straight reach of channel with two quay walls, turfed over their top 30%, on a soil bed. Chain several for a bend. A canal is LEVEL water: add_canal refuses a reach whose ends differ more than 0.5 m — use the rivers family for water that flows."
+    ],
+    [
+     "fountain",
+     "Fountain",
+     {
+      "r": 2,
+      "tiers": 3,
+      "h": 2.5
+     },
+     "A round basin with a stem carrying 'tiers' overflowing bowls, h tall in total. It stands on the ground under it; add_fountain refuses ground varying more than 0.5 m under the basin."
+    ]
+   ]
+  },
+  {
+   "g": "Play",
+   "items": [
+    [
+     "playground_slide",
+     "Slide",
+     {
+      "h": 2,
+      "l": 4,
+      "w": 0.6
+     },
+     "A ladder h tall and a chute l long, w wide."
+    ],
+    [
+     "swing",
+     "Swing frame",
+     {
+      "w": 3,
+      "h": 2.4,
+      "seats": 2
+     },
+     "A goalpost frame w wide and h tall with 'seats' seats hanging from the beam."
+    ],
+    [
+     "sandpit",
+     "Sandpit",
+     {
+      "w": 4,
+      "d": 4,
+      "t": 0.3
+     },
+     "A timber-kerbed box of sand, w x d on plan, dug t deep. add_playground stands each piece on the ground under itself, upright, so a set follows a slope."
+    ]
+   ]
+  },
+  {
+   "g": "Sport",
+   "items": [
+    [
+     "sports_court",
+     "Sports court",
+     {
+      "w": 28,
+      "d": 15,
+      "lines": 1
+     },
+     "A paved court w x d with painted lines (lines 0 leaves it blank). 28x15 is a five-a-side pitch. A court is a level plane: add_sports_court refuses ground steeper than 3% or more than 0.3 m off a plane — flatten_pad it first."
+    ],
+    [
+     "goal_posts",
+     "Goal posts",
+     {
+      "w": 7.32,
+      "h": 2.44,
+      "d": 2
+     },
+     "A football goal: the mouth faces -z by default, the net runs d back along +z."
+    ],
+    [
+     "tennis_net",
+     "Tennis net",
+     {
+      "w": 12.8,
+      "h": 1.07
+     },
+     "A net on two posts, w between the post centres and h high at the posts."
+    ]
+   ]
+  },
+  {
+   "g": "Poolside",
+   "items": [
+    [
+     "sun_lounger",
+     "Sun lounger",
+     {
+      "l": 1.9,
+      "w": 0.7,
+      "h": 0.4
+     },
+     "A lounger lying along x, l long and h to the mattress top."
+    ],
+    [
+     "umbrella",
+     "Parasol",
+     {
+      "r": 1.5,
+      "h": 2.3
+     },
+     "A parasol: a pole h tall under a cone canopy of radius r. add_beach_set puts each lounger and each parasol on the ground under itself."
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,282 @@
+{
+  "lane": "image",
+  "label": "Image generation",
+  "note": "Stills for every pipeline: photoreal render, the animated twin, editing/inpainting, face lock, upscaling and the LoRA trainer that feeds them.",
+  "entities": [
+    {
+      "id": "sd15", "name": "Stable Diffusion 1.5", "kind": "model", "role": "first image generator on the boards",
+      "status": "retired", "licence": "CreativeML Open RAIL-M", "adopted": "", "ended": "2026-07-15",
+      "replaced_by": ["flux1_dev", "flux1_schnell"],
+      "summary": "In the pre-2026-07-15 (1xxx) roster. Nothing on this box records a frame it shipped or a reason it was dropped — only that the 2xxx roster that replaced it no longer names it.",
+      "issues": [
+        {"text": "Why it was dropped is not recorded anywhere on this box (git baseline is 2026-05-08, memory starts 2026-07-07).", "state": "unmeasured", "grade": "assumed", "evidence": "docs/stack_upgrade_history.md §6"}
+      ],
+      "sources": ["gpu_ai_models.json", "docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "dreamshaper", "name": "Dreamshaper / RealisticVision", "kind": "model", "role": "SD1.5 photoreal finetunes",
+      "status": "retired", "licence": "CreativeML Open RAIL-M", "ended": "2026-07-15",
+      "replaced_by": ["flux1_dev"],
+      "summary": "1xxx-roster SD1.5 finetunes. Same gap as SD 1.5: in the old roster, absent from the 2xxx one, no dated decision.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "kandinsky22", "name": "Kandinsky 2.2", "kind": "model", "role": "alternative image generator",
+      "status": "retired", "licence": "Apache-2.0", "ended": "2026-07-15",
+      "replaced_by": ["flux1_dev"],
+      "summary": "1xxx-roster only. Never appears in a measured comparison on this box.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "flux1_dev", "name": "FLUX.1-dev", "kind": "model", "role": "photoreal render + character-LoRA training base",
+      "status": "removed", "licence": "BFL Non-Commercial", "adopted": "2026-05-08", "ended": "2026-08-26",
+      "replaced": ["sd15", "dreamshaper", "kandinsky22"],
+      "replaced_by": ["flux2_klein_4b", "qwen_image_2512"],
+      "where": "comfy_generation_service.py, lora_trainer_service.py",
+      "summary": "The photoreal engine the program grew up on and the base every early character LoRA was trained against. Monetising the channel turned its licence into live exposure; paused 2026-08-09, deleted from disk 2026-08-26.",
+      "issues": [
+        {"text": "Non-commercial licence, and lora_trainer trained ON flux1-dev — so every early character LoRA is a derivative of a non-commercial base, not just a render-time dependency.", "state": "solved", "found": "2026-08-09", "fixed": "2026-08-25", "by": "flux2_klein_4b", "grade": "licence", "evidence": "project_licence_gate"},
+        {"text": "OOM on render.", "state": "solved", "fixed": "2026-05-21", "grade": "receipt", "evidence": "legacy crews tree git log (FLUX OOM fix commit)"},
+        {"text": "The FLUX-dev-trained lora-weights-flux LoRAs still exist on disk with no base model to load them against.", "state": "open", "found": "2026-08-26", "grade": "receipt", "evidence": "project_licence_gate"},
+        {"text": "ZYG_FLUX_RENDERS=allowed would NOT restore the character leg: _resolve_unet() and contact_sheet_pipeline.py still name flux1-dev.safetensors, and the trainer would re-download 32 GB from HF.", "state": "open", "found": "2026-08-26", "grade": "measured", "evidence": "project_licence_gate"}
+      ],
+      "sources": ["project_licence_gate", "project_disk_audit_aug25", "docs/stack_upgrade_history.md §1"]
+    },
+    {
+      "id": "flux1_schnell", "name": "FLUX.1-schnell", "kind": "model", "role": "fast stills (documentary + video anchors)",
+      "status": "retired", "licence": "Apache-2.0", "adopted": "2026-05-08", "ended": "2026-08-25",
+      "replaced_by": ["qwen_image_2512"],
+      "where": "comfy_generation_service.py, documentary stills",
+      "summary": "The Apache-licensed FLUX that survived the pause and carried documentary and video-anchor stills until Qwen-2512 took both. Still on disk — the ComfyUI flux_ae VAE was repointed at its byte-identical ae.safetensors.",
+      "issues": [
+        {"text": "Guidance-distilled: no real CFG, so negatives did nothing — era/anachronism control was impossible on documentary stills.", "state": "solved", "found": "2026-08-25", "fixed": "2026-08-25", "by": "qwen_image_2512", "grade": "measured", "evidence": "project_anachronism_gate_qwen"}
+      ],
+      "sources": ["project_disk_audit_aug25", "project_licence_gate"]
+    },
+    {
+      "id": "flux1_fill", "name": "FLUX.1-Fill-dev", "kind": "model", "role": "inpaint engine behind HandFixer",
+      "status": "removed", "licence": "BFL Non-Commercial", "ended": "2026-08-26",
+      "replaced_by": ["qwen_instantx_inpaint"],
+      "where": "hand_fixer / _can_use_flux_fill",
+      "summary": "Hand-repair inpainting until the licence pause; the engine order became Qwen InstantX inpaint with a cv2 TELEA floor, and the weights were deleted with the rest of the dev family.",
+      "issues": [
+        {"text": "Same BFL non-commercial licence as FLUX.1-dev on a monetised channel.", "state": "solved", "found": "2026-08-09", "fixed": "2026-08-09", "by": "qwen_instantx_inpaint", "grade": "licence", "evidence": "project_licence_gate"}
+      ],
+      "sources": ["project_handfixer_rebuild", "project_licence_gate"]
+    },
+    {
+      "id": "flux2_klein_4b", "name": "FLUX.2 klein-4B", "kind": "model", "role": "Apache-2.0 render + LoRA-train family",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-08-25",
+      "replaced": ["flux1_dev"],
+      "where": "generate_still (_graph_is_klein), scripts/train_klein_char.py",
+      "summary": "The licence-clean replacement for FLUX.1-dev as a first-class render AND training family. Measured on Cornelis it beat the FLUX-dev LoRA it replaced on identity and was faster to train and to render.",
+      "issues": [
+        {"text": "Replaced FLUX.1-dev's non-commercial exposure: verified Apache-2.0 at file level on the BFL repos themselves.", "state": "solved", "fixed": "2026-08-25", "grade": "licence", "evidence": "project_klein_pathway"},
+        {"text": "Identity beat the incumbent: SimpleTuner's own validation frame vs the same anchor scored klein 0.50 (pass) against the FLUX-dev LoRA's 0.30 (fail); train 34 min vs 53 min, render 12.9 s/img vs Qwen-2512's 27 s.", "state": "solved", "fixed": "2026-08-25", "grade": "measured", "evidence": "project_klein_pathway"},
+        {"text": "Identity is still weak where the face is small: production 0.85 gives front 0.48 / three-quarter 0.41, but full-body and canal shots score ~0.03-0.1.", "state": "open", "found": "2026-08-25", "grade": "measured", "evidence": "project_klein_pathway"},
+        {"text": "FLUX.2-klein-base-9B and FLUX.2-dev are non-commercial — the weight rules must name the 4B files literally, because a flux-2-klein-* glob would clear the 9B.", "state": "mitigated", "found": "2026-08-25", "grade": "licence", "evidence": "project_klein_pathway"},
+        {"text": "A klein contact-sheet run has never been exercised end to end (only txt2img/locked/edit graphs proven), and pipeline_storyteller.py:1521 still routes only sdxl/flux for episodes.", "state": "open", "found": "2026-08-25", "grade": "receipt", "evidence": "project_klein_pathway"}
+      ],
+      "sources": ["project_klein_pathway"]
+    },
+    {
+      "id": "sdxl_juggernaut", "name": "SDXL Juggernaut XL v9", "kind": "model", "role": "SDXL base under character LoRAs",
+      "status": "live", "licence": "open question", "adopted": "2026-07-15",
+      "where": "comfy_generation_service.py (sdxl family)",
+      "summary": "The SDXL base the character/story leg renders on. Its licence is the one deliberately unresolved question in the gate.",
+      "issues": [
+        {"text": "Character LoRAs were trained against one base and rendered on another — train/inference base mismatch.", "state": "solved", "found": "2026-07-16", "fixed": "2026-07-16", "grade": "receipt", "evidence": "project_lora_storage"},
+        {"text": "Licence unresolved: the card says free for personal and creative work and separately bars deployment behind paid APIs, and never says whether commercially PUBLISHING outputs counts. Recorded as open_question, not as a pass.", "state": "open", "found": "2026-08-09", "grade": "licence", "evidence": "project_licence_gate"},
+        {"text": "Abel's Arcane LoRA must be paired with sd_xl_base_1.0, not Juggernaut.", "state": "mitigated", "found": "2026-09-24", "grade": "measured", "evidence": "project_abel_arcane_lora"}
+      ],
+      "sources": ["project_licence_gate", "project_lora_storage"]
+    },
+    {
+      "id": "sdxl_dynavision", "name": "SDXL DynaVision-XL", "kind": "model", "role": "animated 3D-toon twin",
+      "status": "live", "licence": "unread", "adopted": "2026-07-25",
+      "where": "dual SDXL twin (default OFF)",
+      "summary": "The animated twin to FLUX's photoreal path, added so one character can exist in both looks. The twin is default OFF.",
+      "issues": [
+        {"text": "ArcFace identity QC mis-scores stylised faces, so the animated path could not be gated the way the photoreal one is.", "state": "solved", "found": "2026-07-25", "fixed": "2026-07-25", "by": "vlm_skin_hair_gate", "grade": "measured", "evidence": "project_sdxl_animated"},
+        {"text": "A Civitai merge whose per-model permission flags were never read.", "state": "open", "found": "2026-08-09", "grade": "licence", "evidence": "project_licence_gate"}
+      ],
+      "sources": ["project_sdxl_animated", "project_licence_gate"]
+    },
+    {
+      "id": "qwen_image_2512", "name": "Qwen-Image-2512", "kind": "model", "role": "video anchor stills, then documentary stills",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-08-09",
+      "replaced": ["flux1_schnell"], "replaced_by": ["hidream_o1"],
+      "where": "comfy_generation_service.py (qwen family), ZYG_VIDEO_STILL_FAMILY=qwen",
+      "summary": "The Apache-2.0 migration target out of FLUX. Took video anchor stills on 08-09 and documentary stills on 08-25, where it made negatives work for the first time.",
+      "issues": [
+        {"text": "Brought real CFG, so era negatives became live on documentary stills and the anachronism gate could actually be enforced.", "state": "solved", "fixed": "2026-08-25", "grade": "measured", "evidence": "project_anachronism_gate_qwen"},
+        {"text": "Roughly doubled episode runtime versus schnell — accepted as the price of the gate.", "state": "accepted", "found": "2026-08-25", "grade": "measured", "evidence": "project_documentary_runtime_profile"},
+        {"text": "27 s/img at 1024² 20 steps — more than twice klein's 12.9 s.", "state": "accepted", "found": "2026-08-25", "grade": "measured", "evidence": "project_klein_pathway"},
+        {"text": "A Qwen cast retrain needs the ~41 GB diffusers base, never fetched, so no Qwen character LoRA exists for a qwen-vs-klein comparison.", "state": "open", "found": "2026-08-09", "grade": "receipt", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_anachronism_gate_qwen", "project_stack_upgrade_aug2026"]
+    },
+    {
+      "id": "qwen_image_edit_2509", "name": "Qwen-Image-Edit-2509", "kind": "model", "role": "angle edits, restyle, per-cell sheet edits",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-07-26",
+      "replaced": ["instantid"],
+      "where": "contact_sheet_pipeline.py, arcane_restyle.py",
+      "summary": "The edit model behind the 48-angle sheet and the restyle path. Full-frame restyle through it is a dead end; it survives as the per-cell and masked-region engine.",
+      "issues": [
+        {"text": "Replaced the no-face-lock SDXL img2img path that re-synthesised faces and once invented a grey-haired adult.", "state": "solved", "fixed": "2026-07-27", "grade": "measured", "evidence": "project_arcane_restyle"},
+        {"text": "Full-frame restyle is DEAD: identity 0.226 against a 0.327 floor, and the costume recoloured to a purple doublet.", "state": "open", "found": "2026-09-27", "grade": "measured", "evidence": "project_ledger_stills_v6_tree"},
+        {"text": "The FLUX→qwen-edit seam is where the ghost-face, double-exposure and waxy-skin defects live.", "state": "mitigated", "found": "2026-08-09", "grade": "measured", "evidence": "project_licence_gate, project_ghost_face_defect"}
+      ],
+      "sources": ["project_sdxl_48angle", "project_arcane_restyle", "project_ledger_stills_v6_tree"]
+    },
+    {
+      "id": "hidream_o1", "name": "HiDream-O1-Image-Dev", "kind": "model", "role": "default image engine",
+      "status": "live", "licence": "MIT (model card / HF tag)", "adopted": "2026-10-02",
+      "replaced": ["qwen_image_2512", "flux2_klein_4b"],
+      "where": "~/ai-models/comfyui-ltx/run_hidream.py, ltx_hidream_service.py, ComfyUI :8189",
+      "summary": "8B pixel-native, no VAE and no separate text encoder; the highest open-weights entry on the T2I arena. 1024 in 4.0 s warm, 2048 in 13 s, reference-identity runs 31-34 s.",
+      "issues": [
+        {"text": "Much faster than the engines it replaced: 1024 portrait 4.0 s warm / 8.1 s cold, 2048 in 13.0 s, against Qwen-2512's 27 s at 1024².", "state": "solved", "fixed": "2026-10-02", "grade": "measured", "evidence": "project_hidream_o1_install"},
+        {"text": "Identity on reference runs was NOT measured — no ArcFace run. The pictures look like a plausible same-boy, which is exactly the near-miss that got through before.", "state": "open", "found": "2026-10-02", "grade": "measured", "evidence": "project_hidream_o1_install"},
+        {"text": "An Arcane reference tile came back as classical oil painting, not the Arcane look — style does not carry through the reference path.", "state": "open", "found": "2026-10-02", "grade": "measured", "evidence": "project_hidream_o1_install"},
+        {"text": "No LICENSE file in the repo — MIT is a README statement plus the HF tag.", "state": "mitigated", "found": "2026-10-02", "grade": "licence", "evidence": "project_hidream_o1_install"},
+        {"text": "Not tried: the bf16 checkpoint, editing mode, multi-reference, Dev vs Full.", "state": "open", "found": "2026-10-02", "grade": "receipt", "evidence": "project_hidream_o1_install"}
+      ],
+      "sources": ["project_hidream_o1_install", "project_kids_hidream_ltx_build"]
+    },
+    {
+      "id": "qwen_instantx_inpaint", "name": "Qwen InstantX inpaint", "kind": "model", "role": "hand/region repair, tier 1",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-08-09",
+      "replaced": ["flux1_fill"],
+      "where": "ZYG_HAND_FIXER_ENGINE",
+      "summary": "First tier of HandFixer after the FLUX pause, with cv2 TELEA underneath it as the floor.",
+      "issues": [
+        {"text": "Picked by a measured tier order rather than by preference, and closed the three FLUX-pause bypasses that silently kept loading dev weights.", "state": "solved", "fixed": "2026-08-09", "grade": "measured", "evidence": "project_handfixer_rebuild"}
+      ],
+      "sources": ["project_handfixer_rebuild"]
+    },
+    {
+      "id": "cv2_telea", "name": "cv2 TELEA inpaint", "kind": "tool", "role": "repair floor",
+      "status": "fallback", "licence": "Apache-2.0 (OpenCV)", "adopted": "2026-08-09",
+      "summary": "The classical fallback the repair ladder degrades to when no model tier can run. Also the init for SDXL fill.",
+      "issues": [
+        {"text": "SDXL fill needs a Telea init or the fill reads as a hole.", "state": "solved", "fixed": "2026-09-24", "grade": "measured", "evidence": "project_ledger_intro_library_tree"}
+      ],
+      "sources": ["project_handfixer_rebuild"]
+    },
+    {
+      "id": "realesrgan_x2", "name": "RealESRGAN x2", "kind": "model", "role": "finishing upscaler",
+      "status": "live", "licence": "BSD-3", "adopted": "",
+      "summary": "The incumbent upscaler, and the only lane where a measured bake-off kept the incumbent on BOTH axes. Production runs at UPSCALE_FACTOR=2.",
+      "issues": [
+        {"text": "Survived the SeedVR2 challenge: median delta 0.012165 with 0/65 FAIL and Laplacian detail 361.2, against SeedVR2 7B's 0.019536 / 51 FAIL / 180.1.", "state": "solved", "fixed": "2026-08-09", "grade": "measured", "evidence": "project_seedvr2_rejected"}
+      ],
+      "sources": ["project_seedvr2_rejected"]
+    },
+    {
+      "id": "seedvr2", "name": "SeedVR2 7B", "kind": "model", "role": "candidate restoration upscaler",
+      "status": "rejected", "licence": "Apache-2.0", "adopted": "2026-08-09", "ended": "2026-08-09",
+      "summary": "Installed, measured against RealESRGAN on the 65-frame up_in corpus, and not adopted: it changed the image MORE while producing a SOFTER result.",
+      "issues": [
+        {"text": "Loses on both axes at 2x on clean Wan output: 51/65 FAIL vs 0/65, detail energy 180.1 vs 361.2. The sharp variant closes most of the gap and still loses.", "state": "open", "found": "2026-08-09", "grade": "measured", "evidence": "project_seedvr2_rejected"},
+        {"text": "4x does not fit: 7B fp16 at 1920 batch 5 OOMs on the 48 GB 4090 even from a cleanly freed GPU.", "state": "open", "found": "2026-08-09", "grade": "measured", "evidence": "project_seedvr2_rejected"},
+        {"text": "Tested only at 2x on clean input, which is its weakest case — this is not a verdict that SeedVR2 is bad, and ~33 GB of weights are kept.", "state": "accepted", "found": "2026-08-09", "grade": "measured", "evidence": "project_seedvr2_rejected"}
+      ],
+      "sources": ["project_seedvr2_rejected"]
+    },
+    {
+      "id": "instantid", "name": "InstantID", "kind": "model", "role": "face lock on generation",
+      "status": "retired", "licence": "Apache-2.0", "adopted": "2026-07-15", "ended": "2026-07-27",
+      "replaced_by": ["depth_controlnet", "qwen_image_edit_2509"],
+      "summary": "The first face-lock engine. Dropped because it disfigured children's faces.",
+      "issues": [
+        {"text": "Disfigures children — the faces came back wrong in a way no threshold could rescue.", "state": "solved", "found": "2026-07-27", "fixed": "2026-07-27", "by": "depth_controlnet", "grade": "measured", "evidence": "project_arcane_restyle"}
+      ],
+      "sources": ["project_arcane_restyle"]
+    },
+    {
+      "id": "pulid_flux", "name": "PuLID-FLUX", "kind": "model", "role": "FLUX identity adapter",
+      "status": "paused", "licence": "Apache-2.0 (adapter)", "adopted": "2026-07-15",
+      "summary": "Registered in the 2xxx roster as a FLUX identity adapter. It depends on a FLUX base that is paused and no longer on disk, so nothing can call it.",
+      "issues": [
+        {"text": "Stranded by the FLUX pause and the 08-26 deletion: no base to adapt. No swap decision was ever recorded for it.", "state": "open", "found": "2026-08-26", "grade": "assumed", "evidence": "data/models.json, project_licence_gate"}
+      ],
+      "sources": ["data/models.json"]
+    },
+    {
+      "id": "depth_controlnet", "name": "Universal depth ControlNet", "kind": "tool", "role": "face/pose lock for restyle and repair",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-07-27",
+      "replaced": ["instantid"],
+      "where": "controlnet_service.py, hand_restyle_cn.py, figure_cn.py",
+      "summary": "The lock engine the whole restyle and repair path is built on: depth (plus OpenPose where a figure is involved) holding geometry while a LoRA repaints.",
+      "issues": [
+        {"text": "Replaced both InstantID's disfigurement and the no-lock img2img path that re-synthesised faces.", "state": "solved", "fixed": "2026-07-27", "grade": "measured", "evidence": "project_arcane_restyle"},
+        {"text": "Controls taken from old pictures are garbage in: a mitten-silhouette mask or a stale depth map produces a wrong-shaped fix.", "state": "mitigated", "found": "2026-09-27", "grade": "measured", "evidence": "project_ledger_permanent_route"}
+      ],
+      "sources": ["project_arcane_restyle", "project_ledger_stills_v6_tree"]
+    },
+    {
+      "id": "arcface", "name": "ArcFace (antelopev2 / glintr100)", "kind": "model", "role": "identity scoring for QC and dedup",
+      "status": "live", "licence": "MIT (insightface)", "adopted": "",
+      "summary": "The identity metric behind every bake-off number in this file. Profile gates still run antelopev2 after the AuraFace bake-off.",
+      "issues": [
+        {"text": "Mis-scores stylised faces, so the animated path is gated on skin/hair by a VLM instead.", "state": "solved", "found": "2026-07-25", "fixed": "2026-07-25", "by": "vlm_skin_hair_gate", "grade": "measured", "evidence": "project_sdxl_animated"},
+        {"text": "Thresholds are yaw-dependent — frontal 0.465 / oblique 0.317 / profile 0.206. Comparing an oblique candidate against a frontal baseline reads as a failure that is not there.", "state": "mitigated", "found": "2026-08-09", "grade": "measured", "evidence": "project_comfy_lora_never_applied, project_stack_upgrade_aug2026"},
+        {"text": "Cross-CHARACTER anchors score up to 0.70 (median 0.456): the cast contains face-space near-duplicates. 119 production pairs over the 0.45 ceiling await operator review.", "state": "open", "found": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026", "project_sdxl_animated"]
+    },
+    {
+      "id": "auraface", "name": "AuraFace", "kind": "model", "role": "candidate identity pack", "status": "gated_off", "licence": "CC-BY-NC (model)", "adopted": "2026-08-09",
+      "summary": "Calibrated the same day it was benched (630 same / 6.9k cross pairs, 11 characters, yaw-bucketed). Adopted only where it wins: frontal gates may pilot it, profile gates keep antelopev2.",
+      "issues": [
+        {"text": "Profile is markedly worse than the incumbent at matched sensitivity — FAR 0.605 vs 0.338 — so a full swap was refused.", "state": "open", "found": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026"]
+    },
+    {
+      "id": "inswapper", "name": "inswapper face-swap", "kind": "model", "role": "candidate post-lock face swap",
+      "status": "rejected", "licence": "non-commercial", "ended": "2026-07-16",
+      "summary": "Considered as a post-lock repair for identity drift and refused in favour of per-cell locks plus gates.",
+      "issues": [
+        {"text": "128 px box-only: it misses cheek and hair ghosts and re-introduces the waxy-skin defect it was meant to fix.", "state": "open", "found": "2026-07-16", "grade": "measured", "evidence": "project_waxy_skin_diagnosis"}
+      ],
+      "sources": ["docs/stack_upgrade_history.md §3"]
+    },
+    {
+      "id": "simpletuner", "name": "SimpleTuner", "kind": "tool", "role": "LoRA trainer",
+      "status": "live", "licence": "AGPL-3.0", "adopted": "",
+      "where": "lora_trainer_service.py, _write_st_config_klein",
+      "summary": "The trainer for every character LoRA, and for Medusa's masked-loss identity/body-template modes. Its export format caused the single largest silent defect in the stack.",
+      "issues": [
+        {"text": "Writes PEFT/diffusers-format LoRAs with no alpha, which ComfyUI silently applied as NOTHING — 453,440 'lora key not loaded' lines in server.log.", "state": "solved", "found": "2026-09-23", "fixed": "2026-09-23", "by": "convert_lora", "grade": "measured", "evidence": "project_comfy_lora_never_applied"},
+        {"text": "Masked loss replaced pixel editing for Medusa training (identity vs body-template modes).", "state": "solved", "fixed": "2026-08-08", "grade": "receipt", "evidence": "project_medusa_dual_mode"},
+        {"text": "Its 'cosine' is a RESTARTING cosine with period ≈ 2x lr_warmup_steps, so both FLUX and klein trained in ~100-step LR cycles. Left as-is for a controlled comparison; a real schedule fix is still a separate open decision.", "state": "open", "found": "2026-08-25", "grade": "measured", "evidence": "project_klein_pathway"},
+        {"text": "The per-process _training_jobs busy guard is invisible across processes, so a GUI run and a script run can collide in two SimpleTuners.", "state": "open", "found": "2026-08-25", "grade": "measured", "evidence": "project_klein_pathway"}
+      ],
+      "sources": ["project_comfy_lora_never_applied", "project_klein_pathway"]
+    },
+    {
+      "id": "convert_lora", "name": "convert_lora.py", "kind": "tool", "role": "PEFT → ComfyUI-native LoRA keys",
+      "status": "live", "licence": "own code", "adopted": "2026-09-23",
+      "where": "zygomatics-zero/ledger_intro/convert_lora.py",
+      "summary": "Rewrites LoRAs to kohya naming and writes alpha = rank so strength_model means what it says. The fix for the stack-wide defect where no character LoRA was ever applied.",
+      "issues": [
+        {"text": "Measured recovery on Abel vs his training tiles: trained caption 0.049 → 0.299, the shot 0.246 → 0.435.", "state": "solved", "fixed": "2026-09-23", "grade": "measured", "evidence": "project_comfy_lora_never_applied"},
+        {"text": "Only three LoRAs were converted. Anything else in the stack that loads these LoRAs through ComfyUI has been running without them, and any past QC that passed on identity was passing on prompt text — the audit was never done.", "state": "open", "found": "2026-09-23", "grade": "measured", "evidence": "project_comfy_lora_never_applied"}
+      ],
+      "sources": ["project_comfy_lora_never_applied", "project_lora_alpha_loss"]
+    },
+    {
+      "id": "imagehash_opencv", "name": "ImageHash + OpenCV", "kind": "tool", "role": "dedup, masks, compositing",
+      "status": "live", "licence": "BSD-3 / MIT", "adopted": "",
+      "summary": "Pre-July roster tooling that survived every swap: perceptual dedup, mask work, seamless cloning and the plate/grain composites.",
+      "issues": [
+        {"text": "cv2.seamlessClone returns ONE constant rim tone step, which is why fills needed tone_membrane.py to null the seam.", "state": "solved", "found": "2026-09-26", "fixed": "2026-09-26", "grade": "measured", "evidence": "project_ledger_intro_take5_tree"}
+      ],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    }
+  ]
+}

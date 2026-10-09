@@ -1,0 +1,86 @@
+{
+  "1001": {
+    "name": "Stable Diffusion 1.5 XL"
+  },
+  "1002": {
+    "name": "Dreamshaper Realisticvision"
+  },
+  "1003": {
+    "name": "Animatediff"
+  },
+  "1004": {
+    "name": "Stable Video Diffusion"
+  },
+  "1005": {
+    "name": "Controlnet"
+  },
+  "1006": {
+    "name": "Realesrgan"
+  },
+  "1007": {
+    "name": "Bark"
+  },
+  "1008": {
+    "name": "Tortoise TTS"
+  },
+  "1009": {
+    "name": "Blender (bpy)"
+  },
+  "1010": {
+    "name": "Kandinsky 2.2"
+  },
+  "1011": {
+    "name": "Deforum"
+  },
+  "1012": {
+    "name": "ComfyUI"
+  },
+  "1013": {
+    "name": "Dreambooth"
+  },
+  "1016": {
+    "name": "Clip"
+  },
+  "1018": {
+    "name": "LLaMA 3 70B Q4"
+  },
+  "1026": {
+    "name": "Whisper"
+  },
+  "1033": {
+    "name": "Mistral 7B"
+  },
+  "1035": {
+    "name": "VAE"
+  },
+  "1036": {
+    "name": "LoRA"
+  },
+  "1037": {
+    "name": "Davinci Resolve"
+  },
+  "1042": {
+    "name": "Midjourney"
+  },
+  "1044": {
+    "name": "Runway"
+  },
+  "1045": {
+    "name": "Stable Diffusion"
+  },
+  "1046": {
+    "name": "Pika Labs"
+  },
+  "1048": {
+    "name": "Whisper"
+  },
+  "1049": {
+    "name": "OpenCV"
+  },
+  "1050": {
+    "name": "ImageHash + OpenCV"
+  },
+  "1051": {
+    "name": "YOLOv8 Segment Anything"
+  }
+}

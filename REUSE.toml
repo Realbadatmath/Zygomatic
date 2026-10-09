@@ -1,0 +1,12 @@
+version = 1
+SPDX-PackageName = "zygomatic"
+SPDX-PackageSupplier = "Zygomatic"
+
+# The root of the monorepo. Each package under packages/ carries its own REUSE.toml with the
+# same terms; this one covers the root files (README, scripts, CI, docs).
+# MIT.txt is here for the vendored three.js in packages/dashboard; reuse resolves the git root.
+[[annotations]]
+path = ["**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 Zygomatic"
+SPDX-License-Identifier = "AGPL-3.0-or-later"

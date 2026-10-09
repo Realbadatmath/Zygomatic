@@ -1,0 +1,277 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# ruff: noqa: F401
+"""
+Multi-angle contact sheet pipeline — generate one reference grid, approve, tile, caption, LoRA train.
+
+Stages: sheet_generate → awaiting_approval → tile_crop → identity_qc → captions
+        → lora_training → angle_expansion → lora_refine → done
+
+identity_qc: ArcFace drift gate vs the sheet-A anchor (identity_qc_service);
+             failed frontal cells are regenerated per-cell with IP-Adapter.
+angle_expansion / lora_refine: LoRA flywheel — v1 LoRA generates the hard
+             angles face embeddings cannot lock (backs, crown, low/high), the
+             survivors join the dataset, and the LoRA retrains as v2.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import shutil
+import time
+import uuid
+from datetime import datetime
+from typing import Any, Callable
+from zoneinfo import ZoneInfo
+import logging as _zyg_logging
+
+from zyg_workflows import paths
+
+from zyg_workflows.contact_sheet_pipeline import constants
+from zyg_workflows.contact_sheet_pipeline import angle_selection
+from zyg_workflows.contact_sheet_pipeline import angle_edit
+from zyg_workflows.contact_sheet_pipeline import corpus_plan
+from zyg_workflows.contact_sheet_pipeline import layout
+from zyg_workflows.contact_sheet_pipeline import sheet_prep
+from zyg_workflows.contact_sheet_pipeline import dispatch
+from zyg_workflows.contact_sheet_pipeline import stitch
+from zyg_workflows.contact_sheet_pipeline import sheet_canvas
+from zyg_workflows.contact_sheet_pipeline import pose_locked
+from zyg_workflows.contact_sheet_pipeline import per_cell
+from zyg_workflows.contact_sheet_pipeline import tiles
+from zyg_workflows.contact_sheet_pipeline import captions
+from zyg_workflows.contact_sheet_pipeline import cell_regen
+from zyg_workflows.contact_sheet_pipeline import identity_qc
+from zyg_workflows.contact_sheet_pipeline import dedup
+from zyg_workflows.contact_sheet_pipeline import expansion
+from zyg_workflows.contact_sheet_pipeline import library
+from zyg_workflows.contact_sheet_pipeline import pipeline
+
+from zyg_workflows.contact_sheet_pipeline.constants import (
+    _zyg_log,
+    _AMS,
+    _DATASET_ROOT,
+    _OUTPUT_ROOT,
+    DUAL_SHEET_ROWS,
+    DUAL_SHEET_COLS,
+    ANGLE_SET_DEFAULT,
+    _CLASSIC_PARTS,
+    _EXTENDED_PARTS,
+    _MASTER_SHEET_PART_SCAN,
+    MULTI_PART_SHEET_COUNTS,
+    PREVIEW_PROVENANCE_PREFERRED,
+    LIBRARY_STRICT_CHAR_IDS,
+    LIBRARY_GATE_DECLINED,
+    _CHAR_ID_RE_SRC,
+    is_servable_char_id,
+    _normalize_angle_set,
+    sheet_parts_for,
+    CORPUS_CELLS_DEFAULT,
+    CORPUS_CELLS_MIN,
+    CORPUS_CELLS_MAX,
+    CORPUS_DERIVED_MAX_FRAC,
+    DUAL_SHEET_PARTS,
+    DUAL_SHEET_COUNT,
+    DUAL_SHEET_TOTAL_ANGLES,
+    DEFAULT_ROWS,
+    DEFAULT_COLS,
+    LEGACY_SINGLE_ROWS,
+    LEGACY_SINGLE_COLS,
+    DEFAULT_GUTTER,
+    DEFAULT_CELL_W,
+    DEFAULT_CELL_H,
+    CANVAS_GEN_W,
+    CANVAS_GEN_H,
+    EXPORT_CELL_W,
+    EXPORT_CELL_H,
+    UPSCALE_FACTOR,
+    SHEET_B_ANCHOR_ENABLED,
+    SHEET_B_I2I_DENOISE,
+    SHEET_B_IPA_SCALE,
+    SHEET_B_USE_IPA,
+    CONTACT_SHEET_HAND_FIXER,
+    IDQC_MAX_RETRIES,
+    IDQC_REGEN_IPA_SCALE,
+    IDQC_EXCLUDE_FAILED,
+    _INSTANTID_REGEN_ENABLED,
+    IDQC_REGEN_MIN_SCORE,
+    IDQC_MISLABEL_KEEP_SCORE,
+    FLYWHEEL_ENABLED,
+    LORA_TRAINING_ENABLED,
+    CONTACT_SHEET_BEST_OF,
+    EXPANSION_COUNT,
+    EXPANSION_W,
+    EXPANSION_H,
+    EXPANSION_MIN_SCORE,
+    SHEET_A_ANGLES,
+    SHEET_B_ANGLES,
+    SHEET_C_ANGLES,
+    SHEET_D_ANGLES,
+    SHEET_E_ANGLES,
+    SHEET_F_ANGLES,
+    SHEET_G_ANGLES,
+    SHEET_H_ANGLES,
+    SHEET_ANGLES_BY_PART,
+    contact_sheet_angle_labels,
+    CONTACT_SHEET_ANGLE_LABELS,
+)
+from zyg_workflows.contact_sheet_pipeline.angle_selection import (
+    ANCHOR_ANGLE_ID,
+    ANGLE_GROUP_TITLES,
+    angle_catalog,
+    ANGLE_CATALOG,
+    _ANGLE_LABEL_BY_ID,
+    _ANGLE_ID_BY_LABEL,
+    ANGLE_PRESETS,
+    angle_ids_to_labels,
+    labels_to_angle_ids,
+    custom_angle_labels_for_job,
+)
+from zyg_workflows.contact_sheet_pipeline.angle_edit import (
+    EXPRESSIONS,
+    _CORPUS_LIGHTING_PHRASES,
+    _CORPUS_CLOSEUP_PHRASES,
+    _expression_in_label,
+    _STEEP_ANGLE_KEYS,
+    _is_steep_or_back_angle,
+    _CLOSEUP_ZOOM_KEYS,
+    _is_closeup_zoom_angle,
+    _angle_rotation_deg,
+    _closeup_source_cell,
+    _closeup_crop_from,
+    _RELIGHT_KINDS,
+    _lighting_grade_kind,
+    _is_relight_angle,
+    _apply_lighting_grade,
+    _strip_detailer_for_steep,
+    _qwen_angle_instruction,
+    _framing_clause,
+    _FULL_BODY_MARKERS,
+    _is_full_body_angle,
+    _cell_size_for_angle,
+)
+from zyg_workflows.contact_sheet_pipeline.corpus_plan import (
+    _is_expression_base_angle,
+    _plan_hash,
+    _corpus_target_cells,
+    _corpus_label_maps,
+    build_corpus_plan_detail,
+    build_corpus_plan,
+)
+from zyg_workflows.contact_sheet_pipeline.layout import (
+    _stem_index,
+    _find_indexed_file,
+    _anchor_cell_path,
+    _body_anchor_path_for,
+    _resolve_anchor_family,
+    _ams_iso,
+    contact_sheet_dir,
+    tiles_dir,
+    training_sheet_path,
+    stitch_training_sheet,
+    training_dataset_dir,
+    run_log_path,
+    append_run_log,
+    manifest_path,
+    master_sheet_path,
+    trigger_token_for,
+    _angle_label,
+    _angles_for_sheet_part,
+    build_identity_snippet,
+    _resolve_sheet_mode,
+    native_sheet_path,
+    master_sheet_path_part,
+    identity_anchor_face_path,
+    identity_profile_anchor_face_path,
+    _save_dedup_conflict_image,
+    write_manifest,
+    load_manifest,
+)
+from zyg_workflows.contact_sheet_pipeline.sheet_prep import (
+    _extract_sheet_identity_anchor,
+    _grid_cell_size,
+    _build_grid_forcing_prompt,
+    _upscale_sheet_comfy,
+    _upscale_sheet_pil,
+    _comfy_availability,
+    _build_sheet_character_package,
+    caption_style_description,
+    _sdxl_per_cell_enabled,
+)
+from zyg_workflows.contact_sheet_pipeline.dispatch import (
+    generate_contact_sheet,
+)
+from zyg_workflows.contact_sheet_pipeline.stitch import (
+    _generate_sheet_mock,
+    _stitch_cell_images,
+    restitch_master_sheets,
+    _composite_dual_preview,
+    _composite_sheet_stack,
+    _resize_tile_for_export,
+)
+from zyg_workflows.contact_sheet_pipeline.sheet_canvas import (
+    _generate_sheet_single_canvas,
+    _generate_dual_contact_sheets,
+    _generate_sheet_comfy_cells,
+)
+from zyg_workflows.contact_sheet_pipeline.pose_locked import (
+    _generate_pose_locked_contact_sheet,
+)
+from zyg_workflows.contact_sheet_pipeline.per_cell import (
+    _generate_per_cell_contact_sheet,
+)
+from zyg_workflows.contact_sheet_pipeline.tiles import (
+    _slice_sheet_image,
+    split_sheet_into_tiles,
+)
+from zyg_workflows.contact_sheet_pipeline.captions import (
+    _caption_axis_tokens,
+    write_tile_captions,
+)
+from zyg_workflows.contact_sheet_pipeline.cell_regen import (
+    _regenerate_tile_cell,
+    _generate_cell_best_of,
+)
+from zyg_workflows.contact_sheet_pipeline.identity_qc import (
+    _VIS_ORDER,
+    _nearest_passing_reference,
+    _anchor_skin_luma,
+    _tile_texture_score,
+    run_identity_qc,
+    _dhash64,
+    _hamming64,
+    _dedup_clusters,
+)
+from zyg_workflows.contact_sheet_pipeline.dedup import (
+    dedup_dataset_tiles,
+    sync_dataset_manifest,
+)
+from zyg_workflows.contact_sheet_pipeline.expansion import (
+    EXPANSION_ANGLES,
+    run_angle_expansion,
+)
+from zyg_workflows.contact_sheet_pipeline.library import (
+    derive_pipeline_stage,
+    is_contact_sheet_char,
+    contact_sheet_image_api_path,
+    any_master_sheet_path,
+    master_sheet_exists,
+    preview_meta_sidecar_path,
+    preview_provenance_ok,
+    _LIBRARY_PREVIEW_NAMES,
+    _contact_sheet_tile_previews,
+    preview_file_for_library,
+    library_preview_urls,
+    _read_meta,
+    _job_from_runtime,
+    list_contact_sheet_library,
+)
+from zyg_workflows.contact_sheet_pipeline.pipeline import (
+    run_qc_safety_valve,
+    wait_for_approval,
+    _QUALITY_METRICS_PATH,
+    _append_quality_metrics,
+    run_pipeline,
+)

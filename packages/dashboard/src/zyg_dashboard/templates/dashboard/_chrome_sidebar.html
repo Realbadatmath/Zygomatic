@@ -1,0 +1,152 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+    <!-- ── Launcher Hub icon (upper-left) — the "ZH" neural badge, opens the Zygomatic Hub ──
+         2026-08-25: was an inline tribal-hexagon SVG. Now the raster ZH badge the hub itself
+         uses for its favicon and the XFCE dock launcher (source ~/Documents/favicon-hub/, see
+         its README). The 128px cut is shown at 46px (~2.8x) so it stays crisp on HiDPI; 128 is
+         cut from the "lg" master, the one meant for 64px and up. The ?v= is not decoration:
+         /static images get no Cache-Control here (only .js/.css do), so browsers heuristically
+         cache them for days and would keep painting an old file after a swap. -->
+    <!-- 2026-08-25: the pair is centred in the sidebar as ONE unit. The row is fixed at the
+         sidebar's width (192px, .dashboard-sidebar in dashboard_core.css) and centres its
+         children, so neither icon carries a hard-coded left offset any more. -->
+    <div class="dashboard-chrome-icons">
+    <!-- The hub is a different port on the same machine, so the href cannot be relative.
+         It is rewritten to the host the viewer actually used (see the script below), which
+         is what makes the icon work from a phone on the LAN as well as from the box. -->
+    <a href="http://127.0.0.1:7000" id="dashboard-hub-icon" class="dashboard-hub-icon"
+       title="Open the Zygomatic Launcher Hub" aria-label="Open the Zygomatic Launcher Hub">
+      <img src="/static/icons/hub_zh_128.png?v=1" alt="" width="46" height="46" draggable="false">
+    </a>
+    <!-- ── Inspection icon — sits beside the Hub icon, opens the Contact-Sheet Inspection SPA ──
+         Served by kanban_server on :8899 (same host as the Workflows kanban iframe), NOT by
+         this Flask app on :5000 — hence the absolute URL, exactly like the Hub icon above.
+         2026-08-25: was the same hexagon ring with an eye inside. Now the illustrated eye that
+         inspection.html and kanban.html use as their brand mark (~/Documents/favicon/
+         inspect_eye.png, 204x130, transparent). It is a 1.57:1 image, NOT a square: it gets
+         its own width and is centred in the 46px chrome row, because squeezing it into a
+         46px square would letterbox it to ~29px of actual eye.
+         2026-09-15: opens the studio through its TLS front door (nginx 443 -> :8899) on the
+         Library view. The address is '#library', not '#inspections' — the operator does not
+         want "inspections" in the URL; inspection.html still accepts the old address. -->
+    <a href="https://studio.zygomaticszero.com/#library" id="dashboard-inspect-icon"
+       class="dashboard-hub-icon dashboard-inspect-icon" target="_blank" rel="noopener"
+       title="Open the Contact-Sheet Inspection page"
+       aria-label="Open the Contact-Sheet Inspection page">
+      <img src="/static/icons/inspect_eye.png?v=1" alt="" width="52" height="33" draggable="false">
+    </a>
+    </div>
+    <script>
+      (function () {
+        var hub = document.getElementById('dashboard-hub-icon');
+        if (hub) hub.href = window.location.protocol + '//' + window.location.hostname + ':7000';
+      })();
+    </script>
+    <style>
+      .dashboard-chrome-icons { position: fixed; top: 14px; left: 0; width: 192px; height: 46px;
+        z-index: 1001; display: flex; align-items: center; justify-content: center; gap: 10px;
+        pointer-events: none; }
+      .dashboard-hub-icon { position: static; pointer-events: auto; flex: 0 0 auto;
+        width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
+        cursor: pointer; -webkit-tap-highlight-color: transparent;
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+        transition: transform .2s ease, filter .2s ease; }
+      /* Raster icons cannot take the old currentColor hover tint; the cyan glow + a touch of
+         brightness do that job now. */
+      .dashboard-hub-icon:hover { transform: scale(1.08) rotate(-4deg);
+        filter: drop-shadow(0 0 8px rgba(125,211,252,0.65)) brightness(1.12); }
+      .dashboard-hub-icon:active { transform: scale(0.97); }
+      .dashboard-hub-icon img { display: block; width: 46px; height: 46px; user-select: none; }
+      .dashboard-inspect-icon { width: 52px; }
+      .dashboard-inspect-icon img { width: 52px; height: auto; }
+      .dashboard-inspect-icon:hover { transform: scale(1.08) rotate(4deg); }
+    </style>
+
+    <nav class="dashboard-sidebar">
+        <div class="dashboard-sidebar-tabs-wrap">
+        <a href="/gpu_schedule.html" class="dashboard-sidebar-tab" data-tab="gpu_schedule" data-help="Open the GPU schedule page to add and manage GPU timeline entries.">GPU Schedule</a>
+        <a href="/cpu_schedule.html" class="dashboard-sidebar-tab" data-tab="cpu_schedule" data-help="Open the CPU schedule page to add and manage CPU timeline entries.">CPU Schedule</a>
+        <div class="dashboard-sidebar-spacer"></div>
+        
+        <a href="/?tab=agent_overview" class="dashboard-sidebar-tab{% if _dtab == 'agent_overview' %} active{% endif %}" data-tab="agent_overview" data-help="View agent overview: active agents, tasks, GPU and CPU usage at a glance.">Agent Overview</a>
+        <a href="/error_logs" class="dashboard-sidebar-tab{% if _dtab == 'error_logs' %} active{% endif %}" data-tab="error_logs" data-help="View error logs and troubleshoot issues.">Error Logs</a>
+        <a href="/job_status" class="dashboard-sidebar-tab{% if _dtab == 'job_status' %} active{% endif %}" data-tab="job_status" data-help="View job status and running tasks.">Job Status</a>
+        <a href="/monitoring_ui" class="dashboard-sidebar-tab{% if _dtab == 'monitoring_ui' %} active{% endif %}" data-tab="monitoring_ui" data-help="Open the monitoring UI for live system and job monitoring.">Monitoring UI</a>
+        <a href="/parameter_control" class="dashboard-sidebar-tab{% if _dtab == 'parameter_control' %} active{% endif %}" data-tab="parameter_control" data-help="Live track CPU and GPU usage vs assigned from schedules; view Performance and % Overall.">Parameter Control</a>
+        <a href="/approval_queue" class="dashboard-sidebar-tab{% if _dtab == 'approval_queue' %} active{% endif %}" data-tab="approval_queue" data-help="Pending schedule requests awaiting approval (Admin).">Approval Queue</a>
+        <a href="/audit" class="dashboard-sidebar-tab{% if _dtab == 'audit' %} active{% endif %}" data-tab="audit" data-help="Audit log: who changed what (Admin).">Audit</a>
+        <a href="/integrity_gate" class="dashboard-sidebar-tab{% if _dtab == 'integrity_gate' %} active{% endif %}" data-tab="integrity_gate" data-help="Integrity Gate: checks passed/failed, blocked reason, force override (Admin).">Integrity Gate</a>
+        <a href="/job_lifecycle" class="dashboard-sidebar-tab{% if _dtab == 'job_lifecycle' %} active{% endif %}" data-tab="job_lifecycle" data-help="Job lifecycle: specs and runs linked to schedule requests.">Job Lifecycle</a>
+        <a href="/metrics" class="dashboard-sidebar-tab{% if _dtab == 'metrics' %} active{% endif %}" data-tab="metrics" data-help="View metrics: performance, feedback loops, agent and workflow metrics. Mechanics lives here too, as a subtab.">Metrics</a>
+        <a href="/workflows" class="dashboard-sidebar-tab{% if _dtab == 'workflows' %} active{% endif %}" data-tab="workflows" data-help="Workflows: live Clipfarm pipeline Kanban board with telemetry.">Workflows</a>
+        <a href="/frequency" class="dashboard-sidebar-tab{% if _dtab == 'frequency' %} active{% endif %}" data-tab="frequency" data-help="Frequency: FL Studio-style waveform activity monitor for all LLMs, tools and dependencies.">Frequency</a>
+        <a href="/benchmark" class="dashboard-sidebar-tab{% if _dtab == 'benchmark' %} active{% endif %}" data-tab="benchmark" data-help="Benchmark: historical pipeline performance analytics and infrastructure health checks.">Benchmark</a>
+        <a href="/sandbox" class="dashboard-sidebar-tab{% if _dtab == 'sandbox' %} active{% endif %}" data-tab="sandbox" data-help="Sandbox: dedicated skill security scanner — static analysis, CVE audit, behavioral probe.">Sandbox</a>
+        </div>
+        <!-- ── Sidebar telemetry widget — hover any row for "what is using this?" ── -->
+        <div class="sidebar-telemetry" id="sidebar-telemetry">
+          <div class="sidebar-telemetry-row" id="strow-disk">
+            <span class="sidebar-telemetry-label">Disk</span>
+            <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar disk" id="stbar-disk" style="width:0%"></div></div>
+            <span class="sidebar-telemetry-val" id="stval-disk">&mdash;</span>
+          </div>
+          <div class="sidebar-telemetry-row" id="strow-cpu">
+            <span class="sidebar-telemetry-label">CPU</span>
+            <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar cpu" id="stbar-cpu" style="width:0%"></div></div>
+            <span class="sidebar-telemetry-val" id="stval-cpu">&mdash;</span>
+          </div>
+          <div class="sidebar-telemetry-row" id="strow-ram">
+            <span class="sidebar-telemetry-label">RAM</span>
+            <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar ram" id="stbar-ram" style="width:0%"></div></div>
+            <span class="sidebar-telemetry-val" id="stval-ram">&mdash;</span>
+          </div>
+          <div class="sidebar-telemetry-row" id="strow-gpu">
+            <span class="sidebar-telemetry-label">GPU</span>
+            <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar gpu" id="stbar-gpu" style="width:0%"></div></div>
+            <span class="sidebar-telemetry-val" id="stval-gpu">&mdash;</span>
+          </div>
+          <div class="sidebar-telemetry-row" id="strow-vram">
+            <span class="sidebar-telemetry-label">VRAM</span>
+            <div class="sidebar-telemetry-bar-wrap"><div class="sidebar-telemetry-bar vram" id="stbar-vram" style="width:0%"></div></div>
+            <span class="sidebar-telemetry-val" id="stval-vram">&mdash;</span>
+          </div>
+        </div>
+        <div id="amsterdam-clock" class="dashboard-sidebar-clock" title="Click to set timezone or time">
+          <span id="clock-time">--:--:--</span>
+          <span id="clock-date">--/--/----</span>
+        </div>
+        <button id="dashboard-sidebar-agent-zero" class="dashboard-sidebar-zero-btn" onclick="window.AgentZero&&window.AgentZero.open()" title="Agent Zero — AI assistant (or press Z)" style="display:none;">Zero</button>
+        <div class="dashboard-sidebar-bottom-row">
+          <a href="/logout" id="dashboard-sidebar-logout" class="dashboard-sidebar-logout" data-help="Sign out and return to the login page." title="Logout">Logout</a>
+          <button id="dashboard-sidebar-restart" class="dashboard-sidebar-restart" title="Restart server" onclick="dashboardRestartServer(this)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          </button>
+        </div>
+
+        <!-- Restart overlay -->
+        <div id="restart-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:10000; flex-direction:column; align-items:center; justify-content:center; gap:24px;">
+          <svg id="restart-spinner" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#9be6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:restart-spin 1s linear infinite;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          <div id="restart-overlay-msg" style="color:#e0f4ff; font-size:1.25rem; font-weight:600; letter-spacing:0.02em; text-align:center;">Restarting, Please Wait…</div>
+        </div>
+
+        <!-- Custom confirm dialog (replaces browser confirm() popup) -->
+        <div id="zyg-confirm-backdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:10000; align-items:center; justify-content:center;">
+          <div style="background:#1a1f2e; border:1px solid rgba(155,230,255,0.18); border-radius:14px; padding:32px 36px 24px; min-width:320px; max-width:420px; box-shadow:0 24px 64px rgba(0,0,0,0.7); display:flex; flex-direction:column; gap:0;">
+            <div id="zyg-confirm-icon" style="display:flex; justify-content:center; margin-bottom:18px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9be6ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            </div>
+            <div id="zyg-confirm-title" style="color:#e0f4ff; font-size:1.1rem; font-weight:700; text-align:center; margin-bottom:10px; letter-spacing:0.01em;"></div>
+            <div id="zyg-confirm-msg" style="color:#8ba8c4; font-size:0.9rem; text-align:center; margin-bottom:28px; line-height:1.5;"></div>
+            <div style="display:flex; gap:12px; justify-content:center;">
+              <button id="zyg-confirm-cancel" style="flex:1; padding:10px 0; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06); color:#aac4de; font-size:0.9rem; font-weight:600; cursor:pointer; transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.11)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">Cancel</button>
+              <button id="zyg-confirm-ok" style="flex:1; padding:10px 0; border-radius:8px; border:none; background:linear-gradient(135deg,#1e7fcb,#0e5fa0); color:#e0f4ff; font-size:0.9rem; font-weight:700; cursor:pointer; transition:opacity 0.15s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Restart</button>
+            </div>
+          </div>
+        </div>
+
+        <script src="/static/js/zygomatic_core.js?v=1"></script>
+    </nav>

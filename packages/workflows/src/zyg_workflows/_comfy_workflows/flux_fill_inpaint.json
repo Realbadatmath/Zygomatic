@@ -1,0 +1,90 @@
+{
+  "10": {
+    "inputs": {
+      "unet_name": "flux1-fill-dev.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Flux Fill UNet"}
+  },
+  "11": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "DualCLIPLoader"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux_ae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load Flux VAE"}
+  },
+  "15": {
+    "inputs": {"image": "test_src.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "Load Source Image"}
+  },
+  "16": {
+    "inputs": {"image": "test_mask.png", "channel": "red"},
+    "class_type": "LoadImageMask",
+    "_meta": {"title": "Load Inpaint Mask"}
+  },
+  "20": {
+    "inputs": {
+      "text": "correct human anatomy, natural hands with exactly 5 fingers, realistic proportions, no deformities, photorealistic",
+      "clip": ["11", 0]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {"text": "", "clip": ["11", 0]},
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "26": {
+    "inputs": {
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "vae": ["12", 0],
+      "pixels": ["15", 0],
+      "mask": ["16", 0],
+      "noise_mask": true
+    },
+    "class_type": "InpaintModelConditioning",
+    "_meta": {"title": "Inpaint Conditioning"}
+  },
+  "27": {
+    "inputs": {"guidance": 30.0, "conditioning": ["26", 0]},
+    "class_type": "FluxGuidance",
+    "_meta": {"title": "FluxGuidance"}
+  },
+  "31": {
+    "inputs": {
+      "seed": 42,
+      "steps": 20,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": ["10", 0],
+      "positive": ["27", 0],
+      "negative": ["26", 1],
+      "latent_image": ["26", 2]
+    },
+    "class_type": "KSampler",
+    "_meta": {"title": "KSampler"}
+  },
+  "40": {
+    "inputs": {"samples": ["31", 0], "vae": ["12", 0]},
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygFluxFill", "images": ["40", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}

@@ -1,0 +1,18 @@
+[Unit]
+Description=Zygomatic Postgres 16 (user-level; unix socket under %h/pg16/run, no TCP)
+
+[Service]
+Type=simple
+# A user-level Postgres install, outside this repository: %h/pg16 is created by hand
+# (initdb). The dashboard reaches it over that unix socket; no TCP port is opened.
+ExecStart=%h/pg16/env/bin/postgres -D %h/pg16/data
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGINT
+TimeoutStopSec=90
+Restart=on-failure
+RestartSec=3
+OOMScoreAdjust=-500
+
+[Install]
+WantedBy=default.target

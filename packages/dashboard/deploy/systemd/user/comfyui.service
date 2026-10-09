@@ -1,0 +1,18 @@
+[Unit]
+Description=ComfyUI generation backend (port 8188)
+PartOf=zygomatic.target
+After=network.target
+StartLimitIntervalSec=600
+StartLimitBurst=4
+
+[Service]
+EnvironmentFile=%h/.config/zygomatic/env
+# ComfyUI is a third-party checkout, not part of this repository. ZYG_COMFY_ROOT in the
+# environment file must name the same directory this ExecStart starts from.
+ExecStart=/bin/bash %h/ai-models/comfyui/start_server.sh
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=45
+
+[Install]
+WantedBy=default.target zygomatic.target

@@ -1,0 +1,35 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+    <!-- Clock settings modal -->
+    <div id="dashboard-clock-modal" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;" class="dashboard-modal-overlay">
+        <div style="background: #f5f5f7; padding: 24px; border-radius: 12px; max-width: 360px; width: 90%;">
+            <h3 style="margin-top:0;">Time &amp; timezone</h3>
+            <div class="form-group">
+                <label for="dashboard-clock-timezone">Timezone</label>
+                <select id="dashboard-clock-timezone" style="width:100%; padding: 8px 12px; border-radius: 8px;">
+                    <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+                    <option value="Europe/London">Europe/London</option>
+                    <option value="Europe/Paris">Europe/Paris</option>
+                    <option value="America/New_York">America/New_York</option>
+                    <option value="America/Los_Angeles">America/Los_Angeles</option>
+                    <option value="Asia/Tokyo">Asia/Tokyo</option>
+                    <option value="Asia/Shanghai">Asia/Shanghai</option>
+                    <option value="UTC">UTC</option>
+                    <option value="Local">Local (browser)</option>
+                </select>
+            </div>
+                <label><input type="checkbox" id="dashboard-clock-manual"> Set time manually</label>
+            <div class="form-group" id="dashboard-clock-manual-wrap" style="display:none;">
+                <label for="dashboard-clock-datetime">Date &amp; time</label>
+                <input type="datetime-local" id="dashboard-clock-datetime" style="width:100%; padding: 8px 12px; border-radius: 8px;">
+            </div>
+            <div style="display:flex; gap:8px; margin-top:16px;">
+                <button type="button" class="btn dashboard-btn" id="dashboard-clock-save" data-help="Save the selected timezone and optional manual time for the dashboard clock.">Save</button>
+                <button type="button" class="btn btn-secondary" id="dashboard-clock-cancel" data-help="Close the clock settings without saving.">Cancel</button>
+            </div>
+        </div>
+    </div>

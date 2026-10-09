@@ -1,0 +1,5607 @@
+{
+  "Localization-Master-Agent": {
+    "agent_id": "759179",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Localization-Master-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Localization-Master-Agent__Llama 3"
+      }
+    ]
+  },
+  "Cultural-Adaptation-Master-Agent": {
+    "agent_id": "1060",
+    "tier": 1,
+    "models": []
+  },
+  "Voice-Localization-Master-Agent": {
+    "agent_id": "7312",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Voice-Localization-Master-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Voice-Localization-Master-Agent__Llama 3"
+      }
+    ]
+  },
+  "English-Localization-Agent": {
+    "agent_id": "4988",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "English-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "English-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "Mandarin-Localization-Agent": {
+    "agent_id": "539",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Mandarin-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Mandarin-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "Hindi-Localization-Agent": {
+    "agent_id": "50229",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Hindi-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Hindi-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "Spanish-Localization-Agent": {
+    "agent_id": "379905",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Spanish-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Spanish-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "French-Localization-Agent": {
+    "agent_id": "3088",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "French-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "French-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "Arabic-Localization-Agent": {
+    "agent_id": "5851",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Arabic-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Arabic-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "Bengali-Localization-Agent": {
+    "agent_id": "6314",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Bengali-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Bengali-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "Portuguese-Localization-Agent": {
+    "agent_id": "440507",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Portuguese-Localization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Portuguese-Localization-Agent__Llama 3"
+      }
+    ]
+  },
+  "English-Voice-Agent": {
+    "agent_id": "997",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "English-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "English-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "English-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "English-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "Mandarin-Voice-Agent": {
+    "agent_id": "7474",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "Mandarin-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "Mandarin-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "Mandarin-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "Mandarin-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "Hindi-Voice-Agent": {
+    "agent_id": "38159",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "Hindi-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "Hindi-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "Hindi-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "Hindi-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "Spanish-Voice-Agent": {
+    "agent_id": "633",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "Spanish-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "Spanish-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "Spanish-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "Spanish-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "French-Voice-Agent": {
+    "agent_id": "86585",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "French-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "French-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "French-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "French-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "Arabic-Voice-Agent": {
+    "agent_id": "600477",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "Arabic-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "Arabic-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "Arabic-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "Arabic-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "Bengali-Voice-Agent": {
+    "agent_id": "20155",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "Bengali-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "Bengali-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "Bengali-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "Bengali-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "Portuguese-Voice-Agent": {
+    "agent_id": "92793",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1007",
+        "bar_id": "Portuguese-Voice-Agent__Bark"
+      },
+      {
+        "model": "1032",
+        "bar_id": "Portuguese-Voice-Agent__Bark-Voice-Cloning"
+      },
+      {
+        "model": "1008",
+        "bar_id": "Portuguese-Voice-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "Portuguese-Voice-Agent__Whisper"
+      }
+    ]
+  },
+  "English-Marketing-Agent": {
+    "agent_id": "88847",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "English-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "English-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "English-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "English-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "English-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "English-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Mandarin-Marketing-Agent": {
+    "agent_id": "6642",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Mandarin-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Mandarin-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Mandarin-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Mandarin-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Mandarin-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Mandarin-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Hindi-Marketing-Agent": {
+    "agent_id": "3675",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Hindi-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Hindi-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Hindi-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Hindi-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Hindi-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Hindi-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Spanish-Marketing-Agent": {
+    "agent_id": "163982",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Spanish-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Spanish-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Spanish-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Spanish-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Spanish-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Spanish-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "French-Marketing-Agent": {
+    "agent_id": "698",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "French-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "French-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "French-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "French-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "French-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "French-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Arabic-Marketing-Agent": {
+    "agent_id": "705",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Arabic-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Arabic-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Arabic-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Arabic-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Arabic-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Arabic-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Bengali-Marketing-Agent": {
+    "agent_id": "84386",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Bengali-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Bengali-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Bengali-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Bengali-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Bengali-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Bengali-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Portuguese-Marketing-Agent": {
+    "agent_id": "6280",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Portuguese-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Portuguese-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Portuguese-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Portuguese-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Portuguese-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Portuguese-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Multi-Language-QC-Agent": {
+    "agent_id": "72695",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Multi-Language-QC-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Multi-Language-QC-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Multi-Language-QC-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Multi-Language-QC-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Multi-Language-QC-Agent__Ai Qc Engine"
+      }
+    ]
+  },
+  "Affiliate-Marketing-Overseer": {
+    "agent_id": "15981",
+    "tier": 4,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Affiliate-Marketing-Overseer__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Affiliate-Marketing-Overseer__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Affiliate-Marketing-Overseer__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Affiliate-Marketing-Overseer__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Affiliate-Marketing-Overseer__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Affiliate-Marketing-Overseer__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Affiliate-Marketing-Overseer__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Affiliate-Marketing-Overseer__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Affiliate-Marketing-Overseer__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Affiliate-Marketing-Overseer__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Affiliate-Marketing-Overseer__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Affiliate-Marketing-Agent": {
+    "agent_id": "3357",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Affiliate-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Affiliate-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Affiliate-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Affiliate-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Affiliate-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Affiliate-Marketing-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Affiliate-Marketing-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Affiliate-Marketing-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Affiliate-Marketing-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Affiliate-Marketing-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Affiliate-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Campaign-Builder-Agent": {
+    "agent_id": "4583",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Campaign-Builder-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Campaign-Builder-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Campaign-Builder-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Campaign-Builder-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Campaign-Builder-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Campaign-Builder-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Campaign-Builder-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Campaign-Builder-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Campaign-Builder-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Campaign-Builder-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Campaign-Builder-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "SEO-Agent": {
+    "agent_id": "513204",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "SEO-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "SEO-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "SEO-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "SEO-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "SEO-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "SEO-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "SEO-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "SEO-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "SEO-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "SEO-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "SEO-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Conversion-Optimizer-Agent": {
+    "agent_id": "144",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Conversion-Optimizer-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Conversion-Optimizer-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Conversion-Optimizer-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Conversion-Optimizer-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Conversion-Optimizer-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Conversion-Optimizer-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Conversion-Optimizer-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Conversion-Optimizer-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Conversion-Optimizer-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Conversion-Optimizer-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Conversion-Optimizer-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Content-Writer-Agent": {
+    "agent_id": "5987",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Content-Writer-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Content-Writer-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Content-Writer-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Content-Writer-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Content-Writer-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Content-Writer-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Content-Writer-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Content-Writer-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Content-Writer-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Content-Writer-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Content-Writer-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Email-Marketing-Agent": {
+    "agent_id": "8342",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Email-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Email-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Email-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Email-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Email-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Email-Marketing-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Email-Marketing-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Email-Marketing-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Email-Marketing-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Email-Marketing-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Email-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "PPC-Agent": {
+    "agent_id": "758",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "PPC-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "PPC-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "PPC-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "PPC-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "PPC-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "PPC-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "PPC-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "PPC-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "PPC-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "PPC-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "PPC-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Social-Media-Marketing-Agent": {
+    "agent_id": "1690",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Social-Media-Marketing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Social-Media-Marketing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Social-Media-Marketing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Social-Media-Marketing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "Social-Media-Marketing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Social-Media-Marketing-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Social-Media-Marketing-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Social-Media-Marketing-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Social-Media-Marketing-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Social-Media-Marketing-Agent__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "Social-Media-Marketing-Agent__DreamShaper RealisticVision"
+      }
+    ]
+  },
+  "Analytics-Reporting-Agent": {
+    "agent_id": "8074",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Analytics-Reporting-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Analytics-Reporting-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Analytics-Reporting-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Analytics-Reporting-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Analytics-Reporting-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Analytics-Reporting-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Analytics-Reporting-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Analytics-Reporting-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "Audience-Targeting-Agent": {
+    "agent_id": "5994",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Audience-Targeting-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Audience-Targeting-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Audience-Targeting-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Audience-Targeting-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Audience-Targeting-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Audience-Targeting-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Audience-Targeting-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Audience-Targeting-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "Revenue-Optimization-Agent": {
+    "agent_id": "722956",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Revenue-Optimization-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Revenue-Optimization-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Revenue-Optimization-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Revenue-Optimization-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1031",
+        "bar_id": "Revenue-Optimization-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "Revenue-Optimization-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "Revenue-Optimization-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Revenue-Optimization-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "YouTube-Content-Overseer": {
+    "agent_id": "3259",
+    "tier": 4,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Content-Overseer__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Content-Overseer__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Content-Overseer__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Content-Overseer__Crewai Openagents"
+      },
+      {
+        "model": "1001",
+        "bar_id": "YouTube-Content-Overseer__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "YouTube-Content-Overseer__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1004",
+        "bar_id": "YouTube-Content-Overseer__AnimateDiff"
+      },
+      {
+        "model": "1005",
+        "bar_id": "YouTube-Content-Overseer__Stable Video Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Content-Overseer__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "YouTube-Content-Overseer__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "YouTube-Content-Overseer__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "YouTube-Content-Overseer__AI QC Engine"
+      },
+      {
+        "model": "1002",
+        "bar_id": "YouTube-Content-Overseer__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1003",
+        "bar_id": "YouTube-Content-Overseer__AnimateDiff"
+      }
+    ]
+  },
+  "YouTube-Script-Agent": {
+    "agent_id": "755022",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Script-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Script-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Script-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Script-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "YouTube-Script-Agent__LangChain Llamalend"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Script-Agent__GPT-4"
+      },
+      {
+        "model": "1020",
+        "bar_id": "YouTube-Script-Agent__HumanEval"
+      }
+    ]
+  },
+  "YouTube-Thumbnail-Agent": {
+    "agent_id": "528381",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Thumbnail-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Thumbnail-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Thumbnail-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Thumbnail-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "YouTube-Thumbnail-Agent__LangChain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "YouTube-Thumbnail-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "YouTube-Thumbnail-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1003",
+        "bar_id": "YouTube-Thumbnail-Agent__ControlNet"
+      },
+      {
+        "model": "1014",
+        "bar_id": "YouTube-Thumbnail-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Thumbnail-Agent__GPT-4"
+      },
+      {
+        "model": "1020",
+        "bar_id": "YouTube-Thumbnail-Agent__HumanEval"
+      },
+      {
+        "model": "1002",
+        "bar_id": "YouTube-Thumbnail-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "YouTube-Thumbnail-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "YouTube-Thumbnail-Agent__Kandinsky 2.2"
+      }
+    ]
+  },
+  "YouTube-Video-Editor-Agent": {
+    "agent_id": "175",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Video-Editor-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Video-Editor-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Video-Editor-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Video-Editor-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "YouTube-Video-Editor-Agent__LangChain Llamalend"
+      },
+      {
+        "model": "1004",
+        "bar_id": "YouTube-Video-Editor-Agent__AnimateDiff"
+      },
+      {
+        "model": "1005",
+        "bar_id": "YouTube-Video-Editor-Agent__Stable Video Diffusion"
+      },
+      {
+        "model": "1006",
+        "bar_id": "YouTube-Video-Editor-Agent__RealESRGAN"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Video-Editor-Agent__GPT-4"
+      },
+      {
+        "model": "1020",
+        "bar_id": "YouTube-Video-Editor-Agent__HumanEval"
+      },
+      {
+        "model": "1037",
+        "bar_id": "YouTube-Video-Editor-Agent__Davinci Resolve"
+      },
+      {
+        "model": "1003",
+        "bar_id": "YouTube-Video-Editor-Agent__AnimateDiff"
+      },
+      {
+        "model": "1006",
+        "bar_id": "YouTube-Video-Editor-Agent__RealESRGAN"
+      },
+      {
+        "model": "1014",
+        "bar_id": "YouTube-Video-Editor-Agent__ffmpeg"
+      },
+      {
+        "model": "1015",
+        "bar_id": "YouTube-Video-Editor-Agent__pyDub"
+      }
+    ]
+  },
+  "YouTube-Audio-Agent": {
+    "agent_id": "2618",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Audio-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Audio-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Audio-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Audio-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "YouTube-Audio-Agent__LangChain Llamalend"
+      },
+      {
+        "model": "1007",
+        "bar_id": "YouTube-Audio-Agent__Bark"
+      },
+      {
+        "model": "1008",
+        "bar_id": "YouTube-Audio-Agent__Tortoise Tts"
+      },
+      {
+        "model": "1026",
+        "bar_id": "YouTube-Audio-Agent__Whisper"
+      },
+      {
+        "model": "1020",
+        "bar_id": "YouTube-Audio-Agent__librosa"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Audio-Agent__GPT-4"
+      },
+      {
+        "model": "1027",
+        "bar_id": "YouTube-Audio-Agent__librosa"
+      },
+      {
+        "model": "1014",
+        "bar_id": "YouTube-Audio-Agent__ffmpeg"
+      },
+      {
+        "model": "1015",
+        "bar_id": "YouTube-Audio-Agent__pyDub"
+      }
+    ]
+  },
+  "YouTube-SEO-Agent": {
+    "agent_id": "80885",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-SEO-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-SEO-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-SEO-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-SEO-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-SEO-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "YouTube-SEO-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "YouTube-SEO-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "YouTube-SEO-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "YouTube-Analytics-Agent": {
+    "agent_id": "626",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Analytics-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Analytics-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Analytics-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Analytics-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Analytics-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "YouTube-Analytics-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "YouTube-Analytics-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "YouTube-Analytics-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "YouTube-Community-Agent": {
+    "agent_id": "628347",
+    "tier": 3,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Community-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Community-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Community-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Community-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "YouTube-Community-Agent__LangChain Llamalend"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Community-Agent__GPT-4"
+      },
+      {
+        "model": "1020",
+        "bar_id": "YouTube-Community-Agent__HumanEval"
+      }
+    ]
+  },
+  "YouTube-Scheduling-Agent": {
+    "agent_id": "99157",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Scheduling-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Scheduling-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Scheduling-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Scheduling-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Scheduling-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "YouTube-Scheduling-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "YouTube-Scheduling-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "YouTube-Scheduling-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "YouTube-Trend-Analyst-Agent": {
+    "agent_id": "8957",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "YouTube-Trend-Analyst-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "YouTube-Trend-Analyst-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "YouTube-Trend-Analyst-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "YouTube-Trend-Analyst-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1031",
+        "bar_id": "YouTube-Trend-Analyst-Agent__GPT-4"
+      },
+      {
+        "model": "1023",
+        "bar_id": "YouTube-Trend-Analyst-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "YouTube-Trend-Analyst-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "YouTube-Trend-Analyst-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "3D-Series-Overseer": {
+    "agent_id": "60718",
+    "tier": 4,
+    "models": [
+      {
+        "model": "1041",
+        "bar_id": "3D-Series-Overseer__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Series-Overseer__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Series-Overseer__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Series-Overseer__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Series-Overseer__Midjourney"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Series-Overseer__Crewai Openagents"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Series-Overseer__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Series-Overseer__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Series-Overseer__Mistral Mixtral"
+      },
+      {
+        "model": "1023",
+        "bar_id": "3D-Series-Overseer__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "3D-Series-Overseer__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "3D-Series-Overseer__AI QC Engine"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Series-Overseer__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Series-Overseer__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1003",
+        "bar_id": "3D-Series-Overseer__AnimateDiff"
+      },
+      {
+        "model": "1004",
+        "bar_id": "3D-Series-Overseer__Stable Video Diffusion"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Series-Overseer__Blender (bpy)"
+      }
+    ]
+  },
+  "3D-Series-Agent": {
+    "agent_id": "23496",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Series-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Series-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Series-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Series-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Series-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Series-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Series-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Series-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Series-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Series-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Series-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Series-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Series-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Series-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Series-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1004",
+        "bar_id": "3D-Series-Agent__Stable Video Diffusion"
+      },
+      {
+        "model": "1003",
+        "bar_id": "3D-Series-Agent__AnimateDiff"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Series-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Series-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1006",
+        "bar_id": "3D-Series-Agent__RealESRGAN"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Series-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Series-Agent__ControlNet"
+      }
+    ]
+  },
+  "3D-Modeling-Agent": {
+    "agent_id": "671",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Modeling-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Modeling-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Modeling-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Modeling-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Modeling-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Modeling-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Modeling-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Modeling-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Modeling-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Modeling-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Modeling-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Modeling-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Modeling-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Modeling-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Modeling-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Modeling-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Modeling-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Modeling-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Modeling-Agent__ControlNet"
+      },
+      {
+        "model": "1006",
+        "bar_id": "3D-Modeling-Agent__RealESRGAN"
+      },
+      {
+        "model": "1013",
+        "bar_id": "3D-Modeling-Agent__Dreambooth"
+      },
+      {
+        "model": "1036",
+        "bar_id": "3D-Modeling-Agent__LoRA"
+      }
+    ]
+  },
+  "3D-Rendering-Agent": {
+    "agent_id": "53156",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Rendering-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Rendering-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Rendering-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Rendering-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Rendering-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Rendering-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Rendering-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Rendering-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Rendering-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Rendering-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Rendering-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Rendering-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Rendering-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Rendering-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Rendering-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Rendering-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Rendering-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Rendering-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Rendering-Agent__ControlNet"
+      },
+      {
+        "model": "1006",
+        "bar_id": "3D-Rendering-Agent__RealESRGAN"
+      },
+      {
+        "model": "1012",
+        "bar_id": "3D-Rendering-Agent__ComfyUI"
+      },
+      {
+        "model": "1011",
+        "bar_id": "3D-Rendering-Agent__Deforum"
+      }
+    ]
+  },
+  "3D-Animation-Agent": {
+    "agent_id": "18228",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Animation-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Animation-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Animation-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Animation-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Animation-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Animation-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Animation-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Animation-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Animation-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Animation-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Animation-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Animation-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Animation-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Animation-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Animation-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "3D-Animation-Agent__AnimateDiff"
+      },
+      {
+        "model": "1004",
+        "bar_id": "3D-Animation-Agent__Stable Video Diffusion"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Animation-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Animation-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1006",
+        "bar_id": "3D-Animation-Agent__RealESRGAN"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Animation-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Animation-Agent__ControlNet"
+      }
+    ]
+  },
+  "3D-Environment-Agent": {
+    "agent_id": "18520",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Environment-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Environment-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Environment-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Environment-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Environment-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Environment-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Environment-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Environment-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Environment-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Environment-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Environment-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Environment-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Environment-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Environment-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Environment-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Environment-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Environment-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Environment-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Environment-Agent__ControlNet"
+      },
+      {
+        "model": "1006",
+        "bar_id": "3D-Environment-Agent__RealESRGAN"
+      },
+      {
+        "model": "1013",
+        "bar_id": "3D-Environment-Agent__Dreambooth"
+      },
+      {
+        "model": "1036",
+        "bar_id": "3D-Environment-Agent__LoRA"
+      }
+    ]
+  },
+  "3D-Effects-Agent": {
+    "agent_id": "2653",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Effects-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Effects-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Effects-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Effects-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Effects-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Effects-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Effects-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Effects-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Effects-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Effects-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Effects-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Effects-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Effects-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Effects-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Effects-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Effects-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Effects-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Effects-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Effects-Agent__ControlNet"
+      },
+      {
+        "model": "1006",
+        "bar_id": "3D-Effects-Agent__RealESRGAN"
+      },
+      {
+        "model": "1012",
+        "bar_id": "3D-Effects-Agent__ComfyUI"
+      },
+      {
+        "model": "1011",
+        "bar_id": "3D-Effects-Agent__Deforum"
+      }
+    ]
+  },
+  "3D-Rigging-Agent": {
+    "agent_id": "817987",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Rigging-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Rigging-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Rigging-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Rigging-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Rigging-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Rigging-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Rigging-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Rigging-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Rigging-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Rigging-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Rigging-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Rigging-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Rigging-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Rigging-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Rigging-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Rigging-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Rigging-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Rigging-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Rigging-Agent__ControlNet"
+      }
+    ]
+  },
+  "3D-Texturing-Agent": {
+    "agent_id": "145",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Texturing-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Texturing-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Texturing-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Texturing-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Texturing-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Texturing-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Texturing-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Texturing-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Texturing-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Texturing-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Texturing-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Texturing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Texturing-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Texturing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Texturing-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Texturing-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Texturing-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Texturing-Agent__ControlNet"
+      },
+      {
+        "model": "1013",
+        "bar_id": "3D-Texturing-Agent__Dreambooth"
+      },
+      {
+        "model": "1036",
+        "bar_id": "3D-Texturing-Agent__LoRA"
+      },
+      {
+        "model": "1035",
+        "bar_id": "3D-Texturing-Agent__VAE"
+      }
+    ]
+  },
+  "3D-Lighting-Agent": {
+    "agent_id": "894294",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Lighting-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Lighting-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Lighting-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Lighting-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Lighting-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Lighting-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Lighting-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Lighting-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Lighting-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Lighting-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Lighting-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Lighting-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Lighting-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Lighting-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Lighting-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1009",
+        "bar_id": "3D-Lighting-Agent__Blender (bpy)"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Lighting-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Lighting-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Lighting-Agent__ControlNet"
+      },
+      {
+        "model": "1012",
+        "bar_id": "3D-Lighting-Agent__ComfyUI"
+      }
+    ]
+  },
+  "3D-Compositor-Agent": {
+    "agent_id": "177",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Compositor-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Compositor-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Compositor-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Compositor-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Compositor-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Compositor-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Compositor-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Compositor-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Compositor-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Compositor-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Compositor-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Compositor-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Compositor-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Compositor-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Compositor-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1037",
+        "bar_id": "3D-Compositor-Agent__Davinci Resolve"
+      },
+      {
+        "model": "1004",
+        "bar_id": "3D-Compositor-Agent__Stable Video Diffusion"
+      },
+      {
+        "model": "1003",
+        "bar_id": "3D-Compositor-Agent__AnimateDiff"
+      },
+      {
+        "model": "1006",
+        "bar_id": "3D-Compositor-Agent__RealESRGAN"
+      },
+      {
+        "model": "1014",
+        "bar_id": "3D-Compositor-Agent__ffmpeg"
+      },
+      {
+        "model": "1015",
+        "bar_id": "3D-Compositor-Agent__pyDub"
+      }
+    ]
+  },
+  "3D-Storyboard-Agent": {
+    "agent_id": "4575",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Storyboard-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Storyboard-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Storyboard-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Storyboard-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Storyboard-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Storyboard-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Storyboard-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Storyboard-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Storyboard-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Storyboard-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Storyboard-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Storyboard-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Storyboard-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Storyboard-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Storyboard-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Storyboard-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Storyboard-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Storyboard-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "3D-Storyboard-Agent__Kandinsky 2.2"
+      }
+    ]
+  },
+  "3D-Script-Agent": {
+    "agent_id": "994",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Script-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Script-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Script-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Script-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Script-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Script-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Script-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Script-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Script-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Script-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Script-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Script-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Script-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Script-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Script-Agent__Langchain Llamalend"
+      }
+    ]
+  },
+  "3D-Character-Designer-Agent": {
+    "agent_id": "71643",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Character-Designer-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Character-Designer-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Character-Designer-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Character-Designer-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Character-Designer-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Character-Designer-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Character-Designer-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Character-Designer-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Character-Designer-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Character-Designer-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Character-Designer-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Character-Designer-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Character-Designer-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Character-Designer-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Character-Designer-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "3D-Character-Designer-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "3D-Character-Designer-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "3D-Character-Designer-Agent__ControlNet"
+      },
+      {
+        "model": "1013",
+        "bar_id": "3D-Character-Designer-Agent__Dreambooth"
+      },
+      {
+        "model": "1036",
+        "bar_id": "3D-Character-Designer-Agent__LoRA"
+      },
+      {
+        "model": "1012",
+        "bar_id": "3D-Character-Designer-Agent__ComfyUI"
+      }
+    ]
+  },
+  "3D-Voice-Agent": {
+    "agent_id": "387",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "3D-Voice-Agent__Claude 3"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Voice-Agent__GPT-4"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Voice-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Voice-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Voice-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Voice-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Voice-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1007",
+        "bar_id": "3D-Voice-Agent__Bark"
+      },
+      {
+        "model": "1008",
+        "bar_id": "3D-Voice-Agent__Tortoise TTS"
+      },
+      {
+        "model": "1048",
+        "bar_id": "3D-Voice-Agent__Whisper"
+      },
+      {
+        "model": "1027",
+        "bar_id": "3D-Voice-Agent__librosa"
+      },
+      {
+        "model": "1028",
+        "bar_id": "3D-Voice-Agent__AssemblyAI"
+      },
+      {
+        "model": "1029",
+        "bar_id": "3D-Voice-Agent__Deepgram"
+      }
+    ]
+  },
+  "3D-Music-Agent": {
+    "agent_id": "88390",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Music-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Music-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Music-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Music-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Music-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Music-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Music-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Music-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Music-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Music-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Music-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Music-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Music-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Music-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Music-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1007",
+        "bar_id": "3D-Music-Agent__Bark"
+      },
+      {
+        "model": "1008",
+        "bar_id": "3D-Music-Agent__Tortoise TTS"
+      },
+      {
+        "model": "1027",
+        "bar_id": "3D-Music-Agent__librosa"
+      },
+      {
+        "model": "1028",
+        "bar_id": "3D-Music-Agent__AssemblyAI"
+      },
+      {
+        "model": "1029",
+        "bar_id": "3D-Music-Agent__Deepgram"
+      }
+    ]
+  },
+  "3D-Quality-Control-Agent": {
+    "agent_id": "7187",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Quality-Control-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Quality-Control-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Quality-Control-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Quality-Control-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Quality-Control-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Quality-Control-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Quality-Control-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Quality-Control-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Quality-Control-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Quality-Control-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Quality-Control-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Quality-Control-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "3D-Quality-Control-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "3D-Quality-Control-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "3D-Quality-Control-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1049",
+        "bar_id": "3D-Quality-Control-Agent__OpenCV"
+      },
+      {
+        "model": "1050",
+        "bar_id": "3D-Quality-Control-Agent__ImageHash + OpenCV"
+      },
+      {
+        "model": "1051",
+        "bar_id": "3D-Quality-Control-Agent__YOLOv8 Segment Anything"
+      }
+    ]
+  },
+  "3D-Scheduling-Agent": {
+    "agent_id": "52539",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Scheduling-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Scheduling-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Scheduling-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Scheduling-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Scheduling-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Scheduling-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Scheduling-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Scheduling-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Scheduling-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Scheduling-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Scheduling-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Scheduling-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1023",
+        "bar_id": "3D-Scheduling-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "3D-Scheduling-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "3D-Scheduling-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "3D-Asset-Manager-Agent": {
+    "agent_id": "44980",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Asset-Manager-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Asset-Manager-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Asset-Manager-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Asset-Manager-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Asset-Manager-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Asset-Manager-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Asset-Manager-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Asset-Manager-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Asset-Manager-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Asset-Manager-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Asset-Manager-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Asset-Manager-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1023",
+        "bar_id": "3D-Asset-Manager-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "3D-Asset-Manager-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "3D-Asset-Manager-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "3D-Render-Farm-Manager-Agent": {
+    "agent_id": "578",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "3D-Render-Farm-Manager-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "3D-Render-Farm-Manager-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "3D-Render-Farm-Manager-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1023",
+        "bar_id": "3D-Render-Farm-Manager-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "3D-Render-Farm-Manager-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "3D-Render-Farm-Manager-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "2D-Series-Overseer": {
+    "agent_id": "64064",
+    "tier": 4,
+    "models": [
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-Overseer__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-Overseer__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-Overseer__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-Overseer__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-Overseer__Midjourney"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-Overseer__Crewai Openagents"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-Overseer__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-Overseer__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-Overseer__Mistral Mixtral"
+      },
+      {
+        "model": "1023",
+        "bar_id": "2D-Series-Overseer__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "2D-Series-Overseer__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "2D-Series-Overseer__AI QC Engine"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-Overseer__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-Overseer__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-Overseer__AnimateDiff"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-Overseer__ControlNet"
+      }
+    ]
+  },
+  "2D-Series-Agent": {
+    "agent_id": "248496",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Character-Designer-Agent": {
+    "agent_id": "6046",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Character-Designer-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Character-Designer-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Character-Designer-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Character-Designer-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Character-Designer-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Character-Designer-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Character-Designer-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Character-Designer-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Character-Designer-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Character-Designer-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Character-Designer-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Character-Designer-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Character-Designer-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Character-Designer-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Character-Designer-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Character-Designer-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Character-Designer-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Character-Designer-Agent__ControlNet"
+      },
+      {
+        "model": "1013",
+        "bar_id": "2D-Character-Designer-Agent__Dreambooth"
+      },
+      {
+        "model": "1036",
+        "bar_id": "2D-Character-Designer-Agent__LoRA"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Character-Designer-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Background-Artist-Agent": {
+    "agent_id": "1836",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Background-Artist-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Background-Artist-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Background-Artist-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Background-Artist-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Background-Artist-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Background-Artist-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Background-Artist-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Background-Artist-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Background-Artist-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Background-Artist-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Background-Artist-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Background-Artist-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Background-Artist-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Background-Artist-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Background-Artist-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Background-Artist-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Background-Artist-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Background-Artist-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Background-Artist-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Background-Artist-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Animation-Agent": {
+    "agent_id": "923",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Animation-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Animation-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Animation-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Animation-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Animation-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Animation-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Animation-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Animation-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Animation-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Animation-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Animation-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Animation-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Animation-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Animation-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Animation-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Animation-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Animation-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Animation-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Animation-Agent__ControlNet"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Animation-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Animation-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Storyboard-Agent": {
+    "agent_id": "50628",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Storyboard-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Storyboard-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Storyboard-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Storyboard-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Storyboard-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Storyboard-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Storyboard-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Storyboard-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Storyboard-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Storyboard-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Storyboard-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Storyboard-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Storyboard-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Storyboard-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Storyboard-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Storyboard-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Storyboard-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Storyboard-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Storyboard-Agent__Kandinsky 2.2"
+      }
+    ]
+  },
+  "2D-Script-Agent": {
+    "agent_id": "916516",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Script-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Script-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Script-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Script-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Script-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Script-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Script-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Script-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Script-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Script-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Script-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Script-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Script-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Script-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Script-Agent__Langchain Llamalend"
+      }
+    ]
+  },
+  "2D-Voice-Agent": {
+    "agent_id": "535",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "2D-Voice-Agent__Claude 3"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Voice-Agent__GPT-4"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Voice-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Voice-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Voice-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Voice-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Voice-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1007",
+        "bar_id": "2D-Voice-Agent__Bark"
+      },
+      {
+        "model": "1008",
+        "bar_id": "2D-Voice-Agent__Tortoise TTS"
+      },
+      {
+        "model": "1048",
+        "bar_id": "2D-Voice-Agent__Whisper"
+      },
+      {
+        "model": "1027",
+        "bar_id": "2D-Voice-Agent__librosa"
+      },
+      {
+        "model": "1028",
+        "bar_id": "2D-Voice-Agent__AssemblyAI"
+      },
+      {
+        "model": "1029",
+        "bar_id": "2D-Voice-Agent__Deepgram"
+      }
+    ]
+  },
+  "2D-Music-Agent": {
+    "agent_id": "726",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Music-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Music-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Music-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Music-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Music-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Music-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Music-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Music-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Music-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Music-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Music-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Music-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Music-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Music-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Music-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1007",
+        "bar_id": "2D-Music-Agent__Bark"
+      },
+      {
+        "model": "1008",
+        "bar_id": "2D-Music-Agent__Tortoise TTS"
+      },
+      {
+        "model": "1027",
+        "bar_id": "2D-Music-Agent__librosa"
+      },
+      {
+        "model": "1028",
+        "bar_id": "2D-Music-Agent__AssemblyAI"
+      },
+      {
+        "model": "1029",
+        "bar_id": "2D-Music-Agent__Deepgram"
+      }
+    ]
+  },
+  "2D-Sound-Effects-Agent": {
+    "agent_id": "155881",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Sound-Effects-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Sound-Effects-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Sound-Effects-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Sound-Effects-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Sound-Effects-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Sound-Effects-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Sound-Effects-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Sound-Effects-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Sound-Effects-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Sound-Effects-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Sound-Effects-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Sound-Effects-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Sound-Effects-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Sound-Effects-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Sound-Effects-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1007",
+        "bar_id": "2D-Sound-Effects-Agent__Bark"
+      },
+      {
+        "model": "1008",
+        "bar_id": "2D-Sound-Effects-Agent__Tortoise TTS"
+      },
+      {
+        "model": "1027",
+        "bar_id": "2D-Sound-Effects-Agent__librosa"
+      },
+      {
+        "model": "1028",
+        "bar_id": "2D-Sound-Effects-Agent__AssemblyAI"
+      },
+      {
+        "model": "1029",
+        "bar_id": "2D-Sound-Effects-Agent__Deepgram"
+      }
+    ]
+  },
+  "2D-Colorist-Agent": {
+    "agent_id": "454588",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Colorist-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Colorist-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Colorist-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Colorist-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Colorist-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Colorist-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Colorist-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Colorist-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Colorist-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Colorist-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Colorist-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Colorist-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Colorist-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Colorist-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Colorist-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Colorist-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Colorist-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Colorist-Agent__ControlNet"
+      },
+      {
+        "model": "1006",
+        "bar_id": "2D-Colorist-Agent__RealESRGAN"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Colorist-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Compositor-Agent": {
+    "agent_id": "359",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Compositor-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Compositor-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Compositor-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Compositor-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Compositor-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Compositor-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Compositor-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Compositor-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Compositor-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Compositor-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Compositor-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Compositor-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Compositor-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Compositor-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Compositor-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1037",
+        "bar_id": "2D-Compositor-Agent__Davinci Resolve"
+      },
+      {
+        "model": "1004",
+        "bar_id": "2D-Compositor-Agent__Stable Video Diffusion"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Compositor-Agent__AnimateDiff"
+      },
+      {
+        "model": "1006",
+        "bar_id": "2D-Compositor-Agent__RealESRGAN"
+      },
+      {
+        "model": "1014",
+        "bar_id": "2D-Compositor-Agent__ffmpeg"
+      },
+      {
+        "model": "1015",
+        "bar_id": "2D-Compositor-Agent__pyDub"
+      }
+    ]
+  },
+  "2D-Quality-Control-Agent": {
+    "agent_id": "269",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Quality-Control-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Quality-Control-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Quality-Control-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Quality-Control-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Quality-Control-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Quality-Control-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Quality-Control-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Quality-Control-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Quality-Control-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Quality-Control-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Quality-Control-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Quality-Control-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Quality-Control-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Quality-Control-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Quality-Control-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1049",
+        "bar_id": "2D-Quality-Control-Agent__OpenCV"
+      },
+      {
+        "model": "1050",
+        "bar_id": "2D-Quality-Control-Agent__ImageHash + OpenCV"
+      },
+      {
+        "model": "1051",
+        "bar_id": "2D-Quality-Control-Agent__YOLOv8 Segment Anything"
+      }
+    ]
+  },
+  "2D-Scheduling-Agent": {
+    "agent_id": "865619",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Scheduling-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Scheduling-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Scheduling-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Scheduling-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Scheduling-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Scheduling-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Scheduling-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Scheduling-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Scheduling-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Scheduling-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Scheduling-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Scheduling-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1023",
+        "bar_id": "2D-Scheduling-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "2D-Scheduling-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "2D-Scheduling-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "2D-Asset-Manager-Agent": {
+    "agent_id": "265729",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Asset-Manager-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Asset-Manager-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Asset-Manager-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Asset-Manager-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Asset-Manager-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Asset-Manager-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Asset-Manager-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Asset-Manager-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Asset-Manager-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Asset-Manager-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Asset-Manager-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Asset-Manager-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1023",
+        "bar_id": "2D-Asset-Manager-Agent__Plotly"
+      },
+      {
+        "model": "1024",
+        "bar_id": "2D-Asset-Manager-Agent__FastAPI"
+      },
+      {
+        "model": "1025",
+        "bar_id": "2D-Asset-Manager-Agent__AI QC Engine"
+      }
+    ]
+  },
+  "2D-Series-1-Agent": {
+    "agent_id": "845",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-1-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-1-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-1-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-1-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-1-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-1-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-1-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-1-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-1-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-1-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-1-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-1-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-1-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-1-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-1-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-1-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-1-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-1-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-1-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-1-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-1-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-1-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-2-Agent": {
+    "agent_id": "51848",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-2-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-2-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-2-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-2-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-2-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-2-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-2-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-2-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-2-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-2-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-2-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-2-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-2-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-2-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-2-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-2-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-2-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-2-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-2-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-2-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-2-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-2-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-3-Agent": {
+    "agent_id": "20528",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-3-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-3-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-3-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-3-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-3-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-3-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-3-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-3-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-3-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-3-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-3-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-3-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-3-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-3-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-3-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-3-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-3-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-3-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-3-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-3-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-3-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-3-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-4-Agent": {
+    "agent_id": "5904",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-4-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-4-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-4-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-4-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-4-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-4-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-4-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-4-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-4-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-4-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-4-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-4-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-4-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-4-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-4-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-4-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-4-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-4-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-4-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-4-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-4-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-4-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-5-Agent": {
+    "agent_id": "15978",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-5-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-5-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-5-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-5-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-5-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-5-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-5-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-5-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-5-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-5-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-5-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-5-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-5-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-5-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-5-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-5-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-5-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-5-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-5-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-5-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-5-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-5-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-6-Agent": {
+    "agent_id": "996",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-6-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-6-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-6-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-6-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-6-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-6-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-6-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-6-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-6-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-6-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-6-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-6-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-6-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-6-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-6-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-6-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-6-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-6-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-6-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-6-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-6-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-6-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-7-Agent": {
+    "agent_id": "9900",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-7-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-7-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-7-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-7-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-7-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-7-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-7-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-7-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-7-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-7-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-7-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-7-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-7-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-7-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-7-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-7-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-7-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-7-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-7-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-7-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-7-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-7-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-8-Agent": {
+    "agent_id": "832359",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-8-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-8-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-8-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-8-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-8-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-8-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-8-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-8-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-8-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-8-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-8-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-8-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-8-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-8-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-8-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-8-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-8-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-8-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-8-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-8-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-8-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-8-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-9-Agent": {
+    "agent_id": "84621",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-9-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-9-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-9-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-9-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-9-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-9-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-9-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-9-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-9-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-9-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-9-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-9-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-9-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-9-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-9-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-9-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-9-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-9-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-9-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-9-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-9-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-9-Agent__ComfyUI"
+      }
+    ]
+  },
+  "2D-Series-10-Agent": {
+    "agent_id": "58179",
+    "tier": 5,
+    "models": [
+      {
+        "model": "1046",
+        "bar_id": "2D-Series-10-Agent__Pika Labs"
+      },
+      {
+        "model": "1047",
+        "bar_id": "2D-Series-10-Agent__Google Analytics"
+      },
+      {
+        "model": "1041",
+        "bar_id": "2D-Series-10-Agent__ElevenLabs"
+      },
+      {
+        "model": "1018",
+        "bar_id": "2D-Series-10-Agent__Llama 3"
+      },
+      {
+        "model": "1026",
+        "bar_id": "2D-Series-10-Agent__Whisper"
+      },
+      {
+        "model": "1030",
+        "bar_id": "2D-Series-10-Agent__Claude 3"
+      },
+      {
+        "model": "1042",
+        "bar_id": "2D-Series-10-Agent__Midjourney"
+      },
+      {
+        "model": "1043",
+        "bar_id": "2D-Series-10-Agent__SEMrush"
+      },
+      {
+        "model": "1044",
+        "bar_id": "2D-Series-10-Agent__Runway"
+      },
+      {
+        "model": "1045",
+        "bar_id": "2D-Series-10-Agent__Stable Diffusion"
+      },
+      {
+        "model": "1031",
+        "bar_id": "2D-Series-10-Agent__GPT-4"
+      },
+      {
+        "model": "1019",
+        "bar_id": "2D-Series-10-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1020",
+        "bar_id": "2D-Series-10-Agent__HumanEval"
+      },
+      {
+        "model": "1021",
+        "bar_id": "2D-Series-10-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1022",
+        "bar_id": "2D-Series-10-Agent__Langchain Llamalend"
+      },
+      {
+        "model": "1003",
+        "bar_id": "2D-Series-10-Agent__AnimateDiff"
+      },
+      {
+        "model": "1001",
+        "bar_id": "2D-Series-10-Agent__Stable Diffusion 1.5 XL"
+      },
+      {
+        "model": "1002",
+        "bar_id": "2D-Series-10-Agent__DreamShaper RealisticVision"
+      },
+      {
+        "model": "1005",
+        "bar_id": "2D-Series-10-Agent__ControlNet"
+      },
+      {
+        "model": "1010",
+        "bar_id": "2D-Series-10-Agent__Kandinsky 2.2"
+      },
+      {
+        "model": "1011",
+        "bar_id": "2D-Series-10-Agent__Deforum"
+      },
+      {
+        "model": "1012",
+        "bar_id": "2D-Series-10-Agent__ComfyUI"
+      }
+    ]
+  },
+  "Business-Support-Overseer": {
+    "agent_id": "57622",
+    "tier": 4,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Business-Support-Overseer__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Business-Support-Overseer__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Business-Support-Overseer__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Business-Support-Overseer__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Business-Support-Overseer__Ai Qc Engine"
+      }
+    ]
+  },
+  "Financial-Agent": {
+    "agent_id": "630",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Financial-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Financial-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Financial-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Financial-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Financial-Agent__Ai Qc Engine"
+      }
+    ]
+  },
+  "Legal-Agent": {
+    "agent_id": "983",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Legal-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Legal-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Legal-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Legal-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Legal-Agent__Ai Qc Engine"
+      }
+    ]
+  },
+  "Customer-Support-Agent": {
+    "agent_id": "31894",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Customer-Support-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Customer-Support-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Customer-Support-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Customer-Support-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Customer-Support-Agent__Ai Qc Engine"
+      }
+    ]
+  },
+  "Compliance-Checker-Agent": {
+    "agent_id": "217623",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Compliance-Checker-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Compliance-Checker-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Compliance-Checker-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Compliance-Checker-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Compliance-Checker-Agent__Ai Qc Engine"
+      }
+    ]
+  },
+  "Case-Tracker-Agent": {
+    "agent_id": "634",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Case-Tracker-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Case-Tracker-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Case-Tracker-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Case-Tracker-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Case-Tracker-Agent__Ai Qc Engine"
+      }
+    ]
+  },
+  "Document-Filing-Agent": {
+    "agent_id": "64990",
+    "tier": 2,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Document-Filing-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Document-Filing-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Document-Filing-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Document-Filing-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Document-Filing-Agent__Ai Qc Engine"
+      }
+    ]
+  },
+  "Error-Detector-Agent": {
+    "agent_id": "487695",
+    "tier": 1,
+    "models": [
+      {
+        "model": "1030",
+        "bar_id": "Error-Detector-Agent__Claude 3"
+      },
+      {
+        "model": "1018",
+        "bar_id": "Error-Detector-Agent__Llama 3"
+      },
+      {
+        "model": "1019",
+        "bar_id": "Error-Detector-Agent__Mistral Mixtral"
+      },
+      {
+        "model": "1021",
+        "bar_id": "Error-Detector-Agent__Crewai Openagents"
+      },
+      {
+        "model": "1025",
+        "bar_id": "Error-Detector-Agent__Ai Qc Engine"
+      }
+    ]
+  }
+}

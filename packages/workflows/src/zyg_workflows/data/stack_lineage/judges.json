@@ -1,0 +1,436 @@
+{
+  "lane": "judges",
+  "label": "Judges & quality gates",
+  "note": "The models and gates that decide whether a frame ships. The recurring lesson in this lane is that a judge which cannot answer IN the loop is the same as no judge at all — and that a VLM saying 'fine' is not evidence.",
+  "entities": [
+    {
+      "id": "moondream",
+      "name": "moondream",
+      "kind": "model",
+      "role": "first local visual judge",
+      "status": "rejected",
+      "licence": "Apache-2.0",
+      "ended": "2026-07-30",
+      "replaced_by": [
+        "qwen3vl_8b"
+      ],
+      "summary": "The first attempt at a local visual judge, and unusable twice over: it cannot read text, and on the 2026-09-27 defect bench it returned empty replies to every yes/no question.",
+      "issues": [
+        {
+          "text": "Cannot read text in a frame, which was the question the typography gate needed answered.",
+          "state": "solved",
+          "found": "2026-07-30",
+          "fixed": "2026-07-30",
+          "by": "qwen3vl_8b",
+          "grade": "measured",
+          "evidence": "project_vlm_inspector"
+        },
+        {
+          "text": "Empty replies to every yes/no question on the defect bench — unusable, not merely weak.",
+          "state": "open",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench"
+        }
+      ],
+      "sources": [
+        "project_vlm_inspector",
+        "project_defect_judge_bench"
+      ]
+    },
+    {
+      "id": "qwen3vl_8b",
+      "name": "Qwen3-VL 8B FP8",
+      "kind": "model",
+      "role": "resident local visual judge",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-07-30",
+      "replaced": [
+        "moondream"
+      ],
+      "where": "vlm_inspector.py (VRAM tiers)",
+      "summary": "The resident judge with VRAM tiers. Fast and specific, but it says 'fine' to almost everything, so it is reject-only and additive by policy.",
+      "issues": [
+        {
+          "text": "Replaced a judge that could not read text at all, and brought VRAM tiering so a judge can decline instead of stalling.",
+          "state": "solved",
+          "fixed": "2026-07-30",
+          "grade": "measured",
+          "evidence": "project_vlm_inspector"
+        },
+        {
+          "text": "Recall 0.24 at specificity 0.89 over 44 scored questions — it passes almost every real defect. 1.5 s/question.",
+          "state": "open",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench"
+        },
+        {
+          "text": "The resident tier needs 14 GB; Stage 3.5 runs with FLUX resident and measured 5.9 GB free, so it correctly declined and the typography gate produced NO verdicts at all.",
+          "state": "solved",
+          "found": "2026-08-21",
+          "fixed": "2026-08-21",
+          "by": "rapidocr",
+          "grade": "measured",
+          "evidence": "project_typography_ocr_judge"
+        },
+        {
+          "text": "Its CPU tier is ~126 s/frame — the Catherine stall. Not an option in-loop.",
+          "state": "accepted",
+          "found": "2026-08-21",
+          "grade": "measured",
+          "evidence": "project_typography_ocr_judge"
+        }
+      ],
+      "sources": [
+        "project_vlm_inspector",
+        "project_defect_judge_bench",
+        "project_typography_ocr_judge"
+      ]
+    },
+    {
+      "id": "qwen3vl_32b",
+      "name": "Qwen3-VL 32B FP8",
+      "kind": "model",
+      "role": "heavier visual judge",
+      "status": "gated_off",
+      "licence": "Apache-2.0",
+      "adopted": "2026-09-27",
+      "summary": "Benched as the step up from 8B. Better on colour faults and on photographic hands in crops, still half-blind on the defects that matter.",
+      "issues": [
+        {
+          "text": "Recall 0.47 / specificity 0.78 at 3 s/question — catches colour faults (0.91 on colour: cyan smudge, purple doublet) but misses half of everything else.",
+          "state": "open",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench"
+        }
+      ],
+      "sources": [
+        "project_defect_judge_bench"
+      ]
+    },
+    {
+      "id": "haiku_vision",
+      "name": "Claude Haiku 4.5 (vision fallback)",
+      "kind": "service",
+      "role": "hosted judge fallback",
+      "status": "retired",
+      "licence": "commercial API",
+      "adopted": "2026-08-15",
+      "ended": "2026-08-21",
+      "replaced_by": [
+        "rapidocr"
+      ],
+      "summary": "The hosted fallback for the typography gate, retired after it failed on every frame for a billing reason rather than a vision reason.",
+      "issues": [
+        {
+          "text": "Returned HTTP 400 'credit balance is too low' on every frame, so the gate produced no verdicts and the meaningless '100% convergence' number came from a gate that never ran.",
+          "state": "solved",
+          "found": "2026-08-21",
+          "fixed": "2026-08-21",
+          "by": "rapidocr",
+          "grade": "measured",
+          "evidence": "project_typography_ocr_judge"
+        },
+        {
+          "text": "A permanent API failure used to be retried per frame and booked as 'unreadable'; it is now latched in _tx_api_dead.",
+          "state": "solved",
+          "found": "2026-08-21",
+          "fixed": "2026-08-21",
+          "grade": "measured",
+          "evidence": "project_typography_ocr_judge"
+        }
+      ],
+      "sources": [
+        "project_typography_ocr_judge",
+        "project_typography_gate"
+      ]
+    },
+    {
+      "id": "rapidocr",
+      "name": "RapidOCR (CPU)",
+      "kind": "tool",
+      "role": "typography judge, primary",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-08-21",
+      "replaced": [
+        "qwen3vl_8b",
+        "haiku_vision"
+      ],
+      "where": "typography_ocr.py",
+      "summary": "The gate's question is 'is there readable lettering?', which is what an OCR engine answers natively. Perfect agreement with the VLM it replaced, on the CPU, fast enough to answer inside the render loop.",
+      "issues": [
+        {
+          "text": "Precision 1.00 / recall 1.00 over 48 labelled real frames (12 lettering / 36 clean) at 0.58 s/frame on CPU, and stable across the whole conf 0.30-0.60 x area 0-0.10% plateau rather than perched on a cliff.",
+          "state": "solved",
+          "fixed": "2026-08-21",
+          "grade": "measured",
+          "evidence": "project_typography_ocr_judge"
+        },
+        {
+          "text": "Because the verdict is now available in-loop, the existing retry ladder repairs the defect itself — no separate repair pass, proven on a real run (flagged 'reads om im' → cleared_at_2).",
+          "state": "solved",
+          "fixed": "2026-08-21",
+          "grade": "measured",
+          "evidence": "project_typography_ocr_judge"
+        },
+        {
+          "text": "Returns None when the engine is missing — UNKNOWN, never a pass.",
+          "state": "mitigated",
+          "grade": "receipt",
+          "evidence": "project_typography_ocr_judge"
+        }
+      ],
+      "sources": [
+        "project_typography_ocr_judge"
+      ]
+    },
+    {
+      "id": "clip_defect_captions",
+      "name": "CLIP defect captions",
+      "kind": "model",
+      "role": "candidate defect screen",
+      "status": "rejected",
+      "licence": "MIT",
+      "ended": "2026-09-15",
+      "replaced_by": [
+        "qwen35_9b_screen"
+      ],
+      "summary": "Used as a defect screen for the kids-video candidate pool and refused: it answers a different question than the one asked.",
+      "issues": [
+        {
+          "text": "It is a CONTENT detector, not a defect detector — it reported rocking horses and smiling shapes instead of defects.",
+          "state": "solved",
+          "found": "2026-09-15",
+          "fixed": "2026-09-15",
+          "by": "qwen35_9b_screen",
+          "grade": "measured",
+          "evidence": "project_kidsvideo_candidate_pool"
+        }
+      ],
+      "sources": [
+        "project_kidsvideo_candidate_pool"
+      ]
+    },
+    {
+      "id": "qwen35_9b_screen",
+      "name": "Qwen3.5 9B (defect screen)",
+      "kind": "model",
+      "role": "candidate-pool defect screen",
+      "status": "live",
+      "licence": "Apache-2.0",
+      "adopted": "2026-09-15",
+      "replaced": [
+        "clip_defect_captions"
+      ],
+      "summary": "The screen that picks and rejects candidates in the kids-video pool. Best of the local models on hands and colour, and still only half-sighted overall.",
+      "issues": [
+        {
+          "text": "Replaced a content detector with something that at least answers the defect question.",
+          "state": "solved",
+          "fixed": "2026-09-15",
+          "grade": "measured",
+          "evidence": "project_kidsvideo_candidate_pool"
+        },
+        {
+          "text": "Accuracy 0.66, recall 0.47, specificity 0.78 at 6 s/question; best local model on hands (0.75) and colour.",
+          "state": "open",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench"
+        }
+      ],
+      "sources": [
+        "project_kidsvideo_candidate_pool",
+        "project_defect_judge_bench"
+      ]
+    },
+    {
+      "id": "qwen36_35b_judge",
+      "name": "Qwen3.6 35B-A3B (as judge)",
+      "kind": "model",
+      "role": "highest-recall local judge",
+      "status": "gated_off",
+      "licence": "Apache-2.0",
+      "adopted": "2026-09-27",
+      "summary": "The only local model that saw the curled extra digit. It also flags defects on the approved control, so it cannot gate anything on its own.",
+      "issues": [
+        {
+          "text": "Recall 0.82 but specificity 0.48 — it false-alarms on approved frames; 15-27 s/question.",
+          "state": "open",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench"
+        }
+      ],
+      "sources": [
+        "project_defect_judge_bench"
+      ]
+    },
+    {
+      "id": "look_gate",
+      "name": "look_gate (pixel identity gate)",
+      "kind": "tool",
+      "role": "identity / morph gate",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "",
+      "summary": "The pixel gate on identity. On the one case where all four VLMs agreed the restyled picture was 'the same person', it was the only judge that caught the morph.",
+      "issues": [
+        {
+          "text": "Identity drift (restyle p4 scored 0.226 against a 0.327 floor) was called 'same person' by ALL FOUR VLMs. Only the pixel gate catches morphs, so identity trusts look_gate first.",
+          "state": "solved",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench",
+          "fixed": "2026-09-27"
+        }
+      ],
+      "sources": [
+        "project_defect_judge_bench",
+        "project_ledger_stills_v6_tree"
+      ]
+    },
+    {
+      "id": "patch_gate",
+      "name": "patch_gate (chroma dab)",
+      "kind": "tool",
+      "role": "repaired-patch gate",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-09-27",
+      "summary": "Measures the chroma of a repaired patch against its surroundings. Catches photographic hands pasted into a painted frame — 11..17 against a ≤4.5 pass — which the VLMs miss entirely.",
+      "issues": [
+        {
+          "text": "Catches the photographic-hand defect VLMs cannot see; chroma ≤ 4.5 is the pass.",
+          "state": "solved",
+          "fixed": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench, project_ledger_stills_v6_tree"
+        }
+      ],
+      "sources": [
+        "project_ledger_stills_v6_tree",
+        "project_defect_judge_bench"
+      ]
+    },
+    {
+      "id": "hand_yolov8s",
+      "name": "hand_yolov8s",
+      "kind": "model",
+      "role": "hand detector",
+      "status": "live",
+      "licence": "AGPL-3.0 (YOLOv8)",
+      "adopted": "",
+      "summary": "Finds hands reliably (0.6-0.85 confidence) and says nothing about whether they are correct.",
+      "issues": [
+        {
+          "text": "Detects, does not judge quality — it can locate a hand to crop and not tell you the hand has six fingers.",
+          "state": "accepted",
+          "found": "2026-09-27",
+          "grade": "measured",
+          "evidence": "project_defect_judge_bench"
+        }
+      ],
+      "sources": [
+        "project_defect_judge_bench"
+      ]
+    },
+    {
+      "id": "restoration_qc",
+      "name": "restoration_qc.py",
+      "kind": "tool",
+      "role": "upscaler/restoration gate",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-08-09",
+      "summary": "The delta-vs-LANCZOS gate that decided the SeedVR2 bake-off. Built and calibrated on the incumbent's own output BEFORE the challenger was installed, which is why its verdict is credible.",
+      "issues": [
+        {
+          "text": "Calibrated before the candidate existed: zero point exact (LANCZOS vs itself = 0.0), nearest-neighbour negative, injected sigma=0.05 invention failed 15/15.",
+          "state": "solved",
+          "fixed": "2026-08-09",
+          "grade": "measured",
+          "evidence": "project_seedvr2_rejected"
+        },
+        {
+          "text": "The delta metric cannot separate invented false detail from legitimately restored detail — the detail measurement is what breaks the tie.",
+          "state": "accepted",
+          "found": "2026-08-09",
+          "grade": "measured",
+          "evidence": "project_seedvr2_rejected"
+        }
+      ],
+      "sources": [
+        "project_seedvr2_rejected"
+      ]
+    },
+    {
+      "id": "licence_provenance",
+      "name": "licence_provenance.py",
+      "kind": "tool",
+      "role": "licence gate over every graph",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-08-09",
+      "where": "licence_provenance.py + data/runtime/model_licences.json",
+      "summary": "Classifies every weight a graph references as cleared / non_commercial / territory_excluded / unknown. Unregistered is UNKNOWN and never a pass. The load-bearing idea: a LoRA is charged with its BASE model's licence.",
+      "issues": [
+        {
+          "text": "There was no licence gate at all before this, on a channel that had just been monetised.",
+          "state": "solved",
+          "fixed": "2026-08-09",
+          "grade": "licence",
+          "evidence": "project_licence_gate"
+        },
+        {
+          "text": "char_id is NOT a lineage key: one character owns LoRAs on several bases, and resolving by char id charged Apache-2.0 Wan weights with FLUX's licence — FAIL on 40 of 41 captured graphs.",
+          "state": "solved",
+          "found": "2026-08-09",
+          "fixed": "2026-08-09",
+          "grade": "measured",
+          "evidence": "project_licence_gate"
+        },
+        {
+          "text": "Image-pipeline graphs are NOT captured to disk, so the 9 non-commercial staged LoRAs it found are a floor, not a total.",
+          "state": "open",
+          "found": "2026-08-09",
+          "grade": "measured",
+          "evidence": "project_licence_gate"
+        }
+      ],
+      "sources": [
+        "project_licence_gate",
+        "project_gate_receipts"
+      ]
+    },
+    {
+      "id": "vlm_skin_hair_gate",
+      "name": "VLM skin/hair gate",
+      "kind": "tool",
+      "role": "identity QC on the animated path",
+      "status": "live",
+      "licence": "own code",
+      "adopted": "2026-07-25",
+      "replaced": [
+        "arcface"
+      ],
+      "summary": "The animated twin could not be gated on ArcFace, so identity on that path is judged on skin and hair by a VLM instead.",
+      "issues": [
+        {
+          "text": "Replaced ArcFace identity QC on stylised faces, which ArcFace mis-scores.",
+          "state": "solved",
+          "fixed": "2026-07-25",
+          "grade": "measured",
+          "evidence": "project_sdxl_animated"
+        }
+      ],
+      "sources": [
+        "project_sdxl_animated"
+      ]
+    }
+  ]
+}

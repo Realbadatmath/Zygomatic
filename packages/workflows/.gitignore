@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Runtime state, renders, models, logs, databases — never source
+data/runtime/
+# The package's own data/runtime/ holds hand-maintained config (tracked) next to generated
+# indices and per-run state (not source). Only the generated ones are listed here; the
+# tracked indices are keyed to the roots in zyg_workflows.paths, not to absolute paths.
+src/zyg_workflows/data/runtime/asset_library_instruments_meta.json*
+src/zyg_workflows/data/runtime/asset_library_vfx_meta.json*
+src/zyg_workflows/data/runtime/debug_lastpass.json
+src/zyg_workflows/data/runtime/debug_run_history.jsonl
+src/zyg_workflows/data/runtime/llm_audit/
+src/zyg_workflows/data/runtime/melody_sampler_index.json
+src/zyg_workflows/data/runtime/sfx_merger/
+# Verification reports dropped next to the checks that wrote them — a run artefact.
+src/zyg_workflows/tools/studio_verify/_report_*.json*
+data/output/
+data/assets/
+data/asset_libraries/
+data/stock/
+data/architecture/
+data/models/
+output/
+*.log
+*.db
+*.sqlite3
+*.pid
+*.lock
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.task
+*.ckpt
+*.wav
+*.mp3
+*.mp4
+*.flac
+*.blend
+
+# Secrets
+.env
+.env.*
+!.env.example
+*credentials*.json
+*_config.json.local
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.bak*
+
+# More runtime-written state inside the package tree (same caveat as the list above):
+src/zyg_workflows/data/runtime/azure_usage.json
+src/zyg_workflows/data/runtime/effects_library.json
+src/zyg_workflows/data/runtime/wardrobe.json
+# Render evidence written by the arch-ext harness on each run.
+tests_arch_ext/out/
+src/zyg_workflows/data/runtime/pipeline_ab_state.json

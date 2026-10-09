@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.import_linter_cache/
+
+# Runtime state, renders, models, logs, databases — never source
+data/runtime/
+data/output/
+data/assets/
+data/asset_libraries/
+data/stock/
+data/architecture/
+data/models/
+output/
+*.log
+*.db
+*.sqlite3
+*.pid
+*.lock
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.task
+*.ckpt
+*.wav
+*.mp3
+*.mp4
+*.flac
+*.blend
+
+# Secrets
+.env
+.env.*
+!.env.example
+*credentials*.json
+*_config.json.local
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.bak*

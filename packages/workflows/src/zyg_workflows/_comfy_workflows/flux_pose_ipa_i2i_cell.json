@@ -1,0 +1,139 @@
+{
+  "10": {
+    "inputs": {
+      "unet_name": "flux1-dev.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Flux UNet"}
+  },
+  "11": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "DualCLIPLoader"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux_ae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load Flux VAE"}
+  },
+  "14": {
+    "inputs": {"image": "init.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "Init image (cell 00 full frame)"}
+  },
+  "15": {
+    "inputs": {"pixels": ["14", 0], "vae": ["12", 0]},
+    "class_type": "VAEEncode",
+    "_meta": {"title": "Encode init to latent"}
+  },
+  "16": {
+    "inputs": {
+      "ipadatper": "flux-ip-adapter.safetensors",
+      "clip_vision": "clip-vit-large-patch14-ipa.safetensors",
+      "provider": "GPU"
+    },
+    "class_type": "LoadFluxIPAdapter",
+    "_meta": {"title": "Load Flux IPAdapter"}
+  },
+  "17": {
+    "inputs": {"image": "identity_ref.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "Identity reference (cell 00 face crop)"}
+  },
+  "18": {
+    "inputs": {
+      "model": ["10", 0],
+      "ip_adapter_flux": ["16", 0],
+      "image": ["17", 0],
+      "ip_scale": 0.90
+    },
+    "class_type": "ApplyFluxIPAdapter",
+    "_meta": {"title": "Apply Flux IPAdapter"}
+  },
+  "19": {
+    "inputs": {"control_net_name": "FLUX.1-dev-ControlNet-Union-Pro.safetensors"},
+    "class_type": "ControlNetLoader",
+    "_meta": {"title": "Load Union ControlNet"}
+  },
+  "20": {
+    "inputs": {"control_net": ["19", 0], "type": "pose"},
+    "class_type": "SetShakkerLabsUnionControlNetType",
+    "_meta": {"title": "Union pose mode"}
+  },
+  "21": {
+    "inputs": {"image": "openpose_pose.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "OpenPose skeleton map"}
+  },
+  "22": {
+    "inputs": {
+      "clip": ["11", 0],
+      "clip_l": "ZYG_CHAR character, studio portrait, photorealistic",
+      "t5xxl": "ZYG_CHAR character, studio portrait, photorealistic",
+      "guidance": 3.5
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "23": {
+    "inputs": {
+      "clip": ["11", 0],
+      "clip_l": "",
+      "t5xxl": "",
+      "guidance": 3.5
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "24": {
+    "inputs": {
+      "positive": ["22", 0],
+      "negative": ["23", 0],
+      "control_net": ["20", 0],
+      "image": ["21", 0],
+      "strength": 0.95,
+      "start_percent": 0.0,
+      "end_percent": 0.95,
+      "vae": ["12", 0]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {"title": "Apply pose ControlNet"}
+  },
+  "25": {
+    "inputs": {"guidance": 3.5, "conditioning": ["24", 0]},
+    "class_type": "FluxGuidance",
+    "_meta": {"title": "FluxGuidance"}
+  },
+  "31": {
+    "inputs": {
+      "model": ["18", 0],
+      "conditioning": ["25", 0],
+      "neg_conditioning": ["24", 1],
+      "noise_seed": 42,
+      "steps": 22,
+      "timestep_to_start_cfg": 22,
+      "true_gs": 3.5,
+      "image_to_image_strength": 1.0,
+      "denoise_strength": 0.35,
+      "latent_image": ["15", 0]
+    },
+    "class_type": "XlabsSampler",
+    "_meta": {"title": "XlabsSampler (img2img via init latent)"}
+  },
+  "40": {
+    "inputs": {"samples": ["31", 0], "vae": ["12", 0]},
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygFluxPoseIPAI2I", "images": ["40", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}
+

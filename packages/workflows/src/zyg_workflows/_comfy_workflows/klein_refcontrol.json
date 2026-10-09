@@ -1,0 +1,131 @@
+{
+  "10": {
+    "inputs": {"unet_name": "flux-2-klein-base-4b.safetensors", "weight_dtype": "default"},
+    "class_type": "UNETLoader",
+    "_meta": {"title": "FLUX.2 klein base 4B (Apache-2.0)"}
+  },
+  "11": {
+    "inputs": {"clip_name": "qwen_3_4b.safetensors", "type": "flux2", "device": "default"},
+    "class_type": "CLIPLoader",
+    "_meta": {"title": "Qwen3-4B text encoder"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux2-vae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "FLUX.2 VAE"}
+  },
+  "13": {
+    "inputs": {
+      "lora_name": "zygchar_PLACEHOLDER_klein.safetensors",
+      "strength_model": 1.0,
+      "strength_clip": 1.0,
+      "model": ["10", 0],
+      "clip": ["11", 0]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {"title": "identity LoRA (bypassed by _flux_rewire_without_lora if unstaged)"}
+  },
+  "14": {
+    "inputs": {
+      "lora_name": "flux2_klein_4b_refcontrol_depth.safetensors",
+      "strength_model": 1.0,
+      "model": ["13", 0]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {"title": "RefControl depth LoRA — model-only, stacked ON TOP of identity"}
+  },
+  "20": {
+    "inputs": {"text": "refcontrol", "clip": ["13", 1]},
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "positive — MUST contain the trigger 'refcontrol'"}
+  },
+  "21": {
+    "inputs": {"text": "", "clip": ["13", 1]},
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "negative"}
+  },
+  "22": {
+    "inputs": {"image": "depth.png", "upload": "image"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "IMAGE 1 = the DEPTH control map"}
+  },
+  "23": {
+    "inputs": {"upscale_method": "nearest-exact", "megapixels": 1.0, "resolution_steps": 1, "image": ["22", 0]},
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {"title": "depth -> ~1MP"}
+  },
+  "24": {
+    "inputs": {"pixels": ["23", 0], "vae": ["12", 0]},
+    "class_type": "VAEEncode",
+    "_meta": {"title": "depth latent"}
+  },
+  "26": {
+    "inputs": {"conditioning": ["20", 0], "latent": ["24", 0]},
+    "class_type": "ReferenceLatent",
+    "_meta": {"title": "ref 1 (depth) -> positive"}
+  },
+  "27": {
+    "inputs": {"conditioning": ["21", 0], "latent": ["24", 0]},
+    "class_type": "ReferenceLatent",
+    "_meta": {"title": "ref 1 (depth) -> negative"}
+  },
+  "42": {
+    "inputs": {"image": "reference.png", "upload": "image"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "IMAGE 2 = the APPEARANCE reference"}
+  },
+  "43": {
+    "inputs": {"upscale_method": "nearest-exact", "megapixels": 1.0, "resolution_steps": 1, "image": ["42", 0]},
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {"title": "reference -> ~1MP"}
+  },
+  "44": {
+    "inputs": {"pixels": ["43", 0], "vae": ["12", 0]},
+    "class_type": "VAEEncode",
+    "_meta": {"title": "reference latent"}
+  },
+  "28": {
+    "inputs": {"conditioning": ["26", 0], "latent": ["44", 0]},
+    "class_type": "ReferenceLatent",
+    "_meta": {"title": "ref 2 (appearance) -> positive; CHAIN ORDER IS THE IMAGE INDEX"}
+  },
+  "29": {
+    "inputs": {"conditioning": ["27", 0], "latent": ["44", 0]},
+    "class_type": "ReferenceLatent",
+    "_meta": {"title": "ref 2 (appearance) -> negative"}
+  },
+  "30": {
+    "inputs": {"width": 1024, "height": 1024, "batch_size": 1},
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {"title": "empty latent — the depth ref is what fixes the geometry"}
+  },
+  "31": {
+    "inputs": {
+      "noise": ["32", 0],
+      "guider": ["34", 0],
+      "sampler": ["35", 0],
+      "sigmas": ["33", 0],
+      "latent_image": ["30", 0]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {"title": "sampler"}
+  },
+  "32": {"inputs": {"noise_seed": 42}, "class_type": "RandomNoise", "_meta": {"title": "noise"}},
+  "33": {
+    "inputs": {"steps": 20, "width": 1024, "height": 1024},
+    "class_type": "Flux2Scheduler",
+    "_meta": {"title": "sigmas"}
+  },
+  "34": {
+    "inputs": {"model": ["14", 0], "positive": ["28", 0], "negative": ["29", 0], "cfg": 5.0},
+    "class_type": "CFGGuider",
+    "_meta": {"title": "guider — model comes from the CONTROL LoRA, the last in the chain"}
+  },
+  "35": {"inputs": {"sampler_name": "euler"}, "class_type": "KSamplerSelect", "_meta": {"title": "euler"}},
+  "40": {"inputs": {"samples": ["31", 0], "vae": ["12", 0]}, "class_type": "VAEDecode", "_meta": {"title": "decode"}},
+  "50": {
+    "inputs": {"images": ["40", 0], "filename_prefix": "ZygKleinRefControl"},
+    "class_type": "SaveImage",
+    "_meta": {"title": "save"}
+  }
+}

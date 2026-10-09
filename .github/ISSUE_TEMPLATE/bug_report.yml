@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Bug report
+description: Something behaves wrongly in one of the four packages
+labels: [bug]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - workflows
+        - dashboard
+        - zero-public
+        - creator-nexus
+        - repository / tooling
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, what you got. Paste tracebacks as text.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python version, GPU (if the route renders), and any ZYG_* variables you changed from their defaults. Never paste tokens or keys.
+      placeholder: |
+        Ubuntu 24.04, Python 3.12, uv sync
+        RTX 4090, ZYG_DATA_ROOT=/srv/zyg-data
+    validations:
+      required: false
+  - type: textarea
+    id: gate
+    attributes:
+      label: Does the gate pass?
+      description: Output of `uv run scripts/scan.sh` if the problem is install- or repo-related.
+    validations:
+      required: false

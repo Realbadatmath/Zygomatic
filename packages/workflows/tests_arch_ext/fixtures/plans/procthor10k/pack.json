@@ -1,0 +1,16 @@
+{
+ "pack": "procthor10k",
+ "title": "ProcTHOR-10K procedurally generated houses",
+ "source_url": "https://procthor.allenai.org/",
+ "version": "10K",
+ "licence": "Apache 2.0",
+ "attribution": "House layouts: ProcTHOR-10K (Allen Institute for AI), Apache 2.0",
+ "doi": "",
+ "count": {
+  "unit": 0,
+  "floor": 0,
+  "house": 6
+ },
+ "converted": "2026-09-11T02:21:07",
+ "notes": "TEST FIXTURE \u2014 6 plans copied from the procthor10k pack. AI2-THOR house JSON. THOR y is up and its z grows north, so plan z = -z_thor per the schema rule and fixture rotations negate with the flip; x is unchanged. Walls are the deduplicated thin quads (t = 0.1) and ext comes from THOR's own wall|exterior records. Layouts are procedural, not surveyed buildings \u2014 use them for circulation and furnishing tests, not for realism."
+}

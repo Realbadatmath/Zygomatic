@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1920 1080">
+  <defs>
+    <style>text { font-family: 'Myriad Pro', 'Segoe UI', Arial, sans-serif; }</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0c0600"/><stop offset="100%" stop-color="#180c00"/></linearGradient>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1920" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1c0e00"/><stop offset="50%" stop-color="#241200"/><stop offset="100%" stop-color="#1c0e00"/></linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#1c0e00"/><stop offset="100%" stop-color="#0e0700"/></linearGradient>
+    <linearGradient id="boxHL" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#281400"/><stop offset="100%" stop-color="#180c00"/></linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#fb923c" opacity="0.8"/></marker>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1920" height="80" fill="url(#hdr)"/>
+  <line x1="0" y1="80" x2="1920" y2="80" stroke="#fb923c" stroke-width="1" opacity="0.4"/>
+  <text x="60" y="30" font-size="10" fill="#fb923c" opacity="0.5" letter-spacing="2">CHANNEL</text>
+  <text x="60" y="56" font-size="28" font-weight="300" fill="#fb923c" letter-spacing="4">CARS</text>
+  <text x="1860" y="44" font-size="10" fill="#5a2a00" text-anchor="end" letter-spacing="2">AGENT WORKFLOW PRESET · THREE-VOICE AUTOMOTIVE CHANNEL</text>
+  <g font-size="9" fill="#4a2000" letter-spacing="2">
+    <text x="154"  y="140" text-anchor="middle">STAGE 1</text><text x="394"  y="140" text-anchor="middle">STAGE 2</text>
+    <text x="634"  y="140" text-anchor="middle">STAGE 3</text><text x="874"  y="140" text-anchor="middle">STAGE 3.5</text>
+    <text x="1114" y="140" text-anchor="middle">STAGE 4</text><text x="1354" y="140" text-anchor="middle">STAGE 5</text>
+    <text x="1594" y="140" text-anchor="middle">STAGE 6</text><text x="1806" y="140" text-anchor="middle">OUTPUT</text>
+  </g>
+  <!-- Voice branch indicator -->
+  <rect x="60" y="155" width="1800" height="22" rx="4" fill="#1a0800" stroke="#fb923c" stroke-width="0.5" opacity="0.4"/>
+  <text x="160" y="170" font-size="9" fill="#fb923c" opacity="0.6" letter-spacing="1">VOICE A: EV / FUTURE CARS (Electrek)</text>
+  <text x="640" y="170" font-size="9" fill="#fb923c" opacity="0.6" letter-spacing="1">VOICE B: OLDTIMERS / CLASSICS (Bring a Trailer)</text>
+  <text x="1200" y="170" font-size="9" fill="#fb923c" opacity="0.6" letter-spacing="1">VOICE C: MECHANICS / DIY (Popular Mechanics)</text>
+  <line x1="60" y1="490" x2="1870" y2="490" stroke="#fb923c" stroke-width="0.5" opacity="0.08" stroke-dasharray="8 8"/>
+  <rect x="45"   y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#fb923c" stroke-width="1.5"/>
+  <line x1="45"  y1="350" x2="263" y2="350" stroke="#fb923c" stroke-width="0.8" opacity="0.4"/>
+  <text x="154"  y="400" font-size="13" fill="#fb923c" text-anchor="middle">Source Scan</text>
+  <text x="154"  y="418" font-size="9"  fill="#7a3a10" text-anchor="middle" letter-spacing="1">CARS DATA AGENT</text>
+  <line x1="65"  y1="430" x2="243" y2="430" stroke="#fb923c" stroke-width="0.4" opacity="0.2"/>
+  <text x="154"  y="450" font-size="9" fill="#5a2a10" text-anchor="middle">Electrek RSS (EV/Future)</text>
+  <text x="154"  y="466" font-size="9" fill="#5a2a10" text-anchor="middle">Bring a Trailer (Classics)</text>
+  <text x="154"  y="482" font-size="9" fill="#5a2a10" text-anchor="middle">Pop. Mechanics (DIY)</text>
+  <text x="154"  y="498" font-size="9" fill="#5a2a10" text-anchor="middle">Voice branch decision</text>
+  <text x="154"  y="514" font-size="9" fill="#5a2a10" text-anchor="middle">Topic + format select</text>
+  <text x="154"  y="590" font-size="8" fill="#3a1808" text-anchor="middle" letter-spacing="1">FLOW0206</text>
+  <line x1="263" y1="490" x2="285" y2="490" stroke="#fb923c" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="285"  y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#fb923c" stroke-width="1.5"/>
+  <line x1="285" y1="350" x2="503" y2="350" stroke="#fb923c" stroke-width="0.8" opacity="0.4"/>
+  <text x="394"  y="400" font-size="13" fill="#fb923c" text-anchor="middle">Context Agent</text>
+  <text x="394"  y="418" font-size="9"  fill="#7a3a10" text-anchor="middle" letter-spacing="1">AUTOMOTIVE RESEARCH</text>
+  <line x1="305" y1="430" x2="483" y2="430" stroke="#fb923c" stroke-width="0.4" opacity="0.2"/>
+  <text x="394"  y="450" font-size="9" fill="#5a2a10" text-anchor="middle">EV spec + range data</text>
+  <text x="394"  y="466" font-size="9" fill="#5a2a10" text-anchor="middle">Classic car provenance</text>
+  <text x="394"  y="482" font-size="9" fill="#5a2a10" text-anchor="middle">Mechanical deep-dive</text>
+  <text x="394"  y="498" font-size="9" fill="#5a2a10" text-anchor="middle">Audience voice match</text>
+  <text x="394"  y="590" font-size="8" fill="#3a1808" text-anchor="middle" letter-spacing="1">STAGE 2</text>
+  <line x1="503" y1="490" x2="525" y2="490" stroke="#fb923c" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="525"  y="350" width="218" height="280" rx="10" fill="url(#boxHL)" stroke="#fb923c" stroke-width="2"/>
+  <line x1="525" y1="350" x2="743" y2="350" stroke="#fb923c" stroke-width="0.8" opacity="0.6"/>
+  <text x="634"  y="400" font-size="13" fill="#fb923c" text-anchor="middle">Script Writer</text>
+  <text x="634"  y="418" font-size="9"  fill="#9a5020" text-anchor="middle" letter-spacing="1">CLAUDE · 3 VOICES</text>
+  <line x1="545" y1="430" x2="723" y2="430" stroke="#fb923c" stroke-width="0.4" opacity="0.3"/>
+  <text x="634"  y="450" font-size="9" fill="#7a3818" text-anchor="middle">EV: forward-looking</text>
+  <text x="634"  y="466" font-size="9" fill="#7a3818" text-anchor="middle">Oldtimer: nostalgic</text>
+  <text x="634"  y="482" font-size="9" fill="#7a3818" text-anchor="middle">Mechanic: practical DIY</text>
+  <text x="634"  y="498" font-size="9" fill="#7a3818" text-anchor="middle">800–1400 words</text>
+  <text x="634"  y="514" font-size="9" fill="#7a3818" text-anchor="middle">Voice-matched tone</text>
+  <text x="634"  y="590" font-size="8" fill="#4a2810" text-anchor="middle" letter-spacing="1">STAGE 3 — LLM</text>
+  <line x1="743" y1="490" x2="765" y2="490" stroke="#fb923c" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="765"  y="350" width="218" height="280" rx="10" fill="url(#boxHL)" stroke="#fb923c" stroke-width="2"/>
+  <line x1="765" y1="350" x2="983" y2="350" stroke="#fb923c" stroke-width="0.8" opacity="0.6"/>
+  <text x="874"  y="396" font-size="13" fill="#fb923c" text-anchor="middle">TTS + Stills</text>
+  <text x="874"  y="414" font-size="9"  fill="#9a5020" text-anchor="middle" letter-spacing="1">AZURE TTS · FLUX</text>
+  <line x1="785" y1="426" x2="963" y2="426" stroke="#fb923c" stroke-width="0.4" opacity="0.3"/>
+  <text x="874"  y="446" font-size="9" fill="#7a3818" text-anchor="middle">Azure Neural TTS</text>
+  <text x="874"  y="462" font-size="9" fill="#7a3818" text-anchor="middle">Voice per sub-channel</text>
+  <text x="874"  y="478" font-size="9" fill="#7a3818" text-anchor="middle">FLUX.1-schnell stills</text>
+  <text x="874"  y="494" font-size="9" fill="#7a3818" text-anchor="middle">Garage / Road / Show</text>
+  <text x="874"  y="510" font-size="9" fill="#7a3818" text-anchor="middle">Sub-channel scenes</text>
+  <text x="874"  y="590" font-size="8" fill="#4a2810" text-anchor="middle" letter-spacing="1">STAGE 3.5 — GPU</text>
+  <line x1="983" y1="490" x2="1005" y2="490" stroke="#fb923c" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1005" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#fb923c" stroke-width="1.5"/>
+  <line x1="1005" y1="350" x2="1223" y2="350" stroke="#fb923c" stroke-width="0.8" opacity="0.4"/>
+  <text x="1114" y="400" font-size="13" fill="#fb923c" text-anchor="middle">Video Build</text>
+  <text x="1114" y="418" font-size="9"  fill="#7a3a10" text-anchor="middle" letter-spacing="1">FFMPEG · KEN BURNS</text>
+  <line x1="1025" y1="430" x2="1203" y2="430" stroke="#fb923c" stroke-width="0.4" opacity="0.2"/>
+  <text x="1114" y="450" font-size="9" fill="#5a2a10" text-anchor="middle">Slow push-in hero shots</text>
+  <text x="1114" y="466" font-size="9" fill="#5a2a10" text-anchor="middle">Engine ambient sound</text>
+  <text x="1114" y="482" font-size="9" fill="#5a2a10" text-anchor="middle">Narration sync</text>
+  <text x="1114" y="498" font-size="9" fill="#5a2a10" text-anchor="middle">Sub-channel pacing</text>
+  <text x="1114" y="590" font-size="8" fill="#3a1808" text-anchor="middle" letter-spacing="1">STAGE 4 — FFMPEG</text>
+  <line x1="1223" y1="490" x2="1245" y2="490" stroke="#fb923c" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1245" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#fb923c" stroke-width="1.5"/>
+  <line x1="1245" y1="350" x2="1463" y2="350" stroke="#fb923c" stroke-width="0.8" opacity="0.4"/>
+  <text x="1354" y="400" font-size="13" fill="#fb923c" text-anchor="middle">QC + Review</text>
+  <text x="1354" y="418" font-size="9"  fill="#7a3a10" text-anchor="middle" letter-spacing="1">ACCURACY GATE</text>
+  <line x1="1265" y1="430" x2="1443" y2="430" stroke="#fb923c" stroke-width="0.4" opacity="0.2"/>
+  <text x="1354" y="450" font-size="9" fill="#5a2a10" text-anchor="middle">Spec accuracy check</text>
+  <text x="1354" y="466" font-size="9" fill="#5a2a10" text-anchor="middle">Brand accuracy</text>
+  <text x="1354" y="482" font-size="9" fill="#5a2a10" text-anchor="middle">Approval queue</text>
+  <text x="1354" y="590" font-size="8" fill="#3a1808" text-anchor="middle" letter-spacing="1">STAGE 5 — GATE</text>
+  <line x1="1463" y1="490" x2="1485" y2="490" stroke="#fb923c" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1485" y="350" width="218" height="280" rx="10" fill="url(#box)" stroke="#fb923c" stroke-width="1.5"/>
+  <line x1="1485" y1="350" x2="1703" y2="350" stroke="#fb923c" stroke-width="0.8" opacity="0.4"/>
+  <text x="1594" y="400" font-size="13" fill="#fb923c" text-anchor="middle">Distribution</text>
+  <text x="1594" y="418" font-size="9"  fill="#7a3a10" text-anchor="middle" letter-spacing="1">MULTI-PLATFORM UPLOAD</text>
+  <line x1="1505" y1="430" x2="1683" y2="430" stroke="#fb923c" stroke-width="0.4" opacity="0.2"/>
+  <text x="1594" y="450" font-size="9" fill="#5a2a10" text-anchor="middle">YouTube upload</text>
+  <text x="1594" y="466" font-size="9" fill="#5a2a10" text-anchor="middle">TikTok (clipped)</text>
+  <text x="1594" y="482" font-size="9" fill="#5a2a10" text-anchor="middle">SEO meta + schedule</text>
+  <text x="1594" y="590" font-size="8" fill="#3a1808" text-anchor="middle" letter-spacing="1">STAGE 6 — DIST.</text>
+  <line x1="1703" y1="490" x2="1725" y2="490" stroke="#fb923c" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+  <rect x="1725" y="420" width="162" height="140" rx="10" fill="#080400" stroke="#fb923c" stroke-width="2" opacity="0.9"/>
+  <text x="1806" y="468" font-size="11" fill="#fb923c" text-anchor="middle">Published</text>
+  <text x="1806" y="488" font-size="9" fill="#7a3a10" text-anchor="middle">YouTube</text>
+  <text x="1806" y="504" font-size="9" fill="#7a3a10" text-anchor="middle">TikTok</text>
+  <text x="1806" y="520" font-size="9" fill="#7a3a10" text-anchor="middle">Cars</text>
+  <text x="1806" y="536" font-size="9" fill="#4a2010" text-anchor="middle">Channel</text>
+  <rect x="0" y="930" width="1920" height="150" fill="#060300" opacity="0.9"/>
+  <line x1="0" y1="930" x2="1920" y2="930" stroke="#fb923c" stroke-width="0.5" opacity="0.3"/>
+  <text x="60" y="960" font-size="10" fill="#fb923c" opacity="0.6" letter-spacing="2">THREE EDITORIAL VOICES</text>
+  <text x="60" y="984" font-size="11" fill="#5a2a10">EV (Electrek): Forward-looking optimist. Technology-first. "The future is electric."</text>
+  <text x="60" y="1002" font-size="11" fill="#5a2a10">Oldtimer (Bring a Trailer): Nostalgic reverence. Provenance, condition, stories. "They don't make them like this anymore."</text>
+  <text x="60" y="1020" font-size="11" fill="#5a2a10">Mechanic (Pop. Mechanics): Practical DIY. No-nonsense. Technical but accessible. "Here's how it actually works."</text>
+  <text x="60" y="1044" font-size="9" fill="#3a1808" letter-spacing="1">SOURCES: Electrek · Bring a Trailer · Popular Mechanics  |  PIPELINE: Clipfarm  |  NICHE: cars  |  3 voice profiles in narrator_voices.json</text>
+</svg>

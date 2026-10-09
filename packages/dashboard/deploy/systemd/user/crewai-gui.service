@@ -1,0 +1,25 @@
+[Unit]
+Description=Zygomatic dashboard — Flask GUI (port 5000)
+PartOf=zygomatic.target
+After=network.target comfyui.service
+Wants=comfyui.service
+StartLimitIntervalSec=900
+StartLimitBurst=3
+
+[Service]
+WorkingDirectory=%h/repos/zygomatic-dashboard
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_dashboard.crewai_web_gui
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=30
+# The pipeline loads diffusion models in-process; 44G leaves room for ComfyUI and the
+# desktop on a 64G box, and the positive OOMScoreAdjust makes this the first victim.
+MemoryHigh=44G
+OOMScoreAdjust=200
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=crewai-gui
+
+[Install]
+WantedBy=default.target zygomatic.target

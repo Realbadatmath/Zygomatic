@@ -1,0 +1,16 @@
+{
+ "pack": "resplan",
+ "title": "ResPlan residential floor plans",
+ "source_url": "https://github.com/m-agour/ResPlan",
+ "version": "1.0",
+ "licence": "CC BY 4.0 (data), MIT (code)",
+ "attribution": "Floor plans: ResPlan (Agour et al. 2025), CC BY 4.0, https://github.com/m-agour/ResPlan",
+ "doi": "",
+ "count": {
+  "unit": 0,
+  "floor": 0,
+  "house": 6
+ },
+ "converted": "2026-09-11T02:20:53",
+ "notes": "TEST FIXTURE \u2014 6 plans copied from the resplan pack. geometry recovered from real-estate listing renderings; provenance withheld by the authors; takedown policy applies \u2014 treat as lower-trust than Swiss Dwellings. Metres come from each plan's own area field (scale = sqrt(area_m2 / sum(room polygon areas))); wall thickness from wall_depth x that scale. The 683 augmented plans (area_change_sqft set) are excluded. The pickle does not document its y axis, so the schema flip z = -y is applied as written and plans may be mirrored north/south; mirror_ok is true."
+}

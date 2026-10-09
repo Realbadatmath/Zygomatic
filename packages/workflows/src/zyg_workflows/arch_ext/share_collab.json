@@ -1,0 +1,5 @@
+{"section_key": "annotations", "section_label": "Annotations",
+ "groups": [{"g": "Review",
+             "items": [["markup_note", "Markup note",
+                        {"txt": "Note", "col": "#ffcc00", "size": 0.4},
+                        "A comment pinned to a point: a cone under a bead, with txt shown beside it. col is the pin and label colour (an issue pin is red, #ff5544), size the pin height in metres. Notes stay with the drawing and are not built in Blender."]]}]}

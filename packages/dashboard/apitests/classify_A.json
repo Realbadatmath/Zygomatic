@@ -1,0 +1,1059 @@
+{
+ "part": "A",
+ "routes": [
+  {
+   "rule": "/api/gpu/release",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "agents_api.release_gpu",
+   "blueprint": "agents_api",
+   "func": "bp_agents_api.py:425",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": 200,
+   "why": "mock implementation (bp_agents_api.py:425-432): reads data.get('agent') and returns a success message; no write, no external call, no state touched"
+  },
+  {
+   "rule": "/api/approval_queue/<wf>/action",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "approval_queue.api_action",
+   "blueprint": "approval_queue",
+   "func": "bp_approval_queue.py:442",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "play/pause/abort of a LIVE workflow (bp_zero/_storyteller_daily/_melody_daily/_preempt); {} 400s on the action check but the route exists only to start/stop production work"
+  },
+  {
+   "rule": "/api/approval_queue/<wf>/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "approval_queue.api_settings",
+   "blueprint": "approval_queue",
+   "func": "bp_approval_queue.py:471",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "{} -> 400 'no settings given' at bp_approval_queue.py:476-477, before _aqs.update(); an unknown <wf> -> 404 at line 474. No write on an empty body"
+  },
+  {
+   "rule": "/api/approval_queue/preempt/item/<item_id>/action",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "approval_queue.api_preempt_item",
+   "blueprint": "approval_queue",
+   "func": "bp_approval_queue.py:491",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'only delete is supported', but the route's single action is deleting a preempt entry or song (_pb.delete_entry/songs_delete)"
+  },
+  {
+   "rule": "/api/assetlib/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_assetlib_delete",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:838",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'cat and id required', but the route removes an asset from a category library"
+  },
+  {
+   "rule": "/api/assets/download",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.trigger_asset_download",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:238",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "first statement starts an 'asset-downloader' thread (bp_assets_media.py:242-243); no body is read"
+  },
+  {
+   "rule": "/api/effects/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_effects_delete",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:768",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'id required', but the route deletes an effect preset and its preview file"
+  },
+  {
+   "rule": "/api/marketing/dismiss",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_marketing_dismiss",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:959",
+   "gate": "open",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "{} -> 400 'filename required' at bp_assets_media.py:966-967, before the _MKT_DISMISS_LOCK read-modify-write of the dismissed store"
+  },
+  {
+   "rule": "/api/marketing/undismiss",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_marketing_undismiss",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:985",
+   "gate": "open",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} is NOT rejected: the handler takes the lock, loads the dismissed store, matches nothing and returns 200 \u2014 the empty-body path falls through into the action with no 4xx"
+  },
+  {
+   "rule": "/api/marketing/upload",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_marketing_upload",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:1209",
+   "gate": "open",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'filename required' before any work, but a real body publishes an episode to YouTube (external, irreversible); danger+external in routes.json"
+  },
+  {
+   "rule": "/api/output-scp/config",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "assets_media.patch_scp_config",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:59",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} updates nothing but the handler still json.dump()s the config back to data/runtime/output_scp_config.json (bp_assets_media.py:70-71) \u2014 write on the empty-body path"
+  },
+  {
+   "rule": "/api/prompt_registry/revert",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_prompt_registry_revert",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:1580",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "{} -> 400 'prompt_id required' at bp_assets_media.py:1592-1593, before any _register_prompt write"
+  },
+  {
+   "rule": "/api/prompt_registry/update",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_prompt_registry_update",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:1535",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "{} -> 400 'prompt_id and new_text required' at bp_assets_media.py:1549-1550, before the registry read and the _register_prompt() version write"
+  },
+  {
+   "rule": "/api/templates/delete/<tmpl_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "assets_media.api_templates_delete",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:1697",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "DELETE rewrites the template store unconditionally (_tstore_write at bp_assets_media.py:1701); no validation, no 4xx"
+  },
+  {
+   "rule": "/api/templates/store",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_templates_store",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:1674",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "no body validation: {} builds a default entry (tmpl_<ts>) and _tstore_write()s the store (bp_assets_media.py:1691-1693) \u2014 a write on the empty-body path"
+  },
+  {
+   "rule": "/api/wardrobe/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "assets_media.api_wardrobe_delete",
+   "blueprint": "assets_media",
+   "func": "bp_assets_media.py:715",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'id required', but the route deletes an outfit from the shared library and removes its cached preview"
+  },
+  {
+   "rule": "/api/dashboard/my_account",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.dashboard_my_account_save",
+   "blueprint": "auth",
+   "func": "bp_auth.py:215",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": 501,
+   "why": "the whole body is `return jsonify({...}), 501` (bp_auth.py:215-218) \u2014 no write, no external call"
+  },
+  {
+   "rule": "/api/login",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.api_login",
+   "blueprint": "auth",
+   "func": "bp_auth.py:66",
+   "gate": "open",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 200 {'success': False, 'Invalid role'} (not a 4xx), and the handler's purpose is to read the users store and mutate the session; CSRF-exempt authentication surface"
+  },
+  {
+   "rule": "/api/logout",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.api_logout",
+   "blueprint": "auth",
+   "func": "bp_auth.py:137",
+   "gate": "open",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "session.clear() is the first statement (bp_auth.py:141) \u2014 mutates the caller's session and deletes its cookie; not a pure read and never a 4xx"
+  },
+  {
+   "rule": "/api/restart",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "auth.api_restart",
+   "blueprint": "auth",
+   "func": "bp_auth.py:152",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "spawns restart_flask.sh with subprocess.Popen from a thread \u2014 restarts Flask + Zero Public and halts active pipelines"
+  },
+  {
+   "rule": "/api/benchmark/multirun",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "benchmark.api_benchmark_multirun_start",
+   "blueprint": "benchmark",
+   "func": "bp_benchmark.py:981",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'Minimum 2 pipelines required', but the route starts up to 4 concurrent benchmark pipelines in a thread"
+  },
+  {
+   "rule": "/api/benchmark/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "benchmark.api_benchmark_run_infra",
+   "blueprint": "benchmark",
+   "func": "bp_benchmark.py:567",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'pipeline is required', but the route registers a run and starts _bm_infra_worker in a thread"
+  },
+  {
+   "rule": "/api/calibrate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "benchmark.api_calibrate_post",
+   "blueprint": "benchmark",
+   "func": "bp_benchmark.py:368",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} produces no errors and reaches gui_state._CALIBRATION.update({}) (bp_benchmark.py:392) \u2014 the empty-body path touches module-level state and returns 200; a real body also drives nvidia-smi power limits"
+  },
+  {
+   "rule": "/api/internal/char2d/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "char2d.c2d_start",
+   "blueprint": "char2d",
+   "func": "bp_char2d.py:56",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'a character brief is required', but the route starts the char2d pipeline through bp_pipeline_api.api_internal_pipeline_start"
+  },
+  {
+   "rule": "/api/zero/analyze",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "claude_clip.api_analyze_video",
+   "blueprint": "claude_clip",
+   "func": "bp_claude_clip.py:556",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'video_path required', but the route starts a background analyze_video_for_claude thread"
+  },
+  {
+   "rule": "/api/zero/execute_plan",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "claude_clip.api_execute_plan",
+   "blueprint": "claude_clip",
+   "func": "bp_claude_clip.py:576",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'plan_path required', but the route executes a clip/sfx/caption plan in a thread"
+  },
+  {
+   "rule": "/api/control-settings/data/<category>",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "control_settings.cs_data_patch",
+   "blueprint": "control_settings",
+   "func": "bp_control_settings.py:246",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 401,
+   "why": "_require_unlocked() answers 401 'Control Settings is locked.' for any session without control_settings_unlocked (the brief's admin session has none) before the items check and _save_json (bp_control_settings.py:249-257)"
+  },
+  {
+   "rule": "/api/control-settings/lock",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "control_settings.cs_lock",
+   "blueprint": "control_settings",
+   "func": "bp_control_settings.py:210",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "session.pop('control_settings_unlocked') is the whole handler \u2014 mutates the caller's session, never a 4xx, not a pure read"
+  },
+  {
+   "rule": "/api/control-settings/setup",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "control_settings.cs_setup",
+   "blueprint": "control_settings",
+   "func": "bp_control_settings.py:161",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 409,
+   "why": "data/runtime/control_settings/auth.json exists, so {} -> 409 'already configured' (bp_control_settings.py:167-168) before _save_json_private; were it absent {} -> 400 (password < 10 chars). Never writes on an empty body"
+  },
+  {
+   "rule": "/api/control-settings/unlock",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "control_settings.cs_unlock",
+   "blueprint": "control_settings",
+   "func": "bp_control_settings.py:188",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} reaches _record_failure(ip), which appends to the module-level _fail_counts lockout table (bp_control_settings.py:203), before answering 401 \u2014 five such calls lock 127.0.0.1 out for 15 min"
+  },
+  {
+   "rule": "/api/creator-nexus/state",
+   "methods": [
+    "GET",
+    "POST"
+   ],
+   "endpoint": "creator_nexus.creator_nexus_state",
+   "blueprint": "creator_nexus",
+   "func": "bp_creator_nexus.py:123",
+   "gate": "open",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "POST {} -> 400 'missing or empty \"keys\" object' (bp_creator_nexus.py:150-151) before any _cn_write_atomic; the GET half of the same rule is a pure read"
+  },
+  {
+   "rule": "/api/admin/security-controls/<control_id>",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "integrity_ops.api_security_controls_patch",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1132",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "503 without a control plane; with one, {} calls update_security_control(status='not_implemented') \u2014 an external write to the control plane"
+  },
+  {
+   "rule": "/api/azure/config",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.azure_config_save",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1450",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} iterates no keys but still calls save_config(current) (bp_integrity_ops.py:1468) \u2014 a write on the empty-body path"
+  },
+  {
+   "rule": "/api/azure/reset_counter",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.azure_reset_counter",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1474",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "no validation: {} -> service '' -> reset_service('') runs; the route resets an Azure usage counter"
+  },
+  {
+   "rule": "/api/dashboard/error_logs",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.dashboard_error_logs_save",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1185",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": 501,
+   "why": "the whole body is `return jsonify({...}), 501` (bp_integrity_ops.py:1185-1188) \u2014 read-only stub, no write, no external call"
+  },
+  {
+   "rule": "/api/dashboard/job_status",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.dashboard_job_status_save",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1285",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": 501,
+   "why": "the whole body is `return jsonify({...}), 501` (bp_integrity_ops.py:1285-1288) \u2014 read-only stub"
+  },
+  {
+   "rule": "/api/dashboard/monitoring_jobs",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.dashboard_monitoring_jobs_save",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1376",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": 501,
+   "why": "the whole body is `return jsonify({...}), 501` (bp_integrity_ops.py:1376-1379) \u2014 read-only stub"
+  },
+  {
+   "rule": "/api/integrity-gate/force-override",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.api_integrity_gate_force_override",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1148",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "the brief's session (user_role 'admin') gets 403 because the check is == 'admins', but with 'admins' an empty body writes schedule_paused.json {paused: True} and audit-logs it \u2014 it pauses the schedule"
+  },
+  {
+   "rule": "/api/settings/huggingface",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.hf_settings_save",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1640",
+   "gate": "login",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "{} -> 400 'Token cannot be empty' (bp_integrity_ops.py:1652-1653) before _hf_write_env_token() touches .env and before os.environ is set"
+  },
+  {
+   "rule": "/api/settings/huggingface/download",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.hf_settings_download",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1694",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "downloads IPAdapter weights from HuggingFace in a background thread; the only 4xx is 'HF_TOKEN not set'"
+  },
+  {
+   "rule": "/api/settings/huggingface/test",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.hf_settings_test",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1665",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "no body validation: with HF_TOKEN set the handler urlopen()s https://huggingface.co/api/whoami-v2 \u2014 an external call on the empty-body path (400 only when no token exists)"
+  },
+  {
+   "rule": "/api/smoke-test/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.smoke_test_run",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1492",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 unknown pipeline, but the route's action is launching a smoke-test script in a background subprocess"
+  },
+  {
+   "rule": "/api/vram/free",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "integrity_ops.api_vram_free",
+   "blueprint": "integrity_ops",
+   "func": "bp_integrity_ops.py:1014",
+   "gate": "open",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "no body is read: the handler runs nvidia-smi (subprocess) and _release_pipeline_vram, which evicts ComfyUI's cached models, unless GPU work is active (409)"
+  },
+  {
+   "rule": "/api/admin/schedule-pause",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jobs_audit.api_schedule_pause_post",
+   "blueprint": "jobs_audit",
+   "func": "bp_jobs_audit.py:502",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "503 without a control plane; otherwise {} calls set_schedule_pause(paused=False) \u2014 an external state write that resumes/pauses the schedule"
+  },
+  {
+   "rule": "/api/approvals",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jobs_audit.api_approvals_create",
+   "blueprint": "jobs_audit",
+   "func": "bp_jobs_audit.py:99",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "503 without a control plane, else {} -> 400 'schedule_request_id required'; the route's action is creating an approval in the control plane"
+  },
+  {
+   "rule": "/api/jobs/runs/expire-leases",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "jobs_audit.api_jobs_expire_leases",
+   "blueprint": "jobs_audit",
+   "func": "bp_jobs_audit.py:478",
+   "gate": "login",
+   "risk": "safe",
+   "empty_body_status": 200,
+   "why": "documented no-op: the whole body is `return jsonify({'ok': True, 'expired': 0})` (bp_jobs_audit.py:478-482) \u2014 no write, no external call"
+  },
+  {
+   "rule": "/api/internal/kidseries/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidseries.ks_start",
+   "blueprint": "kidseries",
+   "func": "bp_kidseries.py:64",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'a series slug is required', but the route starts a kids-series episode pipeline (ComfyUI + IndexTTS-2, GPU)"
+  },
+  {
+   "rule": "/api/internal/kidseries/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidseries.ks_stop",
+   "blueprint": "kidseries",
+   "func": "bp_kidseries.py:149",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 404 'unknown job' with no side effect, but the route's action is setting a running job's stop_event \u2014 it halts production work"
+  },
+  {
+   "rule": "/api/internal/kidsmusic/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_delete",
+   "blueprint": "kidsmusic",
+   "func": "bp_kidsmusic.py:240",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'bad id', but the route shutil-removes a finished song folder"
+  },
+  {
+   "rule": "/api/internal/kidsmusic/remix",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_remix",
+   "blueprint": "kidsmusic",
+   "func": "bp_kidsmusic.py:197",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "{} -> 400 'bad id' (bp_kidsmusic.py:210-211: id must match [a-f0-9]{12}|cli_[0-9_]{1,24}) before any output folder is resolved or K.remix_job runs"
+  },
+  {
+   "rule": "/api/internal/kidsmusic/start",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_start",
+   "blueprint": "kidsmusic",
+   "func": "bp_kidsmusic.py:49",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'a theme or subject is required', but the route starts the kids-music pipeline (GPU, IndexTTS-2, ACE-Step)"
+  },
+  {
+   "rule": "/api/internal/kidsmusic/stop",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "kidsmusic.km_stop",
+   "blueprint": "kidsmusic",
+   "func": "bp_kidsmusic.py:177",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "same shape as kidseries.ks_stop: {} -> 404 'unknown job', but the action halts a running job"
+  },
+  {
+   "rule": "/api/market/icebox/delete",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_icebox_delete",
+   "blueprint": "market",
+   "func": "bp_market.py:158",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "no validation: the single statement calls MI.icebox_delete('', '') on the empty-body path"
+  },
+  {
+   "rule": "/api/market/icebox/used",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_icebox_used",
+   "blueprint": "market",
+   "func": "bp_market.py:151",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "no validation: the single statement calls MI.icebox_mark_used('', '') on the empty-body path"
+  },
+  {
+   "rule": "/api/market/run",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_run",
+   "blueprint": "market",
+   "func": "bp_market.py:50",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'department must be stocks or crypto', but the route starts the market briefing pipeline (PM._start)"
+  },
+  {
+   "rule": "/api/market/settings",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "market.api_settings_post",
+   "blueprint": "market",
+   "func": "bp_market.py:94",
+   "gate": "login",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "single line: MI.update_settings(request.get_json(silent=True) or {}) \u2014 the empty-body path writes the market settings store"
+  },
+  {
+   "rule": "/api/medusa/generate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa.api_medusa_generate",
+   "blueprint": "medusa",
+   "func": "bp_medusa.py:352",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} only passes the age gate, then build_medusa_params({}) runs and a pending row is appended to data/runtime/medusa_pending.json (_pending_save) \u2014 a write on the empty-body path"
+  },
+  {
+   "rule": "/api/medusa/pending/<req_id>/decide",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa.api_medusa_decide",
+   "blueprint": "medusa",
+   "func": "bp_medusa.py:428",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "approves or declines a parked Medusa request; approval writes the pending store and starts the medusa pipeline thread"
+  },
+  {
+   "rule": "/api/medusa/models",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_models_create",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:369",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 400,
+   "why": "{} -> _err('name is required') = 400 (bp_medusa_models.py:373-374) before os.makedirs and mml.save_meta"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_models.api_model_delete",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:445",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "shutil.rmtree of the model's dataset and output directories, and it may clear the family's active id"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>",
+   "methods": [
+    "PATCH"
+   ],
+   "endpoint": "medusa_models.api_model_patch",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:410",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "unknown model id -> 404, but for a REAL id {} skips every `if ... in body` branch and still falls through to save_meta(touch(meta)) \u2014 a write with no 4xx"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/activate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_activate",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:744",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "mml.set_active_id(fam, model_id) \u2014 changes which LoRA every Medusa generation uses"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/attest",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_attest",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:461",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 404,
+   "why": "unknown model id -> 404 (_meta_or_404); for a real id {} -> 400 'confirm must be true' (bp_medusa_models.py:467-469) before mml.save_meta. Never writes on an empty body"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/captions/reset",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_captions_reset",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:809",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "unlinks every img_*.txt caption in the dataset and rewrites meta; no body is read"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/deactivate",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_deactivate",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:761",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "mml.set_active_id(fam, '') \u2014 clears the family's active LoRA; no body is read"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/images",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_images_upload",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:508",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 404,
+   "why": "unknown model id -> 404; for a real id an empty request has no multipart files -> 400 'no files in the request' (bp_medusa_models.py:514-515) before _store_image"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/images/<name>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_models.api_model_image_delete",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:552",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "os.unlink of the dataset image and its .txt caption"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/ingest/folder",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_ingest_folder",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:641",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 404,
+   "why": "unknown model id -> 404; for a real id {} -> 400 'path is required' (bp_medusa_models.py:647-649) before any os.walk or copy"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/ingest/urls",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_ingest_urls",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:574",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'urls must be a list or a newline-separated string', but the route's action is fetching remote URLs (_fetch) into the dataset \u2014 a download"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/sample",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_sample",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:776",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "jobs.sample_async starts a GPU sample render, and a prompt in the body is save_meta'd first"
+  },
+  {
+   "rule": "/api/medusa/models/<model_id>/train",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_models.api_model_train",
+   "blueprint": "medusa_models",
+   "func": "bp_medusa_models.py:696",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "starts a LoRA training run for the model (GPU, hours)"
+  },
+  {
+   "rule": "/api/medusa/training/characters",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_create_character",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:916",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} is ACCEPTED (display_name defaults to 'Untitled', identity mode) and a character directory + meta is created \u2014 a write on the empty-body path, no 4xx"
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_training.api_training_delete_character",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:988",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "shutil.rmtree of the character directory and its output directory"
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/body-prepare",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_body_prepare",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:722",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "builds the masked-loss body dataset and _save_meta's body_promptables on the way"
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/images",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_upload_images",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:1019",
+   "gate": "localhost",
+   "risk": "validate",
+   "empty_body_status": 404,
+   "why": "unknown char_id -> 404; for a real id an empty request has no 'images' files -> 400 (bp_medusa_training.py:1029-1031) before os.makedirs(training/)"
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/images/<image_id>",
+   "methods": [
+    "DELETE"
+   ],
+   "endpoint": "medusa_training.api_training_delete_image",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:1072",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "os.remove of the training image and its caption"
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/sheet",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_build_sheet",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:678",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "_sheet.start_build starts a contact-sheet build (detectors, 202)"
+  },
+  {
+   "rule": "/api/medusa/training/characters/<char_id>/train",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_start",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:1095",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "starts the character's LoRA training run (GPU, hours)"
+  },
+  {
+   "rule": "/api/medusa/training/import-folders",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_import_folders",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:614",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "{} -> 400 'invalid or disallowed path', but the route creates one character per folder and ingests its photos on a background thread"
+  },
+  {
+   "rule": "/api/medusa/training/scan-folder",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_scan_folder",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:596",
+   "gate": "localhost",
+   "risk": "safe",
+   "empty_body_status": 200,
+   "why": "read-only preview: _safe_import_path then _scan_parent, which only os.scandir()s inside _IMPORT_ROOTS (bp_medusa_training.py:426-461). No write, no external call; {} defaults to MEDUSA_IMPORT_ROOT and answers 404 if that folder is missing"
+  },
+  {
+   "rule": "/api/medusa/training/sheets/build-all",
+   "methods": [
+    "POST"
+   ],
+   "endpoint": "medusa_training.api_training_build_all_sheets",
+   "blueprint": "medusa_training",
+   "func": "bp_medusa_training.py:835",
+   "gate": "localhost",
+   "risk": "exclude",
+   "empty_body_status": null,
+   "why": "no body validation: os.makedirs(_TRAIN_DATASET_ROOT) then a sheet build is started for every character that has photos"
+  }
+ ]
+}

@@ -1,0 +1,181 @@
+{
+  "10": {
+    "inputs": {
+      "unet_name": "flux1-dev.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Flux UNet"}
+  },
+  "11": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "DualCLIPLoader (T5 + CLIP-L)"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux_ae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load Flux VAE"}
+  },
+  "13": {
+    "inputs": {
+      "lora_name": "character_lora.safetensors",
+      "strength_model": 0.85,
+      "strength_clip": 0.85,
+      "model": ["10", 0],
+      "clip": ["11", 0]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {"title": "Character LoRA (optional — override lora_name)"}
+  },
+  "20": {
+    "inputs": {
+      "text": "ZYG_CHAR character, indoor cinematic studio, photorealistic",
+      "clip": ["13", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {
+      "text": "blurry, low quality, deformed face, bad anatomy, extra fingers, extra limbs, watermark, text",
+      "clip": ["13", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Negative Prompt (override per-character)"}
+  },
+  "25": {
+    "inputs": {"guidance": 3.5, "conditioning": ["20", 0]},
+    "class_type": "FluxGuidance",
+    "_meta": {"title": "FluxGuidance"}
+  },
+  "30": {
+    "inputs": {"width": 1280, "height": 720, "batch_size": 1},
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {"title": "Empty Flux Latent"}
+  },
+  "31": {
+    "inputs": {
+      "seed": 42,
+      "steps": 20,
+      "cfg": 3.5,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": ["13", 0],
+      "positive": ["25", 0],
+      "negative": ["21", 0],
+      "latent_image": ["30", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {"title": "KSampler (first pass)"}
+  },
+  "40": {
+    "inputs": {"samples": ["31", 0], "vae": ["12", 0]},
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode (first pass)"}
+  },
+  "55": {
+    "inputs": {"model_name": "bbox/face_yolov8m.pt"},
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {"title": "Face Detector"}
+  },
+  "56": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader",
+    "_meta": {"title": "SAM Loader (Impact)"}
+  },
+  "60": {
+    "inputs": {
+      "guide_size": 384,
+      "guide_size_for": true,
+      "max_size": 768,
+      "seed": 43,
+      "steps": 10,
+      "cfg": 3.5,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 0.45,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "bbox_threshold": 0.50,
+      "bbox_dilation": 10,
+      "bbox_crop_factor": 3.0,
+      "sam_detection_hint": "center-1",
+      "sam_dilation": 0,
+      "sam_threshold": 0.93,
+      "sam_bbox_expansion": 0,
+      "sam_mask_hint_threshold": 0.7,
+      "sam_mask_hint_use_negative": "False",
+      "drop_size": 10,
+      "wildcard": "",
+      "cycle": 1,
+      "image": ["40", 0],
+      "model": ["13", 0],
+      "clip": ["13", 1],
+      "vae": ["12", 0],
+      "positive": ["25", 0],
+      "negative": ["21", 0],
+      "bbox_detector": ["55", 0],
+      "sam_model_opt": ["56", 0]
+    },
+    "class_type": "FaceDetailer",
+    "_meta": {"title": "FaceDetailer second pass (auto-skipped if node missing)"}
+  },
+  "61": {
+    "inputs": {"model_name": "bbox/hand_yolov8s.pt"},
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {"title": "Hand Detector (ADetailer)"}
+  },
+  "63": {
+    "inputs": {
+      "guide_size": 256,
+      "guide_size_for": true,
+      "max_size": 512,
+      "seed": 44,
+      "steps": 8,
+      "cfg": 3.5,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 0.35,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "bbox_threshold": 0.45,
+      "bbox_dilation": 8,
+      "bbox_crop_factor": 2.5,
+      "sam_detection_hint": "center-1",
+      "sam_dilation": 0,
+      "sam_threshold": 0.93,
+      "sam_bbox_expansion": 0,
+      "sam_mask_hint_threshold": 0.7,
+      "sam_mask_hint_use_negative": "False",
+      "drop_size": 10,
+      "wildcard": "",
+      "cycle": 1,
+      "image": ["60", 0],
+      "model": ["13", 0],
+      "clip": ["13", 1],
+      "vae": ["12", 0],
+      "positive": ["25", 0],
+      "negative": ["21", 0],
+      "bbox_detector": ["61", 0],
+      "sam_model_opt": ["56", 0]
+    },
+    "class_type": "FaceDetailer",
+    "_meta": {"title": "HandDetailer second pass (FaceDetailer + hand YOLO)"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygCharLocked", "images": ["63", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save (face + hand detail passes)"}
+  }
+}

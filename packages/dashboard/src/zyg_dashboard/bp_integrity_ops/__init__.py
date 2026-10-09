@@ -1,0 +1,108 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Generated 2026-07-17 heavy-tranche modularization — extracted from crewai_web_gui.py.
+# See crews_modularization_backups_20260717/MODULARIZATION_CHANGELOG.md.
+# Contract: imported only at the BOTTOM of crewai_web_gui.py (all main globals exist;
+# the running __main__ instance is aliased as `crewai_web_gui` in sys.modules).
+
+# ruff: noqa: F401
+from zyg_dashboard.bp_integrity_ops.constants import (
+    _zyg_logging,
+    json,
+    os,
+    sys,
+    threading,
+    uuid,
+    Blueprint,
+    jsonify,
+    request,
+    send_file,
+    session,
+    paths,
+    exe,
+    apply_cors,
+    bp,
+    _load_json,
+    _runtime_path,
+    _workflow_jobs,
+    _read_local_telemetry,
+    _ams_iso,
+    _ams_now,
+    _parse_iso_to_ams,
+    _zero_audit_log,
+    block_spectator_mutation,
+    CANONICAL_LLMS,
+    DEPENDENCIES_CONFIG,
+    _HF_ENV_PATH,
+    _SMOKE_SCRIPTS,
+    _comfy_vram_used_mb,
+    _gpu_work_active,
+    _release_pipeline_vram,
+    _require_csrf,
+    importlib,
+    limiter,
+    _main_mod,
+    _steps,
+    _zyg_log,
+    API_ADAPTER_AVAILABLE,
+    DASHBOARD_AVAILABLE,
+    ERROR_LOGS_DATA_PATH,
+    LANGUAGES_DIR,
+    LANGUAGE_LINKS_FILE,
+    _OLLAMA_BASE_URL,
+    get_security_controls,
+    get_telemetry,
+    update_security_control,
+    _smoke_runs,
+    _recent_state_files,
+    _is_test_pid,
+    _SMOKE_RUNS_PATH,
+    _SMOKE_RUNS_KEEP,
+    _SMOKE_RUNS_OUTPUT_TAIL,
+    _SMOKE_RUNS_LOCK,
+    _smoke_runs_persist,
+    _smoke_runs_load,
+)
+from zyg_dashboard.bp_integrity_ops.api_integrity import (
+    api_integrity_gate,
+    api_vram_free,
+    api_telemetry,
+    api_disk_usage,
+    api_telemetry_log,
+    api_security_controls_get,
+    api_security_controls_patch,
+    api_integrity_gate_force_override,
+)
+from zyg_dashboard.bp_integrity_ops.api_dashboard import (
+    dashboard_error_logs,
+    dashboard_error_logs_save,
+    dashboard_job_status,
+    dashboard_job_status_save,
+    dashboard_monitoring_jobs,
+    dashboard_monitoring_jobs_save,
+    dashboard_language_pack_check,
+    dashboard_language_link,
+)
+from zyg_dashboard.bp_integrity_ops.api_azure_smoke import (
+    azure_usage,
+    azure_config_get,
+    azure_config_save,
+    azure_reset_counter,
+    smoke_test_run,
+    smoke_test_status,
+    smoke_test_list,
+)
+from zyg_dashboard.bp_integrity_ops.api_settings import (
+    _hf_read_env_token,
+    _hf_active_token,
+    _hf_write_env_token,
+    hf_settings_get,
+    hf_settings_save,
+    hf_settings_test,
+    hf_settings_download,
+    get_llms_list,
+    _check_dependency,
+    get_dependencies_status,
+)

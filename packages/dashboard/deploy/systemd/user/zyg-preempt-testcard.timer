@@ -1,0 +1,10 @@
+[Unit]
+Description=Zygomatic — refresh the Pre-emptive bank Test Data card every 10 minutes
+
+[Timer]
+OnCalendar=*-*-* *:03/10:00
+Persistent=true
+RandomizedDelaySec=45
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,94 @@
+/* Creature Studio — shell fur for a base creature whose GLB carries a fur map.
+ *
+ * A base row with `fur: true` (BASES.json) is expected to ship its coat as
+ * COLOR_0 (zone colours) × baseColorTexture (hair-streak multiplier) and to
+ * carry the FUR LENGTH in that texture's ALPHA channel (0 = skin, 1 = the
+ * longest guard hair). Nothing else in the file is special.
+ *
+ * The fur is the classic shell technique: N copies of the skinned mesh, each
+ * pushed out along the normal by (shell / N) × length × alpha, combed a little
+ * toward gravity and the tail, and each fragment kept only where a hashed hair
+ * cell is taller than the shell it sits on. Shells clone the SkinnedMesh, so
+ * they share the skeleton and the idle clip drives them for free; they also
+ * share the geometry, so the studio's tint pass (which writes COLOR_0 on the
+ * base mesh) recolours the fur without knowing it exists.
+ *
+ * Hook: creature_3d.js calls CRST3FUR.attach(CX, base) after playIdle().
+ * dropModel() removes the wrapper and disposes every material it finds, which
+ * includes ours — no separate teardown.
+ */
+(function () {
+  'use strict';
+  if (!window.THREE) return;
+
+  var SHELLS = 16;          // layers — 16 × 130k tris is a light frame for a 4090
+  var LENGTH = 0.20;        // model units at alpha 1 (wolf ruff ≈ 10 cm on a 0.8 m animal)
+  var DENSITY = 1400.0;     // hair cells across the UV square
+
+  function shellMaterial(base, i) {
+    var t = (i + 1) / SHELLS;
+    var m = base.clone();
+    m.vertexColors = true;
+    m.map = base.map;
+    m.normalMap = null;                   // the strands carry the look, not the bump
+    m.transparent = false;
+    m.depthWrite = true;
+    m.side = THREE.FrontSide;
+    m.color.setRGB(1, 1, 1);
+    m.onBeforeCompile = function (sh) {
+      sh.uniforms.uShell = { value: t };
+      sh.uniforms.uLen = { value: LENGTH };
+      sh.vertexShader = sh.vertexShader
+        .replace('#include <common>',
+          '#include <common>\nuniform float uShell; uniform float uLen; uniform sampler2D map; varying float vFur;')
+        .replace('#include <begin_vertex>',
+          '#include <begin_vertex>\n'
+          + 'float furA = texture2D(map, uv).a;\n'
+          + 'vFur = furA;\n'
+          + 'vec3 furDir = normalize(objectNormal + vec3(0.0, -0.55, -0.35) * uShell * uShell);\n'
+          + 'transformed += furDir * (uShell * uLen * furA);\n');
+      sh.fragmentShader = sh.fragmentShader
+        .replace('#include <common>',
+          '#include <common>\nuniform float uShell; varying float vFur;\n'
+          + 'float furHash(vec2 p){ p = fract(p * vec2(443.897, 441.423)); p += dot(p, p.yx + 19.19); return fract((p.x + p.y) * p.x); }')
+        .replace('#include <color_fragment>',
+          '#include <color_fragment>\n'
+          + 'vec2 cell = floor(vUv * ' + DENSITY.toFixed(1) + ');\n'
+          + 'float h = furHash(cell);\n'
+          + 'float h2 = furHash(cell + 7.31);\n'
+          + 'vec2 cc = fract(vUv * ' + DENSITY.toFixed(1) + ') - 0.5;\n'
+          + 'float taper = 1.0 - smoothstep(0.0, 1.0, uShell);\n'
+          + 'float r = length(cc) * 2.0;\n'
+          + 'float tall = h * (0.35 + 0.65 * vFur) * (0.8 + 0.4 * h2);\n'
+          + 'if (vFur < 0.05 || tall < uShell || r > (0.32 + 0.55 * taper)) discard;\n'
+          + 'diffuseColor.rgb *= mix(0.55, 1.04, uShell);\n');
+    };
+    m.customProgramCacheKey = function () { return 'fur' + i; };
+    m.needsUpdate = true;
+    return m;
+  }
+
+  function attach(CX, base) {
+    if (!base || !base.fur || !CX || !CX.parts) return 0;
+    var n = 0;
+    CX.parts.forEach(function (part) {
+      var mesh = part.mesh;
+      if (!mesh.isSkinnedMesh && !mesh.isMesh) return;
+      if (!mesh.material || !mesh.material.map) return;          // no fur map → no shells
+      if (!(part.orig)) return;                                    // fur rides on COLOR_0
+      for (var i = 0; i < SHELLS; i++) {
+        var s = mesh.clone();
+        s.material = shellMaterial(mesh.material, i);
+        s.renderOrder = 1 + i;
+        s.frustumCulled = false;
+        s.userData.furShell = true;
+        mesh.parent.add(s);
+        n++;
+      }
+    });
+    CX.furShells = n;
+    return n;
+  }
+
+  window.CRST3FUR = { attach: attach, SHELLS: SHELLS, LENGTH: LENGTH };
+})();

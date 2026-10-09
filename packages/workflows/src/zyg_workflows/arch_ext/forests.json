@@ -1,0 +1,10 @@
+{"section_key": "site", "section_label": "Site",
+ "groups": [{"g": "Forests",
+             "items": [["forest", "Forest", {"w": 100, "d": 100, "density": 0.04, "mix": 0.5, "h": 14, "seed": 1, "jitter": 0.45, "res": 0, "gx": 0, "gz": 0},
+                        "A whole wood in ONE object. density is trees per square metre (0.04 = one every 5 m, a dense wood; 0.01 = parkland), mix is the share of conifers (1 = all conifer, 0 = all deciduous), h is the MEAN tree (each comes out 0.7-1.3 of it: deciduous 6-20 m, conifer 8-25 m), seed picks a different wood, jitter is how far a tree may wander off the grid (fraction of the spacing). gx and gz drape the wood on a ground plane: each tree's base sits at gx*x + gz*z (rise per metre along the object's own x and z) and every trunk stays vertical. res is reserved, keep 0. Capped at 3000 trees."],
+                       ["tree_line", "Tree line", {"len": 60, "spacing": 6, "kind": 0, "h": 10, "jitter": 0.2, "seed": 1, "gx": 0, "gz": 0},
+                        "A row of trees along the object's length: floor(len/spacing)+1 of them. kind 0 = deciduous (6-20 m), 1 = conifer (8-25 m), 2 = poplar (15-25 m, tall and narrow). jitter is the sideways wobble in metres. gx is the fall of the ground ALONG the row (rise per metre) — the row follows it and the trunks stay vertical; the record is never tilted with rz, which would lean every tree."],
+                       ["orchard", "Orchard", {"w": 40, "d": 30, "spacing": 5, "h": 4, "gx": 0, "gz": 0},
+                        "A grid of small round-crowned fruit trees, floor(w/spacing)+1 by floor(d/spacing)+1 of them, h tall (a fruit tree is 3-5 m) with a 1.6 m crown. gx/gz drape the grid on a ground plane; the trunks stay vertical."],
+                       ["undergrowth", "Undergrowth", {"w": 40, "d": 40, "count": 60, "seed": 1, "r": 0.8, "gx": 0, "gz": 0},
+                        "A seeded scatter of low shrubs over w x d for the forest floor: count of them, r is the average bush radius (each is 1.2 r tall, so a shrub's 0.4-2 m is r 0.33-1.67). gx/gz drape the scatter on a ground plane."]]}]}

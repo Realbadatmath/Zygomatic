@@ -1,0 +1,242 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!doctype html>
+<!-- tests/vb_panel_extras_smoke.html — headless smoke for voice_ext/03_panel_extras.js.
+     Runs with no server, no microphone and no Voice Studio: fetch, EventSource and
+     getUserMedia are stubbed here, and the two host divs 02_mic.js normally renders
+     (#vb-panel-speaker, #vb-panel-voice) are faked in the markup below. The only real
+     code under test is 00_core.js (for VB.ready/VB.waitFor) and 03_panel_extras.js.
+
+     google-chrome --headless=new --disable-gpu --dump-dom --virtual-time-budget=5000 \
+       "file://$PWD/tests/vb_panel_extras_smoke.html" | grep data-vb-smoke   (from the repository root)
+     PASS => the <html> tag carries data-vb-smoke="ok". -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>vb panel extras smoke</title>
+<style>:root{--ui-zoom:1;--panel:#1e1e22;--panel2:#2a2a30;--line:#383842;--txt:#e4e4e7;--muted:#a1a1aa;--acc:#00e5ff;}</style>
+<script>
+/* ── canned server, installed before any voice_ext file runs ──────────────── */
+(function () {
+  window.__vbCanned = {
+    speakers: [
+      { name: 'Coen',   slug: 'coen',   n_windows: 7, seconds: 29.4, created: '2026-09-15T01:00:00' },
+      { name: 'Sietse', slug: 'sietse', n_windows: 6, seconds: 25.1, created: '2026-09-15T01:10:00' }
+    ],
+    voices: [
+      { id: 'abel',       name: 'Abel',       role: 'narrator',  has_active_preset: true },
+      { id: 'cornelis',   name: 'Cornelis',   role: 'captain',   has_active_preset: false },
+      { id: 'marieke',    name: 'Marieke',    role: 'child',     has_active_preset: false },
+      { id: 'bootsman',   name: 'Bootsman',   role: 'crew',      has_active_preset: true }
+    ]
+  };
+  window.__vbCalls = { list: 0, spkcfg: 0, voices: 0, ttscfg: 0, post: [], hello: 0, sse: 0 };
+
+  function reply(obj) {
+    return Promise.resolve({
+      ok: true, status: 200,
+      json: function () { return Promise.resolve(obj); },
+      text: function () { return Promise.resolve(JSON.stringify(obj)); }
+    });
+  }
+
+  window.fetch = function (url, opts) {
+    var u = String(url);
+    var method = (opts && opts.method) || 'GET';
+    if (method === 'POST') {
+      var body = null;
+      try { body = JSON.parse((opts && opts.body) || '{}'); } catch (e) { body = null; }
+      window.__vbCalls.post.push({ url: u, body: body });
+      if (u.indexOf('/voice/hello') >= 0) { window.__vbCalls.hello++; return reply({ ok: true }); }
+      if (u.indexOf('speaker/config') >= 0)
+        return reply({ ok: true, speaker_threshold: body && body.speaker_threshold != null ? body.speaker_threshold : 0.55,
+                       speaker_gate: body && body.speaker_gate != null ? body.speaker_gate : true });
+      if (u.indexOf('tts/config') >= 0)
+        return reply({ ok: true, voice_id: (body && body.voice_id) || 'abel',
+                       engine: (body && body.engine) || 'auto', engines: ['auto', 'indextts2', 'chatterbox'] });
+      if (u.indexOf('speaker/delete') >= 0) return reply({ ok: true, deleted: body && body.slug });
+      if (u.indexOf('speaker/enrol') >= 0) return reply({ ok: true, name: body && body.name });
+      return reply({ ok: true });
+    }
+    /* the four GETs the panel loads its state from */
+    if (u.indexOf('speaker/list') >= 0) {
+      window.__vbCalls.list++;
+      return reply({ ok: true, speakers: window.__vbCanned.speakers, count: window.__vbCanned.speakers.length });
+    }
+    if (u.indexOf('speaker/config') >= 0) {
+      window.__vbCalls.spkcfg++;
+      return reply({ ok: true, speaker_threshold: 0.62, speaker_gate: true });
+    }
+    if (u.indexOf('tts/voices') >= 0) {
+      window.__vbCalls.voices++;
+      return reply({ ok: true, voices: window.__vbCanned.voices, count: window.__vbCanned.voices.length,
+                     voice_id: 'cornelis', engine: 'indextts2' });
+    }
+    if (u.indexOf('tts/config') >= 0) {
+      window.__vbCalls.ttscfg++;
+      return reply({ ok: true, voice_id: 'cornelis', engine: 'indextts2',
+                     engines: ['auto', 'indextts2', 'chatterbox'], resolved_engine: 'indextts2' });
+    }
+    return reply({ ok: true });
+  };
+
+  window.EventSource = function () {
+    window.__vbCalls.sse++;
+    this.close = function () {};
+    this.addEventListener = function () {};
+  };
+
+  /* no real microphone: enough for recordFor() to be reachable, never started here */
+  var fakeTrack = { stop: function () {}, kind: 'audio' };
+  var fakeStream = { getTracks: function () { return [fakeTrack]; } };
+  navigator.mediaDevices = navigator.mediaDevices || {};
+  navigator.mediaDevices.getUserMedia = function () { return Promise.resolve(fakeStream); };
+})();
+</script>
+</head>
+<body>
+
+<!-- the two host divs 02_mic.js renders inside #vb-panel; 02_mic.js itself is not loaded -->
+<div id="vb-panel">
+  <div id="vb-panel-speaker"></div>
+  <div id="vb-panel-voice"></div>
+</div>
+
+<script src="../voice_ext/00_core.js"></script>
+<script src="../voice_ext/03_panel_extras.js"></script>
+
+<script>
+(function () {
+  var fails = [];
+  function ck(name, cond, extra) {
+    if (cond) { console.log('PASS ' + name); return; }
+    fails.push(name + (extra ? ' (' + extra + ')' : ''));
+    console.log('FAIL ' + name + (extra ? ' (' + extra + ')' : ''));
+  }
+
+  function run() {
+    var VB = window.VB || {};
+    var C = window.__vbCalls;
+    var canned = window.__vbCanned;
+
+    /* ── the four GETs ─────────────────────────────────────────────────── */
+    ck('GET speaker/list was called', C.list >= 1, 'calls ' + C.list);
+    ck('GET speaker/config was called', C.spkcfg >= 1, 'calls ' + C.spkcfg);
+    ck('GET tts/voices was called', C.voices >= 1, 'calls ' + C.voices);
+    ck('GET tts/config was called', C.ttscfg >= 1, 'calls ' + C.ttscfg);
+
+    /* ── speaker block ─────────────────────────────────────────────────── */
+    var name = document.getElementById('vb-spk-name');
+    var rec  = document.getElementById('vb-spk-rec');
+    var ring = document.getElementById('vb-spk-ring');
+    var list = document.getElementById('vb-spk-list');
+    var gate = document.getElementById('vb-spk-gate');
+    var thr  = document.getElementById('vb-spk-thr');
+
+    ck('name field exists', !!name);
+    ck('Record 30 s button exists', !!rec && /30\s*s/.test(rec.textContent), rec ? rec.textContent : 'missing');
+    ck('progress ring exists', !!ring && !!ring.getAttribute('stroke-dasharray'));
+    ck('gate checkbox exists', !!gate);
+    ck('threshold slider is 0.3..0.8', !!thr && Number(thr.min) === 0.3 && Number(thr.max) === 0.8,
+       thr ? (thr.min + '..' + thr.max) : 'missing');
+
+    var rows = list ? list.querySelectorAll('.vb-spk') : [];
+    ck('enrolled list renders every canned speaker', rows.length === canned.speakers.length,
+       rows.length + ' rows for ' + canned.speakers.length + ' speakers');
+    var names = [];
+    for (var i = 0; i < rows.length; i++) names.push(rows[i].querySelector('.vb-spk-n').textContent);
+    ck('enrolled names are the canned ones', names.join(',') === 'Coen,Sietse', names.join(','));
+    ck('every enrolled row has a delete button',
+       list && list.querySelectorAll('.vb-spk .vb-spk-del').length === canned.speakers.length);
+
+    ck('threshold reloaded from the server', !!thr && Math.abs(Number(thr.value) - 0.62) < 1e-6,
+       thr ? thr.value : 'missing');
+    ck('gate reloaded from the server', !!gate && gate.checked === true);
+    ck('VB.panelExtras.speakers holds the canned rows',
+       !!VB.panelExtras && VB.panelExtras.speakers.length === canned.speakers.length);
+
+    /* ── voice block ───────────────────────────────────────────────────── */
+    var filter = document.getElementById('vb-voice-filter');
+    var sel    = document.getElementById('vb-voice-sel');
+    var engine = document.getElementById('vb-voice-engine');
+    var test   = document.getElementById('vb-voice-test');
+    var vnote  = document.getElementById('vb-voice-note');
+
+    ck('filter input exists', !!filter);
+    ck('voice select exists', !!sel);
+    ck('select is populated with the canned voices', !!sel && sel.options.length === canned.voices.length,
+       sel ? (sel.options.length + ' options for ' + canned.voices.length + ' voices') : 'missing');
+    var ids = [];
+    if (sel) for (var k = 0; k < sel.options.length; k++) ids.push(sel.options[k].value);
+    ck('option values are the canned voice ids', ids.join(',') === 'abel,cornelis,marieke,bootsman', ids.join(','));
+    ck('option labels carry the voice names',
+       !!sel && sel.options.length && sel.options[0].textContent.indexOf('Abel') >= 0,
+       sel && sel.options.length ? sel.options[0].textContent : 'no options');
+    ck('the configured voice is selected', !!sel && sel.value === 'cornelis', sel ? sel.value : 'missing');
+
+    ck('engine select offers auto/indextts2/chatterbox',
+       !!engine && engine.options.length >= 3 &&
+       engine.options[0].value === 'auto' && engine.options[1].value === 'indextts2' &&
+       engine.options[2].value === 'chatterbox');
+    ck('engine reloaded from the server', !!engine && engine.value === 'indextts2', engine ? engine.value : 'missing');
+    ck('Test button exists', !!test && /test/i.test(test.textContent));
+    ck('prerender note is shown', !!vnote && vnote.textContent.indexOf('tools/vb_prerender.py --clear') >= 0,
+       vnote ? vnote.textContent : 'missing');
+
+    /* the filter really filters, and never hides the current pick */
+    if (filter && sel) {
+      filter.value = 'child';
+      filter.dispatchEvent(new Event('input'));
+      var after = [];
+      for (var m = 0; m < sel.options.length; m++) after.push(sel.options[m].value);
+      ck('filter narrows the select to the match plus the current pick',
+         after.join(',') === 'cornelis,marieke', after.join(','));
+      filter.value = '';
+      filter.dispatchEvent(new Event('input'));
+      ck('clearing the filter restores every voice', sel.options.length === canned.voices.length,
+         sel.options.length + ' options');
+    }
+
+    /* ── persistence: a change POSTs the config ────────────────────────── */
+    if (engine) {
+      engine.value = 'chatterbox';
+      engine.dispatchEvent(new Event('change'));
+    }
+    if (gate) {
+      gate.checked = false;
+      gate.dispatchEvent(new Event('change'));
+    }
+
+    /* opening the panel (02_mic.js puts .on on #vb-panel) must reload the state */
+    var listBefore = window.__vbCalls.list;
+    document.getElementById('vb-panel').classList.add('on');
+
+    setTimeout(function () {
+      ck('opening the panel reloads the state', window.__vbCalls.list > listBefore,
+         'speaker/list calls ' + listBefore + ' -> ' + window.__vbCalls.list);
+      var posts = window.__vbCalls.post;
+      var sawTts = posts.some(function (p) { return p.url.indexOf('tts/config') >= 0 && p.body && p.body.engine === 'chatterbox'; });
+      var sawSpk = posts.some(function (p) { return p.url.indexOf('speaker/config') >= 0 && p.body && p.body.speaker_gate === false; });
+      ck('engine change POSTs tts/config', sawTts, JSON.stringify(posts.map(function (p) { return p.url; })));
+      ck('gate change POSTs speaker/config', sawSpk);
+
+      var verdict = fails.length ? ('fail: ' + fails.join('; ')) : 'ok';
+      console.log('SMOKE ' + verdict);
+      document.documentElement.setAttribute('data-vb-smoke', verdict);
+      var out = document.createElement('pre');
+      out.id = 'vb-smoke-out';
+      out.textContent = 'data-vb-smoke=' + verdict;
+      document.body.appendChild(out);
+    }, 150);
+  }
+
+  /* core boots on DOMContentLoaded and drains VB.ready; give it a turn first */
+  window.addEventListener('DOMContentLoaded', function () { setTimeout(run, 400); });
+})();
+</script>
+</body>
+</html>

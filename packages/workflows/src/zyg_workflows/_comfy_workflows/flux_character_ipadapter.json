@@ -1,0 +1,110 @@
+{
+  "10": {
+    "inputs": {
+      "unet_name": "flux1-dev.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Flux UNet"}
+  },
+  "11": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {"title": "DualCLIPLoader"}
+  },
+  "12": {
+    "inputs": {"vae_name": "flux_ae.safetensors"},
+    "class_type": "VAELoader",
+    "_meta": {"title": "Load Flux VAE"}
+  },
+  "13": {
+    "inputs": {
+      "lora_name": "character_lora.safetensors",
+      "strength_model": 0.85,
+      "strength_clip": 0.85,
+      "model": ["10", 0],
+      "clip": ["11", 0]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {"title": "Character LoRA"}
+  },
+  "14": {
+    "inputs": {
+      "ipadatper": "flux-ip-adapter.safetensors",
+      "clip_vision": "clip-vit-large-patch14-ipa.safetensors",
+      "provider": "GPU"
+    },
+    "class_type": "LoadFluxIPAdapter",
+    "_meta": {"title": "Load Flux IPAdapter (XLabs)"}
+  },
+  "15": {
+    "inputs": {"image": "reference.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "Identity Reference"}
+  },
+  "16": {
+    "inputs": {
+      "model": ["13", 0],
+      "ip_adapter_flux": ["14", 0],
+      "image": ["15", 0],
+      "ip_scale": 0.65
+    },
+    "class_type": "ApplyFluxIPAdapter",
+    "_meta": {"title": "Apply Flux IPAdapter"}
+  },
+  "20": {
+    "inputs": {
+      "clip": ["13", 1],
+      "clip_l": "ZYG_CHAR character, indoor studio, photorealistic",
+      "t5xxl": "ZYG_CHAR character, indoor studio, photorealistic",
+      "guidance": 3.5
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {
+      "clip": ["13", 1],
+      "clip_l": "",
+      "t5xxl": "",
+      "guidance": 3.5
+    },
+    "class_type": "CLIPTextEncodeFlux",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "30": {
+    "inputs": {"width": 1280, "height": 720, "batch_size": 1},
+    "class_type": "EmptyLatentImage",
+    "_meta": {"title": "Empty Latent"}
+  },
+  "31": {
+    "inputs": {
+      "model": ["16", 0],
+      "conditioning": ["20", 0],
+      "neg_conditioning": ["21", 0],
+      "noise_seed": 42,
+      "steps": 20,
+      "timestep_to_start_cfg": 20,
+      "true_gs": 3.5,
+      "image_to_image_strength": 0.0,
+      "denoise_strength": 1.0,
+      "latent_image": ["30", 0]
+    },
+    "class_type": "XlabsSampler",
+    "_meta": {"title": "XlabsSampler"}
+  },
+  "40": {
+    "inputs": {"samples": ["31", 0], "vae": ["12", 0]},
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygFluxIPA", "images": ["40", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}

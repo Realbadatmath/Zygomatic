@@ -1,0 +1,171 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify a Zygomatic file — Content Credentials</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161a22'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='38' fill='url(%23g)'%3EZ%3C/text%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c6ff7'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-0: #05070c;
+      --bg-1: #10172a;
+      --line: #223047;
+      --text: #eef5ff;
+      --dim:  #97abc9;
+      --accent: #6dc6ff;
+      --accent2: #a78bfa;
+      --ok: #52d6a0;
+      --warn: #ffc46b;
+      --bad: #ff7a8a;
+    }
+    html, body { min-height: 100%; }
+    body {
+      background: radial-gradient(circle at 20% 0%, var(--bg-1) 0%, var(--bg-0) 60%);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+    .vf-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(5, 7, 12, 0.72);
+    }
+    .vf-brand { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+    .vf-brand small { font-weight: 500; color: var(--dim); margin-left: 8px; }
+    .vf-pill {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--dim);
+    }
+    main { max-width: 820px; margin: 0 auto; padding: 34px 20px 60px; }
+    h1 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+    h2 { font-size: 1.05rem; font-weight: 700; margin: 26px 0 8px; }
+    p { color: var(--dim); margin-bottom: 12px; }
+    p.lead { color: var(--text); }
+    a { color: var(--accent); }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(16, 23, 42, 0.55);
+      padding: 18px;
+      margin: 20px 0;
+    }
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      background: rgba(5, 7, 12, 0.5);
+      color: var(--text);
+      font: inherit;
+    }
+    button {
+      margin-top: 12px;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-weight: 700;
+      color: #0b0f18;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      cursor: pointer;
+    }
+    code, pre {
+      font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+    }
+    pre {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(5, 7, 12, 0.6);
+      color: var(--text);
+      padding: 12px 14px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .verdict { font-weight: 700; color: var(--text); }
+    .verdict.is-ok { color: var(--ok); }
+    .verdict.is-warn { color: var(--warn); }
+    .verdict.is-bad { color: var(--bad); }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { text-align: left; padding: 7px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+    th { width: 34%; color: var(--dim); font-weight: 500; }
+    td { word-break: break-word; }
+    .note { font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="vf-bar">
+    <span class="vf-brand">Zygomatic<small>content credentials</small></span>
+    <span class="vf-pill">Verify</span>
+  </div>
+
+  <main>
+    <h1>Verify a Zygomatic file</h1>
+    <p class="lead">
+      Everything this studio ships is made with generative models, and every deliverable leaves here
+      signed. The signature is a <strong>C2PA content credential</strong> — an industry-standard,
+      cryptographically signed manifest embedded in the file itself. It names the generator, the
+      pipeline that produced the file, the models it used and the licence it ships under. Change one
+      byte of the file and the credential no longer matches.
+    </p>
+
+    {% if result %}
+    <div class="card">
+      <h2>Result{% if result.name %} — {{ result.name }}{% endif %}</h2>
+      <p class="verdict {{ result.verdict_class }}">{{ result.verdict }}</p>
+      <table>
+        <tr><th>Sealed</th><td>{{ result.sealed }}</td></tr>
+        <tr><th>Validation state</th><td>{{ result.state }}</td></tr>
+        <tr><th>Trusted by the Zygomatic root</th><td>{{ result.trusted }}</td></tr>
+        <tr><th>Issuer</th><td>{{ result.issuer }}</td></tr>
+        <tr><th>Signing time</th><td>{{ result.time }}</td></tr>
+        <tr><th>Pipeline</th><td>{{ result.pipeline }}</td></tr>
+        <tr><th>Run id</th><td>{{ result.run_id }}</td></tr>
+        <tr><th>Models</th><td>{{ result.models }}</td></tr>
+      </table>
+      {% if result.error %}<p class="note">Reader note: {{ result.error }}</p>{% endif %}
+      <p class="note">Your upload was read in a temporary file and deleted immediately. Nothing is stored.</p>
+    </div>
+    {% endif %}
+
+    <div class="card">
+      <h2>Check a file here</h2>
+      <form method="post" action="/verify" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*,video/*,audio/*" required>
+        <button type="submit">Read the credential</button>
+      </form>
+      <p class="note">Images, video and audio, up to {{ max_mb }} MB. The file is never stored.</p>
+    </div>
+
+    <h2>Check it yourself</h2>
+    <p>
+      Trust is a property of the verifier, not of the file, so our root certificate is public:
+      <a href="/.well-known/zygomatic-c2pa-root.pem">/.well-known/zygomatic-c2pa-root.pem</a>.
+      Add it as a trust anchor in <code>c2patool</code>, or in the Content Credentials verify site,
+      and a Zygomatic file reads as trusted rather than merely valid. Only the root is published —
+      the signing key never leaves the studio.
+    </p>
+    <pre>c2patool FILE --trust-anchors zygomatic-c2pa-root.pem</pre>
+  </main>
+</body>
+</html>

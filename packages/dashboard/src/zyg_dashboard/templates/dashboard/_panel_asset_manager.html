@@ -1,0 +1,493 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+        <div id="panel-asset_manager" class="dashboard-tab-panel{% if _dtab == 'asset_manager' %} active{% endif %}" {% if _dtab == 'asset_manager' %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+            <h3 class="dashboard-settings-panel-title">Asset Manager</h3>
+            <!-- Disk space indicator -->
+            <div id="am-disk-bar-wrap" style="display:flex;gap:18px;margin-bottom:18px;flex-wrap:wrap;">
+              <div id="am-disk-bar-home" style="flex:1;min-width:220px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <span style="font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;">Home Disk</span>
+                  <span id="am-disk-home-txt" style="font-size:0.78rem;color:rgba(255,255,255,0.75);">—</span>
+                </div>
+                <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;">
+                  <div id="am-disk-home-fill" style="height:100%;width:0%;border-radius:3px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.4s ease;"></div>
+                </div>
+              </div>
+              <div id="am-disk-bar-root" style="flex:1;min-width:220px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                  <span style="font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;">Root Disk</span>
+                  <span id="am-disk-root-txt" style="font-size:0.78rem;color:rgba(255,255,255,0.75);">—</span>
+                </div>
+                <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;">
+                  <div id="am-disk-root-fill" style="height:100%;width:0%;border-radius:3px;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width 0.4s ease;"></div>
+                </div>
+              </div>
+            </div>
+            <script src="/static/js/dashboard_tab_asset_manager_disk.js?v=1"></script>
+            <div class="asset-manager-subtabs" role="tablist" aria-label="Asset departments" style="display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;">
+                <button type="button" class="btn dashboard-btn asset-manager-subtab active" data-department="2d_series" role="tab" aria-selected="true" tabindex="0">2D Series</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="3d_series" role="tab" aria-selected="false" tabindex="-1">3D Series</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="clipfarm" role="tab" aria-selected="false" tabindex="-1">Clipfarm</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="mechanics" role="tab" aria-selected="false" tabindex="-1">Mechanics</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="rfd" role="tab" aria-selected="false" tabindex="-1" style="background:#1a6b3a;color:#fff;border-color:#1a6b3a;">RFD</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="sources" role="tab" aria-selected="false" tabindex="-1">Sources</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="documents" role="tab" aria-selected="false" tabindex="-1">Documents</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="imagery" role="tab" aria-selected="false" tabindex="-1">Imagery</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="videos" role="tab" aria-selected="false" tabindex="-1">Videos</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="storyteller" role="tab" aria-selected="false" tabindex="-1" style="background:#b45309;color:#fff;border-color:#b45309;">🎭 Storyteller</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="prompts" role="tab" aria-selected="false" tabindex="-1" style="background:#4f46e5;color:#fff;border-color:#4f46e5;">Prompts</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="data_retrieval" role="tab" aria-selected="false" tabindex="-1" style="background:#0e7490;color:#fff;border-color:#0e7490;">Data Retrieval</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="templates" role="tab" aria-selected="false" tabindex="-1" style="background:#7c3aed;color:#fff;border-color:#7c3aed;">Templates</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="environments" role="tab" aria-selected="false" tabindex="-1" style="background:#2f7d5b;color:#fff;border-color:#2f7d5b;">🏞️ Environments</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="effects" role="tab" aria-selected="false" tabindex="-1" style="background:#b8600f;color:#fff;border-color:#b8600f;">✨ Effects</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="wardrobe" role="tab" aria-selected="false" tabindex="-1" style="background:#7b3f6e;color:#fff;border-color:#7b3f6e;">🧥 Wardrobe</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="items" role="tab" aria-selected="false" tabindex="-1" style="background:#5a6b3a;color:#fff;border-color:#5a6b3a;">🧰 Items</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="food" role="tab" aria-selected="false" tabindex="-1" style="background:#8a5a2a;color:#fff;border-color:#8a5a2a;">🍞 Food</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="weapons" role="tab" aria-selected="false" tabindex="-1" style="background:#7a3a3a;color:#fff;border-color:#7a3a3a;">⚔️ Weapons</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="agriculture" role="tab" aria-selected="false" tabindex="-1" style="background:#4a7a3a;color:#fff;border-color:#4a7a3a;">🌾 Agriculture</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="water" role="tab" aria-selected="false" tabindex="-1" style="background:#2a5a8a;color:#fff;border-color:#2a5a8a;">💧 Water</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="clouds" role="tab" aria-selected="false" tabindex="-1" style="background:#5a6a8a;color:#fff;border-color:#5a6a8a;">☁️ Clouds</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="geology" role="tab" aria-selected="false" tabindex="-1" style="background:#6a5a4a;color:#fff;border-color:#6a5a4a;">⛰️ Geology</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="furniture" role="tab" aria-selected="false" tabindex="-1" style="background:#7a5a30;color:#fff;border-color:#7a5a30;">🪑 Furniture</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="sfx" role="tab" aria-selected="false" tabindex="-1" style="background:#3a6a6a;color:#fff;border-color:#3a6a6a;">🔊 SFX</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="vocal_fx" role="tab" aria-selected="false" tabindex="-1" style="background:#3a5a7a;color:#fff;border-color:#3a5a7a;">🗣️ Vocal FX</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="foley" role="tab" aria-selected="false" tabindex="-1" style="background:#5a4a3a;color:#fff;border-color:#5a4a3a;">🥁 Foley</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="instruments" role="tab" aria-selected="false" tabindex="-1" style="background:#4a3a6a;color:#fff;border-color:#4a3a6a;">🎸 Instruments</button>
+                <button type="button" class="btn dashboard-btn asset-manager-subtab" data-department="soundtracks" role="tab" aria-selected="false" tabindex="-1" style="background:#6a3a6a;color:#fff;border-color:#6a3a6a;">🎵 Soundtracks</button>
+            </div>
+            <div id="asset-manager-content-2d_series" class="asset-manager-panel active" role="tabpanel">
+                <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;">
+                    <thead><tr><th>Date Created</th><th>ID</th><th>Created By</th><th>Asset Type</th></tr></thead>
+                    <tbody id="asset-manager-tbody-2d_series"><tr><td colspan="4" style="text-align:center;padding:32px;color:#666;">No assets. Connect to asset API or add data.</td></tr></tbody>
+                </table>
+            </div>
+            <div id="asset-manager-content-3d_series" class="asset-manager-panel" style="display:none;" role="tabpanel">
+                <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;">
+                    <thead><tr><th>Date Created</th><th>ID</th><th>Created By</th><th>Asset Type</th></tr></thead>
+                    <tbody id="asset-manager-tbody-3d_series"><tr><td colspan="4" style="text-align:center;padding:32px;color:#666;">No assets. Connect to asset API or add data.</td></tr></tbody>
+                </table>
+            </div>
+            <div id="asset-manager-content-clipfarm" class="asset-manager-panel" style="display:none;" role="tabpanel">
+                <!-- Clipfarm SFX & Reaction Clips panel is injected here by dashboard_tab_asset_manager.js -->
+            </div>
+            <div id="asset-manager-content-mechanics" class="asset-manager-panel" style="display:none;" role="tabpanel">
+                <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;">
+                    <thead><tr><th>Date Created</th><th>ID</th><th>Created By</th><th>Asset Type</th></tr></thead>
+                    <tbody id="asset-manager-tbody-mechanics"><tr><td colspan="4" style="text-align:center;padding:32px;color:#666;">No assets. Connect to asset API or add data.</td></tr></tbody>
+                </table>
+            </div>
+
+            <!-- ── RFD: Ready For Deployment ── -->
+            <div id="asset-manager-content-rfd" class="asset-manager-panel" style="display:none;" role="tabpanel">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                    <h4 style="margin:0;font-size:1.05rem;">Ready For Deployment</h4>
+                    <button type="button" class="btn dashboard-btn" id="rfd-refresh-btn" style="padding:4px 12px;font-size:0.85rem;">↻ Refresh</button>
+                    <span id="rfd-count" style="color:#666;font-size:0.85rem;"></span>
+                </div>
+                <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;font-size:0.85rem;">
+                    <thead><tr>
+                        <th>Title</th><th>Channel</th><th>Category</th>
+                        <th>Runtime</th><th>File Size</th><th>Created</th><th>Actions</th>
+                    </tr></thead>
+                    <tbody id="rfd-tbody"><tr><td colspan="7" style="text-align:center;padding:32px;color:#666;">Loading…</td></tr></tbody>
+                </table>
+            </div>
+
+            <!-- ── RFD Detail Dialog ── -->
+            <div id="rfd-detail-dialog" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;">
+                <div style="background:#fff;border-radius:10px;padding:28px 32px;max-width:640px;width:90%;max-height:calc(80vh / var(--ui-zoom,1));overflow-y:auto;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.25);">
+                    <button type="button" id="rfd-dialog-close" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#666;">✕</button>
+                    <h4 id="rfd-dialog-title" style="margin:0 0 16px 0;font-size:1.1rem;padding-right:24px;"></h4>
+                    <table style="width:100%;border-collapse:collapse;font-size:0.88rem;" id="rfd-dialog-table">
+                        <tbody id="rfd-dialog-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── Sources ── -->
+            <div id="asset-manager-content-sources" class="asset-manager-panel" style="display:none;" role="tabpanel">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                    <h4 style="margin:0;font-size:1.05rem;">Media Sources</h4>
+                    <select id="sources-filter-category" class="dashboard-settings-input" style="padding:5px 10px;font-size:0.85rem;max-width:220px;">
+                        <option value="">All Categories</option>
+                        <option value="Court Records">Court Records</option>
+                        <option value="Government & News">Government &amp; News</option>
+                        <option value="Video Footage">Video Footage</option>
+                        <option value="Archive & Historical">Archive &amp; Historical</option>
+                        <option value="Stock & B-Roll">Stock &amp; B-Roll</option>
+                        <option value="Music & Audio">Music &amp; Audio</option>
+                        <option value="Images & Photos">Images &amp; Photos</option>
+                        <option value="Science & Education">Science &amp; Education</option>
+                    </select>
+                </div>
+                <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;font-size:0.85rem;">
+                    <thead><tr>
+                        <th>Name</th><th>Category</th><th>License</th><th>URL</th>
+                    </tr></thead>
+                    <tbody id="sources-tbody"><tr><td colspan="4" style="text-align:center;padding:32px;color:#666;">Loading…</td></tr></tbody>
+                </table>
+                <div id="sources-tooltip" style="display:none;position:fixed;background:#1a1a2e;color:#fff;padding:10px 14px;border-radius:7px;max-width:320px;font-size:0.82rem;z-index:9998;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.3);"></div>
+            </div>
+
+            <!-- ── Documents ── -->
+            <div id="asset-manager-content-documents" class="asset-manager-panel" style="display:none;" role="tabpanel">
+                <div class="asset-manager-subtabs" role="tablist" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+                    <button type="button" class="btn dashboard-btn docs-subtab active" data-docs-tab="court-cases">Court Cases</button>
+                </div>
+                <!-- Court Cases -->
+                <div id="docs-content-court-cases" class="docs-panel active">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                        <h4 style="margin:0;font-size:1.05rem;">Court Cases — Crime Narration Database</h4>
+                        <span style="background:#b91c1c;color:#fff;border-radius:4px;padding:2px 8px;font-size:0.75rem;">Ranked by severity</span>
+                    </div>
+                    <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;font-size:0.85rem;">
+                        <thead><tr>
+                            <th style="width:40px;">#</th>
+                            <th>Name</th><th>Case</th><th>Crime</th>
+                            <th>State</th><th>Year</th><th>Status</th>
+                        </tr></thead>
+                        <tbody id="court-cases-tbody"><tr><td colspan="7" style="text-align:center;padding:32px;color:#666;">Loading…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- ── Prompts ── -->
+        <div id="asset-manager-content-prompts" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <!-- Sub-tab bar -->
+            <div style="display:flex;align-items:center;gap:0;margin-bottom:16px;border-bottom:2px solid #e5e7eb;">
+                <button type="button" class="prompt-subtab-btn" data-subtab="templates" style="padding:8px 18px;font-size:0.88rem;font-weight:600;border:none;background:none;cursor:pointer;color:#6c63ff;border-bottom:2px solid #6c63ff;margin-bottom:-2px;">📋 Prompt Templates</button>
+                <button type="button" class="prompt-subtab-btn" data-subtab="sent" style="padding:8px 18px;font-size:0.88rem;font-weight:600;border:none;background:none;cursor:pointer;color:#888;border-bottom:2px solid transparent;margin-bottom:-2px;">📤 Sent Prompts</button>
+                <button type="button" class="prompt-subtab-btn" data-subtab="received" style="padding:8px 18px;font-size:0.88rem;font-weight:600;border:none;background:none;cursor:pointer;color:#888;border-bottom:2px solid transparent;margin-bottom:-2px;">📥 Received Prompts</button>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center;padding-bottom:6px;">
+                    <select id="prompts-filter-llm" class="dashboard-settings-input" style="padding:4px 8px;font-size:0.82rem;max-width:180px;">
+                        <option value="">All LLMs</option>
+                        <option value="claude-sonnet-4-6">Claude Sonnet 4.6</option>
+                        <option value="claude-haiku-4-5">Claude Haiku 4.5</option>
+                        <option value="gpt-4o">GPT-4o</option>
+                        <option value="gpt-4o-mini">GPT-4o mini</option>
+                        <option value="qwen2.5:72b">Qwen 2.5:72b (Ollama)</option>
+                        <option value="gpt-oss:20b">Mistral 7b (Ollama)</option>
+                    </select>
+                    <select id="prompts-filter-pipeline" class="dashboard-settings-input" style="padding:4px 8px;font-size:0.82rem;max-width:160px;">
+                        <option value="">All Pipelines</option>
+                        <option value="crime">Crime</option>
+                        <option value="scholarly">Scholarly</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <button type="button" class="btn dashboard-btn" id="prompts-refresh-btn" style="padding:4px 12px;font-size:0.82rem;">↻ Refresh</button>
+                    <span id="prompts-count" style="color:#666;font-size:0.82rem;"></span>
+                </div>
+            </div>
+
+            <!-- Templates sub-panel -->
+            <div id="prompt-subpanel-templates" class="prompt-subpanel">
+                <div style="overflow-x:auto;">
+                    <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;font-size:0.85rem;">
+                        <thead><tr>
+                            <th style="min-width:50px;text-align:center;">Ver</th>
+                            <th style="min-width:180px;">Name</th>
+                            <th style="min-width:140px;">Category</th>
+                            <th style="min-width:200px;">Function</th>
+                            <th style="min-width:120px;">Created</th>
+                            <th style="min-width:120px;">Last Used</th>
+                            <th style="min-width:60px;text-align:center;">Uses</th>
+                            <th style="min-width:100px;text-align:center;">Actions</th>
+                        </tr></thead>
+                        <tbody id="prompts-templates-tbody">
+                            <tr><td colspan="8" style="text-align:center;padding:32px;color:#888;">Click Refresh to load…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sent sub-panel -->
+            <div id="prompt-subpanel-sent" class="prompt-subpanel" style="display:none;">
+                <div style="overflow-x:auto;">
+                    <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;font-size:0.85rem;">
+                        <thead><tr>
+                            <th style="min-width:160px;">Timestamp</th>
+                            <th style="min-width:130px;">LLM</th>
+                            <th style="min-width:120px;">Stage</th>
+                            <th style="min-width:120px;">Pipeline</th>
+                            <th style="min-width:120px;">Type</th>
+                            <th style="min-width:280px;">Preview</th>
+                        </tr></thead>
+                        <tbody id="prompts-sent-tbody">
+                            <tr><td colspan="6" style="text-align:center;padding:32px;color:#888;">Click Refresh to load…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Received sub-panel -->
+            <div id="prompt-subpanel-received" class="prompt-subpanel" style="display:none;">
+                <div style="overflow-x:auto;">
+                    <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;font-size:0.85rem;">
+                        <thead><tr>
+                            <th style="min-width:160px;">Timestamp</th>
+                            <th style="min-width:130px;">LLM</th>
+                            <th style="min-width:120px;">Stage</th>
+                            <th style="min-width:120px;">Pipeline</th>
+                            <th style="min-width:120px;">Type</th>
+                            <th style="min-width:280px;">Preview</th>
+                        </tr></thead>
+                        <tbody id="prompts-received-tbody">
+                            <tr><td colspan="6" style="text-align:center;padding:32px;color:#888;">Click Refresh to load…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Data Retrieval ── -->
+        <div id="asset-manager-content-data_retrieval" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+                <h4 style="margin:0;font-size:1.05rem;">Channel Data Retrieval</h4>
+                <button type="button" id="dr-fetch-all-btn" class="btn dashboard-btn" style="background:#0e7490;color:#fff;border-color:#0e7490;padding:4px 14px;font-size:0.85rem;">⬇ Fetch All</button>
+                <span id="dr-status-summary" style="font-size:0.82rem;color:#888;"></span>
+            </div>
+            <div style="display:flex;gap:0;height:calc(calc(100vh / var(--ui-zoom,1)) - 260px);min-height:400px;">
+                <!-- Left sidebar: channel list -->
+                <div id="dr-sidebar" style="width:230px;flex-shrink:0;overflow-y:auto;border-right:1px solid #e5e7eb;padding-right:12px;margin-right:16px;">
+                    <!-- populated by JS -->
+                </div>
+                <!-- Right: results panel -->
+                <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
+                    <div id="dr-result-header" style="margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+                        <span id="dr-result-title" style="font-weight:700;font-size:0.95rem;color:#1a1a2e;"></span>
+                        <span id="dr-result-source" style="font-size:0.78rem;color:#888;"></span>
+                        <span id="dr-result-badge" style="font-size:0.72rem;border-radius:4px;padding:2px 8px;display:none;"></span>
+                        <span id="dr-result-time" style="font-size:0.75rem;color:#aaa;margin-left:auto;"></span>
+                    </div>
+                    <div style="overflow-y:auto;flex:1;">
+                        <table class="dashboard-overview-agents-table asset-manager-table" style="width:100%;font-size:0.83rem;" id="dr-result-table">
+                            <thead id="dr-result-thead"><tr><th>Title</th><th>Summary</th><th>Date</th></tr></thead>
+                            <tbody id="dr-result-tbody">
+                                <tr><td colspan="3" style="text-align:center;padding:48px;color:#aaa;">Select a channel to load data.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Prompt Detail Dialog (shared for templates + log entries) ── -->
+        <div id="prompt-detail-dialog" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9900;align-items:center;justify-content:center;">
+            <div style="background:#fff;border-radius:10px;max-width:860px;width:calc(96vw / var(--ui-zoom,1));max-height:calc(90vh / var(--ui-zoom,1));display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.35);overflow:hidden;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #e5e7eb;background:#f8f9fa;border-radius:10px 10px 0 0;">
+                    <span id="prompt-dialog-title" style="font-weight:700;font-size:1.05rem;color:#1a1a2e;"></span>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <!-- Edit / Save / Cancel buttons (only for templates) -->
+                        <button id="prompt-edit-btn" type="button" style="display:none;padding:4px 12px;font-size:0.82rem;background:#4f46e5;color:#fff;border:none;border-radius:5px;cursor:pointer;">✏️ Edit</button>
+                        <button id="prompt-save-btn" type="button" style="display:none;padding:4px 12px;font-size:0.82rem;background:#059669;color:#fff;border:none;border-radius:5px;cursor:pointer;">💾 Save</button>
+                        <button id="prompt-cancel-edit-btn" type="button" style="display:none;padding:4px 12px;font-size:0.82rem;background:#888;color:#fff;border:none;border-radius:5px;cursor:pointer;">✕ Cancel</button>
+                        <button id="prompt-dialog-close" type="button" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#666;line-height:1;" title="Close">×</button>
+                    </div>
+                </div>
+                <div style="overflow-y:auto;flex:1;padding:20px;">
+                    <!-- Meta chips -->
+                    <div id="prompt-dialog-meta" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;font-size:0.82rem;"></div>
+                    <!-- System/Template section (shown when system_prompt present) -->
+                    <div id="prompt-dialog-system-block" style="display:none;margin-bottom:14px;">
+                        <div style="font-weight:600;font-size:0.88rem;color:#1a1a2e;margin-bottom:6px;">📋 System / Template Prompt</div>
+                        <pre id="prompt-dialog-system" style="background:#1e1e2e;color:#a6e3a1;padding:12px 14px;border-radius:7px;font-size:0.80rem;line-height:1.5;white-space:pre-wrap;word-break:break-word;margin:0;max-height:200px;overflow-y:auto;"></pre>
+                    </div>
+                    <!-- Main prompt text (view mode) -->
+                    <div style="margin-bottom:16px;" id="prompt-text-view-block">
+                        <div style="font-weight:600;font-size:0.88rem;color:#1a1a2e;margin-bottom:6px;" id="prompt-dialog-text-label">Prompt Text</div>
+                        <pre id="prompt-dialog-text" style="background:#1e1e2e;color:#cdd6f4;padding:14px 16px;border-radius:7px;font-size:0.82rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;margin:0;max-height:400px;overflow-y:auto;"></pre>
+                    </div>
+                    <!-- Edit mode -->
+                    <div id="prompt-edit-block" style="display:none;margin-bottom:16px;">
+                        <div style="font-weight:600;font-size:0.88rem;color:#1a1a2e;margin-bottom:4px;">✏️ Edit Prompt Text</div>
+                        <div style="font-size:0.8rem;color:#888;margin-bottom:6px;">Saving creates a new version. The current version is preserved.</div>
+                        <textarea id="prompt-edit-textarea" style="width:100%;min-height:280px;padding:12px;font-family:monospace;font-size:0.82rem;line-height:1.5;border:2px solid #4f46e5;border-radius:7px;resize:vertical;background:#1e1e2e;color:#cdd6f4;box-sizing:border-box;"></textarea>
+                        <div style="margin-top:8px;">
+                            <label style="font-size:0.82rem;color:#555;font-weight:600;">Change notes (optional):</label>
+                            <input id="prompt-change-notes" type="text" placeholder="What changed and why?" style="width:100%;padding:6px 10px;margin-top:4px;font-size:0.82rem;border:1px solid #ddd;border-radius:5px;box-sizing:border-box;">
+                        </div>
+                    </div>
+                    <!-- Version History (for templates) -->
+                    <div id="prompt-version-history-block" style="display:none;margin-bottom:16px;">
+                        <div style="font-weight:600;font-size:0.88rem;color:#1a1a2e;margin-bottom:8px;display:flex;align-items:center;gap:10px;">
+                            📜 Version History
+                            <span id="prompt-version-count" style="color:#888;font-weight:400;"></span>
+                        </div>
+                        <div id="prompt-version-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+                    </div>
+                    <!-- Use History (for templates) -->
+                    <div id="prompt-dialog-history-block">
+                        <div style="font-weight:600;font-size:0.88rem;color:#1a1a2e;margin-bottom:8px;">Use History <span id="prompt-history-count" style="color:#888;font-weight:400;"></span></div>
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+                                <thead>
+                                    <tr style="background:#f5f5f5;border-bottom:2px solid #ddd;">
+                                        <th style="padding:6px 8px;text-align:left;">Date / Time</th>
+                                        <th style="padding:6px 8px;text-align:left;">Pipeline ID</th>
+                                        <th style="padding:6px 8px;text-align:left;">Stage</th>
+                                        <th style="padding:6px 8px;text-align:left;">Topic</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prompt-history-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ── Imagery (Scholarly Essay Images) ── -->
+        <div id="asset-manager-content-imagery" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <h4 style="margin:0;font-size:1.05rem;">📷 Scholarly Essay Imagery</h4>
+                <button type="button" class="btn dashboard-btn" id="imagery-refresh-btn" style="padding:4px 12px;font-size:0.85rem;">↻ Refresh</button>
+                <span id="imagery-count" style="color:#666;font-size:0.85rem;"></span>
+            </div>
+            <div style="overflow-x:auto;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;" id="imagery-table">
+                    <thead>
+                        <tr style="background:#f5f5f5;border-bottom:2px solid #ddd;">
+                            <th style="padding:8px 6px;text-align:left;width:90px;">Preview</th>
+                            <th style="padding:8px 6px;text-align:left;">Caption / Description</th>
+                            <th style="padding:8px 6px;text-align:left;">Source Essay</th>
+                            <th style="padding:8px 6px;text-align:left;">Topic</th>
+                            <th style="padding:8px 6px;text-align:left;">Duration</th>
+                            <th style="padding:8px 6px;text-align:left;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="imagery-tbody">
+                        <tr><td colspan="6" style="text-align:center;padding:32px;color:#666;">Click Refresh to load imagery…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ── Scholarly Videos ── -->
+        <div id="asset-manager-content-videos" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <h4 style="margin:0;font-size:1.05rem;">🎬 Scholarly Videos</h4>
+                <button type="button" class="btn dashboard-btn" id="videos-refresh-btn" style="padding:4px 12px;font-size:0.85rem;">↻ Refresh</button>
+                <span id="videos-count" style="color:#666;font-size:0.85rem;"></span>
+            </div>
+            <div style="overflow-x:auto;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;" id="videos-table">
+                    <thead>
+                        <tr style="background:#f5f5f5;border-bottom:2px solid #ddd;">
+                            <th style="padding:8px 6px;text-align:left;">Pipeline ID</th>
+                            <th style="padding:8px 6px;text-align:left;">Topic</th>
+                            <th style="padding:8px 6px;text-align:left;">Title</th>
+                            <th style="padding:8px 6px;text-align:left;">Duration</th>
+                            <th style="padding:8px 6px;text-align:left;">Episode</th>
+                            <th style="padding:8px 6px;text-align:left;">Created</th>
+                            <th style="padding:8px 6px;text-align:left;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videos-tbody">
+                        <tr><td colspan="7" style="text-align:center;padding:32px;color:#666;">Click Refresh to load videos…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ── Storyteller Episodes (own department tab, 2026-07-25) ──
+             Storyteller episodes live in output/storyteller/ (separate from the
+             documentary output/clips/ so the Creator Nexus auto-uploader never
+             catches them). This dedicated tab lists them via /api/storyteller/episodes. -->
+        <div id="asset-manager-content-storyteller" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <h4 style="margin:0;font-size:1.05rem;">🎭 Storyteller Episodes</h4>
+                <button type="button" class="btn dashboard-btn" id="episodes-refresh-btn" style="padding:4px 12px;font-size:0.85rem;">↻ Refresh</button>
+                <span id="episodes-count" style="color:#666;font-size:0.85rem;"></span>
+            </div>
+            <div style="color:#888;font-size:0.8rem;margin-bottom:14px;">
+                Character-driven storyteller videos. Stored in their own <code>output/storyteller/</code> folder — kept out of the documentary auto-upload channel.
+            </div>
+            <div style="overflow-x:auto;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;" id="episodes-table">
+                    <thead>
+                        <tr style="background:#f5f5f5;border-bottom:2px solid #ddd;">
+                            <th style="padding:8px 6px;text-align:left;">Pipeline ID</th>
+                            <th style="padding:8px 6px;text-align:left;">Character</th>
+                            <th style="padding:8px 6px;text-align:left;">Title</th>
+                            <th style="padding:8px 6px;text-align:left;">Duration</th>
+                            <th style="padding:8px 6px;text-align:left;">Quality</th>
+                            <th style="padding:8px 6px;text-align:left;">Created</th>
+                            <th style="padding:8px 6px;text-align:left;">Size</th>
+                            <th style="padding:8px 6px;text-align:left;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="episodes-tbody">
+                        <tr><td colspan="8" style="text-align:center;padding:32px;color:#666;">Loading episodes…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="asset-manager-content-environments" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <h4 style="margin:0;font-size:1.05rem;">🏞️ Environments</h4>
+                <button type="button" class="btn dashboard-btn" onclick="window.amLoadEnvironments&&window.amLoadEnvironments()">&#x21bb; Refresh</button>
+                <span id="environments-count" style="color:#888;font-size:0.85rem;"></span>
+            </div>
+            <div id="environments-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;"><div style="color:#888;">Loading…</div></div>
+        </div>
+        <div id="asset-manager-content-effects" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                <h4 style="margin:0;font-size:1.05rem;">✨ Effects Library</h4>
+                <button type="button" class="btn dashboard-btn" onclick="window.amLoadEffects&&window.amLoadEffects()">&#x21bb; Refresh</button>
+                <span id="effects-count" style="color:#888;font-size:0.85rem;"></span>
+            </div>
+            <div style="color:#999;font-size:.8rem;margin-bottom:12px;max-width:70ch;">A shared, character-agnostic effects library. <b>2D</b> presets are identity-safe compositing looks (bloom, god-rays, film grades); <b>3D</b> presets are scene-preserving motion overlays (embers, snow, rain, dust). Right-click a card to apply an effect to any character's render.</div>
+            <div id="effects-library" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;"><div style="color:#888;">Loading…</div></div>
+            <h4 style="margin:0 0 12px;font-size:1.05rem;">Generated</h4>
+            <div id="effects-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;"><div style="color:#888;">No effect renders yet.</div></div>
+        </div>
+        <div id="asset-manager-content-wardrobe" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                <h4 style="margin:0;font-size:1.05rem;">🧥 Wardrobe Library</h4>
+                <button type="button" class="btn dashboard-btn" onclick="window.amLoadWardrobe&&window.amLoadWardrobe()">&#x21bb; Refresh</button>
+                <span id="wardrobe-count" style="color:#888;font-size:0.85rem;"></span>
+            </div>
+            <div style="color:#999;font-size:.8rem;margin-bottom:12px;max-width:70ch;">A shared, character-agnostic outfit library. Any outfit applies to any trained character with no retrain (Qwen-edit changes only the clothing). Trigger a render from the <b>Wardrobe</b> workflow board with a character + an outfit.</div>
+            <div id="wardrobe-outfits" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;"><div style="color:#888;">Loading…</div></div>
+            <h4 style="margin:0 0 12px;font-size:1.05rem;">Generated</h4>
+            <div id="wardrobe-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;"><div style="color:#888;">No wardrobe renders yet.</div></div>
+        </div>
+        {% for alcat, alicon, allabel, aldesc in [
+            ('items', '🧰', 'Items', 'Hand props and objects (quills, pipes, lanterns…). Right-click a card → Apply to character places the object in their hand via Qwen-edit with a grip instruction + presence QC.'),
+            ('food', '🍞', 'Food', 'Food and drink assets. Apply places them on the table in front of the character.'),
+            ('weapons', '⚔️', 'Weapons', 'Period weapons. Apply places the weapon in the character\'s hand with a grip instruction.'),
+            ('agriculture', '🌾', 'Agriculture', 'Farmland scenery assets. Apply swaps the character\'s background to this setting.'),
+            ('water', '💧', 'Water', 'Seas, rivers, harbors. Apply swaps the character\'s background to this setting.'),
+            ('clouds', '☁️', 'Clouds', 'Skies and weather. Apply swaps the character\'s background to this setting.'),
+            ('geology', '⛰️', 'Geology', 'Cliffs, mountains, caves. Apply swaps the character\'s background to this setting.'),
+            ('furniture', '🪑', 'Furniture', 'Period furniture pieces. Apply places the piece in the room beside the character at realistic scale, scene otherwise unchanged.'),
+            ('sfx', '🔊', 'SFX', 'Sound-effect library. Drop .wav/.mp3 files into data/asset_libraries/sfx/ and they appear as playable cards.'),
+            ('vocal_fx', '🗣️', 'Vocal FX', '344 Audio Human Mouth Noises — 315 recorded non-verbal human sounds (sighs, breaths, laughs, coughs, yawns) split male/female. Use them as one-shot beats in a scene: {\'sfx\': \'m_disappointment_sigh.wav\', \'pitch_semitones\': -7.2}. PURCHASED, mix-only — the licence forbids AI training and redistribution, so these can be mixed into an episode but must never become a voice-clone reference or leave the machine.'),
+            ('foley', '🥁', 'Foley', 'One-shot foley library — period weapons on shields and flesh (344 Historical Weapons), gore / impacts / jump-scare stingers (344 Ultimate Horror), raw object recordings and designed hits (A Sound Effect Xylon). Use as single beats in a scene: {\'sfx\': \'hw1_sword_thrust_into_flesh_mkh.wav\'}. Vendor packs are mix-only (no AI training, no redistribution); see the licence line on each card.'),
+            ('instruments', '🎸', 'Instruments', 'Sampled musical-instrument one-shots — guitars (nylon, steel, electric clean/jazz/distorted), basses, ukulele, banjo, mandolin, harp, zither, erhu, lyre, the full orchestral wind/brass/string set, pianos, organs, world percussion and drum kits. Each file is ONE note or hit, tagged with instrument / pitch / dynamic / articulation. Use as a single beat in a scene: {\'sfx\': \'fp_spanish_classical_guitar_e2.wav\'}. CC0 packs are model-clean; Philharmonia and the CC-BY packs are mix-only or attribution-required — see the licence line on each card.'),
+            ('soundtracks', '🎵', 'Soundtracks', 'Music library. Drop .wav/.mp3 files into data/asset_libraries/soundtracks/ and they appear as playable cards.')
+        ] %}
+        <div id="asset-manager-content-{{ alcat }}" class="asset-manager-panel" style="display:none;" role="tabpanel">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                <h4 style="margin:0;font-size:1.05rem;">{{ alicon }} {{ allabel }} Library</h4>
+                <button type="button" class="btn dashboard-btn" onclick="window.amLoadAssetLib&&window.amLoadAssetLib('{{ alcat }}')">&#x21bb; Refresh</button>
+                <span id="{{ alcat }}-count" style="color:#888;font-size:0.85rem;"></span>
+            </div>
+            <div style="color:#999;font-size:.8rem;margin-bottom:12px;max-width:76ch;">{{ aldesc }}</div>
+            <div id="{{ alcat }}-library" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;"><div style="color:#888;">Loading…</div></div>
+            <div id="{{ alcat }}-generated-wrap" style="display:none;">
+                <h4 style="margin:0 0 12px;font-size:1.05rem;">Generated</h4>
+                <div id="{{ alcat }}-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;"></div>
+            </div>
+        </div>
+        {% endfor %}
+        <div id="asset-manager-content-templates" class="asset-manager-panel" style="display:none;padding:24px;" role="tabpanel">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+                <h4 style="color:#fff;margin:0;font-size:1.05rem;">Templates <span id="am-tpl-count" style="font-size:0.8rem;color:#888;font-weight:400;margin-left:6px;"></span></h4>
+                <button onclick="amTemplatesRefresh()" style="background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.4);color:#a78bfa;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:0.82rem;">&#x21bb; Refresh</button>
+            </div>
+            <div id="am-templates-board" class="am-tpl-board"></div>
+        </div>

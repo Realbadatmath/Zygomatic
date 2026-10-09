@@ -1,0 +1,34 @@
+{
+ "part": "GET",
+ "note": "Hand overrides of the inventory's `danger` flag for GET-only dashboard routes, applied by merge_classify.py after the heuristic in inventory.py (route_danger / GET_ACTION_WORDS / HANDLER_WRITE_RE) has run. `danger: true` keeps a route out of the read-only sweep in tests/api/test_get_smoke_dashboard.py; `danger: false` lets it in. Use this file -- never a weakened assertion in the test -- when a route answers 5xx or writes real state.",
+ "routes": [
+  {
+   "rule": "/api/gpu/timeline/generate",
+   "endpoint": "timeline_legacy.generate_gpu_timeline",
+   "func": "bp_timeline_legacy.py:465",
+   "danger": true,
+   "why": "acts: bp_timeline_legacy.py:465 exec_module()s Schedule/24_hour_timeline.py and writes Schedule/gpu_24_hour_timeline_<date>.png through Timeline24Hour.generate_gpu_timeline_visualization(). The heuristic already flags it (last segment 'generate'); pinned so a future heuristic change cannot quietly let it in"
+  },
+  {
+   "rule": "/api/jackmona/daily_batch",
+   "endpoint": "jackmona.api_jackmona_daily_batch",
+   "func": "bp_jackmona_daily.py:502",
+   "danger": true,
+   "why": "NOT a hazard -- a hard 500. bp_jackmona_daily.py:512 does list(__import__('zyg_workflows.kids_music_theory').SONG_SECONDS), and __import__ with a dotted name returns the TOP package, so the attribute lookup raises AttributeError: module 'zyg_workflows' has no attribute 'SONG_SECONDS' and the route answers 500 for every caller (reproduced 2026-10-06). Excluded here rather than by weakening the sweep's not-5xx assertion; the fix is importlib.import_module('zyg_workflows.kids_music_theory'), and this entry must be deleted when that lands"
+  },
+  {
+   "rule": "/api/youtube/channel-videos",
+   "endpoint": "assets_media.api_youtube_channel_videos",
+   "func": "bp_assets_media.py:1256",
+   "danger": true,
+   "why": "acts: bp_assets_media.py:1276-1281 refreshes the Google OAuth credentials and pickle.dump()s them back over the real token file, then bp_assets_media.py:1287-1312 calls the live YouTube Data API. Newly flagged by HANDLER_WRITE_RE on 2026-10-06 -- before that the substring heuristic missed it and the sweep was talking to YouTube on every run"
+  },
+  {
+   "rule": "/logout",
+   "endpoint": "auth.logout_page",
+   "func": "bp_auth.py:184",
+   "danger": true,
+   "why": "acts on the caller: bp_auth.py:184 calls session.clear() and clears the auth cookie, so a sweep request would log the shared dash_admin test client out and every later route would answer 401/302. The heuristic already flags it (last segment 'logout'); pinned for the same reason as above"
+  }
+ ]
+}

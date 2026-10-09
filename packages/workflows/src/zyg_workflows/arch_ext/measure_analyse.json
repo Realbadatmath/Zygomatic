@@ -1,0 +1,6 @@
+{"section_key": "elements", "section_label": "Building elements",
+ "groups": [{"g": "Measure & annotate",
+             "items": [["annotation", "Annotation pin", {"h": 1.5, "r": 0.15},
+                        "A pin with a ball head: pole h tall, ball radius r. The text is the object's NAME — rename it in the Properties panel."],
+                       ["dimension", "Dimension line", {"len": 5.0, "tick": 0.3},
+                        "A measured guide line len metres long with a tick tick metres wide at each end. Rotate it with ry to measure any direction."]]}]}

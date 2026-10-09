@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Medusa character preset (YAML). Submitted through POST /api/medusa/generate.
+# Fields: name, age (>=18 or omit for auto-roll), char_prompt, style.
+name: Nadia
+age: 31
+char_prompt: fair skin, auburn shoulder-length hair, green eyes, light freckles, slim build
+style: photorealistic

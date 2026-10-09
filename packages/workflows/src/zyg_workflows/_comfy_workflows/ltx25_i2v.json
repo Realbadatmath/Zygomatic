@@ -1,0 +1,545 @@
+{
+ "395": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "test_portrait.png"
+  }
+ },
+ "75": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "filename_prefix": "video/ltx25_smoke",
+   "video": [
+    "sg370",
+    0
+   ],
+   "format": "auto",
+   "codec": "auto"
+  }
+ },
+ "403": {
+  "class_type": "ResolutionSelector",
+  "inputs": {
+   "aspect_ratio": "1:1 (Square)",
+   "megapixels": 0.9,
+   "multiple": 32
+  }
+ },
+ "sg383": {
+  "class_type": "PrimitiveBoolean",
+  "inputs": {
+   "value": false
+  }
+ },
+ "sg364": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": [
+    "sg382",
+    0
+   ],
+   "clip": [
+    "sg387",
+    0
+   ]
+  }
+ },
+ "sg376": {
+  "class_type": "PrimitiveStringMultiline",
+  "inputs": {
+   "value": "Use the provided start image as the first frame. Photorealistic portrait of a young boy with freckles and blue eyes in a grey collared shirt. He blinks, breathes softly, turns his head slightly to the left and gives a small shy smile, then looks back at the camera. Subtle handheld camera drift, soft studio light, shallow depth of field, skin texture and freckles stay sharp and consistent. Quiet room tone. No text, no black frames."
+  }
+ },
+ "sg382": {
+  "class_type": "ComfySwitchNode",
+  "inputs": {
+   "switch": [
+    "sg383",
+    0
+   ],
+   "on_false": [
+    "sg376",
+    0
+   ],
+   "on_true": [
+    "sg376",
+    0
+   ]
+  }
+ },
+ "sg384": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "sg362": {
+  "class_type": "PrimitiveInt",
+  "inputs": {
+   "value": 5
+  }
+ },
+ "sg363": {
+  "class_type": "PrimitiveBoolean",
+  "inputs": {
+   "value": false
+  }
+ },
+ "sg365": {
+  "class_type": "LTXVConditioning",
+  "inputs": {
+   "frame_rate": [
+    "sg359",
+    0
+   ],
+   "positive": [
+    "sg364",
+    0
+   ],
+   "negative": [
+    "sg373",
+    0
+   ]
+  }
+ },
+ "sg385": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "ltx-2.5-video-vae-bf16.safetensors"
+  }
+ },
+ "sg386": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "ltx-2.5-audio-vae-bf16.safetensors"
+  }
+ },
+ "sg372": {
+  "class_type": "PrimitiveInt",
+  "inputs": {
+   "value": [
+    "403",
+    0
+   ]
+  }
+ },
+ "sg373": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "pc game, console game, video game, cartoon, childish, ugly",
+   "clip": [
+    "sg387",
+    0
+   ]
+  }
+ },
+ "sg387": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+   "type": "ltxv",
+   "device": "default"
+  }
+ },
+ "sg360": {
+  "class_type": "PrimitiveInt",
+  "inputs": {
+   "value": [
+    "403",
+    1
+   ]
+  }
+ },
+ "sg352": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler_ancestral"
+  }
+ },
+ "sg339": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 875362541677469
+  }
+ },
+ "sg397": {
+  "class_type": "ManualSigmas",
+  "inputs": {
+   "sigmas": "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0"
+  }
+ },
+ "sg361": {
+  "class_type": "PrimitiveInt",
+  "inputs": {
+   "value": 24
+  }
+ },
+ "sg371": {
+  "class_type": "LatentUpscaleModelLoader",
+  "inputs": {
+   "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+  }
+ },
+ "sg388": {
+  "class_type": "LTXVDualCFGGuider",
+  "inputs": {
+   "video_cfg": 1,
+   "audio_cfg": 1,
+   "model": [
+    "sg384",
+    0
+   ],
+   "positive": [
+    "sg365",
+    0
+   ],
+   "negative": [
+    "sg365",
+    1
+   ]
+  }
+ },
+ "sg344": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "sg339",
+    0
+   ],
+   "guider": [
+    "sg388",
+    0
+   ],
+   "sampler": [
+    "sg352",
+    0
+   ],
+   "sigmas": [
+    "sg397",
+    0
+   ],
+   "latent_image": [
+    "sg377",
+    0
+   ]
+  }
+ },
+ "sg357": {
+  "class_type": "LTXVImgToVideoInplace",
+  "inputs": {
+   "strength": 0.7,
+   "bypass": [
+    "sg363",
+    0
+   ],
+   "vae": [
+    "sg385",
+    0
+   ],
+   "image": [
+    "sg350",
+    0
+   ],
+   "latent": [
+    "sg356",
+    0
+   ]
+  }
+ },
+ "sg366": {
+  "class_type": "LTXVEmptyLatentAudio",
+  "inputs": {
+   "frames_number": [
+    "sg378",
+    1
+   ],
+   "batch_size": 1,
+   "audio_vae": [
+    "sg386",
+    0
+   ],
+   "frame_rate": [
+    "sg359",
+    1
+   ]
+  }
+ },
+ "sg367": {
+  "class_type": "LTXVSeparateAVLatent",
+  "inputs": {
+   "av_latent": [
+    "sg344",
+    0
+   ]
+  }
+ },
+ "sg377": {
+  "class_type": "LTXVConcatAVLatent",
+  "inputs": {
+   "video_latent": [
+    "sg357",
+    0
+   ],
+   "audio_latent": [
+    "sg366",
+    0
+   ]
+  }
+ },
+ "sg351": {
+  "class_type": "ResizeImageMaskNode",
+  "inputs": {
+   "input": [
+    "395",
+    0
+   ],
+   "resize_type": "scale longer dimension",
+   "resize_type.longer_size": 1536,
+   "scale_method": "lanczos"
+  }
+ },
+ "sg353": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a/2",
+   "values.a": [
+    "sg372",
+    0
+   ]
+  }
+ },
+ "sg355": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a/2",
+   "values.a": [
+    "sg360",
+    0
+   ]
+  }
+ },
+ "sg350": {
+  "class_type": "LTXVPreprocess",
+  "inputs": {
+   "img_compression": 18,
+   "image": [
+    "sg351",
+    0
+   ]
+  }
+ },
+ "sg356": {
+  "class_type": "EmptyLTXVLatentVideo",
+  "inputs": {
+   "width": [
+    "sg353",
+    1
+   ],
+   "height": [
+    "sg355",
+    1
+   ],
+   "length": [
+    "sg378",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "sg348": {
+  "class_type": "LTXVLatentUpsampler",
+  "inputs": {
+   "samples": [
+    "sg367",
+    0
+   ],
+   "upscale_model": [
+    "sg371",
+    0
+   ],
+   "vae": [
+    "sg385",
+    0
+   ]
+  }
+ },
+ "sg349": {
+  "class_type": "LTXVImgToVideoInplace",
+  "inputs": {
+   "strength": 1,
+   "bypass": [
+    "sg363",
+    0
+   ],
+   "vae": [
+    "sg385",
+    0
+   ],
+   "image": [
+    "sg350",
+    0
+   ],
+   "latent": [
+    "sg348",
+    0
+   ]
+  }
+ },
+ "sg359": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a",
+   "values.a": [
+    "sg361",
+    0
+   ]
+  }
+ },
+ "sg378": {
+  "class_type": "ComfyMathExpression",
+  "inputs": {
+   "expression": "a * b + 1",
+   "values.a": [
+    "sg362",
+    0
+   ],
+   "values.b": [
+    "sg361",
+    0
+   ]
+  }
+ },
+ "sg338": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 42
+  }
+ },
+ "sg340": {
+  "class_type": "LTXVConcatAVLatent",
+  "inputs": {
+   "video_latent": [
+    "sg349",
+    0
+   ],
+   "audio_latent": [
+    "sg367",
+    1
+   ]
+  }
+ },
+ "sg396": {
+  "class_type": "ManualSigmas",
+  "inputs": {
+   "sigmas": "0.85, 0.7250, 0.4219, 0.0"
+  }
+ },
+ "sg391": {
+  "class_type": "LTXVDualCFGGuider",
+  "inputs": {
+   "video_cfg": 1,
+   "audio_cfg": 1,
+   "model": [
+    "sg384",
+    0
+   ],
+   "positive": [
+    "sg365",
+    0
+   ],
+   "negative": [
+    "sg365",
+    1
+   ]
+  }
+ },
+ "sg341": {
+  "class_type": "KSamplerSelect",
+  "inputs": {
+   "sampler_name": "euler_ancestral"
+  }
+ },
+ "sg368": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "sg338",
+    0
+   ],
+   "guider": [
+    "sg391",
+    0
+   ],
+   "sampler": [
+    "sg341",
+    0
+   ],
+   "sigmas": [
+    "sg396",
+    0
+   ],
+   "latent_image": [
+    "sg340",
+    0
+   ]
+  }
+ },
+ "sg369": {
+  "class_type": "LTXVSeparateAVLatent",
+  "inputs": {
+   "av_latent": [
+    "sg368",
+    0
+   ]
+  }
+ },
+ "sg374": {
+  "class_type": "VAEDecodeTiled",
+  "inputs": {
+   "tile_size": 512,
+   "overlap": 64,
+   "temporal_size": 64,
+   "temporal_overlap": 16,
+   "samples": [
+    "sg369",
+    0
+   ],
+   "vae": [
+    "sg385",
+    0
+   ]
+  }
+ },
+ "sg358": {
+  "class_type": "LTXVAudioVAEDecode",
+  "inputs": {
+   "samples": [
+    "sg369",
+    1
+   ],
+   "audio_vae": [
+    "sg386",
+    0
+   ]
+  }
+ },
+ "sg370": {
+  "class_type": "CreateVideo",
+  "inputs": {
+   "fps": [
+    "sg359",
+    0
+   ],
+   "bit_depth": 8,
+   "images": [
+    "sg374",
+    0
+   ],
+   "audio": [
+    "sg358",
+    0
+   ]
+  }
+ }
+}

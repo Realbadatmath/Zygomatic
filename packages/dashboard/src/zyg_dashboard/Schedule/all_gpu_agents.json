@@ -1,0 +1,32 @@
+{
+  "all_gpu_agents": [
+    "2D-Animation-Agent",
+    "2D-Character-Designer-Agent",
+    "2D-Series-Agent",
+    "2D-Voice-Agent",
+    "3D-Animation-Agent",
+    "3D-Character-Designer-Agent",
+    "3D-Series-Agent",
+    "3D-Voice-Agent",
+    "Arabic-Voice-Agent",
+    "Bengali-Voice-Agent",
+    "English-Voice-Agent",
+    "French-Voice-Agent",
+    "Hindi-Voice-Agent",
+    "Mandarin-Voice-Agent",
+    "Portuguese-Voice-Agent",
+    "Spanish-Voice-Agent",
+    "2D-Background-Artist-Agent",
+    "3D-Environment-Agent",
+    "3D-Modeling-Agent",
+    "3D-Texturing-Agent",
+    "3D-Effects-Agent",
+    "3D-Render-Farm-Manager-Agent",
+    "Effects-Agent",
+    "Render-Agent",
+    "Thumbnail-Agent",
+    "YouTube-Audio-Agent",
+    "YouTube-Thumbnail-Agent",
+    "YouTube-Video-Editor-Agent"
+  ]
+}

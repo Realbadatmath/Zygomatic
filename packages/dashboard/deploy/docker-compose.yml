@@ -1,0 +1,115 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Zygomatic dashboard — docker compose (NVIDIA GPU)
+#
+# Usage (from the repository root, which is also the build context):
+#   docker compose -f deploy/docker-compose.yml up -d
+#   docker compose -f deploy/docker-compose.yml logs -f zyg
+#   docker compose -f deploy/docker-compose.yml down
+#
+# Secrets and paths come from one env file, never from this file:
+#   ZYG_ENV_FILE   path to the env file (default: ../.env, i.e. the repo root)
+#   ZYG_MODELS_ROOT  host directory holding the model weights (mounted read-only)
+# Both are read by compose itself, so set them in the shell or in deploy/.env.
+# See deploy/README.md for the full list of variables the env file must hold.
+#
+# Services:
+#   zyg     — Flask dashboard + pipeline (GPU)  → http://localhost:5000
+#   ollama  — local LLM inference               → internal network only
+#   redis   — task queue broker                 → internal network only, password
+# ═══════════════════════════════════════════════════════════════════════════════
+
+services:
+
+  # ── Main application ─────────────────────────────────────────────────────────
+  zyg:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: zygomatic-dashboard:gpu
+    container_name: zygomatic-dashboard
+    restart: unless-stopped
+    ports:
+      - "${FLASK_PORT:-5000}:5000"
+    env_file:
+      - ${ZYG_ENV_FILE:-../.env}
+    environment:
+      ZYG_OLLAMA_URL: http://ollama:11434
+      ZYG_REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+    volumes:
+      # Model weights, read-only. The container reads them through ZYG_MODELS_ROOT,
+      # which the image sets to /models — nothing depends on the host path.
+      - ${ZYG_MODELS_ROOT:-../models}:/models:ro
+      # Persistent runtime state, renders and logs.
+      - zyg-data:/app/data
+      - zyg-output:/app/output
+      - zyg-logs:/tmp
+      # Fish-speech TTS is not packaged here. To enable it, mount a checkout and
+      # its virtualenv at the paths zyg_workflows expects, e.g.:
+      #   - /opt/fish-speech:/opt/fish-speech:ro
+      #   - /opt/fish-speech-env:/opt/fish-speech-env:ro
+    depends_on:
+      redis:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:5000/"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 3
+
+  # ── Ollama (local LLM server) ────────────────────────────────────────────────
+  # No ports: block — Ollama is only reachable by the zyg container on the
+  # internal Docker network (http://ollama:11434). Nothing on the LAN or the host
+  # can connect to it directly.
+  ollama:
+    image: ollama/ollama:latest
+    container_name: zygomatic-ollama
+    restart: unless-stopped
+    volumes:
+      - ollama-data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      OLLAMA_NUM_PARALLEL: 2
+      OLLAMA_MAX_LOADED_MODELS: 2
+
+  # ── Redis (queue broker + result backend) ────────────────────────────────────
+  # No ports: block — internal network only; REDIS_PASSWORD comes from the env file.
+  redis:
+    image: redis:7-alpine
+    container_name: zygomatic-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    command: >
+      redis-server
+      --save 60 1
+      --loglevel warning
+      --requirepass ${REDIS_PASSWORD}
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# ── Named volumes ──────────────────────────────────────────────────────────────
+volumes:
+  zyg-data:
+  zyg-output:
+  zyg-logs:
+  ollama-data:
+  redis-data:

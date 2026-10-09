@@ -1,0 +1,11 @@
+{"section_key": "guides", "section_label": "Guides",
+ "groups": [{"g": "Drafting guides",
+             "items": [["guide_arc", "Guide arc",
+                        {"x1": 0, "z1": 0, "x2": -3.0, "z2": -3.0, "x3": -0.8787, "z3": -2.1213},
+                        "A three-point arc: it starts at (x1, z1), ends at (x2, z2) and passes through (x3, z3), all in metres from the record. The default is a quarter circle of radius 3 m."],
+                       ["guide_poly", "Guide polygon",
+                        {"pts": [[0, 0], [4, 0], [4, 4], [0, 4]]},
+                        "A closed ring through the corners in pts, metres from the record (the first corner is [0, 0]). The default is a 4 m square."],
+                       ["guide_path", "Guide path",
+                        {"pts": [[0, 0], [2, 1], [4, 0]]},
+                        "An open polyline through the points in pts, metres from the record. The default is a three-point path 4 m across."]]}]}

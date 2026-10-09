@@ -1,0 +1,147 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zygomatic-workflows"
+version = "0.1.0"
+description = "Zygomatic workflows — see README.md"
+readme = "README.md"
+# 3.12 is the floor the dependency set imposes: numpy>=2.5.2 (the live pin) requires Python>=3.12.
+requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+# Derived from the imports by `python scripts/list_imports.py` (run it again after adding an import).
+# requirements-lock.txt is regenerated with (the --python is needed because the interpreter first on
+# PATH is 3.11, below the 3.12 floor above):
+#   uv pip compile pyproject.toml --all-extras --python /home/zygomatic/repos/.tools/venv/bin/python \
+#     -o requirements-lock.txt
+# and must stay clean under: pip-audit -r requirements-lock.txt --no-deps --disable-pip
+# Lower bounds are the live production version or the lowest version that fixes every known advisory
+# for that package, whichever is higher. Never `==`: this is a library, the lock file carries the pins.
+dependencies = [
+  "apscheduler>=3.11.2",
+  "flask>=3.1.3",
+  "huggingface-hub>=0.36.2",
+  "imagehash>=4.3.2",
+  "c2pa-python>=0.38.0",
+  "json-repair>=0.60.1",
+  "matplotlib>=3.10.8",
+  "mediapipe>=0.10.35",
+  "mosqito>=1.2.1",
+  "mutagen>=1.47.0",
+  "numpy>=2.5.2",
+  "onnxruntime>=1.24.3",
+  "opencv-python>=4.13.0.92",
+  "openpyxl>=3.1.5",
+  "pandas>=3.0.1",
+  "passlib>=1.7.4",
+  "pdfplumber>=0.11.9",
+  "pillow>=12.3.0",
+  "playwright>=1.58.0",
+  "praw>=7.8.1",
+  "psutil>=7.2.2",
+  "psycopg>=3.3.6",
+  "psycopg-pool>=3.3.3",
+  "pydantic>=2.12.5",
+  "pymediainfo>=7.0.1",
+  "pymupdf>=1.27.2.2",
+  "pypdf>=6.19.0",
+  "pyseccomp>=0.1.2",
+  "python-dotenv>=1.2.2",
+  "pytrends>=4.9.2",
+  "pyyaml>=6.0.3",
+  "rapidocr-onnxruntime>=1.4.4",
+  "rembg>=2.0.75",
+  "reportlab>=5.0.1",
+  "requests>=2.34.2",
+  "scikit-learn>=1.8.0",
+  "scipy>=1.17.1",
+  "selenium>=4.41.0",
+  "spacy>=3.8.11",
+  "sqlalchemy>=2.0.48",
+  "svglib>=2.2.0",
+  "undetected-chromedriver>=3.5.5",
+  "youtube-transcript-api>=1.2.4",
+  "yt-dlp>=2026.8.19",
+]
+
+[project.optional-dependencies]
+# Imported by src/ but deliberately NOT declared — install them by hand in the GPU venv:
+#   basicsr 1.4.2, realesrgan 0.3.0 — upstream is unmaintained and every release carries unfixed
+#     advisories (basicsr: 2, no fixed version exists), so declaring them would make the lock
+#     permanently vulnerable.
+#   facenet-pytorch 2.6.0 — caps torch<2.3.0, which cannot be reconciled with the torch>=2.13.0
+#     security floor; it does not resolve and is left out of the lock.
+#   bpy — Blender's Python module, not a PyPI distribution; it comes with the Blender install.
+#   trimesh / pycolmap / insightface / open_clip / nemo / speechbrain / faiss — soft imports that are
+#     absent from the production venv too (the code paths guard them), so there is no pin to derive.
+gpu = [
+  "diffusers>=0.38.0",
+  "keybert>=0.9.0",
+  "pynvml>=13.0.1",
+  "safetensors>=0.7.0",
+  "sentence-transformers>=5.6.0",
+  "torch>=2.13.0",
+  "torchaudio>=2.10.0",
+  "transformers>=5.10.0",
+  "ultralytics>=8.4.21",
+]
+audio = [
+  "demucs>=4.0.1",
+  "faster-whisper>=1.2.1",
+  "librosa>=0.11.0",
+  "mido>=1.3.3",
+  "openai-whisper>=20250625",
+  "pedalboard>=0.9.24",
+  "python-stretch>=0.3.1",
+  "rmvpe-onnx>=0.2.3",
+  "soundfile>=0.13.1",
+  "swift-f0>=0.1.2",
+]
+"3d" = [
+  "shapely>=2.1.2",
+]
+llm = [
+  "anthropic>=0.84.0",
+  "langchain>=1.3.9",
+  "langchain-core>=1.3.3",
+]
+dev = ["pytest>=9.0.3", "pytest-timeout>=2.3", "ruff>=0.16", "bandit[toml]>=1.9", "reuse>=6", "import-linter>=2", "pip-audit>=2.10", "pre-commit>=4"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"zyg_workflows" = ["**/*.json", "**/*.html", "**/*.js", "**/*.css", "**/*.svg", "**/*.png", "**/*.ico", "**/*.cube", "**/*.md", "**/*.ini", "**/*.txt", "**/*.yaml", "**/*.yml", "**/*.conf"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "tests_arch_ext", "tests_vst", "capability_tests", "deploy", "site", "docs"]
+# B101 assert: used only in tests (excluded above). B603/B607: subprocess with argument lists, no shell.
+# B311: random for sampling, never for secrets. Each remaining skip must carry a reason here.
+skips = ["B101", "B603", "B607", "B311"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# tests_arch_ext/ is a custom harness that runs on import (see its README), tests_vst/ and
+# capability_tests/ are GPU capability probes driven by their own runners. None is pytest;
+# collecting any of them executes it. testpaths already excludes them — norecursedirs keeps
+# them excluded when pytest is pointed at the repo root by hand.
+norecursedirs = ["tests_arch_ext", "tests_vst", "capability_tests", "scripts", "build", "dist", ".git", "*.egg-info"]
+# Verbosity is ADDITIVE across addopts and the command line, and pytest stops printing the
+# "N passed" summary line at -qq. A baked-in -q therefore turned every caller's own `-q`
+# into -qq and silently took that line away — which is the one line CI and the pre-push gate
+# grep for, so a green suite read as a failed one. The +1 here is the counterweight: a
+# caller's single -q lands on normal, a doubled one on quiet, and both still print the
+# summary. Plain `pytest` with no flags lists the tests, which is what -v is for.
+addopts = "--no-header -v"
+markers = [
+  "slow: takes more than a few seconds",
+  "api: exercises HTTP routes in-process",
+  "gpu: needs a CUDA device",
+  "service: needs a running local service (ComfyUI, Ollama, Blender, Postgres)",
+  "timeout: per-test timeout (pytest-timeout)",
+]

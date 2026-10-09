@@ -1,0 +1,22 @@
+# Victor — the local half of Medusa's chat assistant (2026-09-17).
+#
+# Victor is Vicky's twin: same chat store, same tools, same reach into the
+# image and video generation API. What differs is where the tokens come from —
+# Vicky is a `claude -p` subprocess on the operator's Anthropic login, Victor is
+# this Ollama model, on this machine, costing nothing per turn.
+#
+# Deliberately NO `SYSTEM` line. Victor's standing rules are read fresh from
+# VICKY_RULES.md on every single turn (medusa_victor.system_prompt()), exactly
+# as Vicky's are — baking them in here would freeze them at the moment this
+# model was built and an edit to the rules file would silently stop taking
+# effect. This Modelfile carries the identity and the runtime dials only.
+#
+# Rebuild with:  ollama create victor -f config/Victor.Modelfile
+FROM qwen3.6:35b-a3b
+
+# A tool loop replays the whole transcript on every turn (Ollama has no
+# server-side session to resume, unlike Vicky's --resume), so the context has to
+# hold a conversation plus tool results, not just one question.
+PARAMETER num_ctx 32768
+PARAMETER temperature 0.6
+PARAMETER top_p 0.95

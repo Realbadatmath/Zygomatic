@@ -1,0 +1,427 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Zygomatic
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+/* Metrics > Capabilities (2026-09-27) — a rail of workflow steps on the left, that step's
+   capability sheets on the right. Inherits the hub's tokens (#panel-metrics --mh-*),
+   tables, notes and banner from dashboard_metrics.css. Layout px are read under
+   html{zoom:.67} ([[feedback_measure_at_operator_zoom]]).
+
+   Colour rule, the same one the rest of the hub follows: state colour is reserved for
+   state and ALWAYS carries an icon or a word, so the sheet is readable without colour. */
+
+/* ── toolbar ─────────────────────────────────────────────────────────────── */
+.cap-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 0 0 12px; }
+.cap-toolbar-left, .cap-toolbar-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.cap-live { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border: 1px solid var(--mh-hair); border-radius: 999px; background: var(--mh-surface); font-size: 0.88em; color: var(--mh-ink-2); }
+.cap-live i { width: 8px; height: 8px; border-radius: 50%; background: #0ca30c; display: inline-block; }
+.cap-live-flash { background: #e8f0fb; border-color: #9cc0ee; color: #184f95; }
+.cap-sum { font-size: 0.9em; color: var(--mh-ink-2); }
+.cap-sum b { color: var(--mh-ink); font-weight: 650; }
+.cap-statline span { font-weight: 650; }
+.cap-search { font: inherit; font-size: 0.85em; padding: 5px 10px; border: 1px solid var(--mh-hair); border-radius: 8px; background: var(--mh-surface); color: var(--mh-ink); min-width: 190px; }
+
+/* ── the two-pane shell ──────────────────────────────────────────────────── */
+.cap-wrap { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 14px; align-items: start; }
+@media (max-width: 1100px) { .cap-wrap { grid-template-columns: 1fr; } }
+
+.cap-rail {
+    background: rgba(11, 11, 11, 0.035);
+    border-radius: 12px;
+    padding: 10px 8px;
+    max-height: 1800px;
+    overflow: auto;
+    position: sticky;
+    top: 8px;
+}
+.cap-railgroup { margin: 0 0 12px; }
+.cap-railgroup h4 {
+    margin: 4px 8px 6px; font-size: 0.78em; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--mh-muted);
+}
+.cap-railempty { font-size: 0.85em; color: var(--mh-muted); padding: 8px; }
+
+.cap-rail-item {
+    display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 8px; align-items: start;
+    width: 100%; text-align: left; font: inherit; cursor: pointer;
+    background: var(--mh-surface); border: 1px solid var(--mh-hair); border-left: 3px solid var(--mh-hair);
+    border-radius: 9px; padding: 7px 9px 6px; margin: 0 0 5px;
+    position: relative; transition: border-color 0.12s ease, background 0.12s ease;
+}
+.cap-rail-item:hover { background: var(--mh-wash); }
+.cap-rail-item:focus-visible { outline: 2px solid #184f95; outline-offset: 1px; }
+.cap-rail-item.active { border-left-color: #184f95; background: #eef3fa; }
+.cap-rail-body { min-width: 0; display: block; }
+.cap-rail-label { display: block; font-size: 0.92em; font-weight: 600; color: var(--mh-ink); line-height: 1.25; }
+.cap-rail-meta { display: block; font-size: 0.76em; color: var(--mh-muted); margin-top: 1px; }
+.cap-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; background: currentColor; }
+.cap-bar { position: absolute; left: 3px; right: 0; bottom: 0; height: 2px; background: rgba(11, 11, 11, 0.07); border-radius: 0 0 9px 9px; overflow: hidden; }
+.cap-bar i { display: block; height: 100%; background: #184f95; opacity: 0.55; }
+
+/* ── the board ───────────────────────────────────────────────────────────── */
+.cap-board { min-width: 0; }
+.cap-placeholder { background: var(--mh-surface); border: 1px solid var(--mh-hair); border-radius: 12px; padding: 22px 24px; }
+.cap-placeholder h3 { margin: 0 0 6px; font-size: 1.05em; color: var(--mh-ink); }
+.cap-placeholder p { margin: 0 0 8px; font-size: 0.9em; color: var(--mh-ink-2); max-width: 62ch; }
+
+/* The sheet's own head carries the facts and the verdict — there is no separate header
+   block above the board any more, because it repeated the sheet title and restated the
+   question before the operator reached a single number. */
+.cap-verdict { margin: 8px 0 0; font-size: 0.9em; color: var(--mh-ink); border-left: 3px solid #184f95; padding: 3px 0 3px 10px; max-width: 100ch; }
+.cap-facts { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; margin: 7px 0 0; font-size: 0.82em; }
+.cap-facts dt { color: var(--mh-muted); }
+.cap-facts dt::after { content: ''; }
+.cap-facts dd { margin: 0 0 0 -12px; color: var(--mh-ink); font-weight: 600; }
+.cap-facts dd b { font-weight: 700; }
+
+.cap-btn { font: inherit; font-size: 0.85em; padding: 5px 12px; border: 1px solid var(--mh-hair); border-radius: 8px; background: var(--mh-surface); color: var(--mh-ink); cursor: pointer; white-space: nowrap; }
+.cap-btn:hover { background: var(--mh-wash); border-color: #184f95; }
+
+.cap-chip { display: inline-block; font-size: 0.68em; font-weight: 650; padding: 2px 8px; border-radius: 999px; vertical-align: middle; border: 1px solid currentColor; }
+
+/* ── legend ──────────────────────────────────────────────────────────────── */
+.cap-legend { display: flex; gap: 22px; flex-wrap: wrap; margin: 0 0 10px; padding: 8px 12px; background: var(--mh-surface); border: 1px solid var(--mh-hair); border-radius: 10px; font-size: 0.8em; }
+.cap-legend > div { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cap-legend b { color: var(--mh-muted); font-weight: 650; font-size: 0.92em; text-transform: uppercase; letter-spacing: 0.04em; }
+.cap-leg { display: inline-flex; align-items: center; gap: 5px; color: var(--mh-ink-2); }
+.cap-leg > i { font-style: normal; font-weight: 700; }
+
+/* ── the matrix ──────────────────────────────────────────────────────────── */
+.cap-sheet { background: var(--mh-surface); border: 1px solid var(--mh-hair); border-radius: 12px; padding: 12px 14px 10px; margin: 0 0 14px; min-width: 0; }
+.cap-sheet-head { margin: 0 0 8px; }
+.cap-sheet-head h4 { margin: 0; font-size: 0.96em; font-weight: 650; color: var(--mh-ink); }
+.cap-sheet-head p { margin: 2px 0 0; font-size: 0.82em; color: var(--mh-muted); max-width: 80ch; }
+
+.cap-tablewrap { overflow: auto; max-width: 100%; border: 1px solid var(--mh-hair); border-radius: 8px; }
+.cap-tablewrap-tall { max-height: 620px; }
+.cap-matrix { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 0.82em;
+    --cap-rowhead-w: 228px; --cap-rating-w: 74px; }
+.cap-matrix th, .cap-matrix td { padding: 6px 9px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--mh-hair); }
+.cap-matrix thead th { position: sticky; top: 0; z-index: 3; background: var(--mh-wash); font-weight: 650; color: var(--mh-ink); border-bottom: 1px solid var(--mh-hair); }
+.cap-matrix thead .cap-grouprow th { top: 0; z-index: 4; font-size: 0.86em; color: var(--mh-muted); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--mh-hair); }
+.cap-matrix thead tr:nth-child(2) th { top: 26px; }
+.cap-matrix thead tr:only-child th { top: 0; }
+.cap-groupcell { text-align: center !important; background: rgba(11, 11, 11, 0.04) !important; }
+.cap-colhead { min-width: 96px; max-width: 150px; }
+.cap-colhead span { display: block; line-height: 1.25; }
+.cap-colhead em { display: block; font-style: normal; font-weight: 400; font-size: 0.86em; color: var(--mh-muted); margin-top: 2px; line-height: 1.2; }
+
+/* Fixed, not elastic: the rating column pins at exactly this offset, so the width the
+   name takes has to be a number both rules can agree on. */
+.cap-rowhead { position: sticky; left: 0; z-index: 2; background: var(--mh-surface);
+    width: var(--cap-rowhead-w); min-width: var(--cap-rowhead-w); max-width: var(--cap-rowhead-w);
+    border-right: 1px solid var(--mh-hair); font-weight: 600; }
+.cap-matrix thead .cap-rowhead { z-index: 5; background: var(--mh-wash); }
+.cap-rowlabel { display: block; color: var(--mh-ink); line-height: 1.25; }
+.cap-rowlabel i { font-style: normal; font-size: 0.85em; color: var(--mh-muted); font-weight: 400; }
+.cap-rowhead em { display: block; font-style: normal; font-weight: 400; font-size: 0.86em; color: var(--mh-muted); margin-top: 1px; line-height: 1.2; }
+.cap-row:hover .cap-rowhead, .cap-row:hover td { background: var(--mh-wash); }
+.cap-retired .cap-rowlabel, .cap-retired .cap-cell { opacity: 0.66; }
+
+/* ── the rating, pinned beside the name ──────────────────────────────────────
+   A score you have to scroll 300 questions to reach is a score nobody reads, so the
+   rating is the second frozen column: the name and its rating travel together however
+   far the sheet is scrolled sideways. The number is the hub's (capabilities_hub._row_rating);
+   the fraction under it is how many questions it rests on, and * says under a quarter of
+   the sheet is answered — a big number on two answers must not read like a verdict. */
+.cap-rating {
+    position: sticky; left: var(--cap-rowhead-w); z-index: 2;
+    background: var(--mh-surface);
+    width: var(--cap-rating-w); min-width: var(--cap-rating-w); max-width: var(--cap-rating-w);
+    padding: 6px 6px; text-align: center; white-space: nowrap; cursor: help;
+    border-right: 2px solid var(--mh-hair);
+}
+.cap-matrix thead .cap-rating { z-index: 5; background: var(--mh-wash); vertical-align: bottom; }
+.cap-matrix thead .cap-rate-groupgap {
+    background: linear-gradient(rgba(11, 11, 11, 0.04), rgba(11, 11, 11, 0.04)), var(--mh-wash);
+}
+/* A group band is centred over its columns, so a band whose columns have scrolled off to
+   the left prints its name straight across the frozen columns. Both frozen header cells
+   therefore sit ABOVE the band row (whose `.cap-grouprow th` rule outranked the z-index
+   they were given) and paint opaque. */
+.cap-matrix thead .cap-grouprow .cap-rowhead,
+.cap-matrix thead .cap-grouprow .cap-rating { z-index: 6; }
+.cap-row:hover .cap-rating { background: var(--mh-wash); }
+.cap-rating:focus-visible { outline: 2px solid #184f95; outline-offset: -2px; }
+.cap-rate-score { display: block; font-weight: 700; font-size: 1.28em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.cap-rate-score i { font-style: normal; font-size: 0.68em; vertical-align: 3px; }
+.cap-rate-band { display: block; font-size: 0.82em; font-weight: 600; line-height: 1.2; }
+.cap-rate-cov { display: block; font-size: 0.76em; font-weight: 400; color: var(--mh-muted); line-height: 1.25; font-variant-numeric: tabular-nums; }
+/* thin evidence, or any soft grade under it — say it in the ink, not only in the tooltip */
+.cap-rate-soft .cap-rate-score, .cap-rate-soft .cap-rate-band { opacity: 0.74; }
+.cap-rate-none .cap-rate-score { color: var(--mh-muted); font-weight: 600; }
+.cap-retired .cap-rating { opacity: 0.66; }
+.cap-rate-swatch {
+    display: inline-block; min-width: 26px; padding: 0 4px; height: 16px; line-height: 16px;
+    font-size: 0.76em; font-weight: 700; text-align: center; border-radius: 3px;
+    background: rgba(11, 11, 11, 0.05);
+}
+
+.cap-cell { white-space: nowrap; cursor: help; }
+.cap-cell:focus-visible { outline: 2px solid #184f95; outline-offset: -2px; }
+.cap-ico { font-weight: 700; margin-right: 4px; }
+.cap-val { color: var(--mh-ink); font-variant-numeric: tabular-nums; }
+.cap-soft .cap-val, .cap-soft .cap-ico { opacity: 0.72; }
+.cap-grade { display: inline-block; margin-left: 5px; font-size: 0.76em; font-weight: 700; width: 14px; height: 14px; line-height: 14px; text-align: center; border-radius: 3px; vertical-align: 1px; }
+.cap-grade-measured { background: #184f95; color: #fff; }
+.cap-grade-receipt { background: #6f8fb8; color: #fff; }
+.cap-grade-vendor { background: #e2e8f0; color: #475569; }
+.cap-grade-assumed { background: #f1f1ef; color: #8a8a83; border: 1px dashed #c9c9c2; }
+.cap-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* state tones — always paired with an icon or a word */
+.cap-tone-good { color: #0b7a3b; }
+.cap-tone-warning { color: #96610a; }
+.cap-tone-critical { color: #a3261f; }
+.cap-tone-neutral { color: #7b7b74; }
+.cap-tone-muted { color: #a8a8a1; }
+.cap-tone-open { color: #184f95; }
+td.cap-tone-good { background: rgba(11, 122, 59, 0.06); }
+td.cap-tone-warning { background: rgba(150, 97, 10, 0.07); }
+td.cap-tone-critical { background: rgba(163, 38, 31, 0.06); }
+.cap-chip.cap-tone-good { background: rgba(11, 122, 59, 0.1); }
+.cap-chip.cap-tone-warning { background: rgba(150, 97, 10, 0.1); }
+.cap-chip.cap-tone-critical { background: rgba(163, 38, 31, 0.09); }
+.cap-chip.cap-tone-neutral { background: rgba(11, 11, 11, 0.05); }
+
+/* ── lanes under the sheets ──────────────────────────────────────────────── */
+/* ── what this sheet means / cannot say / next / sources ─────────────────────
+   One stacked list of disclosures under the sheet, all closed, so the board opens on the
+   DATA. These were three kanban cards side by side; as cards they took a screen of space
+   to say things that are the same on every visit. */
+/* Plain text lines, the way Sources always was — no card, no rule, and the summary is
+   inline-flex so the click target is the words rather than the width of the board. */
+.cap-about { margin: 2px 0 14px; }
+.cap-lane { padding: 0; margin: 0 0 3px; min-width: 0; }
+.cap-lane-head { display: inline-flex; align-items: baseline; gap: 6px; padding: 2px 0; margin: 0; }
+.cap-lane-head h4 { margin: 0; font-size: 0.9em; font-weight: 600; color: var(--mh-ink-2); display: inline; }
+.cap-lane-head > b { font-size: 0.85em; font-weight: 500; color: var(--mh-muted); }
+.cap-note { background: none; border: 0; border-left: 2px solid var(--mh-hair); border-radius: 0; padding: 3px 0 3px 11px; margin: 0 0 9px; font-size: 0.83em; line-height: 1.5; color: var(--mh-ink-2); max-width: 104ch; }
+.cap-note b { color: var(--mh-ink); font-weight: 650; }
+.cap-note pre { margin: 0; }
+.cap-path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; word-break: break-all; color: var(--mh-ink-2); }
+
+/* ── right-click menu ────────────────────────────────────────────────────── */
+.cap-menu {
+    position: fixed; z-index: 4000; min-width: 216px;
+    background: var(--mh-surface, #fff); border: 1px solid var(--mh-hair, #d9d9d2);
+    border-radius: 10px; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18); padding: 5px;
+}
+.cap-menu-head { font-size: 0.76em; color: var(--mh-muted); padding: 5px 9px 6px; border-bottom: 1px solid var(--mh-hair); margin-bottom: 4px; }
+.cap-menu button {
+    display: block; width: 100%; text-align: left; font: inherit; font-size: 0.88em;
+    background: none; border: 0; border-radius: 7px; padding: 7px 9px; cursor: pointer; color: var(--mh-ink);
+}
+.cap-menu button em { display: block; font-style: normal; font-size: 0.82em; color: var(--mh-muted); margin-top: 1px; }
+.cap-menu button:hover, .cap-menu button:focus-visible { background: #eef3fa; outline: none; }
+
+/* ── the Inspect page ────────────────────────────────────────────────────── */
+.cap-overlay {
+    position: fixed; inset: 0; z-index: 3500; background: rgba(12, 12, 12, 0.55);
+    overflow: auto; padding: 22px 16px 40px;
+}
+.cap-page {
+    max-width: 1500px; margin: 0 auto; background: var(--mh-surface, #fff);
+    border-radius: 14px; padding: 18px 20px 22px; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+}
+.cap-page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin: 0 0 12px; padding-bottom: 10px; border-bottom: 1px solid var(--mh-hair); }
+.cap-page-head h3 { margin: 0 0 4px; font-size: 1.1em; font-weight: 650; color: var(--mh-ink); }
+.cap-page-head p { margin: 0 0 4px; font-size: 0.88em; color: var(--mh-ink-2); max-width: 86ch; }
+.cap-summary { font-size: 0.9em; color: var(--mh-ink-2); margin: 0 0 14px; max-width: 92ch; line-height: 1.5; }
+
+.cap-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.cap-gallery-small { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.cap-pic { margin: 0; background: var(--mh-wash); border: 1px solid var(--mh-hair); border-radius: 10px; overflow: hidden; }
+.cap-pic-slot { display: flex; align-items: center; justify-content: center; min-height: 140px; background: rgba(11, 11, 11, 0.04); }
+.cap-pic-slot img { display: block; width: 100%; height: auto; }
+.cap-pic-wait { font-size: 0.76em; color: var(--mh-muted); padding: 10px; text-align: center; }
+.cap-pic-err { color: #a3261f; }
+.cap-pic figcaption { padding: 7px 9px; font-size: 0.78em; color: var(--mh-ink); }
+.cap-pic figcaption em { display: block; font-style: normal; color: var(--mh-muted); margin-top: 2px; line-height: 1.35; }
+.cap-pic-flash { outline: 3px solid #184f95; }
+.cap-pic-missing .cap-pic-slot { color: #a3261f; font-size: 0.78em; }
+
+.cap-trials .cap-qtext { min-width: 320px; max-width: 460px; white-space: normal; line-height: 1.35;
+    position: sticky; left: 0; z-index: 2; background: var(--mh-surface); border-right: 1px solid var(--mh-hair); }
+.cap-trials tbody tr:hover .cap-qtext { background: var(--mh-wash); }
+.cap-trials .cap-qmeta { white-space: nowrap; color: var(--mh-ink-2); }
+.cap-trials .cap-qmeta em { display: block; font-style: normal; font-size: 0.86em; color: var(--mh-muted); }
+.cap-trials .cap-qexp { white-space: nowrap; font-weight: 650; }
+.cap-ans { white-space: nowrap; cursor: help; }
+.cap-ans b { font-weight: 650; }
+.cap-sec { display: block; font-size: 0.85em; color: var(--mh-muted); }
+.cap-piclink { font: inherit; font-size: 0.85em; background: none; border: 0; padding: 0; color: #184f95; text-decoration: underline; cursor: pointer; }
+
+/* ── tooltip ─────────────────────────────────────────────────────────────── */
+.cap-tip {
+    position: fixed; z-index: 5000; display: none; max-width: 380px;
+    background: #1c1c1a; color: #f4f4f0; font-size: 12px; line-height: 1.45;
+    padding: 7px 10px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    pointer-events: none; white-space: pre-wrap;
+}
+
+/* ── column headers on their side ────────────────────────────────────────────
+   A step asks 40-60 questions. Horizontal headers cost ~140 px each and only ~12 fit
+   across the board; rotated they cost ~34 px and the whole questionnaire fits in one
+   screen-width. The label reads bottom-to-top (vertical-rl + rotate(180deg)), which is
+   the direction a head tilts left — the convention on a printed comparison sheet.
+   The hint is dropped from the header in this mode and lives in the tooltip; a second
+   line of vertical text is unreadable at this width. Toggle with "Headers" in the toolbar. */
+/* Table sizes to its content, not to the card: a 6-question sub-sheet must not stretch
+   its row head across 1800 px of empty card. A 50-question sheet is wider than the card
+   and scrolls sideways instead, with the row head and both header bands pinned. */
+.cap-matrix.cap-vert { width: auto; }
+.cap-matrix.cap-vert thead .cap-colhead {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    height: auto;                  /* the longest label in THIS sheet sets the band */
+    min-height: 90px;
+    min-width: 0;
+    max-width: none;
+    width: 30px;
+    padding: 8px 4px;
+    vertical-align: bottom;
+    text-align: left;              /* = bottom, once rotated */
+    font-weight: 600;
+    font-size: 0.94em;
+    line-height: 1.12;
+}
+.cap-matrix.cap-vert thead .cap-colhead { width: 30px; }
+/* Wrap rather than clip. In vertical-rl the inline axis runs down the page, so `height`
+   sets how long a line may be and a wrapped label spills sideways into a second column
+   of text — 34 px holds two. Nine of the 896 questions need the second line; truncating
+   them with an ellipsis would hide exactly the part that says what the question means. */
+.cap-matrix.cap-vert thead .cap-colhead span {
+    display: block;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+/* the group band stays flat and centred over its columns */
+.cap-matrix.cap-vert thead tr:nth-child(2) th { top: 24px; }
+.cap-matrix.cap-vert .cap-groupcell {
+    font-size: 0.8em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 0;                  /* let colspan decide the width, then clip */
+}
+/* cells stack icon / value / grade so a number still fits in 34 px */
+.cap-matrix.cap-vert .cap-cell {
+    width: 30px;
+    padding: 5px 3px;
+    text-align: center;
+    white-space: nowrap;
+}
+.cap-matrix.cap-vert .cap-ico { display: block; margin: 0; font-size: 1.05em; }
+.cap-matrix.cap-vert .cap-val { display: block; font-size: 0.86em; line-height: 1.2; }
+.cap-matrix.cap-vert .cap-grade { display: block; margin: 1px auto 0; }
+.cap-matrix.cap-vert { --cap-rowhead-w: 196px; --cap-rating-w: 66px; }
+
+.cap-sheet-size { display: block; font-size: 0.76em; color: var(--mh-muted); margin-top: 3px; }
+.cap-btn-sm { font-size: 0.8em; padding: 4px 9px; }
+.cap-btn-sm[aria-pressed="true"] { border-color: #184f95; color: #184f95; }
+
+/* A wide sheet scrolls sideways; the row head and both header bands stay put. */
+.cap-tablewrap { scrollbar-width: thin; }
+
+/* ── the legend, behind an icon ──────────────────────────────────────────────
+   Nine rows of vocabulary that are identical on all 50 steps do not belong above every
+   sheet. Hover the key for the legend, click to pin it while you read a sheet. */
+.cap-keywrap { position: relative; display: inline-flex; }
+.cap-iconbtn {
+    font: inherit; font-size: 0.95em; line-height: 1; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--mh-surface); border: 1px solid var(--mh-hair); border-radius: 8px;
+    padding: 5px 10px; color: var(--mh-ink-2);
+}
+.cap-iconbtn span { font-size: 0.85em; }
+.cap-iconbtn:hover, .cap-iconbtn:focus-visible { border-color: #184f95; color: #184f95; outline: none; }
+.cap-iconbtn-round { border-radius: 50%; width: 22px; height: 22px; padding: 0; justify-content: center; font-weight: 700; font-size: 0.82em; }
+
+.cap-key-pop {
+    position: absolute; top: calc(100% + 7px); right: 0; z-index: 3000; display: none;
+    width: 560px; gap: 22px;
+    background: var(--mh-surface); border: 1px solid var(--mh-hair); border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2); padding: 14px 16px;
+    text-align: left; cursor: default;
+}
+.cap-keywrap:hover .cap-key-pop, .cap-keywrap:focus-within .cap-key-pop,
+.cap-keywrap.cap-pinned .cap-key-pop { display: flex; }
+.cap-keywrap.cap-pinned .cap-iconbtn { border-color: #184f95; color: #184f95; }
+.cap-key-col { flex: 1 1 0; min-width: 0; }
+.cap-key-col h5 { margin: 0 0 7px; font-size: 0.8em; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mh-muted); }
+.cap-key-col ul { list-style: none; margin: 0 0 8px; padding: 0; }
+.cap-key-col li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 8px; align-items: baseline; margin: 0 0 5px; font-size: 0.84em; }
+.cap-key-col li > i { font-style: normal; font-weight: 700; text-align: center; }
+.cap-key-col li b { color: var(--mh-ink); font-weight: 600; }
+.cap-key-col li > span { min-width: 0; }
+.cap-key-col li em { display: block; font-style: normal; color: var(--mh-muted); font-size: 0.9em; line-height: 1.35; }
+.cap-key-col p { margin: 0; font-size: 0.8em; color: var(--mh-ink-2); line-height: 1.45; }
+.cap-key-col li .cap-grade { display: inline-block; }
+
+/* ── the rail's own head, with the "what is this tab" icon ───────────────── */
+.cap-railcol { min-width: 0; position: sticky; top: 8px; }
+.cap-railhead { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 4px 7px; }
+.cap-railhead > span { font-size: 0.78em; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mh-muted); }
+.cap-railcol .cap-rail { position: static; }
+
+/* ── lanes as disclosures ────────────────────────────────────────────────────
+   The board opens on the sheet. "How to read it" and the source list are reference
+   material that is the same every visit, so they start closed and announce their size. */
+details.cap-lane > summary { cursor: pointer; list-style: none; user-select: none; }
+details.cap-lane > summary::-webkit-details-marker { display: none; }
+details.cap-lane > summary::before { content: '\25b8'; color: var(--mh-muted); font-size: 0.8em; display: inline-block; transition: transform 0.12s ease; flex: none; }
+details.cap-lane[open] > summary::before { transform: rotate(90deg); }
+details.cap-lane > summary:hover h4, details.cap-lane > summary:focus-visible h4 { color: var(--mh-ink); }
+details.cap-lane[open] > summary { margin-bottom: 4px; }
+.cap-lane-body { margin: 0 0 12px; padding-left: 14px; }
+/* the Inspect page opens on its evidence, so its lanes start open */
+.cap-about-open { margin-bottom: 14px; }
+
+/* ── icon-only controls ──────────────────────────────────────────────────────
+   The header toggle and the filter are icons: the flip icon draws its own state (bars
+   lying the way the headers do), and the filter box stays folded behind the magnifier
+   until it is wanted. Words for both live in title/aria-label. */
+.cap-iconbtn-sq { width: 26px; height: 26px; padding: 0; justify-content: center; }
+.cap-iconbtn-sq[aria-pressed="true"] { border-color: #184f95; color: #184f95; }
+
+.cap-searchwrap { display: inline-flex; align-items: center; }
+.cap-searchwrap .cap-search {
+    width: 0; min-width: 0; padding: 0; border-width: 0; margin-left: 0; opacity: 0;
+    transition: width 0.16s ease, opacity 0.16s ease, margin-left 0.16s ease, padding 0.16s ease;
+}
+.cap-searchwrap.cap-open .cap-search {
+    width: 190px; min-width: 0; padding: 5px 10px; border-width: 1px; margin-left: 6px; opacity: 1;
+}
+.cap-searchwrap.cap-open .cap-iconbtn-sq { border-color: #184f95; color: #184f95; }
+
+/* ── the per-row Inspect icon ────────────────────────────────────────────────
+   Inspect belongs on the thing being inspected, so every model/tool row carries one and
+   the sheet header carries none. Low-contrast until the row is hovered or it is focused,
+   so 7 of them down a sheet do not shout over the data. */
+.cap-rowline { display: flex; align-items: baseline; gap: 6px; }
+.cap-rowline .cap-rowlabel { flex: 1 1 auto; min-width: 0; }
+.cap-rowinspect {
+    flex: none; font: inherit; line-height: 0; cursor: pointer;
+    background: none; border: 1px solid transparent; border-radius: 6px;
+    padding: 3px; color: var(--mh-muted); opacity: 0.45;
+    transition: opacity 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.cap-row:hover .cap-rowinspect { opacity: 1; }
+.cap-rowinspect:hover, .cap-rowinspect:focus-visible {
+    opacity: 1; color: #184f95; border-color: var(--mh-hair); background: var(--mh-surface); outline: none;
+}
+
+/* ── the Inspect page's scope chip ───────────────────────────────────────── */
+.cap-scope {
+    display: inline-flex; align-items: center; gap: 6px; vertical-align: middle;
+    font-size: 0.72em; font-weight: 600; color: #184f95;
+    background: #eef3fa; border: 1px solid #c6d9ef; border-radius: 999px; padding: 2px 4px 2px 10px;
+}
+.cap-scope button {
+    font: inherit; font-size: 1.05em; line-height: 1; cursor: pointer;
+    background: none; border: 0; color: inherit; padding: 0 4px; border-radius: 50%;
+}
+.cap-scope button:hover, .cap-scope button:focus-visible { background: #d6e4f5; outline: none; }

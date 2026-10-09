@@ -1,0 +1,518 @@
+{
+  "_comment": "Narrator voice library. Azure Neural voice names for primary TTS; Kokoro-82M fills gaps when Azure fails. Channels use profile_id from narrator_channel_voices.json.",
+  "voices": {
+    "male_young_energetic": {
+      "profile_id": "male_young_energetic",
+      "label": "Young Male \u2014 Energetic",
+      "gender": "male",
+      "age_group": "young",
+      "style": "energetic",
+      "engine": "azure-tts",
+      "voice": "en-US-GuyNeural",
+      "rate": "+10%",
+      "pitch": "+0Hz",
+      "description": "Fast-paced American young male. Good for hype, reaction, sports, controversy.",
+      "content_tags": [
+        "controversy",
+        "reaction",
+        "sports",
+        "hype",
+        "comedy",
+        "male_audience"
+      ]
+    },
+    "male_young_confident": {
+      "profile_id": "male_young_confident",
+      "label": "Young Male \u2014 Confident",
+      "gender": "male",
+      "age_group": "young",
+      "style": "confident",
+      "engine": "azure-tts",
+      "voice": "en-US-AndrewNeural",
+      "rate": "+5%",
+      "pitch": "+0Hz",
+      "description": "Clear confident American young male. Good for news, commentary, debate.",
+      "content_tags": [
+        "debate",
+        "news",
+        "commentary",
+        "male_audience"
+      ]
+    },
+    "male_midage_authoritative": {
+      "profile_id": "male_midage_authoritative",
+      "label": "Mid-Age Male \u2014 Authoritative",
+      "gender": "male",
+      "age_group": "mid",
+      "style": "authoritative",
+      "engine": "azure-tts",
+      "voice": "en-US-ChristopherNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Deep authoritative American mid-age male. Good for serious topics, politics, finance.",
+      "content_tags": [
+        "politics",
+        "finance",
+        "serious",
+        "documentary",
+        "male_audience",
+        "mixed_audience"
+      ]
+    },
+    "male_midage_casual": {
+      "profile_id": "male_midage_casual",
+      "label": "Mid-Age Male \u2014 Casual",
+      "gender": "male",
+      "age_group": "mid",
+      "style": "casual",
+      "engine": "azure-tts",
+      "voice": "en-US-EricNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Relaxed casual American male. Good for lifestyle, entertainment, general commentary.",
+      "content_tags": [
+        "lifestyle",
+        "entertainment",
+        "general",
+        "male_audience"
+      ]
+    },
+    "male_midage_british": {
+      "profile_id": "male_midage_british",
+      "label": "Mid-Age Male \u2014 British",
+      "gender": "male",
+      "age_group": "mid",
+      "style": "polished",
+      "engine": "azure-tts",
+      "voice": "en-GB-ThomasNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Polished British mid-age male. Good for educational, documentary, prestige content.",
+      "content_tags": [
+        "educational",
+        "documentary",
+        "history",
+        "geopolitics",
+        "mixed_audience"
+      ]
+    },
+    "male_elder_wise": {
+      "profile_id": "male_elder_wise",
+      "label": "Elder Male \u2014 Wise",
+      "gender": "male",
+      "age_group": "elder",
+      "style": "wise",
+      "engine": "azure-tts",
+      "voice": "en-GB-RyanNeural",
+      "rate": "-5%",
+      "pitch": "-2Hz",
+      "description": "Deep calm British elder male. Good for philosophical, historical, serious analysis.",
+      "content_tags": [
+        "philosophy",
+        "history",
+        "analysis",
+        "geopolitics",
+        "educational",
+        "mixed_audience"
+      ]
+    },
+    "male_elder_gravitas": {
+      "profile_id": "male_elder_gravitas",
+      "label": "Elder Male \u2014 Gravitas",
+      "gender": "male",
+      "age_group": "elder",
+      "style": "gravitas",
+      "engine": "azure-tts",
+      "voice": "en-US-RogerNeural",
+      "rate": "-5%",
+      "pitch": "+0Hz",
+      "description": "Commanding gravitas American elder male. Good for war, crime, hard news.",
+      "content_tags": [
+        "war",
+        "crime",
+        "hard_news",
+        "documentary",
+        "mixed_audience"
+      ]
+    },
+    "male_steffan_dramatic": {
+      "profile_id": "male_steffan_dramatic",
+      "label": "Mid-Age Male \u2014 Dramatic",
+      "gender": "male",
+      "age_group": "mid",
+      "style": "dramatic",
+      "engine": "azure-tts",
+      "voice": "en-US-SteffanNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Dramatic expressive American male. Good for shocking reveals, twists, viral moments.",
+      "content_tags": [
+        "shocking",
+        "viral",
+        "drama",
+        "reveal",
+        "mixed_audience"
+      ]
+    },
+    "female_young_energetic": {
+      "profile_id": "female_young_energetic",
+      "label": "Young Female \u2014 Energetic",
+      "gender": "female",
+      "age_group": "young",
+      "style": "energetic",
+      "engine": "azure-tts",
+      "voice": "en-US-AvaNeural",
+      "rate": "+10%",
+      "pitch": "+0Hz",
+      "description": "Bright energetic American young female. Good for beauty, lifestyle, reaction, comedy.",
+      "content_tags": [
+        "beauty",
+        "lifestyle",
+        "reaction",
+        "comedy",
+        "female_audience",
+        "mixed_audience"
+      ]
+    },
+    "female_young_confident": {
+      "profile_id": "female_young_confident",
+      "label": "Young Female \u2014 Confident",
+      "gender": "female",
+      "age_group": "young",
+      "style": "confident",
+      "engine": "azure-tts",
+      "voice": "en-US-EmmaNeural",
+      "rate": "+5%",
+      "pitch": "+0Hz",
+      "description": "Clear confident American young female. Good for news, commentary, social topics.",
+      "content_tags": [
+        "news",
+        "commentary",
+        "social",
+        "female_audience"
+      ]
+    },
+    "female_young_flamboyant": {
+      "profile_id": "female_young_flamboyant",
+      "label": "Young Female \u2014 Flamboyant",
+      "gender": "female",
+      "age_group": "young",
+      "style": "flamboyant",
+      "engine": "azure-tts",
+      "voice": "en-US-AnaNeural",
+      "rate": "+15%",
+      "pitch": "+2Hz",
+      "description": "Expressive flamboyant young female. Good for drama, gossip, entertainment.",
+      "content_tags": [
+        "drama",
+        "gossip",
+        "entertainment",
+        "female_audience"
+      ]
+    },
+    "female_midage_warm": {
+      "profile_id": "female_midage_warm",
+      "label": "Mid-Age Female \u2014 Warm",
+      "gender": "female",
+      "age_group": "mid",
+      "style": "warm",
+      "engine": "azure-tts",
+      "voice": "en-US-JennyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Warm approachable American mid-age female. Good for health, family, lifestyle, interviews.",
+      "content_tags": [
+        "health",
+        "family",
+        "lifestyle",
+        "interviews",
+        "female_audience",
+        "mixed_audience"
+      ]
+    },
+    "female_midage_authoritative": {
+      "profile_id": "female_midage_authoritative",
+      "label": "Mid-Age Female \u2014 Authoritative",
+      "gender": "female",
+      "age_group": "mid",
+      "style": "authoritative",
+      "engine": "azure-tts",
+      "voice": "en-US-AriaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Authoritative professional American mid-age female. Good for politics, business, serious news.",
+      "content_tags": [
+        "politics",
+        "business",
+        "serious_news",
+        "female_audience",
+        "mixed_audience"
+      ]
+    },
+    "female_midage_british": {
+      "profile_id": "female_midage_british",
+      "label": "Mid-Age Female \u2014 British",
+      "gender": "female",
+      "age_group": "mid",
+      "style": "polished",
+      "engine": "azure-tts",
+      "voice": "en-GB-SoniaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Polished British mid-age female. Good for documentary, educational, refined content.",
+      "content_tags": [
+        "documentary",
+        "educational",
+        "history",
+        "mixed_audience"
+      ]
+    },
+    "female_elder_wise": {
+      "profile_id": "female_elder_wise",
+      "label": "Elder Female \u2014 Wise",
+      "gender": "female",
+      "age_group": "elder",
+      "style": "wise",
+      "engine": "azure-tts",
+      "voice": "en-GB-LibbyNeural",
+      "rate": "-5%",
+      "pitch": "+0Hz",
+      "description": "Calm wise British elder female. Good for philosophical, cultural, serious analysis.",
+      "content_tags": [
+        "philosophy",
+        "culture",
+        "analysis",
+        "documentary",
+        "mixed_audience"
+      ]
+    },
+    "female_michelle_professional": {
+      "profile_id": "female_michelle_professional",
+      "label": "Mid-Age Female \u2014 Professional",
+      "gender": "female",
+      "age_group": "mid",
+      "style": "professional",
+      "engine": "azure-tts",
+      "voice": "en-US-MichelleNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Crisp professional American female. Good for finance, tech, instructional content.",
+      "content_tags": [
+        "finance",
+        "tech",
+        "instructional",
+        "female_audience",
+        "mixed_audience"
+      ]
+    },
+    "male_young_storyteller": {
+      "profile_id": "male_young_storyteller",
+      "label": "Young Male \u2014 Storyteller",
+      "gender": "male",
+      "age_group": "young",
+      "style": "storyteller",
+      "engine": "azure-tts",
+      "voice": "en-US-BrianNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Smooth American storytelling voice, great for crime narratives and drama",
+      "content_tags": [
+        "crime",
+        "drama",
+        "narrative",
+        "storytelling",
+        "male_audience"
+      ]
+    },
+    "male_midage_news": {
+      "profile_id": "male_midage_news",
+      "label": "Mid Male \u2014 News",
+      "gender": "male",
+      "age_group": "mid",
+      "style": "news",
+      "engine": "azure-tts",
+      "voice": "en-US-JasonNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Neutral professional news anchor voice, good for factual reporting",
+      "content_tags": [
+        "news",
+        "factual",
+        "reporting",
+        "documentary",
+        "neutral"
+      ]
+    },
+    "female_young_warm": {
+      "profile_id": "female_young_warm",
+      "label": "Young Female \u2014 Warm",
+      "gender": "female",
+      "age_group": "young",
+      "style": "warm",
+      "engine": "azure-tts",
+      "voice": "en-US-JessicaNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Warm friendly young American female, great for lifestyle and wellness",
+      "content_tags": [
+        "lifestyle",
+        "wellness",
+        "friendly",
+        "female_audience",
+        "warmth"
+      ]
+    },
+    "female_midage_calm": {
+      "profile_id": "female_midage_calm",
+      "label": "Mid Female \u2014 Calm",
+      "gender": "female",
+      "age_group": "mid",
+      "style": "calm",
+      "engine": "azure-tts",
+      "voice": "en-US-NancyNeural",
+      "rate": "+0%",
+      "pitch": "+0Hz",
+      "description": "Calm measured American female, good for educational and documentary content",
+      "content_tags": [
+        "educational",
+        "documentary",
+        "calm",
+        "informative",
+        "female_audience"
+      ]
+    },
+    "male_young_intense": {
+      "profile_id": "male_young_intense",
+      "label": "Young Male \u2014 Intense",
+      "gender": "male",
+      "age_group": "young",
+      "style": "intense",
+      "engine": "azure-tts",
+      "voice": "en-US-TonyNeural",
+      "rate": "+5%",
+      "pitch": "+0Hz",
+      "description": "Intense urgent American young male, great for true crime and thrillers",
+      "content_tags": [
+        "true_crime",
+        "thriller",
+        "intense",
+        "urgent",
+        "crime"
+      ]
+    }
+  },
+  "auto_select_rules": {
+    "_comment": "Rules for auto-assigning a voice profile to a channel based on content_tags. First matching rule wins.",
+    "rules": [
+      {
+        "match_tags": [
+          "male_audience",
+          "controversy",
+          "debate"
+        ],
+        "profile_id": "male_young_energetic"
+      },
+      {
+        "match_tags": [
+          "male_audience",
+          "reaction",
+          "comedy"
+        ],
+        "profile_id": "male_young_energetic"
+      },
+      {
+        "match_tags": [
+          "male_audience",
+          "sports",
+          "hype"
+        ],
+        "profile_id": "male_young_energetic"
+      },
+      {
+        "match_tags": [
+          "male_audience",
+          "lifestyle"
+        ],
+        "profile_id": "male_midage_casual"
+      },
+      {
+        "match_tags": [
+          "politics",
+          "finance",
+          "serious"
+        ],
+        "profile_id": "male_midage_authoritative"
+      },
+      {
+        "match_tags": [
+          "educational",
+          "history",
+          "geopolitics"
+        ],
+        "profile_id": "male_elder_wise"
+      },
+      {
+        "match_tags": [
+          "documentary",
+          "history"
+        ],
+        "profile_id": "male_midage_british"
+      },
+      {
+        "match_tags": [
+          "shocking",
+          "viral",
+          "drama"
+        ],
+        "profile_id": "male_steffan_dramatic"
+      },
+      {
+        "match_tags": [
+          "female_audience",
+          "beauty",
+          "lifestyle"
+        ],
+        "profile_id": "female_young_energetic"
+      },
+      {
+        "match_tags": [
+          "female_audience",
+          "drama",
+          "gossip"
+        ],
+        "profile_id": "female_young_flamboyant"
+      },
+      {
+        "match_tags": [
+          "female_audience",
+          "health",
+          "family"
+        ],
+        "profile_id": "female_midage_warm"
+      },
+      {
+        "match_tags": [
+          "female_audience",
+          "politics",
+          "business"
+        ],
+        "profile_id": "female_midage_authoritative"
+      },
+      {
+        "match_tags": [
+          "mixed_audience",
+          "educational"
+        ],
+        "profile_id": "male_midage_british"
+      },
+      {
+        "match_tags": [
+          "mixed_audience",
+          "news"
+        ],
+        "profile_id": "male_midage_authoritative"
+      }
+    ],
+    "default": "male_midage_authoritative"
+  }
+}

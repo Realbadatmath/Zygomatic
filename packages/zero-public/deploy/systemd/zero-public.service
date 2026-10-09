@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# The public site (zyg_zero.zero_public_server) on $ZERO_PUBLIC_PORT, default 5001.
+#
+# This is a systemd USER unit. `%h` means "the home of the user this manager runs for" only
+# in the user manager — in a system unit it resolves to /root — so a user unit is what lets
+# the file name no home directory at all.
+#
+#   install:  cp deploy/systemd/zero-public.service ~/.config/systemd/user/
+#             systemctl --user daemon-reload
+#             systemctl --user enable --now zero-public.service
+#   logs:     journalctl --user -u zero-public -f
+#
+# Run `loginctl enable-linger $USER` once, or the unit stops when the operator logs out.
+#
+# Redis and the dashboard main app (:5000) are SYSTEM services; a user unit cannot order
+# itself after them. Restart=on-failure covers a cold boot where redis is not up yet — the
+# queue lives in redis, not in memory, so a retry loses nothing.
+
+[Unit]
+Description=Zygomatic zero public site (invite gate, cinema, storyteller relay)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=600
+StartLimitBurst=4
+
+[Service]
+Type=simple
+WorkingDirectory=%h/repos/zygomatic-zero-public
+
+# Host-specific values: one 0600 file outside the repository, never committed. The full
+# table is in docs/configuration.md. FLASK_SECRET_KEY belongs there — without it every
+# restart invents a new key and logs every visitor out.
+EnvironmentFile=%h/.config/zygomatic/env
+
+# The venv shared with the zygomatic-workflows checkout (see README.md, "Install").
+ExecStart=%h/repos/.venv/bin/python -m zyg_zero.zero_public_server
+
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=20
+
+# The site serves media and talks to redis and the main app; it needs nothing else.
+# ProtectHome=read-only still lets it read the portfolio and the checkout; point
+# ReadWritePaths at any ZYG_*_DIR the deployment expects it to write to.
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.config/zygomatic
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+
+[Install]
+WantedBy=default.target

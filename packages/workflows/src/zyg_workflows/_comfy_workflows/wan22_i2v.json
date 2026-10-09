@@ -1,0 +1,139 @@
+{
+  "1": {
+    "inputs": {
+      "model": "Wan2_2-I2V-A14B-HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "base_precision": "bf16",
+      "quantization": "fp8_e4m3fn_scaled",
+      "load_device": "offload_device",
+      "attention_mode": "sdpa"
+    },
+    "class_type": "WanVideoModelLoader",
+    "_meta": {"title": "Load Wan2.2 HIGH-noise expert"}
+  },
+  "7": {
+    "inputs": {
+      "model": "Wan2_2-I2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
+      "base_precision": "bf16",
+      "quantization": "fp8_e4m3fn_scaled",
+      "load_device": "offload_device",
+      "attention_mode": "sdpa"
+    },
+    "class_type": "WanVideoModelLoader",
+    "_meta": {"title": "Load Wan2.2 LOW-noise expert"}
+  },
+  "2": {
+    "inputs": {
+      "model_name": "umt5-xxl-enc-bf16.safetensors",
+      "precision": "bf16"
+    },
+    "class_type": "LoadWanVideoT5TextEncoder",
+    "_meta": {"title": "Load Wan T5 Text Encoder"}
+  },
+  "4": {
+    "inputs": {
+      "model_name": "Wan2_1_VAE_bf16.safetensors",
+      "precision": "bf16"
+    },
+    "class_type": "WanVideoVAELoader",
+    "_meta": {"title": "Load Wan VAE (2.1 VAE shared by A14B)"}
+  },
+  "10": {
+    "inputs": {
+      "image": "input_image.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {"title": "Source anchor image"}
+  },
+  "11": {
+    "inputs": {
+      "width": 832,
+      "height": 480,
+      "num_frames": 65,
+      "noise_aug_strength": 0.0,
+      "start_latent_strength": 1.0,
+      "end_latent_strength": 1.0,
+      "force_offload": true,
+      "vae": ["4", 0],
+      "start_image": ["10", 0]
+    },
+    "class_type": "WanVideoImageToVideoEncode",
+    "_meta": {"title": "I2V Image Encode (2.2 A14B needs no CLIP-vision embeds)"}
+  },
+  "20": {
+    "inputs": {
+      "positive_prompt": "cinematic camera movement, atmospheric drift",
+      "negative_prompt": "static, frozen, no motion, deformed anatomy, extra limbs",
+      "t5": ["2", 0]
+    },
+    "class_type": "WanVideoTextEncode",
+    "_meta": {"title": "Wan Text Encode"}
+  },
+  "30": {
+    "inputs": {
+      "model": ["1", 0],
+      "image_embeds": ["11", 0],
+      "text_embeds": ["20", 0],
+      "steps": 20,
+      "cfg": 5.0,
+      "shift": 5.0,
+      "seed": 42,
+      "scheduler": "unipc",
+      "riflex_freq_index": 0,
+      "force_offload": true,
+      "start_step": 0,
+      "end_step": 10
+    },
+    "class_type": "WanVideoSampler",
+    "_meta": {"title": "Sampler pass 1 — HIGH-noise expert"}
+  },
+  "31": {
+    "inputs": {
+      "model": ["7", 0],
+      "image_embeds": ["11", 0],
+      "text_embeds": ["20", 0],
+      "samples": ["30", 0],
+      "steps": 20,
+      "cfg": 5.0,
+      "shift": 5.0,
+      "seed": 42,
+      "scheduler": "unipc",
+      "riflex_freq_index": 0,
+      "force_offload": true,
+      "start_step": 10,
+      "end_step": -1
+    },
+    "class_type": "WanVideoSampler",
+    "_meta": {"title": "Sampler pass 2 — LOW-noise expert"}
+  },
+  "40": {
+    "inputs": {
+      "vae": ["4", 0],
+      "samples": ["31", 0],
+      "enable_vae_tiling": false,
+      "tile_x": 272,
+      "tile_y": 272,
+      "tile_stride_x": 144,
+      "tile_stride_y": 128
+    },
+    "class_type": "WanVideoDecode",
+    "_meta": {"title": "Wan VAE Decode"}
+  },
+  "45": {
+    "inputs": {
+      "images": ["40", 0],
+      "fps": 17.0
+    },
+    "class_type": "CreateVideo",
+    "_meta": {"title": "Create Video"}
+  },
+  "50": {
+    "inputs": {
+      "video": ["45", 0],
+      "filename_prefix": "ZygWan22I2V",
+      "format": "mp4",
+      "codec": "h264"
+    },
+    "class_type": "SaveVideo",
+    "_meta": {"title": "Save MP4"}
+  }
+}

@@ -1,0 +1,259 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Zygomatic
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+  /* ── FAB (bottom-right floating button) ──────────────────────────────────── */
+  #lt-fab {
+    position: fixed; bottom: 16px; right: 16px; z-index: 9999;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a5f, #0d2137);
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+    overflow: hidden;
+  }
+  #lt-fab:hover { transform: scale(1.08); box-shadow: 0 6px 22px rgba(0,0,0,0.7); }
+  #lt-fab svg { width: 22px; height: 22px; }
+
+  /* heartbeat scan-dot animation */
+  @keyframes hb-scan {
+    0%   { offset-distance: 0%;   opacity: 0; }
+    5%   { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+  .hb-dot {
+    offset-path: path('M 1 9 L 5 9 L 7 18 L 13 0 L 16 9 L 20 9');
+    offset-rotate: 0deg;
+    animation: hb-scan 1.8s ease-in-out infinite;
+    fill: #39ff14;
+    filter: drop-shadow(0 0 3px #39ff14) drop-shadow(0 0 6px #39ff14);
+  }
+
+  /* ── Floating panel ───────────────────────────────────────────────────────── */
+  #lt-panel {
+    position: fixed; bottom: 70px; right: 16px; z-index: 9998;
+    width: 600px; height: 380px;
+    background: #0d1117; color: #c9d1d9;
+    border: 1px solid #30363d; border-radius: 10px;
+    display: none; flex-direction: column;
+    font-family: "Consolas","Courier New", monospace; font-size: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.75);
+    resize: both; overflow: hidden;
+  }
+  #lt-panel.open { display: flex; }
+
+  /* header */
+  #lt-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 7px 12px;
+    background: #161b22; border-bottom: 1px solid #30363d;
+    border-radius: 10px 10px 0 0; cursor: move; user-select: none;
+  }
+  #lt-header .lt-title { color: #58a6ff; font-weight: 700; font-size: 13px; }
+  #lt-header .lt-btns  { display: flex; gap: 6px; align-items: center; }
+  #lt-header button {
+    background: #21262d; color: #8b949e; border: 1px solid #30363d;
+    border-radius: 5px; padding: 2px 8px; cursor: pointer; font-size: 11px;
+    font-family: inherit;
+  }
+  #lt-header button:hover { background: #2d3748; color: #cdd; }
+  #lt-close { background: #da3633 !important; color: #fff !important; border: none !important; font-size: 13px !important; }
+
+  /* tab bar */
+  #lt-tabbar {
+    display: flex; background: #161b22; border-bottom: 1px solid #30363d;
+  }
+  .lt-tab {
+    flex: 1; padding: 5px 0;
+    background: #161b22; color: #8b949e;
+    border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; font-size: 11px; font-family: "Consolas", monospace;
+    transition: color 0.15s;
+  }
+  .lt-tab.active { background: #0d1117; color: #58a6ff; border-bottom: 2px solid #58a6ff; }
+
+  /* panes */
+  .lt-pane {
+    flex: 1; overflow-y: auto; padding: 8px 12px; display: none;
+    line-height: 1.6;
+  }
+  .lt-pane.active { display: block; }
+  #lt-pane-debug.active {
+    display: flex; flex-direction: column; overflow: hidden; padding: 0;
+  }
+  #lt-dbg-live-wrap {
+    flex: 1; min-height: 0; overflow-y: auto; padding: 8px 12px;
+    border-bottom: 1px solid #30363d;
+  }
+  #lt-dbg-meta-wrap {
+    flex: 0 0 auto; max-height: 38%; overflow-y: auto; padding: 8px 12px;
+  }
+
+  /* log lines */
+  .lt-line { margin: 1px 0; white-space: pre-wrap; word-break: break-all; }
+  .lt-line.info  { color: #8b949e; }
+  .lt-line.ok    { color: #3fb950; }
+  .lt-line.warn  { color: #d29922; }
+  .lt-line.err   { color: #f85149; }
+  .lt-line.stage { color: #58a6ff; }
+
+  /* status bar */
+  #lt-status {
+    padding: 3px 12px; background: #161b22; border-top: 1px solid #30363d;
+    border-radius: 0 0 10px 10px; color: #484f58; font-size: 10px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  #lt-copy-btn {
+    background: #21262d; color: #8b949e; border: 1px solid #30363d;
+    border-radius: 5px; padding: 1px 8px; cursor: pointer; font-size: 10px;
+    font-family: inherit; transition: background 0.15s, color 0.15s;
+  }
+  #lt-copy-btn:hover { background: #2d3748; color: #58a6ff; border-color: #58a6ff; }
+  #lt-copy-btn.copied { background: #1a3a1a; color: #3fb950; border-color: #3fb950; }
+
+  /* ── Concurrent-pipeline test picker ─────────────────────────────── */
+  #lt-sim-btn {
+    background: #1a2a1a; color: #3fb950; border: 1px solid #2d6a2d;
+    border-radius: 5px; padding: 2px 8px; cursor: pointer; font-size: 11px;
+    font-family: inherit; font-weight: 700; position: relative;
+  }
+  #lt-sim-btn:hover { background: #223322; border-color: #3fb950; }
+  #lt-sim-btn.active { background: #223322; border-color: #3fb950; color: #6ee36e; }
+  #lt-sim-popup {
+    display: none; position: fixed;
+    background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+    padding: 8px; z-index: 99999; box-shadow: 0 4px 18px rgba(0,0,0,0.7);
+    white-space: nowrap;
+  }
+  #lt-sim-popup.open { display: block; }
+  #lt-sim-popup .sim-label {
+    font-size: 10px; color: #484f58; margin-bottom: 6px; display: block;
+    font-family: "Consolas", monospace;
+  }
+  /* Wraps: the picker goes up to 100 now, so it is a grid of rows, not one
+     640px row running off the side of the screen. */
+  #lt-sim-popup .sim-nums {
+    display: flex; gap: 5px; flex-wrap: wrap; max-width: 216px;
+  }
+  .sim-num {
+    width: 32px; height: 26px; border-radius: 5px; border: 1px solid #30363d;
+    background: #161b22; color: #8b949e; cursor: pointer; font-size: 12px;
+    font-weight: 700; font-family: "Consolas", monospace;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+  .sim-num:hover { background: #21262d; color: #c9d1d9; border-color: #58a6ff; }
+  .sim-num.active { border-color: #3fb950; color: #3fb950; background: #1a2a1a; }
+  .sim-num[data-n="1"] { border-color: #3d92f8; color: #3d92f8; }
+
+  /* ── Agent sessions — skull badge, subtabs, per-session tail (2026-08-30) ──
+     The pipeline live tail only ever knew about pipeline runs. A Claude Code
+     session launching a render, a workflow or a smoke test from a terminal is
+     the other half of what holds this GPU, and it was invisible here. */
+  #lt-agents-btn {
+    background: #1c1420 !important; color: #8b6ea8 !important;
+    border: 1px solid #3a2d47 !important;
+    border-radius: 5px; padding: 2px 7px 2px 6px; cursor: pointer;
+    font-size: 11px; font-family: inherit; font-weight: 700;
+    display: flex; align-items: center; gap: 4px; line-height: 1;
+  }
+  #lt-agents-btn:hover { background: #2a1f33 !important; color: #c9a7e8 !important;
+                         border-color: #6b4d8a !important; }
+  #lt-agents-btn.active { background: #2a1f33 !important; color: #d6b4ff !important;
+                          border-color: #a06fd6 !important; }
+  /* Live = at least one session measurably on the CPU/GPU. */
+  #lt-agents-btn.live { color: #e5c2ff !important; border-color: #a06fd6 !important; }
+  #lt-agents-btn.live .lt-skull {
+    animation: lt-skull-pulse 1.6s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(190,120,255,0.75));
+  }
+  @keyframes lt-skull-pulse { 0%,100% { opacity: .62; } 50% { opacity: 1; } }
+  .lt-skull { display: block; flex: 0 0 auto; }
+  .lt-agents-count {
+    min-width: 14px; height: 14px; padding: 0 3px; border-radius: 7px;
+    background: #3a2d47; color: #b98fe0; font-size: 9px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  #lt-agents-btn.live .lt-agents-count { background: #7b3fb8; color: #fff; }
+
+  /* ── The rail — a vertical list of sessions docked to the panel's left ─────
+     Positioned in JS against #lt-panel's bounding rect (the panel is draggable
+     and resizable, and it is overflow:hidden so the rail cannot be a child).
+     Flush against the left edge, with only its own left corners rounded, so it
+     reads as one drawer pulled out of the panel rather than a floating box. */
+  #lt-agent-rail {
+    position: fixed; z-index: 9998; display: none;
+    width: 196px; box-sizing: border-box;
+    flex-direction: column; gap: 3px; padding: 7px 7px 8px;
+    background: #0d1117; color: #c9d1d9;
+    border: 1px solid #30363d; border-right: none;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -8px 8px 28px rgba(0,0,0,0.6);
+    font-family: "Consolas","Courier New", monospace;
+    overflow-y: auto; overflow-x: hidden;
+  }
+  #lt-agent-rail.open { display: flex; }
+  .lt-rail-hdr {
+    color: #b98fe0; font-size: 10px; font-weight: 700; letter-spacing: .04em;
+    padding: 1px 3px 5px; border-bottom: 1px solid #21262d; margin-bottom: 3px;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 6px;
+  }
+  .lt-rail-hdr .n { color: #484f58; font-weight: 400; }
+
+  .lt-atab {
+    display: flex; align-items: flex-start; gap: 6px;
+    width: 100%; box-sizing: border-box; text-align: left;
+    padding: 5px 7px; border-radius: 6px;
+    background: #161b22; color: #8b949e; border: 1px solid #30363d;
+    cursor: pointer; font-size: 10px; font-family: "Consolas", monospace;
+    line-height: 1.35;
+  }
+  .lt-atab:hover  { background: #251a2e; color: #c9d1d9; }
+  .lt-atab.active { background: #2a1f33; color: #d6b4ff; border-color: #a06fd6; }
+  .lt-atab .dot   { width: 6px; height: 6px; border-radius: 50%; background: #484f58;
+                    flex: 0 0 auto; margin-top: 4px; }
+  .lt-atab.busy .dot   { background: #3fb950; animation: pulse 1.2s infinite; }
+  .lt-atab.orphan .dot { background: #d29922; }
+  .lt-atab .body  { min-width: 0; flex: 1; }
+  .lt-atab .nm    { display: block; overflow: hidden; text-overflow: ellipsis;
+                    white-space: nowrap; font-weight: 700; }
+  .lt-atab .load  { display: block; color: #6b7280; font-size: 9px; margin-top: 1px; }
+  .lt-atab.busy   .load { color: #7ee8a2; }
+  .lt-atab.orphan .load { color: #d29922; }
+  .lt-atab.lt-rail-more { justify-content: center; color: #6b7280; background: transparent;
+                          border-style: dashed; margin-top: 2px; }
+  .lt-atab.lt-rail-more:hover { color: #c9d1d9; border-style: solid; }
+  .lt-rail-empty { color: #484f58; font-size: 10px; padding: 6px 3px; line-height: 1.4; }
+
+  /* per-session tail */
+  #lt-pane-agents.active { display: block; }
+  .lt-ahdr {
+    display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center;
+    padding: 6px 8px; margin-bottom: 6px;
+    background: #0d1117; border: 1px solid #21262d; border-radius: 6px;
+  }
+  .lt-ahdr .k { color: #484f58; font-size: 10px; }
+  .lt-ahdr .v { color: #c9d1d9; font-size: 11px; font-weight: 700; }
+  .lt-aproc {
+    display: grid; grid-template-columns: 54px 1fr auto; gap: 6px;
+    padding: 2px 4px; border-bottom: 1px solid #161b22; font-size: 10px;
+  }
+  .lt-aproc .pid  { color: #484f58; }
+  .lt-aproc .cmd  { color: #8b949e; overflow: hidden; text-overflow: ellipsis;
+                    white-space: nowrap; }
+  .lt-aproc .load { color: #6b7280; text-align: right; white-space: nowrap; }
+  .lt-aproc.busy .cmd  { color: #c9d1d9; }
+  .lt-aproc.busy .load { color: #7ee8a2; }
+  .lt-aline { margin: 1px 0; white-space: pre-wrap; word-break: break-word; }
+  .lt-aline.tool { color: #58a6ff; }
+  .lt-aline.say  { color: #8b949e; }
+  .lt-aline.ask  { color: #d6b4ff; }
+  .lt-aline.ok   { color: #3fb950; }
+  .lt-aline.warn { color: #d29922; }
+  .lt-aline.info { color: #6b7280; }
+  .lt-aline .t   { color: #484f58; }
+  .lt-empty { color: #484f58; font-size: 11px; padding: 10px 4px; }

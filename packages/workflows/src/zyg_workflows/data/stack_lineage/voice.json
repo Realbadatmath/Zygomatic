@@ -1,0 +1,141 @@
+{
+  "lane": "voice",
+  "label": "Voice & TTS",
+  "note": "Narration and character voices. The decisive change in this lane was architectural: both live engines are CLONERS, so a voice became a reference WAV rather than a preset name.",
+  "entities": [
+    {
+      "id": "bark", "name": "Bark / Bark-Voice-Cloning", "kind": "model", "role": "first local TTS",
+      "status": "retired", "licence": "MIT", "ended": "2026-07-15",
+      "replaced_by": ["azure_neural_tts", "kokoro_82m"],
+      "summary": "Pre-July roster TTS. Replaced by hosted voices before any dated bench on this box.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "tortoise", "name": "Tortoise TTS", "kind": "model", "role": "first local cloner",
+      "status": "retired", "licence": "Apache-2.0", "ended": "2026-07-15",
+      "replaced_by": ["azure_neural_tts"],
+      "summary": "In the old roster alongside Bark; no dated decision records why it went.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "azure_neural_tts", "name": "Azure Neural TTS", "kind": "service", "role": "hosted narration voices",
+      "status": "removed", "licence": "commercial API", "ended": "2026-08-06",
+      "replaced": ["bark", "tortoise"], "replaced_by": ["indextts2"],
+      "summary": "The hosted narration voice set. Its voice ids (en-GB-RyanNeural and 64 others) outlived it: they are still the keys 65 catalog rows, GUI dropdowns and every archived job state use, now as opaque identifiers.",
+      "issues": [
+        {"text": "A cloud dependency and a per-character cost on a pipeline that is otherwise local.", "state": "solved", "found": "2026-08-06", "fixed": "2026-08-06", "by": "indextts2", "grade": "operator", "evidence": "project_tts_stack"},
+        {"text": "The storyteller degradation badge keyed on 'azure-fallback' and would never have fired again after the swap.", "state": "solved", "found": "2026-08-06", "fixed": "2026-08-06", "grade": "measured", "evidence": "project_tts_stack"},
+        {"text": "azure_integrations.py was deliberately NOT touched — it is blob upload and EventGrid, not TTS.", "state": "accepted", "found": "2026-08-06", "grade": "receipt", "evidence": "project_tts_stack"}
+      ],
+      "sources": ["project_tts_stack"]
+    },
+    {
+      "id": "edge_tts", "name": "edge-tts", "kind": "tool", "role": "free hosted narration stopgap",
+      "status": "retired", "licence": "unofficial endpoint", "ended": "2026-07-30",
+      "replaced_by": ["kokoro_82m"],
+      "summary": "Used with Azure for narration until the Kokoro stopgap and the pause-map assembler landed.",
+      "issues": [],
+      "sources": ["project_narration_audio"]
+    },
+    {
+      "id": "kokoro_82m", "name": "Kokoro-82M", "kind": "model", "role": "local narration stopgap",
+      "status": "removed", "licence": "Apache-2.0", "adopted": "2026-07-15", "ended": "2026-08-06",
+      "replaced": ["edge_tts"], "replaced_by": ["indextts2"],
+      "summary": "The first local-only narration voice and the fastest thing this stack has ever had at ~0.03x real time. Removed from the codebase when the cloners won the bake-off.",
+      "issues": [
+        {"text": "A preset-voice model: no cloning, so a character's voice could not be a reference recording.", "state": "solved", "found": "2026-08-06", "fixed": "2026-08-06", "by": "indextts2", "grade": "operator", "evidence": "project_tts_stack"},
+        {"text": "It could degrade to CPU when VRAM was short; its replacements cannot, which is why a VRAM gate had to be built.", "state": "solved", "found": "2026-08-06", "fixed": "2026-10-02", "by": "indextts2", "grade": "measured", "evidence": "project_tts_stack"}
+      ],
+      "sources": ["project_tts_stack"]
+    },
+    {
+      "id": "fish_speech_s2pro", "name": "Fish-Speech S2-Pro", "kind": "model", "role": "registered TTS candidate",
+      "status": "removed", "licence": "CC-BY-NC-SA", "ended": "2026-07-15",
+      "summary": "Registered in the roster and removed on 2026-07-15 without ever being used; Kokoro stayed primary.",
+      "issues": [
+        {"text": "Removed unused — the roster diff and .tts_removal_backups_20260715 are the only record of why it was there.", "state": "open", "found": "2026-07-15", "grade": "receipt", "evidence": "docs/stack_upgrade_history.md §1"}
+      ],
+      "sources": ["docs/stack_upgrade_history.md §1"]
+    },
+    {
+      "id": "orpheus_3b", "name": "Orpheus-3B", "kind": "model", "role": "registered TTS candidate",
+      "status": "removed", "licence": "Apache-2.0", "ended": "2026-07-15",
+      "summary": "Same as Fish-Speech: registered, never used, removed in the 07-15 cleanup.",
+      "issues": [],
+      "sources": ["docs/stack_upgrade_history.md §1"]
+    },
+    {
+      "id": "indextts2", "name": "IndexTTS-2", "kind": "model", "role": "primary TTS everywhere",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-08-06",
+      "replaced": ["kokoro_82m", "azure_neural_tts"],
+      "where": "tts_service._tts_shared, indextts2_worker.py (py3.11 venv)",
+      "summary": "Won a blind bake-off and became the single TTS entry point for every pipeline. Emotion is inferred from the text itself (use_emo_text), so there is no markup to maintain.",
+      "issues": [
+        {"text": "Replaced presets with cloning: a voice is now a reference WAV, and _voice_seed_for() maps a legacy voice id to a deterministic seed so the same id sounds the same across chunks, runs and episodes.", "state": "solved", "fixed": "2026-08-06", "grade": "receipt", "evidence": "project_tts_stack"},
+        {"text": "It preserves child timbre, which Maya1's voice design could not produce at all.", "state": "solved", "fixed": "2026-08-06", "grade": "measured", "evidence": "project_abel_child_voice"},
+        {"text": "Speed regression accepted on the operator's call: ~0.03x real time under Kokoro became ~0.83x, so a 10-minute narration went from seconds to 8-10 minutes of GPU time.", "state": "accepted", "found": "2026-08-06", "grade": "measured", "evidence": "project_tts_stack"},
+        {"text": "19.7 GB of real VRAM, not the 10-12 GB folklore — the emotion LLM, w2v-bert and BigVGAN are all resident. The worker exits 3 below ZYG_INDEXTTS_MIN_VRAM_MB (21000).", "state": "accepted", "found": "2026-08-06", "grade": "measured", "evidence": "project_tts_stack"},
+        {"text": "That VRAM gate killed a documentary at Stage 4 — a kids song left 18508 MiB free and research, script, tagging and emotion analysis were thrown away because another job held 2.5 GB too much for a moment.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-02", "grade": "measured", "evidence": "project_tts_stack"},
+        {"text": "Emits no word timings, so the existing Whisper backfill is still the timing source.", "state": "mitigated", "found": "2026-08-06", "grade": "receipt", "evidence": "project_tts_stack"},
+        {"text": "It is now the ONLY working engine: with Chatterbox gone there is no fallback, and a give-up is a failed job.", "state": "open", "found": "2026-10-02", "grade": "measured", "evidence": "project_tts_stack"}
+      ],
+      "sources": ["project_tts_stack", "project_tts_research_2026"]
+    },
+    {
+      "id": "chatterbox", "name": "Chatterbox", "kind": "model", "role": "the only TTS fallback",
+      "status": "removed", "licence": "MIT (Perth watermark)", "adopted": "2026-08-06", "ended": "2026-10-02",
+      "replaced_by": ["indextts2"],
+      "summary": "~4.1 GB cloner kept as the fallback under the 21 GB VRAM gate, and as an EU AI Act Art.50 watermarking asset. Retired on the operator's call once its venv was gone.",
+      "issues": [
+        {"text": "It designed Abel's child voice with a DSP transform when Maya1 could not.", "state": "solved", "fixed": "2026-08-06", "grade": "measured", "evidence": "project_abel_child_voice"},
+        {"text": "Dead since 02:36 on 2026-10-02: the disk sweep deleted its sibling venv, so every 'falling back to Chatterbox' line logged after that actually meant 'giving up' — and it cost an episode. The guard now says whether a fallback can really run.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-02", "grade": "measured", "evidence": "project_tts_stack, project_disk_audit_aug25"},
+        {"text": "Retired rather than reinstalled ('current TTS works fine'), which leaves the lane single-engine. install_chatterbox.sh still exists.", "state": "accepted", "found": "2026-10-02", "grade": "operator", "evidence": "project_disk_audit_aug25"}
+      ],
+      "sources": ["project_tts_stack", "project_abel_child_voice"]
+    },
+    {
+      "id": "maya1", "name": "Maya1", "kind": "model", "role": "voice designer",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-08-06",
+      "summary": "Not a pipeline voice: it DESIGNS reference wavs. The 16-voice seed pool (8m/8f) every legacy voice id maps onto is Maya1 output, which is why the pool carries no consent exposure. Still the designer for creature voices.",
+      "issues": [
+        {"text": "Could not design a child voice — all 11 candidates came back adult male, so the child path went to Chatterbox + DSP and then to IndexTTS-2.", "state": "solved", "found": "2026-08-06", "fixed": "2026-08-06", "by": "indextts2", "grade": "measured", "evidence": "project_abel_child_voice"}
+      ],
+      "sources": ["project_abel_child_voice", "project_ubi_voice_bench"]
+    },
+    {
+      "id": "applio_rvc", "name": "Applio RVC", "kind": "tool", "role": "voice conversion to a fixed singer",
+      "status": "live", "licence": "MIT (+ ToU: must own the audio)", "adopted": "2026-09-15",
+      "where": "voice_conversion.py, tools/vc_applio_worker.py (py3.12 venv)",
+      "summary": "Converts a rendered kids-song vocal to the fixed Warm Control voice. Wired in for adult_male with pinned weights, a per-song ship_check and an unconverted A/B kept on the card.",
+      "issues": [
+        {"text": "v1 failed one pre-registered criterion (the model was an AVERAGE of its renditions); v2, built by keeping only renditions with TitaNet cosine to the reference above the median, passed all of them.", "state": "solved", "found": "2026-09-15", "fixed": "2026-09-15", "grade": "measured", "evidence": "project_kidsmusic_voice_conversion"},
+        {"text": "It was eating the words: unprompted intelligibility 70.7% unconverted → 62.0% converted, worse on 13 of 16 songs, 25 of 216 lines crossed clear→unclear. Now gated — ship_check compares bare-decode clarity before and after, and 9 of 16 real conversions are refused.", "state": "solved", "found": "2026-10-03", "fixed": "2026-10-03", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "Output level drifts −6..+5 dB vs source and some stems come back 441 samples early — both corrected in the wrapper (sung-RMS gain match, envelope xcorr align) rather than in Applio.", "state": "mitigated", "found": "2026-09-15", "grade": "measured", "evidence": "project_kidsmusic_voice_conversion"},
+        {"text": "Only one real Warm Control take exists to train on (Red Train rt_m01), so the voice model is built from renditions of itself.", "state": "open", "found": "2026-09-15", "grade": "measured", "evidence": "project_kidsmusic_voice_conversion"},
+        {"text": "Headless Applio never writes assets/config.json, so every end-of-training weight extraction failed with ENOENT while the checkpoints saved fine.", "state": "solved", "found": "2026-09-15", "fixed": "2026-09-15", "grade": "measured", "evidence": "project_kidsmusic_voice_conversion"}
+      ],
+      "sources": ["project_kidsmusic_voice_conversion", "project_kidsmusic_intelligibility"]
+    },
+    {
+      "id": "ddsp_svc", "name": "DDSP-SVC", "kind": "tool", "role": "candidate voice conversion",
+      "status": "rejected", "licence": "MIT root, CC-BY-NC-SA vocoder", "ended": "2026-09-15",
+      "summary": "Never installed. Its REQUIRED openvpi NSF-HiFiGAN vocoder is non-commercial — the root-licence trap again, after a 09-06 research note had called the project MIT.",
+      "issues": [
+        {"text": "Required vocoder is CC BY-NC-SA. Caught only because licences are read at FILE level, not at the repo root.", "state": "open", "found": "2026-09-15", "grade": "licence", "evidence": "project_kidsmusic_voice_conversion, feedback_licence_policy"}
+      ],
+      "sources": ["project_kidsmusic_voice_conversion"]
+    },
+    {
+      "id": "voice_seed_pool", "name": "Voice seed pool", "kind": "tool", "role": "the voices themselves",
+      "status": "live", "licence": "wholly synthetic", "adopted": "2026-08-06",
+      "where": "data/assets/voice_seeds/pool/",
+      "summary": "16 Maya1-designed reference wavs plus a manifest. This is what 'a voice' means in the stack now; drop wavs in and update the manifest to grow it.",
+      "issues": [
+        {"text": "Synthetic by design, so no consent or likeness exposure — the reason the cloner swap was safe to make.", "state": "solved", "fixed": "2026-08-06", "grade": "licence", "evidence": "project_tts_stack"}
+      ],
+      "sources": ["project_tts_stack"]
+    }
+  ]
+}

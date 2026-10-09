@@ -1,0 +1,134 @@
+{
+  "10": {
+    "inputs": {
+      "unet_name": "qwen_image_2512_fp8_e4m3fn.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {"title": "Load Qwen-Image-2512 (Apache-2.0 — replaces NC FLUX-Fill)"}
+  },
+  "11": {
+    "inputs": {
+      "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {"title": "Qwen text encoder"}
+  },
+  "12": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {"title": "Qwen VAE"}
+  },
+  "14": {
+    "inputs": {
+      "image": "source.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {"title": "Load Source Crop"}
+  },
+  "46": {
+    "inputs": {
+      "image": "mask.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {"title": "Load Mask Image"}
+  },
+  "47": {
+    "inputs": {
+      "image": ["46", 0],
+      "channel": "red"
+    },
+    "class_type": "ImageToMask",
+    "_meta": {"title": "Mask from red channel"}
+  },
+  "20": {
+    "inputs": {
+      "text": "a person with anatomically correct hands, five fingers per hand, detailed knuckles and nails, natural hand skin texture, photographic detail",
+      "clip": ["11", 0]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Positive (descriptive, not instruction)"}
+  },
+  "21": {
+    "inputs": {
+      "text": "extra fingers, fused fingers, missing fingers, deformed hands, mutated hands, blurry",
+      "clip": ["11", 0]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Negative"}
+  },
+  "22": {
+    "inputs": {
+      "control_net_name": "Qwen-Image-InstantX-ControlNet-Inpainting.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {"title": "InstantX Qwen Inpaint CN (Apache-2.0)"}
+  },
+  "23": {
+    "inputs": {
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "control_net": ["22", 0],
+      "vae": ["12", 0],
+      "image": ["14", 0],
+      "mask": ["47", 0],
+      "strength": 1.0,
+      "start_percent": 0.0,
+      "end_percent": 1.0
+    },
+    "class_type": "ControlNetInpaintingAliMamaApply",
+    "_meta": {"title": "Masked inpaint conditioning"}
+  },
+  "26": {
+    "inputs": {
+      "shift": 3.1,
+      "model": ["10", 0]
+    },
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": {"title": "AuraFlow shift"}
+  },
+  "30": {
+    "inputs": {
+      "pixels": ["14", 0],
+      "vae": ["12", 0]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {"title": "Encode source latent"}
+  },
+  "31": {
+    "inputs": {
+      "model": ["26", 0],
+      "positive": ["23", 0],
+      "negative": ["23", 1],
+      "latent_image": ["30", 0],
+      "seed": 42,
+      "steps": 20,
+      "cfg": 2.5,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    },
+    "class_type": "KSampler",
+    "_meta": {"title": "KSampler (HandFixer Qwen inpaint)"}
+  },
+  "40": {
+    "inputs": {
+      "samples": ["31", 0],
+      "vae": ["12", 0]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {"title": "Decode"}
+  },
+  "50": {
+    "inputs": {
+      "filename_prefix": "ZygHandFixerQwen",
+      "images": ["40", 0]
+    },
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}

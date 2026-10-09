@@ -1,0 +1,236 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<title>Farmyard Register Dossier</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#f3f5f4; --panel:#ffffff; --ink:#16211f; --muted:#5b6866; --rule:#d3dbd8;
+  --accent:#0f6e68; --accent-soft:#d9ecea; --warn:#a2661a; --warn-soft:#f5e7cf; --bad:#a23a2e; --bad-soft:#f4dcd8;
+  --code:#eef2f1;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0f1513; --panel:#161e1c; --ink:#e4ebe8; --muted:#98a6a2; --rule:#2a3532;
+    --accent:#4fb8af; --accent-soft:#173532; --warn:#d9a24a; --warn-soft:#3a2d16; --bad:#e07b6c; --bad-soft:#3d1f1b;
+    --code:#1c2523;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0f1513; --panel:#161e1c; --ink:#e4ebe8; --muted:#98a6a2; --rule:#2a3532;
+  --accent:#4fb8af; --accent-soft:#173532; --warn:#d9a24a; --warn-soft:#3a2d16; --bad:#e07b6c; --bad-soft:#3d1f1b;
+  --code:#1c2523;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;margin:0}
+main{max-width:76ch;margin:0 auto;padding:40px 24px 80px}
+h1,h2,h3{font-family:"Sora","Avenir Next","Segoe UI",sans-serif;text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:2.1rem;font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.35rem;font-weight:700;margin-top:56px;padding-top:18px;border-top:2px solid var(--rule)}
+h3{font-size:1.05rem;font-weight:600;margin-top:28px}
+p{margin:14px 0}
+.eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.lede{font-size:1.15rem;color:var(--ink);margin-top:18px}
+.meta{color:var(--muted);font-size:.9rem;margin-top:8px}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+code{background:var(--code);padding:1px 5px;border-radius:3px}
+pre{background:var(--code);padding:14px 16px;border-radius:6px;overflow-x:auto;font-size:.84rem;line-height:1.5}
+pre code{background:none;padding:0}
+.verdict{background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--accent);padding:18px 22px;margin:28px 0}
+.verdict p{margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:.95rem;margin:16px 0}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--rule)}
+th{font-family:"Sora",sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+td.num,.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:.86rem;white-space:nowrap}
+.pill{display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;letter-spacing:.04em;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.ok{background:var(--accent-soft);color:var(--accent)}
+.warn{background:var(--warn-soft);color:var(--warn)}
+.bad{background:var(--bad-soft);color:var(--bad)}
+ul,ol{padding-left:1.3em}
+li{margin:6px 0}
+figure{margin:24px 0;background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:16px 16px 10px}
+figcaption{font-size:.88rem;color:var(--muted);margin-top:8px}
+.chartwrap{overflow-x:auto}
+svg text{font-family:"Source Sans 3",sans-serif;fill:var(--ink)}
+svg .lab{font-size:12px}
+svg .tick{font-family:"JetBrains Mono",monospace;font-size:10.5px;fill:var(--muted)}
+svg .band{fill:var(--accent);opacity:.28}
+svg .band.zone{fill:var(--muted);opacity:.22}
+svg .band.bad{fill:var(--bad);opacity:.3}
+svg .band.meter{fill:var(--warn);opacity:.35}
+svg .axis{stroke:var(--rule);stroke-width:1}
+svg .pass{fill:var(--bad);opacity:.10}
+svg .mark{fill:var(--ink)}
+.plan li{margin:10px 0}
+.small{font-size:.9rem;color:var(--muted)}
+.src{font-size:.82rem;color:var(--muted);line-height:1.5;word-break:break-word}
+.src li{margin:3px 0}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+<main>
+<div class="eyebrow">Children's Music · job 0fc29420eb5a · research only, nothing changed</div>
+<h1>Farmyard Register Dossier</h1>
+<p class="lede">Why the singer keeps coming out shrill, why every repair made it worse, and where the fixes actually live. Read from code on this box plus four research sweeps, 6 September 2026.</p>
+<p class="meta">Scope: the ACE-Step 1.5 turbo graph in <span class="mono">kids_music_service.py</span>, the Praat meter in <span class="mono">models/voice_analysis</span>, and the three sweeps under the Farmyard job.</p>
+
+<div class="verdict">
+<p><strong>The short version.</strong> Four separate things went wrong, and none of them was the pitch shifter.</p>
+<p>1 · The melody is composed above every female voice's first passaggio. A4-centred, D5-topped is where a woman belts or flips to head voice. No caption can make that warm.</p>
+<p>2 · The pipeline never touched the model's only real melody lever. The audio-to-audio route only seeds the sampler noise. ACE-Step's cover path, which re-performs a source at the source's pitch, sits unused in the installed ComfyUI as the "Reference Audio" node.</p>
+<p>3 · The meter clipped at 550 Hz on a voice that spends a fifth of its time above that. Its non-monotonic readings are the ceiling and the octave-jump cost, not noise.</p>
+<p>4 · Every post-hoc shift ran rubberband's older R2 engine through ffmpeg. The better R3 engine is one apt package away, and the artefacts are physics anyway: a −4 st shift keeps a high-note vocal tract on a note that never had one.</p>
+</div>
+
+<h2>What is actually measurable here</h2>
+<figure>
+<div class="chartwrap">
+<svg viewBox="0 0 780 300" width="780" height="300" role="img" aria-label="Log-frequency chart comparing the composed melody band, the picked take's pitch track, the Praat meter window, child and adult comfortable ranges, and female passaggio zones">
+  <!-- passaggio zones -->
+  <rect class="pass" x="212" y="20" width="136" height="232"/>
+  <rect class="pass" x="461" y="20" width="89" height="232"/>
+  <text class="lab" x="280" y="34" text-anchor="middle" style="font-size:11px;fill:var(--bad)">primo passaggi Eb4–A4</text>
+  <text class="lab" x="505" y="34" text-anchor="middle" style="font-size:11px;fill:var(--bad)">secondo D5–F#5</text>
+  <!-- rows -->
+  <g>
+    <text class="lab" x="40" y="56">Warm chest zone (G3–G4)</text>
+    <rect class="band zone" x="40" y="60" width="263" height="10"/>
+    <text class="lab" x="40" y="88">Untrained adults comfortable (Bb3–G4, Kuhn 98 %)</text>
+    <rect class="band zone" x="100" y="92" width="203" height="10"/>
+    <text class="lab" x="40" y="120">Children comfortable (D4–A4, Rutkowski/Kodály)</text>
+    <rect class="band" x="190" y="124" width="158" height="10"/>
+    <text class="lab" x="40" y="152">Composer band, preschool (C4–D5) · median A4</text>
+    <rect class="band" x="145" y="156" width="316" height="10"/>
+    <rect class="mark" x="346" y="153" width="4" height="16"/>
+    <text class="lab" x="40" y="184">Picked take, bright soprano · median · p95 · peak</text>
+    <rect class="band bad" x="317" y="188" width="232" height="10"/>
+    <rect class="mark" x="315" y="185" width="4" height="16"/>
+    <rect class="mark" x="547" y="185" width="4" height="16"/>
+    <rect class="mark" x="725" y="185" width="4" height="16"/>
+    <text class="lab" x="40" y="216">Praat meter window (70–550 Hz ceiling)</text>
+    <rect class="band meter" x="40" y="220" width="395" height="10"/>
+    <text class="lab" x="442" y="229" style="font-size:11px;fill:var(--warn)">everything right of here is unread</text>
+  </g>
+  <!-- axis -->
+  <line class="axis" x1="40" y1="252" x2="740" y2="252"/>
+  <g class="tick">
+    <line class="axis" x1="145" y1="252" x2="145" y2="258"/><text x="145" y="272" text-anchor="middle">C4 262</text>
+    <line class="axis" x1="235" y1="252" x2="235" y2="258"/><text x="235" y="272" text-anchor="middle">E4 330</text>
+    <line class="axis" x1="303" y1="252" x2="303" y2="258"/><text x="303" y="272" text-anchor="middle">G4 392</text>
+    <line class="axis" x1="348" y1="252" x2="348" y2="258"/><text x="348" y="287" text-anchor="middle">A4 440</text>
+    <line class="axis" x1="416" y1="252" x2="416" y2="258"/><text x="416" y="272" text-anchor="middle">C5 523</text>
+    <line class="axis" x1="461" y1="252" x2="461" y2="258"/><text x="461" y="287" text-anchor="middle">D5 587</text>
+    <line class="axis" x1="506" y1="252" x2="506" y2="258"/><text x="506" y="272" text-anchor="middle">E5 659</text>
+    <line class="axis" x1="574" y1="252" x2="574" y2="258"/><text x="574" y="272" text-anchor="middle">G5 784</text>
+    <line class="axis" x1="687" y1="252" x2="687" y2="258"/><text x="687" y="272" text-anchor="middle">C6 1047</text>
+    <text x="40" y="272" text-anchor="start">200 Hz</text>
+    <text x="740" y="272" text-anchor="end">1200 Hz</text>
+  </g>
+</svg>
+</div>
+<figcaption>Log-frequency axis. Passaggio positions are Richard Miller's (soprano primo Eb4, mezzo E4, contralto G#4–A4; secondo D5–F#5). The take's pitch track is the soprano_grid basis: median 406, p95 736, peak 1162 Hz, 22 % of voiced time above 500 Hz. The meter never saw that top fifth.</figcaption>
+</figure>
+
+<p>Two things fall out of the picture. The composed band and the comfortable adult band barely overlap, so the singer is performing outside where a warm voice exists. And the meter's window ends inside the melody band, so its median was computed on a censored distribution. Both are design facts, not seed luck.</p>
+
+<h2>Problem by problem</h2>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Problem</th><th>Root cause found</th><th>Solution with real evidence</th><th>Licence</th></tr></thead>
+<tbody>
+<tr><td>Singer too high and shrill</td><td>Melody centred A4, top D5, by the preschool band (C4–D5) in <span class="mono">kids_music_theory.AGE_BANDS</span></td><td>Compose so the median sits F4–G4 and the top at A4–B4. Still inside every age-3+ sing-along range (D4–B4) and lands the adult in the mezzo blend zone.</td><td><span class="pill ok">none</span></td></tr>
+<tr><td>Register won't follow the score</td><td>a2a graph = VAE-encoded melody as the sampler's start latent; the melody the DiT actually follows comes from LM codes generated from text</td><td>Use ACE-Step's cover task: ComfyUI's <span class="mono">ReferenceTimbreAudio</span> node with <span class="mono">generate_audio_codes</span> off. Source audio is tokenised into the 5 Hz semantic codes ("note direction and pitch, rhythm, chords").</td><td><span class="pill ok">MIT model</span></td></tr>
+<tr><td>Caption doesn't move the voice</td><td>Trained caption vocabulary has female/male, breathy, powerful, falsetto, raspy, choir, and timbre words. No alto/mezzo/contralto/age terms; no vocal field in the LM's metas</td><td>Stop spending renders on caption wording. Register is not text-controllable by any documented term.</td><td>—</td></tr>
+<tr><td>Meter fails calibration</td><td>Praat 6.1.38, autocorrelation, floor 70 / ceiling 550 Hz, speech octave-jump cost; formant-dispersion VTL is meaningless above ~400 Hz</td><td>RMVPE (the only tracker trained on polyphonic mixes) as primary, SwiftF0 on CPU as cross-check; validate on Vocadito, keep the log-spectrum cross-correlation as the relative check.</td><td><span class="pill ok">MIT / Apache</span></td></tr>
+<tr><td>Every repair sounds worse</td><td>ffmpeg's rubberband filter hard-codes the R2 realtime engine; singers tune F1 to F0 on high notes, so a preserved envelope is the wrong envelope; formant-follow enlarges the tract</td><td>If a shift must happen: rubberband R3 via the CLI or Signalsmith Stretch, at most 2–3 st. Better: don't shift, re-perform (cover) or convert (Seed-VC with semitone shift).</td><td><span class="pill warn">GPL tool ok</span></td></tr>
+<tr><td>Split-shift-glue was worst</td><td>Phase-vocoding the accompaniment smears every transient; demucs bleed becomes a detuned ghost in the other stem</td><td>Never transpose the band with a vocoder. If stems are needed, BS-RoFormer separates 2–4 dB cleaner, but its best weights carry no declared licence.</td><td><span class="pill bad">weights unknown</span></td></tr>
+<tr><td>Nobody can hear the result</td><td>The only ranking signal was a broken F0 median</td><td>Best-of-N with a pre-filter: RMVPE median + DIN 45692 sharpness + 2–8 kHz ratio on the stem, SingMOS / Audiobox Aesthetics for quality, human picks the final. Gains are monotone to N≈10.</td><td><span class="pill ok">MIT · CC BY</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>1 · The melody is the first problem</h2>
+<p>The composer's preschool band is C4–D5. A D-major pentatonic tune drawn inside it settles around A4 with D5 on top. That is legitimate for a child: Kodály practice gives age 3 D4–B4 and age 5 C4–C5, and Welch's review puts the comfortable range for five-to-seven-year-olds at a sixth from middle C. It is not where an adult woman sounds warm.</p>
+<ul>
+<li><strong>Passaggi.</strong> Miller's first passaggio is Eb4 for sopranos, E4 for mezzos, G#4–A4 for contraltos. The second is D5 (contralto) to F#5 (soprano). A melody living at A4–D5 forces either a belt/mix or a light head voice on every voice type.</li>
+<li><strong>Untrained adults.</strong> Kuhn's 1979 sample: 98 % sing Bb3–G4 comfortably, 84 % reach B4, 75 % reach C5. Warm chest voice is roughly G3–G4.</li>
+<li><strong>Commercial kids' recordings</strong> sit lower than this tune. Baby Shark's melody spans D4–Ab4. Most nursery rhymes span a sixth centred F4–A4.</li>
+<li><strong>The tension with sing-along is real but small.</strong> Pedagogy warns against pitching songs low for adults, and children copy an adult female model better than a male one. A pentatonic centred F4–G4 with a B4 top keeps D4–B4 and moves the adult out of the C5–D5 flip zone.</li>
+</ul>
+<p class="small">The operator's own pick supports this reading: of ten captions the one judged best-sounding was "bright soprano", and the complaint was that it was too high, not that it was the wrong kind of voice.</p>
+
+<h2>2 · The lever the graph never pulled</h2>
+<p>Read from the installed ComfyUI 0.22.0 (<span class="mono">comfy/model_base.py</span> around line 1845 and <span class="mono">comfy/ldm/ace/ace_step15.py</span> <span class="mono">prepare_condition</span>):</p>
+<ul>
+<li><strong>Text-to-music (current graph).</strong> No reference → <span class="mono">refer_audio</span> is a silence latent, <span class="mono">is_covers=False</span>, and the DiT's melodic context comes from the 5 Hz audio codes the 1.7B LM generates from the caption, lyrics and the four metas (bpm, duration, keyscale, timesignature). The a2a variant only swaps the sampler's starting latent for the soundfont render at denoise 0.45. That constrains texture and timing, not the codes. The measured 0.00 st of vocal movement for a −12 transpose is what this design predicts.</li>
+<li><strong>Cover (the unused node).</strong> Feeding a latent into <span class="mono">ReferenceTimbreAudio</span> sets <span class="mono">is_covers=True</span>, drops the LM codes, and tokenises the reference itself into the semantic codes that become the DiT's source context. The same latent also feeds the four-layer timbre encoder. Official docs describe source audio as carrying "melody: note direction and pitch; rhythm; chords; orchestration; some timbre", and the maintainer calls the result "between a cover and a remix": sparse, mid-tempo material can hold the full melody, dense material drifts.</li>
+<li><strong>What to feed it.</strong> Two candidates, both needing a listening test: the raw take the operator liked, pitched down 4 st with any shifter (artefacts don't matter, the model re-performs), or the soundfont render transposed down with the caption asking for the singer. A nursery arrangement is exactly the sparse case the maintainer says holds melody.</li>
+<li><strong>Limits.</strong> ComfyUI exposes cover at full strength only; the reference implementation's <span class="mono">audio_cover_strength</span> and <span class="mono">cover_noise_strength</span> dials are not in the native node. The official timbre reference (a global 30 s vector, trained on stems) is a different feature and is not what the node does.</li>
+</ul>
+<p>Also verified: a ComfyUI latent batch shares one LM plan. Only sampler noise differs across the batch. Holding the encoder seed and varying the KSampler seed, and the reverse, attributes the register variance to the LM or to diffusion. If it is the LM, lowering <span class="mono">temperature</span> and <span class="mono">top_p</span> on the encoder node narrows it.</p>
+
+<h2>3 · Captions and LoRAs</h2>
+<p>The official prompt vocabulary for vocals is short: female vocal, male vocal, breathy, powerful, falsetto, raspy, choir, plus timbre words (warm, bright, crisp, muddy, airy, punchy, lush, raw, polished) and lyric tags such as <span class="mono">[whispered]</span> and <span class="mono">[powerful belting]</span>. Captions were machine-written by a Qwen2.5-Omni captioner, so anything outside that list is a guess. Nothing official or anecdotal shows a term that lowers register. The closest known issue is ACE-Step v1 #276: female vocals "always" come out one way regardless of prompt.</p>
+<p><strong>A register LoRA is feasible but unproven.</strong> The official tutorial trains on 8–20 songs in about an hour on 12–20 GB. SimpleTuner on this box already targets <span class="mono">v15-turbo</span>. The blocker is data: licence-clean low-female singing is VocalSet (CC BY 4.0, exercises, not songs) or self-recorded. OpenSinger, M4Singer, GTSinger and CSD are non-commercial. One community LoRA trained on 233 vocal-stem clips exists with no measured transfer.</p>
+
+<h2>4 · A meter that can be trusted on singing</h2>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Tracker</th><th>MIR-1K</th><th>Vocadito</th><th>Noisy</th><th>Licence</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>RMVPE</td><td class="num">96.0</td><td class="num">96.4</td><td class="num">68.5</td><td><span class="pill ok">MIT weights</span></td><td>Only model trained on polyphonic mixes; at 0 dB SNR holds 82–98 % where CREPE drops to 61 %. <span class="mono">pip rmvpe-onnx</span></td></tr>
+<tr><td>SwiftF0</td><td class="num">95.0</td><td class="num">92.6</td><td class="num">74.0</td><td><span class="pill ok">MIT</span></td><td>95k params, 132 ms per 5 s on CPU; trained on MIR-1K so validate on Vocadito</td></tr>
+<tr><td>CREPE (tf)</td><td class="num">95.7</td><td class="num">95.6</td><td class="num">53.8</td><td><span class="pill ok">MIT</span></td><td>Slow on CPU. torchcrepe's converted weights score 71.4 on MIR-1K: avoid</td></tr>
+<tr><td>Praat ac</td><td class="num">92.6</td><td class="num">88.2</td><td class="num">65.3</td><td><span class="pill warn">GPL-3</span></td><td>Current meter. Filtered autocorrelation needs Praat ≥ 6.4; the venv bundles 6.1.38</td></tr>
+<tr><td>pYIN</td><td class="num">91.2</td><td class="num">79.5</td><td class="num">43.2</td><td><span class="pill ok">ISC</span></td><td>Already in librosa; collapses with bleed</td></tr>
+<tr><td>PESTO</td><td class="num">98.5</td><td class="num">95.8</td><td class="num">—</td><td><span class="pill warn">LGPL-3</span></td><td>Clean-vocal figures only</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small">Scores are the lars76 pitch-benchmark harmonic mean at ±50 cents. "Noisy" is PTDB with added noise.</p>
+<p><strong>Why the old meter read −3 st higher than −2 st.</strong> The ceiling drops every frame above 550 Hz, so the median moves as the shift pulls different frames in and out of the window. The 0.35 octave-jump cost is tuned for speech continuity and penalises sung leaps. Formant-harmonic coincidence gives octave errors, and reverb tails add 3–6 % gross errors in singing studies. The VTL number is worse: formant dispersion cannot be read when harmonics are spaced wider than the formants, which is the case above ~400 Hz.</p>
+<p><strong>Calibration protocol.</strong> Vocadito (CC BY 4.0, 40 solo excerpts with frame-level F0) as clean truth. Mix its vocals with the soundfont band at 0/5/10 dB, run demucs, score raw pitch accuracy and its octave-blind twin. A meter is trustworthy for register when the two agree and median error is under 30 cents. Report the confidence-weighted median with p10/p90, never a mean. Keep the log-spectrum cross-correlation as the relative check on every production take.</p>
+<p><strong>Shrillness is not the same axis.</strong> "Time above 500 Hz" measures register and would call a warm soprano shrill. Perceived brightness tracks spectral centroid and DIN 45692 sharpness (MoSQITo, Apache-2.0), and voice "ring" tracks the 2–8 kHz energy share. A rank score of z(F0 median) + z(sharpness) + z(2–8 kHz ratio), computed on the stem, covers both complaints.</p>
+<p>No permissively licensed singing gender or age classifier exists. The Deezer STraDa model was never released, audeering's wav2vec2 model is CC BY-NC-SA, Essentia's is AGPL with NC weights. CLAP zero-shot for alto versus soprano has no published validation. Quality predictors that are usable: SingMOS (MIT) and Audiobox Aesthetics (CC BY 4.0). SongEval and MuQ-MuLan are NC.</p>
+
+<h2>5 · Why the shifts sounded wrong, and what would sound less wrong</h2>
+<ul>
+<li><strong>Formant tuning.</strong> Singers raise F1 toward F0 on high notes and modify vowels. Preserving that envelope while dropping the note leaves a high-note tract on a note that never had one. Cabrera et al. propose transforming the envelope with pitch for exactly this reason. Letting formants follow instead builds a larger tract, which is the "too manly" result.</li>
+<li><strong>Effort cues.</strong> A loud high note has a flatter spectral tilt. Shifting it down keeps the effortful brightness on a note that should be relaxed. Vibrato extent and breath noise are carried verbatim.</li>
+<li><strong>Engine.</strong> ffmpeg's <span class="mono">af_rubberband.c</span> hard-codes the realtime R2 engine. The R3 engine ("almost always better, especially vocals") needs <span class="mono">rubberband -3 -p -4 -F</span> from the CLI package, which is not installed. Signalsmith Stretch (MIT, <span class="mono">pip python-stretch</span>) is R3-class at a third of the CPU and can also shift formants alone at pitch 0.</li>
+<li><strong>Industry ceiling.</strong> Melodyne guidance compensates formants past about 2 st and accepts aggressive shifts only on backing vocals. Artefacts are reported past 3–4 st. The −4/−5 st tried here is past the lead-vocal range.</li>
+<li><strong>Licence.</strong> Rubber Band is GPL. As a tool whose output contains none of its code, that is the tool rule, not the asset rule.</li>
+</ul>
+<h3>Voice conversion instead of pitch shifting</h3>
+<p>Singing voice conversion re-synthesises the stem at the new pitch with a target timbre, which sidesteps the frozen-envelope problem. Seed-VC is zero-shot from a 1–30 s reference with <span class="mono">--semi-tone-shift</span> and <span class="mono">--f0-condition</span>; code and weights are GPL-3 (tool rule), but its training data is undisclosed, which is the actual risk. RVC and DDSP-SVC are MIT with VCTK pretrains but need a trained target voice. so-vits-svc is AGPL and academic-only. The only clean target-voice data found is VocalSet (CC BY 4.0) or a self-recorded singer. The stem then still has to be re-summed with an accompaniment in the new key, which is where the split-shift-glue failure came from; a cover render avoids that entirely.</p>
+<h3>Leave the pitch, warm the timbre</h3>
+<p>If the complaint is partly "shrill" rather than only "high": dynamic EQ cut of about 3 dB at 2.5–4.5 kHz when it rings (ffmpeg <span class="mono">adynamicequalizer</span>), a de-esser at 5–12 kHz, and a formant shift down 1–2 st at pitch 0 (Signalsmith). This treats brightness and cannot treat register.</p>
+
+<h2>What an experiment order would look like</h2>
+<p class="small">Nothing below has been run. It is the cheapest route to a listening test, in order of evidence per GPU minute.</p>
+<ol class="plan">
+<li><strong>Re-compose one Farmyard plan with the median at F4–G4 and the top at B4</strong>, render text-to-music with the same caption and a few seeds. Cost: one composer run plus renders. Tests problem 1 alone.</li>
+<li><strong>Cover the liked take, pitched down 4 st</strong>, through the Reference Audio node with audio codes off. Then the same with the transposed soundfont render as the source. Tests whether the cover path holds this melody.</li>
+<li><strong>Install rubberband-cli and python-stretch</strong> and re-do only the −2 and −3 st whole-mix shifts with R3 and Signalsmith, for a like-for-like against the R2 files already on disk.</li>
+<li><strong>Stand up RMVPE and MoSQITo on Vocadito</strong>, recalibrate the adult-female band against it, and only then rank a best-of-8 batch and hand the operator the three least-shrill raw takes.</li>
+<li><strong>Attribute the seed variance</strong> (encoder seed vs sampler seed) before deciding whether the audio-code LM's temperature is worth lowering.</li>
+</ol>
+<p>The LoRA and voice-conversion routes stay on the shelf until steps 1 and 2 have been heard: they cost training data that is hard to source cleanly, and both problems they solve may already be gone.</p>
+
+<h2>Sources</h2>
+<ul class="src">
+<li>Installed code: $ZYG_COMFY_ROOT (ComfyUI 0.22.0) comfy_extras/nodes_ace.py · comfy/model_base.py · comfy/ldm/ace/ace_step15.py · comfy/text_encoders/ace15.py; models/voice_analysis/voice_metrics.py; $ZYG_CREWS_ROOT/kids_music_service.py, kids_music_theory.py; output/kidsmusic/0fc29420eb5a sweep indexes</li>
+<li>ACE-Step 1.5: github.com/ace-step/ACE-Step-1.5 docs/en/Tutorial.md, INFERENCE.md, LoRA_Training_Tutorial.md, ace_step_musicians_guide.md · discussions #209, #398 · issues #1114, ACE-Step #276, #63, #776 · arxiv.org/abs/2602.00744</li>
+<li>Pitch trackers: github.com/lars76/pitch-benchmark · arxiv.org/abs/2508.18440 (SwiftF0) · arxiv.org/pdf/2306.15412 (RMVPE) · arxiv.org/abs/2509.15140 (FCPE) · arxiv.org/pdf/2508.01488 (PESTO) · arxiv.org/pdf/1912.12609 (Babacan, singing F0) · fon.hum.uva.nl/praat/manual (Sound: To Pitch (ac), filtered autocorrelation) · zenodo.org/record/5578807 (Vocadito)</li>
+<li>Timbre metrics: github.com/Eomys/MoSQITo · McAdams 2019 timbre chapter · nature.com/articles/s41598-022-22821-w · SingMOS github.com/South-Twilight/SingMOS · github.com/facebookresearch/audiobox-aesthetics · arxiv.org/pdf/2406.04140 (STraDa)</li>
+<li>Tessitura: en.wikipedia.org/wiki/Passaggio (Miller) · tandfonline.com/doi/full/10.1080/14613800600957461 (Welch) · singtokids.com vocal range · Szanto 2021 MRU thesis · reformedworship.org highs-and-lows-singing (Kuhn 1979) · hooktheory.com Baby Shark · pmc.ncbi.nlm.nih.gov/articles/PMC5414960</li>
+<li>Shifting and SVC: breakfastquay.com/rubberband/license.html, usage.txt · FFmpeg libavfilter/af_rubberband.c · gnu.org/licenses/gpl-faq (GPLOutput) · sciencedirect.com S0892199717301200 (formant tuning) · mdpi.com/2076-3417/6/11/368 (Cabrera) · arxiv.org/html/2601.10345 · soundonsound.com Melodyne guide · pypi.org/project/python-stretch · github.com/Plachtaa/seed-vc · github.com/yxlllc/DDSP-SVC · github.com/IAHispano/Applio · zenodo.org/records/1442513 (VocalSet)</li>
+<li>Separation: arxiv.org/pdf/2211.08553 (HT-Demucs) · github.com/ZFTurbo/Music-Source-Separation-Training docs/pretrained_models.md · github.com/nomadkaraoke/python-audio-separator</li>
+<li>Selection: arxiv.org/abs/2606.21670 · github.com/yonghyunk1m/TuneJury · huggingface.co/lukewys/laion_clap</li>
+</ul>
+</main>

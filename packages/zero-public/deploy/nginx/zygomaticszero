@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# The public site's front door: plain HTTP on port 80, proxied to the loopback :5001 the
+# zero-public unit binds. This is the LAN / default site — `server_name` is the mDNS name
+# the server advertises plus the catch-all `_`, so it answers any Host no other site claims.
+#
+#   deploy to: /etc/nginx/sites-available/zygomaticszero
+#              symlinked into /etc/nginx/sites-enabled/
+#   check:     sudo nginx -t && sudo systemctl reload nginx
+#
+# Named-host sites (the dashboard's studio.zygomaticszero.com.conf, and any TLS vhost for
+# the public domain) win over this one: nginx prefers an exact server_name over `_`.
+#
+# WHY X-Real-IP MATTERS HERE: the invite gate, the Medusa IP gate and Flask-Limiter all key
+# on the client address. Without this header every visitor would arrive as 127.0.0.1 — the
+# loopback bypasses would open to the whole LAN and the rate limit would be one shared
+# bucket. Do not drop it, and do not add an X-Forwarded-For the app is not configured to
+# trust: a forwarded header from an untrusted hop is a spoofable source address.
+#
+# `Connection ""` keeps the upstream connection alive (HTTP/1.1 keep-alive) and is correct
+# for this app: the public site polls for job state over ordinary requests and opens no
+# WebSocket. A route that needs an upgrade would need $connection_upgrade instead.
+#
+# Buffering is off and the read timeout is an hour because renders stream back slowly.
+#
+# TLS is not configured here. Public exposure goes through the Cloudflare tunnel named by
+# ZERO_PUBLIC_URL (docs/configuration.md), which terminates TLS at the edge; a directly
+# exposed deployment should add a certbot vhost beside this file rather than edit it.
+
+server {
+    listen 80;
+    server_name ZygomaticsZero.local _;
+
+    location / {
+        proxy_pass         http://127.0.0.1:5001;
+        proxy_http_version 1.1;
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Connection "";
+        proxy_buffering    off;
+        proxy_cache        off;
+        proxy_read_timeout 3600s;
+        chunked_transfer_encoding on;
+    }
+}

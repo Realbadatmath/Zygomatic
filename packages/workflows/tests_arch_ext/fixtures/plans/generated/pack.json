@@ -1,0 +1,16 @@
+{
+ "attribution": "Plans generated in-house by the Zygomatic plan_solver; room sizes calibrated on Swiss Dwellings (Archilyse AG, CC BY 4.0).",
+ "converted": "2026-09-16T23:39:52+02:00",
+ "count": {
+  "floor": 0,
+  "house": 1,
+  "unit": 1
+ },
+ "doi": "",
+ "licence": "CC0 1.0 (generated in-house)",
+ "notes": "Synthetic guillotine layouts. No plan geometry is copied from any pack.",
+ "pack": "generated",
+ "source_url": "",
+ "title": "Generated plans (plan_solver)",
+ "version": "1"
+}

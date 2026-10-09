@@ -1,0 +1,204 @@
+{
+ "version": 1,
+ "note": "Curated tool map for Agent Zero v2. Hand-written: the short route to every program and function. Paths verified against apitests/routes.json and the live url_map on 2026-10-08. Risk: read = no side effects; act = changes state, runs freely but is logged; danger = destructive or costly, needs the operator's confirmation.",
+ "groups": [
+  {
+   "id": "system",
+   "label": "System & health",
+   "tools": [
+    {"id": "system.health", "title": "Dashboard health", "kind": "http", "method": "GET", "path": "/api/health", "risk": "read", "params": {}, "desc": "Dashboard liveness: ok flag, version, uptime"},
+    {"id": "system.telemetry", "title": "Live hardware telemetry", "kind": "http", "method": "GET", "path": "/api/telemetry", "risk": "read", "params": {}, "desc": "cpu_pct_raw, ram_pct, gpus, disks, cpu_procs sampled by the telemetry watcher"},
+    {"id": "system.vram", "title": "Free VRAM (evict models)", "kind": "http", "method": "POST", "path": "/api/vram/free", "risk": "act", "params": {}, "desc": "Evict ComfyUI cached models and GPU globals to free VRAM; 409 while GPU work runs"},
+    {"id": "system.metrics_summary", "title": "Metrics summary", "kind": "http", "method": "GET", "path": "/api/metrics/summary", "risk": "read", "params": {}, "desc": "One-shot summary of the dashboard's metrics (runs, costs, health)"},
+    {"id": "system.metrics_hub", "title": "Metrics hub section", "kind": "http", "method": "GET", "path": "/api/metrics/hub/{section}", "risk": "read", "params": {"section": {"required": true, "desc": "overview|pipelines|characters|llm|quality|system|agents|quota|analytics|test_data|capabilities|stack_lineage|expansion|zero"}, "days": {"required": false, "desc": "window in days"}, "fresh": {"required": false, "desc": "1 to bypass the cache"}}, "desc": "The Metrics tab's own data, one section at a time"},
+    {"id": "system.metrics_all", "title": "All metrics", "kind": "http", "method": "GET", "path": "/api/metrics/all", "risk": "read", "params": {}, "desc": "Every metrics block in one payload (large)"},
+    {"id": "system.metrics_dashboard", "title": "Dashboard metrics", "kind": "http", "method": "GET", "path": "/api/metrics/dashboard", "risk": "read", "params": {}, "desc": "The metrics the dashboard header shows"},
+    {"id": "system.subprocesses", "title": "Running subprocesses", "kind": "http", "method": "GET", "path": "/api/subprocesses", "risk": "read", "params": {}, "desc": "Every child process the dashboard launched, with pid, cmd and age"},
+    {"id": "system.subprocess", "title": "One subprocess by pid", "kind": "http", "method": "GET", "path": "/api/subprocesses/{pid}", "risk": "read", "params": {"pid": {"required": true, "desc": "process id"}}, "desc": "Detail for one tracked subprocess"},
+    {"id": "system.pipeline_active", "title": "Active pipelines", "kind": "http", "method": "GET", "path": "/api/pipeline/active", "risk": "read", "params": {}, "desc": "Pipelines running right now, with stage and pipeline_id"},
+    {"id": "system.pipeline_flags", "title": "Pipeline flags", "kind": "http", "method": "GET", "path": "/api/pipeline/flags", "risk": "read", "params": {}, "desc": "Feature and pause flags that gate the pipelines"},
+    {"id": "system.pipeline_timeline", "title": "Pipeline timeline", "kind": "http", "method": "GET", "path": "/api/pipeline/timeline/{pipeline_id}", "risk": "read", "params": {"pipeline_id": {"required": true, "desc": "pipeline id from system.pipeline_active"}}, "desc": "Stage-by-stage timeline of one pipeline run"},
+    {"id": "system.pipeline_stages", "title": "Pipeline stage catalogue", "kind": "http", "method": "GET", "path": "/api/pipeline_stages", "risk": "read", "params": {}, "desc": "The declared stage list every pipeline type walks"},
+    {"id": "system.workflow_status", "title": "Workflow status by job", "kind": "http", "method": "GET", "path": "/api/workflow_status/{job_id}", "risk": "read", "params": {"job_id": {"required": true, "desc": "workflow job id"}}, "desc": "Status of one workflow job"},
+    {"id": "system.workflow_status_active", "title": "Active workflows", "kind": "http", "method": "GET", "path": "/api/workflow_status/active", "risk": "read", "params": {}, "desc": "Every workflow job currently in flight"},
+    {"id": "system.kanban_status", "title": "Kanban status", "kind": "http", "method": "GET", "path": "/api/kanban/status", "risk": "read", "params": {}, "desc": "Workflow board state as the dashboard's kanban renders it"},
+    {"id": "system.preempt_state", "title": "Preemption state", "kind": "http", "method": "GET", "path": "/api/preempt/state", "risk": "read", "params": {}, "desc": "GPU preemption queue and the entry that holds the slot"},
+    {"id": "system.prompt_log", "title": "LLM prompt log", "kind": "http", "method": "GET", "path": "/api/prompt_log", "risk": "read", "params": {"limit": {"required": false, "desc": "rows (default small)"}, "llm": {"required": false, "desc": "filter by model"}, "pipeline_id": {"required": false, "desc": "filter by run"}, "direction": {"required": false, "desc": "in|out"}, "type": {"required": false, "desc": "prompt kind"}}, "desc": "Recent prompts and completions written by every pipeline"},
+    {"id": "system.audit_trail", "title": "Zero audit trail", "kind": "http", "method": "GET", "path": "/api/zero/audit-trail", "risk": "read", "params": {"limit": {"required": false, "desc": "rows"}, "action": {"required": false, "desc": "filter by action name"}, "offset": {"required": false, "desc": "skip N"}}, "desc": "Every action Agent Zero took, newest first"},
+    {"id": "system.telemetry_log", "title": "Telemetry log of a run", "kind": "http", "method": "GET", "path": "/api/telemetry_log/{pipeline_id}", "risk": "read", "params": {"pipeline_id": {"required": true, "desc": "pipeline id"}}, "desc": "Hardware samples recorded during one pipeline run"}
+   ]
+  },
+  {
+   "id": "zero_legacy",
+   "label": "Zero's own functions",
+   "tools": [
+    {"id": "zero.context", "title": "Zero context", "kind": "http", "method": "GET", "path": "/api/zero/context", "risk": "read", "params": {}, "desc": "The project context block the old Zero put in its system prompt"},
+    {"id": "zero.kanban", "title": "Zero kanban view", "kind": "http", "method": "GET", "path": "/api/zero/kanban", "risk": "read", "params": {}, "desc": "Board state as Zero sees it (cards per stage)"},
+    {"id": "zero.auto_mode_get", "title": "Auto mode state", "kind": "http", "method": "GET", "path": "/api/zero/auto_mode", "risk": "read", "params": {}, "desc": "Whether Zero's autonomous mode is enabled"},
+    {"id": "zero.auto_mode_set", "title": "Set auto mode", "kind": "http", "method": "POST", "path": "/api/zero/auto_mode", "risk": "act", "params": {"enabled": {"required": true, "desc": "true|false"}}, "desc": "Turn Zero's autonomous mode on or off"},
+    {"id": "zero.workflow_health", "title": "Workflow health", "kind": "http", "method": "GET", "path": "/api/zero/workflow-health", "risk": "read", "params": {}, "desc": "Stuck stages, failed runs and the issues Zero tracks"},
+    {"id": "zero.workflow_override", "title": "Override a workflow issue", "kind": "http", "method": "POST", "path": "/api/zero/workflow-override", "risk": "act", "params": {"issue_id": {"required": true, "desc": "issue from zero.workflow_health"}, "action": {"required": true, "desc": "what to do with it"}}, "desc": "Resolve or ignore one workflow-health issue"},
+    {"id": "zero.validation_checklist", "title": "Validation checklist", "kind": "http", "method": "GET", "path": "/api/zero/validation-checklist", "risk": "read", "params": {}, "desc": "Pre-merge review checklist from the project constitution"},
+    {"id": "zero.change_impact", "title": "Change impact (read)", "kind": "http", "method": "GET", "path": "/api/zero/change-impact", "risk": "read", "params": {"path": {"required": false, "desc": "file to analyse"}}, "desc": "What else depends on a file before you change it"},
+    {"id": "zero.change_impact_scan", "title": "Change impact of many files", "kind": "http", "method": "POST", "path": "/api/zero/change-impact", "risk": "read", "params": {"files": {"required": false, "desc": "list of paths"}, "paths": {"required": false, "desc": "list of paths (alias)"}, "file": {"required": false, "desc": "single path"}}, "desc": "Impact analysis for a set of files"},
+    {"id": "zero.llms_status", "title": "Local LLM status", "kind": "http", "method": "GET", "path": "/api/zero/llms-status", "risk": "read", "params": {}, "desc": "Which local models are installed and loadable"},
+    {"id": "zero.decompose", "title": "Decompose a goal", "kind": "http", "method": "POST", "path": "/api/zero/decompose", "risk": "read", "params": {"goal": {"required": false, "desc": "the goal to split"}, "message": {"required": false, "desc": "free text alias of goal"}}, "desc": "Split a goal into subtasks (no side effects)"},
+    {"id": "zero.token_usage", "title": "Token usage", "kind": "http", "method": "GET", "path": "/api/zero/token_usage", "risk": "read", "params": {}, "desc": "Token and cost accounting per model and stage"},
+    {"id": "zero.stop_reset", "title": "Clear the stop flag", "kind": "http", "method": "POST", "path": "/api/zero/stop/reset", "risk": "act", "params": {}, "desc": "Lift a previous emergency stop so pipelines may run again"},
+    {"id": "zero.stop", "title": "Emergency stop", "kind": "http", "method": "POST", "path": "/api/zero/stop", "risk": "danger", "params": {}, "desc": "Halt ALL pipeline activity at once; needs zero.stop_reset to undo"},
+    {"id": "topics.find", "title": "Find documentary topics", "kind": "http", "method": "POST", "path": "/api/zero/chat", "risk": "read", "body": {"message": "find topics"}, "params": {}, "desc": "Ask Zero's chat for candidate documentary topics (read-only proposal)"},
+    {"id": "topics.launch", "title": "Launch the proposed topics", "kind": "http", "method": "POST", "path": "/api/zero/chat", "risk": "danger", "body": {"message": "yes"}, "params": {}, "desc": "Confirm the topics proposal: launches 6 documentary pipelines (GPU hours)"},
+    {"id": "zero.install_llms", "title": "Install local LLMs", "kind": "http", "method": "POST", "path": "/api/zero/install-llms", "risk": "danger", "params": {}, "desc": "Pull local model weights (tens of GB of disk and bandwidth)"},
+    {"id": "clipfarm.start", "title": "Start the clipfarm workflow", "kind": "http", "method": "POST", "path": "/api/start_clipfarm_workflow", "risk": "danger", "params": {"directive": {"required": false, "desc": "what to make"}, "niche": {"required": false, "desc": "content niche"}, "source_url": {"required": false, "desc": "source video"}, "url": {"required": false, "desc": "alias of source_url"}, "char_id": {"required": false, "desc": "character"}, "scholarly_topic": {"required": false, "desc": "topic for the scholarly variant"}, "pipeline_options": {"required": false, "desc": "extra options object"}}, "desc": "Launch the clipfarm pipeline: renders video and spends GPU hours"}
+   ]
+  },
+  {
+   "id": "memory",
+   "label": "Task memory",
+   "tools": [
+    {"id": "zero.task_state_get", "title": "Read task memory", "kind": "http", "method": "GET", "path": "/api/zero/task-state", "risk": "read", "params": {}, "desc": "Persistent task memory: phase, current_goal, open_issues, blocked, subtasks"},
+    {"id": "zero.task_state_set", "title": "Write task memory", "kind": "http", "method": "POST", "path": "/api/zero/task-state", "risk": "act", "params": {"phase": {"required": false, "desc": "current phase"}, "current_goal": {"required": false, "desc": "goal text"}, "open_issues": {"required": false, "desc": "list of issues"}, "blocked": {"required": false, "desc": "what blocks progress"}, "subtasks": {"required": false, "desc": "list of subtasks"}}, "desc": "Update persistent task memory; only these five keys are kept"}
+   ]
+  },
+  {
+   "id": "approvals",
+   "label": "Approvals & pending requests",
+   "tools": [
+    {"id": "approvals.board", "title": "Approval queue board", "kind": "http", "method": "GET", "path": "/api/approval_queue/board", "risk": "read", "params": {}, "desc": "Everything waiting for an operator decision, per workflow"},
+    {"id": "approvals.calendar", "title": "Approval calendar", "kind": "http", "method": "GET", "path": "/api/approval_queue/calendar", "risk": "read", "params": {}, "desc": "Scheduled approvals and publication slots"},
+    {"id": "approvals.queue", "title": "Approvals queue", "kind": "http", "method": "GET", "path": "/api/approvals/queue", "risk": "read", "params": {}, "desc": "The newer flat approvals queue (runtime route)"},
+    {"id": "approvals.public_pending", "title": "Public pending requests", "kind": "http", "method": "GET", "path": "/api/zero_public/pending", "risk": "read", "params": {}, "desc": "Requests from the public Zero site awaiting a decision"},
+    {"id": "approvals.public_decide", "title": "Decide a public request", "kind": "http", "method": "POST", "path": "/api/zero_public/pending/{req_id}/decide", "risk": "act", "params": {"req_id": {"required": true, "desc": "pending request id"}, "action": {"required": true, "desc": "allow|queue|decline"}}, "desc": "Allow, queue or decline one public request"},
+    {"id": "approvals.preempt_job", "title": "Preempted job detail", "kind": "http", "method": "GET", "path": "/api/preempt/job/{pid}", "risk": "read", "params": {"pid": {"required": true, "desc": "process id"}}, "desc": "Why one job was preempted and what holds it"}
+   ]
+  },
+  {
+   "id": "agents",
+   "label": "Agents & departments",
+   "tools": [
+    {"id": "agents.config", "title": "All agent configs", "kind": "http", "method": "GET", "path": "/api/agents/config", "risk": "read", "params": {}, "desc": "agent_configurations.json as the dashboard serves it"},
+    {"id": "agents.config_one", "title": "One agent's config", "kind": "http", "method": "GET", "path": "/api/agents/config/{agent_name}", "risk": "read", "params": {"agent_name": {"required": true, "desc": "agent name (may contain slashes)"}}, "desc": "Role, model, tools and department of one agent"},
+    {"id": "agents.list", "title": "Agent list", "kind": "http", "method": "GET", "path": "/api/agents", "risk": "read", "params": {}, "desc": "Every known agent with its summary row"},
+    {"id": "agents.active", "title": "Active agents", "kind": "http", "method": "GET", "path": "/api/agents/active", "risk": "read", "params": {}, "desc": "Agents working right now"},
+    {"id": "agents.tier1", "title": "Tier-1 agents", "kind": "http", "method": "GET", "path": "/api/agents/tier1", "risk": "read", "params": {}, "desc": "The tier-1 (lead) agents"},
+    {"id": "agents.departments", "title": "Departments", "kind": "http", "method": "GET", "path": "/api/departments", "risk": "read", "params": {}, "desc": "Department list with agent counts"},
+    {"id": "agents.department", "title": "Agents of a department", "kind": "http", "method": "GET", "path": "/api/agents/department/{department}", "risk": "read", "params": {"department": {"required": true, "desc": "department name"}}, "desc": "Every agent in one department"},
+    {"id": "agents.logbook", "title": "Agent logbook", "kind": "http", "method": "GET", "path": "/api/agents/{agent_name}/logbook", "risk": "read", "params": {"agent_name": {"required": true, "desc": "agent name"}}, "desc": "What one agent did, newest entries first"},
+    {"id": "agents.bar_mapping", "title": "GPU schedule bars", "kind": "http", "method": "GET", "path": "/api/agent_model_bar_mapping", "risk": "read", "params": {}, "desc": "Schedule/agent_model_bar_mapping.json: which model each GPU bar runs"},
+    {"id": "agents.cpu_bar_mapping", "title": "CPU schedule bars", "kind": "http", "method": "GET", "path": "/api/cpu/agent_model_bar_mapping", "risk": "read", "params": {}, "desc": "The CPU-side bar mapping"}
+   ]
+  },
+  {
+   "id": "pipelines",
+   "label": "Pipelines & workflows (read)",
+   "tools": [
+    {"id": "pipelines.status", "title": "Pipeline run status", "kind": "http", "method": "GET", "path": "/api/internal/pipeline/status/{pipeline_id}", "risk": "read", "params": {"pipeline_id": {"required": true, "desc": "run id"}}, "desc": "Stage, progress and artefacts of one pipeline run"},
+    {"id": "pipelines.storyteller_episodes", "title": "Storyteller episodes", "kind": "http", "method": "GET", "path": "/api/storyteller/episodes", "risk": "read", "params": {}, "desc": "Finished storyteller episodes with their videos"},
+    {"id": "pipelines.storyteller_daily_batch", "title": "Storyteller daily batch", "kind": "http", "method": "GET", "path": "/api/storyteller/daily_batch", "risk": "read", "params": {}, "desc": "Today's scheduled storyteller batch"},
+    {"id": "pipelines.storyteller_daily_mode", "title": "Storyteller daily mode", "kind": "http", "method": "GET", "path": "/api/storyteller/daily_mode", "risk": "read", "params": {}, "desc": "Whether the daily storyteller watcher is armed"},
+    {"id": "pipelines.storyteller_templates", "title": "Storyteller templates", "kind": "http", "method": "GET", "path": "/api/storyteller/templates/list", "risk": "read", "params": {}, "desc": "Episode templates the daily mode draws from"},
+    {"id": "pipelines.storyteller_template", "title": "One storyteller template", "kind": "http", "method": "GET", "path": "/api/storyteller/templates/{tid}", "risk": "read", "params": {"tid": {"required": true, "desc": "template id"}}, "desc": "Full detail of one episode template"},
+    {"id": "pipelines.storyteller_chars", "title": "Storyteller characters", "kind": "http", "method": "GET", "path": "/api/internal/storyteller/list-chars", "risk": "read", "params": {}, "desc": "Characters available to the storyteller pipeline"},
+    {"id": "pipelines.storyteller_contact_sheets", "title": "Contact sheets", "kind": "http", "method": "GET", "path": "/api/internal/storyteller/list-contact-sheets", "risk": "read", "params": {}, "desc": "Every character contact sheet and its state"},
+    {"id": "pipelines.storyteller_voices", "title": "Storyteller voices", "kind": "http", "method": "GET", "path": "/api/internal/storyteller/voices", "risk": "read", "params": {}, "desc": "Voice ids the narration stage can use"},
+    {"id": "pipelines.storyteller_char_status", "title": "Character build status", "kind": "http", "method": "GET", "path": "/api/internal/storyteller/character-status/{char_id}", "risk": "read", "params": {"char_id": {"required": true, "desc": "character id"}}, "desc": "Where one character is in its build"},
+    {"id": "pipelines.storyteller_char_bible", "title": "Character bible", "kind": "http", "method": "GET", "path": "/api/internal/storyteller/character-bible/{char_id}", "risk": "read", "params": {"char_id": {"required": true, "desc": "character id"}}, "desc": "The canonical description sheet of one character"},
+    {"id": "pipelines.kidsmusic_status", "title": "Kids music status", "kind": "http", "method": "GET", "path": "/api/internal/kidsmusic/status", "risk": "read", "params": {}, "desc": "Current kids-music run, queue and last results"},
+    {"id": "pipelines.kidsmusic_spec", "title": "Kids music spec", "kind": "http", "method": "GET", "path": "/api/internal/kidsmusic/spec", "risk": "read", "params": {}, "desc": "Styles, families and shelves the kids-music pipeline accepts"},
+    {"id": "pipelines.kidseries_status", "title": "Kids series status", "kind": "http", "method": "GET", "path": "/api/internal/kidseries/status", "risk": "read", "params": {}, "desc": "Current kids-series run and its stage"},
+    {"id": "pipelines.kidseries_list", "title": "Kids series list", "kind": "http", "method": "GET", "path": "/api/internal/kidseries/list", "risk": "read", "params": {}, "desc": "Every produced kids-series episode"},
+    {"id": "pipelines.movement_status", "title": "Movement studio status", "kind": "http", "method": "GET", "path": "/api/internal/movement/status", "risk": "read", "params": {}, "desc": "Movement/rig job state"},
+    {"id": "pipelines.movement_spec", "title": "Movement studio spec", "kind": "http", "method": "GET", "path": "/api/internal/movement/spec", "risk": "read", "params": {}, "desc": "Subjects, modes and presets the movement studio accepts"},
+    {"id": "pipelines.char2d_spec", "title": "Char2D spec", "kind": "http", "method": "GET", "path": "/api/internal/char2d/spec", "risk": "read", "params": {}, "desc": "Stages and options of the 2D character pipeline"},
+    {"id": "pipelines.picture_capability", "title": "Picture studio capability", "kind": "http", "method": "GET", "path": "/api/internal/picture_studio/capability", "risk": "read", "params": {}, "desc": "Which picture backends and models are available"},
+    {"id": "pipelines.picture_job", "title": "Picture studio job", "kind": "http", "method": "GET", "path": "/api/internal/picture_studio/job/{jid}", "risk": "read", "params": {"jid": {"required": true, "desc": "job id"}}, "desc": "State and output of one picture job"},
+    {"id": "pipelines.creature_list", "title": "Creature list", "kind": "http", "method": "GET", "path": "/api/internal/creature/list", "risk": "read", "params": {}, "desc": "Creatures built or in build"},
+    {"id": "pipelines.creature_sheet", "title": "Creature sheet", "kind": "http", "method": "GET", "path": "/api/internal/creature/{creature_id}/sheet", "risk": "read", "params": {"creature_id": {"required": true, "desc": "creature id"}}, "desc": "One creature's sheet and approval state"},
+    {"id": "pipelines.affiliate_history", "title": "Affiliate history", "kind": "http", "method": "GET", "path": "/api/internal/affiliate/history", "risk": "read", "params": {}, "desc": "Past affiliate runs and their products"},
+    {"id": "pipelines.affiliate_config", "title": "Affiliate config", "kind": "http", "method": "GET", "path": "/api/internal/affiliate/config", "risk": "read", "params": {}, "desc": "Affiliate pipeline settings"},
+    {"id": "pipelines.affiliate_auto", "title": "Affiliate auto mode", "kind": "http", "method": "GET", "path": "/api/internal/affiliate/auto", "risk": "read", "params": {}, "desc": "Whether the affiliate watcher runs by itself"},
+    {"id": "pipelines.market_status", "title": "Marketing status", "kind": "http", "method": "GET", "path": "/api/market/status", "risk": "read", "params": {}, "desc": "Marketing department run state"},
+    {"id": "pipelines.market_episodes", "title": "Marketing episodes", "kind": "http", "method": "GET", "path": "/api/market/episodes", "risk": "read", "params": {}, "desc": "Marketing clips produced per department"},
+    {"id": "pipelines.market_history", "title": "Marketing history", "kind": "http", "method": "GET", "path": "/api/market/history", "risk": "read", "params": {}, "desc": "Past marketing runs"},
+    {"id": "pipelines.market_icebox", "title": "Marketing icebox", "kind": "http", "method": "GET", "path": "/api/market/icebox", "risk": "read", "params": {}, "desc": "Ideas parked for later"},
+    {"id": "pipelines.market_settings", "title": "Marketing settings", "kind": "http", "method": "GET", "path": "/api/market/settings", "risk": "read", "params": {}, "desc": "Marketing cadence and department settings"},
+    {"id": "pipelines.medusa_kanban", "title": "Medusa kanban status", "kind": "http", "method": "GET", "path": "/api/medusa/kanban_status", "risk": "read", "params": {}, "desc": "Medusa's board state (open route)"},
+    {"id": "pipelines.medusa_jobs", "title": "Medusa jobs", "kind": "http", "method": "GET", "path": "/api/medusa/jobs", "risk": "read", "params": {}, "desc": "Medusa generation jobs and their state"},
+    {"id": "pipelines.medusa_pending", "title": "Medusa pending", "kind": "http", "method": "GET", "path": "/api/medusa/pending", "risk": "read", "params": {}, "desc": "Medusa requests awaiting a decision"},
+    {"id": "pipelines.medusa_models", "title": "Medusa models", "kind": "http", "method": "GET", "path": "/api/medusa/models", "risk": "read", "params": {}, "desc": "Registered Medusa character models"},
+    {"id": "pipelines.medusa_models_active", "title": "Active Medusa models", "kind": "http", "method": "GET", "path": "/api/medusa/models/active", "risk": "read", "params": {}, "desc": "Which Medusa models are switched on"},
+    {"id": "pipelines.medusa_angles", "title": "Medusa angles", "kind": "http", "method": "GET", "path": "/api/medusa/angles", "risk": "read", "params": {}, "desc": "Camera angles Medusa renders"},
+    {"id": "pipelines.sports_status", "title": "Sports video status", "kind": "http", "method": "GET", "path": "/api/sports-video/status", "risk": "read", "params": {}, "desc": "Sports-video pipeline state (proxied from the public site)"},
+    {"id": "pipelines.output_new_videos", "title": "New output videos", "kind": "http", "method": "GET", "path": "/api/output/new-videos", "risk": "read", "params": {}, "desc": "Videos that appeared in output/ since the last look"},
+    {"id": "pipelines.youtube_videos", "title": "YouTube channel videos", "kind": "http", "method": "GET", "path": "/api/youtube/channel-videos", "risk": "read", "params": {}, "desc": "What is published on the channel"}
+   ]
+  },
+  {
+   "id": "launch",
+   "label": "Launch & stop runs (danger)",
+   "tools": [
+    {"id": "launch.pipeline", "title": "Start a pipeline", "kind": "http", "method": "POST", "path": "/api/internal/pipeline/start", "risk": "danger", "params": {"pipeline_type": {"required": true, "desc": "storyteller|clipfarm|affiliate|kidsmusic|sports|creature|... (see system.pipeline_stages)"}, "directive": {"required": false, "desc": "what to make"}, "title": {"required": false, "desc": "title"}, "brief": {"required": false, "desc": "brief object"}, "char_id": {"required": false, "desc": "character"}, "source_url": {"required": false, "desc": "source media"}, "pipeline_options": {"required": false, "desc": "extra options object"}, "test_mode": {"required": false, "desc": "true for a cheap test run"}, "user_name": {"required": false, "desc": "who asked"}}, "desc": "Launch any pipeline type: renders media, spends GPU hours"},
+    {"id": "launch.kidsmusic_start", "title": "Start kids music", "kind": "http", "method": "POST", "path": "/api/internal/kidsmusic/start", "risk": "danger", "params": {"song": {"required": false, "desc": "song brief object (style, family, mood, tonic)"}, "directive": {"required": false, "desc": "free text brief"}, "pipeline_options": {"required": false, "desc": "extra options"}}, "desc": "Compose and render a children's song (GPU + minutes)"},
+    {"id": "launch.kidsmusic_stop", "title": "Stop kids music", "kind": "http", "method": "POST", "path": "/api/internal/kidsmusic/stop", "risk": "danger", "params": {}, "desc": "Kill the running kids-music job; partial output is discarded"},
+    {"id": "launch.kidsmusic_remix", "title": "Remix a kids song", "kind": "http", "method": "POST", "path": "/api/internal/kidsmusic/remix", "risk": "act", "params": {"id": {"required": false, "desc": "song id to remix"}}, "desc": "Re-render an existing song with new parameters"},
+    {"id": "launch.kidseries_start", "title": "Start kids series", "kind": "http", "method": "POST", "path": "/api/internal/kidseries/start", "risk": "danger", "params": {}, "desc": "Launch a kids-series episode build (GPU hours)"},
+    {"id": "launch.kidseries_stop", "title": "Stop kids series", "kind": "http", "method": "POST", "path": "/api/internal/kidseries/stop", "risk": "danger", "params": {}, "desc": "Kill the running kids-series build"},
+    {"id": "launch.movement_start", "title": "Start a movement job", "kind": "http", "method": "POST", "path": "/api/internal/movement/start", "risk": "danger", "params": {"subject_type": {"required": false, "desc": "what to move"}, "subject_id": {"required": false, "desc": "subject id"}, "mode": {"required": false, "desc": "probe|render (default probe)"}}, "desc": "Run the movement/rig studio: loads Blender and the GPU"},
+    {"id": "launch.movement_stop", "title": "Stop a movement job", "kind": "http", "method": "POST", "path": "/api/internal/movement/stop", "risk": "danger", "params": {}, "desc": "Kill the running movement job"},
+    {"id": "launch.char2d_start", "title": "Start a 2D character build", "kind": "http", "method": "POST", "path": "/api/internal/char2d/start", "risk": "danger", "params": {}, "desc": "Run the 14-stage 2D character pipeline (long, GPU)"},
+    {"id": "launch.picture_submit", "title": "Submit a picture job", "kind": "http", "method": "POST", "path": "/api/internal/picture_studio/submit", "risk": "danger", "params": {"prompt": {"required": false, "desc": "what to draw"}}, "desc": "Queue an image render on the GPU"},
+    {"id": "launch.contact_sheet_start", "title": "Start a contact sheet", "kind": "http", "method": "POST", "path": "/api/internal/storyteller/contact-sheet/start", "risk": "danger", "params": {"char_id": {"required": false, "desc": "character id"}}, "desc": "Render a character contact sheet (GPU)"},
+    {"id": "launch.generate_character", "title": "Generate a character", "kind": "http", "method": "POST", "path": "/api/internal/storyteller/generate-character", "risk": "danger", "params": {"char_id": {"required": false, "desc": "character id"}, "brief": {"required": false, "desc": "character brief"}}, "desc": "Build a new storyteller character (GPU hours)"},
+    {"id": "launch.affiliate_start", "title": "Start an affiliate run", "kind": "http", "method": "POST", "path": "/api/internal/affiliate/start", "risk": "danger", "params": {"product_url": {"required": false, "desc": "product page"}, "url": {"required": false, "desc": "alias of product_url"}, "directive": {"required": false, "desc": "angle for the video"}}, "desc": "Produce an affiliate video end to end (GPU hours)"},
+    {"id": "launch.market_run", "title": "Run the marketing department", "kind": "http", "method": "POST", "path": "/api/market/run", "risk": "danger", "params": {"department": {"required": false, "desc": "which department"}, "force": {"required": false, "desc": "true to ignore the cadence"}}, "desc": "Produce marketing clips now (GPU hours)"},
+    {"id": "launch.medusa_generate", "title": "Medusa generate", "kind": "http", "method": "POST", "path": "/api/medusa/generate", "risk": "danger", "params": {}, "desc": "Render Medusa images on the GPU"},
+    {"id": "launch.storyteller_pause", "title": "Pause the storyteller pipeline", "kind": "http", "method": "POST", "path": "/api/internal/storyteller/pipeline/pause", "risk": "danger", "params": {}, "desc": "Stop the storyteller pipeline from taking new work"},
+    {"id": "launch.storyteller_resume", "title": "Resume the storyteller pipeline", "kind": "http", "method": "POST", "path": "/api/internal/storyteller/pipeline/resume", "risk": "danger", "params": {}, "desc": "Let the storyteller pipeline take work again"},
+    {"id": "launch.schedule_pause", "title": "Pause the schedule", "kind": "http", "method": "POST", "path": "/api/admin/schedule-pause", "risk": "danger", "params": {"paused": {"required": false, "desc": "true|false"}}, "desc": "Pause or resume the whole agent schedule (audited admin action)"}
+   ]
+  },
+  {
+   "id": "services",
+   "label": "Sibling services",
+   "tools": [
+    {"id": "service.kanban_agents", "title": "Kanban board agents", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8899/kanban/api/agents", "risk": "read", "params": {}, "desc": "Agent rows the :8899 kanban board shows"},
+    {"id": "service.kanban_series", "title": "Kanban series board", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8899/kanban/api/series", "risk": "read", "params": {}, "desc": "Series cards on the kanban board"},
+    {"id": "service.kanban_kids_series", "title": "Kanban kids series", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8899/kanban/api/kids_series", "risk": "read", "params": {}, "desc": "Kids-series cards on the kanban board"},
+    {"id": "service.kanban_characters", "title": "Characters with contact sheets", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8899/inspect/api/list", "risk": "read", "params": {}, "desc": "Every character that has a contact sheet (.sheets)"},
+    {"id": "service.arch_assistant", "title": "Architecture assistant state", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8899/inspect/api/architecture/assistant/active", "risk": "read", "params": {}, "desc": "The drawing the architecture assistant has open"},
+    {"id": "service.session_tree", "title": "Session Tree health", "kind": "service", "method": "GET", "url": "http://127.0.0.1:7100/api/health", "risk": "read", "params": {}, "desc": "The agent job board: active tree, executors, usage hold"},
+    {"id": "service.ollama_tags", "title": "Ollama models", "kind": "service", "method": "GET", "url": "{ollama_url}/api/tags", "risk": "read", "params": {}, "desc": "Local models Ollama has pulled"},
+    {"id": "service.ollama_ps", "title": "Ollama loaded models", "kind": "service", "method": "GET", "url": "{ollama_url}/api/ps", "risk": "read", "params": {}, "desc": "Which Ollama models sit in VRAM right now"},
+    {"id": "service.comfy_stats", "title": "ComfyUI system stats", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8188/system_stats", "risk": "read", "params": {}, "desc": "ComfyUI's VRAM and device report"},
+    {"id": "service.comfy_queue", "title": "ComfyUI queue", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8188/queue", "risk": "read", "params": {}, "desc": "Running and pending ComfyUI prompts"},
+    {"id": "service.ltx_stats", "title": "LTX system stats", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8189/system_stats", "risk": "read", "params": {}, "desc": "The second ComfyUI (LTX video) instance"},
+    {"id": "service.zero_public", "title": "Public Zero site", "kind": "service", "method": "GET", "url": "http://127.0.0.1:5001/", "risk": "read", "params": {}, "desc": "The invite-gated public site (answers 403 to a non-allowlisted caller: that is a healthy gate)"},
+    {"id": "service.creator_nexus", "title": "Creator Nexus", "kind": "service", "method": "GET", "url": "http://127.0.0.1:8090/", "risk": "read", "params": {}, "desc": "Creator Nexus status page"},
+    {"id": "service.medusa", "title": "Medusa server", "kind": "service", "method": "GET", "url": "http://127.0.0.1:5300/", "risk": "read", "params": {}, "desc": "The Medusa app's own front page (no /api/health there)"},
+    {"id": "service.hub_status", "title": "Hub app status", "kind": "service", "method": "GET", "url": "http://127.0.0.1:7001/status", "risk": "read", "params": {}, "desc": "Which hub-managed apps are online"},
+    {"id": "service.hub_restart", "title": "Restart a hub app", "kind": "service", "method": "POST", "url": "http://127.0.0.1:7001/restart/{app_id}", "risk": "danger", "params": {"app_id": {"required": true, "desc": "app id from service.hub_status"}}, "desc": "Restart a service through the hub: drops live work"}
+   ]
+  },
+  {
+   "id": "code",
+   "label": "Code & docs lookup",
+   "tools": [
+    {"id": "code.find_route", "title": "Find an HTTP route", "kind": "code", "risk": "read", "params": {"query": {"required": true, "desc": "part of a path, endpoint or handler name"}}, "desc": "Search the route inventory: returns rule, methods and file:line"},
+    {"id": "code.find_symbol", "title": "Find a function or class", "kind": "code", "risk": "read", "params": {"name": {"required": true, "desc": "exact def/class name"}}, "desc": "Where a python function or class is defined (file:line, max 30 hits)"},
+    {"id": "code.read", "title": "Read source lines", "kind": "code", "risk": "read", "params": {"path": {"required": true, "desc": "path inside crews/ or docs/"}, "start": {"required": false, "desc": "first line (1-based)"}, "lines": {"required": false, "desc": "how many, max 200"}}, "desc": "Read up to 200 lines of a file inside the sandbox"},
+    {"id": "code.grep", "title": "Grep the code", "kind": "code", "risk": "read", "params": {"pattern": {"required": true, "desc": "regex"}, "glob": {"required": false, "desc": "file glob, default *.py"}}, "desc": "Search crews/ and docs/ for a pattern (max 50 hits)"},
+    {"id": "docs.search", "title": "Search the docs", "kind": "code", "risk": "read", "params": {"query": {"required": true, "desc": "words to find"}}, "desc": "Case-insensitive search of docs/*.md and crews/*.md with 3 lines of context"},
+    {"id": "docs.read", "title": "Read a doc", "kind": "code", "risk": "read", "params": {"path": {"required": true, "desc": "markdown path inside the sandbox"}}, "desc": "Read a markdown document (same sandbox as code.read)"},
+    {"id": "data.read_json", "title": "Read a JSON data file", "kind": "code", "risk": "read", "params": {"path": {"required": true, "desc": "JSON path under crews/ (data/ included)"}}, "desc": "Parse and return a JSON file, truncated to 20 kB; secrets are refused"}
+   ]
+  },
+  {
+   "id": "shell",
+   "label": "Board commands",
+   "tools": [
+    {"id": "session_tree.status", "title": "Session Tree status", "kind": "shell", "argv": ["st", "status"], "risk": "read", "params": {}, "desc": "The job board's own status text (active tree, executors, usage)"},
+    {"id": "session_tree.whoami", "title": "Session Tree identity", "kind": "shell", "argv": ["st", "whoami"], "risk": "read", "params": {}, "desc": "What the board thinks this session is"}
+   ]
+  }
+ ]
+}

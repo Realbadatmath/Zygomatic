@@ -1,0 +1,5 @@
+{"section_key": "elements", "section_label": "Building elements",
+ "groups": [{"g": "Sweeps",
+             "items": [["sweep", "Swept profile",
+                        {"pts": [[-3, -2], [3, -2], [3, 2]], "w": 0.3, "h": 0.3, "closed": 0},
+                        "A profile w wide and h high carried along a path — a cornice, a skirting, a kerb, a handrail. pts are [x, z] metres around the object's origin, one box per leg with butt joints; closed:1 joins the last point back to the first. The Follow me tool makes one of these from a guide line chain, a guide polygon or a wall."]]}]}

@@ -1,0 +1,6 @@
+{
+  "name": "Sunny",
+  "char_prompt": "sun-tanned skin, long blonde hair, blue eyes, toned physique",
+  "style": "photorealistic",
+  "notes": "No age field -> the engine auto-rolls an adult age (21-75, never a minor)."
+}

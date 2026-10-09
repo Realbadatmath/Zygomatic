@@ -1,0 +1,271 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "S06 node 1 - Wan2.2-Animate-14B diffusion model"
+    },
+    "inputs": {
+      "unet_name": "Wan2_2-Animate-14B_fp8_scaled_e4m3fn_KJ_v2.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "S06 node 2 - umt5 text encoder (type wan)"
+    },
+    "inputs": {
+      "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "wan",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "S06 node 3 - Wan 2.1 VAE"
+    },
+    "inputs": {
+      "vae_name": "wan_2.1_vae.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "S06 node 4 - clip_vision_h"
+    },
+    "inputs": {
+      "clip_name": "clip_vision_h.safetensors"
+    }
+  },
+  "6": {
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "S06 node 6 - flow shift"
+    },
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "shift": 5.0
+    }
+  },
+  "10": {
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "S06 node 10 - reference still (the identity)"
+    },
+    "inputs": {
+      "image": "PLACEHOLDER_reference.png",
+      "upload": "image"
+    }
+  },
+  "11": {
+    "class_type": "LoadImagesFromFolderKJ",
+    "_meta": {
+      "title": "S06 node 11 - OUR pose video (OpenPose-coloured skeleton frames)"
+    },
+    "inputs": {
+      "folder": "PLACEHOLDER_pose_dir",
+      "width": 480,
+      "height": 480,
+      "keep_aspect_ratio": "stretch",
+      "image_load_cap": 0,
+      "start_index": 0,
+      "include_subfolders": false
+    }
+  },
+  "12": {
+    "class_type": "LoadImagesFromFolderKJ",
+    "_meta": {
+      "title": "S06 node 12 - OUR face crops (same detector as the pose)"
+    },
+    "inputs": {
+      "folder": "PLACEHOLDER_face_dir",
+      "width": 512,
+      "height": 512,
+      "keep_aspect_ratio": "stretch",
+      "image_load_cap": 0,
+      "start_index": 0,
+      "include_subfolders": false
+    }
+  },
+  "14": {
+    "class_type": "CLIPVisionEncode",
+    "_meta": {
+      "title": "S06 node 14 - clip vision of the reference still"
+    },
+    "inputs": {
+      "clip_vision": [
+        "4",
+        0
+      ],
+      "image": [
+        "10",
+        0
+      ],
+      "crop": "center"
+    }
+  },
+  "20": {
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "S06 node 20 - positive"
+    },
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "text": "PLACEHOLDER_positive"
+    }
+  },
+  "21": {
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "S06 node 21 - negative"
+    },
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "text": "PLACEHOLDER_negative"
+    }
+  },
+  "30": {
+    "class_type": "WanAnimateToVideo",
+    "_meta": {
+      "title": "S06 node 30 - WanAnimateToVideo (native)"
+    },
+    "inputs": {
+      "positive": [
+        "20",
+        0
+      ],
+      "negative": [
+        "21",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "width": 480,
+      "height": 480,
+      "length": 81,
+      "batch_size": 1,
+      "continue_motion_max_frames": 5,
+      "video_frame_offset": 0,
+      "clip_vision_output": [
+        "14",
+        0
+      ],
+      "reference_image": [
+        "10",
+        0
+      ],
+      "face_video": [
+        "12",
+        0
+      ],
+      "pose_video": [
+        "11",
+        0
+      ]
+    }
+  },
+  "40": {
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "S06 node 40 - sampler"
+    },
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "positive": [
+        "30",
+        0
+      ],
+      "negative": [
+        "30",
+        1
+      ],
+      "latent_image": [
+        "30",
+        2
+      ],
+      "seed": 0,
+      "steps": 20,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "41": {
+    "class_type": "TrimVideoLatent",
+    "_meta": {
+      "title": "S06 node 41 - drop the continue_motion latents"
+    },
+    "inputs": {
+      "samples": [
+        "40",
+        0
+      ],
+      "trim_amount": [
+        "30",
+        3
+      ]
+    }
+  },
+  "50": {
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "S06 node 50 - decode"
+    },
+    "inputs": {
+      "samples": [
+        "41",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "60": {
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "S06 node 60 - lossless PNG frames (chaining + per-frame scoring)"
+    },
+    "inputs": {
+      "images": [
+        "51",
+        0
+      ],
+      "filename_prefix": "ZygAnimate/chunk"
+    }
+  },
+  "51": {
+    "class_type": "ImageFromBatch",
+    "_meta": {
+      "title": "S06 node 51 - drop the re-rendered continue_motion frames (trim_image)"
+    },
+    "inputs": {
+      "image": [
+        "50",
+        0
+      ],
+      "batch_index": [
+        "30",
+        4
+      ],
+      "length": 81
+    }
+  }
+}

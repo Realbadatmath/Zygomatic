@@ -1,0 +1,202 @@
+{
+  "name": "00_idle",
+  "label": "Idle stand",
+  "hands": "both",
+  "meaning": "Neutral rest: arms down at the sides, elbows barely bent, fingers softly curled and fanned. Every other gesture returns here.",
+  "reads_well": [
+    "front",
+    "front45L",
+    "front45R",
+    "profileL",
+    "profileR",
+    "back"
+  ],
+  "keys": [
+    {
+      "name": "idle",
+      "hold_frames": 12,
+      "bones": {
+        "finger1-1.L": [
+          0.0,
+          20.0,
+          0.0
+        ],
+        "finger1-1.R": [
+          0.0,
+          -20.0,
+          0.0
+        ],
+        "finger1-2.L": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger1-2.R": [
+          10.0,
+          0.0,
+          0.0
+        ],
+        "finger1-3.L": [
+          6.0,
+          0.0,
+          0.0
+        ],
+        "finger1-3.R": [
+          6.0,
+          0.0,
+          0.0
+        ],
+        "finger2-1.L": [
+          15.0,
+          0.0,
+          2.0
+        ],
+        "finger2-1.R": [
+          15.0,
+          0.0,
+          -2.0
+        ],
+        "finger2-2.L": [
+          20.0,
+          0.0,
+          0.0
+        ],
+        "finger2-2.R": [
+          20.0,
+          0.0,
+          -0.0
+        ],
+        "finger2-3.L": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger2-3.R": [
+          8.0,
+          0.0,
+          -0.0
+        ],
+        "finger3-1.L": [
+          15.0,
+          0.0,
+          0.7
+        ],
+        "finger3-1.R": [
+          15.0,
+          0.0,
+          -0.7
+        ],
+        "finger3-2.L": [
+          20.0,
+          0.0,
+          0.0
+        ],
+        "finger3-2.R": [
+          20.0,
+          0.0,
+          -0.0
+        ],
+        "finger3-3.L": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger3-3.R": [
+          8.0,
+          0.0,
+          -0.0
+        ],
+        "finger4-1.L": [
+          15.0,
+          0.0,
+          -0.7
+        ],
+        "finger4-1.R": [
+          15.0,
+          0.0,
+          0.7
+        ],
+        "finger4-2.L": [
+          20.0,
+          0.0,
+          0.0
+        ],
+        "finger4-2.R": [
+          20.0,
+          0.0,
+          -0.0
+        ],
+        "finger4-3.L": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger4-3.R": [
+          8.0,
+          0.0,
+          -0.0
+        ],
+        "finger5-1.L": [
+          15.0,
+          0.0,
+          -2.0
+        ],
+        "finger5-1.R": [
+          15.0,
+          0.0,
+          2.0
+        ],
+        "finger5-2.L": [
+          20.0,
+          0.0,
+          0.0
+        ],
+        "finger5-2.R": [
+          20.0,
+          0.0,
+          -0.0
+        ],
+        "finger5-3.L": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "finger5-3.R": [
+          8.0,
+          0.0,
+          -0.0
+        ],
+        "lowerarm01.L": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "lowerarm01.R": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "upperarm01.L": [
+          0.0,
+          0.0,
+          -40.0
+        ],
+        "upperarm01.R": [
+          0.0,
+          0.0,
+          40.0
+        ],
+        "wrist.L": [
+          0.0,
+          25.0,
+          0.0
+        ],
+        "wrist.R": [
+          0.0,
+          -25.0,
+          0.0
+        ]
+      }
+    }
+  ]
+}

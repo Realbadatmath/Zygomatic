@@ -1,0 +1,53 @@
+{
+  "version": "2026-09-30.1",
+  "for": "capability_tests/sfx_library.py — the answer key of the retrieval probes (semantic, precision, recall_lib, by_example)",
+  "verified": false,
+  "libraries": ["sfx", "foley", "vocal_fx", "soundtracks", "merged"],
+  "sidecars": [
+    "data/runtime/asset_library_sfx_meta.json",
+    "data/runtime/asset_library_foley_meta.json",
+    "data/runtime/asset_library_vocal_fx_meta.json",
+    "data/runtime/asset_library_soundtracks_meta.json",
+    "data/runtime/asset_library_merged_meta.json"
+  ],
+  "id_form": "<category>/<filename>, exactly the key of the sidecar record — e.g. sfx/waves_hull_01.wav",
+  "note": "Twenty text queries written against what the house libraries actually hold on 2026-09-30 (95 sfx beds, 1049 344-Audio foley, 1684 344-Audio human mouth noises, 2 derived soundtracks, 6 merges). The queries are FIXED and a runner may not reword them. `accept` and `relevant` are EMPTY on purpose: no one has listened yet, and we do not grade a search against an answer we have not checked ourselves.",
+  "how_to_verify": "For each query the operator opens the SFX Library tab, plays candidates with the ranking hidden, and writes into `accept` every slate id that is a usable first hit for that query (normally 1-3), and into `relevant` every slate id that belongs in a top-ten for it (normally 3-15). `by_example` is filled the same way: ten slate ids the operator can confirm are single, unambiguous recordings. When every query has a non-empty `accept` and a non-empty `relevant`, set `verified` to true. Until then semantic, precision, recall_lib and by_example ship `untested — key unverified`.",
+  "queries": [
+    {"id": "q01", "query": "a heavy wooden door creaking open", "accept": [], "relevant": []},
+    {"id": "q02", "query": "footsteps on wooden boards", "accept": [], "relevant": []},
+    {"id": "q03", "query": "water surging against a ship's hull", "accept": [], "relevant": []},
+    {"id": "q04", "query": "seagulls calling over a harbour", "accept": [], "relevant": []},
+    {"id": "q05", "query": "hemp rope and rigging creaking under load", "accept": [], "relevant": []},
+    {"id": "q06", "query": "a canvas sail flapping in wind", "accept": [], "relevant": []},
+    {"id": "q07", "query": "a sword striking a shield", "accept": [], "relevant": []},
+    {"id": "q08", "query": "a spear thrusting into flesh", "accept": [], "relevant": []},
+    {"id": "q09", "query": "a man coughing and clearing his throat", "accept": [], "relevant": []},
+    {"id": "q10", "query": "a woman groaning in pain", "accept": [], "relevant": []},
+    {"id": "q11", "query": "a sharp intake of breath", "accept": [], "relevant": []},
+    {"id": "q12", "query": "a crowd of people screaming in agony", "accept": [], "relevant": []},
+    {"id": "q13", "query": "coins poured onto a wooden table", "accept": [], "relevant": []},
+    {"id": "q14", "query": "a church bell struck once", "accept": [], "relevant": []},
+    {"id": "q15", "query": "rain falling on a roof", "accept": [], "relevant": []},
+    {"id": "q16", "query": "thunder rolling in the distance", "accept": [], "relevant": []},
+    {"id": "q17", "query": "horse hooves on cobbles", "accept": [], "relevant": []},
+    {"id": "q18", "query": "a fire crackling in a hearth", "accept": [], "relevant": []},
+    {"id": "q19", "query": "a quill pen scratching on paper", "accept": [], "relevant": []},
+    {"id": "q20", "query": "an earthenware jug smashing on stone", "accept": [], "relevant": []}
+  ],
+  "by_example": [],
+  "by_example_note": "Ten slate ids, filled by the operator, each an unambiguous single recording. The by_example probe queries the library WITH that file's audio and requires the file's own id back at rank 1.",
+  "near_dupe_query": "footsteps on wooden boards",
+  "near_dupe_note": "One query, its top ten read as a set: the question is whether the ten are ten performances or one file filed ten times.",
+  "filters": [
+    {"id": "f1", "clause": {"field": "duration_s", "max": 3.0}},
+    {"id": "f2", "clause": {"field": "duration_s", "min": 30.0}},
+    {"id": "f3", "clause": {"field": "channels", "equals": 2}},
+    {"id": "f4", "clause": {"field": "sample_rate", "equals": 48000}}
+  ],
+  "tag_vocab": [
+    "ucs_category", "group", "descriptor", "sex", "pack", "pack_label",
+    "instrument", "pitch", "transform", "license_id"
+  ],
+  "tag_vocab_note": "The controlled list is the sidecar's OWN declared fields as they exist on 2026-09-30 (asset_library_service.py writes them); `tags` measures the share of tag values that sit in a field of this list rather than in free text inside `notes`."
+}

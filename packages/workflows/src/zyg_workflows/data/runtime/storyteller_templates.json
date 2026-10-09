@@ -1,0 +1,2225 @@
+{
+  "version": 1,
+  "generated": "2026-07-25",
+  "templates": [
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_second_ledger",
+      "order": 1,
+      "series_title": "The Second Ledger",
+      "logline": "A boy of twelve keeps a private account of everything his father sells.",
+      "setting": "Amsterdam & the Atlantic, 1672-1676",
+      "genre": "historical drama",
+      "source_doc": "The Second Ledger - Series Bible",
+      "character": {
+        "name": "Abel van Haren",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 12,
+        "age_range": "child",
+        "ethnic_heritage": "Dutch",
+        "skin_tone": "fair (badly, permanently sunburnt)",
+        "hair_color": "light brown",
+        "hair_style": "short, plain 17th-c. Dutch cut",
+        "eye_color": "grey-blue",
+        "body_build": "small, slight for his age",
+        "distinctive_marks": "none",
+        "default_clothing": "plain dark 17th-century Dutch merchant's-son wool coat, linen collar, buckled shoes",
+        "default_expression": "watchful, unbearably polite",
+        "render_style": "animated",
+        "one_line": "Twelve, small for it, Dutch-pale and sunburnt. His mother's piety and his father's arithmetic, at war in one boy. His one power is that nobody counts him."
+      },
+      "engine": {
+        "premise": "Abel van Haren, 12, sails with his charming slave-factor father Cornelis down the African coast, across the Atlantic and home. His father gives him a blank ledger to learn double-entry bookkeeping; Abel instead keeps a SECOND ledger — left column what the world says a person is worth (a man, prime, f140), right column the person's NAME and what they told him. He cannot free anyone or stop a single sale. He can only see, count, and refuse to let the arithmetic be the only record. The horror is that his father's books BALANCE perfectly; the evil is not in the arithmetic, so where is it? He audits, line by line, looking for the entry where the world went wrong.",
+        "episode_format": "~12-18 min. Six beats: (1) The Question Abel writes at the top of the page at dawn [title card]; (2) The Ordinary ~20% ship/shore business, the father being lovable — never skip it, the ordinariness delivers the horror; (3) The Evidence ~30% the day gives him something he did not want; (4) The Pressure ~20% he must participate, stay silent, or choose; (5) The Entry ~15% night, the ledger, his answer + three self-objections; (6) The Undefeated Objection ~10% the third objection stands — that is tomorrow's hook (rotate intellectual / emotional / physical).",
+        "generative_machinery": "Draw one from each: (A) a QUESTION SEED from the bank of 30 (e.g. 'Is a promise to a man you own still a promise?', 'Can a thing be lawful and also a crime?', 'If everyone does it, is any of it mine?', 'Is mercy that changes nothing still mercy?'); (B) an EPISODE TYPE from the wheel of 12 (The Name, The Argument, The Good Day, The Small Mercy, The Backfire, The Near-Discovery, The Silence, The Machine, The Mirror, The Text, The Body, The Letter); (C) a RELATIONSHIP PRESSURE; (D) a COMPLICATION; (E) a HOOK TYPE. Never the same episode type twice in three days. Five fuel engines run in parallel: Question, Name, Father, Complicity, Small Mercy.",
+        "rules": [
+          "Abel NEVER frees anyone — he is a powerless child; the premise dies if he becomes a rescuer.",
+          "The enslaved characters are people, never instruments: names always, interiority independent of Abel, no gratitude, agency including refusal.",
+          "Consequence, not spectacle — violence conveyed through aftermath, sound, silence, paperwork.",
+          "The father is charming in every episode he appears in, including the worst ones.",
+          "Abel loses every argument he has out loud; he wins only on the page, alone, at night, too late.",
+          "No borrowed morality — his objections built only from tools available in 1672 (Scripture, Roman law, Grotius, Descartes, Montaigne, Spinoza, his own eyes).",
+          "History is fixed; the trade continues. Never imply 'different times'. The ledger is never presented as sufficient."
+        ],
+        "beat_bank": {
+          "question_seeds": [
+            "Is a promise made to a man you own still a promise?",
+            "Can a thing be lawful and also a crime?",
+            "If everyone does it, is any of it mine?",
+            "Does the last pair of hands carry all the guilt, or none?",
+            "What is a name for, if no one will use it?",
+            "Is it worse to do harm, or to profit from harm you did not do?",
+            "Can you be kind inside a cruelty without excusing it?",
+            "Why is a bad man's argument sometimes better than a good man's?",
+            "If I record it and change nothing, what have I done?",
+            "Is my father one man or two?",
+            "What does a good man look like from below?",
+            "Does the sea care? Should that comfort me or not?",
+            "Who invented the price? Who agreed to it?",
+            "Can a book be wrong if it is Scripture?",
+            "Is obedience a virtue if the order is monstrous?",
+            "Am I a witness or a spectator? What is the difference?",
+            "Is silence a lie?",
+            "If I would not do it to one man, why can I watch it done to four hundred?",
+            "Does counting people help them, or only me?",
+            "What do I owe someone I cannot help?",
+            "Is guilt useful, or only comfortable?",
+            "Would I refuse if refusing cost me nothing?",
+            "Can a machine be evil if every part of it is innocent?",
+            "Is mercy that changes nothing still mercy?",
+            "Who is my neighbour, if not the man beneath the deck I sleep on?",
+            "Why do I find the honest brute easier to bear than the gentle scholar?",
+            "If I inherit this, when exactly did it become mine?",
+            "Does a man consent when his king sells him?",
+            "Is a question a form of cowardice?",
+            "What is the smallest thing that is still something?"
+          ],
+          "episode_types": [
+            "The Name",
+            "The Argument",
+            "The Good Day",
+            "The Small Mercy",
+            "The Backfire",
+            "The Near-Discovery",
+            "The Silence",
+            "The Machine",
+            "The Mirror",
+            "The Text",
+            "The Body",
+            "The Letter"
+          ]
+        }
+      },
+      "serialization": {
+        "total_episodes": 500,
+        "arcs": [
+          {
+            "name": "The Outbound",
+            "eps": "1-100",
+            "where": "Amsterdam, Texel, the Atlantic, Cape Verde",
+            "spine": "Road story. A boy learns a machine. The Hague lynching; departure; the ship is beautiful and the men are good company. No enslaved person seen until ep 71 — before that it is paperwork, and worse."
+          },
+          {
+            "name": "The Coast",
+            "eps": "101-200",
+            "where": "Elmina, Axim, Shama, the Slave Coast",
+            "spine": "Castle intrigue, dense character work. Waiting, bargaining, credit, disease, the chapel above the cells. Kofi and Ma Efua enter; Coppens disappears."
+          },
+          {
+            "name": "The Crossing",
+            "eps": "201-300",
+            "where": "The Atlantic",
+            "spine": "Confinement thriller. 60-odd days, nowhere to go. Restraint, sound, indirection, consequence over spectacle. Abel's ledger nearly kills him twice."
+          },
+          {
+            "name": "The Islands",
+            "eps": "301-400",
+            "where": "Curacao, Suriname, Berbice",
+            "spine": "Colonial gothic. Numbers become fields. Auctions, plantations, maroons. Abel discovers he is now, legally, of an age to own."
+          },
+          {
+            "name": "The Reckoning",
+            "eps": "401-500",
+            "where": "The return; Amsterdam; The Hague",
+            "spine": "Family drama & trial. Home unbearable because unchanged. His mother's orphanage; the firm's books; Spinoza who will not give an answer. The countdown runs out."
+          }
+        ],
+        "countdown": "On his 16th birthday (ep 500) Abel must sign the company register in his own hand — becoming a man in law and a partner, at which point his secret ledger becomes evidence against himself. He signs. Announce in ep 3, mention rarely.",
+        "recurring_cast": [
+          "Cornelis van Haren (father, slave factor — must be loved)",
+          "Kofi (12, taken, sharper than Abel, survives, has a plan)",
+          "Ma Efua (Euro-African broker at Elmina)",
+          "Dr. Reinier Sloot (ship's surgeon, Abel's dark mirror)",
+          "Predikant Elias Ruysch (chaplain)",
+          "Bastiaan Voogt (the father's brutal, honest factor)",
+          "Meester Barend Coppens (tutor — vanishes at Elmina)",
+          "Geertruyd van Haren (mother, Amsterdam orphanage)"
+        ],
+        "long_mysteries": [
+          "The marginalia — another hand writes single-line questions in Abel's ledger at night.",
+          "What happened to Coppens (fled, killed, or defected).",
+          "The first voyage — Cornelis on a ship in 1658 nobody will discuss.",
+          "Kofi's plan (set up Arc II, pays off Arc IV).",
+          "The dowry — Abel's mother's money financed the ship."
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_gaza",
+      "order": 2,
+      "series_title": "PALESTINE - GAZA — What the Concrete Kept",
+      "logline": "Small for his age, which is why they let him go into the gaps first.",
+      "setting": "Gaza, 2026 (post-Oct-2025 ceasefire)",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Kareem Abu Sitta",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 12,
+        "age_range": "child",
+        "ethnic_heritage": "Palestinian",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Kareem Abu Sitta, 12. Small for his age, which is why they let him go into the gaps first."
+      },
+      "engine": {
+        "premise": "Kareem works a volunteer rubble-recovery crew — six men, a boy, hand tools, a generator and a rope — that families hire to open a collapsed building. One building per episode; one family; one thing found or not found. He goes into the voids the adults can't fit through.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The stalled peace",
+          "The rubble economy",
+          "Unexploded ordnance",
+          "Public-health collapse",
+          "The missing",
+          "Governance vacuum (four authorities, no state)",
+          "The exit question",
+          "A child population"
+        ],
+        "story_threads": [
+          "Rubble economy — a contractor pays to clear a block fast; fast means not looking.",
+          "Ordnance — Kareem finds something metal and intact; everyone leaves very slowly.",
+          "The missing — remains that could belong to one of three families; no way to test.",
+          "Governance — two authorities issue contradictory permits for one site.",
+          "Personal — Kareem's own building reaches the top of the list."
+        ],
+        "why_it_hooks": "The most-covered place on earth, told through what is actually under the rubble.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Kareem Abu Sitta (protagonist)"
+        ],
+        "layer_deck": [
+          "The stalled peace",
+          "The rubble economy",
+          "Unexploded ordnance",
+          "Public-health collapse",
+          "The missing",
+          "Governance vacuum (four authorities, no state)",
+          "The exit question",
+          "A child population"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_israel",
+      "order": 3,
+      "series_title": "ISRAEL — Floor Four",
+      "logline": "Ran the youth movement, ran the school play; now runs a hotel floor of people who hate her a little.",
+      "setting": "Israel, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Noga Ben-Ari",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 22,
+        "age_range": "young adult",
+        "ethnic_heritage": "Israeli",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Noga Ben-Ari, 22. Ran the youth movement, ran the school play; now runs a hotel floor of people who hate her a little."
+      },
+      "engine": {
+        "premise": "Noga does national service as floor coordinator for one storey of a converted hotel housing evacuated families: 40 rooms, ~110 people, one working washing machine. Each episode is one room's crisis, with the whole national argument audible through the wall.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Multi-front war (sirens as a Tuesday)",
+          "The reserve burden",
+          "The conscription war",
+          "Hostage aftermath",
+          "The displaced",
+          "Arab citizens",
+          "Economic strain",
+          "Climate/wildfire"
+        ],
+        "story_threads": [
+          "Displacement — two families assigned one room; both have documents; both are right.",
+          "Hostages — the floor gets news; the hotel must decide how loudly it may be happy.",
+          "Reserves — Noga's brother returns from his fifth call-up and won't talk.",
+          "Economy — the hotel is sold; the buyer wants the guests out by autumn.",
+          "Missiles — an alert during a wedding in the function room downstairs."
+        ],
+        "why_it_hooks": "A war story with no combat: a whole society compressed into one corridor.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Noga Ben-Ari (protagonist)"
+        ],
+        "layer_deck": [
+          "Multi-front war (sirens as a Tuesday)",
+          "The reserve burden",
+          "The conscription war",
+          "Hostage aftermath",
+          "The displaced",
+          "Arab citizens",
+          "Economic strain",
+          "Climate/wildfire"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_ukraine",
+      "order": 4,
+      "series_title": "UKRAINE — The Last Ones Out",
+      "logline": "Learned to drive on a minibus full of other people's grandmothers.",
+      "setting": "Ukraine, 2026 (4.5 years into the invasion)",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Oleksandra 'Sasha' Marchenko",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 19,
+        "age_range": "teenager",
+        "ethnic_heritage": "Ukrainian",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Oleksandra 'Sasha' Marchenko, 19. Learned to drive on a minibus full of other people's grandmothers."
+      },
+      "engine": {
+        "premise": "Sasha drives a volunteer evacuation van — a paramedic and a list of addresses in villages under artillery. Her job: persuade people who have said no eleven times to say yes on the twelfth. One household per episode; one negotiation; one drive out or one drive back empty.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The grinding front",
+          "The energy war",
+          "Mobilisation & its discontents",
+          "Demography",
+          "Mines",
+          "The wounded",
+          "Corruption & politics",
+          "The deal (a negotiated line)"
+        ],
+        "story_threads": [
+          "Evacuation — a woman will leave only if the van takes her bees.",
+          "Mines — the route is cleared; the verge is not; the paramedic steps out anyway.",
+          "Mobilisation — a passenger is a fighting-age man with no papers; a checkpoint in 9 km.",
+          "Wounded — Sasha drives a veteran home; nobody told his family what he looks like now.",
+          "Personal — the village Sasha grew up in goes on the list."
+        ],
+        "why_it_hooks": "A ticking clock and a complete human being every episode; a van that drives into any of eight crises.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Oleksandra 'Sasha' Marchenko (protagonist)"
+        ],
+        "layer_deck": [
+          "The grinding front",
+          "The energy war",
+          "Mobilisation & its discontents",
+          "Demography",
+          "Mines",
+          "The wounded",
+          "Corruption & politics",
+          "The deal (a negotiated line)"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_russia",
+      "order": 5,
+      "series_title": "RUSSIA — The Engraver",
+      "logline": "Took over her father's workshop when his hands got too shaky for the fine lettering.",
+      "setting": "A provincial Russian city, 800 km from Moscow, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Katya Sorokina",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 23,
+        "age_range": "young adult",
+        "ethnic_heritage": "Russian",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Katya Sorokina, 23. Took over her father's workshop when his hands got too shaky for the fine lettering."
+      },
+      "engine": {
+        "premise": "Katya engraves headstones. Families bring a photograph, two dates and a phrase; she renders a face in granite and hears the version of the death the family has agreed on. One commission per episode — one photograph, one family, one agreed story, and the gap underneath it. A stonemason is functionally a priest.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The returning dead",
+          "The war economy (bonus money)",
+          "Returning veterans",
+          "Repression",
+          "Drones & refinery strikes",
+          "Demographic decline",
+          "Regional inequality",
+          "Climate & fire"
+        ],
+        "story_threads": [
+          "The dead — his mother wants 'hero' on the stone; his wife wants his nickname.",
+          "War economy — a family orders the most expensive stone and pays cash, and cannot look at each other.",
+          "Repression — an inscription that could be read two ways; carving it is a decision.",
+          "Drones — the granite delivery is stuck; the refinery road is closed; four families wait.",
+          "Personal — Katya's brother signs a contract and asks her not to tell their mother."
+        ],
+        "why_it_hooks": "The interior of Russia told through objects, in the one room where the truth gets spoken.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Katya Sorokina (protagonist)"
+        ],
+        "layer_deck": [
+          "The returning dead",
+          "The war economy (bonus money)",
+          "Returning veterans",
+          "Repression",
+          "Drones & refinery strikes",
+          "Demographic decline",
+          "Regional inequality",
+          "Climate & fire"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_usa",
+      "order": 6,
+      "series_title": "UNITED STATES — The Folder",
+      "logline": "US citizen, honour roll, keeper of the folder.",
+      "setting": "Phoenix, USA, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Marisol 'Sol' Reyes",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 17,
+        "age_range": "teenager",
+        "ethnic_heritage": "Mexican-American (US citizen)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Marisol 'Sol' Reyes, 17. US citizen, honour roll, keeper of the folder."
+      },
+      "engine": {
+        "premise": "Sol keeps the folder: birth certificates, case numbers, A-numbers, a lawyer's card, the cash. When her father is detained, half the street realises she knows how the system works and starts knocking. At 17 she becomes an unlicensed, unpaid caseworker for 40 families. One family, one case, one bureaucratic problem per episode.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Immigration enforcement",
+          "Political violence & protest",
+          "The overdose crisis",
+          "Gangs & the cartel economy",
+          "Guns",
+          "Housing & homelessness",
+          "Climate disaster",
+          "Healthcare"
+        ],
+        "story_threads": [
+          "Enforcement — a raid rumour spreads the group chat; Sol has 90 minutes to verify it.",
+          "Overdose — a boy from chemistry class takes half a pill and doesn't wake up.",
+          "Cartel economy — her cousin is offered $400 to drive a car across town and not look in it.",
+          "Housing — a neighbour asks Sol to hold their savings, in cash, in her room.",
+          "Personal — college applications are due the same week as her father's hearing."
+        ],
+        "why_it_hooks": "A minor holding the door between two systems, wired into eight American crises at once.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Marisol 'Sol' Reyes (protagonist)"
+        ],
+        "layer_deck": [
+          "Immigration enforcement",
+          "Political violence & protest",
+          "The overdose crisis",
+          "Gangs & the cartel economy",
+          "Guns",
+          "Housing & homelessness",
+          "Climate disaster",
+          "Healthcare"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_france",
+      "order": 7,
+      "series_title": "FRANCE — Chouf",
+      "logline": "Fastest kid in the cite. That turns out to be a marketable skill.",
+      "setting": "A Marseille cite, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Nadir Benali",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 14,
+        "age_range": "teenager",
+        "ethnic_heritage": "French-Algerian (Maghrebi)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Nadir Benali, 14. Fastest kid in the cite. That turns out to be a marketable skill."
+      },
+      "engine": {
+        "premise": "Nadir is a choufeur — a lookout. Eight-hour shifts on the ramp, a phone, a whistle, a hundred euros. One shift per episode: a customer, a rival, a policeman, a neighbour who knows his mother, a decision. The ramp is a viewing platform for the whole quartier. Two lives run in parallel — school and the ramp — and the pleasure is which one wins each day.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Narcotrafic (children employed)",
+          "Political paralysis",
+          "Policing & the banlieue",
+          "Communal fracture",
+          "Housing",
+          "Climate",
+          "The overseas territories",
+          "The agricultural crisis"
+        ],
+        "story_threads": [
+          "Narcotrafic — a rival network offers double; leaving is not a resignation.",
+          "Policing — a stop-and-search goes wrong three metres from him, and everyone films it.",
+          "Climate — a flash flood puts the cellar (and the stock) under 60 cm of water.",
+          "Overseas — a family arrives from Mayotte with nothing; their son is 11 and looking for work.",
+          "Personal — a sports lycee offers him a place in September; so does his promotion."
+        ],
+        "why_it_hooks": "Europe's most explosive domestic story, told from four feet off the ground.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Nadir Benali (protagonist)"
+        ],
+        "layer_deck": [
+          "Narcotrafic (children employed)",
+          "Political paralysis",
+          "Policing & the banlieue",
+          "Communal fracture",
+          "Housing",
+          "Climate",
+          "The overseas territories",
+          "The agricultural crisis"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_china",
+      "order": 8,
+      "series_title": "CHINA — The Guide",
+      "logline": "Licensed guide, badge 4471, fluent in three languages and careful in all of them.",
+      "setting": "Kashgar's rebuilt old city, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Dilnur Ablet",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 20,
+        "age_range": "young adult",
+        "ethnic_heritage": "Uyghur",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Dilnur Ablet, 20. Licensed guide, badge 4471, fluent in three languages and careful in all of them."
+      },
+      "engine": {
+        "premise": "Dilnur guides tour groups through the rebuilt old city, delivering an approved account of her own culture to delighted, sincere visitors. Off the clock she is assembling, obliquely, a picture of where her father went in 2018. One tour group per episode; the drama lives entirely in what can and cannot be said.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Surveillance & silence",
+          "The disappeared",
+          "Labour transfer",
+          "Heritage as product",
+          "Natural disaster",
+          "The economy",
+          "Youth unemployment",
+          "Demography & the strait"
+        ],
+        "story_threads": [
+          "Silence — a tourist asks, kindly and loudly, why there are no old men in the wall photographs.",
+          "Disappeared — a cousin returns after five years; polite to everyone, recognises no one.",
+          "Heritage — she is asked to write the new script.",
+          "Youth unemployment — her brother graduates, applies to 400 jobs, moves back into her room.",
+          "Personal — a foreign visitor slips her a phone number; taking it is a decision, so is not."
+        ],
+        "why_it_hooks": "A conflict with no gunfire, told through a young woman paid to perform a cheerful version of what happened to her family.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Dilnur Ablet (protagonist)"
+        ],
+        "layer_deck": [
+          "Surveillance & silence",
+          "The disappeared",
+          "Labour transfer",
+          "Heritage as product",
+          "Natural disaster",
+          "The economy",
+          "Youth unemployment",
+          "Demography & the strait"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_sudan",
+      "order": 9,
+      "series_title": "SUDAN — The Kitchen",
+      "logline": "Runs a pot that feeds three hundred people and keeps the list in her head.",
+      "setting": "A displacement site outside Tawila, Sudan, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Amna Ishag",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 15,
+        "age_range": "teenager",
+        "ethnic_heritage": "Sudanese (Zaghawa/Fur milieu)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Amna Ishag, 15. Runs a pot that feeds three hundred people and keeps the list in her head."
+      },
+      "engine": {
+        "premise": "Amna runs a takiya, a communal kitchen: one enormous pot, donated flour, and an impossible daily arithmetic about who eats. One arrival per episode — everyone must come to the pot, so the entire war walks through her doorway one person at a time. Feeding people is warm, which is what keeps the show survivable.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The war & its atrocities",
+          "Famine",
+          "Epidemic disease",
+          "Seasonal flooding",
+          "The largest displacement on earth",
+          "Foreign interests",
+          "The funding collapse",
+          "Child recruitment"
+        ],
+        "story_threads": [
+          "Atrocity — a man arrives whom someone in the queue recognises.",
+          "Famine — the flour is stolen; Amna knows who by, and needs him.",
+          "Disease — cholera reaches the line; the kitchen must become a clinic.",
+          "Recruitment — a boy who eats there every day stops coming, and reappears in a pickup.",
+          "Personal — Amna's two brothers were in El Fasher; every arrival is a chance and a dread."
+        ],
+        "why_it_hooks": "The largest, least-watched catastrophe on earth, told through a cooking pot and the hardest daily job in the world.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Amna Ishag (protagonist)"
+        ],
+        "layer_deck": [
+          "The war & its atrocities",
+          "Famine",
+          "Epidemic disease",
+          "Seasonal flooding",
+          "The largest displacement on earth",
+          "Foreign interests",
+          "The funding collapse",
+          "Child recruitment"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_myanmar",
+      "order": 10,
+      "series_title": "MYANMAR — The Crossing",
+      "logline": "Knows nine ways across the river and which two are currently survivable.",
+      "setting": "A Myanmar border region, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Zin Ko Latt",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 20,
+        "age_range": "young adult",
+        "ethnic_heritage": "Burman",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Zin Ko Latt, 20. Knows nine ways across the river and which two are currently survivable."
+      },
+      "engine": {
+        "premise": "Zin Ko runs a route: medicine, insulin and cash one way; people escaping conscription the other. Not a soldier, not exactly a smuggler — logistics, which in this war is a lifeline. One crossing per episode: one cargo, one passenger, one set of checkpoints, one thing that goes wrong.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Total fragmentation (1,200+ armed groups)",
+          "Aerial war on civilians",
+          "Conscription",
+          "Earthquake recovery",
+          "The scam compounds",
+          "Narcotics",
+          "The Rohingya question",
+          "Economic collapse"
+        ],
+        "story_threads": [
+          "Conscription — a passenger is a deserting soldier; half the network wants him handed over.",
+          "Medicine — a cargo of insulin overheats; someone downstream dies for it.",
+          "Scam compounds — a mother pays everything to get her son out of a compound she can see across the river.",
+          "Air war — the ford is struck the night before a crossing, with 40 already waiting.",
+          "Personal — the route is compromised; working out by whom takes a season."
+        ],
+        "why_it_hooks": "A road movie that renews itself every night, in a country where each checkpoint is a different regime.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Zin Ko Latt (protagonist)"
+        ],
+        "layer_deck": [
+          "Total fragmentation (1,200+ armed groups)",
+          "Aerial war on civilians",
+          "Conscription",
+          "Earthquake recovery",
+          "The scam compounds",
+          "Narcotics",
+          "The Rohingya question",
+          "Economic collapse"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_haiti",
+      "order": 11,
+      "series_title": "HAITI — Yes or No",
+      "logline": "Her voice note goes out at 5:40 a.m. and four hundred people wait for it.",
+      "setting": "Port-au-Prince, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Widelene 'Wideline' Joseph",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 13,
+        "age_range": "teenager",
+        "ethnic_heritage": "Haitian",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Widelene 'Wideline' Joseph, 13. Her voice note goes out at 5:40 a.m. and four hundred people wait for it."
+      },
+      "engine": {
+        "premise": "Wideline collects road information — from cousins, moto-taxi drivers, a woman selling phone credit — and puts out a daily WhatsApp voice note on which routes are passable. One route, one day, one person who needs it (a woman in labour, a boy sitting an exam, a father visiting a body). Every episode is a journey with a clock on it.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Territorial gang control",
+          "The intervention (GSF)",
+          "Drone warfare over a city",
+          "Hunger",
+          "Seismic & storm risk",
+          "Disease",
+          "No state",
+          "Expulsion (mass deportations)"
+        ],
+        "story_threads": [
+          "Gang control — a gang leader listens to her broadcasts and sends her a request, not a threat.",
+          "Drones — a strike hits a street she declared open that morning.",
+          "Storms — a hurricane; the only evacuation route runs through the wrong territory.",
+          "Expulsion — a deportation flight lands; 200 people need to get somewhere with no address.",
+          "Personal — she gets it wrong; someone goes anyway."
+        ],
+        "why_it_hooks": "A 13-year-old with a microphone and a city that cannot function without her; can this person get from here to there today?",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Widelene 'Wideline' Joseph (protagonist)"
+        ],
+        "layer_deck": [
+          "Territorial gang control",
+          "The intervention (GSF)",
+          "Drone warfare over a city",
+          "Hunger",
+          "Seismic & storm risk",
+          "Disease",
+          "No state",
+          "Expulsion (mass deportations)"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_mexico",
+      "order": 12,
+      "series_title": "MEXICO — Las Buscadoras",
+      "logline": "The only boy among eighty-one mothers, and the youngest who can read the ground.",
+      "setting": "A Mexican town, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Angel Cruz",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 16,
+        "age_range": "teenager",
+        "ethnic_heritage": "Mexican",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Angel Cruz, 16. The only boy among eighty-one mothers, and the youngest who can read the ground."
+      },
+      "engine": {
+        "premise": "Angel searches. Every weekend the collective goes to a field on an anonymous tip, pushes a steel rod into the earth and smells the tip of it. One field, one tip, one dig per episode. Sometimes nothing — its own story. Sometimes someone else's son, and the phone call. Eighty-one women: furious, funny, devout, obscene, unstoppable.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Disappearance (120,000+ missing)",
+          "Cartel fragmentation",
+          "The extortion economy",
+          "Climate disaster",
+          "Water",
+          "Migration",
+          "US military pressure",
+          "Impunity"
+        ],
+        "story_threads": [
+          "Disappearance — they find a body on no list, and nobody comes.",
+          "Floods — the rains move the ground; three known sites are now under two metres of silt.",
+          "Impunity — a tip arrives from someone who clearly did it, and clearly wants absolution.",
+          "Co-option — the state offers the collective a lab, a budget and an office. And a condition.",
+          "Personal — a field Angel has driven past a thousand times gets a tip."
+        ],
+        "why_it_hooks": "Eighty-one mothers with shovels doing the work of a failed state, and a 16-year-old growing up among them.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Angel Cruz (protagonist)"
+        ],
+        "layer_deck": [
+          "Disappearance (120,000+ missing)",
+          "Cartel fragmentation",
+          "The extortion economy",
+          "Climate disaster",
+          "Water",
+          "Migration",
+          "US military pressure",
+          "Impunity"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_syria",
+      "order": 13,
+      "series_title": "SYRIA — Two Keys",
+      "logline": "Law degree, two years unfinished, currently the least popular person in Homs.",
+      "setting": "Homs, Syria, 2026 (post-Assad)",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Rasha Haddad",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 24,
+        "age_range": "young adult",
+        "ethnic_heritage": "Syrian",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Rasha Haddad, 24. Law degree, two years unfinished, currently the least popular person in Homs."
+      },
+      "engine": {
+        "premise": "Rasha works a property-mediation office — a stopgap because the courts cannot cope — resolving competing claims on one house without either family calling anyone armed. One house per episode, two claimants, two irreconcilable histories of the same four walls. A courtroom drama in a country without courts, resolved by six o'clock.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Sectarian violence",
+          "The missing (100,000+)",
+          "Return & property",
+          "Water whiplash",
+          "Economic ruin",
+          "The captagon economy",
+          "Territorial fragmentation",
+          "Unexploded ordnance"
+        ],
+        "story_threads": [
+          "Sectarianism — the current occupant is the man who informed on the owner in 2013; both need the house.",
+          "Paperwork — a claimant produces a deed signed by an authority that no longer exists.",
+          "The missing — the owner cannot be declared dead, so the house cannot be inherited.",
+          "Floods — a village's land records are destroyed in one night; 400 claims become unprovable.",
+          "Personal — a file arrives with a name Rasha has been looking for since she was 13."
+        ],
+        "why_it_hooks": "Post-war reckoning as a weekly two-hander: everything Syria cannot say nationally gets said in one room.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Rasha Haddad (protagonist)"
+        ],
+        "layer_deck": [
+          "Sectarian violence",
+          "The missing (100,000+)",
+          "Return & property",
+          "Water whiplash",
+          "Economic ruin",
+          "The captagon economy",
+          "Territorial fragmentation",
+          "Unexploded ordnance"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_drcongo",
+      "order": 14,
+      "series_title": "DR CONGO — The Border Boy",
+      "logline": "Crosses an international frontier eleven times a day and has never been anywhere except the two towns on either side of it.",
+      "setting": "Goma-Gisenyi border, DRC, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Chance Bahati",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 9,
+        "age_range": "child",
+        "ethnic_heritage": "Congolese",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Chance Bahati, 9. Crosses an international frontier eleven times a day and has never been anywhere except the two towns on either side of it."
+      },
+      "engine": {
+        "premise": "Chance is a chargeur: he carries other people's goods across the Goma-Gisenyi border for a few hundred francs a trip. Because he is nine, small, cheerful and known, he moves through checkpoints that stop everyone else — so people start giving him other things to carry: messages, money, medicine, news. One crossing, one cargo, one client per episode.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Occupation & administration (M23 running a city of 2M)",
+          "The frozen economy (banks shut)",
+          "Minerals",
+          "Epidemics",
+          "Volcanic & lake hazard",
+          "Mass displacement",
+          "Sexual violence",
+          "Other armed groups"
+        ],
+        "story_threads": [
+          "Frozen economy — Chance can carry cash across the line; this makes him, at nine, a bank.",
+          "Occupation — his usual border guard is replaced by one who doesn't know him.",
+          "Epidemic — he is paid to carry a cold box and told not to open it or set it down.",
+          "Volcano — the mountain glows, the city half-evacuates, and Chance is the only one moving the right way.",
+          "Personal — his older sister wants him to stop, and needs the money he brings."
+        ],
+        "why_it_hooks": "An innocent at the centre of a machine he cannot see; a nine-year-old carrying an adult thriller.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Chance Bahati (protagonist)"
+        ],
+        "layer_deck": [
+          "Occupation & administration (M23 running a city of 2M)",
+          "The frozen economy (banks shut)",
+          "Minerals",
+          "Epidemics",
+          "Volcanic & lake hazard",
+          "Mass displacement",
+          "Sexual violence",
+          "Other armed groups"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_mali",
+      "order": 15,
+      "series_title": "MALI & THE SAHEL — The Queue",
+      "logline": "Sells places in a fuel queue, which makes her the best-informed person in Bamako.",
+      "setting": "Bamako, Mali, 2026 (fuel blockade)",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Fatoumata 'Fanta' Traore",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 18,
+        "age_range": "teenager",
+        "ethnic_heritage": "Malian (Bambara)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Fatoumata 'Fanta' Traore, 18. Sells places in a fuel queue, which makes her the best-informed person in Bamako."
+      },
+      "engine": {
+        "premise": "Fanta holds places. She has cousins, a folding stool and a notebook, and sells position in the fuel line to people who cannot afford to lose two days. The queue is a cross-section of a whole country, forcibly sorted into one line and stuck for 40 hours. Every episode is a new customer with a new problem; comedy and dread from the same source.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The blockade",
+          "The insurgency's spread",
+          "Junta rule & its allies",
+          "Climate whiplash",
+          "Gold",
+          "Education collapse",
+          "Migration",
+          "Food insecurity"
+        ],
+        "story_threads": [
+          "Blockade — a convoy gets through; the queue collapses into euphoria and then into a crush.",
+          "Junta — rationing is announced; Fanta's entire business becomes illegal overnight.",
+          "Gold — her brother wants to take the money and go north, where the wages are better.",
+          "Education — a displaced teacher starts running lessons for the children in the line.",
+          "Personal — a queue jumper is beaten; Fanta could have stopped it."
+        ],
+        "why_it_hooks": "A siege told through a queue: an entire capital compressed into one line.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Fatoumata 'Fanta' Traore (protagonist)"
+        ],
+        "layer_deck": [
+          "The blockade",
+          "The insurgency's spread",
+          "Junta rule & its allies",
+          "Climate whiplash",
+          "Gold",
+          "Education collapse",
+          "Migration",
+          "Food insecurity"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_afghanistan",
+      "order": 16,
+      "series_title": "AFGHANISTAN — The Sixth Grade",
+      "logline": "Finished grade six in 2021 and has been in school ever since, illegally, as the teacher.",
+      "setting": "An Afghan city, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Zohra Nazari",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 16,
+        "age_range": "teenager",
+        "ethnic_heritage": "Afghan (Hazara)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Zohra Nazari, 16. Finished grade six in 2021 and has been in school ever since, illegally, as the teacher."
+      },
+      "engine": {
+        "premise": "Zohra runs a home school: twelve girls in a room, one whiteboard, a curriculum from PDFs, curtains closed. One student per episode — who she is, what she lost, what she can't do yet, and whether the class survives having her in it. Plus the low thriller of not being found out.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The education ban",
+          "Earthquakes",
+          "Sixth-year drought",
+          "Mass forced return",
+          "Aid collapse",
+          "Economic contraction",
+          "Security (IS attacks on Hazara)",
+          "Information blackouts"
+        ],
+        "story_threads": [
+          "Return — a new girl arrives from Iran, taught in Farsi for nine years, and reads circles around everyone.",
+          "Earthquake — two students from the eastern villages; neither will sit near a wall.",
+          "Blackout — the internet is cut nationwide for 48 hours and the whole syllabus is on a phone.",
+          "Economy — one scholarship abroad, one place, eleven girls.",
+          "Personal — Zohra's younger sister turns twelve, and finishes grade six."
+        ],
+        "why_it_hooks": "An entire generation's education happening in a living room with the curtains shut.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Zohra Nazari (protagonist)"
+        ],
+        "layer_deck": [
+          "The education ban",
+          "Earthquakes",
+          "Sixth-year drought",
+          "Mass forced return",
+          "Aid collapse",
+          "Economic contraction",
+          "Security (IS attacks on Hazara)",
+          "Information blackouts"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_yemen",
+      "order": 17,
+      "series_title": "YEMEN — Two Rials",
+      "logline": "Works for a money changer and can do the day's cross-rate in his head faster than the machine.",
+      "setting": "Yemen (a divided city), 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Saleh Qaid",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 14,
+        "age_range": "teenager",
+        "ethnic_heritage": "Yemeni",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Saleh Qaid, 14. Works for a money changer and can do the day's cross-rate in his head faster than the machine."
+      },
+      "engine": {
+        "premise": "Saleh works the counter and runs the notes, back and forth across a de facto frontier between two central banks and two versions of the same currency. One transaction per episode. The counter is a confessional — people have to say exactly what the money is for — and the exchange rate itself is the war.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Two economies (two central banks)",
+          "The maritime war",
+          "Hunger",
+          "Disease",
+          "Landmines",
+          "Water",
+          "Repression & detention",
+          "Child recruitment"
+        ],
+        "story_threads": [
+          "Currency — a woman changes her entire savings on the day the rate moves the wrong way.",
+          "Maritime war — the port closes; within six hours the price of flour and of money both double.",
+          "Hunger — a father exchanges a wedding ring and asks Saleh not to tell which family it came from.",
+          "Detention — Saleh's employer is arrested, and Saleh knows where everything is.",
+          "Recruitment — a recruiter offers Saleh a salary in the stronger currency."
+        ],
+        "why_it_hooks": "A war explained entirely through money, and a 14-year-old with the sharpest arithmetic in the market.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Saleh Qaid (protagonist)"
+        ],
+        "layer_deck": [
+          "Two economies (two central banks)",
+          "The maritime war",
+          "Hunger",
+          "Disease",
+          "Landmines",
+          "Water",
+          "Repression & detention",
+          "Child recruitment"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_nigeria",
+      "order": 18,
+      "series_title": "NIGERIA — The Price",
+      "logline": "Taken at seventeen, released at nineteen, and now the only person both sides will speak to.",
+      "setting": "Northern Nigeria, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Halima Bukar",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 22,
+        "age_range": "young adult",
+        "ethnic_heritage": "Nigerian (Kanuri)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Halima Bukar, 22. Taken at seventeen, released at nineteen, and now the only person both sides will speak to."
+      },
+      "engine": {
+        "premise": "Halima negotiates. Abducted at 17, held two years, she came back with fluency in how the other side thinks and a phone number. Families come to her when someone is taken, and she brokers the price. One abduction, one negotiation, one family per episode, with a clock and a number that moves. She is never in the room where the violence happens — only on the phone, doing arithmetic with a life.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Four simultaneous conflicts",
+          "The kidnapping economy",
+          "Flooding",
+          "Education collapse",
+          "Economic shock (naira float)",
+          "Oil & the Delta",
+          "Japa (mass emigration)",
+          "Health emergencies"
+        ],
+        "story_threads": [
+          "Kidnapping economy — a family cannot raise it; Halima must decide whether to lie to the kidnappers or to them.",
+          "Schools — 211 children are taken; one negotiation, one season.",
+          "Economy — the naira moves; the kidnappers start quoting in dollars.",
+          "Japa — the money is coming from a nurse in Manchester who cannot get leave to come home.",
+          "Personal — one of the voices on the phone is someone she knew in captivity."
+        ],
+        "why_it_hooks": "A procedural with the highest stakes in the format, built on the question the whole country argues about: should you ever pay?",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Halima Bukar (protagonist)"
+        ],
+        "layer_deck": [
+          "Four simultaneous conflicts",
+          "The kidnapping economy",
+          "Flooding",
+          "Education collapse",
+          "Economic shock (naira float)",
+          "Oil & the Delta",
+          "Japa (mass emigration)",
+          "Health emergencies"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_iran",
+      "order": 19,
+      "series_title": "IRAN — The Line Crew",
+      "logline": "Climbs poles in fifty-degree heat to reconnect neighbourhoods that were connected yesterday.",
+      "setting": "Ahvaz, Iran, 2026 (war + drought)",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Nima Sarrafi",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 25,
+        "age_range": "young adult",
+        "ethnic_heritage": "Iranian (Ahvazi Arab milieu)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Nima Sarrafi, 25. Climbs poles in fifty-degree heat to reconnect neighbourhoods that were connected yesterday."
+      },
+      "engine": {
+        "premise": "Nima is on a utility repair crew. A strike takes out a substation or a main; his team goes out and reconnects what it can, street by street, in the heat. One neighbourhood per episode — who is in the dark or dry, what that is doing to them, and whether the crew can get there. A rescue format with no weapons in it.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The war (nightly strikes)",
+          "Water bankruptcy",
+          "Infrastructure damage",
+          "Heat",
+          "Protest & repression",
+          "Economic collapse",
+          "Ethnic periphery",
+          "Succession & brain drain"
+        ],
+        "story_threads": [
+          "War — the crew is told to prioritise a facility; nobody will say what it is.",
+          "Water — a district gets power back and still has no water, and would rather have had the water.",
+          "Protest — a crowd forms at a dry standpipe; the crew arrives in a marked van and is assumed to be the state.",
+          "Periphery — a neighbourhood accuses them of restoring the rich first; they are not entirely wrong.",
+          "Personal — Nima's father, who repaired these same lines in the 1980s, gives advice nobody asked for."
+        ],
+        "why_it_hooks": "The newest war on the list from the least-seen angle: four men in a truck racing the temperature.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Nima Sarrafi (protagonist)"
+        ],
+        "layer_deck": [
+          "The war (nightly strikes)",
+          "Water bankruptcy",
+          "Infrastructure damage",
+          "Heat",
+          "Protest & repression",
+          "Economic collapse",
+          "Ethnic periphery",
+          "Succession & brain drain"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_ecuador",
+      "order": 20,
+      "series_title": "ECUADOR — Attendance",
+      "logline": "Takes the register in 4B, and has started keeping a second one.",
+      "setting": "A coastal Ecuadorian city, 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Emilia Zambrano",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "female",
+        "age": 15,
+        "age_range": "teenager",
+        "ethnic_heritage": "Ecuadorian",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Emilia Zambrano, 15. Takes the register in 4B, and has started keeping a second one."
+      },
+      "engine": {
+        "premise": "Emilia takes the attendance register for her class, then starts a second, private one: WHY. Moved to Spain. Working. Pregnant. Scared. Recruited. Dead. One empty chair per episode — a complete story about one family, told by a 15-year-old trying to understand what is happening to everyone she grew up with.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "Gang war",
+          "The extortion economy",
+          "Recruitment of minors",
+          "Prisons",
+          "Energy crisis (blackouts)",
+          "Climate (El Nino)",
+          "Emigration",
+          "Political violence"
+        ],
+        "story_threads": [
+          "Recruitment — a boy returns after two weeks with a new phone and says nothing.",
+          "Extortion — Emilia's best friend's family can't pay the vacuna and has to move districts.",
+          "Energy — a 14-hour blackout the night before exams; half the class hasn't revised.",
+          "Emigration — a girl says goodbye on Friday; the route she is taking is the Darien.",
+          "Personal — someone finds the second register."
+        ],
+        "why_it_hooks": "A school register telling the story of the fastest social collapse in the modern Americas, one desk at a time.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Emilia Zambrano (protagonist)"
+        ],
+        "layer_deck": [
+          "Gang war",
+          "The extortion economy",
+          "Recruitment of minors",
+          "Prisons",
+          "Energy crisis (blackouts)",
+          "Climate (El Nino)",
+          "Emigration",
+          "Political violence"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_ethiopia",
+      "order": 21,
+      "series_title": "ETHIOPIA — The Reopening",
+      "logline": "Newly qualified, wildly under-prepared, assigned to reopen schools shut for three years.",
+      "setting": "Northern Ethiopia (Amhara), 2026",
+      "genre": "contemporary drama (conflict-zone daily serial)",
+      "source_doc": "Twenty Premises from the World's Conflict Zones (Expanded, July 2026)",
+      "character": {
+        "name": "Bereket Tadesse",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 21,
+        "age_range": "young adult",
+        "ethnic_heritage": "Ethiopian (Amhara)",
+        "skin_tone": "",
+        "hair_color": "",
+        "hair_style": "",
+        "eye_color": "",
+        "body_build": "",
+        "distinctive_marks": "none",
+        "default_clothing": "",
+        "default_expression": "watchful, competent, carrying more than a person that age should",
+        "render_style": "animated",
+        "one_line": "Bereket Tadesse, 21. Newly qualified, wildly under-prepared, assigned to reopen schools shut for three years."
+      },
+      "engine": {
+        "premise": "Bereket's job, on paper, is district education officer; in practice it is to physically reopen one school at a time — find the building, the teacher, the desks, and get an agreement from everyone with a gun within 15 km that they will let it happen. One school per episode; one village, one negotiation; a door open or a door still shut.",
+        "episode_format": "~12-18 min, self-contained (a new viewer can arrive on any day). One unit per episode per the engine; A-story from one pressure layer, complication from another; end on a human decision, not a verdict.",
+        "generative_machinery": "Treat the pressure-layer stack as a DECK. Each episode: pick a fresh layer for the A-story and a different layer for the complication; advance one 'story thread'. Rotate tone (comedy Tuesday, devastation Wednesday) without breaking format.",
+        "pressure_layers": [
+          "The Amhara war",
+          "Oromia & the wider fracture",
+          "Tigray fragility & Eritrea",
+          "Education collapse",
+          "Drought & flood",
+          "Volcanic & seismic hazard (Hayli Gubbi)",
+          "Economic shock",
+          "Forced return"
+        ],
+        "story_threads": [
+          "Occupation — the building is occupied by soldiers who have nowhere else to be.",
+          "Language — the village will reopen the school only if the teaching is in their language.",
+          "Insurgency — a commander gives permission and demands the register of names.",
+          "Volcano — an Afar community has lost its grazing to ash and is moving; the school must move with them.",
+          "Personal — his own school in Gondar comes up on the list, and his old teacher is now on the other side."
+        ],
+        "why_it_hooks": "The most hopeful premise on the list, with the clearest weekly victory: get a door open.",
+        "rules": [
+          "Draw the A-story from ONE pressure layer and, ideally, the complication from ANOTHER — the collision is where good episodes live.",
+          "Vary the episode TYPE, not the misery: rotate bureaucracy / epidemic / market-price / flood / negotiation shapes. Never three consecutive episodes from the same layer.",
+          "No single layer supplies more than ~a quarter of episodes across a season (audit used_layers).",
+          "A local character solves the problem, never an outsider. Someone is allowed to be funny. A person from this place would recognise the joke.",
+          "Consequence over spectacle; dignity over voyeurism. Treat the political situation as a background condition, never a plot dependency.",
+          "Facts current to 25 July 2026 and should be treated as background; do not tie an episode's resolution to a live news event that may have changed."
+        ]
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Rolling serial",
+            "eps": "1-1825",
+            "spine": "No fixed act structure: a daily built on the pressure-layer deck + story threads. Track used_layers to keep any one under ~25%; keep the political situation as background so episodes stay evergreen. Slow-burn the 'Personal' thread as the season-long C-story."
+          }
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Bereket Tadesse (protagonist)"
+        ],
+        "layer_deck": [
+          "The Amhara war",
+          "Oromia & the wider fracture",
+          "Tigray fragility & Eritrea",
+          "Education collapse",
+          "Drought & flood",
+          "Volcanic & seismic hazard (Hayli Gubbi)",
+          "Economic shock",
+          "Forced return"
+        ]
+      }
+    },
+    {
+      "enabled": true,
+      "settings": {
+        "model_family": "sdxl",
+        "render_style": "realistic_animation",
+        "style_note": "Realistic animated illustration — 2D hand-drawn / cel or rotoscoped photoreal-adjacent animation. NOT 3D Pixar/toon. SDXL checkpoint calibration is a follow-up tuning step.",
+        "visual_style": "cinematic",
+        "duration_min_range": [
+          12,
+          18
+        ],
+        "duration_min_default": 15,
+        "camera_mode": "automatic",
+        "voice_style": "narration"
+      },
+      "id": "st_farnah",
+      "order": 22,
+      "series_title": "Farnah, or The Boy Who Remembers Forward",
+      "logline": "A boy at a waystation answers any question about the future in stories — and every story costs him one memory of his own.",
+      "setting": "A caravan waystation below Ecbatana, Media, 550-546 BC (tales span c.650 BC-2030 AD)",
+      "genre": "epic / historical / speculative",
+      "source_doc": "FARNAH - series premise",
+      "character": {
+        "name": "Farnah, son of Vahyazdata",
+        "char_id": null,
+        "lora_status": "pending",
+        "gender": "male",
+        "age": 12,
+        "age_range": "child",
+        "ethnic_heritage": "Median / Persian",
+        "skin_tone": "olive-fair",
+        "hair_color": "dark brown",
+        "hair_style": "",
+        "eye_color": "dark brown",
+        "body_build": "small, slight",
+        "distinctive_marks": "none",
+        "default_clothing": "plain 6th-c. BC Median waystation boy's tunic, wool wrap, sandals",
+        "default_expression": "watchful, unbearably polite; frightened and covering it by explaining things",
+        "render_style": "animated",
+        "one_line": "Twelve, small, watchful. Remembers backwards a century of Median history he never lived — and remembers FORWARD 2,600 years the same way, as things already over."
+      },
+      "engine": {
+        "premise": "In the year Cyrus takes Ecbatana, Farnah, 12, at his grandmother's caravan waystation on what will become the Royal Road, discovers he can answer any question about the future — in STORIES. A traveller arrives daily with a problem and asks. Farnah answers with a nested tale drawn from any point between c.650 BC and 2030 AD; the tale IS the episode and resolves completely. Each telling costs him one memory of his own — the further forward, the more expensive. He is filling up with everyone else's past and running out of room for his own.",
+        "episode_format": "Standard daily A/B/C ~60/30/10. A = the self-contained nested tale (any century; a new viewer can arrive on any Tuesday). B = the frame arc (the King's Eye, the wax tablet, the magus, the queue in the yard) advanced 5-10%. C = a slow burn (Roshanak, the Bactrian, Kleon's manuscript) one scene a fortnight, paying off ~18 months later. Variable cost dial: bottle weeks in the waystation, event weeks a thousand on a hillside.",
+        "generative_machinery": "A traveller a day, a question a day, a century a day. THE QUESTION CHOOSES THE CENTURY, and the century must JUMP — no two consecutive episodes in the same era, no era more than four times in any twenty. Tonal week: Monday warm, Tuesday funny, Wednesday heavy, Thursday frame-and-arc, Friday cliffhanger. Material bank = 2,680 years, 11 state formations, 5 religions, every invasion route.",
+        "rules": [
+          "He must be asked — no question, no vision (the road is the engine, not the boy).",
+          "He answers with a story, not a prediction — he can say what happened, not what to do; the listener must decide.",
+          "He cannot see his own life or the life of anyone he loves.",
+          "Every telling costs him a memory of his own (this is the clock and the tragedy).",
+          "He cannot see what he changes — the future he remembers does not update; he never knows if he is remembering history or writing it.",
+          "He is never wrong, and frequently disbelieved — information 200 years early is not power, it is noise.",
+          "TWO DATABASES: a story-ledger (every tale used, tagged by era/region/beat, so it never repeats) and a chronicle (contradiction-checked spine, because he is never wrong)."
+        ],
+        "beat_bank": {
+          "eras": [
+            "The world before him (c.700-559 BC)",
+            "Achaemenid (559-330 BC)",
+            "Alexander and after (330-247 BC)",
+            "Parthian (247 BC-224 AD)",
+            "Sasanian (224-651 AD)",
+            "Islamic Iran (651-1219)",
+            "Mongol and Timurid (1219-1501)",
+            "Safavid (1501-1736)",
+            "Afsharid to Qajar (1736-1925)",
+            "Pahlavi and oil (1925-1979)",
+            "Modern and near future (1979-2030)"
+          ]
+        }
+      },
+      "serialization": {
+        "total_episodes": 1825,
+        "arcs": [
+          {
+            "name": "Year 1 - The Discovery",
+            "eps": "1-365",
+            "where": "550 BC, age 12",
+            "spine": "Cyrus takes Ecbatana. A Median officer asks whether he should die fighting; word travels; by mid-year there is a queue in the yard — and a queue is a business."
+          },
+          {
+            "name": "Year 2 - The State Arrives",
+            "eps": "366-730",
+            "where": "549 BC, age 13",
+            "spine": "The King's Eye takes a room and never leaves. Farnah becomes an instrument of administration; he cannot remember his father's face; the grandmother begins the wax tablet."
+          },
+          {
+            "name": "Year 3 - The Trial of the Fire",
+            "eps": "731-1095",
+            "where": "548 BC, age 14",
+            "spine": "The magus's question: servant of Truth or of the Lie? A theological hearing with an open verdict. A Greek scribe starts writing Farnah down — and getting him wrong."
+          },
+          {
+            "name": "Year 4 - The King's Three Questions",
+            "eps": "1096-1460",
+            "where": "547 BC, age 15",
+            "spine": "Farnah is taken to Cyrus, who asks how long it lasts, how it ends, how he dies. Farnah answers two honestly and lies about the third (told ~ep 740-equivalent; audience knows it's a lie)."
+          },
+          {
+            "name": "Year 5 - Sardis, and the Crack",
+            "eps": "1461-1825",
+            "where": "546 BC, age 16",
+            "spine": "Lydia falls; it becomes an empire. Farnah notices a discrepancy in the taking of Sardis that does not match his memory: is he remembering the future, or building it?"
+          }
+        ],
+        "banked_years": [
+          "539 BC Babylon - the Cyrus Cylinder written in a room he stands in.",
+          "530 BC Cyrus dies on campaign; Farnah, 23, learns whether his lie held.",
+          "525-522 BC Egypt, Cambyses, a succession crisis - a boy who knows the future becomes a weapon.",
+          "520 BC Behistun - Darius carves his lie into a cliff; the natural end of the series."
+        ],
+        "countdown": null,
+        "recurring_cast": [
+          "Amytis, 63 (grandmother, runs the waystation, keeps the wax tablet)",
+          "Datis, 17 (brother, soldier of the new king, correct about money)",
+          "Vahuka, 48 (the magus who keeps the fire - the show's conscience)",
+          "Bagabigna, 44 (the King's Eye - imperial intelligence, genuinely fond of Farnah)",
+          "Kleon of Miletos, 34 (Greek scribe - writes it down and gets it wrong)",
+          "The Bactrian (caravan master, every ~40 days, asks his questions in an order)",
+          "Roshanak, 11 (Babylonian girl - the one relationship that is not transactional)"
+        ]
+      }
+    }
+  ]
+}

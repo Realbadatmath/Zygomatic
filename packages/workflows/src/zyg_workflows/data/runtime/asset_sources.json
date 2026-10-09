@@ -1,0 +1,506 @@
+{
+  "_comment": "Asset sources database for media acquisition. Covers court records, government sources, free stock media, archives, music, and educational content.",
+  "sources": [
+    {
+      "source_id": "SRC-001",
+      "name": "PACER",
+      "url": "pacer.gov",
+      "category": "Court Records",
+      "description": "Public Access to Court Electronic Records. Federal court documents, dockets, case files for all federal courts.",
+      "license": "Public Domain",
+      "requires_account": true
+    },
+    {
+      "source_id": "SRC-002",
+      "name": "CourtListener",
+      "url": "courtlistener.com",
+      "category": "Court Records",
+      "description": "Free legal research platform with millions of legal opinions, PACER documents, and oral argument audio.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-003",
+      "name": "Sex Offender Registry",
+      "url": "nsopw.gov",
+      "category": "Court Records",
+      "description": "National Sex Offender Public Website. Search registered sex offenders across all US states and territories.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-004",
+      "name": "BOP Inmate Locator",
+      "url": "www.bop.gov/inmateloc",
+      "category": "Court Records",
+      "description": "Federal Bureau of Prisons inmate locator. Find federal inmates incarcerated since 1982. NOTE: Use www.bop.gov/inmateloc \u2014 bare domain does not resolve.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-005",
+      "name": "State DOC Websites",
+      "url": "varies by state",
+      "category": "Court Records",
+      "description": "State Department of Corrections websites providing inmate search, offender information, and release dates.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-006",
+      "name": "Mugshots.com",
+      "url": "mugshots.com",
+      "category": "Court Records",
+      "description": "Public arrest records and mugshot database aggregated from law enforcement agencies.",
+      "license": "Check per item",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-007",
+      "name": "C-SPAN",
+      "url": "c-span.org",
+      "category": "Government & News",
+      "description": "Congressional hearings, Senate/House proceedings, presidential events, and political speeches. Free to use for non-commercial purposes.",
+      "license": "Check per item",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-008",
+      "name": "DVIDS",
+      "url": "dvidshub.net",
+      "category": "Government & News",
+      "description": "Defense Visual Information Distribution Service. Military photos and videos from DoD units worldwide, all public domain.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-009",
+      "name": "White House AV",
+      "url": "whitehouse.gov",
+      "category": "Government & News",
+      "description": "Official White House audio and video including presidential addresses, press briefings, and events.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-010",
+      "name": "NASA Media",
+      "url": "images.nasa.gov",
+      "category": "Government & News",
+      "description": "NASA's media library with hundreds of thousands of images, videos, and audio files from space missions.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-011",
+      "name": "US DOD Imagery",
+      "url": "media.defense.gov",
+      "category": "Government & News",
+      "description": "US Department of Defense official photo and video archive covering military operations worldwide.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-012",
+      "name": "US Courts",
+      "url": "uscourts.gov",
+      "category": "Government & News",
+      "description": "Official United States Courts website with court opinions, rules, and educational resources.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-013",
+      "name": "EU Audiovisual",
+      "url": "audiovisual.ec.europa.eu",
+      "category": "Government & News",
+      "description": "European Commission Audiovisual Services. Photos and videos from EU institutions, freely available.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-014",
+      "name": "UN Multimedia",
+      "url": "unmultimedia.org",
+      "category": "Government & News",
+      "description": "United Nations Multimedia Library with photos, video, and audio from UN operations and events worldwide.",
+      "license": "Check per item",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-015",
+      "name": "Pexels Video",
+      "url": "pexels.com/videos",
+      "category": "Video Footage",
+      "description": "High-quality free stock videos contributed by talented creators. Free for commercial use, no attribution required.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-016",
+      "name": "Pixabay Video",
+      "url": "pixabay.com/videos",
+      "category": "Video Footage",
+      "description": "Free stock footage and videos. Content under Pixabay License, free for commercial use without attribution.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-017",
+      "name": "Videvo",
+      "url": "videvo.net",
+      "category": "Video Footage",
+      "description": "Free stock video footage, motion graphics, and free HD & 4K video clips. Mix of free and premium content.",
+      "license": "Check per item",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-018",
+      "name": "Coverr",
+      "url": "coverr.co",
+      "category": "Video Footage",
+      "description": "Beautiful free stock video footage for your homepage. All videos are free for commercial use.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-019",
+      "name": "Mixkit",
+      "url": "mixkit.co",
+      "category": "Video Footage",
+      "description": "Free stock video clips, music tracks, and sound effects. Mixkit License allows use without attribution.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-020",
+      "name": "Life of Vids",
+      "url": "lifeofvids.com",
+      "category": "Video Footage",
+      "description": "Free stock videos and loops with no copyright restrictions. Free to use for personal and commercial projects.",
+      "license": "Free Commercial Use",
+      "requires_account": false,
+      "status": "ssl_warning",
+      "status_note": "SSL certificate invalid or expired as of 2026-03. May still work in browser. Verify before use."
+    },
+    {
+      "source_id": "SRC-021",
+      "name": "Dareful",
+      "url": "dareful.com",
+      "category": "Video Footage",
+      "description": "Free 4K stock footage library. High-quality nature, architecture, and urban footage for free use.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-023",
+      "name": "Mazwai",
+      "url": "mazwai.com",
+      "category": "Video Footage",
+      "description": "Curated free HD video clips and footage. Creative Commons licensed content for use in projects.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-024",
+      "name": "Splitshire",
+      "url": "splitshire.com",
+      "category": "Video Footage",
+      "description": "Free photos and videos for personal and commercial use by photographer Daniel Nanescu. No attribution required.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-025",
+      "name": "Internet Archive",
+      "url": "archive.org",
+      "category": "Archive & Historical",
+      "description": "Digital library of millions of free books, movies, software, music, websites, and more. Vast archive of historical media.",
+      "license": "Check per item",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-026",
+      "name": "Wikimedia Commons",
+      "url": "commons.wikimedia.org",
+      "category": "Archive & Historical",
+      "description": "Free media repository with over 80 million freely usable media files. Images, videos, and audio on every topic.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-027",
+      "name": "Getty Free",
+      "url": "gettyimages.com/editorial/free",
+      "category": "Archive & Historical",
+      "description": "Getty Images free editorial content including historical news photos and archival imagery for non-commercial use.",
+      "license": "Check per item",
+      "requires_account": true
+    },
+    {
+      "source_id": "SRC-028",
+      "name": "Storyblocks Free",
+      "url": "storyblocks.com",
+      "category": "Archive & Historical",
+      "description": "Royalty-free stock footage, images, and audio. Subscription model with a library of free content available.",
+      "license": "Check per item",
+      "requires_account": true
+    },
+    {
+      "source_id": "SRC-029",
+      "name": "Motion Array Free",
+      "url": "motionarray.com",
+      "category": "Archive & Historical",
+      "description": "Motion graphics templates, stock footage, and video effects. Free tier available with select assets.",
+      "license": "Check per item",
+      "requires_account": true
+    },
+    {
+      "source_id": "SRC-030",
+      "name": "British Path\u00e9",
+      "url": "britishpathe.com",
+      "category": "Archive & Historical",
+      "description": "Historic newsreel archive with over 100 years of footage covering major world events from 1896-1984. Free to view.",
+      "license": "Check per item",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-031",
+      "name": "Library of Congress",
+      "url": "loc.gov/free-to-use",
+      "category": "Archive & Historical",
+      "description": "Free-to-use media collections from the US Library of Congress including photos, films, maps, and recordings.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-032",
+      "name": "Prelinger Archives",
+      "url": "archive.org/details/prelinger",
+      "category": "Archive & Historical",
+      "description": "Collection of advertising, educational, industrial, and amateur films from the late 1800s to the 1990s, mostly public domain.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-033",
+      "name": "Public Domain Review",
+      "url": "publicdomainreview.org",
+      "category": "Archive & Historical",
+      "description": "Curated collection of remarkable public domain works including art, literature, and photography. All content is public domain.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-034",
+      "name": "YouTube Audio Library",
+      "url": "studio.youtube.com",
+      "category": "Music & Audio",
+      "description": "Free music and sound effects for YouTube creators. Hundreds of royalty-free tracks in every genre.",
+      "license": "Free Commercial Use",
+      "requires_account": true
+    },
+    {
+      "source_id": "SRC-035",
+      "name": "Free Music Archive",
+      "url": "freemusicarchive.org",
+      "category": "Music & Audio",
+      "description": "Interactive library of high-quality, legal audio downloads directed by WFMU radio. Creative Commons licensed music.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-036",
+      "name": "ccMixter",
+      "url": "ccmixter.org",
+      "category": "Music & Audio",
+      "description": "Community music site featuring music licensed under Creative Commons. Find remixable music for your projects.",
+      "license": "Creative Commons",
+      "requires_account": false,
+      "status": "ssl_warning",
+      "status_note": "SSL certificate invalid or expired as of 2026-03. May still work in browser. Verify before use."
+    },
+    {
+      "source_id": "SRC-037",
+      "name": "Incompetech",
+      "url": "incompetech.com",
+      "category": "Music & Audio",
+      "description": "Royalty-free music by Kevin MacLeod. Free for use with attribution under Creative Commons license.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-038",
+      "name": "Bensound",
+      "url": "bensound.com",
+      "category": "Music & Audio",
+      "description": "Royalty-free music for creators. Free tier available with attribution; premium subscription removes attribution requirement.",
+      "license": "Check per item",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-039",
+      "name": "Freesound",
+      "url": "freesound.org",
+      "category": "Music & Audio",
+      "description": "Collaborative database of Creative Commons-licensed sound effects and audio snippets. Over 500,000 sounds.",
+      "license": "Creative Commons",
+      "requires_account": true,
+      "status": "unreliable",
+      "status_note": "Server timed out during verification (2026-03). May be intermittent. Test before relying on it."
+    },
+    {
+      "source_id": "SRC-040",
+      "name": "Musopen",
+      "url": "musopen.org",
+      "category": "Music & Audio",
+      "description": "Free classical music recordings, sheet music, and textbooks. All content is public domain or Creative Commons.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-041",
+      "name": "Pixabay Music",
+      "url": "pixabay.com/music",
+      "category": "Music & Audio",
+      "description": "Free music for any project. All tracks under Pixabay License, free for commercial use without attribution.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-042",
+      "name": "ZapSplat",
+      "url": "zapsplat.com",
+      "category": "Music & Audio",
+      "description": "Free sound effects and royalty-free music. Over 100,000 free sound effects for personal and commercial use.",
+      "license": "Check per item",
+      "requires_account": true
+    },
+    {
+      "source_id": "SRC-043",
+      "name": "Pexels Photos",
+      "url": "pexels.com",
+      "category": "Images & Photos",
+      "description": "Free stock photos shared by talented photographers. All photos free for commercial use, no attribution required.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-044",
+      "name": "Unsplash",
+      "url": "unsplash.com",
+      "category": "Images & Photos",
+      "description": "Beautiful free images and photos. Over 3 million images contributed by photographers worldwide, free for commercial use.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-045",
+      "name": "Pixabay Photos",
+      "url": "pixabay.com",
+      "category": "Images & Photos",
+      "description": "Over 2 million free stock photos, illustrations, and vectors. Free for commercial use under Pixabay License.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-046",
+      "name": "Burst Shopify",
+      "url": "burst.shopify.com",
+      "category": "Images & Photos",
+      "description": "Free stock photos for entrepreneurs. High-resolution images by Shopify, free for commercial use.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-047",
+      "name": "StockSnap",
+      "url": "stocksnap.io",
+      "category": "Images & Photos",
+      "description": "Hundreds of high-resolution images added weekly. All images are CC0 licensed, free for commercial use.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-048",
+      "name": "Reshot",
+      "url": "reshot.com",
+      "category": "Images & Photos",
+      "description": "Unique free stock photos and SVG icons that are free for commercial use without attribution.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-049",
+      "name": "Kaboompics",
+      "url": "kaboompics.com",
+      "category": "Images & Photos",
+      "description": "Free high-quality stock photos with a color palette picker. Free for personal and commercial use.",
+      "license": "Free Commercial Use",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-050",
+      "name": "NOAA Library",
+      "url": "library.noaa.gov",
+      "category": "Science & Education",
+      "description": "National Oceanic and Atmospheric Administration image and media library. Weather, ocean, climate, and earth science imagery.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-051",
+      "name": "USGS EarthExplorer",
+      "url": "earthexplorer.usgs.gov",
+      "category": "Science & Education",
+      "description": "USGS EarthExplorer: search and download satellite imagery, aerial photography, and cartographic products. All public domain.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-052",
+      "name": "NIH Image Gallery",
+      "url": "www.nigms.nih.gov",
+      "category": "Science & Education",
+      "description": "National Institute of General Medical Sciences \u2014 biomedical images and multimedia. Free for educational and informational use. NOTE: old images.nigms.nih.gov subdomain is dead; use www.nigms.nih.gov.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-053",
+      "name": "ESA Media",
+      "url": "esa.int/ESA_Multimedia",
+      "category": "Science & Education",
+      "description": "European Space Agency multimedia gallery. Space imagery, satellite photos, and mission documentation.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-054",
+      "name": "CDC Public Health",
+      "url": "phil.cdc.gov",
+      "category": "Science & Education",
+      "description": "CDC Public Health Image Library. Photos, illustrations, and multimedia of public health and disease content.",
+      "license": "Public Domain",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-055",
+      "name": "Khan Academy",
+      "url": "khanacademy.org",
+      "category": "Science & Education",
+      "description": "Free educational content across math, science, history, and more. Videos and exercises available under Creative Commons.",
+      "license": "Creative Commons",
+      "requires_account": false
+    },
+    {
+      "source_id": "SRC-056",
+      "name": "MIT OpenCourseWare",
+      "url": "ocw.mit.edu",
+      "category": "Science & Education",
+      "description": "Free MIT course materials online. Lecture notes, video lectures, and course materials under Creative Commons license.",
+      "license": "Creative Commons",
+      "requires_account": false
+    }
+  ]
+}

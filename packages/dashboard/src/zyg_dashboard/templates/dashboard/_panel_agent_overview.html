@@ -1,0 +1,100 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+        <div id="panel-agent_overview" class="dashboard-tab-panel{% if _dtab == 'agent_overview' %} active{% endif %}" style="{% if _dtab != 'agent_overview' %}display: none;{% else %}display: block;{% endif %}">
+        <div class="dashboard-overview-circles">
+            <div class="dashboard-overview-circle-wrap" id="dashboard-overview-active-agents-wrap" title="Open Monitoring UI – Active Jobs">
+                <div class="dashboard-circle-wrap">
+                    <svg class="dashboard-circle-svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="dashboard-circle-bg" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-mover" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-fill" id="dashboard-overview-active-agents-fill" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/>
+                    </svg>
+                    <span class="dashboard-circle-value dashboard-circle-value-active-agents" id="dashboard-overview-active-agents-value">0/0</span>
+                    <span class="dashboard-circle-label">Active Agents</span>
+                </div>
+            </div>
+            <div class="dashboard-overview-circle-wrap" id="dashboard-overview-active-tasks-wrap" title="Go to Job Status">
+                <div class="dashboard-circle-wrap">
+                    <svg class="dashboard-circle-svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="dashboard-circle-bg" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-mover" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-fill" id="dashboard-overview-active-fill" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/>
+                    </svg>
+                    <span class="dashboard-circle-value" id="dashboard-overview-active-value">0</span>
+                    <span class="dashboard-circle-label">Active Tasks</span>
+                </div>
+            </div>
+            <div class="dashboard-overview-circle-wrap" id="dashboard-overview-planned-wrap" title="Open Monitoring UI – Planned Jobs">
+                <div class="dashboard-circle-wrap">
+                    <svg class="dashboard-circle-svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="dashboard-circle-bg" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-mover" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-fill" id="dashboard-overview-planned-fill" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/>
+                    </svg>
+                    <span class="dashboard-circle-value" id="dashboard-overview-planned-value">0</span>
+                    <span class="dashboard-circle-label">Planned Tasks</span>
+                </div>
+            </div>
+            <div class="dashboard-overview-circle-wrap" id="dashboard-overview-gpu-wrap">
+                <div class="dashboard-circle-wrap">
+                    <svg class="dashboard-circle-svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="dashboard-circle-bg" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-mover" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-fill" id="dashboard-overview-gpu-fill" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/>
+                    </svg>
+                    <span class="dashboard-circle-value" id="dashboard-overview-gpu-value">0%</span>
+                    <span class="dashboard-circle-label">GPU Usage %</span>
+                </div>
+            </div>
+            <div class="dashboard-overview-circle-wrap" id="dashboard-overview-cpu-wrap">
+                <div class="dashboard-circle-wrap">
+                    <svg class="dashboard-circle-svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="dashboard-circle-bg" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-mover" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-fill" id="dashboard-overview-cpu-fill" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/>
+                    </svg>
+                    <span class="dashboard-circle-value" id="dashboard-overview-cpu-value">0%</span>
+                    <span class="dashboard-circle-label">CPU Usage %</span>
+                </div>
+            </div>
+            <div class="dashboard-overview-circle-wrap" id="dashboard-overview-vram-wrap" title="GPU VRAM used / total (RTX 4090 = 49 GB)">
+                <div class="dashboard-circle-wrap">
+                    <svg class="dashboard-circle-svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="dashboard-circle-bg" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-mover" cx="60" cy="60" r="50"/>
+                        <circle class="dashboard-circle-fill" id="dashboard-overview-vram-fill" cx="60" cy="60" r="50"
+                            stroke-dasharray="314" stroke-dashoffset="314"
+                            style="stroke: url(#vram-gradient-clip) #a855f7;"/>
+                    </svg>
+                    <svg width="0" height="0" style="position:absolute;">
+                        <defs>
+                            <linearGradient id="vram-gradient-clip" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#a855f7"/>
+                                <stop offset="100%" style="stop-color:#3b82f6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="dashboard-circle-value" style="font-size:13px;" id="dashboard-overview-vram-value">—</span>
+                    <span class="dashboard-circle-label">VRAM</span>
+                </div>
+            </div>
+        </div>
+        <!-- Agents table (parameter-control style, light gray background) -->
+        <div class="dashboard-overview-agents-wrap" style="background: radial-gradient(circle at 0 0, #f4f2ef, transparent 55%), linear-gradient(145deg, #e0dbd4, #b8b1aa); padding: 20px; border-radius: 12px; margin-top: 20px;">
+            <div style="position: relative; margin-bottom: 8px;">
+                <button type="button" id="dashboard-overview-search-toggle" class="dashboard-overview-search-icon" title="Search agents" aria-label="Search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></button>
+                <input type="text" id="dashboard-overview-agent-search" placeholder="Search by agent name, team, or user name..." style="display:none; padding: 8px 12px 8px 36px; border: 1px solid #ccc; border-radius: 8px; min-width: 260px; font-size: 14px;">
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="dashboard-table dashboard-overview-agents-table" style="width:100%;">
+                    <thead><tr><th class="dashboard-overview-sortable" data-sort="tier" scope="col">Tier</th><th class="dashboard-overview-sortable" data-sort="name" scope="col">Agent name</th><th class="dashboard-overview-sortable" data-sort="role" scope="col">Role</th><th class="dashboard-overview-sortable" data-sort="active" scope="col">Active Task</th><th class="dashboard-overview-sortable" data-sort="planned" scope="col">Planned Tasks</th></tr></thead>
+                    <tbody id="dashboard-overview-agents-tbody"><tr><td colspan="5" style="text-align:center;padding:24px;color:#666;">Loading agents…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+        <!-- end panel-agent_overview -->

@@ -1,0 +1,59 @@
+{
+ "ok": true,
+ "ts": "2026-09-11T05:29:02",
+ "checks": 54,
+ "failed": [],
+ "cause": "floor_plans.t_place_plan reads the bay from _group_slab()+_slab_rect() (the FIRST slab piece at that storey) instead of _group_plate() (their union). add_stair cuts floor openings, so storey 1 of the 20x20 tower is four slab pieces and the bay reads 20 x 5.15 m -> 'scale 0.26 is past 12%'. Sequences B (solver house on cells) and C (resplan + procthor10k houses) are green.",
+ "behind_it": [
+  "floor_plans._place: keep_out = _core_rects(d, group, st) is called with no `rect`, and add_stair names its group after the CELL, so d.select('tower') holds no stair and nothing is dropped: placing the floor plan through _place() directly puts 80 partitions, 30 doors and 10 toilets with their centres inside the stair/lift. t_tile_units passes `rect` and is right.",
+  "envelope_rules.check_envelope takes 218.5 s of the 222.5 s design_rules.run_checks spends on the finished 2778-object tower: group_at() rebuilds envelopes(d) for every interior record, and repeat_floor gives every storey its own group."
+ ],
+ "packs": {
+  "swiss_dwellings": {
+   "unit": 16083,
+   "floor": 3561
+  },
+  "resplan": {
+   "house": 16047
+  },
+  "procthor10k": {
+   "house": 12000
+  },
+  "generated": {
+   "unit": 1,
+   "house": 2
+  }
+ },
+ "prompt_bare": 85456,
+ "prompt_tower": 41521,
+ "sweep": {
+  "cmd": "tests_arch_ext/test_all.py",
+  "seconds": 1354.7,
+  "families_pass": 88,
+  "families_fail": 1,
+  "failed_families": [
+   "plans_replay"
+  ],
+  "tools": 306,
+  "kinds": 275,
+  "examples": 526,
+  "system_prompt_chars": 85456,
+  "capabilities_md_bytes": 154974,
+  "named_tests": {
+   "test_plan_packs": "ALL GREEN (133 checks)",
+   "test_plan_packs_houses": "ALL GREEN (848 checks)",
+   "test_floor_plans": "ALL GREEN (118 checks)",
+   "test_plan_solver": "ALL GREEN (37 checks)",
+   "test_file_2d": "ALL GREEN (40 checks)",
+   "test_file_3d": "ALL GREEN (33 checks)",
+   "test_glossary_examples": "ALL GREEN (68 checks)",
+   "test_plans_replay": "5 FAILED of 54 checks"
+  }
+ },
+ "when": "2026-09-11 05:29:02",
+ "families": 89,
+ "families_passed": 89,
+ "families_failed": [],
+ "replay_ok": true,
+ "ok_note": "GREEN. Full sweep re-run by the creator after the post-tree fixes (2026-09-11, exit 0): 89 of 89 families pass. test_plans_replay.py ALL GREEN (54 checks) in 10.6 s \u2014 place_plan bay = the whole plate, span-based core keep-out, walls clipped at the core, fixtures by footprint, check_envelope 143 s -> 0.1 s. Prompt bare 85,456 (< 90,000), tower request 41,521 (< 45,000). CAPABILITIES.md regenerated."
+}

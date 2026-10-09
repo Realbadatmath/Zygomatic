@@ -1,0 +1,22 @@
+{
+  "10": {
+    "inputs": {"image": "placeholder.png"},
+    "class_type": "LoadImage",
+    "_meta": {"title": "Load sheet image"}
+  },
+  "11": {
+    "inputs": {"model_name": "RealESRGAN_x2.pth"},
+    "class_type": "UpscaleModelLoader",
+    "_meta": {"title": "ESRGAN upscale model"}
+  },
+  "12": {
+    "inputs": {"upscale_model": ["11", 0], "image": ["10", 0]},
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {"title": "Upscale 2x"}
+  },
+  "50": {
+    "inputs": {"filename_prefix": "ZygSheetUpscale", "images": ["12", 0]},
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save upscaled sheet"}
+  }
+}

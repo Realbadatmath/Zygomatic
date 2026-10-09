@@ -1,0 +1,121 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vb cursor zoom probe</title>
+<!-- 2026-09-15: proves VB.cursor lands on its target under inspection.html's
+     html{zoom:.67}. Reproduces exactly two things from inspection.html:
+       - the literal html{zoom:.67} (line 35)
+       - the coordinate shim (lines 4764-4787), copied verbatim
+     and then parks the ghost cursor on a button placed at a known layout-px spot.
+
+     Screenshot:
+       google-chrome --headless=new --disable-gpu --no-sandbox --hide-scrollbars \
+         --run-all-compositor-stages-before-draw --disable-new-content-rendering-timeout \
+         --window-size=1920,1080 --virtual-time-budget=5000 \
+         --screenshot=/tmp/vb_cursor.png file://<this file>
+     --run-all-compositor-stages-before-draw is NOT optional: without it headless
+     never commits the final frame of a CSS transform transition that is still
+     running when the virtual-time budget expires, and the arrow is simply absent
+     from the PNG even though the DOM is correct.
+
+     Expected: the button's top-left is layout (900,600), 260x90, so its centre is
+     layout (1030,645) = SCREEN (690,432) at zoom .67. The white arrow tip must sit
+     on the red crosshair inside the green button, i.e. white pixels around
+     screen (692,435). Mismatch by a factor of .67 or 1/.67 means the shim changed. -->
+
+<style>
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+  body{margin:0;background:#121214;color:#e4e4e7;height:calc(100vh / var(--ui-zoom));
+       font:16px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  /* Target: a fixed button whose top-left is at layout px (900,600), 260x90.
+     Its centre is therefore layout (1030,645) — that is where the tip must land. */
+  #target{position:fixed;left:900px;top:600px;width:260px;height:90px;
+          background:#1db954;color:#06130a;border:2px solid #0f7a37;border-radius:10px;
+          font:20px/90px system-ui,sans-serif;text-align:center;cursor:pointer;}
+  /* Crosshair drawn at the same layout coords, so the PNG shows agreement even
+     if the button were ever moved. */
+  #xh-v{position:fixed;left:1030px;top:580px;width:1px;height:130px;background:#ff3b30;}
+  #xh-h{position:fixed;left:880px;top:645px;width:300px;height:1px;background:#ff3b30;}
+  #label{position:fixed;left:900px;top:520px;font:15px monospace;color:#00e5ff;white-space:pre;}
+  #edge{position:fixed;left:0;top:0;width:2866px;height:2px;background:#383842;}
+</style>
+<script>
+/* Verbatim copy of the zoom coordinate shim at inspection.html:4764-4787. */
+(function(){
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+<!-- Loaded before <body>, exactly as /voice_ext/bundle.js is in inspection.html. -->
+<script src="../voice_ext/01_cursor.js"></script>
+</head>
+<body>
+<div id="edge"></div>
+<div id="target">TARGET</div>
+<div id="xh-v"></div>
+<div id="xh-h"></div>
+<div id="label">probe</div>
+<script>
+(function(){
+  var btn = document.getElementById('target');
+  var lab = document.getElementById('label');
+  var r = btn.getBoundingClientRect();
+  lab.textContent =
+    'zoom=' + getComputedStyle(document.documentElement).zoom +
+    '  rect=' + [r.left, r.top, r.width, r.height].join(',') +
+    '\ncentre=' + (r.left + r.width/2) + ',' + (r.top + r.height/2) +
+    '  innerWidth=' + window.innerWidth + ' innerHeight=' + window.innerHeight;
+
+  VB.cursor.caption('moving to the target button, 1 hop').then(function(){
+    return VB.cursor.click(btn);
+  }).then(function(){
+    return VB.cursor.highlight(btn, 60000);
+  });
+  setTimeout(function(){
+    // elementFromPoint at the cursor's own coordinates must return the button.
+    var hit = document.elementFromPoint(r.left + r.width/2, r.top + r.height/2);
+    // The parked position the cursor was told to take. Read from the inline style,
+    // NOT from getComputedStyle: while a transition is registered, computed style
+    // reports the interpolated value, and under --virtual-time-budget the animation
+    // clock does not advance, so it would report the pre-move -60,-60.
+    var c = document.getElementById('vb-cursor');
+    var m = /translate3d\(([-\d.]+)px,\s*([-\d.]+)px/.exec(c ? c.style.transform : '') || [0,'?','?'];
+    var inside = (+m[1] >= r.left && +m[1] <= r.right && +m[2] >= r.top && +m[2] <= r.bottom);
+    lab.textContent +=
+      '\nelementFromPoint(centre) -> #' + (hit ? hit.id : 'null') +
+      '\ncursor parked at ' + m[1] + ',' + m[2] + '  inside target rect: ' + inside +
+      '\nVERDICT ' + ((hit && hit.id === 'target' && inside) ? 'PASS' : 'FAIL');
+    document.title = (hit && hit.id === 'target' && inside) ? 'PASS' : 'FAIL';
+  }, 1500);
+})();
+</script>
+</body>
+</html>

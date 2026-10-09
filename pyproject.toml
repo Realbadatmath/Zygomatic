@@ -1,0 +1,65 @@
+# The Zygomatic monorepo root. It is not a package: it declares the uv workspace whose members
+# are the four packages under packages/, and the tool set the gate (scripts/scan.sh) and CI run.
+#
+#   uv sync                      # one .venv with all four packages installed editable, CPU deps only
+#   uv sync --extra gpu          # add the GPU stack (torch, diffusers, ...) — see packages/workflows
+#   uv run scripts/scan.sh       # the publishability gate, same steps as .github/workflows/ci.yml
+#
+# Python 3.12 is the floor the dependency set imposes (numpy>=2.5.2 requires it).
+
+[project]
+name = "zygomatic-monorepo"
+version = "1.0.0"
+description = "Zygomatic content studio: workflows, dashboard, public site and creator nexus in one repository"
+requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+dependencies = [
+  "zygomatic-workflows",
+  "zygomatic-dashboard",
+  "zygomatic-zero-public",
+  "zygomatic-creator-nexus",
+]
+
+[project.optional-dependencies]
+# Pass-through extras: `uv sync --extra gpu` installs the GPU stack of the base library.
+gpu = ["zygomatic-workflows[gpu]"]
+audio = ["zygomatic-workflows[audio]"]
+llm = ["zygomatic-workflows[llm]"]
+
+[dependency-groups]
+dev = [
+  "ruff>=0.16",
+  "bandit[toml]>=1.9",
+  "reuse>=6.2",
+  "import-linter>=2.3",
+  "pip-audit>=2.9",
+  "pytest>=8.3",
+  "pytest-timeout>=2.3",
+  "pre-commit>=4.0",
+  "pytest-cov>=6.0",
+  "coverage>=7.6",
+  "pyright>=1.1.390",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+zygomatic-workflows = { workspace = true }
+zygomatic-dashboard = { workspace = true }
+zygomatic-zero-public = { workspace = true }
+zygomatic-creator-nexus = { workspace = true }
+
+[tool.ruff]
+# Root-level files only; every package carries its own ruff.toml, which ruff picks as the
+# closest configuration for the files under it.
+line-length = 120
+target-version = "py312"
+extend-exclude = ["packages"]
+
+[tool.ruff.format]
+quote-style = "single"

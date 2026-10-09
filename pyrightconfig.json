@@ -1,0 +1,23 @@
+{
+  "include": [
+    "packages/workflows/src",
+    "packages/dashboard/src",
+    "packages/zero-public/src",
+    "packages/creator-nexus/src"
+  ],
+  "exclude": [
+    "**/vendor",
+    "**/nomologin_node",
+    "**/arch_ext",
+    "**/voice_ext",
+    "**/studio_ext",
+    "**/kanban_assets"
+  ],
+  "typeCheckingMode": "basic",
+  "pythonVersion": "3.12",
+  "venvPath": ".",
+  "venv": ".venv",
+  "reportMissingImports": "warning",
+  "reportMissingModuleSource": "none",
+  "reportAttributeAccessIssue": "warning"
+}

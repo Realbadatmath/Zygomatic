@@ -1,0 +1,73 @@
+# Ruff configuration — the style the codebase already used, now enforced.
+line-length = 120
+target-version = "py311"
+extend-exclude = ["deploy", "site", "docs", "*/vendor/*", "*/nomologin_node/*", "*/arch_ext/*", "*/voice_ext/*", "*/studio_ext/*", "*/kanban_assets/*", "*/static/*", "*/templates/*"]
+
+[format]
+quote-style = "single"
+docstring-code-format = false
+
+[lint]
+select = ["E", "F", "W", "B", "S", "T20"]
+ignore = [
+  "E501",  # line length: the formatter wraps code; long strings and URLs are allowed to stay on one line
+  "S603", "S607",  # subprocess with a list argument and no shell is the safe form; executables resolve on PATH by design
+  "S311",  # random is used for sampling and jitter, never for secrets (secrets/tokens use the secrets module)
+  "B905",  # zip(strict=) is a py3.10 nicety, not a defect
+  "E741", "E731",  # single-letter names and lambda assignment are style, not correctness
+]
+
+[lint.per-file-ignores]
+"tests/**" = ["S101", "S108", "S105", "S106", "T201"]
+"tests_arch_ext/**" = ["S101", "S108", "T201"]
+"tests_vst/**" = ["S101", "S108", "T201"]
+"capability_tests/**" = ["S101", "S108", "T201"]
+"scripts/**" = ["S101", "T201"]
+# print is the CLI's output channel (docs/conventions.md, Logging): entry points, self-tests,
+# scripts and test trees keep it; library modules log through `_zyg_log` instead.
+"**/__main__.py" = ["T201"]
+"**/cli.py" = ["T201"]
+"**/*_cli.py" = ["T201"]
+"**/selftest.py" = ["T201"]
+# Grandfathered CLI modules: every print in these files sits inside a `main()`/`_main()`/`cli()`
+# body or an `if __name__` block (verified by AST), so it is CLI output, not library logging.
+# The quality ratchet (scripts/ratchet.py, print_calls) keeps their counts from growing.
+"apitests/make_postman.py" = ["T201"]
+"apitests/merge_classify.py" = ["T201"]
+"src/zyg_dashboard/Schedule/1_year_timeline.py" = ["T201"]
+"src/zyg_dashboard/Schedule/24_hour_timeline.py" = ["T201"]
+"src/zyg_dashboard/Schedule/28_day_timeline.py" = ["T201"]
+"src/zyg_dashboard/Schedule/7_day_timeline.py" = ["T201"]
+"src/zyg_dashboard/Schedule/history_timeline.py" = ["T201"]
+"src/zyg_dashboard/Schedule/migrate_add_ids.py" = ["T201"]
+"src/zyg_dashboard/Schedule/timeline_orchestrator.py" = ["T201"]
+"src/zyg_dashboard/Schedule/timeline_orchestrator_dual.py" = ["T201"]
+"src/zyg_dashboard/agent_loader.py" = ["T201"]
+"src/zyg_dashboard/capabilities_hub.py" = ["T201"]
+"src/zyg_dashboard/capabilities_tests.py" = ["T201"]
+"src/zyg_dashboard/crewai_pipeline.py" = ["T201"]
+"src/zyg_dashboard/debug_timeline_backend.py" = ["T201"]
+"src/zyg_dashboard/expansion_hub/aggregation.py" = ["T201"]
+"src/zyg_dashboard/hub/gamesim_server.py" = ["T201"]
+"src/zyg_dashboard/hub/hub_launcher_headless.py" = ["T201"]
+"src/zyg_dashboard/hub/hub_server.py" = ["T201"]
+"src/zyg_dashboard/hub/hub_watch.py" = ["T201"]
+"src/zyg_dashboard/hub/restart_api.py" = ["T201"]
+"src/zyg_dashboard/hub/tests/test_compiler.py" = ["T201"]
+"src/zyg_dashboard/hub/tools/dump_colors.py" = ["T201"]
+"src/zyg_dashboard/kanban_video_status.py" = ["T201"]
+"src/zyg_dashboard/preempt_meter_share.py" = ["T201"]
+"src/zyg_dashboard/preempt_quota_report.py" = ["T201"]
+"src/zyg_dashboard/preempt_test_record.py" = ["T201"]
+"src/zyg_dashboard/production_calendar.py" = ["T201"]
+"src/zyg_dashboard/session_tree/session_tree_server/http_server.py" = ["T201"]
+"src/zyg_dashboard/sysusage_sampler.py" = ["T201"]
+# DEBT: these still pass `print` as a log sink from library code
+# (`log_fn=lambda m: print(...)`); convert to `_zyg_log.info` and drop the entry.
+"apitests/inventory.py" = ["T201"]  # 1 library-level
+"src/zyg_dashboard/bp_integrity_ops/api_integrity.py" = ["T201"]  # 1 library-level
+"src/zyg_dashboard/bp_market.py" = ["T201"]  # 1 library-level
+"src/zyg_dashboard/bp_remix.py" = ["T201"]  # 1 library-level
+"src/zyg_dashboard/bp_remixai.py" = ["T201"]  # 3 library-level
+"src/zyg_dashboard/bp_sports.py" = ["T201"]  # 1 library-level
+"src/zyg_dashboard/bp_storyteller/chars.py" = ["T201"]  # 2 library-level

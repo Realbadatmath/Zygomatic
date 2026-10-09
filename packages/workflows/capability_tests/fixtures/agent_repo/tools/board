@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# board — fixture stub. Logs its argv to .board.log in the repo root and validates the form.
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+if [ "$1" = "--help" ] || [ -z "$1" ]; then
+  cat <<USAGE
+usage:
+  board done <task-id> --receipt <path>   mark a task done; the receipt file must exist
+  board note <task-id> "<text>"           leave a note on a task
+USAGE
+  exit 0
+fi
+echo "$*" >> "$ROOT/.board.log"
+case "$1" in
+  done)
+    [ -n "$2" ] || { echo "board: missing task id" >&2; exit 2; }
+    [ "$3" = "--receipt" ] && [ -n "$4" ] || { echo "board: done needs --receipt <path>" >&2; exit 2; }
+    [ -f "$ROOT/$4" ] || [ -f "$4" ] || { echo "board: receipt file not found: $4" >&2; exit 2; }
+    echo "task $2 marked done"; exit 0;;
+  note)
+    [ -n "$2" ] && [ -n "$3" ] || { echo "board: note needs <task-id> <text>" >&2; exit 2; }
+    echo "note added to $2"; exit 0;;
+  *) echo "board: unknown verb $1" >&2; exit 2;;
+esac

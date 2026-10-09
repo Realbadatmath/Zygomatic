@@ -1,0 +1,31 @@
+# Root of the monorepo. Each package has its own .gitignore for what it generates.
+.venv/
+uv.lock.tmp
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+coverage.xml
+.coverage
+*.egg-info/
+build/
+dist/
+
+# Secrets never live here
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.bak*
+
+# Creator-side proof baselines for session-tree runs (never source)
+.tree_artifacts/
+packages/workflows/src/zyg_workflows/data/runtime/logbook/
+production.log
+
+# caches the code refreshes itself
+packages/workflows/src/zyg_workflows/data/runtime/market_universe.json

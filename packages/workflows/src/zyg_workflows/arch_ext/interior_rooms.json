@@ -1,0 +1,12 @@
+{"section_key": "interior", "section_label": "Interior",
+ "groups": [{"g": "Rooms & finishes",
+             "items": [["ceiling", "Ceiling", {"w": 6.0, "d": 4.0, "t": 0.1},
+                        "A plastered ceiling slab. Drop it at the top of the storey: its bottom face is the record's y."],
+                       ["suspended_ceiling", "Suspended ceiling", {"w": 6.0, "d": 4.0, "t": 0.05, "tiles": 0.6},
+                        "A T-bar grid with tile panels, one tile every `tiles` metres — offices, shops, corridors."],
+                       ["floor_finish", "Floor finish", {"w": 6.0, "d": 4.0, "t": 0.02},
+                        "The visible floor layer over the slab: give it mat_timber for a plank floor, mat_stone for tiles."],
+                       ["skirting", "Skirting", {"len": 4.0, "h": 0.1, "t": 0.015},
+                        "A skirting board along one wall: len along its own +X, h tall, t proud of the wall face."],
+                       ["raised_floor", "Raised floor", {"w": 6.0, "d": 4.0, "h": 0.3, "pedestals": 0.6},
+                        "An access floor: deck plate on a pedestal grid `pedestals` metres apart, h to the top of the deck."]]}]}

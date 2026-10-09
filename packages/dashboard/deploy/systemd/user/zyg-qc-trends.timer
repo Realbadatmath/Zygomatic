@@ -1,0 +1,17 @@
+[Unit]
+Description=Zygomatic QC gate trends — nightly
+
+# Why this exists: run_ledger.py --trends was built AND validated (it caught a
+# synthetic 95%->29% pass-rate slide at z=-4.45 and correctly ignored an
+# underpowered n=2 gate) and then ran never. A quiet pass-rate slide across many
+# runs is exactly the shape of the ghost-face defect: every individual run passed
+# its own gates while 17/49 cells were bad. One run's gates are boring; fourteen
+# days of them are the only way that becomes visible.
+
+[Timer]
+OnCalendar=*-*-* 04:30:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

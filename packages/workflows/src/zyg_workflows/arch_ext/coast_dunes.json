@@ -1,0 +1,13 @@
+{"section_key": "site", "section_label": "Site",
+ "groups": [{"g": "Coast and dunes",
+             "items": [["sea", "Sea", {"w": 200, "d": 200, "depth": 6, "wave": 0.15, "seed": 1, "res": 32},
+                        "A body of open water w x d at ground level: the surface sits just under y=0, the bed at -depth. wave is the swell, seed picks a different swell. Water is NOT ground — a boat floats on a sea, a house does not stand on one, so nothing placed afterwards climbs onto it. The sea lies level: put it where the ground under it is flat to within half a metre."],
+                       ["beach", "Beach", {"len": 60, "w": 25, "h": 2, "seed": 1},
+                        "A sand wedge len long: the water edge is at the -Z side and it rises to h at the +Z side over w (h is 0.5 to 4 m of rise). Turn it with ry so the sea stays on the left. The 15% of the width nearest the water is wet sand. A beach IS ground: things placed on it stand at the wedge height."],
+                       ["breakwater", "Breakwater", {"len": 60, "w": 8, "h": 3},
+                        "A rubble mound (strekdam): trapezoid section w wide at the base, w/3 at the top, h tall (1 to 6 m). You can walk the crest, so it is ground: the crest is flat at h and the flanks fall away to 0."]]},
+            {"g": "Dunes and islands",
+             "items": [["dune_field", "Dune field", {"w": 120, "d": 60, "h": 8, "seed": 1, "res": 40, "dir": 0},
+                        "A field of ridged sand dunes (duin) over w x d, the tallest crest exactly h (3 to 25 m: a real duin, not a mound). The ridges run along X; dir turns the field on the plan. Above 70% of h the crests carry marram grass. Dunes are ground: a hut on the dunes sits on the sand it lands on."],
+                       ["island", "Island", {"r": 40, "h": 6, "wobble": 0.3, "beach": 6, "seed": 1, "seg": 48, "rings": 10},
+                        "A grass hill h tall (1 to 40 m) with a sand beach ring beach metres wide. wobble is how far the shoreline wanders off the mean radius r. An island is ground over the hill and over its sand ring; because a sea is not ground, an island dropped into one still sits at y=0."]]}]}

@@ -1,0 +1,3220 @@
+{
+  "soccer::west ham united": {
+    "name": "West Ham United",
+    "display": "West Ham United",
+    "country": "England",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/yutyxs1467459956.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037204.1213791,
+    "league": "English League Championship"
+  },
+  "soccer::southampton": {
+    "name": "Southampton",
+    "display": "Southampton",
+    "country": "England",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/ggqtd01621593274.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037217.3916836,
+    "league": "English League Championship"
+  },
+  "soccer::new england revolution": {
+    "name": "New England Revolution",
+    "display": "New England Revolution",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/1ula2l1639493143.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037218.8473978,
+    "league": "American Major League Soccer"
+  },
+  "soccer::houston dynamo": {
+    "name": "Houston Dynamo",
+    "display": "Houston Dynamo",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/yvz9dq1707631352.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037220.316023,
+    "league": "American Major League Soccer"
+  },
+  "soccer::ca tigre ba": {
+    "name": "CA Tigre BA",
+    "display": "Tigre",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/krryg71765858882.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037259.098958,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::deportivo riestra": {
+    "name": "Deportivo Riestra",
+    "display": "Deportivo Riestra",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/332h0l1578824392.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037260.5850215,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::ado den haag": {
+    "name": "ADO Den Haag",
+    "display": "ADO Den Haag",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/vpvtqt1473534732.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037325.0768168,
+    "country_conflict": false,
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::go ahead eagles": {
+    "name": "Go Ahead Eagles",
+    "display": "Go Ahead Eagles",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/3hq2cy1685597026.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037326.5329003,
+    "country_conflict": false,
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::willem ii": {
+    "name": "Willem II",
+    "display": "Willem II",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/ushlnc1666107465.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037327.9877865,
+    "country_conflict": false,
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::nec nijmegen": {
+    "name": "NEC Nijmegen",
+    "display": "NEC Nijmegen",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/t5qjle1701019868.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037329.4425504,
+    "country_conflict": false,
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::sc telstar": {
+    "name": "SC Telstar",
+    "display": "Telstar",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/xg1ss31579463659.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037330.8854108,
+    "country_conflict": false,
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::atletico tucuman": {
+    "name": "Atletico Tucuman",
+    "display": "Atlético Tucumán",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/m5i2q21775755577.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037332.3420656,
+    "country_conflict": false,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::sarmiento de junin": {
+    "name": "Sarmiento de Junin",
+    "display": "Sarmiento",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/xxofu71677634191.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037333.8115299,
+    "country_conflict": false,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::psv eindhoven": {
+    "name": "PSV Eindhoven",
+    "display": "PSV Eindhoven",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/xfsz6i1721297428.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037524.519258,
+    "country_conflict": false,
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::fortuna sittard": {
+    "name": "Fortuna Sittard",
+    "display": "Fortuna Sittard",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/aqr7it1685596947.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037526.0183465,
+    "country_conflict": false,
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::cs maritimo": {
+    "name": "CS Maritimo",
+    "display": "Marítimo",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/xlr0tw1656336618.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037527.499821,
+    "country_conflict": false,
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::casa pia": {
+    "name": "Casa Pia",
+    "display": "Casa Pia",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/d8ugsc1678717133.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037528.996266,
+    "country_conflict": false,
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::arouca": {
+    "name": "Arouca",
+    "display": "Arouca",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/vgbzjq1628853833.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037531.9926887,
+    "country_conflict": false,
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::cf estrela": {
+    "name": "CF Estrela",
+    "display": "Estrela Amadora",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/2tx5621626095555.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037533.4829547,
+    "country_conflict": false,
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::grêmio": {
+    "name": "Grêmio",
+    "display": "Grêmio",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/uvpwyt1473538089.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037536.442108,
+    "country_conflict": false,
+    "league": "Brazilian Serie A"
+  },
+  "soccer::sao paulo": {
+    "name": "Sao Paulo",
+    "display": "São Paulo",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/sxpupx1473538135.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037537.934434,
+    "country_conflict": false,
+    "league": "Brazilian Serie A"
+  },
+  "soccer::remo": {
+    "name": "Remo",
+    "display": "Remo",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/u36jfy1579341655.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037539.4407117,
+    "country_conflict": false,
+    "league": "Brazilian Serie A"
+  },
+  "soccer::atletico mineiro": {
+    "name": "Atletico Mineiro",
+    "display": "Atlético Mineiro",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/x5lixs1743742872.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037540.938766,
+    "country_conflict": false,
+    "league": "Brazilian Serie A"
+  },
+  "soccer::rosario central": {
+    "name": "Rosario Central",
+    "display": "Rosario Central",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/y6q1ds1769660256.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037542.6083446,
+    "country_conflict": false,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::aldosivi mar del plata": {
+    "name": "Aldosivi Mar del Plata",
+    "display": "Aldosivi Mar del Plata",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786037544.1020682
+  },
+  "soccer::estudiantes de río cuarto": {
+    "name": "Estudiantes de Río Cuarto",
+    "display": "Estudiantes de Río Cuarto",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/391thp1775793121.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037554.173642,
+    "country_conflict": false,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::atlético tucuman": {
+    "name": "Atlético Tucuman",
+    "display": "Atlético Tucumán",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/m5i2q21775755577.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037555.685064,
+    "country_conflict": false,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::river plate": {
+    "name": "River Plate",
+    "display": "River Plate",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/03dmi31645539717.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786037558.6494853,
+    "country_conflict": false,
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::az alkmaar": {
+    "name": "AZ Alkmaar",
+    "display": "AZ Alkmaar",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/wtqwvv1473534757.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103257.1796653,
+    "country_conflict": false,
+    "tsdb_id": "133767",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::sparta rotterdam": {
+    "name": "Sparta Rotterdam",
+    "display": "Sparta Rotterdam",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/upluv31586362224.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103390.948247,
+    "country_conflict": false,
+    "tsdb_id": "133866",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::feyenoord": {
+    "name": "Feyenoord",
+    "display": "Feyenoord",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/uturtx1473534803.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103392.4326484,
+    "country_conflict": false,
+    "tsdb_id": "133758",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::ajax": {
+    "name": "Ajax",
+    "display": "Ajax",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/zg9tii1755495289.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103395.46994,
+    "country_conflict": false,
+    "tsdb_id": "133772",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::groningen": {
+    "name": "Groningen",
+    "display": "Groningen",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/f36qnp1666107447.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103396.9661684,
+    "country_conflict": false,
+    "tsdb_id": "133762",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::fc utrecht": {
+    "name": "FC Utrecht",
+    "display": "Utrecht",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/yuhha71625167104.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103398.4876378,
+    "country_conflict": false,
+    "tsdb_id": "133764",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::heerenveen": {
+    "name": "Heerenveen",
+    "display": "Heerenveen",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/surtsx1473534841.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103399.9734142,
+    "country_conflict": false,
+    "tsdb_id": "133759",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::fc twente enschede": {
+    "name": "FC Twente Enschede",
+    "display": "FC Twente Enschede",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103401.4656947
+  },
+  "soccer::alverca": {
+    "name": "Alverca",
+    "display": "Alverca",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/6ljryf1691990098.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103411.549595,
+    "country_conflict": false,
+    "tsdb_id": "143704",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::benfica": {
+    "name": "Benfica",
+    "display": "Benfica",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/hj4kyc1781152436.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103413.7152328,
+    "country_conflict": false,
+    "tsdb_id": "134108",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::académico de viseu": {
+    "name": "Académico de Viseu",
+    "display": "Académico de Viseu",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/l9okbc1593020122.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103415.2020552,
+    "country_conflict": false,
+    "tsdb_id": "138856",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::moreirense fc": {
+    "name": "Moreirense FC",
+    "display": "Moreirense",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/yrquxu1471878153.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103416.7046309,
+    "country_conflict": false,
+    "tsdb_id": "134112",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::braga": {
+    "name": "Braga",
+    "display": "Braga",
+    "country": "Portugal",
+    "image": "https://www.thesportsdb.com/images/media/team/badge/skbiwo1785775946.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103418.1996272,
+    "country_conflict": false,
+    "tsdb_id": "134098",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::gil vicente": {
+    "name": "Gil Vicente",
+    "display": "Gil Vicente",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/88bsg41626201503.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103419.699618,
+    "country_conflict": false,
+    "tsdb_id": "134113",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::rio ave fc": {
+    "name": "Rio Ave FC",
+    "display": "Rio Ave",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/ngbklq1628851239.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103421.1804426,
+    "country_conflict": false,
+    "tsdb_id": "134107",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::coritiba": {
+    "name": "Coritiba",
+    "display": "Coritiba",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/ywwsyu1473538050.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103422.6646478,
+    "country_conflict": false,
+    "tsdb_id": "134298",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::chapecoense": {
+    "name": "Chapecoense",
+    "display": "Chapecoense",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/wy0e1i1765900601.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103424.174982,
+    "country_conflict": false,
+    "tsdb_id": "134464",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::botafogo": {
+    "name": "Botafogo",
+    "display": "Botafogo",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/bs5mbw1733004596.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103425.6656327,
+    "country_conflict": false,
+    "tsdb_id": "134285",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::fluminense": {
+    "name": "Fluminense",
+    "display": "Fluminense",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/stvvwp1473538082.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103427.1582124,
+    "country_conflict": false,
+    "tsdb_id": "134296",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::cruzeiro": {
+    "name": "Cruzeiro",
+    "display": "Cruzeiro",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/upsvvu1473538059.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103428.642278,
+    "country_conflict": false,
+    "tsdb_id": "134294",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::mirassol": {
+    "name": "Mirassol",
+    "display": "Mirassol",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/pw8uo11765900737.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103430.1327646,
+    "country_conflict": false,
+    "tsdb_id": "141181",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::bahia": {
+    "name": "Bahia",
+    "display": "Bahia",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/xuvtsv1473539308.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103431.6292405,
+    "country_conflict": false,
+    "tsdb_id": "134293",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::vasco da gama": {
+    "name": "Vasco da Gama",
+    "display": "Vasco da Gama",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/ynqlxo1630521109.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103433.1080766,
+    "country_conflict": false,
+    "tsdb_id": "134282",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::palmeiras": {
+    "name": "Palmeiras",
+    "display": "Palmeiras",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/vsqwqp1473538105.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103434.5901594,
+    "country_conflict": false,
+    "tsdb_id": "134465",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::internacional": {
+    "name": "Internacional",
+    "display": "Internacional",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/yprvxx1473538097.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103436.0630167,
+    "country_conflict": false,
+    "tsdb_id": "134281",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::santos": {
+    "name": "Santos",
+    "display": "Santos",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/j8xk9g1679447486.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103437.5434737,
+    "country_conflict": false,
+    "tsdb_id": "134286",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::atletico paranaense": {
+    "name": "Atletico Paranaense",
+    "display": "Atletico Paranaense",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103439.0512023
+  },
+  "soccer::bragantino-sp": {
+    "name": "Bragantino-SP",
+    "display": "Bragantino-SP",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103447.599184
+  },
+  "soccer::corinthians": {
+    "name": "Corinthians",
+    "display": "Corinthians",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103456.1379764
+  },
+  "soccer::boca juniors": {
+    "name": "Boca Juniors",
+    "display": "Boca Juniors",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/bm7krb1775741582.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786261682.7894328,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "135156",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::velez sarsfield ba": {
+    "name": "Velez Sarsfield BA",
+    "display": "Velez Sarsfield BA",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103473.2112916
+  },
+  "soccer::instituto de córdoba": {
+    "name": "Instituto de Córdoba",
+    "display": "Instituto de Córdoba",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103481.7309568
+  },
+  "soccer::gimnasia mendoza": {
+    "name": "Gimnasia Mendoza",
+    "display": "Gimnasia Mendoza",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103490.2528298
+  },
+  "soccer::san lorenzo": {
+    "name": "San Lorenzo",
+    "display": "San Lorenzo",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103515.8336732
+  },
+  "soccer::atlético huracán": {
+    "name": "Atlético Huracán",
+    "display": "Atlético Huracán",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103524.5763135
+  },
+  "soccer::gimnasia la plata": {
+    "name": "Gimnasia La Plata",
+    "display": "Gimnasia La Plata",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103533.1192951
+  },
+  "soccer::barracas central": {
+    "name": "Barracas Central",
+    "display": "Barracas Central",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103541.626819
+  },
+  "soccer::defensa y justicia": {
+    "name": "Defensa y Justicia",
+    "display": "Defensa y Justicia",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103550.1657104
+  },
+  "soccer::newells old boys": {
+    "name": "Newells Old Boys",
+    "display": "Newells Old Boys",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103558.6975048
+  },
+  "soccer::orlando city sc": {
+    "name": "Orlando City SC",
+    "display": "Orlando City",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/qyppxw1423832326.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103567.2395287,
+    "country_conflict": false,
+    "tsdb_id": "135292",
+    "league": "American Major League Soccer"
+  },
+  "soccer::león": {
+    "name": "León",
+    "display": "León",
+    "country": "Mexico",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/pc9gro1752393439.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103571.5801895,
+    "country_conflict": false,
+    "tsdb_id": "134207",
+    "league": "Mexican Primera League"
+  },
+  "soccer::inter miami cf": {
+    "name": "Inter Miami CF",
+    "display": "Inter Miami",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/m4it3e1602103647.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103573.0723772,
+    "country_conflict": false,
+    "tsdb_id": "137699",
+    "league": "American Major League Soccer"
+  },
+  "soccer::monterrey": {
+    "name": "Monterrey",
+    "display": "Monterrey",
+    "country": "Mexico",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/yglj911721542561.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103574.5558918,
+    "country_conflict": false,
+    "tsdb_id": "134198",
+    "league": "Mexican Primera League"
+  },
+  "soccer::guadalajara": {
+    "name": "Guadalajara",
+    "display": "Guadalajara",
+    "country": "Spain",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/qt2hk81757606691.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103576.045721,
+    "country_conflict": false,
+    "tsdb_id": "146797",
+    "league": "Spanish Segunda RFEF Group 5"
+  },
+  "soccer::fc dallas": {
+    "name": "FC Dallas",
+    "display": "FC Dallas",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/vxy8xy1602103187.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103577.5775113,
+    "country_conflict": false,
+    "tsdb_id": "134146",
+    "league": "American Major League Soccer"
+  },
+  "soccer::real salt lake": {
+    "name": "Real Salt Lake",
+    "display": "Real Salt Lake",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/kkjlfa1556488022.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103579.0649984,
+    "country_conflict": false,
+    "tsdb_id": "134158",
+    "league": "American Major League Soccer"
+  },
+  "soccer::atlante fc": {
+    "name": "Atlante FC",
+    "display": "Atlante",
+    "country": "Mexico",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/wcf2r51754018201.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103580.5601995,
+    "country_conflict": false,
+    "tsdb_id": "134203",
+    "league": "Mexican Primera League"
+  },
+  "soccer::toluca": {
+    "name": "Toluca",
+    "display": "Toluca",
+    "country": "Mexico",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/y64wy91523913186.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103582.051566,
+    "country_conflict": false,
+    "tsdb_id": "134204",
+    "league": "Mexican Primera League"
+  },
+  "soccer::los angeles fc": {
+    "name": "Los Angeles FC",
+    "display": "Los Angeles FC",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/7nbj2a1602103638.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103583.5441494,
+    "country_conflict": false,
+    "tsdb_id": "136050",
+    "league": "American Major League Soccer"
+  },
+  "soccer::querétaro": {
+    "name": "Querétaro",
+    "display": "Querétaro",
+    "country": "Mexico",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/024n481781543211.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103586.5182898,
+    "country_conflict": false,
+    "tsdb_id": "134194",
+    "league": "Mexican Primera League"
+  },
+  "soccer::gent": {
+    "name": "Gent",
+    "display": "Gent",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/48e27o1750703124.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103588.0064278,
+    "country_conflict": false,
+    "tsdb_id": "133781",
+    "league": "Belgian Pro League"
+  },
+  "soccer::kv mechelen": {
+    "name": "KV Mechelen",
+    "display": "Mechelen",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/sxsxpt1447618693.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103589.5058,
+    "country_conflict": false,
+    "tsdb_id": "133787",
+    "league": "Belgian Pro League"
+  },
+  "soccer::charleroi": {
+    "name": "Charleroi",
+    "display": "Charleroi",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/cwf1zk1771129608.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103591.013995,
+    "country_conflict": false,
+    "tsdb_id": "133826",
+    "league": "Belgian Pro League"
+  },
+  "soccer::sv zulte-waregem": {
+    "name": "SV Zulte-Waregem",
+    "display": "SV Zulte-Waregem",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786103593.9855561
+  },
+  "soccer::genk": {
+    "name": "Genk",
+    "display": "Genk",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/tp06te1534875918.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103602.549952,
+    "country_conflict": false,
+    "tsdb_id": "133779",
+    "league": "Belgian Pro League"
+  },
+  "soccer::anderlecht": {
+    "name": "Anderlecht",
+    "display": "Anderlecht",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/auindn1771129464.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103604.030658,
+    "country_conflict": false,
+    "tsdb_id": "133776",
+    "league": "Belgian Pro League"
+  },
+  "soccer::raal la louvière": {
+    "name": "RAAL La Louvière",
+    "display": "RAAL La Louvière",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/xs8c7n1718272881.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103605.5028958,
+    "country_conflict": false,
+    "tsdb_id": "148488",
+    "league": "Belgian Pro League"
+  },
+  "soccer::royal antwerp": {
+    "name": "Royal Antwerp",
+    "display": "Antwerp",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/gawwcf1691182178.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103606.9829443,
+    "country_conflict": false,
+    "tsdb_id": "134245",
+    "league": "Belgian Pro League"
+  },
+  "soccer::sk beveren": {
+    "name": "SK Beveren",
+    "display": "Beveren",
+    "country": "Belgium",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/w40kf11657733729.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786103608.4700065,
+    "country_conflict": false,
+    "tsdb_id": "133941",
+    "league": "Belgian Pro League"
+  },
+  "soccer::fc porto": {
+    "name": "FC Porto",
+    "display": "Porto",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/xu47rb1628855600.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786108971.1416693,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "134114",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::seattle sounders fc": {
+    "name": "Seattle Sounders FC",
+    "display": "Seattle Sounders",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/2dy5cx1706711036.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786109777.9654648,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "134149",
+    "league": "American Major League Soccer"
+  },
+  "soccer::leuven": {
+    "name": "Leuven",
+    "display": "Leuven",
+    "country": "Belgium",
+    "image": "",
+    "image_kind": "",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "low",
+    "ts": 1786109780.9029715,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "137502",
+    "league": "",
+    "team": "",
+    "cache_retry": true
+  },
+  "soccer::fc zwolle": {
+    "name": "FC Zwolle",
+    "display": "PEC Zwolle",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/qpvqwy1473534822.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786112400.1898558,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "133936",
+    "league": "Dutch Eredivisie"
+  },
+  "soccer::independiente": {
+    "name": "Independiente",
+    "display": "Independiente",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/eki4nd1580842605.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786112463.4257767,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "135164",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::platense": {
+    "name": "Platense",
+    "display": "Platense",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/lbs14n1769317149.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786112464.8942494,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "137775",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::santa clara": {
+    "name": "Santa Clara",
+    "display": "Santa Clara",
+    "country": "Portugal",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/7337a61724860742.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171800.2384126,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "136192",
+    "league": "Portuguese Primeira Liga"
+  },
+  "soccer::nacional": {
+    "name": "Nacional",
+    "display": "Nacional",
+    "country": "Uruguay",
+    "image": "",
+    "image_kind": "",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "low",
+    "ts": 1786171801.7493827,
+    "country_conflict": true,
+    "variant_mismatch": false,
+    "tsdb_id": "145994",
+    "league": "",
+    "team": "",
+    "cache_retry": true
+  },
+  "soccer::flamengo": {
+    "name": "Flamengo",
+    "display": "Flamengo",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/syptwx1473538074.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171803.2349026,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "134287",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::vitoria": {
+    "name": "Vitoria",
+    "display": "Vitória",
+    "country": "Brazil",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/tysrrx1473538156.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171804.712977,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "134280",
+    "league": "Brazilian Serie A"
+  },
+  "soccer::argentinos juniors": {
+    "name": "Argentinos Juniors",
+    "display": "Argentinos Juniors",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/uqfjuo1769234850.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171806.1990159,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "135151",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::racing club": {
+    "name": "Racing Club",
+    "display": "Racing Club",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/vi4mu41695734959.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171807.6739404,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "135170",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::banfield": {
+    "name": "Banfield",
+    "display": "Banfield",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/c2ea011775756104.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171809.1419375,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "135154",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::belgrano de cordoba": {
+    "name": "Belgrano de Cordoba",
+    "display": "Belgrano",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/0twgzi1517768087.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171810.614419,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "135155",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::plymouth argyle": {
+    "name": "Plymouth Argyle",
+    "display": "Plymouth Argyle",
+    "country": "England",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/wod5cj1689630278.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171812.0886083,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "133836",
+    "league": "English League 1"
+  },
+  "soccer::exeter city": {
+    "name": "Exeter City",
+    "display": "Exeter City",
+    "country": "England",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/98wt4h1521144923.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786171813.5493882,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "134365",
+    "league": "English League 2"
+  },
+  "apisports_team::soccer::coritiba": {
+    "ts": 1786183889.8454561,
+    "id": "147"
+  },
+  "apisports_squad::soccer::147": {
+    "ts": 1786183890.5514784,
+    "squad": {
+      "benassi": {
+        "name": "Benassi",
+        "photo": "https://media.api-sports.io/football/players/296061.png"
+      },
+      "keiller": {
+        "name": "Keiller",
+        "photo": "https://media.api-sports.io/football/players/10370.png"
+      },
+      "pedro luccas": {
+        "name": "Pedro Luccas",
+        "photo": "https://media.api-sports.io/football/players/425831.png"
+      },
+      "pedro rangel": {
+        "name": "Pedro Rangel",
+        "photo": "https://media.api-sports.io/football/players/293555.png"
+      },
+      "bruno melo": {
+        "name": "Bruno Melo",
+        "photo": "https://media.api-sports.io/football/players/10416.png"
+      },
+      "enzo vagner": {
+        "name": "Enzo Vágner",
+        "photo": "https://media.api-sports.io/football/players/504965.png"
+      },
+      "felipe jonatan": {
+        "name": "Felipe Jonatan",
+        "photo": "https://media.api-sports.io/football/players/9989.png"
+      },
+      "jacy": {
+        "name": "Jacy",
+        "photo": "https://media.api-sports.io/football/players/9633.png"
+      },
+      "joao vitor": {
+        "name": "João Vitor",
+        "photo": "https://media.api-sports.io/football/players/505579.png"
+      },
+      "joa£o pedro chermont": {
+        "name": "JoÃ£o Pedro Chermont",
+        "photo": "https://media.api-sports.io/football/players/414394.png"
+      },
+      "l. leonardi bortoluci perez": {
+        "name": "L. Leonardi Bortoluci Perez",
+        "photo": "https://media.api-sports.io/football/players/631773.png"
+      },
+      "maicon": {
+        "name": "Maicon",
+        "photo": "https://media.api-sports.io/football/players/44304.png"
+      },
+      "rodrigo moledo": {
+        "name": "Rodrigo Moledo",
+        "photo": "https://media.api-sports.io/football/players/10378.png"
+      },
+      "lucas taverna": {
+        "name": "Lucas Taverna",
+        "photo": "https://media.api-sports.io/football/players/505577.png"
+      },
+      "thiago santos": {
+        "name": "Thiago Santos",
+        "photo": "https://media.api-sports.io/football/players/9924.png"
+      },
+      "tiago coser": {
+        "name": "Tiago Cóser",
+        "photo": "https://media.api-sports.io/football/players/305026.png"
+      },
+      "tinga": {
+        "name": "Tinga",
+        "photo": "https://media.api-sports.io/football/players/10413.png"
+      },
+      "a. ararat": {
+        "name": "A. Ararat",
+        "photo": "https://media.api-sports.io/football/players/468958.png"
+      },
+      "fernando sobral": {
+        "name": "Fernando Sobral",
+        "photo": "https://media.api-sports.io/football/players/80187.png"
+      },
+      "s. gomez": {
+        "name": "S. Gómez",
+        "photo": "https://media.api-sports.io/football/players/13310.png"
+      },
+      "gustavo": {
+        "name": "Gustavo",
+        "photo": "https://media.api-sports.io/football/players/298041.png"
+      },
+      "josue": {
+        "name": "Josué",
+        "photo": "https://media.api-sports.io/football/players/2150.png"
+      },
+      "matheus dias": {
+        "name": "Matheus Dias",
+        "photo": "https://media.api-sports.io/football/players/631686.png"
+      },
+      "tissi": {
+        "name": "Tissi",
+        "photo": "https://media.api-sports.io/football/players/631684.png"
+      },
+      "vini paulista": {
+        "name": "Vini Paulista",
+        "photo": "https://media.api-sports.io/football/players/309499.png"
+      },
+      "d. alves": {
+        "name": "D. Alves",
+        "photo": "https://media.api-sports.io/football/players/653237.png"
+      },
+      "breno lopes": {
+        "name": "Breno Lopes",
+        "photo": "https://media.api-sports.io/football/players/53966.png"
+      },
+      "fabinho": {
+        "name": "Fabinho",
+        "photo": "https://media.api-sports.io/football/players/143365.png"
+      },
+      "keno": {
+        "name": "Keno",
+        "photo": "https://media.api-sports.io/football/players/16847.png"
+      },
+      "j. lavega": {
+        "name": "J. Lavega",
+        "photo": "https://media.api-sports.io/football/players/315569.png"
+      },
+      "lucas ronier": {
+        "name": "Lucas Ronier",
+        "photo": "https://media.api-sports.io/football/players/410449.png"
+      },
+      "b. ocampo": {
+        "name": "B. Ocampo",
+        "photo": "https://media.api-sports.io/football/players/51588.png"
+      },
+      "paulo roberto": {
+        "name": "Paulo Roberto",
+        "photo": "https://media.api-sports.io/football/players/631685.png"
+      },
+      "pedro rocha": {
+        "name": "Pedro Rocha",
+        "photo": "https://media.api-sports.io/football/players/10106.png"
+      },
+      "renato marques": {
+        "name": "Renato Marques",
+        "photo": "https://media.api-sports.io/football/players/544699.png"
+      },
+      "rodrigo rodrigues": {
+        "name": "Rodrigo Rodrigues",
+        "photo": "https://media.api-sports.io/football/players/54106.png"
+      }
+    }
+  },
+  "apisports_team::soccer::zwolle": {
+    "ts": 1786183895.621005,
+    "id": ""
+  },
+  "apisports_team::soccer::chapecoense": {
+    "ts": 1786183900.512352,
+    "id": "132"
+  },
+  "apisports_squad::soccer::132": {
+    "ts": 1786183901.2404866,
+    "squad": {
+      "anderson": {
+        "name": "Anderson",
+        "photo": "https://media.api-sports.io/football/players/80173.png"
+      },
+      "kaina": {
+        "name": "Kainã",
+        "photo": "https://media.api-sports.io/football/players/402675.png"
+      },
+      "matheus aurelio": {
+        "name": "Matheus Aurélio",
+        "photo": "https://media.api-sports.io/football/players/119847.png"
+      },
+      "rafael santos": {
+        "name": "Rafael Santos",
+        "photo": "https://media.api-sports.io/football/players/9589.png"
+      },
+      "wellington": {
+        "name": "Wellington",
+        "photo": "https://media.api-sports.io/football/players/632422.png"
+      },
+      "bruno leonardo": {
+        "name": "Bruno Leonardo",
+        "photo": "https://media.api-sports.io/football/players/207758.png"
+      },
+      "bruno pacheco": {
+        "name": "Bruno Pacheco",
+        "photo": "https://media.api-sports.io/football/players/10192.png"
+      },
+      "bruno tubarao": {
+        "name": "Bruno Tubarão",
+        "photo": "https://media.api-sports.io/football/players/9468.png"
+      },
+      "silva da": {
+        "name": "Silva Da",
+        "photo": "https://media.api-sports.io/football/players/633456.png"
+      },
+      "doma": {
+        "name": "Doma",
+        "photo": "https://media.api-sports.io/football/players/106467.png"
+      },
+      "everton": {
+        "name": "Everton",
+        "photo": "https://media.api-sports.io/football/players/55185.png"
+      },
+      "fernando": {
+        "name": "Fernando",
+        "photo": "https://media.api-sports.io/football/players/182015.png"
+      },
+      "i. gnoatto": {
+        "name": "I. Gnoatto",
+        "photo": "https://media.api-sports.io/football/players/650652.png"
+      },
+      "gustavo talles": {
+        "name": "Gustavo Talles",
+        "photo": "https://media.api-sports.io/football/players/544977.png"
+      },
+      "joao paulo": {
+        "name": "João Paulo",
+        "photo": "https://media.api-sports.io/football/players/197064.png"
+      },
+      "m. kalebe": {
+        "name": "M. Kalebe",
+        "photo": "https://media.api-sports.io/football/players/660597.png"
+      },
+      "kauan": {
+        "name": "Kauan",
+        "photo": "https://media.api-sports.io/football/players/545022.png"
+      },
+      "mancha": {
+        "name": "Mancha",
+        "photo": "https://media.api-sports.io/football/players/306254.png"
+      },
+      "marcos vinicius": {
+        "name": "Marcos Vinícius",
+        "photo": "https://media.api-sports.io/football/players/9629.png"
+      },
+      "rafael thyere": {
+        "name": "Rafael Thyere",
+        "photo": "https://media.api-sports.io/football/players/9560.png"
+      },
+      "victor caetano": {
+        "name": "Victor Caetano",
+        "photo": "https://media.api-sports.io/football/players/9666.png"
+      },
+      "eduardo vinicius": {
+        "name": "Eduardo Vinicius",
+        "photo": "https://media.api-sports.io/football/players/638546.png"
+      },
+      "yago": {
+        "name": "Yago",
+        "photo": "https://media.api-sports.io/football/players/655911.png"
+      },
+      "kaue arno": {
+        "name": "Kaue Arno",
+        "photo": "https://media.api-sports.io/football/players/632420.png"
+      },
+      "bruno matias": {
+        "name": "Bruno Matias",
+        "photo": "https://media.api-sports.io/football/players/80626.png"
+      },
+      "camilo": {
+        "name": "Camilo",
+        "photo": "https://media.api-sports.io/football/players/63998.png"
+      },
+      "david antunes": {
+        "name": "David Antunes",
+        "photo": "https://media.api-sports.io/football/players/544990.png"
+      },
+      "giovanni augusto": {
+        "name": "Giovanni Augusto",
+        "photo": "https://media.api-sports.io/football/players/10356.png"
+      },
+      "k. godoy": {
+        "name": "K. Godoy",
+        "photo": "https://media.api-sports.io/football/players/650653.png"
+      },
+      "f. maciel": {
+        "name": "F. Maciel",
+        "photo": "https://media.api-sports.io/football/players/658882.png"
+      },
+      "max": {
+        "name": "Max",
+        "photo": "https://media.api-sports.io/football/players/306213.png"
+      },
+      "miguel": {
+        "name": "Miguel",
+        "photo": "https://media.api-sports.io/football/players/632957.png"
+      },
+      "rafael carvalheira": {
+        "name": "Rafael Carvalheira",
+        "photo": "https://media.api-sports.io/football/players/106495.png"
+      },
+      "rodrigo": {
+        "name": "Rodrigo",
+        "photo": "https://media.api-sports.io/football/players/631034.png"
+      },
+      "rubens": {
+        "name": "Rubens",
+        "photo": "https://media.api-sports.io/football/players/408347.png"
+      },
+      "vinicius balieiro": {
+        "name": "Vinicius Balieiro",
+        "photo": "https://media.api-sports.io/football/players/278496.png"
+      },
+      "wermeson": {
+        "name": "Wermeson",
+        "photo": "https://media.api-sports.io/football/players/631529.png"
+      },
+      "alberto": {
+        "name": "Alberto",
+        "photo": "https://media.api-sports.io/football/players/631260.png"
+      },
+      "bernardo": {
+        "name": "Bernardo",
+        "photo": "https://media.api-sports.io/football/players/651842.png"
+      },
+      "y. bolasie": {
+        "name": "Y. Bolasie",
+        "photo": "https://media.api-sports.io/football/players/1432.png"
+      },
+      "enio": {
+        "name": "Ênio",
+        "photo": "https://media.api-sports.io/football/players/197324.png"
+      },
+      "t. ferreira": {
+        "name": "T. Ferreira",
+        "photo": "https://media.api-sports.io/football/players/651301.png"
+      },
+      "gleidson": {
+        "name": "Gleidson",
+        "photo": "https://media.api-sports.io/football/players/634404.png"
+      },
+      "joao henrique": {
+        "name": "Joao Henrique",
+        "photo": "https://media.api-sports.io/football/players/614597.png"
+      },
+      "juan ferreira": {
+        "name": "Juan Ferreira",
+        "photo": "https://media.api-sports.io/football/players/632958.png"
+      },
+      "kassio": {
+        "name": "Kassio",
+        "photo": "https://media.api-sports.io/football/players/634403.png"
+      },
+      "luizao": {
+        "name": "Luizao",
+        "photo": "https://media.api-sports.io/football/players/631962.png"
+      },
+      "marcinho": {
+        "name": "Marcinho",
+        "photo": "https://media.api-sports.io/football/players/10363.png"
+      },
+      "garcez": {
+        "name": "Garcez",
+        "photo": "https://media.api-sports.io/football/players/201201.png"
+      },
+      "m. milani": {
+        "name": "M. Milani",
+        "photo": "https://media.api-sports.io/football/players/632935.png"
+      },
+      "neto pessoa": {
+        "name": "Neto Pessoa",
+        "photo": "https://media.api-sports.io/football/players/54102.png"
+      },
+      "k. ramirez": {
+        "name": "K. Ramírez",
+        "photo": "https://media.api-sports.io/football/players/51589.png"
+      },
+      "f. rossi": {
+        "name": "F. Rossi",
+        "photo": "https://media.api-sports.io/football/players/310781.png"
+      },
+      "tulio": {
+        "name": "Túlio",
+        "photo": "https://media.api-sports.io/football/players/403060.png"
+      }
+    }
+  },
+  "apisports_team::soccer::ajax": {
+    "ts": 1786184147.089156,
+    "id": "194"
+  },
+  "apisports_squad::soccer::194": {
+    "ts": 1786184147.8164904,
+    "squad": {
+      "j. heerkens": {
+        "name": "J. Heerkens",
+        "photo": "https://media.api-sports.io/football/players/394700.png"
+      },
+      "m. paes": {
+        "name": "M. Paes",
+        "photo": "https://media.api-sports.io/football/players/37167.png"
+      },
+      "p. reverson": {
+        "name": "P. Reverson",
+        "photo": "https://media.api-sports.io/football/players/392258.png"
+      },
+      "c. setford": {
+        "name": "C. Setford",
+        "photo": "https://media.api-sports.io/football/players/309766.png"
+      },
+      "a. hani": {
+        "name": "A. Hani",
+        "photo": "https://media.api-sports.io/football/players/453702.png"
+      },
+      "v. van der velde": {
+        "name": "V. van der Velde",
+        "photo": "https://media.api-sports.io/football/players/586133.png"
+      },
+      "y. baas": {
+        "name": "Y. Baas",
+        "photo": "https://media.api-sports.io/football/players/294684.png"
+      },
+      "d. blind": {
+        "name": "D. Blind",
+        "photo": "https://media.api-sports.io/football/players/531.png"
+      },
+      "a. bouwman": {
+        "name": "A. Bouwman",
+        "photo": "https://media.api-sports.io/football/players/453706.png"
+      },
+      "caio henrique": {
+        "name": "Caio Henrique",
+        "photo": "https://media.api-sports.io/football/players/10316.png"
+      },
+      "a. gaaei": {
+        "name": "A. Gaaei",
+        "photo": "https://media.api-sports.io/football/players/313941.png"
+      },
+      "t. gooijer": {
+        "name": "T. Gooijer",
+        "photo": "https://media.api-sports.io/football/players/336582.png"
+      },
+      "k. itakura": {
+        "name": "K. Itakura",
+        "photo": "https://media.api-sports.io/football/players/38114.png"
+      },
+      "a. kaplan": {
+        "name": "A. Kaplan",
+        "photo": "https://media.api-sports.io/football/players/278159.png"
+      },
+      "k. kasanwirjo": {
+        "name": "K. Kasanwirjo",
+        "photo": "https://media.api-sports.io/football/players/514183.png"
+      },
+      "j. mokio": {
+        "name": "J. Mokio",
+        "photo": "https://media.api-sports.io/football/players/443829.png"
+      },
+      "lucas rosa": {
+        "name": "Lucas Rosa",
+        "photo": "https://media.api-sports.io/football/players/56283.png"
+      },
+      "j. sutalo": {
+        "name": "J. Šutalo",
+        "photo": "https://media.api-sports.io/football/players/14701.png"
+      },
+      "m. verkuijl": {
+        "name": "M. Verkuijl",
+        "photo": "https://media.api-sports.io/football/players/551129.png"
+      },
+      "o. wijndal": {
+        "name": "O. Wijndal",
+        "photo": "https://media.api-sports.io/football/players/36893.png"
+      },
+      "m. van der lans": {
+        "name": "M. van der Lans",
+        "photo": "https://media.api-sports.io/football/players/453711.png"
+      },
+      "mohamed abdalla": {
+        "name": "Mohamed Abdalla",
+        "photo": "https://media.api-sports.io/football/players/633948.png"
+      },
+      "s. berghuis": {
+        "name": "S. Berghuis",
+        "photo": "https://media.api-sports.io/football/players/37160.png"
+      },
+      "rayane bounida": {
+        "name": "Rayane Bounida",
+        "photo": "https://media.api-sports.io/football/players/396202.png"
+      },
+      "j. brandt": {
+        "name": "J. Brandt",
+        "photo": "https://media.api-sports.io/football/players/984.png"
+      },
+      "o. gloukh": {
+        "name": "O. Gloukh",
+        "photo": "https://media.api-sports.io/football/players/329715.png"
+      },
+      "jinairo johnson": {
+        "name": "Jinairo Johnson",
+        "photo": "https://media.api-sports.io/football/players/483958.png"
+      },
+      "d. klaassen": {
+        "name": "D. Klaassen",
+        "photo": "https://media.api-sports.io/football/players/25321.png"
+      },
+      "a. ouazane": {
+        "name": "A. Ouazane",
+        "photo": "https://media.api-sports.io/football/players/515967.png"
+      },
+      "y. regeer": {
+        "name": "Y. Regeer",
+        "photo": "https://media.api-sports.io/football/players/161883.png"
+      },
+      "t. arokodare": {
+        "name": "T. Arokodare",
+        "photo": "https://media.api-sports.io/football/players/110153.png"
+      },
+      "m. carrizo": {
+        "name": "M. Carrizo",
+        "photo": "https://media.api-sports.io/football/players/449247.png"
+      },
+      "k. dolberg": {
+        "name": "K. Dolberg",
+        "photo": "https://media.api-sports.io/football/players/550.png"
+      },
+      "o. edvardsen": {
+        "name": "O. Edvardsen",
+        "photo": "https://media.api-sports.io/football/players/138753.png"
+      },
+      "m. godts": {
+        "name": "M. Godts",
+        "photo": "https://media.api-sports.io/football/players/340153.png"
+      },
+      "don-angelo christoffel annum-assamoah konadu": {
+        "name": "Don-Angelo Christoffel Annum-Assamoah Konadu",
+        "photo": "https://media.api-sports.io/football/players/474378.png"
+      },
+      "marcos leonardo": {
+        "name": "Marcos Leonardo",
+        "photo": "https://media.api-sports.io/football/players/267771.png"
+      },
+      "p. nash": {
+        "name": "P. Nash",
+        "photo": "https://media.api-sports.io/football/players/546756.png"
+      }
+    }
+  },
+  "players::soccer::134298": {
+    "ts": 1786184224.0833707,
+    "players": [
+      {
+        "name": "Bruno Melo",
+        "position": "Left-Back",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/q6qkm61767314965.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1767314965,
+        "art_fresh": true
+      },
+      {
+        "name": "Benassi",
+        "position": "Goalkeeper",
+        "image": "https://media.api-sports.io/football/players/296061.png",
+        "image_kind": "headshot",
+        "source": "API-SPORTS",
+        "creative_commons": null,
+        "art_ts": 1767285597,
+        "art_fresh": true
+      }
+    ]
+  },
+  "players::soccer::133936": {
+    "ts": 1786184228.3448837,
+    "players": [
+      {
+        "name": "Dylan Mbayo",
+        "position": "Attacker",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/u1cs3z1764539686.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764539686,
+        "art_fresh": true
+      },
+      {
+        "name": "Jamiro Monteiro",
+        "position": "Central Midfield",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/2uh5az1764539734.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764539734,
+        "art_fresh": true
+      },
+      {
+        "name": "Braydon Manu",
+        "position": "Midfielder",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/o3n8yn1764539619.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764539619,
+        "art_fresh": true
+      }
+    ]
+  },
+  "players::soccer::134464": {
+    "ts": 1786184232.4197993,
+    "players": [
+      {
+        "name": "Camilo",
+        "position": "Defensive Midfield",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/kqb5jt1770032519.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1770032519,
+        "art_fresh": true
+      },
+      {
+        "name": "Eduardo Doma",
+        "position": "Defender",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/4lypsi1767207979.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1767207979,
+        "art_fresh": true
+      },
+      {
+        "name": "Bruno Leonardo",
+        "position": "Defender",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/abopie1767207381.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1767207381,
+        "art_fresh": true
+      }
+    ]
+  },
+  "players::soccer::133772": {
+    "ts": 1786184238.3006172,
+    "players": [
+      {
+        "name": "Kasper Dolberg",
+        "position": "Centre-Forward",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/n3xdaa1764347773.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764347773,
+        "art_fresh": true
+      },
+      {
+        "name": "Davy Klaassen",
+        "position": "Midfielder",
+        "image": "https://media.api-sports.io/football/players/25321.png",
+        "image_kind": "headshot",
+        "source": "API-SPORTS",
+        "creative_commons": null,
+        "art_ts": 1726948262,
+        "art_fresh": false
+      },
+      {
+        "name": "Anton Gaaei",
+        "position": "Right-Back",
+        "image": "https://media.api-sports.io/football/players/313941.png",
+        "image_kind": "headshot",
+        "source": "API-SPORTS",
+        "creative_commons": null,
+        "art_ts": 1722880796,
+        "art_fresh": false
+      }
+    ]
+  },
+  "apisports_team::soccer::palmeiras": {
+    "ts": 1786184241.5573306,
+    "id": "121"
+  },
+  "apisports_squad::soccer::121": {
+    "ts": 1786184242.2696044,
+    "squad": {
+      "carlos miguel": {
+        "name": "Carlos Miguel",
+        "photo": "https://media.api-sports.io/football/players/10373.png"
+      },
+      "kaique": {
+        "name": "Kaique",
+        "photo": "https://media.api-sports.io/football/players/348897.png"
+      },
+      "k. lima": {
+        "name": "K. Lima",
+        "photo": "https://media.api-sports.io/football/players/580796.png"
+      },
+      "marcelo lomba": {
+        "name": "Marcelo Lomba",
+        "photo": "https://media.api-sports.io/football/players/10372.png"
+      },
+      "arthur": {
+        "name": "Arthur",
+        "photo": "https://media.api-sports.io/football/players/425715.png"
+      },
+      "a. barboza": {
+        "name": "A. Barboza",
+        "photo": "https://media.api-sports.io/football/players/5933.png"
+      },
+      "benedetti": {
+        "name": "Benedetti",
+        "photo": "https://media.api-sports.io/football/players/415068.png"
+      },
+      "bruno fuchs": {
+        "name": "Bruno Fuchs",
+        "photo": "https://media.api-sports.io/football/players/10379.png"
+      },
+      "a. giay": {
+        "name": "A. Giay",
+        "photo": "https://media.api-sports.io/football/players/306706.png"
+      },
+      "g. gomez": {
+        "name": "G. Gómez",
+        "photo": "https://media.api-sports.io/football/players/2502.png"
+      },
+      "jefte": {
+        "name": "Jefté",
+        "photo": "https://media.api-sports.io/football/players/311384.png"
+      },
+      "khellven": {
+        "name": "Khellven",
+        "photo": "https://media.api-sports.io/football/players/10125.png"
+      },
+      "m. kone": {
+        "name": "M. Kone",
+        "photo": "https://media.api-sports.io/football/players/646348.png"
+      },
+      "murilo": {
+        "name": "Murilo",
+        "photo": "https://media.api-sports.io/football/players/10083.png"
+      },
+      "j. piquerez": {
+        "name": "J. Piquerez",
+        "photo": "https://media.api-sports.io/football/players/51466.png"
+      },
+      "allan": {
+        "name": "Allan",
+        "photo": "https://media.api-sports.io/football/players/425714.png"
+      },
+      "andreas pereira": {
+        "name": "Andreas Pereira",
+        "photo": "https://media.api-sports.io/football/players/899.png"
+      },
+      "larson": {
+        "name": "Larson",
+        "photo": "https://media.api-sports.io/football/players/575323.png"
+      },
+      "lucas evangelista": {
+        "name": "Lucas Evangelista",
+        "photo": "https://media.api-sports.io/football/players/21095.png"
+      },
+      "luis felipe": {
+        "name": "Luis Felipe",
+        "photo": "https://media.api-sports.io/football/players/574837.png"
+      },
+      "marlon freitas": {
+        "name": "Marlon Freitas",
+        "photo": "https://media.api-sports.io/football/players/9218.png"
+      },
+      "e. martinez": {
+        "name": "E. Martínez",
+        "photo": "https://media.api-sports.io/football/players/153083.png"
+      },
+      "mauricio": {
+        "name": "Maurício",
+        "photo": "https://media.api-sports.io/football/players/106485.png"
+      },
+      "rafael coutinho": {
+        "name": "Rafael Coutinho",
+        "photo": "https://media.api-sports.io/football/players/464021.png"
+      },
+      "r. sosa": {
+        "name": "R. Sosa",
+        "photo": "https://media.api-sports.io/football/players/196298.png"
+      },
+      "abd al qader ghareeb": {
+        "name": "Abd Al Qader Ghareeb",
+        "photo": "https://media.api-sports.io/football/players/172327.png"
+      },
+      "j. arias": {
+        "name": "J. Arias",
+        "photo": "https://media.api-sports.io/football/players/13708.png"
+      },
+      "m. c. bilong": {
+        "name": "M. C. Bilong",
+        "photo": "https://media.api-sports.io/football/players/669472.png"
+      },
+      "eduardo": {
+        "name": "Eduardo",
+        "photo": "https://media.api-sports.io/football/players/570417.png"
+      },
+      "erick machado": {
+        "name": "Erick Machado",
+        "photo": "https://media.api-sports.io/football/players/512522.png"
+      },
+      "felipe anderson": {
+        "name": "Felipe Anderson",
+        "photo": "https://media.api-sports.io/football/players/2412.png"
+      },
+      "ramon riquelme": {
+        "name": "Ramon Riquelme",
+        "photo": "https://media.api-sports.io/football/players/516815.png"
+      },
+      "heittor": {
+        "name": "Heittor",
+        "photo": "https://media.api-sports.io/football/players/575324.png"
+      },
+      "j. lopez": {
+        "name": "J. López",
+        "photo": "https://media.api-sports.io/football/players/295513.png"
+      },
+      "paulinho": {
+        "name": "Paulinho",
+        "photo": "https://media.api-sports.io/football/players/987.png"
+      },
+      "vitor roque": {
+        "name": "Vitor Roque",
+        "photo": "https://media.api-sports.io/football/players/340279.png"
+      }
+    }
+  },
+  "players::soccer::134465": {
+    "ts": 1786184244.363849,
+    "players": [
+      {
+        "name": "Andreas Pereira",
+        "position": "Attacking Midfield",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/0moxnx1767691272.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1767691272,
+        "art_fresh": true
+      },
+      {
+        "name": "Allan",
+        "position": "Attacker",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/xe9qzy1767690741.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "Yes",
+        "art_ts": 1767690741,
+        "art_fresh": true
+      },
+      {
+        "name": "Arthur Gabriel",
+        "position": "Defender",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/64dmza1777627974.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1777627974,
+        "art_fresh": true
+      }
+    ]
+  },
+  "tennis::jiri lehecka": {
+    "name": "Jiri Lehecka",
+    "display": "Jiri Lehecka",
+    "country": "Czechia",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/mje2fs1675268454.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198733.6960187,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34203438",
+    "team": "ATP Mens"
+  },
+  "tennis::rafael jodar": {
+    "name": "Rafael Jodar",
+    "display": "Rafael Jodar",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786198735.1779907
+  },
+  "tennis::arthur fils": {
+    "name": "Arthur Fils",
+    "display": "Arthur Fils",
+    "country": "France",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/l4u3rl1755607112.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198743.7444608,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34208366",
+    "team": "ATP Mens"
+  },
+  "tennis::cameron norrie": {
+    "name": "Cameron Norrie",
+    "display": "Cameron Norrie",
+    "country": "United Kingdom",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/fqca601675268387.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198745.2322078,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34207203",
+    "team": "ATP Mens"
+  },
+  "tennis::joao fonseca": {
+    "name": "Joao Fonseca",
+    "display": "Joao Fonseca",
+    "country": "Portugal",
+    "image": "",
+    "image_kind": "",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "low",
+    "ts": 1786198746.7359552,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34304015",
+    "team": "",
+    "league": "",
+    "cache_retry": true
+  },
+  "tennis::ben shelton": {
+    "name": "Ben Shelton",
+    "display": "Ben Shelton",
+    "country": "United States",
+    "image": "",
+    "image_kind": "",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "low",
+    "ts": 1786198748.242462,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34168472",
+    "team": "",
+    "league": "",
+    "cache_retry": true
+  },
+  "tennis::botic van de zandschulp": {
+    "name": "Botic van de Zandschulp",
+    "display": "Botic Van De Zandschulp",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/y5p6do1675422103.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198749.7491393,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34207767",
+    "team": "ATP Mens"
+  },
+  "tennis::jakub mensik": {
+    "name": "Jakub Mensik",
+    "display": "Jakub Menšík",
+    "country": "Czechia",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/4feecl1712087491.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198751.257673,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34208390",
+    "team": "ATP Mens"
+  },
+  "tennis::tallon griekspoor": {
+    "name": "Tallon Griekspoor",
+    "display": "Tallon Griekspoor",
+    "country": "The Netherlands",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/s7wnot1761038280.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198752.7518585,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34207999",
+    "team": "ATP Mens"
+  },
+  "tennis::daniel merida aguilar": {
+    "name": "Daniel Merida Aguilar",
+    "display": "Daniel Merida Aguilar",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786198754.2415383
+  },
+  "tennis::learner tien": {
+    "name": "Learner Tien",
+    "display": "Learner Tien",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/r02q8w1755604685.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198762.787246,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34348774",
+    "team": "ATP Mens"
+  },
+  "tennis::thiago agustin tirante": {
+    "name": "Thiago Agustin Tirante",
+    "display": "Thiago Agustin Tirante",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/nyihwe1761053742.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198764.2817464,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34208144",
+    "team": "ATP Mens"
+  },
+  "tennis::aryna sabalenka": {
+    "name": "Aryna Sabalenka",
+    "display": "Aryna Sabalenka",
+    "country": "Belarus",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/4knki51748965857.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198765.7767355,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34165900",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::ekaterina alexandrova": {
+    "name": "Ekaterina Alexandrova",
+    "display": "Ekaterina Alexandrova",
+    "country": "Russia",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/uof9c51716793254.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198767.2813418,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34199481",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::elina svitolina": {
+    "name": "Elina Svitolina",
+    "display": "Elina Svitolina",
+    "country": "Ukraine",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/ku7kxg1748965149.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198768.785265,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34165898",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::amanda anisimova": {
+    "name": "Amanda Anisimova",
+    "display": "Amanda Anisimova",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/w051151748966979.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198770.2757428,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34222645",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::alexandra eala": {
+    "name": "Alexandra Eala",
+    "display": "Alexandra Eala",
+    "country": "Philippines",
+    "image": "",
+    "image_kind": "",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "low",
+    "ts": 1786198771.778856,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34234516",
+    "team": "",
+    "league": "",
+    "cache_retry": true
+  },
+  "tennis::belinda bencic": {
+    "name": "Belinda Bencic",
+    "display": "Belinda Bencic",
+    "country": "Switzerland",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/58uskb1674931357.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198773.253013,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34168339",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::alina korneeva": {
+    "name": "Alina Korneeva",
+    "display": "Alina Korneeva",
+    "country": "Russia",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/ahmbtd1774785403.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198774.7514703,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34234503",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::coco gauff": {
+    "name": "Coco Gauff",
+    "display": "Coco Gauff",
+    "country": "United States",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/k0rslz1748966077.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198776.2375095,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34215277",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::liudmila samsonova": {
+    "name": "Liudmila Samsonova",
+    "display": "Liudmila Samsonova",
+    "country": "Russia",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/w7dqr61716791632.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198777.7225914,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34214178",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::elena rybakina": {
+    "name": "Elena Rybakina",
+    "display": "Elena Rybakina",
+    "country": "Kazakhstan",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/3ibxe01749009271.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198779.2100341,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34199195",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::leylah fernandez": {
+    "name": "Leylah Fernandez",
+    "display": "Leylah Fernandez",
+    "country": "Canada",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/agpfl71667127953.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198780.694866,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34202039",
+    "team": "WTA Tour Womens"
+  },
+  "tennis::naomi osaka": {
+    "name": "Naomi Osaka",
+    "display": "Naomi Osaka",
+    "country": "Japan",
+    "image": "https://r2.thesportsdb.com/images/media/player/cutout/4njchy1716751197.png",
+    "image_kind": "cutout",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786198782.1817706,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "34163984",
+    "team": "WTA Tour Womens"
+  },
+  "soccer::fluminense-rj": {
+    "name": "Fluminense-RJ",
+    "display": "Fluminense-RJ",
+    "country": "",
+    "image": "",
+    "image_kind": "",
+    "source": "",
+    "creative_commons": null,
+    "resolved": false,
+    "confidence": "none",
+    "ts": 1786261674.210167
+  },
+  "soccer::recoleta fc": {
+    "name": "Recoleta FC",
+    "display": "Recoleta",
+    "country": "Paraguay",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/v68cg01735661603.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786261684.273179,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "147065",
+    "league": "Paraguayan Primera Division"
+  },
+  "soccer::union santa fe": {
+    "name": "Union Santa Fe",
+    "display": "Unión",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/btnx6q1734587495.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786261685.7735937,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "135178",
+    "league": "Argentinian Primera Division"
+  },
+  "soccer::central córdoba": {
+    "name": "Central Córdoba",
+    "display": "Central Córdoba de Rosario",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/72n7wv1640484673.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786261687.2641876,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "144737",
+    "league": "Argentinian Primera C"
+  },
+  "apisports_team::soccer::boca juniors": {
+    "ts": 1786261691.9497979,
+    "id": "451"
+  },
+  "apisports_squad::soccer::451": {
+    "ts": 1786261692.633763,
+    "squad": {
+      "l. brey": {
+        "name": "L. Brey",
+        "photo": "https://media.api-sports.io/football/players/177230.png"
+      },
+      "j. garcia": {
+        "name": "J. García",
+        "photo": "https://media.api-sports.io/football/players/5903.png"
+      },
+      "a. marchesin": {
+        "name": "A. Marchesín",
+        "photo": "https://media.api-sports.io/football/players/2464.png"
+      },
+      "a. montero": {
+        "name": "Á. Montero",
+        "photo": "https://media.api-sports.io/football/players/2481.png"
+      },
+      "j. barinaga": {
+        "name": "J. Barinaga",
+        "photo": "https://media.api-sports.io/football/players/126743.png"
+      },
+      "l. blanco": {
+        "name": "L. Blanco",
+        "photo": "https://media.api-sports.io/football/players/289444.png"
+      },
+      "a. costa": {
+        "name": "A. Costa",
+        "photo": "https://media.api-sports.io/football/players/288750.png"
+      },
+      "l. di lollo": {
+        "name": "L. Di Lollo",
+        "photo": "https://media.api-sports.io/football/players/369412.png"
+      },
+      "n. figal": {
+        "name": "N. Figal",
+        "photo": "https://media.api-sports.io/football/players/6082.png"
+      },
+      "d. gorosito": {
+        "name": "D. Gorosito",
+        "photo": "https://media.api-sports.io/football/players/414484.png"
+      },
+      "f. herrera": {
+        "name": "F. Herrera",
+        "photo": "https://media.api-sports.io/football/players/560376.png"
+      },
+      "l. lozano": {
+        "name": "L. Lozano",
+        "photo": "https://media.api-sports.io/football/players/51332.png"
+      },
+      "marco pellegrino": {
+        "name": "Marco Pellegrino",
+        "photo": "https://media.api-sports.io/football/players/212842.png"
+      },
+      "m. weigandt": {
+        "name": "M. Weigandt",
+        "photo": "https://media.api-sports.io/football/players/5969.png"
+      },
+      "w. alarcon": {
+        "name": "W. Alarcón",
+        "photo": "https://media.api-sports.io/football/players/11424.png"
+      },
+      "t. aranda": {
+        "name": "T. Aranda",
+        "photo": "https://media.api-sports.io/football/players/510587.png"
+      },
+      "s. ascacibar": {
+        "name": "S. Ascacíbar",
+        "photo": "https://media.api-sports.io/football/players/26305.png"
+      },
+      "t. belmonte": {
+        "name": "T. Belmonte",
+        "photo": "https://media.api-sports.io/football/players/6209.png"
+      },
+      "m. braida": {
+        "name": "M. Braida",
+        "photo": "https://media.api-sports.io/football/players/5791.png"
+      },
+      "c. palacios": {
+        "name": "C. Palacios",
+        "photo": "https://media.api-sports.io/football/players/11463.png"
+      },
+      "m. delgado": {
+        "name": "M. Delgado",
+        "photo": "https://media.api-sports.io/football/players/459876.png"
+      },
+      "l. paredes": {
+        "name": "L. Paredes",
+        "photo": "https://media.api-sports.io/football/players/271.png"
+      },
+      "c. rey": {
+        "name": "C. Rey",
+        "photo": "https://media.api-sports.io/football/players/414378.png"
+      },
+      "k. zenon": {
+        "name": "K. Zenón",
+        "photo": "https://media.api-sports.io/football/players/288707.png"
+      },
+      "a. romero": {
+        "name": "Á. Romero",
+        "photo": "https://media.api-sports.io/football/players/2521.png"
+      },
+      "a. bareiro": {
+        "name": "A. Bareiro",
+        "photo": "https://media.api-sports.io/football/players/35551.png"
+      },
+      "l. flores": {
+        "name": "L. Flores",
+        "photo": "https://media.api-sports.io/football/players/510586.png"
+      },
+      "g. gelini": {
+        "name": "G. Gelini",
+        "photo": "https://media.api-sports.io/football/players/560386.png"
+      },
+      "m. gimenez": {
+        "name": "M. Giménez",
+        "photo": "https://media.api-sports.io/football/players/59229.png"
+      },
+      "m. merentiel": {
+        "name": "M. Merentiel",
+        "photo": "https://media.api-sports.io/football/players/6327.png"
+      },
+      "a. velasco": {
+        "name": "A. Velasco",
+        "photo": "https://media.api-sports.io/football/players/6092.png"
+      },
+      "s. villa": {
+        "name": "S. Villa",
+        "photo": "https://media.api-sports.io/football/players/2494.png"
+      },
+      "e. zeballos": {
+        "name": "E. Zeballos",
+        "photo": "https://media.api-sports.io/football/players/237090.png"
+      },
+      "i. zufiaurre": {
+        "name": "I. Zufiaurre",
+        "photo": "https://media.api-sports.io/football/players/459858.png"
+      }
+    }
+  },
+  "players::soccer::135156": {
+    "ts": 1786261694.656381,
+    "players": [
+      {
+        "name": "Ángel Romero",
+        "position": "Left Wing",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/mg48sv1767278273.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1767278273,
+        "art_fresh": true
+      },
+      {
+        "name": "Carlos Palacios",
+        "position": "Attacking Midfield",
+        "image": "https://media.api-sports.io/football/players/11463.png",
+        "image_kind": "headshot",
+        "source": "API-SPORTS",
+        "creative_commons": null,
+        "art_ts": 1750040837,
+        "art_fresh": false
+      },
+      {
+        "name": "Alan Velasco",
+        "position": "Left Midfield",
+        "image": "https://media.api-sports.io/football/players/6092.png",
+        "image_kind": "headshot",
+        "source": "API-SPORTS",
+        "creative_commons": null,
+        "art_ts": 1750040142,
+        "art_fresh": false
+      }
+    ]
+  },
+  "apisports_team::soccer::recoleta": {
+    "ts": 1786261696.846359,
+    "id": ""
+  },
+  "players::soccer::147065": {
+    "ts": 1786261698.3266897,
+    "players": []
+  },
+  "apisports_team::soccer::union santa fe": {
+    "ts": 1786261700.5259666,
+    "id": "441"
+  },
+  "apisports_squad::soccer::441": {
+    "ts": 1786261701.2008853,
+    "squad": {
+      "f. gomes gerth": {
+        "name": "F. Gomes Gerth",
+        "photo": "https://media.api-sports.io/football/players/278339.png"
+      },
+      "m. mansilla": {
+        "name": "M. Mansilla",
+        "photo": "https://media.api-sports.io/football/players/59258.png"
+      },
+      "l. meuli": {
+        "name": "L. Meuli",
+        "photo": "https://media.api-sports.io/football/players/363348.png"
+      },
+      "m. aimar": {
+        "name": "M. Aimar",
+        "photo": "https://media.api-sports.io/football/players/664563.png"
+      },
+      "l. ayala": {
+        "name": "L. Ayala",
+        "photo": "https://media.api-sports.io/football/players/560263.png"
+      },
+      "t. fagioli": {
+        "name": "T. Fagioli",
+        "photo": "https://media.api-sports.io/football/players/645359.png"
+      },
+      "n. garcia": {
+        "name": "N. Garcia",
+        "photo": "https://media.api-sports.io/football/players/660323.png"
+      },
+      "i. isla": {
+        "name": "I. Isla",
+        "photo": "https://media.api-sports.io/football/players/560375.png"
+      },
+      "j. luduena": {
+        "name": "J. Ludueña",
+        "photo": "https://media.api-sports.io/football/players/376599.png"
+      },
+      "j. pintado": {
+        "name": "J. Pintado",
+        "photo": "https://media.api-sports.io/football/players/51522.png"
+      },
+      "b. pitton": {
+        "name": "B. Pittón",
+        "photo": "https://media.api-sports.io/football/players/6110.png"
+      },
+      "m. rocha": {
+        "name": "M. Rocha",
+        "photo": "https://media.api-sports.io/football/players/283338.png"
+      },
+      "m. rodriguez": {
+        "name": "M. Rodríguez",
+        "photo": "https://media.api-sports.io/football/players/381266.png"
+      },
+      "l. vargas": {
+        "name": "L. Vargas",
+        "photo": "https://media.api-sports.io/football/players/414535.png"
+      },
+      "b. cuello": {
+        "name": "B. Cuello",
+        "photo": "https://media.api-sports.io/football/players/58684.png"
+      },
+      "e. giaccone": {
+        "name": "E. Giaccone",
+        "photo": "https://media.api-sports.io/football/players/503765.png"
+      },
+      "s. grella": {
+        "name": "S. Grella",
+        "photo": "https://media.api-sports.io/football/players/538364.png"
+      },
+      "m. luna diale": {
+        "name": "M. Luna Diale",
+        "photo": "https://media.api-sports.io/football/players/51409.png"
+      },
+      "v. malcorra": {
+        "name": "V. Malcorra",
+        "photo": "https://media.api-sports.io/football/players/35921.png"
+      },
+      "l. menossi": {
+        "name": "L. Menossi",
+        "photo": "https://media.api-sports.io/football/players/6152.png"
+      },
+      "j. mosqueira": {
+        "name": "J. Mosqueira",
+        "photo": "https://media.api-sports.io/football/players/411293.png"
+      },
+      "j. palacios": {
+        "name": "J. Palacios",
+        "photo": "https://media.api-sports.io/football/players/167652.png"
+      },
+      "m. peresutti": {
+        "name": "M. Peresutti",
+        "photo": "https://media.api-sports.io/football/players/560448.png"
+      },
+      "a. solari": {
+        "name": "A. Solari",
+        "photo": "https://media.api-sports.io/football/players/5921.png"
+      },
+      "s. vera": {
+        "name": "S. Vera",
+        "photo": "https://media.api-sports.io/football/players/415032.png"
+      },
+      "m. aguirre": {
+        "name": "M. Aguirre",
+        "photo": "https://media.api-sports.io/football/players/555909.png"
+      },
+      "l. cacciabue": {
+        "name": "L. Cacciabue",
+        "photo": "https://media.api-sports.io/football/players/560323.png"
+      },
+      "v. j. cerrudo": {
+        "name": "V. J. Cerrudo",
+        "photo": "https://media.api-sports.io/football/players/560310.png"
+      },
+      "m. estigarribia": {
+        "name": "M. Estigarribia",
+        "photo": "https://media.api-sports.io/football/players/27613.png"
+      },
+      "f. fragapane": {
+        "name": "F. Fragapane",
+        "photo": "https://media.api-sports.io/football/players/6128.png"
+      },
+      "e. ramirez": {
+        "name": "E. Ramírez",
+        "photo": "https://media.api-sports.io/football/players/5687.png"
+      },
+      "r. solbes": {
+        "name": "R. Solbes",
+        "photo": "https://media.api-sports.io/football/players/560447.png"
+      },
+      "c. tarragona": {
+        "name": "C. Tarragona",
+        "photo": "https://media.api-sports.io/football/players/5312.png"
+      }
+    }
+  },
+  "players::soccer::135178": {
+    "ts": 1786261703.0473156,
+    "players": [
+      {
+        "name": "Augusto Solari",
+        "position": "Right Winger",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/0zm1721764156490.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764156490,
+        "art_fresh": true
+      },
+      {
+        "name": "Franco Fragapane",
+        "position": "Winger",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/sxh1iv1764155426.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764155426,
+        "art_fresh": true
+      },
+      {
+        "name": "Cristian Tarragona",
+        "position": "Attacker",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/3d6eus1764155344.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764155344,
+        "art_fresh": true
+      }
+    ]
+  },
+  "apisports_team::soccer::central cordoba": {
+    "ts": 1786261705.1851954,
+    "id": ""
+  },
+  "players::soccer::144737": {
+    "ts": 1786261706.6534262,
+    "players": []
+  },
+  "soccer::independiente rivadavia": {
+    "name": "Independiente Rivadavia",
+    "display": "Independiente Rivadavia",
+    "country": "Argentina",
+    "image": "https://r2.thesportsdb.com/images/media/team/badge/qgzi2b1769406125.png",
+    "image_kind": "badge",
+    "source": "TheSportsDB",
+    "creative_commons": null,
+    "resolved": true,
+    "confidence": "high",
+    "ts": 1786261706.715309,
+    "country_conflict": false,
+    "variant_mismatch": false,
+    "tsdb_id": "137777",
+    "league": "Argentinian Primera Division"
+  },
+  "apisports_team::soccer::independiente rivadavia": {
+    "ts": 1786261710.3758707,
+    "id": ""
+  },
+  "players::soccer::137777": {
+    "ts": 1786261712.3027751,
+    "players": [
+      {
+        "name": "Álex Arce",
+        "position": "Centre-Forward",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/ji7o401780405358.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1780405358,
+        "art_fresh": true
+      },
+      {
+        "name": "Diego Tonetto",
+        "position": "Midfielder",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/qrt74u1764331217.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764331217,
+        "art_fresh": true
+      },
+      {
+        "name": "Alejo Osella",
+        "position": "Defender",
+        "image": "https://r2.thesportsdb.com/images/media/player/cutout/svyi7s1764330439.png",
+        "image_kind": "cutout",
+        "source": "TheSportsDB",
+        "creative_commons": "No",
+        "art_ts": 1764330439,
+        "art_fresh": true
+      }
+    ]
+  }
+}

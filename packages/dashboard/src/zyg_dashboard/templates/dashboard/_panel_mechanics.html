@@ -1,0 +1,239 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+        <!-- 2026-09-30: Mechanics is a Metrics subtab now, not a dashboard tab of its own.
+             The id stays `panel-mechanics` — dashboard_tab_mechanics.js and
+             dashboard_tab_mechanics_skills.js both look the panel up by it — but the
+             show/hide is the parent's job (#metrics-content-mechanics), so this div no
+             longer carries .dashboard-tab-panel or its own display state. -->
+        <div id="panel-mechanics" class="mechanics-panel">
+            <div class="mechanics-layout" style="display:flex; gap:24px; margin-top:20px; min-height:400px;">
+                <div class="mechanics-subtabs" style="flex:0 0 180px; display:flex; flex-direction:column; gap:6px;">
+                    <button type="button" class="btn dashboard-btn mechanics-subtab active" data-mechanics-subtab="functionality">Functionality</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="agent-functionality">Agent Functionality</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="dependencies">Dependencies</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="llms">LLMS</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="hardware-table">Hardware Table</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="tools">Tools</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="api-tools">Api Tools</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="logbook">Logbook</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="skills">Skills</button>
+                    <button type="button" class="btn dashboard-btn mechanics-subtab" data-mechanics-subtab="workflow">Workflow</button>
+                </div>
+                <div class="mechanics-content" style="flex:1; display:flex; flex-direction:column; min-width:0; min-height:0;">
+                    <div id="mechanics-functionality" class="mechanics-subtab-content active" style="display:flex; flex-direction:column; gap:16px; flex:1; min-height:0;">
+                        <div id="mechanics-kpi-summary" class="mechanics-kpi-bar" style="display:flex; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;"></div>
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="mechanics-select-all" title="Select/deselect all items for scan"> Select all</label>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-scan-btn">Scan</button>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-scan-mode" value="all" checked> Scan all</label>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-scan-mode" value="selected"> Scan selected only</label>
+                            <span id="mechanics-scan-status" style="font-size:13px; color:#666;"></span>
+                        </div>
+                        <div style="display:flex; gap:10px; flex:1; min-height:0;">
+                            <div id="mechanics-functionality-columns" class="mechanics-functionality-columns" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 200px)); grid-auto-rows:min-content; gap:6px; align-content:start; overflow-y:auto; flex:1; min-height:0;"></div>
+                            <div class="mechanics-detail-wrap" style="flex:0 0 180px; min-width:160px; max-width:240px; overflow-y:auto; border:1px solid #ddd; border-radius:6px; padding:8px 10px; background:#fff; font-size:12px;">
+                                <p id="mechanics-detail-placeholder" style="color:#666; margin:0;">Select an item to view details. Use Scan to test functionality.</p>
+                                <div id="mechanics-detail-content" style="display:none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mechanics-agent-functionality" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:16px; flex:1; min-height:0;">
+                        <div id="mechanics-agent-kpi-summary" class="mechanics-kpi-bar" style="display:flex; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;"></div>
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="mechanics-agent-select-all" title="Select/deselect all agents for scan"> Select all</label>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-agent-scan-btn">Scan</button>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-agent-scan-mode" value="all" checked> Scan all</label>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-agent-scan-mode" value="selected"> Scan selected only</label>
+                            <span id="mechanics-agent-scan-status" style="font-size:13px; color:#666;"></span>
+                        </div>
+                        <div id="mechanics-agent-columns" class="mechanics-agent-columns" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 200px)); grid-auto-rows:min-content; gap:6px; align-content:start; overflow-y:auto; flex:1; min-height:0;"></div>
+                    </div>
+                    <div id="mechanics-dependencies" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:16px; flex:1; min-height:0;">
+                        <div id="mechanics-dependencies-kpi-summary" class="mechanics-kpi-bar" style="display:flex; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;"></div>
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="mechanics-dependencies-select-all" title="Select/deselect all items"> Select all</label>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-dependencies-scan-btn">Scan</button>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-dependencies-scan-mode" value="all" checked> Scan all</label>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-dependencies-scan-mode" value="selected"> Scan selected only</label>
+                            <span id="mechanics-dependencies-scan-status" style="font-size:13px; color:#666;"></span>
+                        </div>
+                        <div id="mechanics-dependencies-columns" class="mechanics-dependencies-columns" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 200px)); grid-auto-rows:min-content; gap:6px; align-content:start; overflow-y:auto; flex:1; min-height:0;"></div>
+                    </div>
+                    <div id="mechanics-llms" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:16px; flex:1; min-height:0;">
+                        <div id="mechanics-llms-kpi-summary" class="mechanics-kpi-bar" style="display:flex; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;"></div>
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="mechanics-llms-select-all" title="Select/deselect all items"> Select all</label>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-llms-scan-btn">Scan</button>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-llms-scan-mode" value="all" checked> Scan all</label>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-llms-scan-mode" value="selected"> Scan selected only</label>
+                            <span id="mechanics-llms-scan-status" style="font-size:13px; color:#666;"></span>
+                        </div>
+                        <div id="mechanics-llms-columns" class="mechanics-llms-columns" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 200px)); grid-auto-rows:min-content; gap:6px; align-content:start; overflow-y:auto; flex:1; min-height:0;"></div>
+                    </div>
+                    <div id="mechanics-hardware-table" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:16px; flex:1; min-height:0; overflow:auto;">
+                        <p style="font-size:13px; color:#666;">Models and tools with hardware specs. Type, parameters, precision sizes, typical VRAM, and role in your system.</p>
+                        <div id="mechanics-hardware-table-wrap" style="overflow-x:auto;"><table class="hardware-table" style="border-collapse:collapse; width:100%; font-size:13px;"><thead><tr><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">Model / Tool</th><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">Type</th><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">Parameters</th><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">FP16 Size</th><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">8-bit Size</th><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">4-bit Size</th><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">Typical VRAM usage</th><th style="border:1px solid #ddd; padding:8px 10px; background:#f5f5f7; text-align:left;">Role in your system</th></tr></thead><tbody id="mechanics-hardware-table-tbody"><tr><td colspan="8" style="padding:16px; color:#666;">Loading…</td></tr></tbody></table></div>
+                    </div>
+                    <div id="mechanics-tools" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:16px; flex:1; min-height:0;">
+                        <div id="mechanics-tools-kpi-summary" class="mechanics-kpi-bar" style="display:flex; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;"></div>
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="mechanics-tools-select-all" title="Select/deselect all tools"> Select all</label>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-tools-scan-btn">Scan</button>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-tools-scan-mode" value="all" checked> Scan all</label>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-tools-scan-mode" value="selected"> Scan selected only</label>
+                            <span id="mechanics-tools-scan-status" style="font-size:13px; color:#666;"></span>
+                        </div>
+                        <div id="mechanics-tools-columns" class="mechanics-tools-columns" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 200px)); grid-auto-rows:min-content; gap:6px; align-content:start; overflow-y:auto; flex:1; min-height:0;"></div>
+                    </div>
+                    <div id="mechanics-api-tools" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:16px; flex:1; min-height:0;">
+                        <div id="mechanics-apitools-kpi-summary" class="mechanics-kpi-bar" style="display:flex; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;"></div>
+                        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="mechanics-apitools-select-all" title="Select/deselect all items"> Select all</label>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-apitools-scan-btn">Scan</button>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-apitools-scan-mode" value="all" checked> Scan all</label>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="radio" name="mechanics-apitools-scan-mode" value="selected"> Scan selected only</label>
+                            <span id="mechanics-apitools-scan-status" style="font-size:13px; color:#666;"></span>
+                        </div>
+                        <div id="mechanics-apitools-columns" class="mechanics-tools-columns" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 200px)); grid-auto-rows:min-content; gap:6px; align-content:start; overflow-y:auto; flex:1; min-height:0;"></div>
+                    </div>
+                    <div id="mechanics-logbook" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:10px; flex:1; min-height:0;">
+                        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                            <strong style="font-size:13px; color:#374151;">Scan Logbook</strong>
+                            <span id="mechanics-logbook-meta" style="font-size:11px; color:#888; flex:1;"></span>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-logbook-copy-btn" style="font-size:11px; padding:2px 10px;">Copy All</button>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-logbook-clear-btn" style="font-size:11px; padding:2px 10px;">Clear</button>
+                        </div>
+                        <pre id="mechanics-scan-log" style="margin:0; padding:12px 16px; background:#111827; color:#d1d5db; border-radius:6px; font-size:11px; line-height:1.7; flex:1; overflow-y:auto; white-space:pre-wrap; word-break:break-word; border:1px solid #374151; min-height:0;">No scans yet. Run a scan from any tab to see results here.</pre>
+                    </div>
+
+                    <!-- ═══════════════════════════════════════════════════ SKILLS PANEL ═══ -->
+                    <div id="mechanics-skills" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:10px; flex:1; min-height:0; overflow:hidden;">
+                        <!-- Sandbox status banner -->
+                        <div id="skills-sandbox-banner" style="display:flex; align-items:center; gap:8px; padding:8px 12px; background:#fffbeb; border:1px solid #f59e0b; border-radius:6px; font-size:12px; color:#92400e; flex-shrink:0;">
+                            <span style="font-size:14px;">🔌</span>
+                            <span><strong>Sandbox System:</strong> <span id="skills-sandbox-status-text">Not configured</span> — Skills listed for reference only. <strong>None are active or installed.</strong></span>
+                            <span style="flex:1;"></span>
+                            <span id="skills-sandbox-status-badge" style="padding:2px 8px; background:#f59e0b; color:#fff; border-radius:10px; font-size:11px; font-weight:600;">⚠ Pending</span>
+                        </div>
+                        <!-- Category filter pills -->
+                        <div id="skills-category-bar" style="display:flex; gap:6px; flex-wrap:wrap; flex-shrink:0; align-items:center;">
+                            <span style="font-size:11px; color:#9ca3af; margin-right:4px;">Filter:</span>
+                            <!-- pills injected by JS -->
+                        </div>
+                        <!-- Skill count -->
+                        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                            <span id="skills-count-label" style="font-size:11px; color:#6b7280;"></span>
+                            <span style="font-size:11px; color:#9ca3af;">— hover a skill to preview · click for full details</span>
+                        </div>
+                        <!-- Skills grid -->
+                        <div id="skills-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(195px, 1fr)); gap:8px; overflow-y:auto; flex:1; min-height:0; align-content:start; padding-right:4px;"></div>
+                    </div>
+                    <!-- ═══════════════════════════════════════════════════════════════════ -->
+                    <!-- Workflow test panel -->
+                    <div id="mechanics-workflow" class="mechanics-subtab-content" style="display:none; flex-direction:column; gap:14px; flex:1; min-height:0; overflow-y:auto;">
+                        <!-- ── Channel Preset Viewer ──────────────────────────────────────── -->
+                        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:10px 14px; background:#f0f4ff; border-radius:8px; border:1px solid #d0d8f0; flex-shrink:0;">
+                            <strong style="font-size:12px; color:#334;">Channel Agent Preset</strong>
+                            <select id="channel-preset-select" style="font-size:12px; padding:4px 8px; border:1px solid #c0c8e0; border-radius:5px; background:#fff; color:#334; cursor:pointer;">
+                                <option value="">— Select channel preset —</option>
+                                <option value="agent_workflow_crime.svg">Crime Chronicles</option>
+                                <option value="agent_workflow_finance.svg">Financials</option>
+                                <option value="agent_workflow_luxury.svg">Luxury</option>
+                                <option value="agent_workflow_religion.svg">Religion</option>
+                                <option value="agent_workflow_storyteller.svg">Storyteller</option>
+                                <option value="agent_workflow_benchmark.svg">Benchmark</option>
+                                <option value="agent_workflow_cars.svg">Cars</option>
+                                <option value="agent_workflow_preset.svg">Generic Preset</option>
+                            </select>
+                            <span style="font-size:11px; color:#888; flex:1;">Agent chain diagram for the selected channel pipeline.</span>
+                        </div>
+                        <div id="channel-preset-viewer" style="display:none; flex-shrink:0; border-radius:8px; overflow:hidden; border:1px solid #e0e4f0; background:#f8f9fb;">
+                            <img id="channel-preset-img" src="" alt="Channel Agent Preset" style="width:100%; height:auto; display:block;"/>
+                        </div>
+                        <script>
+                        (function() {
+                            var sel = document.getElementById('channel-preset-select');
+                            var viewer = document.getElementById('channel-preset-viewer');
+                            var img = document.getElementById('channel-preset-img');
+                            if (sel && viewer && img) {
+                                sel.addEventListener('change', function() {
+                                    var val = sel.value;
+                                    if (val) {
+                                        img.src = '/static/security_diagrams/' + val;
+                                        viewer.style.display = 'block';
+                                    } else {
+                                        viewer.style.display = 'none';
+                                    }
+                                });
+                            }
+                        })();
+                        </script>
+                        <!-- ── Pipeline Health Test ───────────────────────────────────────── -->
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb; flex-shrink:0;">
+                            <strong style="font-size:13px; color:#111;">Pipeline Health Test</strong>
+                            <span style="font-size:12px; color:#666; flex:1;">Runs non-destructive checks on every pipeline component — no generation triggered. Results in ~10s.</span>
+                            <button type="button" class="btn dashboard-btn" id="mechanics-workflow-test-btn" onclick="runPipelineTest()" style="font-size:12px; padding:6px 16px; background:#1d4ed8; color:#fff; border:none; border-radius:6px; cursor:pointer;">▶ Run Test</button>
+                        </div>
+                        <div id="mechanics-workflow-status" style="display:none; font-size:12px; color:#555; padding:4px 2px; flex-shrink:0;"></div>
+                        <div id="mechanics-workflow-results" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:8px; align-content:start; overflow-y:auto; flex:1; min-height:0;"></div>
+
+                        <!-- ── Pipeline Smoke Tests ──────────────────────────────────────────── -->
+                        <div style="margin-top:4px; border-top:1px solid #e5e7eb; padding-top:14px; flex-shrink:0;">
+                            <div style="font-size:12px; font-weight:700; color:#374151; margin-bottom:10px;">🧪 Pipeline Smoke Tests</div>
+                            <div style="display:flex; flex-direction:column; gap:8px;">
+
+                                <!-- Video Smoke Test -->
+                                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;">
+                                    <strong style="font-size:13px; color:#111;">🎬 Video Pipeline</strong>
+                                    <span style="font-size:12px; color:#666; flex:1;">End-to-end smoke test — FLUX image → WAN video → title card. Reduced inference (1 step, 1 chain). ~5–8 min.</span>
+                                    <button type="button" id="smoke-dash-btn-video" onclick="runDashSmokeTest('video')" style="font-size:12px; padding:6px 16px; background:#1d4ed8; color:#fff; border:none; border-radius:6px; cursor:pointer; white-space:nowrap;">▶ Run Test</button>
+                                </div>
+
+                                <!-- Documentary Smoke Test -->
+                                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;">
+                                    <strong style="font-size:13px; color:#111;">📚 Documentary Pipeline</strong>
+                                    <span style="font-size:12px; color:#666; flex:1;">End-to-end smoke test — research → script → FLUX images → WAN video → assembly. Narration off. ~8–12 min.</span>
+                                    <button type="button" id="smoke-dash-btn-documentary" onclick="runDashSmokeTest('documentary')" style="font-size:12px; padding:6px 16px; background:#1d4ed8; color:#fff; border:none; border-radius:6px; cursor:pointer; white-space:nowrap;">▶ Run Test</button>
+                                </div>
+
+                                <!-- Intro Smoke Test -->
+                                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:10px 14px; background:#f8f9fa; border-radius:8px; border:1px solid #e5e7eb;">
+                                    <strong style="font-size:13px; color:#111;">🎞 Intro Pipeline</strong>
+                                    <span style="font-size:12px; color:#666; flex:1;">End-to-end smoke test — 1 scene + ending title card appended. ~5–8 min.</span>
+                                    <button type="button" id="smoke-dash-btn-intro" onclick="runDashSmokeTest('intro')" style="font-size:12px; padding:6px 16px; background:#1d4ed8; color:#fff; border:none; border-radius:6px; cursor:pointer; white-space:nowrap;">▶ Run Test</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Smoke test output area -->
+                        <div id="smoke-dash-output-wrap" style="display:none; flex-direction:column; flex-shrink:0; margin-top:8px; border:1px solid #e5e7eb; border-radius:8px; overflow:hidden;">
+                            <div style="display:flex; align-items:center; gap:10px; padding:8px 14px; background:#f3f4f6; border-bottom:1px solid #e5e7eb;">
+                                <strong id="smoke-dash-title" style="font-size:12px; color:#111; flex:1;">Smoke Test Output</strong>
+                                <span id="smoke-dash-badge" style="font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; background:#e5e7eb; color:#374151;">IDLE</span>
+                                <button type="button" onclick="document.getElementById('smoke-dash-output-wrap').style.display='none';" style="background:none;border:none;cursor:pointer;color:#6b7280;font-size:14px;line-height:1;padding:0 2px;">✕</button>
+                            </div>
+                            <pre id="smoke-dash-output" style="margin:0; padding:10px 14px; font-size:11px; font-family:'Courier New',monospace; line-height:1.55; color:#1f2937; background:#fff; max-height:320px; overflow-y:auto; white-space:pre-wrap; word-break:break-all;"></pre>
+                            <div id="smoke-dash-meta" style="padding:5px 14px; font-size:10px; color:#9ca3af; background:#f9fafb; border-top:1px solid #f3f4f6;"></div>
+                        </div>
+                    </div>
+                    <!-- ═══════════════════════════════════════════════════════════════════ -->
+            </div>
+        </div>
+        </div><!-- close #panel-mechanics -->
+
+        <!-- Skills dialog overlay (outside mechanics panel to escape overflow:hidden) -->
+        <div id="skills-dialog-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.55); z-index:9999; align-items:center; justify-content:center;" onclick="if(event.target===this)window.closeSkillsDialog&&window.closeSkillsDialog()">
+            <div id="skills-dialog-box" style="background:#fff; border-radius:10px; box-shadow:0 8px 32px rgba(0,0,0,0.22); width:520px; max-width:calc(95vw / var(--ui-zoom,1)); max-height:calc(88vh / var(--ui-zoom,1)); overflow-y:auto; padding:0; font-size:13px;">
+                <div id="skills-dialog-header" style="display:flex; align-items:center; gap:8px; padding:14px 18px 10px 18px; border-bottom:1px solid #e5e7eb; position:sticky; top:0; background:#fff; z-index:1;">
+                    <span id="skills-dialog-cat-badge" style="padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; letter-spacing:0.03em;"></span>
+                    <strong id="skills-dialog-name" style="font-size:14px; color:#111827; flex:1; word-break:break-all;"></strong>
+                    <button type="button" onclick="window.closeSkillsDialog&&window.closeSkillsDialog()" style="background:none; border:none; cursor:pointer; font-size:18px; color:#6b7280; padding:0 2px; line-height:1;">✕</button>
+                </div>
+                <div id="skills-dialog-body" style="padding:16px 18px; display:flex; flex-direction:column; gap:12px;"></div>
+            </div>
+        </div>

@@ -1,0 +1,17 @@
+[Unit]
+Description=Zygomatic Kanban Workflow Board (port 8899)
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/repos/zygomatic-dashboard
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_dashboard.kanban_server
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kanban-server
+
+[Install]
+WantedBy=default.target

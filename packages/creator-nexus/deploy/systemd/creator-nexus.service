@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2026 Zygomatic
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# User unit. Install as ~/.config/systemd/user/creator-nexus.service and start
+# with `systemctl --user enable --now creator-nexus`. %h is the running user's
+# home, so no absolute path is baked in; override ZYG_NEXUS_SITE when the
+# checkout does not live at %h/repos/zygomatic-creator-nexus.
+[Unit]
+Description=Creator Nexus static site (port 8090)
+PartOf=zygomatic.target
+After=network.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Environment=ZYG_NEXUS_SITE=%h/repos/zygomatic-creator-nexus/site
+WorkingDirectory=%h
+# The site holds the channel vault in the browser, but the directory listing is
+# still not for the LAN: bind loopback and reach it over a tunnel if needed.
+ExecStart=/usr/bin/python3 -m http.server 8090 --bind 127.0.0.1 --directory ${ZYG_NEXUS_SITE}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target zygomatic.target

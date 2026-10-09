@@ -1,0 +1,37 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+        <!-- ═══════════════ BENCHMARK TAB ════════════════════════════════ -->
+        <div id="panel-benchmark" class="dashboard-tab-panel{% if _dtab == 'benchmark' %} active{% endif %}" {% if _dtab == 'benchmark' %}style="display:block;"{% else %}style="display:none;"{% endif %}>
+          <link rel="stylesheet" href="/static/css/dashboard_benchmark.css?v=1">
+
+          <div class="bm-header">
+            <div>
+              <div class="bm-title">Benchmark</div>
+              <div class="bm-subtitle">Every completed pipeline run is reflected here automatically — no separate recording step needed</div>
+            </div>
+            <button class="bm-refresh-btn" onclick="bmLoadAll()">↺ Refresh</button>
+          </div>
+
+          <div class="bm-subtabs">
+            <button class="bm-subtab active" data-pipe="scholarly"   onclick="bmSelectPipe('scholarly')">Scholarly / Crime</button>
+            <button class="bm-subtab"         data-pipe="video"       onclick="bmSelectPipe('video')">Video</button>
+            <button class="bm-subtab"         data-pipe="manga"       onclick="bmSelectPipe('manga')">Manga</button>
+            <button class="bm-subtab"         data-pipe="storyteller" onclick="bmSelectPipe('storyteller')">Storyteller</button>
+            <button class="bm-subtab"         data-pipe="multirun"    onclick="bmSelectPipe('multirun')" style="border-color:rgba(99,102,241,0.35);color:#a5b4fc;">Multi Form</button>
+          </div>
+
+          <div id="bm-sysres"></div>
+
+          <div id="bm-pipe-scholarly"></div>
+          <div id="bm-pipe-video"       style="display:none;"></div>
+          <div id="bm-pipe-manga"       style="display:none;"></div>
+          <div id="bm-pipe-storyteller" style="display:none;"></div>
+          <div id="bm-pipe-multirun"    style="display:none;"></div>
+
+          <div id="bm-loading" style="text-align:center;padding:48px;color:#7a9bb8;font-size:0.95rem;">Loading benchmark data…</div>
+        </div>
+        <!-- ═══════════════ END BENCHMARK TAB ════════════════════════════ -->

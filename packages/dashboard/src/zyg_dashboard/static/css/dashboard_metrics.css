@@ -1,0 +1,385 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Zygomatic
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+/* Metrics tab v5 (2026-09-28) — ops hub on the dashboard's warm-grey ground.
+   The dashboard applies html{zoom:.67}; sizes here are layout px, so 15px text lands
+   at ~10 screen px on the 1680 panel. Chart palette + status colours: see
+   dashboard_tab_metrics.js (fixed slot order, status always with icon + label). */
+/* The shared .container caps every tab at 1400px inside a ~2315px main area; the hub is
+   table- and chart-dense, so it takes the width only while it is the visible tab
+   (DashboardTabs.showPanel moves .active between panels). */
+.dashboard-main > .container:has(> #panel-metrics.active) { max-width: 2260px; }
+
+#panel-metrics {
+    --mh-surface: #ffffff;
+    --mh-ink: #0b0b0b;
+    --mh-ink-2: #52514e;
+    --mh-muted: #898781;
+    --mh-hair: rgba(11, 11, 11, 0.10);
+    --mh-grid: #e6e5df;
+    --mh-wash: #f6f5f1;
+    --mh-accent: #2a78d6;
+    max-width: 2200px;
+    font-size: 15px;
+    color: var(--mh-ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.metrics-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.metrics-header-title { font-size: 1.6em; font-weight: 650; color: var(--mh-ink); margin: 0; }
+.metrics-header-meta { font-size: 0.87em; color: var(--mh-ink-2); margin-top: 2px; }
+.metrics-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* "Checked HH:MM:SS" — one indicator in the header, so EVERY subtab says when it was
+   last read and whether that read changed anything. It replaces the per-board badges
+   (.an-live / .td-live / .cap-live), and the data version + compute time it used to
+   print live in the bar now sit in its hover title: they are for diagnosing a stale
+   board, not for reading every 30 s. */
+.mh-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    border: 1px solid var(--mh-hair);
+    border-radius: 999px;
+    background: var(--mh-surface);
+    font-size: 0.88em;
+    color: var(--mh-ink-2);
+    white-space: nowrap;
+}
+.mh-live i { width: 8px; height: 8px; border-radius: 50%; background: #0ca30c; display: inline-block; flex: 0 0 auto; }
+.mh-live.mh-live-idle i { background: var(--mh-muted); }
+.mh-live.mh-live-stale i { background: #fab219; }
+.mh-live.mh-live-flash { background: #e8f0fb; border-color: #9cc0ee; color: #184f95; }
+
+.mh-range {
+    display: inline-flex;
+    background: var(--mh-surface);
+    border: 1px solid var(--mh-hair);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+}
+.mh-range button {
+    font: inherit;
+    font-size: 0.9em;
+    border: 0;
+    background: transparent;
+    color: var(--mh-ink-2);
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.mh-range button:hover { background: var(--mh-wash); }
+.mh-range button[aria-pressed="true"] { background: #e8f0fb; color: #184f95; font-weight: 650; }
+
+.metrics-btn-refresh {
+    font: inherit;
+    font-size: 0.9em;
+    padding: 6px 14px;
+    border: 1px solid var(--mh-hair);
+    border-radius: 8px;
+    background: var(--mh-surface);
+    color: var(--mh-ink);
+    cursor: pointer;
+    font-weight: 600;
+}
+.metrics-btn-refresh:hover { background: var(--mh-wash); }
+
+.metrics-subtabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(11, 11, 11, 0.14);
+}
+.metrics-subtab {
+    font-size: 0.95em !important;
+    padding: 7px 16px !important;
+    border-radius: 8px 8px 0 0 !important;
+    border: 1px solid transparent !important;
+    border-bottom: 0 !important;
+    background: transparent !important;
+    color: var(--mh-ink-2) !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+    margin-bottom: -1px;
+}
+.metrics-subtab:hover { color: var(--mh-ink) !important; background: rgba(255, 255, 255, 0.45) !important; }
+.metrics-subtab.active {
+    background: var(--mh-surface) !important;
+    border-color: rgba(11, 11, 11, 0.14) !important;
+    color: #184f95 !important;
+    font-weight: 650 !important;
+}
+
+.metrics-panel-inner { min-height: 160px; transition: opacity 0.15s ease; }
+.metrics-panel-inner.mh-refreshing { opacity: 0.55; }
+
+/* tiles */
+.mh-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.mh-tile {
+    background: var(--mh-surface);
+    border: 1px solid var(--mh-hair);
+    border-radius: 10px;
+    padding: 12px 14px 11px;
+    min-width: 0;
+}
+.mh-tile-label { font-size: 0.87em; color: var(--mh-ink-2); font-weight: 550; }
+.mh-tile-value { font-size: 1.9em; font-weight: 650; line-height: 1.25; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mh-tile-sub { font-size: 0.82em; color: var(--mh-muted); margin-top: 3px; line-height: 1.35; }
+
+/* cards + layout */
+.mh-card {
+    background: var(--mh-surface);
+    border: 1px solid var(--mh-hair);
+    border-radius: 10px;
+    padding: 12px 16px 14px;
+    margin-bottom: 14px;
+    min-width: 0;
+}
+.mh-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.mh-card-head h4 { margin: 0; font-size: 1.02em; font-weight: 650; color: var(--mh-ink); display: flex; align-items: center; gap: 8px; }
+.mh-card-aside { font-size: 0.82em; color: var(--mh-muted); }
+.mh-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(620px, 1fr)); gap: 0 14px; }
+.mh-pipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); gap: 0 14px; }
+.mh-pipe .mh-prop { margin: 2px 0 12px; }
+
+/* tables */
+.mh-table-wrap { overflow-x: auto; margin: 0 -2px; }
+.mh-table { width: 100%; border-collapse: collapse; font-size: 0.93em; }
+.mh-table th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--mh-ink-2);
+    font-size: 0.9em;
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(11, 11, 11, 0.14);
+    white-space: nowrap;
+}
+.mh-table td { padding: 6px 10px; border-bottom: 1px solid #efeee9; vertical-align: middle; }
+.mh-table tr:last-child td { border-bottom: 0; }
+.mh-table tbody tr:hover td { background: #faf9f6; }
+.mh-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mh-clip { display: inline-block; max-width: 34em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom; }
+.mh-table td:last-child .mh-clip { max-width: 72em; }
+
+/* marks */
+.mh-swatch { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; flex: none; }
+.mh-pill { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; color: var(--mh-ink); }
+.mh-pill i {
+    font-style: normal;
+    display: inline-grid;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1;
+    flex: none;
+}
+.mh-pill em { font-style: normal; color: var(--mh-muted); font-size: 0.9em; }
+.mh-bad { color: #b42828; font-weight: 650; }
+.mh-muted { color: var(--mh-muted); }
+
+.mh-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font-size: 0.9em; color: var(--mh-ink-2); margin: 0 0 8px; }
+.mh-legend span { display: inline-flex; align-items: center; }
+.mh-status-legend { margin: 2px 0 12px; }
+
+.mh-prop { display: flex; gap: 2px; height: 12px; border-radius: 4px; overflow: hidden; min-width: 90px; }
+.mh-prop span { min-width: 3px; cursor: default; outline: none; }
+.mh-prop span:hover, .mh-prop span:focus-visible { filter: brightness(1.08); box-shadow: inset 0 0 0 2px rgba(11, 11, 11, 0.25); }
+.mh-prop-empty { background: #efeee9; }
+
+.mh-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px 16px; margin: 0 0 6px; }
+.mh-facts-wide { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.mh-facts > div { min-width: 0; }
+.mh-facts dt { font-size: 0.82em; color: var(--mh-ink-2); }
+.mh-facts dd { margin: 1px 0 0; font-size: 1.12em; font-weight: 650; }
+.mh-facts dd small { display: block; font-size: 0.74em; font-weight: 400; color: var(--mh-muted); margin-top: 1px; }
+
+/* meters */
+.mh-meter-row { margin-bottom: 12px; }
+.mh-meter-head { display: flex; justify-content: space-between; gap: 10px; font-size: 0.93em; margin-bottom: 4px; }
+.mh-meter-head span { color: var(--mh-ink-2); }
+.mh-meter-head strong { font-weight: 650; font-variant-numeric: tabular-nums; }
+.mh-meter { height: 10px; border-radius: 5px; overflow: hidden; }
+.mh-meter span { display: block; height: 100%; border-radius: 5px; min-width: 2px; }
+.mh-meter-ok { background: #cde2fb; }
+.mh-meter-ok span { background: #2a78d6; }
+.mh-meter-warn { background: #fdecc2; }
+.mh-meter-warn span { background: #fab219; }
+.mh-meter-crit { background: #f5d0d0; }
+.mh-meter-crit span { background: #d03b3b; }
+.mh-meter-sub { font-size: 0.8em; color: var(--mh-muted); margin-top: 3px; }
+
+/* charts */
+.mh-chart { position: relative; width: 100%; }
+.mh-chart svg { display: block; overflow: visible; }
+.mh-axis { font-size: 12px; fill: var(--mh-muted); font-variant-numeric: tabular-nums; }
+.mh-hit { cursor: default; }
+.mh-col:hover .mh-hit { fill: rgba(11, 11, 11, 0.045); }
+
+.mh-twin { margin-top: 8px; font-size: 0.93em; }
+.mh-twin > summary { cursor: pointer; color: var(--mh-ink-2); font-size: 0.9em; padding: 2px 0; user-select: none; }
+.mh-twin > summary:hover { color: var(--mh-ink); }
+.mh-twin[open] > summary { margin-bottom: 6px; }
+
+/* attention list */
+.mh-attention { list-style: none; margin: 0; padding: 0; }
+.mh-attention li {
+    display: grid;
+    grid-template-columns: 128px 1fr auto;
+    gap: 12px;
+    align-items: start;
+    padding: 9px 0;
+    border-bottom: 1px solid #efeee9;
+}
+.mh-attention li:last-child { border-bottom: 0; }
+.mh-attention strong { display: block; font-weight: 600; }
+.mh-attention div span { display: block; color: var(--mh-ink-2); font-size: 0.9em; margin-top: 2px; overflow-wrap: anywhere; }
+.mh-link {
+    font: inherit;
+    font-size: 0.88em;
+    border: 1px solid var(--mh-hair);
+    background: var(--mh-surface);
+    border-radius: 7px;
+    padding: 4px 10px;
+    cursor: pointer;
+    color: #184f95;
+    white-space: nowrap;
+}
+.mh-link:hover { background: #e8f0fb; }
+
+/* text */
+.mh-empty { color: var(--mh-ink-2); font-size: 0.95em; margin: 6px 0; display: flex; align-items: center; gap: 8px; }
+.mh-note { color: var(--mh-ink-2); font-size: 0.9em; margin: 0 0 10px; line-height: 1.45; }
+.mh-notes { margin: 4px 0 0; padding-left: 18px; color: var(--mh-ink-2); font-size: 0.9em; line-height: 1.5; }
+.mh-notes li { margin-bottom: 3px; }
+.mh-banner {
+    background: #fff6dc;
+    border: 1px solid #e9c46a;
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #5a4200;
+}
+.mh-pre {
+    background: #fdf1f1;
+    border: 1px solid #efc2c2;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85em;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    margin: 0;
+}
+
+/* tooltip (appended to body, outside #panel-metrics) */
+.mh-tip {
+    position: fixed;
+    z-index: 10050;
+    background: #ffffff;
+    border: 1px solid rgba(11, 11, 11, 0.12);
+    border-radius: 9px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+    padding: 8px 12px 9px;
+    font: 14px system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #0b0b0b;
+    pointer-events: none;
+    max-width: 380px;
+}
+.mh-tip-title { font-size: 0.86em; color: #52514e; margin-bottom: 4px; }
+.mh-tip-row { display: flex; align-items: center; gap: 8px; line-height: 1.55; white-space: nowrap; }
+.mh-tip-row i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; flex: none; }
+.mh-tip-row strong { font-weight: 650; font-variant-numeric: tabular-nums; }
+.mh-tip-row span { color: #52514e; }
+
+/* Quota › "Where this week went": the production/infrastructure bar divides the Claude
+   Code share, so it spans the whole facts grid (which is auto-fill columns) instead of
+   being squeezed into one 150px cell, and the two rows that read it follow underneath. */
+.mh-facts .mh-lane-split { grid-column: 1 / -1; margin: 2px 0 0; }
+.mh-facts .mh-lane-split .mh-prop { height: 8px; }
+
+/* ── drill-down: clickable metrics and the detail overlay (2026-09-30) ────── */
+/* Every number and verdict on Quality is a control. It has to read as one before it is
+   clicked (cursor, hover wash, focus ring) without turning the table into a wall of links. */
+.mh-tile-click {
+    font: inherit; color: inherit; text-align: left; width: 100%;
+    cursor: pointer; position: relative; appearance: none;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+.mh-tile-click:hover { border-color: #9cc0ee; background: #f7fafe; }
+.mh-tile-click:focus-visible { outline: 2px solid #184f95; outline-offset: 2px; }
+.mh-tile-go {
+    display: block; font-size: 0.76em; color: #2a78d6; margin-top: 4px;
+    opacity: 0; transition: opacity 0.12s ease;
+}
+.mh-tile-click:hover .mh-tile-go, .mh-tile-click:focus-visible .mh-tile-go { opacity: 1; }
+
+.mh-table tr.mh-row-click { cursor: pointer; }
+.mh-table tr.mh-row-click:hover td { background: #f2f7fd; }
+.mh-table tr.mh-row-click:focus-within td { background: #eef4fc; }
+.mh-rowbtn {
+    font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0;
+    text-align: inherit; cursor: pointer; border-bottom: 1px dotted #9cc0ee;
+}
+.mh-rowbtn:hover { color: #184f95; border-bottom-color: #184f95; }
+.mh-rowbtn:focus-visible { outline: 2px solid #184f95; outline-offset: 2px; border-radius: 3px; }
+.mh-hit-click { cursor: pointer; }
+.mh-drill-hint { margin: -2px 0 14px; }
+
+/* The overlay hangs off <body>, outside #panel-metrics, so it carries the hub's own
+   palette and type scale — otherwise every var() below it would fall back to nothing. */
+.mh-overlay {
+    --mh-surface: #ffffff;
+    --mh-ink: #0b0b0b;
+    --mh-ink-2: #52514e;
+    --mh-muted: #898781;
+    --mh-hair: rgba(11, 11, 11, 0.10);
+    --mh-grid: #e6e5df;
+    --mh-wash: #f6f5f1;
+    --mh-accent: #2a78d6;
+    font-size: 15px;
+    color: var(--mh-ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    position: fixed; inset: 0; z-index: 3500; background: rgba(12, 12, 12, 0.55);
+    overflow: auto; padding: 22px 16px 40px;
+}
+body.mh-overlay-open { overflow: hidden; }
+.mh-detail {
+    max-width: 1900px; margin: 0 auto; background: var(--mh-surface, #fff);
+    border-radius: 14px; padding: 18px 20px 22px; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+}
+.mh-detail-head {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    margin: 0 0 12px; padding-bottom: 10px; border-bottom: 1px solid var(--mh-hair);
+}
+.mh-detail-head h3 { margin: 0 0 4px; font-size: 1.12em; font-weight: 650; color: var(--mh-ink); }
+.mh-detail-head p { margin: 0; font-size: 0.88em; color: var(--mh-ink-2); max-width: 90ch; }
+.mh-detail-actions { display: flex; gap: 8px; flex: none; }
+.mh-detail-btn {
+    font: inherit; font-size: 0.86em; padding: 5px 11px; border-radius: 7px;
+    border: 1px solid var(--mh-hair); background: var(--mh-surface, #fff); color: var(--mh-ink); cursor: pointer;
+}
+.mh-detail-btn:hover { background: var(--mh-wash); }
+.mh-detail-btn:focus-visible { outline: 2px solid #184f95; outline-offset: 2px; }
+.mh-detail-window { font-size: 0.82em; color: var(--mh-muted); margin: 0 0 10px; }
+.mh-detail-body .mh-card { box-shadow: none; border: 1px solid var(--mh-hair); }
+.mh-detail-body .mh-table-wrap { max-height: 60vh; overflow: auto; }
+.mh-detail-body .mh-table thead th { position: sticky; top: 0; z-index: 1; background: var(--mh-surface, #fff); }

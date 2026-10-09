@@ -1,0 +1,150 @@
+/* Creature Studio — shell fur + look for a base creature whose GLB carries a fur map.
+ *
+ * A base row with `fur: true` (BASES.json) ships its coat as COLOR_0 × baseColorTexture
+ * and carries the FUR LENGTH in that texture's ALPHA channel (0 = bare skin, 1 = the
+ * longest guard hair). Nothing else in the file is special.
+ *
+ * v2 (2026-09-20): the v1 strands were hard-edged hash cells and read as dots at close
+ * range, and 16 full-screen layers over 260k triangles made zooming crawl. Now:
+ *   - 10 shells, each a SkinnedMesh clone sharing geometry + skeleton (the idle clip and
+ *     the studio's tint pass drive them for free);
+ *   - vertices with no fur are collapsed in the vertex shader so their triangles are
+ *     culled before rasterisation (bare skin costs nothing);
+ *   - strand coverage is a smooth two-octave value noise, anti-aliased with fwidth and
+ *     resolved through alpha-to-coverage on the MSAA framebuffer — no hard cells;
+ *   - the shells stop when the camera is closer than ~1.4 units so a close-up shows
+ *     the photo albedo instead of a stack of translucent sheets;
+ *   - the pane gets an image-based light (a small procedural sky through PMREM) and
+ *     ACES tone mapping the first time a fur base loads.
+ */
+(function () {
+  'use strict';
+  if (!window.THREE) return;
+
+  var SHELLS = 10;
+  var LENGTH = 0.16;        // model units at alpha 1 (≈ 5 cm on a 0.8 m animal)
+  var DENSITY = 900.0;      // strands across the UV square
+  var NEAR_OFF = 1.4;       // camera distance below which shells fade out
+
+  function shellMaterial(base, i) {
+    var t = (i + 1) / SHELLS;
+    var m = base.clone();
+    m.vertexColors = true;
+    m.map = base.map;
+    m.normalMap = null;
+    m.transparent = false;
+    m.alphaToCoverage = true;
+    m.depthWrite = true;
+    m.side = THREE.FrontSide;
+    m.color.setRGB(1, 1, 1);
+    m.onBeforeCompile = function (sh) {
+      sh.uniforms.uShell = { value: t };
+      sh.uniforms.uLen = { value: LENGTH };
+      sh.uniforms.uFade = { value: 1.0 };
+      sh.vertexShader = sh.vertexShader
+        .replace('#include <common>',
+          '#include <common>\nuniform float uShell; uniform float uLen; uniform float uFade; uniform sampler2D map; varying float vFur;')
+        .replace('#include <begin_vertex>',
+          '#include <begin_vertex>\n'
+          + 'float furA = texture2D(map, uv).a;\n'
+          + 'vFur = furA * uFade;\n'
+          + 'vec3 furDir = normalize(objectNormal + vec3(0.0, -0.5, -0.3) * uShell * uShell);\n'
+          + 'transformed += furDir * (uShell * uLen * furA * uFade);\n')
+        .replace('#include <project_vertex>',
+          '#include <project_vertex>\n'
+          + 'if (furA < 0.04 || uFade < 0.02) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);\n');   // cull bare skin
+      sh.fragmentShader = sh.fragmentShader
+        .replace('#include <common>',
+          '#include <common>\nuniform float uShell; varying float vFur;\n'
+          + 'float furHash(vec2 p){ p = fract(p * vec2(443.897, 441.423)); p += dot(p, p.yx + 19.19); return fract((p.x + p.y) * p.x); }\n'
+          + 'float furNoise(vec2 p){ vec2 i = floor(p); vec2 f = fract(p); f = f*f*(3.0-2.0*f);\n'
+          + '  return mix(mix(furHash(i), furHash(i+vec2(1,0)), f.x), mix(furHash(i+vec2(0,1)), furHash(i+vec2(1,1)), f.x), f.y); }')
+        .replace('#include <color_fragment>',
+          '#include <color_fragment>\n'
+          + 'float n1 = furNoise(vUv * ' + DENSITY.toFixed(1) + ');\n'
+          + 'float n2 = furNoise(vUv * ' + (DENSITY * 2.7).toFixed(1) + ' + 13.7);\n'
+          + 'float strand = 0.62 * n1 + 0.38 * n2;\n'
+          + 'float thresh = uShell * (0.55 + 0.45 * (1.0 - vFur));\n'   // short fur runs out of hair sooner
+          + 'float aa = fwidth(strand) * 1.5 + 0.02;\n'
+          + 'float cov = smoothstep(thresh - aa, thresh + aa, strand);\n'
+          + 'if (vFur < 0.04 || cov < 0.02) discard;\n'
+          + 'diffuseColor.a = cov;\n'
+          + 'diffuseColor.rgb *= mix(0.6, 1.03, uShell);\n');
+    };
+    m.customProgramCacheKey = function () { return 'fur2_' + i; };
+    m.needsUpdate = true;
+    return m;
+  }
+
+  /* image-based light: a small procedural sky/ground equirect through PMREM, once */
+  function ensureLook() {
+    var R = window.CRST3;
+    if (!R || !R.renderer || !R.scene || R.__furLook) return;
+    R.__furLook = true;
+    try {
+      R.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      R.renderer.toneMappingExposure = 0.92;
+      var w = 256, h = 128, cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+      var g = cv.getContext('2d'), img = g.createImageData(w, h), d = img.data;
+      for (var y = 0; y < h; y++) {
+        var v = y / (h - 1);                                  // 0 = zenith, 1 = nadir
+        var sky = [0.42, 0.48, 0.62], hor = [0.66, 0.63, 0.58], gnd = [0.22, 0.20, 0.18];
+        for (var x = 0; x < w; x++) {
+          var c = v < 0.5 ? lerp3(sky, hor, v * 2.0) : lerp3(hor, gnd, (v - 0.5) * 2.0);
+          var sun = Math.exp(-((x / w - 0.68) * (x / w - 0.68) * 90.0 + (v - 0.28) * (v - 0.28) * 160.0)) * 1.6;
+          var o = (y * w + x) * 4;
+          d[o] = Math.min(255, (c[0] + sun) * 255); d[o + 1] = Math.min(255, (c[1] + sun * 0.95) * 255);
+          d[o + 2] = Math.min(255, (c[2] + sun * 0.85) * 255); d[o + 3] = 255;
+        }
+      }
+      g.putImageData(img, 0, 0);
+      var tex = new THREE.CanvasTexture(cv);
+      tex.mapping = THREE.EquirectangularReflectionMapping;
+      if (THREE.sRGBEncoding !== undefined) tex.encoding = THREE.sRGBEncoding;
+      var pm = new THREE.PMREMGenerator(R.renderer);
+      R.scene.environment = pm.fromEquirectangular(tex).texture;
+      pm.dispose();
+      if (R.__fill) R.__fill.intensity = 0.3;
+    } catch (e) { console.warn('creature_fur look', e); }
+  }
+  function lerp3(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
+
+  function attach(CX, base) {
+    if (!base || !base.fur || !CX || !CX.parts) return 0;
+    ensureLook();
+    var n = 0, shells = [];
+    CX.parts.forEach(function (part) {
+      var mesh = part.mesh;
+      if (!mesh.isSkinnedMesh && !mesh.isMesh) return;
+      if (!mesh.material || !mesh.material.map) return;          // no fur map → no shells
+      if (!(part.orig)) return;                                    // fur rides on COLOR_0
+      for (var i = 0; i < SHELLS; i++) {
+        var s = mesh.clone();
+        s.material = shellMaterial(mesh.material, i);
+        s.renderOrder = 1 + i;
+        s.frustumCulled = false;
+        s.userData.furShell = true;
+        mesh.parent.add(s);
+        shells.push(s);
+        n++;
+      }
+    });
+    CX.furShells = n;
+    /* distance fade: uniforms live on the compiled program, cached per material on compile */
+    shells.forEach(function (s) {
+      var m = s.material, prev = m.onBeforeCompile;
+      m.onBeforeCompile = function (sh) { prev(sh); m.__u = sh.uniforms; };
+      m.needsUpdate = true;
+    });
+    if (shells.length) {
+      shells[0].onBeforeRender = function (renderer, scene, camera) {
+        var d = camera.position.length();
+        var f = Math.max(0, Math.min(1, (d - NEAR_OFF) / 0.8));
+        for (var i = 0; i < shells.length; i++) { var u = shells[i].material.__u; if (u) u.uFade.value = f; }
+      };
+    }
+    return n;
+  }
+
+  window.CRST3FUR = { attach: attach, SHELLS: SHELLS, LENGTH: LENGTH };
+})();

@@ -1,0 +1,171 @@
+{
+  "10": {
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {"title": "Load SDXL Checkpoint"}
+  },
+  "13": {
+    "inputs": {
+      "lora_name": "character_sdxl_lora.safetensors",
+      "strength_model": 0.75,
+      "strength_clip": 0.75,
+      "model": ["10", 0],
+      "clip": ["10", 1]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {"title": "Character SDXL LoRA"}
+  },
+  "20": {
+    "inputs": {
+      "text": "character portrait, photorealistic",
+      "clip": ["13", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Positive Prompt"}
+  },
+  "21": {
+    "inputs": {
+      "text": "blurry, low quality, deformed face",
+      "clip": ["13", 1]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {"title": "Negative Prompt"}
+  },
+  "30": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {"title": "Empty Latent"}
+  },
+  "31": {
+    "inputs": {
+      "seed": 42,
+      "steps": 30,
+      "cfg": 6.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1.0,
+      "model": ["13", 0],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "latent_image": ["30", 0]
+    },
+    "class_type": "KSampler",
+    "_meta": {"title": "KSampler (first pass)"}
+  },
+  "40": {
+    "inputs": {
+      "samples": ["31", 0],
+      "vae": ["10", 2]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {"title": "VAE Decode (first pass)"}
+  },
+  "55": {
+    "inputs": {"model_name": "bbox/face_yolov8m.pt"},
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {"title": "Face Detector"}
+  },
+  "56": {
+    "inputs": {
+      "model_name": "sam_vit_b_01ec64.pth",
+      "device_mode": "AUTO"
+    },
+    "class_type": "SAMLoader",
+    "_meta": {"title": "SAM Loader (Impact)"}
+  },
+  "60": {
+    "inputs": {
+      "guide_size": 384,
+      "guide_size_for": true,
+      "max_size": 768,
+      "seed": 43,
+      "steps": 12,
+      "cfg": 6.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.38,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "bbox_threshold": 0.5,
+      "bbox_dilation": 10,
+      "bbox_crop_factor": 3.0,
+      "sam_detection_hint": "center-1",
+      "sam_dilation": 0,
+      "sam_threshold": 0.93,
+      "sam_bbox_expansion": 0,
+      "sam_mask_hint_threshold": 0.7,
+      "sam_mask_hint_use_negative": "False",
+      "drop_size": 10,
+      "wildcard": "",
+      "cycle": 1,
+      "image": ["40", 0],
+      "model": ["13", 0],
+      "clip": ["13", 1],
+      "vae": ["10", 2],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "bbox_detector": ["55", 0],
+      "sam_model_opt": ["56", 0]
+    },
+    "class_type": "FaceDetailer",
+    "_meta": {"title": "FaceDetailer second pass"}
+  },
+  "61": {
+    "inputs": {"model_name": "bbox/hand_yolov8s.pt"},
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {"title": "Hand Detector (ADetailer)"}
+  },
+  "63": {
+    "inputs": {
+      "guide_size": 320,
+      "guide_size_for": true,
+      "max_size": 640,
+      "seed": 44,
+      "steps": 14,
+      "cfg": 6.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.40,
+      "feather": 5,
+      "noise_mask": true,
+      "force_inpaint": true,
+      "bbox_threshold": 0.40,
+      "bbox_dilation": 8,
+      "bbox_crop_factor": 2.5,
+      "sam_detection_hint": "center-1",
+      "sam_dilation": 0,
+      "sam_threshold": 0.93,
+      "sam_bbox_expansion": 0,
+      "sam_mask_hint_threshold": 0.7,
+      "sam_mask_hint_use_negative": "False",
+      "drop_size": 10,
+      "wildcard": "",
+      "cycle": 1,
+      "image": ["60", 0],
+      "model": ["13", 0],
+      "clip": ["13", 1],
+      "vae": ["10", 2],
+      "positive": ["20", 0],
+      "negative": ["21", 0],
+      "bbox_detector": ["61", 0],
+      "sam_model_opt": ["56", 0]
+    },
+    "class_type": "FaceDetailer",
+    "_meta": {"title": "HandDetailer second pass (FaceDetailer + hand YOLO)"}
+  },
+  "50": {
+    "inputs": {
+      "filename_prefix": "ZygSDXLChar",
+      "images": ["63", 0]
+    },
+    "class_type": "SaveImage",
+    "_meta": {"title": "Save"}
+  }
+}

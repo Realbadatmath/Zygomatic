@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session Tree</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#111823; --panel2:#0e141c; --line:#1f2a38; --txt:#dbe4ee; --dim:#7f8da0;
+    --cyan:#22d3ee; --amber:#f59e0b; --red:#ef4444; --green:#22c55e; --grey:#475569; --violet:#a78bfa;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.45 system-ui,Segoe UI,Roboto,sans-serif}
+  header{display:flex;align-items:center;gap:14px;padding:14px 22px;border-bottom:1px solid var(--line);background:var(--panel2);position:sticky;top:0;z-index:5}
+  header img{width:30px;height:30px}
+  header h1{font-size:18px;margin:0;letter-spacing:.04em}
+  header .sub{color:var(--dim);font-size:12px}
+  nav{margin-left:auto;display:flex;gap:6px}
+  nav button{background:transparent;border:1px solid var(--line);color:var(--dim);padding:6px 14px;border-radius:8px;cursor:pointer;font:inherit}
+  nav button.on{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 10px rgba(34,211,238,.25)}
+  nav button .n{margin-left:6px;font-family:var(--mono);font-size:11px;color:var(--txt)}
+  .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;padding:14px 22px}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .tile .k{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+  .tile .v{font-size:20px;font-family:var(--mono);margin-top:2px}
+  .tile .bar{height:5px;background:#182230;border-radius:3px;margin-top:8px;overflow:hidden}
+  .tile .bar i{display:block;height:100%;background:var(--cyan)}
+  .tile .bar i.hot{background:var(--amber)} .tile .bar i.full{background:var(--red)}
+  main{padding:0 22px 40px}
+  .tree{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:0 0 16px}
+  .tree-h{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .tree-h h2{margin:0;font-size:16px}
+  .tree-h .id{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .tree-h .meta{color:var(--dim);font-size:12px}
+  .tree-h .prog{flex:1;min-width:160px;height:8px;background:#182230;border-radius:4px;overflow:hidden;display:flex}
+  .tree-h .prog i{display:block;height:100%}
+  .tree-h .acts{display:flex;gap:6px}
+  .tree-h{cursor:pointer;user-select:none}
+  .tree-h:hover{background:#131c28}
+  .tree.closed .tree-h{border-bottom:none}
+  .tree-h .chev{font-family:var(--mono);color:var(--dim);width:14px;flex:none;transition:transform .15s}
+  .tree.closed .tree-h .chev{transform:rotate(-90deg)}
+  .rank{font-family:var(--mono);font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(167,139,250,.15);color:var(--violet);border:1px solid rgba(167,139,250,.35);white-space:nowrap}
+  .rank.next{background:rgba(34,211,238,.12);color:var(--cyan);border-color:rgba(34,211,238,.4)}
+  .s-planned{background:rgba(167,139,250,.12);color:var(--violet);border:1px solid rgba(167,139,250,.35)} .s-planned i{background:var(--violet)}
+  .hint{color:var(--dim);font-size:12px;padding:0 0 12px}
+  .btn{background:#182230;border:1px solid var(--line);color:var(--txt);padding:4px 10px;border-radius:6px;cursor:pointer;font:inherit;font-size:12px}
+  .btn:hover{border-color:var(--cyan)}
+  .btn.danger:hover{border-color:var(--red);color:var(--red)}
+  .goal{padding:8px 16px;color:var(--dim);font-size:13px;border-bottom:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse}
+  td,th{padding:7px 10px;text-align:left;vertical-align:top;border-bottom:1px solid #16202c;font-size:13px}
+  th{color:var(--dim);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  tr.task{cursor:pointer}
+  tr.task:hover{background:#131c28}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:2px 9px;border-radius:999px;font-size:11px;font-family:var(--mono);letter-spacing:.04em;white-space:nowrap}
+  .pill i{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .s-todo{background:#1a2230;color:#9fb0c5} .s-todo i{background:var(--grey)}
+  .s-executing{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.35)}
+  .s-executing i{background:var(--amber);animation:pulse 1.1s infinite}
+  .s-stale{background:repeating-linear-gradient(45deg,rgba(245,158,11,.12),rgba(245,158,11,.12) 4px,rgba(239,68,68,.15) 4px,rgba(239,68,68,.15) 8px);color:var(--amber);border:1px solid rgba(239,68,68,.4)}
+  .s-stale i{background:var(--red)}
+  .s-queued{background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.35)} .s-queued i{background:#60a5fa;animation:pulse 2.2s infinite}
+  .s-failed{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.35)} .s-failed i{background:var(--red)}
+  .s-finished{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.35)} .s-finished i{background:var(--green)}
+  @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(245,158,11,.6)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(245,158,11,0)}}
+  .w{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:4px}
+  .w-heavy{background:rgba(167,139,250,.15);color:var(--violet)} .w-light{background:rgba(34,211,238,.1);color:var(--cyan)}
+  .agent{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .agent b{color:var(--txt);font-weight:500}
+  .progress{color:var(--dim);font-size:12px;font-style:italic}
+  .rep{background:var(--panel2);border-top:1px solid var(--line)}
+  .rep td{padding:12px 16px}
+  .rep h4{margin:0 0 4px;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+  .rep p{margin:0 0 10px;white-space:pre-wrap}
+  .rep pre{margin:0 0 10px;background:#0a0e13;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:12px;overflow:auto;max-height:260px;white-space:pre-wrap}
+  .rep .ok{color:var(--green)} .rep .bad{color:var(--red)}
+  td.ok{color:var(--green)} td.warn{color:var(--amber)} td.bad{color:var(--red)}
+  .brief{white-space:pre-wrap;font-size:12px;color:#b9c6d6}
+  .empty{color:var(--dim);padding:40px;text-align:center}
+  .log{font-family:var(--mono);font-size:12px}
+  .log div{padding:4px 0;border-bottom:1px solid #16202c;display:flex;gap:10px}
+  .log .t{color:var(--dim);width:150px;flex:none}
+  .log .ok{color:var(--green)} .log .no{color:var(--red)}
+  .rules{max-width:900px;white-space:pre-wrap;font-family:var(--mono);font-size:12.5px;line-height:1.5;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .lease{font-family:var(--mono);font-size:11px}
+  .lease.low{color:var(--amber)} .lease.out{color:var(--red)}
+</style>
+<style id="ui-zoom">
+  /* 2026-09-05: whole-page scale. This GUI was laid out while the operator browsed at 67% zoom;
+     this renders that same layout at 100%. ONE factor, four consumers — keep them in step:
+       (a) html{zoom:.67} below (Chrome's standardized zoom: layout viewport = screen/.67);
+       (b) every vh/vw length in this page and its stylesheets is calc(Nvh / var(--ui-zoom,1)) —
+           Chrome does NOT scale viewport units with zoom (100vh would be 723 screen px);
+       (c) @media min/max-width breakpoints are multiplied by .67 (they see the REAL viewport);
+       (d) the shim script next to this block: under zoom Chrome reports clientX/Y, pageX/Y,
+           getBoundingClientRect() and innerWidth/Height in SCREEN px while offset/client/scroll
+           sizes stay in layout px — the shim divides the screen-px readings back so menus, drags
+           and canvas hit-tests land under the pointer.
+     A page loaded inside an <iframe> switches itself OFF (see the shim): the parent's zoom already reaches it.
+     Undo: set both .67 values to 1 (calc + shim become no-ops), or restore *.bak-zoom67-20260905. */
+  html{zoom:.67;}
+  :root{--ui-zoom:.67;}
+</style>
+<script>
+(function(){ /* zoom coordinate shim — see the ui-zoom style block, item (d). No-op when zoom is 1. */
+  if(window.self!==window.top){ /* framed (e.g. the kanban board inside the dashboard): Chrome carries the parent's
+       zoom into the frame — layout, vh and pointer coordinates already behave like browser zoom in here, and a second
+       zoom would shrink the frame to 45%. Trust the parent. Measured 2026-09-05. */
+    document.documentElement.style.zoom='1'; document.documentElement.style.setProperty('--ui-zoom','1'); return; }
+  var Z=parseFloat(getComputedStyle(document.documentElement).zoom);
+  if(!(Z>0)||Z===1) return;
+  window.UI_ZOOM=Z;
+  document.documentElement.style.setProperty('--ui-zoom',String(Z));
+  function wrap(obj,name,f){
+    var d=Object.getOwnPropertyDescriptor(obj,name);
+    if(!d||typeof d.get!=='function') return;
+    var g=d.get;
+    Object.defineProperty(obj,name,{configurable:true,enumerable:d.enumerable,get:function(){return f(g.call(this));}});
+  }
+  var down=function(v){return v/Z;};
+  ['clientX','clientY','pageX','pageY','offsetX','offsetY','movementX','movementY'].forEach(function(n){wrap(MouseEvent.prototype,n,down);});
+  if(window.Touch) ['clientX','clientY','pageX','pageY'].forEach(function(n){wrap(Touch.prototype,n,down);});
+  ['innerWidth','innerHeight'].forEach(function(n){wrap(window,n,down);});
+  wrap(window,'devicePixelRatio',function(v){return v*Z;});
+  var gbcr=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){var r=gbcr.call(this);return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);};
+  var gcr=Element.prototype.getClientRects;
+  Element.prototype.getClientRects=function(){return Array.prototype.map.call(gcr.call(this),function(r){return new DOMRect(r.x/Z,r.y/Z,r.width/Z,r.height/Z);});};
+  var efp=Document.prototype.elementFromPoint, efps=Document.prototype.elementsFromPoint;
+  Document.prototype.elementFromPoint=function(x,y){return efp.call(this,x*Z,y*Z);};
+  Document.prototype.elementsFromPoint=function(x,y){return efps.call(this,x*Z,y*Z);};
+})();
+</script>
+</head>
+<body>
+<header>
+  <img src="/favicon.svg" alt="">
+  <div><h1>Session Tree</h1><div class="sub">Claude agent job board · creator = Fable · executors = Opus, spawned by the board, one task each · port 7100</div></div>
+  <nav>
+    <button id="tab-active" class="on" onclick="tab('active')">Active<span class="n" id="n-active"></span></button>
+    <button id="tab-planned" onclick="tab('planned')">Planned<span class="n" id="n-planned"></span></button>
+    <button id="tab-modular" onclick="tab('modular')">Modularization<span class="n" id="n-modular"></span></button>
+    <button id="tab-finished" onclick="tab('finished')">Finished<span class="n" id="n-finished"></span></button>
+    <button id="tab-metrics" onclick="tab('metrics')">Metrics</button>
+    <button id="tab-log" onclick="tab('log')">Log</button>
+    <button id="tab-rules" onclick="tab('rules')">Rules</button>
+  </nav>
+</header>
+
+<div class="res" id="res"></div>
+<main id="main"><div class="empty">loading…</div></main>
+
+<script>
+let TAB='active', OPEN=new Set(), DATA=null;
+// Tree cards fold. Default: active trees open, planned + finished closed. A click is remembered per browser.
+let TREE_OPEN={}; try{TREE_OPEN=JSON.parse(localStorage.getItem('st.treeOpen')||'{}')||{};}catch(e){TREE_OPEN={};}
+function treeIsOpen(tree,tabName){const k=tabName+':'+tree.id;return k in TREE_OPEN?TREE_OPEN[k]:tabName==='active';}
+function toggleTree(id,tabName){const k=tabName+':'+id;TREE_OPEN[k]=!treeIsOpen({id},tabName);try{localStorage.setItem('st.treeOpen',JSON.stringify(TREE_OPEN));}catch(e){}render();}
+function setAllTrees(open){if(!DATA||!DATA.trees)return;DATA.trees.forEach(t=>{TREE_OPEN[TAB+':'+t.id]=open;});try{localStorage.setItem('st.treeOpen',JSON.stringify(TREE_OPEN));}catch(e){}render();}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ago=(ts,now)=>{if(!ts)return'';const s=Math.max(0,now-ts);if(s<60)return Math.round(s)+'s';if(s<3600)return Math.round(s/60)+'m';if(s<86400)return (s/3600).toFixed(1)+'h';return (s/86400).toFixed(1)+'d'};
+const dt=ts=>ts?new Date(ts*1000).toLocaleString('en-GB',{hour12:false}):'';
+
+function tab(t){TAB=t;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.id==='tab-'+t));try{history.replaceState(null,'','#'+t);}catch(e){}refresh();}
+// #active / #planned / #finished / #log / #rules in the URL opens that tab (bookmarkable)
+{const h=location.hash.slice(1);if(['active','planned','modular','finished','metrics','log','rules'].includes(h)){TAB=h;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.id==='tab-'+h));}}
+
+async function api(path){const r=await fetch(path);return r.json();}
+async function act(action,tree,task,extra){
+  const r=await fetch('/api/ui/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({action,tree,task},extra||{}))});
+  const j=await r.json(); if(!j.ok)alert(j.error||'failed'); else if(j.msg)alert(j.msg); refresh();
+}
+
+function resTiles(d){
+  const g=d.resources.gpu||{}, q=d.queue, c=d.config, sp=d.spawner||{live:[],live_total:0,max_executors:0};
+  const brake=(sp.brake_until||0)>d.now;
+  const u=sp.usage||{windows:[]}, hold=!!u.hold&&u.hold_until>d.now;
+  const pct=(a,b)=>b?Math.min(100,Math.round(a/b*100)):0;
+  const cls=p=>p>=90?'full':p>=60?'hot':'';
+  const vp=pct(g.vram_used_gb,g.vram_total_gb), rp=pct(d.resources.ram_total_gb-d.resources.ram_avail_gb,d.resources.ram_total_gb);
+  const util=g.util_pct??0;
+  $('#res').innerHTML=`
+   <div class="tile"><div class="k">VRAM</div><div class="v">${g.vram_used_gb??'?'} / ${g.vram_total_gb??'?'} G</div><div class="bar"><i class="${cls(vp)}" style="width:${vp}%"></i></div></div>
+   <div class="tile"><div class="k">GPU util (busy ≥ ${c.gpu_busy_util_pct}%)</div><div class="v">${util}%</div><div class="bar"><i class="${util>=c.gpu_busy_util_pct?'full':cls(util)}" style="width:${util}%"></i></div></div>
+   <div class="tile"><div class="k">RAM available</div><div class="v">${d.resources.ram_avail_gb??'?'} / ${d.resources.ram_total_gb??'?'} G</div><div class="bar"><i class="${cls(rp)}" style="width:${rp}%"></i></div></div>
+   <div class="tile"><div class="k">Heavy queue (GPU)</div><div class="v">${q.heavy_used} / ${q.heavy_slots}</div><div class="bar"><i class="${q.heavy_used>=q.heavy_slots?'full':''}" style="width:${pct(q.heavy_used,q.heavy_slots)}%"></i></div></div>
+   <div class="tile"><div class="k">Light queue (CPU)</div><div class="v">${q.light_used} / ${q.light_slots}</div><div class="bar"><i class="${q.light_used>=q.light_slots?'full':''}" style="width:${pct(q.light_used,q.light_slots)}%"></i></div></div>
+   <div class="tile"><div class="k">Lease / tasks per session</div><div class="v">${c.lease_minutes}m · ${c.max_tasks_per_session}</div></div>
+   <div class="tile" style="grid-column:span 2"><div class="k">Executors (board-spawned ${esc(sp.executor_model||'')}) · auto-spawn ${sp.auto_spawn?'<span style="color:var(--green)">ON</span>':'<span style="color:var(--red)">OFF</span>'}${brake?' · <span style="color:var(--red)">BRAKE '+Math.ceil((sp.brake_until-d.now)/60)+'m</span>':''}${hold?' · <span style="color:var(--red)">USAGE HOLD — resumes '+clock(u.hold_until)+' (in '+dur(u.hold_until-d.now)+')</span>':''}</div>
+     <div class="v">${sp.live_total} / ${sp.max_executors}<span style="font-size:11px;color:var(--dim);margin-left:10px">${(sp.live||[]).filter(x=>!x.claimed).length} spawned, not yet claimed · ${sp.total_spawned} spawned since start</span></div>
+     <div class="bar"><i class="${sp.live_total>=sp.max_executors?'full':''}" style="width:${pct(sp.live_total,sp.max_executors)}%"></i></div>
+     <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn" onclick="act('set_auto_spawn',null,null,{value:${sp.auto_spawn?'false':'true'}})">${sp.auto_spawn?'turn auto-spawn OFF':'turn auto-spawn ON'}</button><button class="btn" onclick="act('spawn_now')">spawn now (one pass)</button>${sp.last_error?`<span style="color:var(--red);font-size:11px">${esc(sp.last_error)}</span>`:''}</div>
+     ${(sp.recent_exits||[]).length?`<div style="margin-top:6px;font-family:var(--mono);font-size:11px;color:var(--dim)">recent exits: ${sp.recent_exits.slice().reverse().map(x=>`${esc((x.tree||'').slice(-6))}#${x.task} exit ${x.exit}${x.limit_hit?' <span style="color:var(--red)">USAGE LIMIT</span>':''} ${ago(x.exited_at,d.now)} ago`).join(' · ')}</div>`:''}</div>
+   ${usageTile(u,d.now)}`;
+}
+
+function clock(ts){if(!ts)return '?';const x=new Date(ts*1000),n=new Date();const hm=x.toTimeString().slice(0,5);return (x.toDateString()===n.toDateString()?'':x.toLocaleDateString(undefined,{weekday:'short'})+' ')+hm;}
+function dur(s){s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?`${h}h${String(m).padStart(2,'0')}m`:m?`${m}m${String(s%60).padStart(2,'0')}s`:`${s}s`;}
+
+// Claude's own usage meter (the numbers /usage and the VS Code status show), read by the
+// board every poll_s. A window at/above hold_pct — or an executor that exits with the limit
+// message — holds auto-spawn until that window resets; the timer re-reads the meter then and
+// the tree continues by itself. Tasks are never touched by a hold.
+function usageTile(u,now){
+  const cls=p=>p>=u.hold_pct?'full':p>=80?'hot':'';
+  const hold=!!u.hold&&u.hold_until>now;
+  const rows=(u.windows||[]).map(w=>{const p=w.pct==null?null:Math.round(w.pct);
+    return `<div style="display:flex;align-items:center;gap:8px;font-size:12px;margin-top:4px"><span style="width:110px;color:var(--dim)">${esc(w.name)}</span><span style="font-family:var(--mono);width:44px;text-align:right">${p==null?'?':p+'%'}</span><span class="bar" style="flex:1;margin:0"><i class="${p==null?'':cls(p)}" style="width:${p==null?0:Math.min(100,p)}%"></i></span><span style="font-family:var(--mono);font-size:11px;color:var(--dim);width:190px">${w.resets_at?(w.resets_at>now?'resets '+clock(w.resets_at)+' · in '+dur(w.resets_at-now):'reset due'):''}${w.locked?' <span style="color:var(--red)">locked</span>':''}</span></div>`;}).join('');
+  const head=`Claude usage · the login's meter${u.ts?' · read '+ago(u.ts,now)+' ago':' · not read yet'}${u.poll_s?' · every '+Math.round(u.poll_s/60)+' min':''}${u.next_poll>now?' · next in '+dur(u.next_poll-now):''}`;
+  const status=hold
+    ?`<div style="margin-top:8px;padding:6px 8px;border:1px solid rgba(239,68,68,.45);background:rgba(239,68,68,.10);border-radius:8px;font-size:12px"><b style="color:var(--red)">ON HOLD</b> — usage limit reached; auto-spawn resumes at <b>${clock(u.hold_until)}</b> (in <span style="font-family:var(--mono)">${dur(u.hold_until-now)}</span>), when Claude refreshes the window. Since ${clock(u.hold_since)} · ${esc(u.hold_reason)}. Tasks stay todo; the tree continues by itself.</div>`
+    :(u.last_resume?`<div style="margin-top:6px;font-size:11px;color:var(--dim)">last resume ${clock(u.last_resume)} (${ago(u.last_resume,now)} ago) — ${esc(u.last_resume_note)} · ${u.holds} hold${u.holds==1?'':'s'} so far</div>`:'');
+  const err=u.error?`<div style="margin-top:6px;font-size:11px;color:var(--red)">meter: ${esc(u.error)}</div>`:'';
+  return `<div class="tile" style="grid-column:span 3"><div class="k">${head}</div>${rows||'<div style="font-size:12px;color:var(--dim);margin-top:4px">no reading</div>'}${status}${err}
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center"><button class="btn" onclick="act('usage_poll_now')">re-read the meter now</button><span style="font-size:11px;color:var(--dim)">hold at ≥ ${u.hold_pct}% · "spawn now" clears a hold</span></div></div>`;
+}
+
+function statusOf(t){return t.status==='executing'&&t.stale?'stale':t.status;}
+
+function taskRow(tree,t,now,finished){
+  const st=statusOf(t), cb=t.claimed_by||{};
+  const key=tree.id+'#'+t.id, open=OPEN.has(key);
+  let lease='';
+  if(t.status==='executing'){const left=t.lease_until-now;lease=`<span class="lease ${left<0?'out':left<600?'low':''}">${left<0?'lease expired '+ago(t.lease_until,now)+' ago':'lease '+Math.round(left/60)+'m'}</span>`;}
+  if(t.status==='queued'){const wq=((DATA&&DATA.wait_queue)||[]).find(w=>w.tree===tree.id&&w.task===t.id);const left=t.lease_until-now;lease=`<span class="lease ${left<0?'out':left<120?'low':''}">queue #${wq?wq.position:'?'} for the ${t.weight} slot · reserved ${ago(t.queued_at||t.touched_at,now)} ago · last poll ${ago(t.touched_at,now)} ago</span>`;}
+  let agent=cb.model?`<div class="agent"><b>${esc(cb.model)}</b> ${esc((cb.session_id||'').slice(0,8))}${cb.spawned?' · board-spawned':''}${t.claimed_at?' · claimed '+ago(t.claimed_at,now)+' ago':''}${t.touched_at&&t.status==='executing'?' · touched '+ago(t.touched_at,now)+' ago':''} ${lease}</div>`:'';
+  if(t.status==='todo'&&t.spawned_for&&!finished){const sf=t.spawned_for;agent=`<div class="agent" style="color:#60a5fa">executor spawned <b>${esc((sf.session_id||'').slice(0,8))}</b> pid ${sf.pid} · ${ago(sf.at,now)} ago · waiting for its <code>st claim</code> <button class="btn" style="margin-left:6px" onclick="event.stopPropagation();if(confirm('Kill spawned session ${esc((sf.session_id||'').slice(0,8))}?'))act('kill_spawned','${tree.id}',${t.id},{sid:'${esc(sf.session_id)}'})">kill</button></div>`;}
+  const deps=(t.depends_on||[]).length?`<span class="agent">needs #${t.depends_on.join(', #')}</span>`:'';
+  const extend=(!finished&&t.status==='executing')?`<button class="btn" onclick="event.stopPropagation();act('extend_lease','${tree.id}',${t.id})">extend lease</button>`:'';
+  const acts=finished?'':((st==='failed'||st==='stale'||st==='finished'||st==='queued')?`<button class="btn" onclick="event.stopPropagation();act('reset_task','${tree.id}',${t.id})">reset → todo</button>`:'')+extend;
+  let row=`<tr class="task" onclick="toggle('${key}')">
+    <td style="width:36px;font-family:var(--mono);color:var(--dim)">#${t.id}</td>
+    <td style="width:130px"><span class="pill s-${st}"><i></i>${st}</span></td>
+    <td style="width:70px"><span class="w w-${t.weight}">${t.weight}${t.weight==='heavy'?' '+t.vram_gb+'G':''}</span></td>
+    <td>${esc(t.title)} ${deps}${agent}${t.progress?`<div class="progress">“${esc(t.progress)}”</div>`:''}</td>
+    <td style="width:110px;text-align:right">${acts}</td></tr>`;
+  if(open){
+    const r=t.report, vr=t.verify_result;
+    row+=`<tr class="rep"><td colspan="5">
+      <h4>Brief</h4><div class="brief">${esc(t.brief)}</div>
+      ${t.verify_cmd?`<h4 style="margin-top:10px">verify_cmd</h4><pre>${esc(t.verify_cmd)}</pre>`:''}
+      ${t.expect_files&&t.expect_files.length?`<h4>expect_files</h4><pre>${esc(t.expect_files.join('\n'))}</pre>`:''}
+      ${r?`<h4 style="margin-top:12px">Report · ${esc(r.by)} · ${dt(r.submitted_at)}</h4>
+        <p>${esc(r.summary)}</p>
+        <h4>changed files</h4><pre>${esc((r.changed_files||[]).join('\n')||'(none)')}</pre>
+        <h4>agent verification</h4><pre>$ ${esc(r.verification.cmd)}\n${esc(r.verification.output)}</pre>
+        <h4>not done</h4><p>${esc(r.not_done)}</p>
+        ${r.notes?`<h4>notes</h4><p>${esc(r.notes)}</p>`:''}`:'<p class="progress">no report yet</p>'}
+      ${vr?`<h4>server verify_cmd · <span class="${vr.exit===0?'ok':'bad'}">exit ${vr.exit}</span> · ${vr.seconds}s</h4><pre>${esc(vr.tail)}</pre>`:''}
+      ${t.history&&t.history.length?`<h4>history</h4><pre>${esc(t.history.map(h=>dt(h.at)+'  '+h.event+(h.note?' — '+h.note:'')+(h.reason?' — '+h.reason:'')+(h.by?' ('+h.by+')':'')).join('\n'))}</pre>`:''}
+    </td></tr>`;
+  }
+  return row;
+}
+function toggle(k){OPEN.has(k)?OPEN.delete(k):OPEN.add(k);render();}
+
+function treeCard(tree,now,mode){
+  const finished=mode==='finished', planned=mode==='planned', suggested=mode==='modular', ro=finished||planned||suggested;
+  const n=tree.tasks.length, c={};
+  tree.tasks.forEach(t=>{const s=statusOf(t);c[s]=(c[s]||0)+1;});
+  const seg=(s,col)=>c[s]?`<i style="width:${c[s]/n*100}%;background:${col}"></i>`:'';
+  const prog=seg('finished','var(--green)')+seg('executing','var(--amber)')+seg('queued','#60a5fa')+seg('stale','#b45309')+seg('failed','var(--red)');
+  const acts=finished
+    ?`<button class="btn" onclick="act('reopen_tree','${tree.id}')">reopen</button><button class="btn danger" onclick="if(confirm('Delete tree ${tree.id}?'))act('delete_tree','${tree.id}')">delete</button>`
+    :planned
+    ?`<button class="btn" onclick="if(confirm('Activate ${tree.id} now? It will run beside any active tree, out of rank order.'))act('activate_tree','${tree.id}')">activate now</button><button class="btn danger" onclick="if(confirm('Delete planned tree ${tree.id}? It never ran.'))act('delete_tree','${tree.id}')">delete</button>`
+    :suggested
+    ?`<button class="btn" onclick="if(confirm('Accept ${tree.id}? It runs now if no tree is active, otherwise it joins the Planned queue.'))act('accept_suggested','${tree.id}')">accept</button><button class="btn danger" onclick="if(confirm('Reject ${tree.id}? The suggestion is removed.'))act('reject_suggested','${tree.id}')">reject</button>`
+    :`<button class="btn" onclick="if(confirm('Archive ${tree.id} now?'))act('close_tree','${tree.id}')">archive</button>`;
+  const open=treeIsOpen(tree,mode);
+  const settle=(!ro&&tree.settle&&tree.settle.settled)?` · <b style="color:var(--red)">settled</b> — nothing left to run (failed ${tree.settle.failed.length}, stale ${tree.settle.stale.length}, blocked ${tree.settle.blocked.length}); ${tree.settle.enabled?'auto-archives in '+Math.max(0,Math.round((tree.settle.archive_at-now)/60))+' min unless a task is reset':'auto-archive off'}`:'';
+  const rank=planned?`<span class="rank ${tree.position===1?'next':''}">#${tree.position}${tree.position===1?' · next up':''}</span>`:'';
+  const when=planned
+    ?`planned ${dt(tree.created_at)} (${ago(tree.created_at,now)} ago)`
+    :suggested
+    ?`suggested ${dt(tree.created_at)} (${ago(tree.created_at,now)} ago)`
+    :`${dt(tree.created_at)}${tree.activated_at&&tree.activated_at!==tree.created_at?' · activated '+dt(tree.activated_at):''}${tree.finished_at?' → '+dt(tree.finished_at):''}${tree.closed_by?' · closed by '+esc(tree.closed_by):''}`;
+  return `<section class="tree ${open?'':'closed'}">
+    <div class="tree-h" onclick="toggleTree('${tree.id}','${mode}')"><span class="chev">▾</span>${rank}<h2>${esc(tree.title)}</h2><span class="id">${tree.id}</span>
+      <span class="meta">${tree.tasks.length} tasks · ${(planned||suggested)?'all todo':Object.entries(c).map(([k,v])=>k+' '+v).join(' · ')}</span>
+      <div class="prog">${(planned||suggested)?'':prog}</div>
+      <span class="meta">by ${esc(tree.created_by.model)} · ${when}${settle}</span>
+      ${etaChip(tree,now,finished)}
+      ${tree.notice?`<span class="pill ${tree.notice.reviewed?'s-finished':'s-executing'}"><i></i>${tree.notice.reviewed?'reviewed by creator '+dt(tree.notice.reviewed_at):'review pending · creator '+esc(tree.notice.creator_peer&&tree.notice.creator_peer.name||'not running')}</span>`:''}
+      <div class="acts" onclick="event.stopPropagation()">${acts}</div></div>
+    ${open?`${suggested&&tree.rationale?`<div class="goal"><b>Why suggested:</b> ${esc(tree.rationale)}</div>`:''}${tree.goal?`<div class="goal">${esc(tree.goal)}</div>`:''}
+    <table><thead><tr><th>#</th><th>state</th><th>queue</th><th>task · agent</th><th></th></tr></thead>
+    <tbody>${tree.tasks.map(t=>taskRow(tree,t,now,ro)).join('')}</tbody></table>`:''}
+  </section>`;
+}
+
+function etaChip(tree,now,finished){
+  if(!tree.eta_minutes) return `<span class="pill s-todo" title="created before ETAs were required"><i></i>no ETA</span>`;
+  // A planned tree has never been activated: its ETA clock has not started, and counting
+  // the queue wait as 'elapsed' would say a tree was over its ETA before it ran (2026-09-06).
+  if(!tree.activated_at&&!finished) return `<span class="pill s-todo" title="${esc(tree.eta_note||'')}"><i></i>ETA ${tree.eta_minutes}m · not started</span>`;
+  const start=tree.activated_at||tree.created_at, el=((tree.finished_at||now)-start)/60, r=el/tree.eta_minutes;
+  const cls=r<=1?'s-finished':r<=1.5?'s-executing':'s-failed';
+  const txt=finished?`ETA ${tree.eta_minutes}m · actual ${el.toFixed(0)}m · ×${r.toFixed(2)}`:`ETA ${tree.eta_minutes}m · ${el.toFixed(0)}m elapsed${r>1?' · OVER (logged only)':''}`;
+  return `<span class="pill ${cls}" title="${esc(tree.eta_note||'')}"><i></i>${txt}</span>`;
+}
+const hms=s=>{s=Math.max(0,Math.round(s||0));if(s<60)return s+'s';if(s<3600)return Math.floor(s/60)+'m '+(s%60)+'s';if(s<86400)return Math.floor(s/3600)+'h '+Math.round((s%3600)/60)+'m';return Math.floor(s/86400)+'d '+Math.round((s%86400)/3600)+'h'};
+const kt=n=>n==null?'—':n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(n);
+const ratioCls=r=>r==null?'':r<=1?'ok':r<=1.5?'warn':'bad';
+let METRICS_OPEN=new Set();
+function toggleM(k){METRICS_OPEN.has(k)?METRICS_OPEN.delete(k):METRICS_OPEN.add(k);render();}
+function renderMetrics(d){
+  const T=d.totals, tk=T.tokens, e=d.eta, s=d.server, sp=d.spawner;
+  const tile=(k,v,sub)=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}</div>${sub?`<div style="font-size:11px;color:var(--dim);margin-top:4px">${sub}</div>`:''}</div>`;
+  let h=`<div class="res" style="padding:0 0 14px">
+    ${tile('Tokens processed (input + cache)',kt(tk.processed),`input ${kt(tk.input)} · cache write ${kt(tk.cache_creation)} · cache read ${kt(tk.cache_read)}`)}
+    ${tile('Output tokens',kt(tk.output),`${tk.total?(100*tk.output/tk.total).toFixed(1):'—'}% of all tokens · ${kt(tk.turns)} turns · ${kt(tk.tool_calls)} tool calls`)}
+    ${tile('Agent time on task',hms(T.agent_task_s),`${T.tasks} tasks · ${T.finished} finished · ${T.failed} failed · queue wait ${hms(T.queue_wait_s)}`)}
+    ${tile('Board uptime',hms(s.uptime_s),`since ${dt(s.started_at)} · ${s.starts_7d} start(s) in 7 d · ${s.starts_total} logged`)}
+    ${tile('Idle time (trees active, nobody executing)',hms(T.idle_s),`busy ${hms(T.busy_s)} of ${hms(T.span_s)} tree time · ${T.span_s?(100*T.busy_s/T.span_s).toFixed(0):'—'}% busy`)}
+    ${tile('ETA accuracy (finished trees)',e.median_ratio!=null?'×'+e.median_ratio.toFixed(2)+' median':'—',`${e.n} with ETA · ${e.over} over · ${e.under} on time · ${e.active_over} active tree(s) past ETA now`)}
+    ${tile('Spawns',`${sp.total_spawned}`,`${sp.live} live · ${sp.exited} exited · <span style="color:${sp.wasted?'var(--red)':'inherit'}">${sp.wasted} wasted (no claim) = ${kt(sp.wasted_tokens.processed)} processed / ${kt(sp.wasted_tokens.output)} out</span>`)}
+  </div>`;
+  if(T.pending) h+=`<div class="hint">computing… ${T.pending} transcript(s) still to parse (auto-refreshes)</div>`;
+  h+=`<div class="hint">${esc(d.note)}</div>`;
+  h+=`<div class="tree"><table><thead><tr><th>tree</th><th>state</th><th>tasks</th><th>ETA</th><th>actual</th><th>×</th><th>busy</th><th>idle</th><th>queue wait</th><th>agent time</th><th>processed</th><th>output</th><th>per turn</th></tr></thead><tbody>`;
+  for(const r of d.trees){
+    const k='m:'+r.id, open=METRICS_OPEN.has(k), c=r.counts;
+    const turns=r.tokens.turns, pt=turns?Math.round(r.tokens.processed/turns):null;
+    h+=`<tr class="task" onclick="toggleM('${k}')"><td><b>${esc(r.title)}</b><div class="id">${r.id}</div><div class="agent">${dt(r.activated_at||r.created_at)}${r.finished_at?' → '+dt(r.finished_at):''}</div></td>
+      <td><span class="pill s-${r.status==='finished'?'finished':'executing'}"><i></i>${r.status}</span>${r.eta_overrun_at?'<div class="agent" style="color:var(--red)">over ETA '+dt(r.eta_overrun_at)+'</div>':''}</td>
+      <td>${r.n} · <span style="color:var(--green)">${c.finished||0}</span>/<span style="color:var(--red)">${c.failed||0}</span></td>
+      <td>${r.eta_minutes?r.eta_minutes+'m':'—'}${r.eta_revisions.length?'<div class="agent">revised ×'+r.eta_revisions.length+'</div>':''}</td>
+      <td>${r.actual_minutes}m</td><td class="${ratioCls(r.ratio)}" style="font-family:var(--mono)">${r.ratio!=null?'×'+r.ratio:'—'}</td>
+      <td>${hms(r.busy_s)}</td><td>${hms(r.idle_s)}</td><td>${hms(r.queue_wait_s)}</td><td>${hms(r.agent_task_s)}</td>
+      <td style="font-family:var(--mono)">${kt(r.tokens.processed)}</td><td style="font-family:var(--mono)">${kt(r.tokens.output)}</td><td style="font-family:var(--mono)">${kt(pt)}</td></tr>`;
+    if(open){
+      h+=`<tr class="rep"><td colspan="13">${r.eta_note?`<h4>ETA note</h4><p>${esc(r.eta_note)}</p>`:''}
+        <table><thead><tr><th>#</th><th>task</th><th>state</th><th>agent</th><th>startup</th><th>queue</th><th>executing</th><th>ETA</th><th>actual</th><th>×</th><th>turns</th><th>tools</th><th>processed</th><th>output</th><th>per turn</th></tr></thead><tbody>
+        ${r.tasks.map(t=>{const u=t.usage||{};return `<tr><td style="font-family:var(--mono);color:var(--dim)">#${t.id}</td><td>${esc(t.title)}</td><td><span class="pill s-${t.status}"><i></i>${t.status}</span></td>
+          <td class="agent">${esc(t.model||'')} ${t.session}${t.spawned?' · spawned':''}${t.attempts>1?' · attempts '+t.attempts:''}</td>
+          <td>${t.startup_s!=null?hms(t.startup_s):'—'}</td><td>${t.queue_wait_s?hms(t.queue_wait_s):'—'}</td><td>${hms(t.executing_s)}</td>
+          <td>${t.eta_minutes?t.eta_minutes+'m':'—'}</td><td>${t.actual_minutes!=null?t.actual_minutes+'m':'—'}</td><td class="${ratioCls(t.ratio)}" style="font-family:var(--mono)">${t.ratio!=null?'×'+t.ratio:'—'}</td>
+          <td style="font-family:var(--mono)">${u.turns??'—'}</td><td style="font-family:var(--mono)">${u.tool_calls??'—'}</td><td style="font-family:var(--mono)">${kt(u.processed)}</td><td style="font-family:var(--mono)">${kt(u.output)}</td><td style="font-family:var(--mono)">${kt(t.per_turn)}</td></tr>`}).join('')}
+        </tbody></table></td></tr>`;
+    }
+  }
+  h+=`</tbody></table></div>`;
+  if(d.wasted_spawns.length){
+    h+=`<div class="tree"><div class="tree-h" style="cursor:default"><h2>Wasted spawns</h2><span class="meta">sessions the board launched that exited without claiming — their tokens bought nothing</span></div><table><thead><tr><th>session</th><th>tree</th><th>task</th><th>started</th><th>lived</th><th>exit</th><th>processed</th><th>output</th></tr></thead><tbody>
+      ${d.wasted_spawns.slice().reverse().map(w=>{const u=w.usage||{};return `<tr><td class="agent">${w.sid}</td><td class="id">${esc(w.tree||'')}</td><td>#${w.task}</td><td>${dt(w.started_at)}</td><td>${hms((w.exited_at||0)-(w.started_at||0))}</td><td>${w.exit}</td><td style="font-family:var(--mono)">${kt(u.processed)}</td><td style="font-family:var(--mono)">${kt(u.output)}</td></tr>`}).join('')}
+    </tbody></table></div>`;
+  }
+  return h;
+}
+function render(){
+  if(!DATA)return;
+  const m=$('#main');
+  if(TAB==='active'||TAB==='finished'||TAB==='planned'||TAB==='modular'){
+    const bar=DATA.trees.length>1?`<div class="hint"><button class="btn" onclick="setAllTrees(true)">expand all</button> <button class="btn" onclick="setAllTrees(false)">collapse all</button></div>`:'';
+    const hint=TAB==='planned'&&DATA.trees.length?`<div class="hint">Ranked by creation time. #1 activates by itself the moment ${DATA.active&&DATA.active.length?'<b>'+esc(DATA.active[0].title)+'</b>':'the active tree'} archives; executors cannot see planned trees.</div>`
+      :TAB==='modular'&&DATA.trees.length?`<div class="hint">Modularization trees Claude Fable filed with <code>st suggest</code>. Nothing runs until you accept: <b>accept</b> activates it now if no tree is active, otherwise it joins the Planned queue; <b>reject</b> removes it.</div>`:'';
+    const empty={active:'no active trees — Claude Fable creates one with <code>st create --file tree.json</code>',
+                 planned:'no planned trees — a tree created while another is active lands here and waits its turn',
+                 modular:'no suggested modularization trees — Claude Fable files them with <code>st suggest --file tree.json</code> when modcheck finds scripts over the line cap',
+                 finished:'no finished trees yet'}[TAB];
+    m.innerHTML=hint+bar+(DATA.trees.length?DATA.trees.map(t=>treeCard(t,DATA.now,TAB)).join(''):`<div class="empty">${empty}</div>`);
+  }else if(TAB==='metrics'){
+    m.innerHTML=renderMetrics(DATA);
+  }else if(TAB==='log'){
+    m.innerHTML=`<div class="log">${(DATA.events||[]).slice().reverse().map(e=>`<div><span class="t">${dt(e.ts)}</span><span class="${e.ok?'ok':'no'}">${e.ok?'ok ':'REF'}</span><span>${esc(e.cmd)}</span><span style="color:var(--dim)">${esc(e.model||'')} ${esc(e.session||'')}</span><span>${esc(e.tree||'')}${e.task?'#'+e.task:''}</span><span style="color:var(--red)">${esc(e.error||'')}</span></div>`).join('')||'<div class="empty">no events yet</div>'}</div>`;
+  }else{
+    m.innerHTML=`<div class="rules">${esc(DATA.rules||'')}</div>`;
+  }
+}
+
+async function refresh(){
+  try{
+    if(TAB==='active'){DATA=await api('/api/ui/active');if(DATA.ok===false)throw new Error(DATA.error);resTiles(DATA);$('#n-active').textContent=DATA.trees.length;}
+    else if(TAB==='planned'){DATA=await api('/api/ui/planned');$('#n-planned').textContent=DATA.trees.length;}
+    else if(TAB==='modular'){DATA=await api('/api/ui/suggested');$('#n-modular').textContent=DATA.trees.length;}
+    else if(TAB==='finished'){DATA=await api('/api/ui/finished');$('#n-finished').textContent=DATA.trees.length;}
+    else if(TAB==='log'){DATA=await api('/api/ui/log?n=150');}
+    else if(TAB==='metrics'){DATA=await api('/api/ui/metrics');}
+    else{DATA={rules:await (await fetch('/rules.md')).text()};}
+    render();
+  }catch(e){$('#main').innerHTML=`<div class="empty">server unreachable — ${esc(e.message)}</div>`;}
+}
+// All four tab badges live-update from one cheap counts endpoint, so numbers are
+// current no matter which tab is open (before 2026-10-06 a badge only refreshed
+// when its own tab was fetched, so you had to click a tab to see its number).
+async function badgeCounts(){try{const c=await api('/api/ui/counts');$('#n-active').textContent=c.active;$('#n-planned').textContent=c.planned;$('#n-modular').textContent=c.modular;$('#n-finished').textContent=c.finished;}catch(e){}}
+badgeCounts(); setInterval(badgeCounts,5000);
+let _mTick=0; refresh(); setInterval(()=>{if(TAB==='rules')return;if(TAB==='metrics'){_mTick=(_mTick+1)%5;if(_mTick&&!(DATA&&DATA.totals&&DATA.totals.pending))return;}refresh();},3000);
+</script>
+</body>
+</html>

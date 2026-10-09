@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      text { font-family: 'Myriad Pro', 'Segoe UI', Arial, sans-serif; }
+    </style>
+
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1920" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#040810"/>
+      <stop offset="100%" stop-color="#080e1e"/>
+    </linearGradient>
+
+    <!-- Header gradient -->
+    <linearGradient id="hdrGrad" x1="0" y1="0" x2="1920" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#061022"/>
+      <stop offset="50%" stop-color="#0a1a38"/>
+      <stop offset="100%" stop-color="#061022"/>
+    </linearGradient>
+
+    <!-- Column header tint -->
+    <linearGradient id="colHdrGrad" x1="0" y1="0" x2="0" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0d1f40"/>
+      <stop offset="100%" stop-color="#060d1e"/>
+    </linearGradient>
+
+    <!-- Sky teal (router / pipeline boxes) -->
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#054060"/>
+      <stop offset="100%" stop-color="#083050"/>
+    </linearGradient>
+
+    <!-- Channel group fills -->
+    <linearGradient id="fillFin"   x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#1a1200"/><stop offset="100%" stop-color="#0e0b00"/></linearGradient>
+    <linearGradient id="fillCrime" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#1a0808"/><stop offset="100%" stop-color="#0e0404"/></linearGradient>
+    <linearGradient id="fillLux"   x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#111520"/><stop offset="100%" stop-color="#080b14"/></linearGradient>
+    <linearGradient id="fillRel"   x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#0d0d1e"/><stop offset="100%" stop-color="#08080f"/></linearGradient>
+    <linearGradient id="fillStor"  x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#150d20"/><stop offset="100%" stop-color="#0c0814"/></linearGradient>
+    <linearGradient id="fillBM"    x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#0a1e30"/><stop offset="100%" stop-color="#051018"/></linearGradient>
+    <linearGradient id="fillCars"  x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#1c0e00"/><stop offset="100%" stop-color="#0e0700"/></linearGradient>
+
+    <!-- Pipeline box fills -->
+    <linearGradient id="fillSchol" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#0a1830"/><stop offset="100%" stop-color="#050e1e"/></linearGradient>
+    <linearGradient id="fillStory" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#130a22"/><stop offset="100%" stop-color="#0a0614"/></linearGradient>
+    <linearGradient id="fillClip"  x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#0a1e30"/><stop offset="100%" stop-color="#051018"/></linearGradient>
+
+    <!-- Router fills -->
+    <linearGradient id="fillRouter" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop offset="0%" stop-color="#082838"/><stop offset="100%" stop-color="#041820"/></linearGradient>
+
+    <!-- Animated active-border gradient (matches existing system) -->
+    <linearGradient id="workflowActiveBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#00e676"/>
+      <stop offset="50%" stop-color="#00bcd4"/>
+      <stop offset="100%" stop-color="#00e676"/>
+    </linearGradient>
+    <filter id="workflowActiveGlow" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Glow filter for channel boxes -->
+    <filter id="glowFin"   x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glowSubtle" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+
+    <!-- Arrow markers per channel/destination -->
+    <marker id="arrTeal"   markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#22d3ee" opacity="0.8"/></marker>
+    <marker id="arrGold"   markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#fbbf24" opacity="0.7"/></marker>
+    <marker id="arrRed"    markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#f87171" opacity="0.7"/></marker>
+    <marker id="arrSilver" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#cbd5e1" opacity="0.7"/></marker>
+    <marker id="arrIndigo" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#818cf8" opacity="0.7"/></marker>
+    <marker id="arrPurple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#c084fc" opacity="0.7"/></marker>
+    <marker id="arrOrange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#fb923c" opacity="0.7"/></marker>
+    <marker id="arrBlue"   markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#60a5fa" opacity="0.7"/></marker>
+    <marker id="arrWhite"  markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#94a3b8" opacity="0.8"/></marker>
+  </defs>
+
+  <!-- ══ BACKGROUND ══════════════════════════════════════════════════════════ -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid overlay -->
+  <g opacity="0.04" stroke="#22d3ee" stroke-width="0.5">
+    <line x1="480"  y1="0" x2="480"  y2="1080"/>
+    <line x1="960"  y1="0" x2="960"  y2="1080"/>
+    <line x1="1440" y1="0" x2="1440" y2="1080"/>
+    <line x1="0" y1="360" x2="1920" y2="360"/>
+    <line x1="0" y1="720" x2="1920" y2="720"/>
+  </g>
+
+  <!-- ══ HEADER BAR ═════════════════════════════════════════════════════════ -->
+  <rect x="0" y="0" width="1920" height="72" fill="url(#hdrGrad)"/>
+  <line x1="0" y1="72" x2="1920" y2="72" stroke="#22d3ee" stroke-width="1" opacity="0.4"/>
+
+  <!-- Corner accent lines -->
+  <line x1="60" y1="10" x2="60" y2="60" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+  <line x1="60" y1="10" x2="200" y2="10" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+  <line x1="1860" y1="10" x2="1860" y2="60" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+  <line x1="1720" y1="10" x2="1860" y2="10" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+
+  <text x="960" y="44" font-size="22" font-weight="300" fill="#22d3ee" text-anchor="middle" letter-spacing="6" opacity="0.95">CHANNEL PIPELINE ROUTING</text>
+  <text x="960" y="63" font-size="11" fill="#4a6a8a" text-anchor="middle" letter-spacing="2">EDITORIAL DISPATCH — DATA SOURCE TO PRODUCTION PIPELINE</text>
+
+  <!-- ══ COLUMN HEADERS ═════════════════════════════════════════════════════ -->
+  <!-- Col 1: Channel Groups -->
+  <rect x="50" y="82" width="264" height="32" rx="4" fill="url(#colHdrGrad)"/>
+  <line x1="50" y1="82" x2="314" y2="82" stroke="#22d3ee" stroke-width="0.8" opacity="0.3"/>
+  <text x="182" y="103" font-size="10" fill="#22d3ee" text-anchor="middle" letter-spacing="2" opacity="0.7">CHANNEL GROUPS</text>
+
+  <!-- Col 2: Dispatch -->
+  <rect x="390" y="82" width="264" height="32" rx="4" fill="url(#colHdrGrad)"/>
+  <line x1="390" y1="82" x2="654" y2="82" stroke="#22d3ee" stroke-width="0.8" opacity="0.3"/>
+  <text x="522" y="103" font-size="10" fill="#22d3ee" text-anchor="middle" letter-spacing="2" opacity="0.7">EDITORIAL DISPATCH</text>
+
+  <!-- Col 3: Pipelines -->
+  <rect x="730" y="82" width="300" height="32" rx="4" fill="url(#colHdrGrad)"/>
+  <line x1="730" y1="82" x2="1030" y2="82" stroke="#22d3ee" stroke-width="0.8" opacity="0.3"/>
+  <text x="880" y="103" font-size="10" fill="#22d3ee" text-anchor="middle" letter-spacing="2" opacity="0.7">PIPELINES</text>
+
+  <!-- Col 4: Sub-Channels -->
+  <rect x="1100" y="82" width="770" height="32" rx="4" fill="url(#colHdrGrad)"/>
+  <line x1="1100" y1="82" x2="1870" y2="82" stroke="#22d3ee" stroke-width="0.8" opacity="0.3"/>
+  <text x="1485" y="103" font-size="10" fill="#22d3ee" text-anchor="middle" letter-spacing="2" opacity="0.7">CHANNEL DETAIL — DATA SOURCES &amp; SUB-CHANNELS</text>
+
+  <!-- Pipeline group background brackets -->
+  <!-- Scholarly group bracket -->
+  <rect x="34" y="125" width="8" height="316" rx="2" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.2"/>
+  <line x1="34" y1="125" x2="50" y2="125" stroke="#22d3ee" stroke-width="1" opacity="0.2"/>
+  <line x1="34" y1="441" x2="50" y2="441" stroke="#22d3ee" stroke-width="1" opacity="0.2"/>
+  <text x="26" y="290" font-size="9" fill="#22d3ee" opacity="0.35" transform="rotate(-90,26,290)" text-anchor="middle" letter-spacing="1">SCHOLARLY</text>
+
+  <!-- Storyteller group bracket -->
+  <rect x="34" y="458" width="8" height="80" rx="2" fill="none" stroke="#c084fc" stroke-width="1" opacity="0.2"/>
+  <line x1="34" y1="458" x2="50" y2="458" stroke="#c084fc" stroke-width="1" opacity="0.2"/>
+  <line x1="34" y1="538" x2="50" y2="538" stroke="#c084fc" stroke-width="1" opacity="0.2"/>
+  <text x="26" y="500" font-size="9" fill="#c084fc" opacity="0.35" transform="rotate(-90,26,500)" text-anchor="middle" letter-spacing="1">STORY</text>
+
+  <!-- Clipfarm group bracket -->
+  <rect x="34" y="555" width="8" height="164" rx="2" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.2"/>
+  <line x1="34" y1="555" x2="50" y2="555" stroke="#60a5fa" stroke-width="1" opacity="0.2"/>
+  <line x1="34" y1="719" x2="50" y2="719" stroke="#60a5fa" stroke-width="1" opacity="0.2"/>
+  <text x="26" y="638" font-size="9" fill="#60a5fa" opacity="0.35" transform="rotate(-90,26,638)" text-anchor="middle" letter-spacing="1">CLIPFARM</text>
+
+  <!-- ══ CHANNEL GROUP BOXES — Col 1 (x=50..314, w=264) ════════════════════ -->
+
+  <!-- 1. FINANCIALS (y=125, h=64) — → Scholarly -->
+  <rect x="50" y="125" width="264" height="64" rx="7" fill="url(#fillFin)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="182" y="162" font-size="17" font-weight="400" fill="#fbbf24" text-anchor="middle">Financials</text>
+  <text x="182" y="179" font-size="9"  fill="#7a6010" text-anchor="middle" letter-spacing="1">STOCKS · CRYPTO · REAL ESTATE · FRAUD</text>
+
+  <!-- 2. CRIME (y=205, h=64) — → Scholarly -->
+  <rect x="50" y="205" width="264" height="64" rx="7" fill="url(#fillCrime)" stroke="#f87171" stroke-width="1.5"/>
+  <text x="182" y="242" font-size="17" font-weight="400" fill="#f87171" text-anchor="middle">Crime</text>
+  <text x="182" y="259" font-size="9"  fill="#7a2020" text-anchor="middle" letter-spacing="1">TRUE CRIME · CHRONICLES · DOCUMENTARY</text>
+
+  <!-- 3. LUXURY (y=285, h=64) — → Scholarly -->
+  <rect x="50" y="285" width="264" height="64" rx="7" fill="url(#fillLux)" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="182" y="322" font-size="17" font-weight="400" fill="#cbd5e1" text-anchor="middle">Luxury</text>
+  <text x="182" y="339" font-size="9"  fill="#4a5568" text-anchor="middle" letter-spacing="1">ROBB REPORT · HIGH-END LIFESTYLE</text>
+
+  <!-- 4. RELIGION (y=365, h=64) — → Scholarly -->
+  <rect x="50" y="365" width="264" height="64" rx="7" fill="url(#fillRel)" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="182" y="402" font-size="17" font-weight="400" fill="#818cf8" text-anchor="middle">Religion</text>
+  <text x="182" y="419" font-size="9"  fill="#3a3a7a" text-anchor="middle" letter-spacing="1">THEOLOGY · WORLD FAITHS · HISTORY</text>
+
+  <!-- 5. STORYTELLER (y=458, h=64) — → Story Pipeline -->
+  <rect x="50" y="458" width="264" height="64" rx="7" fill="url(#fillStor)" stroke="#c084fc" stroke-width="1.5"/>
+  <text x="182" y="495" font-size="17" font-weight="400" fill="#c084fc" text-anchor="middle">Storyteller</text>
+  <text x="182" y="512" font-size="9"  fill="#5a2a7a" text-anchor="middle" letter-spacing="1">HER STORIES · HIS STORIES · MADE UP</text>
+
+  <!-- 6. BENCHMARK (y=555, h=64) — → Clipfarm -->
+  <rect x="50" y="555" width="264" height="64" rx="7" fill="url(#fillBM)" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="182" y="592" font-size="17" font-weight="400" fill="#60a5fa" text-anchor="middle">Benchmark</text>
+  <text x="182" y="609" font-size="9"  fill="#1a4060" text-anchor="middle" letter-spacing="1">PHONES · GPUs · CPUs · CARS · LLMs</text>
+
+  <!-- 7. CARS (y=635, h=64) — → Clipfarm -->
+  <rect x="50" y="635" width="264" height="64" rx="7" fill="url(#fillCars)" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="182" y="672" font-size="17" font-weight="400" fill="#fb923c" text-anchor="middle">Cars</text>
+  <text x="182" y="689" font-size="9"  fill="#6a3010" text-anchor="middle" letter-spacing="1">FUTURE CARS · OLDTIMERS · MECHANICS</text>
+
+  <!-- ══ CONNECTOR ARROWS — Col 1 → Col 2 ═════════════════════════════════ -->
+  <!-- Convergence point: Topic Selection center-left (390, 524) -->
+
+  <!-- Financials → Topic Selection -->
+  <path d="M 314,157 C 355,157 352,524 390,524" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.5" marker-end="url(#arrGold)"/>
+
+  <!-- Crime → Topic Selection -->
+  <path d="M 314,237 C 355,237 352,524 390,524" fill="none" stroke="#f87171" stroke-width="1.2" opacity="0.5" marker-end="url(#arrRed)"/>
+
+  <!-- Luxury → Topic Selection -->
+  <path d="M 314,317 C 355,317 352,524 390,524" fill="none" stroke="#cbd5e1" stroke-width="1.2" opacity="0.4" marker-end="url(#arrSilver)"/>
+
+  <!-- Religion → Topic Selection -->
+  <path d="M 314,397 C 352,397 352,524 390,524" fill="none" stroke="#818cf8" stroke-width="1.2" opacity="0.5" marker-end="url(#arrIndigo)"/>
+
+  <!-- Storyteller → Topic Selection -->
+  <path d="M 314,490 C 350,490 352,524 390,524" fill="none" stroke="#c084fc" stroke-width="1.2" opacity="0.5" marker-end="url(#arrPurple)"/>
+
+  <!-- Benchmark → Topic Selection -->
+  <path d="M 314,587 C 350,587 352,524 390,524" fill="none" stroke="#60a5fa" stroke-width="1.2" opacity="0.5" marker-end="url(#arrBlue)"/>
+
+  <!-- Cars → Topic Selection -->
+  <path d="M 314,667 C 350,667 352,524 390,524" fill="none" stroke="#fb923c" stroke-width="1.2" opacity="0.5" marker-end="url(#arrOrange)"/>
+
+  <!-- ══ DISPATCH BOXES — Col 2 (x=390..654, w=264) ════════════════════════ -->
+
+  <!-- TOPIC SELECTION (y=490, h=68) -->
+  <rect x="390" y="490" width="264" height="68" rx="8" fill="url(#fillRouter)" stroke="#22d3ee" stroke-width="1.8"/>
+  <line x1="390" y1="490" x2="654" y2="490" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
+  <text x="522" y="520" font-size="15" font-weight="400" fill="#22d3ee" text-anchor="middle">Topic Selection</text>
+  <text x="522" y="538" font-size="9"  fill="#1a6070" text-anchor="middle" letter-spacing="1">BEST STORY PER CHANNEL RUN</text>
+  <text x="522" y="551" font-size="8"  fill="#0e3a48" text-anchor="middle" letter-spacing="1">DEDUP · PRIORITY · FRESHNESS SCORE</text>
+
+  <!-- Internal arrow: Topic Selection → Pipeline Router -->
+  <line x1="522" y1="558" x2="522" y2="578" stroke="#22d3ee" stroke-width="1.2" opacity="0.6" marker-end="url(#arrTeal)"/>
+
+  <!-- PIPELINE ROUTER (y=582, h=68) -->
+  <rect x="390" y="582" width="264" height="68" rx="8" fill="url(#fillRouter)" stroke="#22d3ee" stroke-width="1.8"/>
+  <line x1="390" y1="582" x2="654" y2="582" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
+  <text x="522" y="612" font-size="15" font-weight="400" fill="#22d3ee" text-anchor="middle">Pipeline Router</text>
+  <text x="522" y="630" font-size="9"  fill="#1a6070" text-anchor="middle" letter-spacing="1">DISPATCH BY CHANNEL TYPE</text>
+  <text x="522" y="643" font-size="8"  fill="#0e3a48" text-anchor="middle" letter-spacing="1">NICHE → SCHOLARLY | STORY | CLIPFARM</text>
+
+  <!-- ══ CONNECTOR ARROWS — Col 2 → Col 3 ═════════════════════════════════ -->
+  <!-- From Pipeline Router right edge (x=654, y=616) to each pipeline -->
+
+  <!-- → Scholarly (center y=283) -->
+  <path d="M 654,616 C 695,616 695,283 730,283" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity="0.6" marker-end="url(#arrTeal)"/>
+
+  <!-- → Story Pipeline (center y=516) -->
+  <path d="M 654,616 C 692,616 692,516 730,516" fill="none" stroke="#c084fc" stroke-width="1.5" opacity="0.6" marker-end="url(#arrPurple)"/>
+
+  <!-- → Clipfarm (center y=758) -->
+  <path d="M 654,616 C 695,616 695,758 730,758" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.6" marker-end="url(#arrBlue)"/>
+
+  <!-- ══ PIPELINE BOXES — Col 3 (x=730..1030, w=300) ═══════════════════════ -->
+
+  <!-- SCHOLARLY (y=218, h=130) — tall box, serves 4 channels -->
+  <rect x="730" y="218" width="300" height="130" rx="10" fill="url(#fillSchol)" stroke="#22d3ee" stroke-width="2"/>
+  <line x1="730" y1="218" x2="1030" y2="218" stroke="#22d3ee" stroke-width="0.8" opacity="0.5"/>
+  <text x="880" y="263" font-size="18" font-weight="400" fill="#22d3ee" text-anchor="middle">Scholarly</text>
+  <text x="880" y="283" font-size="10" fill="#1a6070" text-anchor="middle" letter-spacing="1">AZURE TTS · FLUX STILLS · CONTROLNET</text>
+  <line x1="750" y1="296" x2="1010" y2="296" stroke="#22d3ee" stroke-width="0.5" opacity="0.2"/>
+  <text x="880" y="313" font-size="9" fill="#0d4458" text-anchor="middle">Stage 1: Research → Stage 2: Script → Stage 3: TTS</text>
+  <text x="880" y="330" font-size="9" fill="#0d4458" text-anchor="middle">Stage 3.5: FLUX Stills → Stage 4: Edit → Stage 5–6: Upload</text>
+
+  <!-- STORY PIPELINE (y=472, h=90) -->
+  <rect x="730" y="472" width="300" height="90" rx="10" fill="url(#fillStory)" stroke="#c084fc" stroke-width="2"/>
+  <line x1="730" y1="472" x2="1030" y2="472" stroke="#c084fc" stroke-width="0.8" opacity="0.5"/>
+  <text x="880" y="514" font-size="18" font-weight="400" fill="#c084fc" text-anchor="middle">Story Pipeline</text>
+  <text x="880" y="534" font-size="10" fill="#7030a0" text-anchor="middle" letter-spacing="1">CHARACTER VOICES · SCENE ASSEMBLY</text>
+  <text x="880" y="551" font-size="9"  fill="#4a1870" text-anchor="middle">Seed → Character Brief → Script → TTS → Video</text>
+
+  <!-- CLIPFARM (y=678, h=130) — serves 2 channels -->
+  <rect x="730" y="678" width="300" height="130" rx="10" fill="url(#fillClip)" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="730" y1="678" x2="1030" y2="678" stroke="#60a5fa" stroke-width="0.8" opacity="0.5"/>
+  <text x="880" y="724" font-size="18" font-weight="400" fill="#60a5fa" text-anchor="middle">Clipfarm</text>
+  <text x="880" y="744" font-size="10" fill="#1a4060" text-anchor="middle" letter-spacing="1">SOURCE SCAN · CLIP SELECT · UPLOAD</text>
+  <line x1="750" y1="757" x2="1010" y2="757" stroke="#60a5fa" stroke-width="0.5" opacity="0.2"/>
+  <text x="880" y="774" font-size="9" fill="#0d2a40" text-anchor="middle">Stage 1: RSS Scan → Stage 2: Select &amp; QC</text>
+  <text x="880" y="791" font-size="9" fill="#0d2a40" text-anchor="middle">Stage 3: Hook+Subtitle → Stage 4: Platform Upload</text>
+
+  <!-- ══ DETAIL PANEL — Col 4 (x=1100..1870) ═══════════════════════════════ -->
+
+  <!-- Scholarly sub-channels -->
+  <rect x="1100" y="218" width="750" height="130" rx="8" fill="#050a16" stroke="#1a2e50" stroke-width="1"/>
+  <text x="1120" y="244" font-size="11" font-weight="400" fill="#22d3ee" letter-spacing="1" opacity="0.8">SCHOLARLY CHANNELS</text>
+  <line x1="1100" y1="252" x2="1850" y2="252" stroke="#22d3ee" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Financials sub -->
+  <text x="1120" y="273" font-size="10" fill="#fbbf24" opacity="0.9">● FINANCIALS</text>
+  <text x="1210" y="273" font-size="10" fill="#4a5060">—</text>
+  <text x="1225" y="273" font-size="10" fill="#3a4050">Stocks (MarketWatch) · Crypto (CoinGecko) · Housing (HousingWire) · Landplots (Bisnow)</text>
+  <text x="1120" y="289" font-size="10" fill="#4a4010" opacity="0.8">              Fin.History (Wikipedia) · Wyscamus/Fraud (FBI RSS → Crime pipe)</text>
+
+  <!-- Crime sub -->
+  <text x="1120" y="308" font-size="10" fill="#f87171" opacity="0.9">● CRIME</text>
+  <text x="1182" y="308" font-size="10" fill="#4a5060">—</text>
+  <text x="1197" y="308" font-size="10" fill="#3a4050">BBC Crime RSS · crime_used_cases.json · Narrator: "Crime Chronicles" · Present tense doc style</text>
+
+  <!-- Luxury sub -->
+  <text x="1120" y="325" font-size="10" fill="#cbd5e1" opacity="0.9">● LUXURY</text>
+  <text x="1188" y="325" font-size="10" fill="#4a5060">—</text>
+  <text x="1203" y="325" font-size="10" fill="#3a4050">Robb Report RSS · Aspirational narrator · Cinematic stills · Ken Burns push-in</text>
+
+  <!-- Religion sub -->
+  <text x="1120" y="342" font-size="10" fill="#818cf8" opacity="0.9">● RELIGION</text>
+  <text x="1198" y="342" font-size="10" fill="#4a5060">—</text>
+  <text x="1213" y="342" font-size="10" fill="#3a4050">Wikipedia Theology · Comparative faiths · Scholarly narrator · Historical documentary</text>
+
+  <!-- Storyteller sub-channels -->
+  <rect x="1100" y="472" width="750" height="90" rx="8" fill="#050a16" stroke="#1a1030" stroke-width="1"/>
+  <text x="1120" y="498" font-size="11" font-weight="400" fill="#c084fc" letter-spacing="1" opacity="0.8">STORYTELLER CHANNELS</text>
+  <line x1="1100" y1="506" x2="1850" y2="506" stroke="#c084fc" stroke-width="0.5" opacity="0.15"/>
+  <text x="1120" y="524" font-size="10" fill="#9060c0" opacity="0.9">● HER STORIES</text>
+  <text x="1225" y="524" font-size="10" fill="#3a4050">—  Internal seed library · Female-perspective narratives · Character voice synthesis</text>
+  <text x="1120" y="540" font-size="10" fill="#9060c0" opacity="0.9">● HIS STORIES</text>
+  <text x="1223" y="540" font-size="10" fill="#3a4050">—  Internal seed library · Male-perspective narratives · Character voice synthesis</text>
+  <text x="1120" y="556" font-size="10" fill="#9060c0" opacity="0.9">● MADE UP</text>
+  <text x="1197" y="556" font-size="10" fill="#3a4050">—  Fictional story seeds · Creative narratives · TTS voice assigned per character type</text>
+
+  <!-- Clipfarm sub-channels -->
+  <rect x="1100" y="678" width="750" height="130" rx="8" fill="#050a16" stroke="#102030" stroke-width="1"/>
+  <text x="1120" y="704" font-size="11" font-weight="400" fill="#60a5fa" letter-spacing="1" opacity="0.8">CLIPFARM CHANNELS</text>
+  <line x1="1100" y1="712" x2="1850" y2="712" stroke="#60a5fa" stroke-width="0.5" opacity="0.15"/>
+
+  <text x="1120" y="730" font-size="10" fill="#60a5fa" opacity="0.9">● BENCHMARK</text>
+  <text x="1205" y="730" font-size="10" fill="#4a5060">—</text>
+  <text x="1220" y="730" font-size="10" fill="#3a4050">GSMArena (phones) · Tom's Hardware (GPUs/CPUs) · Top Gear (cars) · HuggingFace (LLMs)</text>
+  <text x="1120" y="748" font-size="10" fill="#2060a0" opacity="0.8">              Format: data-first comparison · spec tables → narrated highlight clip</text>
+
+  <text x="1120" y="767" font-size="10" fill="#fb923c" opacity="0.9">● CARS</text>
+  <text x="1160" y="767" font-size="10" fill="#4a5060">—</text>
+  <text x="1175" y="767" font-size="10" fill="#3a4050">Future/EV: Electrek RSS · Classic/Oldtimers: Bring a Trailer RSS · Mechanics: Pop. Mechanics RSS</text>
+  <text x="1120" y="785" font-size="10" fill="#5a3010" opacity="0.8">              Three editorial voices: EV-forward · Nostalgia · DIY Mechanic</text>
+
+  <text x="1120" y="804" font-size="10" fill="#4a5570" opacity="0.8">Note: Wyscamus (financial crime) routes through Crime pipeline despite being listed under Financials</text>
+
+  <!-- ══ CONNECTORS — Pipeline boxes to detail panels ════════════════════════ -->
+  <!-- Scholarly → detail -->
+  <line x1="1030" y1="283" x2="1100" y2="283" stroke="#22d3ee" stroke-width="1" opacity="0.2" stroke-dasharray="4 4"/>
+  <!-- Story → detail -->
+  <line x1="1030" y1="517" x2="1100" y2="517" stroke="#c084fc" stroke-width="1" opacity="0.2" stroke-dasharray="4 4"/>
+  <!-- Clipfarm → detail -->
+  <line x1="1030" y1="743" x2="1100" y2="743" stroke="#60a5fa" stroke-width="1" opacity="0.2" stroke-dasharray="4 4"/>
+
+  <!-- ══ OVERSEER NODE (top-right of routing area) ═══════════════════════════ -->
+  <rect x="390" y="130" width="264" height="50" rx="7" fill="#06101e" stroke="#22d3ee" stroke-width="1" opacity="0.8"/>
+  <line x1="390" y1="130" x2="654" y2="130" stroke="#22d3ee" stroke-width="0.5" opacity="0.3"/>
+  <text x="522" y="153" font-size="13" fill="#22d3ee" text-anchor="middle" opacity="0.8">Channel Overseer</text>
+  <text x="522" y="169" font-size="8"  fill="#1a3a50" text-anchor="middle" letter-spacing="1">MONITORS ALL CHANNEL PIPELINES</text>
+
+  <!-- Overseer → Topic Selection -->
+  <line x1="522" y1="180" x2="522" y2="490" stroke="#22d3ee" stroke-width="0.8" opacity="0.25" stroke-dasharray="5 5"/>
+
+  <!-- Editorial Overseer -->
+  <rect x="390" y="726" width="264" height="50" rx="7" fill="#06101e" stroke="#22d3ee" stroke-width="1" opacity="0.8"/>
+  <line x1="390" y1="726" x2="654" y2="726" stroke="#22d3ee" stroke-width="0.5" opacity="0.3"/>
+  <text x="522" y="749" font-size="13" fill="#22d3ee" text-anchor="middle" opacity="0.8">Editorial Overseer</text>
+  <text x="522" y="765" font-size="8"  fill="#1a3a50" text-anchor="middle" letter-spacing="1">CONTENT POLICY · QUALITY GATE</text>
+
+  <!-- Editorial Overseer → Pipeline Router -->
+  <line x1="522" y1="726" x2="522" y2="650" stroke="#22d3ee" stroke-width="0.8" opacity="0.25" stroke-dasharray="5 5"/>
+
+  <!-- ══ LEGEND (bottom strip) ══════════════════════════════════════════════ -->
+  <rect x="0" y="950" width="1920" height="130" fill="#040810" opacity="0.9"/>
+  <line x1="0" y1="950" x2="1920" y2="950" stroke="#22d3ee" stroke-width="0.5" opacity="0.2"/>
+
+  <text x="60" y="975" font-size="10" fill="#22d3ee" opacity="0.6" letter-spacing="1">PIPELINE STATUS</text>
+
+  <!-- Legend items -->
+  <rect x="60"  y="987" width="14" height="14" rx="2" fill="url(#fillSchol)" stroke="#22d3ee" stroke-width="1.2"/>
+  <text x="82"  y="999" font-size="10" fill="#94a3b8">Scholarly (FLUX + ControlNet + Azure TTS)</text>
+
+  <rect x="340" y="987" width="14" height="14" rx="2" fill="url(#fillStory)" stroke="#c084fc" stroke-width="1.2"/>
+  <text x="362" y="999" font-size="10" fill="#94a3b8">Story Pipeline (Character TTS + Scene Assembly)</text>
+
+  <rect x="640" y="987" width="14" height="14" rx="2" fill="url(#fillClip)" stroke="#60a5fa" stroke-width="1.2"/>
+  <text x="662" y="999" font-size="10" fill="#94a3b8">Clipfarm (RSS Scan → Clip Select → Platform Upload)</text>
+
+  <text x="60" y="1025" font-size="10" fill="#22d3ee" opacity="0.6" letter-spacing="1">CHANNEL VOICES</text>
+
+  <text x="60"  y="1042" font-size="10" fill="#f87171">■</text><text x="78"  y="1042" font-size="10" fill="#94a3b8">Crime: "Crime Chronicles" — calm, present-tense documentary</text>
+  <text x="360" y="1042" font-size="10" fill="#fbbf24">■</text><text x="378" y="1042" font-size="10" fill="#94a3b8">Financials: analytical, data-driven narrator</text>
+  <text x="640" y="1042" font-size="10" fill="#818cf8">■</text><text x="658" y="1042" font-size="10" fill="#94a3b8">Religion: measured scholarly tone</text>
+  <text x="870" y="1042" font-size="10" fill="#cbd5e1">■</text><text x="888" y="1042" font-size="10" fill="#94a3b8">Luxury: aspirational, cinematic</text>
+  <text x="1060" y="1042" font-size="10" fill="#c084fc">■</text><text x="1078" y="1042" font-size="10" fill="#94a3b8">Storyteller: per-character voices</text>
+  <text x="1290" y="1042" font-size="10" fill="#60a5fa">■</text><text x="1308" y="1042" font-size="10" fill="#94a3b8">Benchmark: clear spec narrator</text>
+  <text x="1510" y="1042" font-size="10" fill="#fb923c">■</text><text x="1528" y="1042" font-size="10" fill="#94a3b8">Cars: EV / Oldtimer / Mechanic voices</text>
+
+  <!-- Bottom-right version marker -->
+  <text x="1880" y="1068" font-size="8" fill="#1a2a40" text-anchor="end" letter-spacing="1">WORKFLOW v1.0 — CHANNEL ROUTING</text>
+</svg>

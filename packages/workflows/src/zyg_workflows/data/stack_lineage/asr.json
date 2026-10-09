@@ -1,0 +1,74 @@
+{
+  "lane": "asr",
+  "label": "Speech recognition & diarization",
+  "note": "Recognition is used three different ways here — as a transcript, as the timing source for narration, and as a judge of whether a sung line is intelligible. The same model behaves differently in each role.",
+  "entities": [
+    {
+      "id": "whisper_openai", "name": "Whisper base/tiny (openai-whisper)", "kind": "model", "role": "first transcriber",
+      "status": "retired", "licence": "MIT", "ended": "2026-07-28",
+      "replaced_by": ["faster_whisper_v3"],
+      "summary": "The original transcription path. tiny deliberately survives in one place: murch_engine transcribes known TTS narration only for word TIMINGS and then force-aligns to the real script, so a better model buys nothing there.",
+      "issues": [
+        {"text": "Word recognition was not good enough for clip analysis and subtitles.", "state": "solved", "found": "2026-07-28", "fixed": "2026-07-28", "by": "faster_whisper_v3", "grade": "operator", "evidence": "project_transcribe_diarization"},
+        {"text": "Kept on tiny in murch_engine on purpose — the words are discarded, only the timings are used.", "state": "accepted", "found": "2026-07-28", "grade": "receipt", "evidence": "project_transcribe_diarization"}
+      ],
+      "sources": ["project_transcribe_diarization"]
+    },
+    {
+      "id": "faster_whisper_v3", "name": "faster-whisper large-v3 + VAD", "kind": "model", "role": "transcripts, subtitles, lyric gate",
+      "status": "live", "licence": "MIT", "adopted": "2026-07-28",
+      "replaced": ["whisper_openai"],
+      "where": "zyg_whisper.py (shared loader), bp_claude_clip.py, pipeline_video.py, tools/speech_tools.py",
+      "summary": "One shared VRAM-aware loader with VAD filtering and a model cache. It is also the recogniser the kids-music lyric gate decodes with, which is where its prompting behaviour became a correctness problem.",
+      "issues": [
+        {"text": "Replaced base/tiny for real transcripts, with a CPU-degrade rule that drops to base+beam1 rather than large-v3 — large-v3 on CPU stalls for HOURS on long media.", "state": "solved", "fixed": "2026-07-28", "grade": "measured", "evidence": "project_transcribe_diarization"},
+        {"text": "PROMPTED decoding invents what it was told to expect: prompting with the lyric sheet was worth ~+22 points of coverage and passed 33 lines a listener cannot make out, including a hook heard 0/5 times unprompted. The gate now decodes BARE on the mix as well and judges clarity on that number.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-03", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "Validating a prompted recogniser against SILENCE proves nothing — digital silence gives the prompt nothing to hang on, while a line sung as mush still has audio. The old muted-line test was true and irrelevant.", "state": "solved", "found": "2026-10-02", "fixed": "2026-10-03", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "Unprompted scores carry about ±1 line of run-to-run jitter, so single-line differences are noise.", "state": "accepted", "found": "2026-10-04", "grade": "measured", "evidence": "project_kidsmusic_intelligibility"},
+        {"text": "The resident model stays large-v2, not v3-turbo, pending a real-audio A/B.", "state": "open", "found": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_transcribe_diarization", "project_kidsmusic_intelligibility"]
+    },
+    {
+      "id": "whisper_v3_turbo", "name": "whisper large-v3-turbo", "kind": "model", "role": "candidate faster resident model",
+      "status": "rejected", "licence": "MIT", "adopted": "2026-08-09", "ended": "2026-08-09",
+      "summary": "Measured and held, not adopted: it tied on accuracy and only won on speed, which was not enough to move the resident model.",
+      "issues": [
+        {"text": "Tied WER with faster-whisper large-v2 on the synthetic set at 18% faster — held pending a real-audio A/B that was never run.", "state": "open", "found": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026"]
+    },
+    {
+      "id": "sortformer", "name": "NeMo Sortformer 4-spk", "kind": "model", "role": "speaker diarization",
+      "status": "live", "licence": "NVIDIA / Apache-2.0 toolkit", "adopted": "2026-07-28",
+      "where": "models/diarization/.venv (isolated), diarize_sortformer.py bridge",
+      "summary": "There was ZERO diarization before this. Runs as a subprocess in its own venv so its torch cannot collide with the pipeline's, and the bridge is fail-safe: any failure returns None and the transcript is still emitted.",
+      "issues": [
+        {"text": "Added speaker separation where there was none, pinned by ZYG_SORTFORMER_MODEL.", "state": "solved", "fixed": "2026-07-28", "grade": "measured", "evidence": "project_transcribe_diarization"},
+        {"text": "Offline with a ~12-minute VRAM ceiling, so long audio must be chunked (600 s windows) and the speakers re-identified globally.", "state": "mitigated", "found": "2026-07-28", "grade": "measured", "evidence": "project_transcribe_diarization"},
+        {"text": "Temporal-overlap stitching across chunks fragmented one speaker into two and could exceed the 4-speaker cap — replaced by TitaNet embedding clustering with a hard cap.", "state": "solved", "found": "2026-07-28", "fixed": "2026-07-28", "by": "titanet", "grade": "measured", "evidence": "project_transcribe_diarization"}
+      ],
+      "sources": ["project_transcribe_diarization"]
+    },
+    {
+      "id": "titanet", "name": "TitaNet-large", "kind": "model", "role": "voice embeddings for speaker identity",
+      "status": "live", "licence": "NVIDIA / Apache-2.0 toolkit", "adopted": "2026-07-28",
+      "summary": "Agglomerative cosine clustering over TitaNet embeddings gives a speaker a stable identity across chunks. It is also the similarity metric that built the Warm Control voice-conversion dataset.",
+      "issues": [
+        {"text": "Fixed the cross-chunk fragmentation that overlap stitching caused, hard-capped at 4 speakers.", "state": "solved", "fixed": "2026-07-28", "grade": "measured", "evidence": "project_transcribe_diarization"},
+        {"text": "Re-used outside diarization to select RVC training renditions by cosine to the reference take — the v2 dataset that passed the bench.", "state": "solved", "fixed": "2026-09-15", "grade": "measured", "evidence": "project_kidsmusic_voice_conversion"}
+      ],
+      "sources": ["project_transcribe_diarization", "project_kidsmusic_voice_conversion"]
+    },
+    {
+      "id": "pyannote", "name": "pyannote", "kind": "model", "role": "diarization in the standalone transcriber app",
+      "status": "live", "licence": "MIT (gated weights)", "adopted": "",
+      "where": "a separate transcriber app, outside this repository",
+      "summary": "The standalone transcriber app keeps pyannote rather than Sortformer — deliberately not unified, because the 07-28 rebuild turned out to have targeted the video pipeline and not that app.",
+      "issues": [
+        {"text": "Two diarization stacks exist in the program for historical reasons; neither has been measured against the other.", "state": "open", "found": "2026-07-28", "grade": "receipt", "evidence": "project_transcribe_diarization, project_transcriber_app"}
+      ],
+      "sources": ["project_transcriber_app"]
+    }
+  ]
+}

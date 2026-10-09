@@ -1,0 +1,102 @@
+{
+  "lane": "vision",
+  "label": "Segmentation & analysis",
+  "note": "Tools that measure a frame rather than make one: segmentation, tagging, optical flow, keypoints and structure-from-motion.",
+  "entities": [
+    {
+      "id": "yolov8_sam", "name": "YOLOv8 + Segment Anything", "kind": "model", "role": "first segmentation pair",
+      "status": "retired", "licence": "AGPL-3.0 / Apache-2.0", "ended": "2026-08-09",
+      "replaced_by": ["sam3"],
+      "summary": "The pre-July detection and segmentation pair. YOLOv8 survives in one place as the hand detector.",
+      "issues": [
+        {"text": "Box detection cannot answer a phrase question ('fishing net', 'both hands individually'), which is what prop persistence needs.", "state": "solved", "found": "2026-08-09", "fixed": "2026-08-09", "by": "sam3", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["docs/stack_upgrade_history.md §5"]
+    },
+    {
+      "id": "sam3", "name": "SAM 3", "kind": "model", "role": "phrase segmentation + prop persistence",
+      "status": "live", "licence": "SAM License (internal tool)", "adopted": "2026-08-09",
+      "replaced": ["yolov8_sam"],
+      "where": "models/sam3 (sha-pinned), sam3_worker.py in the vlm_judge venv, sam3_service.py",
+      "summary": "Phrase-level segmentation, which made the prop-persistence gate possible: it can be asked whether the net is still in the shot.",
+      "issues": [
+        {"text": "Validated on real frames: 'fishing net' 0.93, both hands individually 0.89, 4.3 s end to end; gate QGT-039 scored pipe 7/8 @0.81, ledger 8/8 @0.93, candle 8/8 @0.90 with a clean negative control.", "state": "solved", "fixed": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"},
+        {"text": "The gate is built and advisory and the remaining step was never done — scene-plan prop phrases are not plumbed into the call, so it mostly runs on hand-written phrases.", "state": "open", "found": "2026-08-09", "grade": "receipt", "evidence": "project_stack_upgrade_aug2026"},
+        {"text": "Hand occlusion costs a frame (pipe 7/8).", "state": "accepted", "found": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026"]
+    },
+    {
+      "id": "wd_tagger_v3", "name": "WD Tagger v3", "kind": "model", "role": "tagging on animation",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-08-29",
+      "summary": "Adopted because it is the only anime-native tagger: photo-prior taggers collapse roughly 5x on animated frames.",
+      "issues": [
+        {"text": "Photo-prior taggers collapse ~5x on animation, which made every earlier measurement of animated material unreliable.", "state": "solved", "found": "2026-08-29", "fixed": "2026-08-29", "grade": "measured", "evidence": "project_vfx_tooling_landscape"}
+      ],
+      "sources": ["project_vfx_tooling_landscape"]
+    },
+    {
+      "id": "raft", "name": "RAFT optical flow", "kind": "model", "role": "optical flow",
+      "status": "retired", "licence": "BSD-3", "ended": "2026-08-29",
+      "replaced_by": ["gmflow"],
+      "summary": "Replaced by GMFlow in the same animation-tooling review that brought in WD Tagger.",
+      "issues": [
+        {"text": "Loses to GMFlow on this material.", "state": "solved", "found": "2026-08-29", "fixed": "2026-08-29", "by": "gmflow", "grade": "measured", "evidence": "project_vfx_tooling_landscape"}
+      ],
+      "sources": ["project_vfx_tooling_landscape"]
+    },
+    {
+      "id": "gmflow", "name": "GMFlow", "kind": "model", "role": "optical flow",
+      "status": "live", "licence": "Apache-2.0", "adopted": "2026-08-29",
+      "replaced": ["raft"],
+      "summary": "The flow estimator for motion analysis on animated and rendered material.",
+      "issues": [],
+      "sources": ["project_vfx_tooling_landscape"]
+    },
+    {
+      "id": "birefnet", "name": "BiRefNet", "kind": "model", "role": "background matting",
+      "status": "live", "licence": "MIT", "adopted": "2026-09-19",
+      "summary": "Fetched on first RGB input by the image→mesh pipeline; the matte is what makes a photo usable as mesh input.",
+      "issues": [
+        {"text": "Loaded with trust_remote_code, which is a supply-chain surface the rest of the stack avoids.", "state": "accepted", "found": "2026-09-19", "grade": "receipt", "evidence": "project_direct3d_s2_install"}
+      ],
+      "sources": ["project_direct3d_s2_install"]
+    },
+    {
+      "id": "blazepose", "name": "BlazePose / MediaPipe keypoints", "kind": "model", "role": "2D keypoints",
+      "status": "live", "licence": "Apache-2.0", "adopted": "",
+      "summary": "The keypoint source behind geom.keypoints.detect. Its output is not interchangeable with the pose format the control graphs use.",
+      "issues": [
+        {"text": "geom.keypoints.detect returns BlazePose-33, NOT OpenPose — a caller that assumes OpenPose indices reads the wrong joints.", "state": "mitigated", "found": "2026-09-19", "grade": "measured", "evidence": "project_movement_capture_path"}
+      ],
+      "sources": ["project_movement_capture_path"]
+    },
+    {
+      "id": "glomap_pycolmap", "name": "GLOMAP / pycolmap", "kind": "tool", "role": "structure from motion",
+      "status": "live", "licence": "BSD-3", "adopted": "2026-08-09",
+      "summary": "Confirmed to be inside pycolmap 4.1.1 as global_mapping, so the SfM path needed no new install at all.",
+      "issues": [
+        {"text": "A planned install turned out to be unnecessary — the capability was already in a dependency.", "state": "solved", "found": "2026-08-09", "fixed": "2026-08-09", "grade": "measured", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026", "project_detail_filter_sfm"]
+    },
+    {
+      "id": "mm_gdino", "name": "MM-GDINO", "kind": "model", "role": "candidate open-vocabulary detector",
+      "status": "candidate", "licence": "Apache-2.0", "adopted": "", "ended": "",
+      "summary": "Queued and never installed: it needs its own mmcv venv.",
+      "issues": [
+        {"text": "Blocked on needing a separate mmcv environment; no measurement exists.", "state": "open", "found": "2026-08-09", "grade": "receipt", "evidence": "project_stack_upgrade_aug2026"}
+      ],
+      "sources": ["project_stack_upgrade_aug2026"]
+    },
+    {
+      "id": "clip", "name": "CLIP", "kind": "model", "role": "embeddings and similarity",
+      "status": "live", "licence": "MIT", "adopted": "",
+      "summary": "A pre-July survivor as an embedding model. Its one attempt at a promotion — judging defects — was measured and refused.",
+      "issues": [
+        {"text": "Refused as a defect judge: it reports content, not faults.", "state": "solved", "found": "2026-09-15", "fixed": "2026-09-15", "by": "qwen35_9b_screen", "grade": "measured", "evidence": "project_kidsvideo_candidate_pool"}
+      ],
+      "sources": ["project_kidsvideo_candidate_pool"]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{"section_key": "elements", "section_label": "Building elements",
+ "groups": [{"g": "Curved walls",
+             "items": [["wall_arc", "Curved wall", {"r": 5.0, "a0": 0, "a1": 90, "h": 2.7, "t": 0.24, "seg": 24},
+                        "An arc of wall around the point you click: radius r, from angle a0 to a1 (degrees, 0 = east, 90 = north)."],
+                       ["wall_ring", "Round wall", {"r": 5.0, "h": 2.7, "t": 0.24, "seg": 48},
+                        "A full circle of wall — a round tower's shell, a silo, a well."]]}]}

@@ -1,0 +1,13 @@
+{
+  "checkpoint_path": "~/ai-models/FLUX/flux1-dev",
+  "vae_path": "",
+  "lora_dir": "~/lora-outputs",
+  "precision": "bf16",
+  "device": "cuda",
+  "steps": 28,
+  "cfg_scale": 3.5,
+  "sampler": "euler",
+  "scheduler": "simple",
+  "clip_skip": 1,
+  "resolution": 1024
+}

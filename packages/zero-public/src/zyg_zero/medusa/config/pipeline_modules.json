@@ -1,0 +1,13 @@
+{
+  "lora_training": true,
+  "identity_qc": true,
+  "face_detailer": true,
+  "hand_fixer": true,
+  "upscaler_esrgan": true,
+  "controlnet_pose": true,
+  "ip_adapter_identity": true,
+  "qwen_edit_angles": true,
+  "vae_tiling": false,
+  "xformers_attention": true,
+  "safety_checker": false
+}

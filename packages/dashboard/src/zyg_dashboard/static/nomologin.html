@@ -1,0 +1,832 @@
+<!--
+SPDX-FileCopyrightText: 2026 Zygomatic
+
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<!-- nomologin.html — the Nomologin board. Served by nomologin_board.py on 127.0.0.1:8750.
+     This file only draws. Every number, verdict and refusal comes from nomologin.py, so a
+     card and the CLI cannot tell different stories. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nomologin</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel-2:#1c232d; --line:#2a323d;
+    --ink:#e6edf3; --ink-dim:#8b97a6; --ink-faint:#5d6875;
+    --ok:#3fb950; --warn:#d29922; --bad:#f85149; --idle:#6e7681; --accent:#8b5cf6;
+    --radius:10px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:14px/1.5 ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif}
+  code,.mono{font-family:ui-monospace,"JetBrains Mono",Consolas,monospace}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(14,17,22,.94);
+         backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 22px}
+  .bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  h1{margin:0;font-size:17px;letter-spacing:.3px;font-weight:650}
+  h1 span{color:var(--accent)}
+  .totals{color:var(--ink-dim);font-size:12.5px}
+  .totals b{color:var(--ink);font-weight:600}
+  .spacer{flex:1}
+  .hostip{font-size:12px;color:var(--ink-faint)}
+  .hostip b{color:var(--ink-dim);font-weight:500}
+
+  button{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
+         border-radius:7px;padding:6px 11px;font-size:12.5px;cursor:pointer;
+         font-family:inherit;transition:.12s}
+  button:hover:not(:disabled){background:#242c38;border-color:#3a4553}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  button.primary:hover:not(:disabled){filter:brightness(1.12)}
+  button.danger:hover:not(:disabled){border-color:var(--bad);color:var(--bad)}
+
+  .toggle{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-dim);
+          cursor:pointer;user-select:none}
+  .toggle input{accent-color:var(--accent);cursor:pointer}
+
+  main{padding:22px;max-width:1500px;margin:0 auto}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+        overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .card.running{border-color:color-mix(in srgb,var(--pc) 55%,var(--line))}
+  .stripe{height:4px;background:var(--pc)}
+  .card-top{padding:13px 15px 11px;display:flex;align-items:flex-start;gap:10px}
+  .who{min-width:0;flex:1}
+  .label{font-weight:650;font-size:15px;display:flex;align-items:center;gap:8px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--pc);flex:none}
+  .pid{color:var(--ink-faint);font-size:11.5px;margin-top:1px}
+  .note{color:var(--ink-dim);font-size:12px;margin-top:5px}
+
+  .pill{font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:700;
+        padding:3px 8px;border-radius:20px;white-space:nowrap;flex:none}
+  .p-ready{background:rgba(63,185,80,.13);color:var(--ok)}
+  .p-running{background:rgba(63,185,80,.2);color:var(--ok);
+             box-shadow:0 0 0 1px rgba(63,185,80,.35)}
+  .p-stale{background:rgba(210,153,34,.14);color:var(--warn)}
+  .p-nologin{background:rgba(110,118,129,.16);color:var(--idle)}
+  .p-broken{background:rgba(248,81,73,.15);color:var(--bad)}
+
+  .rows{padding:0 15px 12px;display:flex;flex-direction:column;gap:7px}
+  .row{display:flex;align-items:center;gap:8px;font-size:12.5px;min-height:20px}
+  .row .k{color:var(--ink-faint);width:66px;flex:none}
+  .row .v{color:var(--ink-dim);min-width:0;overflow:hidden;text-overflow:ellipsis;
+          white-space:nowrap}
+  .v.ok{color:var(--ok)} .v.warn{color:var(--warn)} .v.bad{color:var(--bad)}
+
+  .tag{font-size:10.5px;padding:2px 6px;border-radius:5px;font-weight:600;flex:none}
+  .t-clean{background:rgba(63,185,80,.13);color:var(--ok)}
+  .t-direct{background:rgba(210,153,34,.13);color:var(--warn)}
+  .t-leak,.t-down{background:rgba(248,81,73,.13);color:var(--bad)}
+  .t-unknown{background:rgba(110,118,129,.13);color:var(--idle)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 15px 13px}
+  .chip{display:flex;align-items:center;gap:6px;background:var(--panel-2);
+        border:1px solid var(--line);border-radius:7px;padding:5px 9px;font-size:12px;
+        cursor:pointer;transition:.12s}
+  .chip:hover{border-color:var(--pc);background:#222a35}
+  .chip.off{opacity:.42}
+  .chip .h{color:var(--ink-faint);font-size:11px}
+  .chip .key{border:none;background:none;color:var(--warn);cursor:pointer;padding:0;
+             font-size:12px;line-height:1}
+  .chip .key:hover{filter:brightness(1.3)}
+
+  .acts{margin-top:auto;padding:11px 15px;border-top:1px solid var(--line);
+        display:flex;gap:7px;flex-wrap:wrap;background:rgba(0,0,0,.14)}
+  .acts .spacer{flex:1}
+
+  .problems{margin:0 15px 13px;padding:9px 11px;border-radius:8px;
+            background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.25);
+            color:#ffb4ae;font-size:12px}
+  .problems ul{margin:4px 0 0;padding-left:17px}
+
+  .flash{margin:0 15px 13px;padding:9px 11px;border-radius:8px;font-size:12px;
+         border:1px solid var(--line);background:var(--panel-2);color:var(--ink-dim);
+         white-space:pre-wrap;word-break:break-word}
+  .flash.bad{background:rgba(248,81,73,.08);border-color:rgba(248,81,73,.3);color:#ffb4ae}
+  .flash.good{background:rgba(63,185,80,.08);border-color:rgba(63,185,80,.3);color:#8ee59b}
+  .flash .hint{display:block;margin-top:5px;color:var(--ink-faint);font-style:italic}
+
+  /* The + tile sits in the grid beside the account cards, so "one more account" is a
+     click where the accounts already are, not a JSON file to go and find. */
+  .card.add{border-style:dashed;align-items:center;justify-content:center;gap:3px;
+            min-height:186px;cursor:pointer;color:var(--ink-dim);text-align:center;
+            padding:18px;background:transparent}
+  .card.add:hover{border-color:var(--accent);color:var(--ink);background:rgba(139,92,246,.05)}
+  .card.add .plus{font-size:38px;line-height:1;font-weight:300;color:var(--accent)}
+  .card.add .lbl{font-size:13.5px;font-weight:600}
+  .card.add .sub{font-size:11.5px;color:var(--ink-faint);max-width:230px}
+
+  .form{display:flex;flex-direction:column;gap:11px}
+  .fld{display:flex;align-items:center;gap:10px}
+  .fld>label{width:104px;flex:none;color:var(--ink-dim);font-size:12.5px;text-align:right}
+  .fld input,.fld select,.fld textarea{flex:1;min-width:0;background:var(--panel-2);
+       color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 9px;
+       font-family:inherit;font-size:13px}
+  .fld input:focus,.fld select:focus{outline:none;border-color:var(--accent)}
+  .fld input[type=color]{flex:none;width:42px;height:30px;padding:2px;cursor:pointer}
+  .sub-note{color:var(--ink-faint);font-size:11.5px;margin:-4px 0 2px 114px}
+  .sec{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-faint);
+       font-weight:700;margin-top:6px}
+  .picker{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .pbar{display:flex;gap:6px;align-items:center;padding:7px 8px;background:var(--panel-2);
+        border-bottom:1px solid var(--line)}
+  .pbar input{flex:1;min-width:0;background:var(--panel);color:var(--ink);
+       border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;
+       font-size:12.5px}
+  .pbar input:focus{outline:none;border-color:var(--accent)}
+  .tinybtn{flex:none;background:var(--panel);color:var(--ink-dim);border:1px solid var(--line);
+       border-radius:6px;padding:4px 9px;font:inherit;font-size:11.5px;cursor:pointer;
+       white-space:nowrap}
+  .tinybtn:hover{color:var(--ink);border-color:var(--accent)}
+  .pgroups{max-height:330px;overflow:auto}
+  .pg{border-bottom:1px solid rgba(42,50,61,.6)}
+  .pg:last-child{border-bottom:none}
+  .pg[hidden]{display:none}
+  .pgh{display:flex;align-items:center;gap:8px;padding:6px 10px;cursor:pointer;
+       background:rgba(42,50,61,.22);user-select:none}
+  .pgh:hover{background:rgba(42,50,61,.42)}
+  .pgh .tw{flex:none;width:9px;color:var(--ink-faint);font-size:9px;transition:transform .12s}
+  .pg.open .pgh .tw{transform:rotate(90deg)}
+  .pgh .gn{flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--ink-dim);
+       overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pgh .gc{flex:none;font-size:11px;color:var(--ink-faint);font-variant-numeric:tabular-nums;
+       min-width:38px;text-align:right}
+  .pgh .gc.on{color:var(--accent);font-weight:700}
+  .pgb{display:none}
+  .pg.open .pgb{display:block}
+  .plat{display:flex;align-items:center;gap:9px;padding:5px 10px 5px 26px;font-size:12.5px;
+        border-top:1px solid rgba(42,50,61,.4)}
+  .plat[hidden]{display:none}
+  .plat input[type=checkbox]{accent-color:var(--accent);cursor:pointer;flex:none}
+  .plat .pn{width:136px;flex:none;color:var(--ink-dim);cursor:pointer;overflow:hidden;
+       text-overflow:ellipsis;white-space:nowrap}
+  .plat .pol{flex:none;width:52px;font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;
+       font-weight:700;cursor:help}
+  .pol-ok{color:#5ddc9a} .pol-earn{color:#e8c05a} .pol-profile{color:#7fb2ff}
+  .pol-mirror{color:#c99bf5} .pol-hostile{color:#ff8b82}
+  .plat input[type=text]{flex:1;min-width:0;background:var(--panel-2);color:var(--ink);
+       border:1px solid var(--line);border-radius:6px;padding:4px 8px;font:inherit;
+       font-size:12.5px}
+  .plat input[type=text]:disabled{opacity:.3}
+  .pcount{text-transform:none;letter-spacing:0;font-weight:600;color:var(--ink-dim)}
+  .pwarn{padding:7px 10px;font-size:11.5px;border-top:1px solid var(--line);
+       background:rgba(232,192,90,.09);color:#e8c05a;line-height:1.45}
+  .dlg-foot{padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:8px;
+            align-items:center}
+  .dlg-foot .msg{flex:1;font-size:12px;color:var(--ink-faint)}
+  .dlg-foot .msg.bad{color:#ffb4ae}
+
+  .empty{padding:60px 20px;text-align:center;color:var(--ink-dim)}
+  .empty code{background:var(--panel-2);padding:2px 7px;border-radius:5px;
+              border:1px solid var(--line);color:var(--ink)}
+
+  dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);
+         border-radius:var(--radius);padding:0;max-width:760px;width:92vw}
+  dialog::backdrop{background:rgba(0,0,0,.62)}
+  .dlg-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;
+            align-items:center;gap:12px;font-weight:650}
+  .dlg-body{padding:16px 18px;max-height:65vh;overflow:auto}
+  .chk{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(42,50,61,.5);
+       font-size:13px;align-items:flex-start}
+  .chk:last-child{border-bottom:none}
+  .chk .m{flex:none;width:16px;font-weight:700}
+  .chk .n{flex:none;width:190px;color:var(--ink-dim)}
+  .chk .d{color:var(--ink-faint);word-break:break-word}
+
+  /* Assistant panel. The transcript scrolls; the composer stays put, because a long job
+     writes tool lines continuously and a moving text box cannot be typed into. */
+  .as-wrap{display:flex;flex-direction:column;gap:10px}
+  .as-scroll{max-height:46vh;overflow:auto;display:flex;flex-direction:column;gap:9px;
+             padding-right:4px}
+  .as-msg{padding:9px 12px;border-radius:9px;font-size:13px;line-height:1.5;
+          white-space:pre-wrap;word-break:break-word}
+  .as-msg.you{background:rgba(139,92,246,.14);border:1px solid rgba(139,92,246,.35)}
+  .as-msg.bot{background:var(--panel-2,rgba(255,255,255,.03));border:1px solid var(--line)}
+  .as-msg.err{background:rgba(255,120,110,.10);border:1px solid rgba(255,120,110,.4);
+              color:#ffb4ae}
+  .as-steps{font-size:11.5px;color:var(--ink-faint);font-family:ui-monospace,monospace;
+            border-left:2px solid var(--line);padding-left:9px;margin:2px 0;
+            max-height:150px;overflow:auto}
+  .as-steps div{padding:1px 0}
+  .as-note{font-size:11.5px;color:var(--ink-faint)}
+  .as-compose{display:flex;gap:8px;align-items:flex-end}
+  .as-compose textarea{flex:1;min-height:62px;max-height:170px;resize:vertical;
+    background:var(--bg,#0d1117);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:9px 11px;font:inherit;font-size:13px}
+  .as-off{font-size:13px;color:var(--ink-faint);line-height:1.6}
+
+  .totp{font-family:ui-monospace,monospace;font-size:30px;letter-spacing:5px;
+        text-align:center;padding:14px;color:var(--ok)}
+  .totp-sub{text-align:center;color:var(--ink-faint);font-size:12px;padding-bottom:6px}
+  .spin{display:inline-block;width:11px;height:11px;border:2px solid var(--ink-faint);
+        border-top-color:transparent;border-radius:50%;animation:sp .7s linear infinite;
+        vertical-align:-1px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <h1>Nomo<span>login</span></h1>
+    <div class="totals" id="totals">loading…</div>
+    <div class="spacer"></div>
+    <label class="toggle" title="Warn before opening a second persona while one is already
+open. Two logged-in identities on screen at once is how wrong-account posts happen.">
+      <input type="checkbox" id="solo" checked> solo mode
+    </label>
+    <button id="btn-doctor">Doctor</button>
+    <button id="btn-sweep" title="Drop disk caches for personas idle over 7 days">Sweep</button>
+    <button id="btn-stopall" class="danger">Stop all</button>
+    <button id="btn-refresh" class="primary">Refresh</button>
+  </div>
+  <div class="hostip" id="hostip"></div>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<dialog id="dlg">
+  <div class="dlg-head"><span id="dlg-title">…</span><div class="spacer" style="flex:1"></div>
+    <button onclick="document.getElementById('dlg').close()">Close</button></div>
+  <div class="dlg-body" id="dlg-body"></div>
+  <div class="dlg-foot" id="dlg-foot" hidden></div>
+</dialog>
+
+<script>
+const TOKEN = '__NOMOLOGIN_TOKEN__';
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let STATE = null;
+const flashes = {};     // persona id -> {msg, kind, hint}
+const busy = new Set();
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, {
+    method: opts.method || 'GET',
+    headers: {'Content-Type': 'application/json', 'X-Nomologin-Token': TOKEN},
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  let data;
+  try { data = await res.json(); }
+  catch { data = {ok: false, error: `HTTP ${res.status}`}; }
+  return data;
+}
+
+function human(n) {
+  if (!n) return '0 B';
+  const u = ['B','KB','MB','GB','TB']; let i = 0;
+  while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+  return (i ? n.toFixed(1) : n.toFixed(0)) + ' ' + u[i];
+}
+
+function stateOf(p) {
+  if (p.problems.length) return ['broken', 'BROKEN'];
+  if (p.running)         return ['running', 'running'];
+  if (!p.logged_in_ever) return ['nologin', 'no login'];
+  if (p.stale)           return ['stale', 'stale'];
+  return ['ready', 'ready'];
+}
+
+function exitRow(p) {
+  const pr = p.last_probe;
+  if (!p.proxy_configured)
+    return ['t-direct', 'host IP', p.host_ip || '—',
+            'no proxy — this persona posts from this machine'];
+  if (!pr) return ['t-unknown', 'unmeasured', p.proxy || '—', 'probe to measure'];
+  const v = pr.verdict;
+  const tag = v === 'clean' ? 't-clean' : (v === 'direct' ? 't-direct' : 't-leak');
+  return [tag, v, pr.ip || p.proxy || '—', pr.detail || ''];
+}
+
+function render() {
+  if (!STATE) return;
+  const t = STATE.totals;
+  $('#totals').innerHTML =
+    `<b>${t.count}</b> personas · <b>${t.running}</b> running · <b>${t.proxied}</b> proxied` +
+    (t.broken ? ` · <b style="color:var(--bad)">${t.broken}</b> broken` : '') +
+    (t.stale ? ` · <b style="color:var(--warn)">${t.stale}</b> stale` : '') +
+    (t.never_logged_in ? ` · <b>${t.never_logged_in}</b> never logged in` : '') +
+    ` · ${human(t.disk)} profiles + ${human(t.cache)} cache`;
+  $('#hostip').innerHTML = `this machine egresses from <b>${esc(STATE.host_ip || 'unknown')}</b>
+    — any persona showing that address is not on its own IP · root <b>${esc(STATE.root)}</b>`;
+
+  const grid = $('#grid');
+  const addTile = `
+    <div class="card add" onclick="showAdd()" title="Add another brand or account">
+      <div class="plus">+</div>
+      <div class="lbl">Add account</div>
+      <div class="sub">its own profile, cookie jar and exit IP &mdash; nothing shared with
+        the accounts beside it</div>
+    </div>`;
+  if (!STATE.personas.length) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1">
+      No accounts yet. Press <b>+ Add account</b>, or write them straight into
+      <code>${esc(STATE.root)}/personas.json</code>.</div>` + addTile;
+    return;
+  }
+
+  grid.innerHTML = STATE.personas.map(p => {
+    const [cls, txt] = stateOf(p);
+    const [tag, verdict, ip, detail] = exitRow(p);
+    const age = p.cookie_age_days === null ? '—'
+      : (p.cookie_age_days < 1 ? 'today' : `${Math.round(p.cookie_age_days)} d ago`);
+    const ageCls = p.cookie_age_days === null ? '' : (p.stale ? 'warn' : 'ok');
+    const isBusy = busy.has(p.id);
+    const f = flashes[p.id];
+
+    const chips = p.targets.map(t => `
+      <div class="chip ${t.enabled ? '' : 'off'}"
+           onclick="launch('${p.id}', ['${t.platform}'])"
+           title="Open only ${esc(t.label)} for ${esc(p.label)}">
+        <span>${esc(t.label)}</span>
+        ${t.handle ? `<span class="h">${esc(t.handle)}</span>` : ''}
+        ${t.has_totp ? `<button class="key" title="2FA code"
+           onclick="event.stopPropagation();showTotp('${p.id}','${t.platform}','${esc(t.label)}')"
+           >&#9919;</button>` : ''}
+      </div>`).join('');
+
+    return `
+    <div class="card ${p.running ? 'running' : ''}" style="--pc:${esc(p.color)}">
+      <div class="stripe"></div>
+      <div class="card-top">
+        <div class="who">
+          <div class="label"><span class="dot"></span>${esc(p.label)}</div>
+          <div class="pid mono">${esc(p.id)}${p.chrome_pid ? ` · pid ${p.chrome_pid}` : ''}</div>
+          ${p.note ? `<div class="note">${esc(p.note)}</div>` : ''}
+        </div>
+        <span class="pill p-${cls}">${txt}</span>
+      </div>
+
+      ${p.problems.length ? `<div class="problems"><b>Cannot launch</b>
+        <ul>${p.problems.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : `
+      <div class="rows">
+        <div class="row"><span class="k">exit IP</span>
+          <span class="v mono ${verdict === 'clean' ? 'ok' : (verdict === 'unmeasured' ? '' : 'warn')}"
+                title="${esc(detail)}">${esc(ip)}</span>
+          <span class="tag ${tag}">${esc(verdict)}</span></div>
+        <div class="row"><span class="k">sessions</span>
+          <span class="v ${ageCls}">${p.logged_in_ever
+            ? `last used ${age}` : 'never logged in — open it and sign in by hand'}</span></div>
+        <div class="row"><span class="k">on disk</span>
+          <span class="v">${human(p.disk)} profile${p.cache ? ` · ${human(p.cache)} cache` : ''}
+          ${p.shim_port ? ` · shim :${p.shim_port}` : ''}</span></div>
+      </div>
+      <div class="chips">${chips}</div>`}
+
+      ${f ? `<div class="flash ${f.kind}">${esc(f.msg)}
+        ${f.hint ? `<span class="hint">${esc(f.hint)}</span>` : ''}</div>` : ''}
+
+      <div class="acts">
+        <button class="primary" ${p.problems.length || isBusy ? 'disabled' : ''}
+                onclick="launch('${p.id}')">
+          ${isBusy ? '<span class="spin"></span> working' : (p.running ? 'Focus / add tabs' : 'Open')}
+        </button>
+        <button ${p.running && !isBusy ? '' : 'disabled'} onclick="act('stop','${p.id}')">Stop</button>
+        <div class="spacer"></div>
+        <button ${p.proxy_configured && !isBusy ? '' : 'disabled'}
+                onclick="act('probe','${p.id}')" title="Measure this persona's egress IP">Probe</button>
+        <button ${p.profile_exists && !p.running && !isBusy ? '' : 'disabled'}
+                onclick="act('backup','${p.id}')"
+                title="Snapshot the cookie jar. Do this after every first login.">Backup</button>
+        <button class="assist" ${p.running && !isBusy ? '' : 'disabled'}
+                onclick="openAssistant('${p.id}')"
+                title="${p.running ? 'Ask the assistant to work this account'
+                                   : 'Open the persona first — the assistant drives its live browser'}"
+                >Assistant</button>
+      </div>
+    </div>`;
+  }).join('') + addTile;
+}
+
+async function refresh(force) {
+  const data = await api('/api/overview' + (force ? '?force' : ''));
+  if (data.ok) { STATE = data; render(); }
+}
+
+async function launch(id, only) {
+  const p = STATE?.personas.find(x => x.id === id);
+  if (!p) return;
+  if ($('#solo').checked && !p.running) {
+    const others = STATE.personas.filter(x => x.running && x.id !== id);
+    if (others.length && !confirm(
+        `${others.map(o => o.label).join(', ')} ${others.length > 1 ? 'are' : 'is'} already open.\n\n` +
+        `Solo mode is on: having two logged-in identities on screen at once is how posts ` +
+        `land in the wrong account.\n\nOpen ${p.label} as well?`)) return;
+  }
+  busy.add(id); delete flashes[id]; render();
+  const r = await api(`/api/launch/${id}`, {method: 'POST', body: {only: only || null}});
+  busy.delete(id);
+  if (r.ok) {
+    flashes[id] = {kind: 'good',
+      msg: r.stage === 'reopened' ? 'Tabs handed to the open window.'
+         : `Opened ${r.urls.length} tab${r.urls.length > 1 ? 's' : ''}` +
+           (r.egress ? ` · egress ${r.egress}` : '') + '.'};
+  } else {
+    // A guard refusal (a stale token after a board restart) carries no stage, and
+    // "Refused at the undefined step" told the operator nothing.
+    flashes[id] = {kind: 'bad', hint: r.hint,
+                   msg: r.stage ? `Refused at the ${r.stage} step — ${r.error}` : r.error};
+  }
+  await refresh(true);
+  setTimeout(() => { delete flashes[id]; render(); }, 12000);
+}
+
+async function act(verb, id) {
+  busy.add(id); delete flashes[id]; render();
+  const r = await api(`/api/${verb}/${id}`, {method: 'POST', body: {}});
+  busy.delete(id);
+  if (verb === 'probe') {
+    flashes[id] = {kind: r.verdict === 'clean' ? 'good' : 'bad', msg: r.detail || r.error || ''};
+  } else if (verb === 'backup') {
+    flashes[id] = r.ok ? {kind: 'good', msg: `Backed up — ${r.human} at ${r.archive}`}
+                       : {kind: 'bad', msg: r.error};
+  } else if (!r.ok) {
+    flashes[id] = {kind: 'bad', msg: r.error};
+  }
+  await refresh(true);
+  setTimeout(() => { delete flashes[id]; render(); }, 12000);
+}
+
+async function showTotp(id, platform, label) {
+  $('#dlg-title').textContent = `${label} — 2FA code`;
+  $('#dlg-foot').hidden = true;
+  $('#dlg-body').innerHTML = '<div class="totp">······</div>';
+  $('#dlg').showModal();
+  const tick = async () => {
+    if (!$('#dlg').open) return;
+    const r = await api(`/api/totp/${id}/${platform}`);
+    if (!r.ok) { $('#dlg-body').innerHTML = `<div class="chk"><span class="d">${esc(r.error)}</span></div>`; return; }
+    $('#dlg-body').innerHTML =
+      `<div class="totp">${esc(r.code.slice(0,3))} ${esc(r.code.slice(3))}</div>
+       <div class="totp-sub">expires in ${r.expires_in}s — click to copy</div>`;
+    $('#dlg-body .totp').style.cursor = 'pointer';
+    $('#dlg-body .totp').onclick = () => navigator.clipboard?.writeText(r.code);
+    setTimeout(tick, Math.max(1, r.expires_in) * 1000);
+  };
+  tick();
+}
+
+// ── add an account ────────────────────────────────────────────────────────────────────
+// The platform list and the timezone list both come from the server, so the form can only
+// offer what nomologin.py actually knows how to open. The id is derived from the name but
+// stays editable, and it is shown as permanent because it names the folder that will hold
+// this account's logins.
+function slug(t) {
+  return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-')
+          .replace(/^-|-$/g, '').slice(0, 32);
+}
+
+function showAdd() {
+  const plats = STATE?.platforms || [];
+  const zones = STATE?.zones || ['UTC'];
+  const note = STATE?.policy_note || {};
+  const groups = (STATE?.platform_groups || [])
+    .concat([...new Set(plats.map(p => p.group || 'Core'))])
+    .filter((g, i, a) => a.indexOf(g) === i);
+  const byGroup = {};
+  plats.forEach(p => (byGroup[p.group || 'Core'] ||= []).push(p));
+  const shown = groups.filter(g => (byGroup[g] || []).length);
+  $('#dlg-title').textContent = 'Add account';
+  $('#dlg-body').innerHTML = `
+    <div class="form">
+      <div class="fld"><label>Name</label>
+        <input id="f-label" placeholder="Zygomatic Ai" autocomplete="off"></div>
+      <div class="fld"><label>id</label>
+        <input id="f-id" class="mono" placeholder="zygomatic" autocomplete="off"></div>
+      <div class="sub-note">permanent — it names the profile folder holding this account's
+        logins, so renaming it later orphans every session</div>
+      <div class="fld"><label>Colour</label>
+        <input type="color" id="f-color" value="#8b5cf6">
+        <span class="sub" style="color:var(--ink-faint);font-size:11.5px">tints this
+          account's Chrome window, so you can see which identity you are in</span></div>
+      <div class="fld"><label>Note</label>
+        <input id="f-note" placeholder="what this brand is for" autocomplete="off"></div>
+      <div class="fld"><label>Timezone</label>
+        <select id="f-tz">${zones.map(z =>
+          `<option ${z === 'Europe/Amsterdam' ? 'selected' : ''}>${esc(z)}</option>`).join('')}
+        </select></div>
+      <div class="fld"><label>Proxy</label>
+        <input id="f-proxy" class="mono" placeholder="socks5://user:pass@host:port — leave empty to post from this machine" autocomplete="off"></div>
+
+      <div class="sec">Platforms <span class="pcount" id="p-count"></span></div>
+      <div class="picker">
+        <div class="pbar">
+          <input id="p-find" autocomplete="off"
+                 placeholder="filter ${plats.length} sites — name, language or region">
+          <button type="button" class="tinybtn" id="p-all">Select all</button>
+          <button type="button" class="tinybtn" id="p-none">Select none</button>
+        </div>
+        <div class="pgroups">${shown.map((g, i) => `
+          <div class="pg${i === 0 ? ' open' : ''}">
+            <div class="pgh">
+              <span class="tw">&#9654;</span>
+              <span class="gn">${esc(g)}</span>
+              <span class="gc" data-gc></span>
+              <button type="button" class="tinybtn" data-gall>all</button>
+              <button type="button" class="tinybtn" data-gnone>none</button>
+            </div>
+            <div class="pgb">${byGroup[g].map(pl => `
+              <div class="plat" data-k="${esc(pl.key)}"
+                   data-s="${esc(((pl.label || '') + ' ' + g + ' ' + (pl.home || '')).toLowerCase())}">
+                <input type="checkbox" id="c-${esc(pl.key)}">
+                <label class="pn" for="c-${esc(pl.key)}">${esc(pl.label)}</label>
+                <span class="pol pol-${esc(pl.policy || 'ok')}"
+                      title="${esc(note[pl.policy] || '')}">${esc(pl.policy || '')}</span>
+                <input type="text" id="h-${esc(pl.key)}" disabled
+                       placeholder="handle on ${esc(pl.label)} — shown on the card, optional">
+              </div>`).join('')}
+            </div>
+          </div>`).join('')}
+        </div>
+        <div class="pwarn" id="p-warn" hidden></div>
+      </div>
+    </div>`;
+  $('#dlg-foot').hidden = false;
+  $('#dlg-foot').innerHTML =
+    `<span class="msg" id="f-msg">Sign in by hand once per platform after it opens —
+      scripted logins are what trigger 2FA challenges.</span>
+     <button class="primary" id="f-create">Create</button>`;
+  $('#f-label').oninput = e => { $('#f-id').value = slug(e.target.value); };
+  $('#f-create').onclick = createPersona;
+  wirePicker();
+  $('#dlg').showModal();
+  $('#f-label').focus();
+}
+
+// The picker holds 252 sites, which is far too many for one flat list, so they are grouped
+// by language and collapsed, with select-all at both the group and the whole-list level and
+// a filter across name, language and domain. Two rules make the rest simple: every checkbox
+// stays in the DOM even when its group is collapsed or filtered away, so createPersona()
+// reads the true selection and never just what is on screen; and select-all respects an
+// active filter, acting on what is shown, which is why the buttons rename themselves when
+// you type.
+function pRows(root) {
+  return Array.from((root || document).querySelectorAll('.plat'));
+}
+
+function pSync() {
+  const rows = pRows(), on = rows.filter(r => r.querySelector('input[type=checkbox]').checked);
+  $('#p-count').textContent = `— ${on.length} of ${rows.length} selected`;
+  $$('.pg').forEach(g => {
+    const b = pRows(g), n = b.filter(r => r.querySelector('input[type=checkbox]').checked).length;
+    const gc = g.querySelector('[data-gc]');
+    gc.textContent = n ? `${n}/${b.length}` : `${b.length}`;
+    gc.classList.toggle('on', n > 0);
+  });
+  rows.forEach(r => {
+    const h = document.getElementById('h-' + r.dataset.k);
+    if (h) h.disabled = !r.querySelector('input[type=checkbox]').checked;
+  });
+  // Opening a persona hands every enabled target to one Chrome window, and launch() refuses
+  // past max_tabs. Say so here rather than letting Create succeed and Open fail later.
+  const max = STATE?.max_tabs || 20, w = $('#p-warn');
+  if (on.length > max) {
+    w.hidden = false;
+    w.textContent = `${on.length} selected — past the ${max}-tab ceiling, so Open will `
+      + `refuse to launch them all at once. Create it anyway if you want the full list on `
+      + `the card, then open sites one at a time from their chips.`;
+  } else { w.hidden = true; }
+}
+
+function pSetIn(root, on) {
+  pRows(root).filter(r => !r.hidden)
+             .forEach(r => { r.querySelector('input[type=checkbox]').checked = on; });
+  pSync();
+}
+
+function pFilter(q) {
+  q = q.trim().toLowerCase();
+  $$('.pg').forEach(g => {
+    let hit = 0;
+    pRows(g).forEach(r => {
+      const m = !q || r.dataset.s.includes(q);
+      r.hidden = !m;
+      if (m) hit++;
+    });
+    g.hidden = !hit;
+    if (q) g.classList.toggle('open', hit > 0);
+  });
+  const vis = pRows().filter(r => !r.hidden).length;
+  $('#p-all').textContent = q ? `Select ${vis} shown` : 'Select all';
+  $('#p-none').textContent = q ? `Clear ${vis} shown` : 'Select none';
+}
+
+function wirePicker() {
+  $('#p-all').onclick = () => pSetIn(document, true);
+  $('#p-none').onclick = () => pSetIn(document, false);
+  $('#p-find').oninput = e => pFilter(e.target.value);
+  $$('.pg').forEach(g => {
+    g.querySelector('.pgh').onclick = ev => {
+      if (ev.target.closest('button')) return;      // all/none must not also collapse
+      g.classList.toggle('open');
+    };
+    g.querySelector('[data-gall]').onclick = ev => {
+      ev.stopPropagation(); g.classList.add('open'); pSetIn(g, true);
+    };
+    g.querySelector('[data-gnone]').onclick = ev => { ev.stopPropagation(); pSetIn(g, false); };
+  });
+  $$('.plat input[type=checkbox]').forEach(c => { c.onchange = pSync; });
+  pSync();
+}
+
+async function createPersona() {
+  const targets = (STATE?.platforms || [])
+    .filter(pl => document.getElementById('c-' + pl.key)?.checked)
+    .map(pl => ({platform: pl.key,
+                 handle: (document.getElementById('h-' + pl.key)?.value || '').trim()}));
+  const msg = $('#f-msg'), btn = $('#f-create');
+  msg.className = 'msg'; msg.textContent = 'Creating…';
+  btn.disabled = true;
+  const r = await api('/api/persona', {method: 'POST', body: {
+    label: $('#f-label').value.trim(),
+    id: $('#f-id').value.trim(),
+    color: $('#f-color').value,
+    note: $('#f-note').value.trim(),
+    timezone: $('#f-tz').value,
+    proxy: $('#f-proxy').value.trim(),
+    targets,
+  }});
+  btn.disabled = false;
+  if (!r.ok) { msg.className = 'msg bad'; msg.textContent = r.error || `HTTP error`; return; }
+  $('#dlg').close();
+  await refresh(true);
+  flashes[r.id] = {kind: 'good', msg: r.note};
+  render();
+  setTimeout(() => { delete flashes[r.id]; render(); }, 12000);
+}
+
+async function doctor() {
+  $('#dlg-title').textContent = 'Doctor';
+  $('#dlg-foot').hidden = true;
+  $('#dlg-body').innerHTML = '<div class="chk"><span class="d">running checks…</span></div>';
+  $('#dlg').showModal();
+  const d = await api('/api/doctor');
+  $('#dlg-body').innerHTML = (d.checks || []).map(c => `
+    <div class="chk"><span class="m" style="color:${c.ok ? 'var(--ok)' : 'var(--bad)'}">
+      ${c.ok ? '&#10003;' : '&#10007;'}</span>
+      <span class="n">${esc(c.check)}</span>
+      <span class="d mono">${esc(c.detail)}</span></div>`).join('');
+}
+
+$('#btn-refresh').onclick = () => refresh(true);
+$('#btn-doctor').onclick = doctor;
+$('#btn-sweep').onclick = async () => {
+  const r = await api('/api/sweep', {method: 'POST', body: {}});
+  alert(r.ok ? `Freed ${r.human} from ${r.personas.length} idle persona(s).` : r.error);
+  refresh(true);
+};
+$('#btn-stopall').onclick = async () => {
+  const open = STATE?.personas.filter(p => p.running) || [];
+  if (!open.length) return alert('Nothing is open.');
+  if (!confirm(`Close ${open.map(p => p.label).join(', ')}?\n\n` +
+               `They will be asked to exit cleanly so each cookie jar is flushed.`)) return;
+  await api('/api/stop-all', {method: 'POST', body: {}});
+  refresh(true);
+};
+
+// #add opens the form straight away, so the hub could one day link to it directly.
+refresh(true).then(() => { if (location.hash === '#add') showAdd(); });
+setInterval(() => { if (!busy.size && !$('#dlg').open) refresh(false); }, 5000);
+/* ── assistant ──────────────────────────────────────────────────────────────────────
+   One transcript per persona, kept in the page. The CLI session id rides along with it so
+   a follow-up turn resumes rather than re-sending the whole context: a fresh spawn writes
+   ~75k cache tokens, a resumed turn a couple of thousand. */
+const ASSIST = {};                   // persona -> {session, msgs:[{role,text}], jid}
+let ASSIST_PID = null;
+let ASSIST_TIMER = null;
+
+function assistState(pid) {
+  if (!ASSIST[pid]) ASSIST[pid] = {session: null, msgs: [], jid: null};
+  return ASSIST[pid];
+}
+
+async function openAssistant(pid) {
+  const p = STATE?.personas.find(x => x.id === pid);
+  if (!p) return;
+  ASSIST_PID = pid;
+  $('#dlg-title').textContent = `${p.label} — assistant`;
+  $('#dlg-foot').hidden = true;
+  $('#dlg-body').innerHTML = '<div class="as-off">checking…</div>';
+  $('#dlg').showModal();
+
+  const info = await api('/api/assistant/info');
+  if (!info.ok || !info.enabled) {
+    $('#dlg-body').innerHTML =
+      `<div class="as-off"><b>The assistant is not available.</b><br>${esc(info.error || '')}</div>`;
+    return;
+  }
+  if (!info.browser?.ok) {
+    $('#dlg-body').innerHTML =
+      `<div class="as-off"><b>Browser control is not ready.</b><br>` +
+      `${esc(info.browser?.hint || 'node or puppeteer-core is missing')}</div>`;
+    return;
+  }
+  renderAssist();
+
+  // Whether this persona's live browser can actually be driven. A persona opened before
+  // browser control existed has no debug port and must be reopened — saying so here beats
+  // letting the first tool call fail.
+  const st = await api(`/api/browser/${pid}/status`);
+  if (!st.drivable && ASSIST_PID === pid) {
+    const el = $('#as-warn');
+    if (el) el.innerHTML = `<span class="as-note">⚠ ${esc(st.why || 'not drivable')}</span>`;
+  }
+}
+
+function renderAssist() {
+  const pid = ASSIST_PID;
+  if (!pid) return;
+  const s = assistState(pid);
+  const body = s.msgs.map(m =>
+    `<div class="as-msg ${m.role}">${esc(m.text)}</div>` +
+    (m.steps?.length ? `<div class="as-steps">${m.steps.map(t =>
+        `<div>${esc(t)}</div>`).join('')}</div>` : '')).join('');
+  $('#dlg-body').innerHTML = `
+    <div class="as-wrap">
+      <div id="as-warn"></div>
+      <div class="as-scroll" id="as-scroll">${body ||
+        '<div class="as-off">Ask it to work this account — read the notifications, pull this week\'s numbers, post something you give it.<br><br>' +
+        'It drives the browser you already signed into. It will not sign in, register, or answer a verification challenge; it stops and tells you instead.</div>'}</div>
+      <div class="as-compose">
+        <textarea id="as-text" placeholder="e.g. open the analytics page and tell me views and new followers for the last 7 days"
+                  onkeydown="if(event.key==='Enter'&&(event.metaKey||event.ctrlKey))assistAsk()"></textarea>
+        <button class="primary" id="as-send" onclick="assistAsk()">Ask</button>
+      </div>
+      <div class="as-note">⌘/Ctrl + Enter to send${s.session ? ' · conversation continues' : ''}</div>
+    </div>`;
+  const sc = $('#as-scroll');
+  if (sc) sc.scrollTop = sc.scrollHeight;
+}
+
+async function assistAsk() {
+  const pid = ASSIST_PID;
+  const box = $('#as-text');
+  if (!pid || !box) return;
+  const text = box.value.trim();
+  if (!text) return;
+  const s = assistState(pid);
+  s.msgs.push({role: 'you', text});
+  s.msgs.push({role: 'bot', text: 'working…', steps: []});
+  renderAssist();
+
+  const r = await api('/api/assistant/ask',
+    {method: 'POST', body: {persona: pid, text, session: s.session}});
+  if (!r.ok || !r.id) {
+    s.msgs[s.msgs.length - 1] = {role: 'err', text: r.error || 'the assistant refused'};
+    renderAssist();
+    return;
+  }
+  s.jid = r.id;
+  assistPoll(pid, r.id);
+}
+
+function assistPoll(pid, jid) {
+  clearTimeout(ASSIST_TIMER);
+  ASSIST_TIMER = setTimeout(async () => {
+    const v = await api(`/api/assistant/job/${jid}`);
+    const s = assistState(pid);
+    const last = s.msgs[s.msgs.length - 1];
+    if (!v.ok || !last) return;
+    if (v.session) s.session = v.session;
+
+    // Tool calls as they happen. Watching it work is how you catch it heading somewhere
+    // you did not intend while there is still time to stop it.
+    last.steps = (v.tools || []).slice(-14).map(t => {
+      const a = t.input || {};
+      const bits = [a.url, a.expect, a.selector, a.text, a.key,
+                    a.index !== undefined ? `#${a.index}` : null]
+                   .filter(Boolean).join(' ').slice(0, 74);
+      return `${t.name}${bits ? ' · ' + bits : ''}`;
+    });
+
+    if (v.status === 'running') {
+      last.text = `working… ${v.steps} step${v.steps === 1 ? '' : 's'}, ${Math.round(v.seconds)}s`;
+      renderAssist();
+      assistPoll(pid, jid);
+      return;
+    }
+    if (v.status === 'done') {
+      last.role = 'bot';
+      last.text = v.reply || '(finished without saying anything)';
+    } else {
+      last.role = 'err';
+      last.text = v.error || `stopped: ${v.status}`;
+    }
+    renderAssist();
+    refresh(true);
+  }, 1500);
+}
+</script>
+</body>
+</html>

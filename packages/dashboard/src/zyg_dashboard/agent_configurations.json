@@ -1,0 +1,5623 @@
+{
+  "agents": {
+    "Localization-Master-Agent": {
+      "name": "Localization-Master-Agent",
+      "role": "Localization Master - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "759179",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Multi success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Multi work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Coordinate translation across all 8 languages"
+    },
+    "Cultural-Adaptation-Master-Agent": {
+      "name": "Cultural-Adaptation-Master-Agent",
+      "role": "Cultural Adaptation Master - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "1060",
+      "tier": 1,
+      "department": "CEO-Agent",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Multi success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Multi work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Adapt cultural references for each market"
+    },
+    "Voice-Localization-Master-Agent": {
+      "name": "Voice-Localization-Master-Agent",
+      "role": "Voice Localization Master - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "7312",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Multi success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Multi work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Coordinate voice synthesis across all languages"
+    },
+    "English-Localization-Agent": {
+      "name": "English-Localization-Agent",
+      "role": "English Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "4988",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to English content optimization success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in English content optimization work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Optimize English content for global appeal"
+    },
+    "Mandarin-Localization-Agent": {
+      "name": "Mandarin-Localization-Agent",
+      "role": "Mandarin Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "539",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Mandarin Chinese content adaptation success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Mandarin Chinese content adaptation work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Translate and adapt content for Chinese market"
+    },
+    "Hindi-Localization-Agent": {
+      "name": "Hindi-Localization-Agent",
+      "role": "Hindi Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "50229",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Hindi content adaptation success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Hindi content adaptation work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Translate and adapt content for Indian market"
+    },
+    "Spanish-Localization-Agent": {
+      "name": "Spanish-Localization-Agent",
+      "role": "Spanish Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "379905",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Spanish content adaptation success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Spanish content adaptation work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Translate and adapt content for Spanish-speaking markets"
+    },
+    "French-Localization-Agent": {
+      "name": "French-Localization-Agent",
+      "role": "French Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "3088",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to French content adaptation success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in French content adaptation work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Translate and adapt content for French-speaking markets"
+    },
+    "Arabic-Localization-Agent": {
+      "name": "Arabic-Localization-Agent",
+      "role": "Arabic Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "5851",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Arabic content adaptation success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Arabic content adaptation work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Translate and adapt content for Arabic-speaking markets"
+    },
+    "Bengali-Localization-Agent": {
+      "name": "Bengali-Localization-Agent",
+      "role": "Bengali Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "6314",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Bengali content adaptation success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Bengali content adaptation work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Translate and adapt content for Bengali-speaking markets"
+    },
+    "Portuguese-Localization-Agent": {
+      "name": "Portuguese-Localization-Agent",
+      "role": "Portuguese Localization - Specialized task execution and collaboration",
+      "tasks": [
+        "Translate content between languages",
+        "Ensure cultural accuracy and sensitivity",
+        "Maintain brand voice across languages",
+        "Review and approve translations"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "440507",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Cultural Adaptation",
+        "Translation",
+        "Collaboration",
+        "Language Expertise"
+      ],
+      "performance_metrics": [
+        "Translation accuracy rate",
+        "Cultural adaptation quality",
+        "Turnaround time for translations",
+        "Client satisfaction scores"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Portuguese content adaptation success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Portuguese content adaptation work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Translate and adapt content for Portuguese-speaking markets"
+    },
+    "English-Voice-Agent": {
+      "name": "English-Voice-Agent",
+      "role": "English Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "997",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in English voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in English voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate English voice synthesis"
+    },
+    "Mandarin-Voice-Agent": {
+      "name": "Mandarin-Voice-Agent",
+      "role": "Mandarin Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "7474",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Mandarin voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Mandarin voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate Mandarin voice synthesis"
+    },
+    "Hindi-Voice-Agent": {
+      "name": "Hindi-Voice-Agent",
+      "role": "Hindi Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "38159",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Hindi voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Hindi voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate Hindi voice synthesis"
+    },
+    "Spanish-Voice-Agent": {
+      "name": "Spanish-Voice-Agent",
+      "role": "Spanish Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "633",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Spanish voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Spanish voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate Spanish voice synthesis"
+    },
+    "French-Voice-Agent": {
+      "name": "French-Voice-Agent",
+      "role": "French Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "86585",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in French voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in French voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate French voice synthesis"
+    },
+    "Arabic-Voice-Agent": {
+      "name": "Arabic-Voice-Agent",
+      "role": "Arabic Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "600477",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Arabic voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Arabic voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate Arabic voice synthesis"
+    },
+    "Bengali-Voice-Agent": {
+      "name": "Bengali-Voice-Agent",
+      "role": "Bengali Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "20155",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Bengali voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Bengali voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate Bengali voice synthesis"
+    },
+    "Portuguese-Voice-Agent": {
+      "name": "Portuguese-Voice-Agent",
+      "role": "Portuguese Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "92793",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Portuguese voice synthesis specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Portuguese voice synthesis specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate Portuguese voice synthesis"
+    },
+    "English-Marketing-Agent": {
+      "name": "English-Marketing-Agent",
+      "role": "English Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "88847",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in English market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in English market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for English-speaking markets"
+    },
+    "Mandarin-Marketing-Agent": {
+      "name": "Mandarin-Marketing-Agent",
+      "role": "Mandarin Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "6642",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Mandarin market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Mandarin market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for Chinese markets"
+    },
+    "Hindi-Marketing-Agent": {
+      "name": "Hindi-Marketing-Agent",
+      "role": "Hindi Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "3675",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Hindi market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Hindi market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for Indian markets"
+    },
+    "Spanish-Marketing-Agent": {
+      "name": "Spanish-Marketing-Agent",
+      "role": "Spanish Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "163982",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Spanish market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Spanish market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for Spanish-speaking markets"
+    },
+    "French-Marketing-Agent": {
+      "name": "French-Marketing-Agent",
+      "role": "French Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "698",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in French market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in French market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for French-speaking markets"
+    },
+    "Arabic-Marketing-Agent": {
+      "name": "Arabic-Marketing-Agent",
+      "role": "Arabic Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "705",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Arabic market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Arabic market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for Arabic-speaking markets"
+    },
+    "Bengali-Marketing-Agent": {
+      "name": "Bengali-Marketing-Agent",
+      "role": "Bengali Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "84386",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Bengali market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Bengali market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for Bengali-speaking markets"
+    },
+    "Portuguese-Marketing-Agent": {
+      "name": "Portuguese-Marketing-Agent",
+      "role": "Portuguese Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "6280",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Portuguese market marketing specialist to support team goals and maintain high quality standards",
+      "backstory": "An expert in Portuguese market marketing specialist with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop marketing strategy for Portuguese-speaking markets"
+    },
+    "Multi-Language-QC-Agent": {
+      "name": "Multi-Language-QC-Agent",
+      "role": "Multi Language Qc - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033",
+        "1020"
+      ],
+      "id": "72695",
+      "tier": 2,
+      "department": "CEO-Agent",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Multi to support team goals and maintain high quality standards",
+      "backstory": "An expert in Multi with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Perform quality control across all 8 languages"
+    },
+    "Affiliate-Marketing-Overseer": {
+      "name": "Affiliate-Marketing-Overseer",
+      "role": "Affiliate Marketing Overseer - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033",
+        "1021"
+      ],
+      "id": "15981",
+      "tier": 4,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Oversee and coordinate Affiliate Marketing Director  operations to ensure optimal performance and strategic alignment",
+      "backstory": "An experienced leader with deep expertise in Affiliate Marketing Director  management, known for strategic thinking and team development",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop and oversee affiliate marketing strategy across all channels"
+    },
+    "Affiliate-Marketing-Agent": {
+      "name": "Affiliate-Marketing-Agent",
+      "role": "Affiliate Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "3357",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Affiliate Marketing Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Affiliate Marketing Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Manage affiliate partnerships and optimize conversion rates"
+    },
+    "Campaign-Builder-Agent": {
+      "name": "Campaign-Builder-Agent",
+      "role": "Campaign Builder - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "4583",
+      "tier": 1,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Campaign Builder  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Campaign Builder  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and optimize marketing campaigns"
+    },
+    "SEO-Agent": {
+      "name": "SEO-Agent",
+      "role": "Seo - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "513204",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in SEO Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in SEO Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Optimize content for search engines"
+    },
+    "Conversion-Optimizer-Agent": {
+      "name": "Conversion-Optimizer-Agent",
+      "role": "Conversion Optimizer - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "144",
+      "tier": 1,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Conversion Optimizer  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Conversion Optimizer  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Analyze conversion funnels"
+    },
+    "Content-Writer-Agent": {
+      "name": "Content-Writer-Agent",
+      "role": "Content Writer - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "5987",
+      "tier": 1,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Content Writer  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Content Writer  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Write marketing copy for campaigns"
+    },
+    "Email-Marketing-Agent": {
+      "name": "Email-Marketing-Agent",
+      "role": "Email Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "8342",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Email Marketing Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Email Marketing Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Plan and execute email marketing campaigns"
+    },
+    "PPC-Agent": {
+      "name": "PPC-Agent",
+      "role": "Ppc - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "758",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in PPC Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in PPC Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Plan and manage PPC campaigns"
+    },
+    "Social-Media-Marketing-Agent": {
+      "name": "Social-Media-Marketing-Agent",
+      "role": "Social Media Marketing - Specialized task execution and collaboration",
+      "tasks": [
+        "Develop marketing strategies",
+        "Create and optimize campaigns",
+        "Analyze market trends and performance",
+        "Coordinate with content and analytics teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "1690",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Market Analysis",
+        "Collaboration",
+        "Marketing Strategy",
+        "Campaign Management"
+      ],
+      "performance_metrics": [
+        "Campaign performance metrics",
+        "ROI and conversion rates",
+        "Market reach and engagement",
+        "Strategy effectiveness"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Social Media Marketing Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Social Media Marketing Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop and execute social media strategies"
+    },
+    "Analytics-Reporting-Agent": {
+      "name": "Analytics-Reporting-Agent",
+      "role": "Analytics Reporting - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1023",
+        "1033"
+      ],
+      "id": "8074",
+      "tier": 1,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Analytics Reporter  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Analytics Reporter  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Collect and analyze marketing data"
+    },
+    "Audience-Targeting-Agent": {
+      "name": "Audience-Targeting-Agent",
+      "role": "Audience Targeting - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "5994",
+      "tier": 2,
+      "department": "CEO-Agent",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Audience Targeting Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Audience Targeting Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Analyze audience data and segments"
+    },
+    "Revenue-Optimization-Agent": {
+      "name": "Revenue-Optimization-Agent",
+      "role": "Revenue Optimization - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "722956",
+      "tier": 1,
+      "department": "CEO-Agent",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Revenue Optimizer  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Revenue Optimizer  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Analyze revenue streams and performance"
+    },
+    "YouTube-Content-Overseer": {
+      "name": "YouTube-Content-Overseer",
+      "role": "Youtube Content Overseer - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033",
+        "1021"
+      ],
+      "id": "3259",
+      "tier": 4,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Oversee and coordinate YouTube Content Director  operations to ensure optimal performance and strategic alignment",
+      "backstory": "An experienced leader with deep expertise in YouTube Content Director  management, known for strategic thinking and team development",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Develop and oversee YouTube channel strategy"
+    },
+    "YouTube-Script-Agent": {
+      "name": "YouTube-Script-Agent",
+      "role": "Youtube Script - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "755022",
+      "tier": 1,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to YouTube Script Writer  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in YouTube Script Writer  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Write engaging scripts for YouTube videos"
+    },
+    "YouTube-Thumbnail-Agent": {
+      "name": "YouTube-Thumbnail-Agent",
+      "role": "Youtube Thumbnail - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "528381",
+      "tier": 1,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to YouTube Thumbnail Designer  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in YouTube Thumbnail Designer  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Design eye-catching thumbnails for videos"
+    },
+    "YouTube-Video-Editor-Agent": {
+      "name": "YouTube-Video-Editor-Agent",
+      "role": "Youtube Video Editor - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "175",
+      "tier": 1,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to YouTube Video Editor  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in YouTube Video Editor  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Edit and assemble video footage"
+    },
+    "YouTube-Audio-Agent": {
+      "name": "YouTube-Audio-Agent",
+      "role": "Youtube Audio - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "2618",
+      "tier": 2,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in YouTube Audio Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in YouTube Audio Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Enhance and mix audio for videos"
+    },
+    "YouTube-SEO-Agent": {
+      "name": "YouTube-SEO-Agent",
+      "role": "Youtube Seo - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "80885",
+      "tier": 2,
+      "department": "Affiliate-Marketing-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in YouTube SEO Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in YouTube SEO Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Optimize video titles, descriptions, and tags"
+    },
+    "YouTube-Analytics-Agent": {
+      "name": "YouTube-Analytics-Agent",
+      "role": "Youtube Analytics - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1023",
+        "1033"
+      ],
+      "id": "626",
+      "tier": 2,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in YouTube Analytics Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in YouTube Analytics Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Collect and analyze YouTube channel data"
+    },
+    "YouTube-Community-Agent": {
+      "name": "YouTube-Community-Agent",
+      "role": "Youtube Community - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "628347",
+      "tier": 3,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Manage YouTube Community Manager  resources and processes to maximize efficiency and team productivity",
+      "backstory": "A results-driven manager with strong leadership in YouTube Community Manager  operations, known for efficiency and team building",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Engage with viewers and respond to comments"
+    },
+    "YouTube-Scheduling-Agent": {
+      "name": "YouTube-Scheduling-Agent",
+      "role": "Youtube Scheduling - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "99157",
+      "tier": 1,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to YouTube Scheduler  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in YouTube Scheduler  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Plan and schedule video releases"
+    },
+    "YouTube-Trend-Analyst-Agent": {
+      "name": "YouTube-Trend-Analyst-Agent",
+      "role": "Youtube Trend Analyst - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and optimize YouTube content",
+        "Manage channel growth and engagement",
+        "Analyze performance metrics",
+        "Coordinate with production teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "8957",
+      "tier": 1,
+      "department": "Content-Production-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Channel Management",
+        "Collaboration",
+        "Content Creation",
+        "Analytics"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to YouTube Trend Analyst  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in YouTube Trend Analyst  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Analyze YouTube trends and audience interests"
+    },
+    "3D-Series-Overseer": {
+      "name": "3D-Series-Overseer",
+      "role": "3D Series Overseer - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "60718",
+      "tier": 4,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Oversee and coordinate 3D Series Overseer  operations to ensure optimal performance and strategic alignment",
+      "backstory": "An experienced leader with deep expertise in 3D Series Overseer  management, known for strategic thinking and team development",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Series-Agent": {
+      "name": "3D-Series-Agent",
+      "role": "3D Series - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "23496",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Series  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Series  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Modeling-Agent": {
+      "name": "3D-Modeling-Agent",
+      "role": "3D Modeling - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1013",
+        "1033",
+        "1002",
+        "1001"
+      ],
+      "id": "671",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Modeling  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Modeling  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Rendering-Agent": {
+      "name": "3D-Rendering-Agent",
+      "role": "3D Rendering - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1013",
+        "1033",
+        "1002",
+        "1001"
+      ],
+      "id": "53156",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Rendering  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Rendering  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Animation-Agent": {
+      "name": "3D-Animation-Agent",
+      "role": "3D Animation - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1003",
+        "1013",
+        "1033",
+        "1002",
+        "1001",
+        "1004"
+      ],
+      "id": "18228",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Animation quality scores",
+        "Production efficiency",
+        "Client feedback ratings",
+        "Project completion rates"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Animation  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Animation  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Environment-Agent": {
+      "name": "3D-Environment-Agent",
+      "role": "3D Environment - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "18520",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Environment  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Environment  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Effects-Agent": {
+      "name": "3D-Effects-Agent",
+      "role": "3D Effects - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "2653",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Effects  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Effects  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Rigging-Agent": {
+      "name": "3D-Rigging-Agent",
+      "role": "3D Rigging - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "817987",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Rigging  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Rigging  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Texturing-Agent": {
+      "name": "3D-Texturing-Agent",
+      "role": "3D Texturing - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1013",
+        "1033",
+        "1002",
+        "1001"
+      ],
+      "id": "145",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Texturing  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Texturing  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Lighting-Agent": {
+      "name": "3D-Lighting-Agent",
+      "role": "3D Lighting - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "894294",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Lighting  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Lighting  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Compositor-Agent": {
+      "name": "3D-Compositor-Agent",
+      "role": "3D Compositor - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "177",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Compositor  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Compositor  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Storyboard-Agent": {
+      "name": "3D-Storyboard-Agent",
+      "role": "3D Storyboard - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "4575",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Storyboard  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Storyboard  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Script-Agent": {
+      "name": "3D-Script-Agent",
+      "role": "3D Script - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "994",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Script  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Script  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Character-Designer-Agent": {
+      "name": "3D-Character-Designer-Agent",
+      "role": "3D Character Designer - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1013",
+        "1033",
+        "1002",
+        "1001"
+      ],
+      "id": "71643",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Character Designer  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Character Designer  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Voice-Agent": {
+      "name": "3D-Voice-Agent",
+      "role": "3D Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "387",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in 3D Series Voice Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in 3D Series Voice Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate voice synthesis for 3D series characters"
+    },
+    "3D-Music-Agent": {
+      "name": "3D-Music-Agent",
+      "role": "3D Music - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "88390",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Music  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Music  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Quality-Control-Agent": {
+      "name": "3D-Quality-Control-Agent",
+      "role": "3D Quality Control - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033",
+        "1020"
+      ],
+      "id": "7187",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Quality Control  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Quality Control  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Scheduling-Agent": {
+      "name": "3D-Scheduling-Agent",
+      "role": "3D Scheduling - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "52539",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 3D Scheduling  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 3D Scheduling  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Asset-Manager-Agent": {
+      "name": "3D-Asset-Manager-Agent",
+      "role": "3D Asset Manager - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "44980",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Manage 3D Asset Manager  resources and processes to maximize efficiency and team productivity",
+      "backstory": "A results-driven manager with strong leadership in 3D Asset Manager  operations, known for efficiency and team building",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "3D-Render-Farm-Manager-Agent": {
+      "name": "3D-Render-Farm-Manager-Agent",
+      "role": "3D Render Farm Manager - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "578",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Manage 3D Render Farm Manager  resources and processes to maximize efficiency and team productivity",
+      "backstory": "A results-driven manager with strong leadership in 3D Render Farm Manager  operations, known for efficiency and team building",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-Overseer": {
+      "name": "2D-Series-Overseer",
+      "role": "2D Series Overseer - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "64064",
+      "tier": 4,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Oversee and coordinate 2D Series Overseer  operations to ensure optimal performance and strategic alignment",
+      "backstory": "An experienced leader with deep expertise in 2D Series Overseer  management, known for strategic thinking and team development",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-Agent": {
+      "name": "2D-Series-Agent",
+      "role": "2D Series - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "248496",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Character-Designer-Agent": {
+      "name": "2D-Character-Designer-Agent",
+      "role": "2D Character Designer - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1013",
+        "1033",
+        "1002",
+        "1001"
+      ],
+      "id": "6046",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Character Designer  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Character Designer  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Background-Artist-Agent": {
+      "name": "2D-Background-Artist-Agent",
+      "role": "2D Background Artist - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1013",
+        "1033",
+        "1002",
+        "1001"
+      ],
+      "id": "1836",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Background Artist  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Background Artist  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Animation-Agent": {
+      "name": "2D-Animation-Agent",
+      "role": "2D Animation - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1005",
+        "1018",
+        "1003",
+        "1013",
+        "1033",
+        "1002",
+        "1001",
+        "1004"
+      ],
+      "id": "923",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Animation quality scores",
+        "Production efficiency",
+        "Client feedback ratings",
+        "Project completion rates"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Animation  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Animation  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Storyboard-Agent": {
+      "name": "2D-Storyboard-Agent",
+      "role": "2D Storyboard - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "50628",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Storyboard  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Storyboard  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Script-Agent": {
+      "name": "2D-Script-Agent",
+      "role": "2D Script - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "916516",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Script  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Script  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Voice-Agent": {
+      "name": "2D-Voice-Agent",
+      "role": "2D Voice - Specialized task execution and collaboration",
+      "tasks": [
+        "Generate voice content in target language",
+        "Ensure pronunciation accuracy",
+        "Maintain consistent voice characteristics",
+        "Sync voice with visual content"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "535",
+      "tier": 2,
+      "department": "Animation-Media-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Voice Generation",
+        "Audio Processing",
+        "Collaboration",
+        "Language Pronunciation"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in 2D Series Voice Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in 2D Series Voice Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Generate voice synthesis for 2D series characters"
+    },
+    "2D-Music-Agent": {
+      "name": "2D-Music-Agent",
+      "role": "2D Music - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "726",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Music  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Music  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Sound-Effects-Agent": {
+      "name": "2D-Sound-Effects-Agent",
+      "role": "2D Sound Effects - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1008",
+        "1007",
+        "1033"
+      ],
+      "id": "155881",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Sound Effects  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Sound Effects  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Colorist-Agent": {
+      "name": "2D-Colorist-Agent",
+      "role": "2D Colorist - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "454588",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Colorist  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Colorist  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Compositor-Agent": {
+      "name": "2D-Compositor-Agent",
+      "role": "2D Compositor - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "359",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Compositor  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Compositor  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Quality-Control-Agent": {
+      "name": "2D-Quality-Control-Agent",
+      "role": "2D Quality Control - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033",
+        "1020"
+      ],
+      "id": "269",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Quality Control  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Quality Control  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Scheduling-Agent": {
+      "name": "2D-Scheduling-Agent",
+      "role": "2D Scheduling - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "865619",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Scheduling  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Scheduling  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Asset-Manager-Agent": {
+      "name": "2D-Asset-Manager-Agent",
+      "role": "2D Asset Manager - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "265729",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Manage 2D Asset Manager  resources and processes to maximize efficiency and team productivity",
+      "backstory": "A results-driven manager with strong leadership in 2D Asset Manager  operations, known for efficiency and team building",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-1-Agent": {
+      "name": "2D-Series-1-Agent",
+      "role": "2D Series 1 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "845",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 1  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 1  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-2-Agent": {
+      "name": "2D-Series-2-Agent",
+      "role": "2D Series 2 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "51848",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 2  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 2  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-3-Agent": {
+      "name": "2D-Series-3-Agent",
+      "role": "2D Series 3 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "20528",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 3  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 3  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-4-Agent": {
+      "name": "2D-Series-4-Agent",
+      "role": "2D Series 4 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "5904",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 4  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 4  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-5-Agent": {
+      "name": "2D-Series-5-Agent",
+      "role": "2D Series 5 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "15978",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 5  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 5  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-6-Agent": {
+      "name": "2D-Series-6-Agent",
+      "role": "2D Series 6 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "996",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 6  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 6  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-7-Agent": {
+      "name": "2D-Series-7-Agent",
+      "role": "2D Series 7 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "9900",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 7  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 7  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-8-Agent": {
+      "name": "2D-Series-8-Agent",
+      "role": "2D Series 8 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "832359",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 8  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 8  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-9-Agent": {
+      "name": "2D-Series-9-Agent",
+      "role": "2D Series 9 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "84621",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 9  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 9  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "2D-Series-10-Agent": {
+      "name": "2D-Series-10-Agent",
+      "role": "2D Series 10 - Specialized task execution and collaboration",
+      "tasks": [
+        "Create and animate visual content",
+        "Design characters and environments",
+        "Ensure quality and consistency",
+        "Collaborate with script and voice teams"
+      ],
+      "ai_models": [
+        "1018",
+        "1003",
+        "1033",
+        "1004"
+      ],
+      "id": "58179",
+      "tier": 5,
+      "department": "Animation",
+      "capabilities": [
+        "Task Execution",
+        "Animation",
+        "Collaboration",
+        "Design",
+        "Creative Production"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to 2D Series 10  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in 2D Series 10  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Create and animate visual content"
+    },
+    "Business-Support-Overseer": {
+      "name": "Business-Support-Overseer",
+      "role": "Business Support Overseer - Specialized task execution and collaboration",
+      "tasks": [
+        "Provide customer and business support",
+        "Handle inquiries and issues",
+        "Maintain compliance and quality standards",
+        "Document and track support cases"
+      ],
+      "ai_models": [
+        "1018",
+        "1033",
+        "1021"
+      ],
+      "id": "57622",
+      "tier": 4,
+      "department": "Business-Support-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Customer Support",
+        "Collaboration",
+        "Documentation",
+        "Problem Solving"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Lead and coordinate team efforts",
+        "Review and approve team deliverables",
+        "Provide guidance and feedback",
+        "Report to executive management"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Oversee and coordinate Business Support Director  operations to ensure optimal performance and strategic alignment",
+      "backstory": "An experienced leader with deep expertise in Business Support Director  management, known for strategic thinking and team development",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Oversee all business support operations"
+    },
+    "Financial-Agent": {
+      "name": "Financial-Agent",
+      "role": "Financial - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1023",
+        "1033"
+      ],
+      "id": "630",
+      "tier": 2,
+      "department": "Business-Support-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Financial Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Financial Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Manage financial operations and accounting"
+    },
+    "Legal-Agent": {
+      "name": "Legal-Agent",
+      "role": "Legal - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "983",
+      "tier": 2,
+      "department": "Business-Support-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Legal Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Legal Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Handle legal matters and compliance"
+    },
+    "Customer-Support-Agent": {
+      "name": "Customer-Support-Agent",
+      "role": "Customer Support - Specialized task execution and collaboration",
+      "tasks": [
+        "Provide customer and business support",
+        "Handle inquiries and issues",
+        "Maintain compliance and quality standards",
+        "Document and track support cases"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "31894",
+      "tier": 2,
+      "department": "Business-Support-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Customer Support",
+        "Collaboration",
+        "Documentation",
+        "Problem Solving"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Customer Support Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Customer Support Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Provide customer support and assistance"
+    },
+    "Compliance-Checker-Agent": {
+      "name": "Compliance-Checker-Agent",
+      "role": "Compliance Checker - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "217623",
+      "tier": 1,
+      "department": "Business-Support-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Compliance Checker  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Compliance Checker  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Monitor compliance with regulations and policies"
+    },
+    "Case-Tracker-Agent": {
+      "name": "Case-Tracker-Agent",
+      "role": "Case Tracker - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "634",
+      "tier": 1,
+      "department": "Business-Support-Overseer",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Case Tracker  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Case Tracker  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Track and manage business cases and issues"
+    },
+    "Document-Filing-Agent": {
+      "name": "Document-Filing-Agent",
+      "role": "Document Filing - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "64990",
+      "tier": 2,
+      "department": "CEO-Agent",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Provide specialized expertise in Document Filing Specialist  to support team goals and maintain high quality standards",
+      "backstory": "An expert in Document Filing Specialist  with specialized knowledge and attention to detail, trusted for technical excellence",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Manage document filing and organization"
+    },
+    "Error-Detector-Agent": {
+      "name": "Error-Detector-Agent",
+      "role": "Error Detector - Specialized task execution and collaboration",
+      "tasks": [
+        "Execute assigned tasks efficiently",
+        "Collaborate with team members",
+        "Maintain quality standards",
+        "Report progress and results"
+      ],
+      "ai_models": [
+        "1018",
+        "1033"
+      ],
+      "id": "487695",
+      "tier": 1,
+      "department": "CTO-Agent",
+      "capabilities": [
+        "Task Execution",
+        "Collaboration"
+      ],
+      "performance_metrics": [
+        "Task completion rate",
+        "Quality of deliverables",
+        "Collaboration effectiveness",
+        "Timeliness of work"
+      ],
+      "collaboration_protocols": [
+        "Collaborate with team members",
+        "Follow established workflows",
+        "Communicate progress and issues",
+        "Seek guidance when needed"
+      ],
+      "production_workflow": [
+        "Receive task or project brief",
+        "Plan and execute assigned work",
+        "Review and quality check deliverables",
+        "Submit for approval or handoff",
+        "Document work and lessons learned"
+      ],
+      "status": "active",
+      "goal": "Contribute to Error Detector  success through dedicated work and collaboration with team members",
+      "backstory": "A dedicated professional with solid experience in Error Detector  work, committed to quality and continuous improvement",
+      "supervisor": null,
+      "subordinates": [],
+      "gpu_schedule": null,
+      "tools": [],
+      "skills": [],
+      "max_concurrent_tasks": 1,
+      "current_tasks": 0,
+      "primary_task": "Detect and report errors in business processes"
+    }
+  }
+}

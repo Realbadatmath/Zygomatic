@@ -1,0 +1,19 @@
+[Unit]
+Description=Zygomatic — sample Claude's subscription quota meter (quota_meter sample)
+After=network-online.target
+
+# Why this exists (2026-09-17): Claude meters a Max subscription as percentages of a
+# 5-hour session window and a fixed 7-day window, readable through the login's OAuth
+# token at /api/oauth/usage. The Metrics > Quota tab turns that percentage into euros
+# and splits it per model; a percentage sampled only when someone opens the tab has no
+# history, and the "does the split hold" check needs consecutive samples inside one
+# week. Ten-minute samples cost one small GET each and nothing on the quota itself.
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/repos/zygomatic-dashboard
+EnvironmentFile=%h/.config/zygomatic/env
+ExecStart=%h/repos/.venv/bin/python -m zyg_dashboard.quota_meter sample
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=zyg-quota-meter

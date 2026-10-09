@@ -1,0 +1,8 @@
+{"section_key": "site", "section_label": "Site",
+ "groups": [{"g": "Rivers & lakes",
+             "items": [["river", "River", {"len": 60, "w": 12, "depth": 2, "meander": 6, "seed": 1, "bank": 2, "seg": 24},
+                        "One meandering reach len long running along x. w is the gravel bed, bank the sloping bank each side (its top 40 % is grass), meander the sideways wander in metres. The wander is zero at both ends, so reaches chained end to end always meet. The assistant lands each reach on the ground and tilts it with the record's rz so it runs downhill; a stream is this kind with small numbers."],
+                       ["lake", "Lake", {"rx": 30, "rz": 20, "depth": 3, "wobble": 0.25, "seed": 1, "seg": 48, "shore": 3, "rim": 1},
+                        "An irregular basin 2rx by 2rz across, dug depth deep, its water level at the record's y. wobble is how far the rim strays from the ellipse (0 = a clean ellipse), shore the width of the sloping edge and rim the sandy band in the outermost metre of it; seed picks another shape. Lake water is level: the tool refuses ground that varies more than 0.5 m under it."],
+                       ["waterfall", "Waterfall", {"w": 8, "h": 12, "depth": 2, "pool_r": 8},
+                        "A rock lip, a sheet of water h tall and w wide falling from it, and a round plunge pool of radius pool_r dug depth deep at the foot. The water falls toward +x. The record's y is the pool (the ground), so the lip stands at y + h; add_waterfall's at_edge_of hangs that lip on a cliff or plateau top."]]}]}

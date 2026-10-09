@@ -1,0 +1,6 @@
+[Unit]
+Description=Zygomatic platform (all services)
+Wants=comfyui.service crewai-gui.service zero-public.service creator-nexus.service zygomatic-hub.service zygomatic-hub-launcher.service zygomatic-restart-api.service
+
+[Install]
+WantedBy=multi-user.target

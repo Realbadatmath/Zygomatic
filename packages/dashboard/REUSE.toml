@@ -1,0 +1,11 @@
+version = 1
+SPDX-PackageName = "zygomatic-dashboard"
+SPDX-PackageSupplier = "Zygomatic"
+
+# Every file in this repository, including data, templates and assets, is covered by the
+# same licence unless a file carries its own SPDX header. Source files carry explicit headers.
+[[annotations]]
+path = ["**"]
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 Zygomatic"
+SPDX-License-Identifier = "AGPL-3.0-or-later"

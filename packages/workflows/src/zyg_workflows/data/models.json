@@ -1,0 +1,712 @@
+{
+  "gpu": {
+    "1001": {
+      "name": "Stable Diffusion 1.5 XL",
+      "vram_required_mb": 10240,
+      "type": "diffusion",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "~10 GB",
+      "role": "image generation",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1002": {
+      "name": "Dreamshaper Realisticvision",
+      "vram_required_mb": 6144,
+      "type": "diffusion",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "~6 GB",
+      "role": "image generation",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1003": {
+      "name": "Animatediff",
+      "vram_required_mb": 8192,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1004": {
+      "name": "Stable Video Diffusion",
+      "vram_required_mb": 12288,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1005": {
+      "name": "Controlnet",
+      "vram_required_mb": 6144,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1006": {
+      "name": "Realesrgan",
+      "vram_required_mb": 4096,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1007": {
+      "name": "Bark",
+      "vram_required_mb": 6144,
+      "type": "TTS",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "~6 GB",
+      "role": "text-to-speech",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1008": {
+      "name": "Tortoise TTS",
+      "vram_required_mb": 4096,
+      "type": "TTS",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "~4 GB",
+      "role": "text-to-speech",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1009": {
+      "name": "Blender (bpy)",
+      "vram_required_mb": 4096,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1010": {
+      "name": "Kandinsky 2.2",
+      "vram_required_mb": 8192,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1011": {
+      "name": "Deforum",
+      "vram_required_mb": 8192,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1012": {
+      "name": "ComfyUI",
+      "vram_required_mb": 8192,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1013": {
+      "name": "Dreambooth",
+      "vram_required_mb": 10240,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1016": {
+      "name": "Clip",
+      "vram_required_mb": 2048,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1020": {
+      "name": "HumanEval",
+      "vram_required_mb": 4096,
+      "type": "benchmark",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "minimal",
+      "role": "model evaluation",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1021": {
+      "name": "CrewAI / OpenAgents",
+      "vram_required_mb": 8192,
+      "type": "agent framework",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "minimal",
+      "role": "agent orchestration",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1023": {
+      "name": "Plotly",
+      "vram_required_mb": 512,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1026": {
+      "name": "Whisper",
+      "vram_required_mb": 4096,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1035": {
+      "name": "VAE",
+      "vram_required_mb": 2048,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1036": {
+      "name": "LoRA",
+      "vram_required_mb": 6144,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1037": {
+      "name": "Davinci Resolve",
+      "vram_required_mb": 8192,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1042": {
+      "name": "Midjourney",
+      "vram_required_mb": 6144,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1044": {
+      "name": "Runway",
+      "vram_required_mb": 10240,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1045": {
+      "name": "Stable Diffusion",
+      "vram_required_mb": 6144,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1046": {
+      "name": "Pika Labs",
+      "vram_required_mb": 10240,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1048": {
+      "name": "Whisper",
+      "vram_required_mb": 4096,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1049": {
+      "name": "OpenCV",
+      "vram_required_mb": 1024,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1050": {
+      "name": "ImageHash + OpenCV",
+      "vram_required_mb": 1024,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1051": {
+      "name": "YOLOv8 Segment Anything",
+      "vram_required_mb": 8192,
+      "deprecated": true,
+      "in_use": false
+    },
+    "1018": {
+      "name": "LLaMA 3 70B",
+      "vram_required_mb": 40960,
+      "type": "LLM",
+      "parameters": "70B",
+      "fp16_gb": "~140",
+      "size_8bit_gb": "~70",
+      "size_4bit_gb": "35–40",
+      "typical_vram": "38–45 GB",
+      "role": "main reasoning brain",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1033": {
+      "name": "Mistral 7B",
+      "vram_required_mb": 8192,
+      "type": "LLM",
+      "parameters": "7B",
+      "fp16_gb": "14–15",
+      "size_8bit_gb": "7–8",
+      "size_4bit_gb": "4–5",
+      "typical_vram": "5–8 GB",
+      "role": "fast worker agents",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1030": {
+      "name": "Claude 3",
+      "vram_required_mb": 512,
+      "type": "API model",
+      "parameters": "unknown",
+      "fp16_gb": "n/a",
+      "size_8bit_gb": "n/a",
+      "size_4bit_gb": "n/a",
+      "typical_vram": "cloud only",
+      "role": "external reasoning",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1052": {
+      "name": "DeepSeek Coder 33B",
+      "vram_required_mb": 22528,
+      "type": "LLM",
+      "parameters": "33B",
+      "fp16_gb": "~66",
+      "size_8bit_gb": "~33",
+      "size_4bit_gb": "18–20",
+      "typical_vram": "20–24 GB",
+      "role": "code / automation agents",
+      "deprecated": true,
+      "in_use": false
+    },
+    "2001": {
+      "name": "FLUX.1-dev",
+      "slug": "flux-1-dev",
+      "vram_required_mb": 23000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "diffusion"
+    },
+    "2002": {
+      "name": "FLUX.1-schnell",
+      "slug": "flux-1-schnell",
+      "vram_required_mb": 22000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "diffusion"
+    },
+    "2003": {
+      "name": "FLUX.1-fill (hand fix)",
+      "slug": "flux-1-fill",
+      "vram_required_mb": 23000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "diffusion"
+    },
+    "2004": {
+      "name": "Qwen-Image-Edit-2509",
+      "slug": "qwen-image-edit-2509",
+      "vram_required_mb": 40000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "diffusion-edit"
+    },
+    "2005": {
+      "name": "SDXL Juggernaut XL v9",
+      "slug": "sdxl-juggernaut-v9",
+      "vram_required_mb": 10000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "diffusion"
+    },
+    "2006": {
+      "name": "PuLID-FLUX",
+      "slug": "pulid-flux",
+      "vram_required_mb": 3000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "identity-adapter"
+    },
+    "2007": {
+      "name": "InstantID (SDXL)",
+      "slug": "instantid-sdxl",
+      "vram_required_mb": 4000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "identity-adapter"
+    },
+    "2008": {
+      "name": "ArcFace identity/texture QC",
+      "slug": "arcface-identity-qc",
+      "vram_required_mb": 1000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "vision-qc"
+    },
+    "2009": {
+      "name": "ControlNet Union Pro (FLUX)",
+      "slug": "controlnet-union-pro",
+      "vram_required_mb": 6000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "controlnet"
+    },
+    "2010": {
+      "name": "Wan I2V (2.1 default; 2.2 A14B dual-expert via ZYG_WAN22 + Lightning via ZYG_WAN_LIGHTNING)",
+      "slug": "wan2-1-i2v",
+      "vram_required_mb": 28000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "video-diffusion"
+    },
+    "2011": {
+      "name": "SimpleTuner FLUX LoRA train",
+      "slug": "simpletuner-flux-lora",
+      "vram_required_mb": 30000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "training"
+    },
+    "2012": {
+      "name": "SimpleTuner SDXL LoRA train",
+      "slug": "simpletuner-sdxl-lora",
+      "vram_required_mb": 18000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "training"
+    },
+    "2015": {
+      "name": "IndexTTS-2",
+      "slug": "indextts2",
+      "vram_required_mb": 20000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "tts"
+    },
+    "2016": {
+      "name": "Chatterbox (TTS fallback)",
+      "slug": "chatterbox",
+      "vram_required_mb": 4500,
+      "in_use": true,
+      "deprecated": false,
+      "type": "tts"
+    },
+    "2017": {
+      "name": "ACE-Step 1.5 turbo (Stage 5b BGM; MusicGen/AudioGen retired 2026-08-09, CC-BY-NC)",
+      "slug": "musicgen-audiogen",
+      "vram_required_mb": 6000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "audio-gen"
+    },
+    "2018": {
+      "name": "Ollama LLM (qwen3.6:35b-a3b heavy / gpt-oss:20b light / qwen2.5:72b murch)",
+      "slug": "ollama-llm",
+      "vram_required_mb": 24000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "llm"
+    },
+    "2019": {
+      "name": "Ollama vision (qwen3.5:9b; qwen2.5vl fallback — llama3.2-vision retired, EU exclusion)",
+      "slug": "ollama-vision",
+      "vram_required_mb": 7000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "vlm"
+    },
+    "2020": {
+      "name": "Ollama coder (qwen2.5-coder:32b)",
+      "slug": "ollama-coder",
+      "vram_required_mb": 20000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "llm"
+    },
+    "2021": {
+      "name": "Whisper (tiny/base)",
+      "slug": "whisper",
+      "vram_required_mb": 1000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "stt"
+    },
+    "2022": {
+      "name": "XLabs IP-Adapter (FLUX)",
+      "slug": "xlabs-ip-adapter",
+      "vram_required_mb": 2000,
+      "in_use": true,
+      "deprecated": false,
+      "type": "identity-adapter"
+    },
+    "2023": {
+      "name": "Wan2.2-I2V-A14B (HIGH+LOW fp8_scaled, env-gated)",
+      "slug": "wan2-2-i2v",
+      "vram_required_mb": 30000,
+      "in_use": false,
+      "deprecated": false,
+      "type": "video-diffusion"
+    },
+    "2024": {
+      "name": "FLUX.2 klein 4B (Apache-2.0)",
+      "vram_required_mb": 20480,
+      "type": "diffusion",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "~20 GB",
+      "in_use": true,
+      "note": "FLUX.2 [klein] base 4B txt2img + ReferenceLatent edit — the FLUX.1-dev exit for stills and LoRA training (2026-08-25)."
+    },
+    "2025": {
+      "name": "SimpleTuner klein LoRA train",
+      "vram_required_mb": 24576,
+      "type": "tool",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "~24 GB",
+      "in_use": true,
+      "note": "SimpleTuner flux2/klein-4b bf16 LoRA training (character + creature)."
+    },
+    "2026": {
+      "name": "Qwen3-VL judge (8B FP8 resident / 32B FP8 boundary)",
+      "vram_required_mb": 14336,
+      "type": "tool",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "10–34 GB",
+      "in_use": true,
+      "note": "Render-inspection judge worker (models/vlm_judge); creature sheet QC uses the resident 8B tier beside an offloaded ComfyUI."
+    },
+    "2027": {
+      "name": "Claude Code agent session",
+      "slug": "claude-code-session",
+      "vram_required_mb": null,
+      "type": "agent",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "measured per span",
+      "role": "agent session (Claude Code in VS Code) measurably on the GPU",
+      "deprecated": false,
+      "in_use": true
+    }
+  },
+  "cpu": {
+    "1007": {
+      "name": "Bark",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1008": {
+      "name": "Tortoise TTS",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1014": {
+      "name": "Ffmpeg",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1015": {
+      "name": "Pydub",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1020": {
+      "name": "HumanEval",
+      "type": "benchmark",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "minimal",
+      "role": "model evaluation",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1021": {
+      "name": "CrewAI / OpenAgents",
+      "type": "agent framework",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "minimal",
+      "role": "agent orchestration",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1022": {
+      "name": "Langchain Llamalend",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1023": {
+      "name": "Plotly",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1024": {
+      "name": "Fastapi",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1025": {
+      "name": "AI QC Engine",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1027": {
+      "name": "Librosa",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1028": {
+      "name": "AssemblyAI",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1029": {
+      "name": "Deepgram",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1017": {
+      "name": "Claude 3",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1030": {
+      "name": "Claude 3",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1031": {
+      "name": "GPT-4",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1032": {
+      "name": "Bark-Voice-Cloning",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1033": {
+      "name": "Airflow",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1034": {
+      "name": "autosave_daemon",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1038": {
+      "name": "pyDub",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1039": {
+      "name": "LangChain Llamalend",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1040": {
+      "name": "CrewAI / OpenAgents",
+      "type": "agent framework",
+      "parameters": null,
+      "fp16_gb": null,
+      "size_8bit_gb": null,
+      "size_4bit_gb": null,
+      "typical_vram": "minimal",
+      "role": "agent orchestration",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1041": {
+      "name": "ElevenLabs",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1043": {
+      "name": "SEMrush",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1047": {
+      "name": "Google Analytics",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1018": {
+      "name": "Llama 3",
+      "deprecated": true,
+      "in_use": false
+    },
+    "1019": {
+      "name": "Mistral Mixtral",
+      "deprecated": true,
+      "in_use": false
+    },
+    "2101": {
+      "name": "Claude API (claude-haiku-4-5)",
+      "slug": "claude-api",
+      "vram_required_mb": 0,
+      "in_use": true,
+      "deprecated": false,
+      "type": "llm-api"
+    },
+    "2102": {
+      "name": "GPT-4o API (GitHub Models)",
+      "slug": "gpt-4o-api",
+      "vram_required_mb": 0,
+      "in_use": true,
+      "deprecated": false,
+      "type": "llm-api"
+    },
+    "2104": {
+      "name": "edge-tts",
+      "slug": "edge-tts",
+      "vram_required_mb": 0,
+      "in_use": true,
+      "deprecated": false,
+      "type": "tts-api"
+    },
+    "2105": {
+      "name": "ffmpeg / NVENC assembly",
+      "slug": "ffmpeg-nvenc",
+      "vram_required_mb": 0,
+      "in_use": true,
+      "deprecated": false,
+      "type": "encode"
+    },
+    "2106": {
+      "name": "yt-dlp / asset fetch",
+      "slug": "yt-dlp-fetch",
+      "vram_required_mb": 0,
+      "in_use": true,
+      "deprecated": false,
+      "type": "fetch"
+    },
+    "2107": {
+      "name": "OpenCV / PIL processing",
+      "slug": "opencv-pil",
+      "vram_required_mb": 0,
+      "in_use": true,
+      "deprecated": false,
+      "type": "image-proc"
+    },
+    "2108": {
+      "name": "YouTube upload/publish",
+      "slug": "yt-publish",
+      "vram_required_mb": 0,
+      "in_use": true,
+      "deprecated": false,
+      "type": "publish"
+    },
+    "2109": {
+      "name": "Claude Code agent session",
+      "slug": "claude-code-session",
+      "type": "agent",
+      "role": "agent session (Claude Code in VS Code) measurably on the CPU",
+      "deprecated": false,
+      "in_use": true
+    }
+  }
+}

@@ -1,0 +1,6 @@
+[Unit]
+Description=Renew the studio.zygomaticszero.com certificate (certbot, Cloudflare DNS-01)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/certbot-venv/bin/certbot renew --config-dir %h/.config/zygomatic/letsencrypt --work-dir %h/.config/zygomatic/letsencrypt/work --logs-dir %h/.config/zygomatic/letsencrypt/logs --non-interactive --quiet --deploy-hook "sudo -n /usr/sbin/nginx -s reload"
