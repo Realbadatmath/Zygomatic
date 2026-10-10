@@ -36,8 +36,9 @@ a. the subject — the first line that is not a `#` comment — is 10 to 72 char
    trailing period, and does not open with the bare label `fix`, `wip` or `update`;
 b. a blank line follows the subject, then a body of at least one line saying what changed
    and why;
-c. no attribution trailer anywhere in the message: `Co-Authored-By`, `Signed-off-by:` naming
-   Claude, and `Generated with` are refused — they never land in this history;
+c. no attribution trailer in the message: `Co-Authored-By`, a `Signed-off-by:` naming an agent,
+   and `Generated with` are refused. Who and what writes this code is stated once, in the
+   README's "How it is built" section, not per commit;
 d. subjects git writes itself are exempt: `Merge `, `Revert `, `fixup! `, `squash! `.
 
 ```

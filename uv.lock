@@ -6678,7 +6678,7 @@ wheels = [
 
 [[package]]
 name = "zygomatic-creator-nexus"
-version = "0.1.0"
+version = "1.0.0"
 source = { editable = "packages/creator-nexus" }
 dependencies = [
     { name = "flask" },
@@ -6714,7 +6714,7 @@ provides-extras = ["dev"]
 
 [[package]]
 name = "zygomatic-dashboard"
-version = "0.1.0"
+version = "1.0.0"
 source = { editable = "packages/dashboard" }
 dependencies = [
     { name = "flask" },
@@ -6875,7 +6875,7 @@ dev = [
 
 [[package]]
 name = "zygomatic-workflows"
-version = "0.1.0"
+version = "1.0.0"
 source = { editable = "packages/workflows" }
 dependencies = [
     { name = "apscheduler" },
@@ -7050,7 +7050,7 @@ provides-extras = ["gpu", "audio", "3d", "llm", "dev"]
 
 [[package]]
 name = "zygomatic-zero-public"
-version = "0.1.0"
+version = "1.0.0"
 source = { editable = "packages/zero-public" }
 dependencies = [
     { name = "cryptography" },

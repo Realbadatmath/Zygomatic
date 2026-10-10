@@ -3,17 +3,18 @@
 
 # Architecture
 
-How the four Zygomatic repositories fit together, where the data goes, and the one import rule
-that keeps the base library usable on its own.
+How the four Zygomatic packages fit together, where the data goes, and the one import rule
+that keeps the base library usable on its own. The four were separate repositories until
+2026-10-05 and still carry those names as directories under `packages/`.
 
-## The four repositories
+## The four packages
 
-| repo | package | runs | what it owns |
+| package | Python package | runs | what it owns |
 | --- | --- | --- | --- |
-| `zygomatic-workflows` | `zyg_workflows` | nothing by itself; it is imported | the pipelines, the studio option surfaces, the service adapters, the QC and licence gates, the geometry stack |
-| `zygomatic-dashboard` | `zyg_dashboard` | the operator GUI, the kanban board, the hub, the session tree | the web application, the job registry wiring, `deploy/` |
-| `zygomatic-zero-public` | `zyg_zero` | the public site | the public pages, nomologin, medusa |
-| `zygomatic-creator-nexus` | `zyg_nexus` | its own site | the creator nexus package and `site/` |
+| `workflows` | `zyg_workflows` | nothing by itself; it is imported | the pipelines, the studio option surfaces, the service adapters, the QC and licence gates, the geometry stack |
+| `dashboard` | `zyg_dashboard` | the operator GUI, the kanban board, the hub, the session tree | the web application, the job registry wiring, `deploy/` |
+| `zero-public` | `zyg_zero` | the public site | the public pages, nomologin, medusa |
+| `creator-nexus` | `zyg_nexus` | its own site | the creator nexus package and `site/` |
 
 All four are installed editable into one virtual environment during development, so an import of
 `zyg_workflows` from the dashboard resolves to the working tree, not to a copy.

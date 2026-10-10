@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zygomatic-workflows"
-version = "0.1.0"
+version = "1.0.0"
 description = "Zygomatic workflows — see README.md"
 readme = "README.md"
 # 3.12 is the floor the dependency set imposes: numpy>=2.5.2 (the live pin) requires Python>=3.12.

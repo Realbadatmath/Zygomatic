@@ -20,8 +20,9 @@ Checked by `scripts/commit_msg_check.py`, run as pre-commit's `commit-msg` stage
   with no trailing period, and does not open with the bare label `fix`, `wip` or `update`.
 - A blank line follows the subject, then a body of at least one non-empty line saying **what**
   changed and **why**.
-- No attribution trailer anywhere in the message: `Co-Authored-By`, a `Signed-off-by:` naming
-  Claude, and `Generated with` are refused. They never land in this history.
+- No attribution trailer in the message: `Co-Authored-By`, a `Signed-off-by:` naming an agent,
+  and `Generated with` are refused. Authorship is stated once, in the README's "How it is
+  built" section, not per commit.
 - Subjects git writes itself are exempt: `Merge `, `Revert `, `fixup! `, `squash! `.
 - A change inside one package carries that package's prefix in the subject (`workflows:`,
   `dashboard:`, `zero-public:`, `creator-nexus:`); a change across packages says so.

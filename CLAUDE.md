@@ -15,8 +15,9 @@ push**, and never `--no-verify`: if a hook refuses, fix the cause. `origin` is a
 repository — do not push unless the task says to.
 
 **Commits.** Subject ≤72 characters, imperative, no trailing period; a blank line; a body of at
-least one line saying what changed and why; **no `Co-Authored-By` trailer of any kind** (nor a
-`Signed-off-by:` naming Claude, nor `Generated with`). Commit only the files you changed, by
+least one line saying what changed and why; no attribution trailer (`Co-Authored-By`,
+`Signed-off-by:` naming an agent, `Generated with`): authorship is stated once, in the README's
+"How it is built" section. Commit only the files you changed, by
 name, in one command:
 
 ```bash

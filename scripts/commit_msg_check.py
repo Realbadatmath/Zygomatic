@@ -10,8 +10,9 @@ Rules, checked against the message file git hands the hook (argv[1]):
     does not consist of a bare label ('fix', 'wip', 'update') as its first word;
 (b) a blank line follows the subject, then a body of at least one non-empty line that says
     what changed and why;
-(c) no attribution trailer anywhere: `Co-Authored-By`, `Signed-off-by: ... Claude` and
-    `Generated with` are refused (operator rule, 2026-10-08);
+(c) no attribution trailer: `Co-Authored-By`, `Signed-off-by: ... Claude` and `Generated with`
+    are refused; authorship is stated once in the README's "How it is built" section
+    (operator rule, 2026-10-08);
 (d) machine-written subjects are exempt entirely: 'Merge ', 'Revert ', 'fixup! ', 'squash! '.
 
 Lines starting with '#' are git's own comments and are ignored throughout.
@@ -70,7 +71,9 @@ def check_message(message: str) -> list[str]:
 
     for line in body_of_file:
         if TRAILER_RE.match(line.strip()):
-            violations.append(f'attribution trailers never land in this history: {line.strip()!r}')
+            violations.append(
+                f'no attribution trailers; authorship is stated in README "How it is built": {line.strip()!r}'
+            )
 
     return violations
 

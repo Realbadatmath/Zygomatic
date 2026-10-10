@@ -55,16 +55,17 @@ checks and hand correction.
 `musicgen_service.py` and `ace_step_service.py` for music, `blender_character_service.py` with
 `blender_scripts/` for Blender, `lora_trainer_service.py` for training.
 
-## The four repositories and the layering rule
+## The four packages and the layering rule
 
-The studio is four repositories:
+The studio is four packages in one repository (each was a repository of its own until 2026-10-05;
+the names below are their directories under `packages/`):
 
-| repo | package | what it is |
+| package | Python package | what it is |
 | --- | --- | --- |
-| `zygomatic-workflows` | `zyg_workflows` | this one: pipelines, studios, services, gates. The base library |
-| `zygomatic-dashboard` | `zyg_dashboard` | the operator GUI on port 5000, the kanban board on 8899, the hub, the session tree, deployment |
-| `zygomatic-zero-public` | `zyg_zero` | the public site on port 5001, nomologin, medusa |
-| `zygomatic-creator-nexus` | `zyg_nexus` | the creator nexus package and its site |
+| `workflows` | `zyg_workflows` | this one: pipelines, studios, services, gates. The base library |
+| `dashboard` | `zyg_dashboard` | the operator GUI on port 5000, the kanban board on 8899, the hub, the session tree, deployment |
+| `zero-public` | `zyg_zero` | the public site on port 5001, nomologin, medusa |
+| `creator-nexus` | `zyg_nexus` | the creator nexus package and its site |
 
 The contract: **the dashboard, the public site and the creator nexus may import
 `zyg_workflows`; `zyg_workflows` must never import any of them.** The public site and the creator
@@ -221,5 +222,5 @@ Read these first, in this order.
    generated index of what exists today, rewritten by the test sweep so that it cannot go stale.
    `studio_ext/` is the same idea for the other studios.
 
-Then `docs/ARCHITECTURE.md` for how the four repositories fit together, `docs/README.md` for an
+Then `docs/ARCHITECTURE.md` for how the four packages fit together, `docs/README.md` for an
 index of every document in `docs/`, and `CONTRIBUTING.md` for the local loop.

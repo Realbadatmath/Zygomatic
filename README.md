@@ -48,6 +48,21 @@ Each package README describes what is inside it. Start with
 [`packages/workflows/README.md`](packages/workflows/README.md) and
 [`packages/workflows/docs/ARCHITECTURE.md`](packages/workflows/docs/ARCHITECTURE.md).
 
+## Start reading here
+
+Three files show how this codebase thinks, in about twenty minutes:
+
+- [`qc_contract.py`](packages/workflows/src/zyg_workflows/qc_contract.py): the authority layer every
+  QC gate reports through. Three verdicts instead of two, so a gate that could not look never
+  reports green. Each rule in its header cites the production defect that bought it.
+- [`licence_provenance.py`](packages/workflows/src/zyg_workflows/licence_provenance.py): answers one
+  question per ComfyUI graph, is every weight in it cleared for commercial publication, and
+  charges a LoRA with the licence of the base it was trained from. The one defect class an
+  operator cannot see.
+- [`scripts/ratchet.py`](scripts/ratchet.py): twelve quality counters recorded per file that may
+  only go down. It reads the git index, not the worktree, so it measures the tree about to be
+  committed, and `direction` refuses a push whose baseline rose against `origin/main`.
+
 ## The one rule between the packages
 
 **`zyg_workflows` is the base. The dashboard, the public site and the creator nexus import it;
@@ -136,6 +151,23 @@ the operator's signing key is present and renders normally when it is not, and t
 every checkout.
 [`packages/workflows/docs/content_credentials.md`](packages/workflows/docs/content_credentials.md) says what a
 credential proves and what it does not, which outputs are sealed, and how to verify one.
+
+## How it is built
+
+One person operates this studio; nobody else has committed to it. Most of the code was typed by
+Claude agents working under that operator's direction, and the repository is arranged so that
+this is safe rather than hidden. Work arrives as a *tree* of tasks on the Session Tree board
+([`packages/dashboard`](packages/dashboard/)): the operator and a planning agent write each task
+as a brief with a verification command, the board spawns one executor agent per task in its own
+session, and a task is only finished when its command passes. The executors never commit; the
+operator reviews a tree's reports and commits it once. The gate ([`scripts/scan.sh`](scripts/scan.sh)),
+the ratchet and the import contract are the control surface: they decide what lands, not the
+agent that wrote it. [`CLAUDE.md`](CLAUDE.md) is the standing instruction set those agents read.
+
+The design decisions, the defect taxonomy, the licence policy and every rule in
+[`docs/conventions.md`](docs/conventions.md) are the operator's; the headers of the files above
+record which production incident each one answers. Commit messages carry no per-commit
+attribution trailer because authorship is stated here, once, for the whole history.
 
 ## History
 

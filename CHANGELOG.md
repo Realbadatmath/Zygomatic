@@ -9,6 +9,12 @@ repository root and all four packages move together (see `docs/monorepo.md`).
 
 ## [Unreleased]
 
+- README: a "Start reading here" list (three files) and a "How it is built" section that states
+  how agents and the operator produce this code; the attribution-trailer rule now points there.
+- Package versions move with the root: all four `pyproject.toml` say 1.0.0.
+- Docs say "four packages" where they still said "four repositories".
+- Two unreferenced images (5.3 MB together) removed from the dashboard package.
+
 ## [1.0.0] — 2026-10-09
 
 The clean base. The public history starts at this commit (see `README.md` → History and
