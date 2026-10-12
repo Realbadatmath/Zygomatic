@@ -53,7 +53,7 @@ HERO = {
     'sub': 'Portfolio 2026 · the studios, the workflows, the numbers',
     # The "badge row": facts, not decoration. Each one is in the written portfolio.
     'facts': [
-        {'k': '13', 'v': 'studios, one per specialist'},
+        {'k': '14', 'v': 'studios, one per specialist'},
         {'k': 'Mar 2026', 'v': 'workstation built'},
         {'k': '€ 0.015', 'v': 'per documentary episode'},
         {'k': '0', 'v': 'human steps in the documentary workflow'},
@@ -75,7 +75,7 @@ CHAPTERS = [
                 'what': 'Normally a team of professionals covers these areas. Here each area has its own studio.',
                 'points': [
                     'Every option, and how it is applied to the subject, is tested, trained and verified.',
-                    'The home screen lists the thirteen studios the rest of this deck walks through.',
+                    'The home screen lists the fourteen studios the rest of this deck walks through.',
                 ],
             },
             {
@@ -91,7 +91,7 @@ CHAPTERS = [
     },
     {
         'id': 'studios',
-        'title': 'Thirteen studios',
+        'title': 'Fourteen studios',
         'lead': 'Each studio replicates one specialist’s craft, outfitted with its own options, quality gates and benches.',
         'slides': [
             {
@@ -188,6 +188,15 @@ CHAPTERS = [
                 'what': 'Buildings, floor plans and landscapes from a dock of about 190 tools and written design rules.',
                 'points': [
                     'Quality gates check the drawing against the rules before a scene is handed to Blender.',
+                ],
+            },
+            {
+                'file': '105_object_studio_immersive.png',
+                'title': 'Object Studio',
+                'what': 'A spoken name becomes a 3D object: an agent writes the build plan, headless Blender builds the GLB.',
+                'points': [
+                    'Shown here as its immersive room: the generator bench, the hologram and the display walls.',
+                    'Finished objects land in the wall cabinets and are recalled, shown and modified by voice.',
                 ],
             },
             {

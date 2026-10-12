@@ -93,9 +93,9 @@ The Backend
 
 ### Main tabs, studios and the library
 
-![The dashboard tabs, the twelve studios and the ten library categories](media/slide-tabs-studios-library.webp)
+![The dashboard tabs, the thirteen studios and the ten library categories](media/slide-tabs-studios-library.webp)
 
-The sixteen dashboard tabs, the twelve studios and the ten kinds of thing the library holds.
+The sixteen dashboard tabs, the thirteen studios and the ten kinds of thing the library holds.
 
 ### Workflows
 
