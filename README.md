@@ -11,8 +11,9 @@
 
 An AI content studio that runs on one machine: it plans a video, generates its stills and
 clips, builds and keeps its characters, speaks and scores it, gates the result on quality and
-licence, and publishes it. Everything runs on local models (ComfyUI, Blender, local TTS and
-music models, a local LLM) with an operator GUI in front and a small public site at the edge.
+licence, and publishes it. Rendering, speech and music run on local models (ComfyUI, Blender,
+local TTS and music models, a local LLM); script writing and quality judging use Claude. An
+operator GUI sits in front and a small public site at the edge.
 
 [zero.zygomaticszero.com](https://zero.zygomaticszero.com) is this studio's own installation:
 everything published there — every still, scene, voice and film — was produced by the code in
@@ -70,6 +71,30 @@ it imports none of them. The public site and the creator nexus never import the 
 
 The rule is machine-checked by import-linter (the layers contract in [`.importlinter`](.importlinter))
 and is part of the gate, so the base library stays usable without any GUI.
+
+## Read this before installing
+
+- **Why this repository is public.** It is published for recruitment: it shows how the studio
+  is built. Once that purpose is served it will likely go private again, so clone what you
+  need while it is here.
+- **It is under active development.** Several workflows run end to end and prove the
+  production chain; many others are unfinished, and some are placeholders for what comes
+  next. Verify every output yourself before monetized production — the licence's warranty
+  disclaimer applies in full, and no liability is accepted for what the pipelines produce.
+- **First run.** After signing in you land on the operator GUI at port 5000. Press `Z` on any
+  page there to open the chat of Agent Zero, the studio's assistant. Zero runs on a Claude
+  Code subscription by default; its model picker switches it to a hosted API or a local
+  Ollama model to match your hardware and budget.
+- **Not everything is local.** Rendering and synthesis run on local models, but script
+  writing, the assistants and VLM judging call Claude Opus (subscription or API key). A
+  fully local installation works, with weaker results on those routes.
+- **The hosted pages** — [zero.zygomaticszero.com](https://zero.zygomaticszero.com) and
+  [studio.zygomaticszero.com](https://studio.zygomaticszero.com) — are this installation's
+  own, served through Cloudflare. A fresh install serves the same surfaces on local ports;
+  nothing in the repository depends on those domains.
+- **Issues and roadmap.** The current problem list and the plans against it are kept
+  privately; recruiters are welcome to ask the maintainer for it. If you adopt this code,
+  make the effort to improve and build on the base rather than around it.
 
 ## Install
 
