@@ -47,7 +47,8 @@ from zyg_workflows.paths import ZYG_CREWS_ROOT
 
 CREWS = str(ZYG_CREWS_ROOT)
 sys.path.insert(0, CREWS)
-os.chdir(CREWS)
+if os.path.isdir(CREWS):  # absent on a bare checkout (CI, a fresh clone)
+    os.chdir(CREWS)
 
 import numpy as np  # noqa: E402
 from PIL import Image  # noqa: E402

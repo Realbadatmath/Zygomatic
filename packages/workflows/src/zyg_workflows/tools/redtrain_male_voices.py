@@ -39,7 +39,8 @@ from zyg_workflows import paths
 
 CREWS = str(paths.ZYG_CREWS_ROOT)
 sys.path.insert(0, CREWS)
-os.chdir(CREWS)
+if os.path.isdir(CREWS):  # absent on a bare checkout (CI, a fresh clone)
+    os.chdir(CREWS)
 # Measure, do not judge -- see the module docstring.
 os.environ['ZYG_KIDSMUSIC_SINGER_ENFORCE'] = '0'
 

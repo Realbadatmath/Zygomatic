@@ -16,7 +16,8 @@ line with a reason. That list only ever shrinks: scripts/ratchet.py counts its e
 module or a package; a package entry covers its submodules.
 
 Every child hides the GPU (CUDA_VISIBLE_DEVICES=''), sets ZYG_IMPORT_SMOKE=1, points the
-database at the test DSN, and installs a meta-path guard that refuses two modules outright,
+database at the test DSN, imports the package's PRELOAD modules first (the dashboard app, so its
+blueprint modules are met the way the app imports them), and installs a meta-path guard that refuses two modules outright,
 whatever imports them: `zyg_workflows.arch_assistant` (its import closes the live assistant's
 open conversation) and `zyg_workflows.comfy_generation_service` (talks to ComfyUI at import).
 A child that hangs is killed on its per-module alarm, one that grows past --mem-gb is killed by
@@ -55,6 +56,11 @@ ROOT = os.environ.get('ZYG_SMOKE_ROOT') or os.path.dirname(HERE)
 PACKAGES_DIR = os.path.join(ROOT, 'packages')
 ENTRY_FILES = ('__main__.py', 'entry.py')  # run a program on import by design: never smoked
 GUARDED = ('zyg_workflows.arch_assistant', 'zyg_workflows.comfy_generation_service')
+# Imported first in every child of that package. The dashboard's blueprint modules are, by
+# contract, imported from the bottom of crewai_web_gui: imported on their own they re-enter
+# that block half-built and Flask refuses their routes ("already registered"); whichever module
+# of a batch gets there first fails, which is an artefact of the order, not of the module.
+PRELOAD = {'dashboard': ('zyg_dashboard.crewai_web_gui',)}
 
 CHILD = r"""
 import importlib, json, os, signal, sys, time, traceback
@@ -75,6 +81,11 @@ class ImportHung(BaseException):
 def _alarm(signum, frame):
     raise ImportHung('import did not return within %(timeout)d s')
 signal.signal(signal.SIGALRM, _alarm)
+for pre in %(preload)r:
+    try:
+        importlib.import_module(pre)
+    except BaseException as exc:  # reported by its own entry when it is in scope; the batch then shows the fallout
+        sys.stdout.write('preload failed: ' + pre + ': ' + type(exc).__name__ + ': ' + str(exc).splitlines()[0][:160] + '\n')
 for mod in sys.argv[1:]:
     t0 = time.time(); signal.alarm(%(timeout)d)
     try:
@@ -258,10 +269,12 @@ def _watchdog(
             return
 
 
-def run_batch(python: str, mods: list[str], timeout: int, mem_gb: float, cwd: str) -> list[dict]:
+def run_batch(
+    python: str, mods: list[str], timeout: int, mem_gb: float, cwd: str, preload: tuple[str, ...] = ()
+) -> list[dict]:
     """Import *mods* in order in one child; restart after any module that kills or hangs the child."""
     results: list[dict] = []
-    code = CHILD % {'guarded': GUARDED, 'timeout': timeout}
+    code = CHILD % {'guarded': GUARDED, 'timeout': timeout, 'preload': tuple(preload)}
     pending = list(mods)
     while pending:
         proc = subprocess.Popen(
@@ -323,13 +336,14 @@ def run(package: str, mods: list[str], workers: int, timeout: int, mem_gb: float
         return []
     python = python_for(package)
     cwd = os.path.join(PACKAGES_DIR, package)
+    preload = PRELOAD.get(package, ())
     batches: dict[str, list[str]] = defaultdict(list)
     for m in mods:
         parts = m.split('.')
         batches[parts[1] if len(parts) > 2 else '(root)'].append(m)
     out: list[dict] = []
     with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-        for res in pool.map(lambda b: run_batch(python, b, timeout, mem_gb, cwd), batches.values()):
+        for res in pool.map(lambda b: run_batch(python, b, timeout, mem_gb, cwd, preload), batches.values()):
             out.extend(res)
     # A module that fails only because a sibling imported before it in the same interpreter
     # left global state behind (a Flask blueprint registered twice, an op table filled) is not
@@ -338,7 +352,7 @@ def run(package: str, mods: list[str], workers: int, timeout: int, mem_gb: float
     if failed:
         retried: dict[str, dict] = {}
         with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-            for res in pool.map(lambda m: run_batch(python, [m], timeout, mem_gb, cwd), failed):
+            for res in pool.map(lambda m: run_batch(python, [m], timeout, mem_gb, cwd, preload), failed):
                 for r in res:
                     retried[r['module']] = r
         out = [retried.get(r['module'], r) if not r['ok'] else r for r in out]

@@ -2,54 +2,13 @@
 #   <dotted.module>  # <reason>
 # A package entry covers its submodules. This list only shrinks (scripts/ratchet.py
 # counts it as smoke_skipped, zero for a new file). Remove a line once the module imports.
-zyg_dashboard.Schedule.add_cpu_models  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/add_cpu_models.py:37) — tree 2b tasks 6-8
-zyg_dashboard.Schedule.create_cpu_mapping  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/create_cpu_mapping.py:12) — tree 2b tasks 6-8
-zyg_dashboard.Schedule.fix_cpu_gpu_split  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/fix_cpu_gpu_split.py:45) — tree 2b tasks 6-8
 zyg_dashboard.Schedule.force_remove_claude3_from_gpu  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/force_remove_claude3_from_gpu.py:12) — tree 2b tasks 6-8
 zyg_dashboard.Schedule.migrate_claude3_to_cpu  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/migrate_claude3_to_cpu.py:16) — tree 2b tasks 6-8
 zyg_dashboard.Schedule.remove_claude_from_gpu  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/remove_claude_from_gpu.py:12) — tree 2b tasks 6-8
 zyg_dashboard.Schedule.remove_cpu_from_gpu  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/remove_cpu_from_gpu.py:37) — tree 2b tasks 6-8
 zyg_dashboard.Schedule.timeline_orchestrator  # script body runs at import (FileNotFoundError at zyg_dashboard/Schedule/timeline_orchestrator.py:44) — tree 2b tasks 6-8
 zyg_dashboard.azure_function.function_app  # optional dependency azure (Azure Function host only) imported at module level — tree 2b task 9
-zyg_dashboard.bp_agents_api.agents  # AttributeError: partially initialized module 'zyg_dashboard.bp_agents_api' has no attribute 'bp' (most likely due to a c at zyg_dashboard/crewai_web_gui/registration.py:252
-zyg_dashboard.bp_agents_api.config  # AttributeError: partially initialized module 'zyg_dashboard.bp_agents_api' has no attribute 'bp' (most likely due to a c at zyg_dashboard/crewai_web_gui/registration.py:252
-zyg_dashboard.bp_agents_api.workflow  # AttributeError: partially initialized module 'zyg_dashboard.bp_agents_api' has no attribute 'bp' (most likely due to a c at zyg_dashboard/crewai_web_gui/registration.py:252
-zyg_dashboard.bp_assets_media.assets  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_assets_media.base  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_assets_media.library  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_assets_media.marketing  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_assets_media.prompts  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_assets_media.scholarly  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_assets_media.templates  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_assets_media.upload  # AttributeError: partially initialized module 'zyg_dashboard.bp_assets_media' has no attribute 'bp' (most likely due to a at zyg_dashboard/crewai_web_gui/registration.py:240
-zyg_dashboard.bp_auth  # AssertionError: The setup method 'route' can no longer be called on the blueprint 'auth'. It has already been registered at zyg_dashboard/bp_auth.py:108
-zyg_dashboard.bp_benchmark.infra_worker  # AttributeError: partially initialized module 'zyg_dashboard.bp_benchmark' has no attribute 'bp' (most likely due to a ci at zyg_dashboard/crewai_web_gui/registration.py:237
-zyg_dashboard.bp_benchmark.multirun  # AttributeError: partially initialized module 'zyg_dashboard.bp_benchmark' has no attribute 'bp' (most likely due to a ci at zyg_dashboard/crewai_web_gui/registration.py:237
-zyg_dashboard.bp_benchmark.routes_frequency  # AttributeError: partially initialized module 'zyg_dashboard.bp_benchmark' has no attribute 'bp' (most likely due to a ci at zyg_dashboard/crewai_web_gui/registration.py:237
-zyg_dashboard.bp_benchmark.state  # AttributeError: partially initialized module 'zyg_dashboard.bp_benchmark' has no attribute 'bp' (most likely due to a ci at zyg_dashboard/crewai_web_gui/registration.py:237
-zyg_dashboard.bp_integrity_ops.api_azure_smoke  # ImportError: cannot import name 'get_dependencies_status' from partially initialized module 'zyg_dashboard.bp_integrity_ at zyg_dashboard/bp_zero/__init__.py:41
-zyg_dashboard.bp_integrity_ops.api_dashboard  # ImportError: cannot import name 'get_dependencies_status' from partially initialized module 'zyg_dashboard.bp_integrity_ at zyg_dashboard/bp_zero/__init__.py:41
-zyg_dashboard.bp_integrity_ops.api_integrity  # ImportError: cannot import name 'get_dependencies_status' from partially initialized module 'zyg_dashboard.bp_integrity_ at zyg_dashboard/bp_zero/__init__.py:41
-zyg_dashboard.bp_integrity_ops.api_settings  # ImportError: cannot import name 'get_dependencies_status' from partially initialized module 'zyg_dashboard.bp_integrity_ at zyg_dashboard/bp_zero/__init__.py:41
-zyg_dashboard.bp_integrity_ops.constants  # ImportError: cannot import name 'get_dependencies_status' from partially initialized module 'zyg_dashboard.bp_integrity_ at zyg_dashboard/bp_zero/__init__.py:41
-zyg_dashboard.bp_metrics.aggregate  # AssertionError: The setup method 'route' can no longer be called on the blueprint 'metrics'. It has already been registe at zyg_dashboard/bp_metrics/routes.py:21
-zyg_dashboard.bp_pipeline_api.creature  # AssertionError: The setup method 'route' can no longer be called on the blueprint 'pipeline_api'. It has already been re at zyg_dashboard/bp_pipeline_api/run_start.py:44
-zyg_dashboard.bp_storyteller.char_admin  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_storyteller.chars  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_storyteller.contact_sheet  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_storyteller.generate_character  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_storyteller.generate_worker  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_storyteller.generate_worker_stages  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_storyteller.guards  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_storyteller.previews  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_zero/__init__.py:40
-zyg_dashboard.bp_zero.api  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_storyteller/__init__.py:55
-zyg_dashboard.bp_zero.chat  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_storyteller/__init__.py:55
-zyg_dashboard.bp_zero.classify  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_storyteller/__init__.py:55
-zyg_dashboard.bp_zero.constants  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_storyteller/__init__.py:55
-zyg_dashboard.bp_zero.kanban  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_storyteller/__init__.py:55
-zyg_dashboard.bp_zero.topics  # ImportError: cannot import name '_record_token_usage' from partially initialized module 'zyg_dashboard.bp_claude_clip' ( at zyg_dashboard/bp_storyteller/__init__.py:55
 zyg_dashboard.capabilities_tests  # imports the capability_tests harness dir, which is outside the package — tree 2b task 9
 zyg_dashboard.crewai_cli  # crewai is deliberately uninstalled (monorepo round 2)
 zyg_dashboard.crewai_pipeline  # crewai is deliberately uninstalled (monorepo round 2)
-zyg_dashboard.gui.controller  # ImportError: cannot import name 'controller' from partially initialized module 'zyg_dashboard.gui.controller' (most like at zyg_dashboard/crewai_web_gui/pages.py:170
 zyg_dashboard.session_tree.session_tree_guard  # script body runs at import (SystemExit at zyg_dashboard/session_tree/session_tree_guard.py:17) — tree 2b tasks 6-8

@@ -280,9 +280,12 @@ zyg_workflows.tools.hair_assets.mh_to_glb  # Blender-only (bpy): importable insi
 zyg_workflows.tools.hair_assets.probe_groom  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.tools.kidsmusic_male_octave_bench  # optional dependency mido (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.tools.lyric_asr_bench  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.tools.redtrain_male_fallback  # imports rubberband_r3 from the legacy crews tree (outside the repo) at module level — bench script
+zyg_workflows.tools.redtrain_male_probe  # imports rubberband_r3 from the legacy crews tree (outside the repo) at module level — bench script
 zyg_workflows.tools.studio_verify.check_inspection_js  # script body runs at import (FileNotFoundError at zyg_workflows/tools/studio_verify/check_inspection_js.py:22) — tree 2b tasks 6-8
 zyg_workflows.tools.studio_verify.task15_mesh_studio  # script body runs at import (SystemExit at zyg_workflows/tools/studio_verify/task15_mesh_studio.py:156) — tree 2b tasks 6-8
 zyg_workflows.tools.vc_bench  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.tools.voice_identity_null_renders  # reads output/kidsmusic/.../male_voices/index.json from the crews tree at module level — bench script
 zyg_workflows.tools_arch_landscape_gallery  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
 zyg_workflows.vfx_volume_camsearch  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.vfx_volume_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it

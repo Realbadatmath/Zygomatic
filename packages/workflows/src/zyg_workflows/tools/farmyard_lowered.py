@@ -40,7 +40,8 @@ _zyg_log = _zyg_logging.getLogger(__name__)
 
 CREWS = str(paths.ZYG_CREWS_ROOT)
 sys.path.insert(0, CREWS)
-os.chdir(CREWS)
+if os.path.isdir(CREWS):  # absent on a bare checkout (CI, a fresh clone)
+    os.chdir(CREWS)
 
 from zyg_workflows import kids_music_service as K  # noqa: E402
 from zyg_workflows import kids_music_theory as T  # noqa: E402

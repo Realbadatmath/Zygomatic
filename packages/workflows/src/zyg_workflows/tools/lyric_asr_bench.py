@@ -33,7 +33,8 @@ from zyg_workflows import paths
 
 CREWS = str(paths.ZYG_CREWS_ROOT)
 sys.path.insert(0, CREWS)
-os.chdir(CREWS)
+if os.path.isdir(CREWS):  # absent on a bare checkout (CI, a fresh clone)
+    os.chdir(CREWS)
 import soundfile as sf  # noqa: E402
 
 from zyg_workflows import vocal_analysis as VA  # noqa: E402

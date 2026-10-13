@@ -63,7 +63,8 @@ from zyg_workflows import paths
 
 CREWS = str(paths.ZYG_CREWS_ROOT)
 sys.path.insert(0, CREWS)
-os.chdir(CREWS)
+if os.path.isdir(CREWS):  # absent on a bare checkout (CI, a fresh clone)
+    os.chdir(CREWS)
 
 from zyg_workflows import storyteller_scene_service as sss  # noqa: E402
 from zyg_workflows import scene_cornelis_day1 as cd1  # noqa: E402
