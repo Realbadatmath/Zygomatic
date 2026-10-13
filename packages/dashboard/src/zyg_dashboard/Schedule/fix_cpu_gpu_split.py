@@ -41,73 +41,75 @@ GPU_ONLY_MODELS.discard('1030')
 _zyg_log.info(' '.join(str(a) for a in ('CPU-only models:', CPU_ONLY_MODELS)))
 _zyg_log.info(' '.join(str(a) for a in ('GPU-only models:', sorted(GPU_ONLY_MODELS))))
 
-# Load current mappings
-with open('Schedule/cpu_agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
-    cpu_mapping = json.load(f)
+# Script body guarded: runs only when executed as a script, not when imported.
+if __name__ == '__main__':
+    # Load current mappings
+    with open('Schedule/cpu_agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
+        cpu_mapping = json.load(f)
 
-with open('Schedule/agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
-    gpu_mapping = json.load(f)
+    with open('Schedule/agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
+        gpu_mapping = json.load(f)
 
-# Create new mappings
-new_cpu_mapping = {}
-new_gpu_mapping = {}
+    # Create new mappings
+    new_cpu_mapping = {}
+    new_gpu_mapping = {}
 
-# Process all agents
-all_agents = set(cpu_mapping.keys()) | set(gpu_mapping.keys())
+    # Process all agents
+    all_agents = set(cpu_mapping.keys()) | set(gpu_mapping.keys())
 
-for agent in all_agents:
-    # Get agent data from either mapping
-    agent_data = cpu_mapping.get(agent, gpu_mapping.get(agent, {}))
-    if not agent_data:
-        continue
+    for agent in all_agents:
+        # Get agent data from either mapping
+        agent_data = cpu_mapping.get(agent, gpu_mapping.get(agent, {}))
+        if not agent_data:
+            continue
 
-    # Split models based on CPU/GPU classification
-    cpu_models = []
-    gpu_models = []
+        # Split models based on CPU/GPU classification
+        cpu_models = []
+        gpu_models = []
 
-    for model in agent_data.get('models', []):
-        model_id = model['model']
-        if model_id in CPU_ONLY_MODELS:
-            cpu_models.append(model)
-        elif model_id in GPU_ONLY_MODELS:
-            gpu_models.append(model)
-        else:
-            # For models not explicitly classified, keep them where they are
-            if agent in cpu_mapping:
+        for model in agent_data.get('models', []):
+            model_id = model['model']
+            if model_id in CPU_ONLY_MODELS:
                 cpu_models.append(model)
-            else:
+            elif model_id in GPU_ONLY_MODELS:
                 gpu_models.append(model)
+            else:
+                # For models not explicitly classified, keep them where they are
+                if agent in cpu_mapping:
+                    cpu_models.append(model)
+                else:
+                    gpu_models.append(model)
 
-    # Add to appropriate mapping if it has models
-    if cpu_models:
-        new_cpu_mapping[agent] = {k: v for k, v in agent_data.items() if k != 'models'}
-        new_cpu_mapping[agent]['models'] = cpu_models
+        # Add to appropriate mapping if it has models
+        if cpu_models:
+            new_cpu_mapping[agent] = {k: v for k, v in agent_data.items() if k != 'models'}
+            new_cpu_mapping[agent]['models'] = cpu_models
 
-    if gpu_models:
-        new_gpu_mapping[agent] = {k: v for k, v in agent_data.items() if k != 'models'}
-        new_gpu_mapping[agent]['models'] = gpu_models
+        if gpu_models:
+            new_gpu_mapping[agent] = {k: v for k, v in agent_data.items() if k != 'models'}
+            new_gpu_mapping[agent]['models'] = gpu_models
 
-# Save updated mappings
-with open('Schedule/cpu_agent_model_bar_mapping.json', 'w', encoding='utf-8') as f:
-    json.dump(new_cpu_mapping, f, indent=2)
+    # Save updated mappings
+    with open('Schedule/cpu_agent_model_bar_mapping.json', 'w', encoding='utf-8') as f:
+        json.dump(new_cpu_mapping, f, indent=2)
 
-with open('Schedule/agent_model_bar_mapping.json', 'w', encoding='utf-8') as f:
-    json.dump(new_gpu_mapping, f, indent=2)
+    with open('Schedule/agent_model_bar_mapping.json', 'w', encoding='utf-8') as f:
+        json.dump(new_gpu_mapping, f, indent=2)
 
-_zyg_log.info(f'Updated CPU mapping: {len(new_cpu_mapping)} agents')
-_zyg_log.info(f'Updated GPU mapping: {len(new_gpu_mapping)} agents')
+    _zyg_log.info(f'Updated CPU mapping: {len(new_cpu_mapping)} agents')
+    _zyg_log.info(f'Updated GPU mapping: {len(new_gpu_mapping)} agents')
 
-# Show which models are in each mapping
-cpu_models = set()
-gpu_models = set()
+    # Show which models are in each mapping
+    cpu_models = set()
+    gpu_models = set()
 
-for agent_data in new_cpu_mapping.values():
-    for model in agent_data.get('models', []):
-        cpu_models.add(model['model'])
+    for agent_data in new_cpu_mapping.values():
+        for model in agent_data.get('models', []):
+            cpu_models.add(model['model'])
 
-for agent_data in new_gpu_mapping.values():
-    for model in agent_data.get('models', []):
-        gpu_models.add(model['model'])
+    for agent_data in new_gpu_mapping.values():
+        for model in agent_data.get('models', []):
+            gpu_models.add(model['model'])
 
-_zyg_log.info(f'CPU models: {sorted(cpu_models)}')
-_zyg_log.info(f'GPU models: {sorted(gpu_models)}')
+    _zyg_log.info(f'CPU models: {sorted(cpu_models)}')
+    _zyg_log.info(f'GPU models: {sorted(gpu_models)}')

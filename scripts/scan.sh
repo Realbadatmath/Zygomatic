@@ -40,6 +40,9 @@ step "ruff (root files)";       "$V/ruff" check scripts && "$V/ruff" format --ch
 step "modcheck (line caps)";    "$V/python" scripts/modcheck.py check || fail=1
 step "ratchet (quality counters)"; "$V/python" scripts/ratchet.py check || fail=1
 step "ratchet baseline direction"; "$V/python" scripts/ratchet.py direction || fail=1
+# Every module changed or added since origin/main must still import in a child process; the
+# full sweep is tests/test_import_smoke.py in each package (CI). An unknown ref checks nothing.
+step "import smoke (changed modules)"; "$V/python" scripts/import_smoke.py run --changed origin/main --quiet || fail=1
 # An undefined name is a bug ruff already found. --ignore-noqa so a suppression cannot hide one.
 step "undefined names"
 if undef="$("$V/ruff" check --select F821 --ignore-noqa --output-format concise packages/*/src 2>&1)" &&

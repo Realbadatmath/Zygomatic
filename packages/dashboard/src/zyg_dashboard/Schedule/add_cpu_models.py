@@ -33,51 +33,53 @@ CPU_MODELS = {
     '1047',
 }
 
-# Load the main mapping file
-with open('agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
-    main_mapping = json.load(f)
+# Script body guarded: runs only when executed as a script, not when imported.
+if __name__ == '__main__':
+    # Load the main mapping file
+    with open('agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
+        main_mapping = json.load(f)
 
-# Load existing CPU mapping
-with open('Schedule/cpu_agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
-    cpu_mapping = json.load(f)
+    # Load existing CPU mapping
+    with open('Schedule/cpu_agent_model_bar_mapping.json', 'r', encoding='utf-8') as f:
+        cpu_mapping = json.load(f)
 
-# Add all agents that use any CPU model to the CPU mapping
-for agent, data in main_mapping.items():
-    models = data.get('models', [])
-    # Find all CPU models for this agent
-    cpu_models = [m for m in models if m.get('model') in CPU_MODELS]
+    # Add all agents that use any CPU model to the CPU mapping
+    for agent, data in main_mapping.items():
+        models = data.get('models', [])
+        # Find all CPU models for this agent
+        cpu_models = [m for m in models if m.get('model') in CPU_MODELS]
 
-    if cpu_models:
-        # If agent already exists in CPU mapping, merge models
-        if agent in cpu_mapping:
-            existing_models = cpu_mapping[agent]['models']
-            # Add new CPU models that aren't already there
-            existing_model_ids = {m['model'] for m in existing_models}
-            for model in cpu_models:
-                if model['model'] not in existing_model_ids:
-                    existing_models.append(model)
-        else:
-            # Add new agent to CPU mapping
-            cpu_mapping[agent] = {k: v for k, v in data.items() if k != 'models'}
-            cpu_mapping[agent]['models'] = cpu_models
+        if cpu_models:
+            # If agent already exists in CPU mapping, merge models
+            if agent in cpu_mapping:
+                existing_models = cpu_mapping[agent]['models']
+                # Add new CPU models that aren't already there
+                existing_model_ids = {m['model'] for m in existing_models}
+                for model in cpu_models:
+                    if model['model'] not in existing_model_ids:
+                        existing_models.append(model)
+            else:
+                # Add new agent to CPU mapping
+                cpu_mapping[agent] = {k: v for k, v in data.items() if k != 'models'}
+                cpu_mapping[agent]['models'] = cpu_models
 
-# Save updated CPU mapping
-with open('Schedule/cpu_agent_model_bar_mapping.json', 'w', encoding='utf-8') as f:
-    json.dump(cpu_mapping, f, indent=2)
+    # Save updated CPU mapping
+    with open('Schedule/cpu_agent_model_bar_mapping.json', 'w', encoding='utf-8') as f:
+        json.dump(cpu_mapping, f, indent=2)
 
-_zyg_log.info(f'Updated CPU mapping with {len(cpu_mapping)} agents')
+    _zyg_log.info(f'Updated CPU mapping with {len(cpu_mapping)} agents')
 
-# Count models in CPU mapping
-cpu_model_ids = set()
-for agent_data in cpu_mapping.values():
-    for model in agent_data.get('models', []):
-        cpu_model_ids.add(model['model'])
+    # Count models in CPU mapping
+    cpu_model_ids = set()
+    for agent_data in cpu_mapping.values():
+        for model in agent_data.get('models', []):
+            cpu_model_ids.add(model['model'])
 
-_zyg_log.info(f'CPU models: {sorted(cpu_model_ids)}')
-_zyg_log.info(f'Number of CPU models: {len(cpu_model_ids)}')
+    _zyg_log.info(f'CPU models: {sorted(cpu_model_ids)}')
+    _zyg_log.info(f'Number of CPU models: {len(cpu_model_ids)}')
 
-# Show sample agents
-_zyg_log.info('\nSample CPU agents:')
-for _i, agent in enumerate(list(cpu_mapping.keys())[:5]):
-    models = [m['model'] for m in cpu_mapping[agent]['models']]
-    _zyg_log.info(f'  {agent}: {models}')
+    # Show sample agents
+    _zyg_log.info('\nSample CPU agents:')
+    for _i, agent in enumerate(list(cpu_mapping.keys())[:5]):
+        models = [m['model'] for m in cpu_mapping[agent]['models']]
+        _zyg_log.info(f'  {agent}: {models}')

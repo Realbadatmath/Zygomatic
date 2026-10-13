@@ -1,0 +1,24 @@
+# import_smoke skip list — modules that do not import cleanly yet, one per line:
+#   <dotted.module>  # <reason>
+# A package entry covers its submodules. This list only shrinks (scripts/ratchet.py
+# counts it as smoke_skipped, zero for a new file). Remove a line once the module imports.
+zyg_zero.medusa.medusa_presets  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.app  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.html  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.html_body  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.html_css_panels  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.html_head_css  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.js_core  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.js_inspection  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.js_models  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.js_resources  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.js_training  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.js_vicky  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_server.routes  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_vicky  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_vicky.chat_store  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_vicky.cli  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_vicky.constants  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_vicky.jobs  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision
+zyg_zero.medusa.medusa_vicky.ledger  # imports a private Medusa module kept out of the public repo (PRIVATE APPS OUT) — operator decision

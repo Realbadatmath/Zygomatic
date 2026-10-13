@@ -29,3 +29,6 @@ production.log
 
 # caches the code refreshes itself
 packages/workflows/src/zyg_workflows/data/runtime/market_universe.json
+
+# Claude Code per-machine settings (the board's local-executor allow list)
+.claude/settings.local.json

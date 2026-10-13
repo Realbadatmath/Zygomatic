@@ -1,0 +1,288 @@
+# import_smoke skip list — modules that do not import cleanly yet, one per line:
+#   <dotted.module>  # <reason>
+# A package entry covers its submodules. This list only shrinks (scripts/ratchet.py
+# counts it as smoke_skipped, zero for a new file). Remove a line once the module imports.
+zyg_workflows._test_channel_data_retrieval  # script body runs at import (SystemExit at zyg_workflows/_test_channel_data_retrieval.py:41) — tree 2b tasks 6-8
+zyg_workflows.alembic.env  # alembic env script imports context from the wrong package (env.py:11) — tree 2b task 7
+zyg_workflows.arch_assistant  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant._base  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.backends  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.cli_backend  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.config  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.drawing  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.gate  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.ground  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.jobs  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.ledger  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.prompts  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant.walls  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.analyse_geometry  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.analyse_planning  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.assets_search  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.balconies_facade  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.build  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.constants  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.frame_script  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.hero_render  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.portfolio  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.present  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.second_pass  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.blender_power.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.building_program  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.building_program.checklist  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.building_program.evidence  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.building_program.request_items  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.building_program.resolving  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.building_program.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.circulation_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.circulation_rules.common  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.circulation_rules.cores  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.circulation_rules.floors  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.circulation_rules.registry  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.civil_infrastructure  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.clash_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.cliffs_rocks  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.coast_dunes  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.core_kit  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.curved_walls  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.deck_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.design_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.draw_guides  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.edit_ops  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.editing_ops  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.entrance_kit  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.entrance_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.envelope_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.facade_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.fields_meadows  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.file_2d  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.file_3d  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.finish_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.finish_schedule  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_layouts  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_plans  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_plans.placing  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_plans.placing_steps  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_plans.plan_packs  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_plans.registration  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_plans.tiling  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_plans.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.floor_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.forests  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.furniture_kitchen_bath  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.furniture_living  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.glossary_examples  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.glossary_examples.examples_en  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.glossary_examples.examples_nl_de_fr  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.glossary_examples.explain_sheets  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.glossary_examples.terms_de_fr  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.glossary_examples.terms_nl  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.glossary_examples.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.ground_v3  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.ground_v3.catalog  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.ground_v3.constants  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.ground_v3.field  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.ground_v3.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.interior_rooms  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.landmarks_special  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.landscape_composer  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.landscape_composer.checks  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.landscape_composer.constants  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.landscape_composer.recipes_core  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.landscape_composer.recipes_more  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.landscape_composer.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.light_lamps_env  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.light_studies  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.light_sun  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.lobby_fitout  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.massing_morph  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.materials_search  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.measure_analyse  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.measure_annotations  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.mep_services  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.modify_ops  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.mountains  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.mountains.catalog  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.mountains.field  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.mountains.plumbing  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.mountains.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.object_specs  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.opening_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.openings_special  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.organise_layers  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.organise_model  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.polygon_footprints  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.quantities  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.reference_model  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.reference_model.build  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.reference_model.build_stages  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.reference_model.helpers  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.reference_model.views  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.render_offline  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.rivers_lakes  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.roof_kit  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.roof_kit_deck  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.roofs_advanced  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.share_collab  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.sightline_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.site_context  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.site_landscape  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.site_landscape.constants  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.site_landscape.ground_seam  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.site_landscape.site_tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.site_landscape.tool_schema  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.site_terrain  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.slab_voids  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.solids_boolean  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.stairs_vertical  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.stairs_vertical.constants  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.stairs_vertical.plan  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.stairs_vertical.registry  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.stairs_vertical.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.structure_frames  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.terrain  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.typologies_commercial  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.typologies_residential  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.v3probe  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.vehicles_props  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.view_scene_ops  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.walk_rules  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.walk_rules.checks  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.walk_rules.grid  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.walk_rules.reading  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_leisure  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_leisure.base  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_leisure.infinity  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_leisure.infinity_build  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_leisure.leisure  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_leisure.pool  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_leisure.tools  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_assistant_ext.water_v3  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.arch_blender_build  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_blender_build.build_scene  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_blender_build.cli  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_blender_build.kinds  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_blender_build.materials  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build.api  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build.audit  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build.base  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build.inspection  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build.main  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build.portfolio  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.arch_reference_build.scene  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.bench_wake_line  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
+zyg_workflows.blend_export_collections  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.base_body_rig  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.base_body_rig.pipeline  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.base_body_rig.rig  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.base_body_rig.scene  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.base_body_rig.transfer  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.build_asset_library  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.build_hdri_library  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.build_human_base_library  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.build_material_library  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.build_pufferball_actor  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.char2d_build  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.char2d_render_pose  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.generate_character  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.ply_to_glb  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor.actor_build  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor.args_scene  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor.body  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor.constants  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor.fit  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor.motion  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.proxy_actor.output  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.render_asset_previews  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.render_human_base_previews  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.rig_export_glb  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts.body_boxes  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts.constants  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts.linalg  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts.loading  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts.piece_map  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts.placement  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.blender_scripts.skeleton_bind_parts.tuck  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.comfy_generation_service  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.backend  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.capabilities  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.constants  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.flux_graph  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.generate  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.hand_fixer  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.preview  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.prompts  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.style  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.comfy_generation_service.workflows  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.gen_bird_side_sprites  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.mesh_studio_ops.b_session  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.export  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.fit  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.measure  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.pipeline  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.render  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.session  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.texture  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mesh_studio_ops.b_session.view  # mesh_studio.load_parts imports the parts as top-level mesh_studio_ops.* (sys.path insert), so a package-qualified import runs the file twice — tree 2b task 3
+zyg_workflows.mpfb_scale_figures  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.axe_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.book_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.gate_proof  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.hatchet  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.hurlbat  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.hurlbat_sheet  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pass_lib  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pufferball  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pufferball.checks  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pufferball.constants  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pufferball.geometry  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pufferball.parts  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pufferball_look  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.pufferball_sheet  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.sheet_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.prop_mesh.tree_build  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.run_scene_cornelis_screams20  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
+zyg_workflows.run_scene_cornelis_wake  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
+zyg_workflows.run_scene_shores_bird  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_flame  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_screams  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_v27  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_v27.bird_flight  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_v27.bird_flight_checks  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_v27.checks  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_v27.constants  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_v27.driver  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.run_scene_shores_water  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.scene_cornelis_day1  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
+zyg_workflows.skin_tone_smoke  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
+zyg_workflows.sync_gpu_models_in_bar_mapping  # script body runs at import (FileNotFoundError at zyg_workflows/sync_gpu_models_in_bar_mapping.py:29) — tree 2b tasks 6-8
+zyg_workflows.test_arch_assistant  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.test_arch_assistant.cli  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.test_arch_assistant.drawer  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.test_arch_assistant.ledger  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.test_arch_assistant.tab  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.test_arch_assistant.thinkless  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.test_gpu_timeline  # script body runs at import (FileNotFoundError at zyg_workflows/test_gpu_timeline.py:24) — tree 2b tasks 6-8
+zyg_workflows.test_leftbar  # script body runs at import (SystemExit at zyg_workflows/test_leftbar.py:230) — tree 2b tasks 6-8
+zyg_workflows.tools.farmyard_ref.verify_shift  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.tools.hair_assets.cycles_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.tools.hair_assets.fit_preview  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.tools.hair_assets.groom_to_glb  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.tools.hair_assets.hair_extract  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.tools.hair_assets.install_hair_packs  # IndexError: list index out of range at zyg_workflows/tools/hair_assets/install_hair_packs.py:47
+zyg_workflows.tools.hair_assets.mh_to_glb  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.tools.hair_assets.probe_groom  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.tools.kidsmusic_male_octave_bench  # optional dependency mido (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.tools.lyric_asr_bench  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.tools.studio_verify.check_inspection_js  # script body runs at import (FileNotFoundError at zyg_workflows/tools/studio_verify/check_inspection_js.py:22) — tree 2b tasks 6-8
+zyg_workflows.tools.studio_verify.task15_mesh_studio  # script body runs at import (SystemExit at zyg_workflows/tools/studio_verify/task15_mesh_studio.py:156) — tree 2b tasks 6-8
+zyg_workflows.tools.vc_bench  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
+zyg_workflows.tools_arch_landscape_gallery  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
+zyg_workflows.vfx_volume_camsearch  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
+zyg_workflows.vfx_volume_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
