@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""test_arch_materials.py — proof that a CC0 surface tiles at LIFE SIZE.
+"""probe_arch_materials.py — proof that a CC0 surface tiles at LIFE SIZE.
 
-    venv/bin/python test_arch_materials.py
+    venv/bin/python probe_arch_materials.py
 
 "A texture appeared" is not the claim worth testing — that would pass just as
 happily with the bricks stretched three times life size across a wall, which is

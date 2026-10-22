@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""test_arch_library_board.py — the Architecture card on the Library board.
+"""probe_arch_library_board.py — the Architecture card on the Library board.
 
-    ~/zygomatics-zero/venv/bin/python test_arch_library_board.py
+    ~/zygomatics-zero/venv/bin/python probe_arch_library_board.py
 
 (the venv the other Playwright tests here run under — it has playwright + the
 chrome channel; the probe drawing it creates is trashed and the trash file

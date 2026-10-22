@@ -173,7 +173,6 @@ zyg_workflows.arch_reference_build.inspection  # Blender-only (bpy): importable 
 zyg_workflows.arch_reference_build.main  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.arch_reference_build.portfolio  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.arch_reference_build.scene  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
-zyg_workflows.bench_wake_line  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
 zyg_workflows.blend_export_collections  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.blender_scripts.base_body_rig  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.blender_scripts.base_body_rig.pipeline  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
@@ -247,11 +246,6 @@ zyg_workflows.prop_mesh.pufferball_look  # Blender-only (bpy): importable inside
 zyg_workflows.prop_mesh.pufferball_sheet  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.prop_mesh.sheet_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.prop_mesh.tree_build  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
-zyg_workflows.run_scene_cornelis_screams20  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
-zyg_workflows.run_scene_cornelis_wake  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
-zyg_workflows.run_scene_shores_bird  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
-zyg_workflows.run_scene_shores_flame  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
-zyg_workflows.run_scene_shores_screams  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.run_scene_shores_v27  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.run_scene_shores_v27.bird_flight  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.run_scene_shores_v27.bird_flight_checks  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
@@ -260,7 +254,6 @@ zyg_workflows.run_scene_shores_v27.constants  # optional dependency soundfile (p
 zyg_workflows.run_scene_shores_v27.driver  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.run_scene_shores_water  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.scene_cornelis_day1  # scene_cornelis_day1.py:50 builds the chart at import (reads the geo data dir) — tree 2b task 5
-zyg_workflows.skin_tone_smoke  # imports comfy_generation_service (guarded: consistency_qa CLIP) — tree 2b task 2
 zyg_workflows.sync_gpu_models_in_bar_mapping  # script body runs at import (FileNotFoundError at zyg_workflows/sync_gpu_models_in_bar_mapping.py:29) — tree 2b tasks 6-8
 zyg_workflows.test_arch_assistant  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
 zyg_workflows.test_arch_assistant.cli  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
@@ -268,7 +261,6 @@ zyg_workflows.test_arch_assistant.drawer  # imports arch_assistant, whose import
 zyg_workflows.test_arch_assistant.ledger  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
 zyg_workflows.test_arch_assistant.tab  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
 zyg_workflows.test_arch_assistant.thinkless  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
-zyg_workflows.test_gpu_timeline  # script body runs at import (FileNotFoundError at zyg_workflows/test_gpu_timeline.py:24) — tree 2b tasks 6-8
 zyg_workflows.test_leftbar  # script body runs at import (SystemExit at zyg_workflows/test_leftbar.py:230) — tree 2b tasks 6-8
 zyg_workflows.tools.farmyard_ref.verify_shift  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.tools.hair_assets.cycles_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
@@ -286,6 +278,4 @@ zyg_workflows.tools.studio_verify.check_inspection_js  # script body runs at imp
 zyg_workflows.tools.studio_verify.task15_mesh_studio  # script body runs at import (SystemExit at zyg_workflows/tools/studio_verify/task15_mesh_studio.py:156) — tree 2b tasks 6-8
 zyg_workflows.tools.vc_bench  # optional dependency soundfile (pyproject group audio) imported at module level — tree 2b task 4
 zyg_workflows.tools.voice_identity_null_renders  # reads output/kidsmusic/.../male_voices/index.json from the crews tree at module level — bench script
-zyg_workflows.tools_arch_landscape_gallery  # imports arch_assistant, whose import closes the live assistant ledger (jobs.py:516 _close_orphans) — tree 2b task 1
-zyg_workflows.vfx_volume_camsearch  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it
 zyg_workflows.vfx_volume_render  # Blender-only (bpy): importable inside Blender alone; the nightly Blender tier smokes it

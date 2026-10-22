@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""test_arch_hover.py — the library rail's hover preview.
+"""probe_arch_hover.py — the library rail's hover preview.
 
-    venv/bin/python test_arch_hover.py
+    venv/bin/python probe_arch_hover.py
 
 Three kinds of row get their picture from three different places, and each can
 break on its own, so each is hovered for real (a synthesised mouseover through

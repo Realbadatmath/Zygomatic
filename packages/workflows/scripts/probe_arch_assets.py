@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""test_arch_assets.py — end-to-end proof that the Studio can place a pack asset.
+"""probe_arch_assets.py — end-to-end proof that the Studio can place a pack asset.
 
-    PLAYWRIGHT_BROWSERS_PATH=  venv/bin/python test_arch_assets.py
+    PLAYWRIGHT_BROWSERS_PATH=  venv/bin/python probe_arch_assets.py
 
 Drives the REAL page against the running :8899 server and asserts on the scene
 graph, not on pixels.

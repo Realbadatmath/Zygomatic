@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""test_arch_dock3.py — Architecture Studio's three-row option dock.
+"""probe_arch_dock3.py — Architecture Studio's three-row option dock.
 
-    venv/bin/python test_arch_dock3.py
+    venv/bin/python probe_arch_dock3.py
 
 The dock stopped being twenty session controls (2 rows) and became the option
 surface of the domain (190 controls, 3 rows). Three things can each break on
