@@ -598,39 +598,7 @@ def _selftest():  # pragma: no cover — exercised via CLI
     return 0
 
 
-def main(argv=None):  # pragma: no cover
-    import argparse
-    import json
+if __name__ == '__main__':  # the CLI lives in video_audio_cli
+    from zyg_workflows.video_audio_cli import main as _cli_main
 
-    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('--spec', help='path to a spec JSON file')
-    ap.add_argument('--duration', type=float, help='programme length in seconds')
-    ap.add_argument('--out', help='output wav path')
-    ap.add_argument('--video', help='video to mux the track onto')
-    ap.add_argument('--mux', dest='mux_out', help='muxed mp4 output path')
-    ap.add_argument('--selftest', action='store_true')
-    args = ap.parse_args(argv)
-
-    if args.selftest:
-        return _selftest()
-
-    if not (args.spec and args.duration and args.out):
-        ap.error('--spec, --duration and --out are required (or --selftest)')
-    with open(args.spec, 'r', encoding='utf-8') as fh:
-        spec = json.load(fh)
-    receipt = build_track(spec, args.duration, args.out, log=print)
-
-    if args.video or args.mux_out:
-        if not (args.video and args.mux_out):
-            ap.error('--video and --mux must be given together')
-        got = mux(args.video, args.out, args.mux_out, log=print)
-        if not got:
-            print('video_audio: mux failed')
-            return 1
-        receipt['mux'] = got
-    print(json.dumps(receipt, indent=2, sort_keys=True))
-    return 0
-
-
-if __name__ == '__main__':
-    raise SystemExit(main())
+    raise SystemExit(_cli_main())

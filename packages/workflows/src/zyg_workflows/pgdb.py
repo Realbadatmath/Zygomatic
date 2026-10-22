@@ -198,5 +198,7 @@ def ping(dsn: str | None = None) -> bool:
         return False
 
 
-if __name__ == '__main__':
-    print(dsn(), ping())
+if __name__ == '__main__':  # the CLI lives in pgdb_cli
+    from zyg_workflows.pgdb_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

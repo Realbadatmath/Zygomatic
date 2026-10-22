@@ -33,10 +33,8 @@ Run:  ~/zygomatics-zero/venv/bin/python \
 
 import json
 import os
-import sys
 from zyg_workflows import paths
 
-from playwright.sync_api import sync_playwright
 
 import logging as _zyg_logging
 
@@ -473,17 +471,7 @@ def run(pw):
     return p, px, tick
 
 
-def main():
-    with sync_playwright() as pw:
-        p, px, tick = run(pw)
-    print(
-        '\nPASS — écorché %s %s on %d body vertices, %.1f red-over-green, '
-        '%.3f ms a frame' % (p['ecName'], p['ecSize'], p['verts'], px['r'] - px['g'], tick['mean'])
-    )
-    for k in ('halfbare_front', 'halfbare_back', 'anat_front', 'halfskin_front', 'head'):
-        print('      %s' % SHOTS[k])
-    return 0
+if __name__ == '__main__':  # the CLI lives in check_movement_ecorche_cli
+    from zyg_workflows.tools.studio_verify.check_movement_ecorche_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

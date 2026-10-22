@@ -291,20 +291,7 @@ def composite_candle_flicker(
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-if __name__ == '__main__':
-    import json
-    import sys
+if __name__ == '__main__':  # the CLI lives in candle_fx_cli
+    from zyg_workflows.candle_fx_cli import main as _cli_main
 
-    def _lg(m):
-        print(m, flush=True)
-
-    if len(sys.argv) < 3:
-        print('usage: candle_fx.py IN.mp4 OUT.mp4 [meta.json] [strength]')
-        sys.exit(2)
-    box = [0.444, 0.56, 0.538, 0.878]
-    if len(sys.argv) > 3 and os.path.exists(sys.argv[3]):
-        box = json.load(open(sys.argv[3])).get('candle_box', box)
-    st = float(sys.argv[4]) if len(sys.argv) > 4 else None
-    r = composite_candle_flicker(sys.argv[1], sys.argv[2], box, strength=st, log_fn=_lg)
-    print('->', r)
-    sys.exit(0 if r else 1)
+    raise SystemExit(_cli_main())

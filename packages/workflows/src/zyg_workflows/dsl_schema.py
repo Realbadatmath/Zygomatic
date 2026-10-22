@@ -376,9 +376,7 @@ def scene_from_yaml_file(filepath: str) -> Scene:
         return Scene.from_yaml(f.read())
 
 
-if __name__ == '__main__':
-    # Demo: print example scene
-    print('=' * 70)
-    print('EXAMPLE SCENE DSL')
-    print('=' * 70)
-    print(EXAMPLE_SCENE.to_yaml())
+if __name__ == '__main__':  # the CLI lives in dsl_schema_cli
+    from zyg_workflows.dsl_schema_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

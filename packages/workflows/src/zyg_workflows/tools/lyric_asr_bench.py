@@ -25,7 +25,6 @@ Known answers:
     the prompt risks.
 """
 
-import json
 import os
 import sys
 from zyg_workflows import paths
@@ -35,8 +34,6 @@ CREWS = str(paths.ZYG_CREWS_ROOT)
 sys.path.insert(0, CREWS)
 if os.path.isdir(CREWS):  # absent on a bare checkout (CI, a fresh clone)
     os.chdir(CREWS)
-import soundfile as sf  # noqa: E402
-
 from zyg_workflows import vocal_analysis as VA  # noqa: E402
 
 VB = 'output/kidsmusic/_voice_build'
@@ -93,53 +90,7 @@ def decode(model, audio16, prompt=None):
     ]
 
 
-def main():
-    import librosa
-    from faster_whisper import WhisperModel
+if __name__ == '__main__':  # the CLI lives in lyric_asr_bench_cli
+    from zyg_workflows.tools.lyric_asr_bench_cli import main as _cli_main
 
-    os.makedirs(OUT, exist_ok=True)
-    model = WhisperModel('large-v3', device='cuda', compute_type='float16')
-    results = {}
-    cases = list(CASES) + [('MUTE_rt_m01_L6', '1ba342d5cd75')]
-    for tid, song in cases:
-        plan = json.load(open(f'output/kidsmusic/{song}/song.json'))
-        src = f'{VB}/stems/{tid if not tid.startswith("MUTE") else "rt_m01_warm_control"}/vocals.wav'
-        y, sr = librosa.load(src, sr=16000, mono=True)
-        if tid.startswith('MUTE'):
-            words = json.load(open(f'{VB}/stems/rt_m01_warm_control/words.json'))['words']
-            al = VA.align_lines(plan, words)
-            ln = next(r for r in al['lines'] if r['line'] == 6)
-            a, b = int((ln['start_s'] - 0.15) * sr), int((ln['end_s'] + 0.15) * sr)
-            y = y.copy()
-            y[a:b] = 0.0
-            src = os.path.join(OUT, 'mute_rt_m01_L6.wav')
-            sf.write(src, y, sr)
-            results.setdefault('_mute', {})['window'] = [ln['start_s'], ln['end_s'], ln['text']]
-        prompt = ' '.join(plan.get('lyrics') or [])
-        row = {}
-        row['whole'] = decode(model, y)
-        ch = chunks_of(src)
-        for arm, pr in (('chunk', None), ('chunk_prompt', prompt)):
-            ws = []
-            for s, e in ch:
-                seg = y[int(s * sr) : int(e * sr)]
-                for w in decode(model, seg, pr):
-                    ws.append(dict(w, start=round(w['start'] + s, 2), end=round(w['end'] + s, 2)))
-            row[arm] = ws
-        results[tid] = {'chunks': len(ch)}
-        for arm, ws in row.items():
-            al = VA.align_lines(plan, ws)
-            results[tid][arm] = {
-                'words': len(ws),
-                'sung': sum(1 for r in al['lines'] if r['sung']),
-                'lines': len(al['lines']),
-                'missing': [r['line'] for r in al['lines'] if not r['sung']],
-                'extra_words': al['extra_words'],
-            }
-            json.dump(ws, open(os.path.join(OUT, f'{tid}.{arm}.json'), 'w'))
-        print(tid, json.dumps(results[tid]), flush=True)
-    json.dump(results, open(os.path.join(OUT, 'results.json'), 'w'), indent=1)
-
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

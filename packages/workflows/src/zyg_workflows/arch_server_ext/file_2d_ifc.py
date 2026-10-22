@@ -28,11 +28,9 @@ into the server's), Blender GPL-2.0-or-later. Nothing is installed by this file.
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import sys
-import traceback
 import logging as _zyg_logging
 
 _zyg_log = _zyg_logging.getLogger(__name__)
@@ -139,23 +137,6 @@ def load_builder(here: str):
     sys.modules['arch_blender_build_f2d'] = mod
     spec.loader.exec_module(mod)
     return mod
-
-
-def main() -> None:
-    argv = sys.argv[sys.argv.index('--') + 1 :] if '--' in sys.argv else []
-    ap = argparse.ArgumentParser(prog='file_2d_ifc.py')
-    ap.add_argument('--in', dest='inp', required=True)
-    ap.add_argument('--out', required=True)
-    ap.add_argument('--schema', default='IFC4')
-    ap.add_argument('--name', default='Drawing')
-    args = ap.parse_args(argv)
-    try:
-        out = run(args)
-    except Exception as e:  # noqa: BLE001
-        traceback.print_exc()
-        print('IFCOUT ' + json.dumps({'ok': False, 'error': '%s: %s' % (type(e).__name__, e)}), flush=True)
-        sys.exit(1)
-    print('IFCOUT ' + json.dumps(out), flush=True)
 
 
 def run(args) -> dict:
@@ -275,5 +256,11 @@ def run(args) -> dict:
     }
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == '__main__':  # the CLI lives in file_2d_ifc_cli
+    try:
+        from zyg_workflows.arch_server_ext.file_2d_ifc_cli import main as _cli_main
+    except ImportError:  # inside Blender's python, which has no zyg_workflows installed
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+        from zyg_workflows.arch_server_ext.file_2d_ifc_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

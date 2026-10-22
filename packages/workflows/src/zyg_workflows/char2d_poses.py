@@ -344,52 +344,7 @@ def load_all(directory):
     return out
 
 
-# ------------------------------------------------------------------------ cli
+if __name__ == '__main__':  # the CLI lives in char2d_poses_cli
+    from zyg_workflows.char2d_poses_cli import main as _cli_main
 
-
-def _cmd_validate(paths):
-    if not paths:
-        print('validate: no gesture files given', file=sys.stderr)
-        return 1
-    bad = 0
-    for path in paths:
-        try:
-            with open(path, 'r', encoding='utf-8') as fh:
-                gesture = json.load(fh)
-        except (OSError, ValueError) as exc:
-            print('FAIL %s: %s' % (path, exc))
-            bad += 1
-            continue
-        errors = validate(gesture)
-        if errors:
-            bad += 1
-            print('FAIL %s (%d error%s)' % (path, len(errors), '' if len(errors) == 1 else 's'))
-            for message in errors:
-                print('     %s' % message)
-        else:
-            keys = gesture.get('keys') or []
-            frames = sum(int(k.get('hold_frames', 0)) for k in keys)
-            print(
-                'OK   %s  %-22s hands=%-4s keys=%d frames=%d (%.2fs)'
-                % (path, gesture.get('name', '?'), gesture.get('hands', '?'), len(keys), frames, frames / float(FPS))
-            )
-    return 1 if bad else 0
-
-
-def main(argv):
-    if len(argv) < 2 or argv[1] in ('-h', '--help'):
-        print(__doc__.strip())
-        print('\nusage: char2d_poses.py validate GESTURE.json ...\n       char2d_poses.py idle')
-        return 0 if len(argv) > 1 else 1
-    command = argv[1]
-    if command == 'validate':
-        return _cmd_validate(argv[2:])
-    if command == 'idle':
-        print(json.dumps(idle_bones(), indent=2))
-        return 0
-    print('unknown command %r (validate | idle)' % command, file=sys.stderr)
-    return 2
-
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+    raise SystemExit(_cli_main(sys.argv))

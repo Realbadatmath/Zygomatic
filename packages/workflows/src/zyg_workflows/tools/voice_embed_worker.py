@@ -22,51 +22,16 @@ Usage:  python voice_embed_worker.py IN.json OUT.json
              "embeddings": {"<id>": [unit-norm floats]}, "errors": {"<id>": "..."}}
 """
 
-import json
 import os
 import sys
 
+if __name__ == '__main__':  # the CLI lives in voice_embed_worker_cli
+    if __package__:
+        from zyg_workflows.tools.voice_embed_worker_cli import main as _cli_main
+    else:
+        # vocal_analysis.EMBED_WORKER runs this file by absolute path with the NeMo
+        # venv's python, where zyg_workflows is not importable; the sibling is.
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from voice_embed_worker_cli import main as _cli_main
 
-def main(argv):
-    src, dst = argv[0], argv[1]
-    out = {
-        'ok': False,
-        'model': os.environ.get('ZYG_TITANET_MODEL', 'titanet_large'),
-        'dim': None,
-        'embeddings': {},
-        'errors': {},
-        'error': '',
-    }
-    try:
-        import numpy as np
-        import torch
-        from nemo.collections.asr.models import EncDecSpeakerLabelModel
-
-        items = json.load(open(src)).get('items') or []
-        model = EncDecSpeakerLabelModel.from_pretrained(out['model'])
-        model.eval()
-        if torch.cuda.is_available():
-            model = model.cuda()
-        for it in items:
-            try:
-                with torch.no_grad():
-                    v = model.get_embedding(it['wav']).detach().cpu().numpy().reshape(-1)
-                v = v.astype('float64')
-                n = float(np.linalg.norm(v)) or 1.0
-                out['embeddings'][it['id']] = [round(float(x), 6) for x in (v / n)]
-                out['dim'] = int(v.size)
-            except Exception as e:  # noqa: BLE001 — per item
-                out['errors'][it['id']] = f'{type(e).__name__}: {e}'[:200]
-        out['ok'] = bool(out['embeddings'])
-    except Exception as e:  # noqa: BLE001
-        out['error'] = f'{type(e).__name__}: {e}'[:300]
-    with open(dst, 'w') as fh:
-        json.dump(out, fh)
-    print(
-        json.dumps({'ok': out['ok'], 'n': len(out['embeddings']), 'errors': len(out['errors']), 'error': out['error']})
-    )
-    return 0 if out['ok'] else 1
-
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+    raise SystemExit(_cli_main(sys.argv[1:]))

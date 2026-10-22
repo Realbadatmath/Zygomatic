@@ -37,7 +37,6 @@ CLI
 
 from __future__ import annotations
 
-import json
 import math
 import os
 import subprocess
@@ -363,30 +362,7 @@ def rank_score(rows):
     return rows
 
 
-# ---------------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------------
+if __name__ == '__main__':  # the CLI lives in sung_pitch_cli
+    from zyg_workflows.sung_pitch_cli import main as _cli_main
 
-
-def main(argv):
-    if not argv:
-        print(__doc__.strip().splitlines()[-3].strip())
-        print('usage: sung_pitch.py FILE [FILE...]  |  sung_pitch.py --shift A B')
-        return 2
-    if argv[0] == '--shift':
-        if len(argv) < 3:
-            print('usage: sung_pitch.py --shift A B')
-            return 2
-        st, corr = shift_semitones(argv[1], argv[2])
-        print(json.dumps({'a': argv[1], 'b': argv[2], 'shift_semitones': round(st, 3), 'correlation': round(corr, 4)}))
-        return 0
-    rows = [measure_stem(p) for p in argv]
-    if len(rows) > 1:
-        rank_score(rows)
-    for r in rows:
-        print(json.dumps(r))
-    return 0 if all(r['ok'] for r in rows) else 1
-
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+    raise SystemExit(_cli_main(sys.argv[1:]))

@@ -18,7 +18,6 @@ Alpha-weighted mean, fully-transparent pixels ignored.  Blocks whose texture is
 missing (or fully transparent, e.g. air) get null and fall back to grey in the UI.
 """
 
-import json
 import sys
 from pathlib import Path
 
@@ -62,33 +61,7 @@ def avg_color(png: Path):
     return [round(r / a_tot), round(g / a_tot), round(b / a_tot)]
 
 
-def main():
-    data = json.loads(MANIFEST.read_text())
-    tex_dir = Path(data['texture_dir']) / 'blocks'
-    if not tex_dir.is_dir():
-        print(f'[dump_colors] texture dir missing: {tex_dir}', file=sys.stderr)
-        sys.exit(1)
+if __name__ == '__main__':  # the CLI lives in dump_colors_cli
+    from zyg_dashboard.hub.tools.dump_colors_cli import main as _cli_main
 
-    hit = miss = 0
-    cache = {}
-    for _name, b in data['blocks'].items():
-        tex = b.get('tex')
-        if not tex:
-            b['color'] = None
-            miss += 1
-            continue
-        if tex not in cache:
-            cache[tex] = avg_color(tex_dir / f'{tex}.png')
-        b['color'] = cache[tex]
-        if b['color']:
-            hit += 1
-        else:
-            miss += 1
-
-    data['_colors_by'] = 'hub/tools/dump_colors.py (alpha-weighted mean of prismarine-viewer textures)'
-    MANIFEST.write_text(json.dumps(data))
-    print(f'[dump_colors] {hit} blocks coloured, {miss} without colour → {MANIFEST}')
-
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

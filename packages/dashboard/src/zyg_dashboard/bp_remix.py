@@ -321,7 +321,7 @@ def _cleaner_loop():
         time.sleep(1800)
         try:
             if not _maintenance_active():
-                PR.retention_sweep(log=lambda m: print(m, flush=True))
+                PR.retention_sweep(log=lambda m: _zyg_log.info(m))
         except Exception as e:
             _zyg_log.info(f'[REMIX-CLEANER] error: {e}')
 

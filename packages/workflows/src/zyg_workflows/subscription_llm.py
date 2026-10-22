@@ -671,24 +671,7 @@ def _audit(
         _zyg_log.warning('LLM audit record failed, this exchange is missing from the audit log: %s', _exc)
 
 
-if __name__ == '__main__':  # python3 subscription_llm.py "prompt"  — one live turn on the login
-    import sys
+if __name__ == '__main__':  # the CLI lives in subscription_llm_cli
+    from zyg_workflows.subscription_llm_cli import main as _cli_main
 
-    prompt = ' '.join(sys.argv[1:]) or 'Reply with the single word OK.'
-    r = run_turn([{'role': 'user', 'content': prompt}], max_tokens=200, stage='cli-probe')
-    print(
-        json.dumps(
-            {
-                'model': r.model,
-                'text': r.content[0].text,
-                'in': r.usage.input_tokens,
-                'out': r.usage.output_tokens,
-                'cache_read': r.usage.cache_read_input_tokens,
-                'cache_write': r.usage.cache_creation_input_tokens,
-                'cli_cost_usd': r.total_cost_usd,
-                'turns': r.num_turns,
-                'session': r.session_id,
-            },
-            indent=1,
-        )
-    )
+    raise SystemExit(_cli_main())

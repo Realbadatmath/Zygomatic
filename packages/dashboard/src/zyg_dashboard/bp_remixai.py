@@ -106,7 +106,7 @@ def api_sweep():
     flat searches plus up to 40 metadata probes, and the operator clicked a button
     that should answer with the list it just built."""
     try:
-        res = RI.sweep(log=lambda m: print(f'[REMIXAI-SWEEP] {m}', flush=True))
+        res = RI.sweep(log=lambda m: _zyg_log.info(f'[REMIXAI-SWEEP] {m}'))
     except Exception as e:
         return jsonify({'error': str(e)[:300]}), 500
     return jsonify(
@@ -281,7 +281,7 @@ def _note_auto_start():
 def _sweeper_tick():
     if _maintenance_active():
         return
-    res = RI.sweep(log=lambda m: print(f'[REMIXAI-SWEEPER] {m}', flush=True))
+    res = RI.sweep(log=lambda m: _zyg_log.info(f'[REMIXAI-SWEEPER] {m}'))
     cands = res.get('candidates') or []
     RI._save(
         _SWEEP_STATE,
@@ -319,7 +319,7 @@ def _cleaner_loop():
         time.sleep(1800)
         try:
             if not _maintenance_active():
-                PR.retention_sweep(log=lambda m: print(f'[REMIXAI-CLEANER] {m}', flush=True))
+                PR.retention_sweep(log=lambda m: _zyg_log.info(f'[REMIXAI-CLEANER] {m}'))
         except Exception as e:
             _zyg_log.info(f'[REMIXAI-CLEANER] error: {e}')
 

@@ -38,7 +38,6 @@ which is what char_photoreal.js reads to stop suppressing the grown brows.
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import sys
@@ -230,15 +229,7 @@ def dehair(body='male_realistic', want=('brows', 'beard', 'scalp'), radius=9, pr
     return man['dehaired']
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--body', default='male_realistic')
-    ap.add_argument('--regions', nargs='*', default=['brows', 'beard', 'scalp'])
-    ap.add_argument('--radius', type=int, default=9)
-    ap.add_argument('--preview', default=None)
-    a = ap.parse_args()
-    print(json.dumps(dehair(a.body, tuple(a.regions), a.radius, a.preview), indent=1))
+if __name__ == '__main__':  # the CLI lives in char_skin_dehair_cli
+    from zyg_workflows.char_skin_dehair_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

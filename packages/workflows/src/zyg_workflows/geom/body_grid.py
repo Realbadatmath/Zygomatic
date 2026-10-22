@@ -42,11 +42,8 @@ HOW THE WRAP WORKS, and its guard-rails:
                     them to the image border would invent geometry where there is none.
 """
 
-import argparse
-import glob
 import json
 import os
-import sys
 
 import numpy as np
 
@@ -54,8 +51,6 @@ try:
     import cv2
 except Exception:  # pragma: no cover
     cv2 = None
-
-from .char_mesh import OUT_ROOT
 
 GRID_COLOR_BODY = (255, 210, 90)  # cyan-ish: the anatomy layer
 GRID_COLOR_WRAP = (250, 120, 250)  # magenta: the wrapped surface grid
@@ -402,28 +397,7 @@ def build_cell(cell_dir, char_asset=''):
     return out
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('char_id')
-    ap.add_argument('--char-asset', default='')
-    ap.add_argument('--cells', default='')
-    a = ap.parse_args(argv)
-    root = os.path.join(OUT_ROOT, a.char_id)
-    dirs = [os.path.join(root, c.strip()) for c in a.cells.split(',') if c.strip()] or sorted(
-        glob.glob(os.path.join(root, 'cell_*'))
-    )
-    done = []
-    for d in dirs:
-        r = build_cell(d, a.char_asset)
-        if r:
-            done.append(r)
-            print(
-                '  %s: body=%s wrap=%s %s'
-                % (r['cell'], r.get('overlay_body'), r.get('overlay_wrap'), r.get('wrap_skipped', ''))
-            )
-    print('grids for %d fitted cells' % len(done))
-    return 0
+if __name__ == '__main__':  # the CLI lives in body_grid_cli
+    from zyg_workflows.geom.body_grid_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

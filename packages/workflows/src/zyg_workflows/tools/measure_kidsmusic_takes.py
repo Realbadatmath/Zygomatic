@@ -29,8 +29,6 @@ stdout carries one JSON document: {'rows': [...], 'aggregate': {...}}.
 
 from __future__ import annotations
 
-import argparse
-import json
 import os
 import statistics
 import sys
@@ -102,27 +100,7 @@ def aggregate(rows):
     }
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('files', nargs='+')
-    ap.add_argument('--out', default='')
-    ap.add_argument('--old-f0', default='')
-    ap.add_argument('--quiet', action='store_true')
-    a = ap.parse_args(argv)
+if __name__ == '__main__':  # the CLI lives in measure_kidsmusic_takes_cli
+    from zyg_workflows.tools.measure_kidsmusic_takes_cli import main as _cli_main
 
-    old = json.load(open(a.old_f0)) if a.old_f0 else {}
-    log = (lambda m: None) if a.quiet else (lambda m: print(m, file=sys.stderr))
-    rows = measure_files(a.files, old_f0=old, log=log)
-    doc = {'rows': rows, 'aggregate': aggregate(rows)}
-    if a.out:
-        os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-        with open(a.out, 'w') as fh:
-            json.dump(doc, fh, indent=1)
-    else:
-        json.dump(doc, sys.stdout, indent=1)
-        print()
-    return 0 if all(r['ok'] for r in rows) else 1
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

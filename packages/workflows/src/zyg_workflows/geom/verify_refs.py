@@ -39,9 +39,7 @@ Judge unavailable => refs stay unverified and the audit says so loudly. This mod
 fabricates a verdict; "not inspected" must remain distinguishable from "inspected: yes".
 """
 
-import argparse
 import os
-import sys
 import time
 import logging as _zyg_logging
 
@@ -190,27 +188,7 @@ def verify_manifest(asset_id=None, redo=False, use_siglip=True, log=print):
     return changed, results
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--asset', default=None)
-    ap.add_argument('--redo', action='store_true')
-    ap.add_argument('--no-siglip', action='store_true')
-    a = ap.parse_args(argv)
-    changed, results = verify_manifest(a.asset, a.redo, not a.no_siglip)
-    npass = sum(1 for r in results if r[1] == 'PASS')
-    nfail = sum(1 for r in results if r[1] == 'FAIL')
-    nun = sum(1 for r in results if r[1] == 'UNVERIFIED')
-    for aid, st, msg in results:
-        print('  %-8s %-20s %s' % (st, aid, msg))
-    print('verified %d refs: %d show their subject, %d do NOT, %d could not be judged' % (changed, npass, nfail, nun))
-    try:
-        from zyg_workflows import vlm_inspector as V
+if __name__ == '__main__':  # the CLI lives in verify_refs_cli
+    from zyg_workflows.geom.verify_refs_cli import main as _cli_main
 
-        V.shutdown_workers()
-    except Exception as _exc:
-        _zyg_log.warning('vlm worker shutdown failed, judge vram may stay held: %s', _exc)
-    return 0 if nun == 0 else 1
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

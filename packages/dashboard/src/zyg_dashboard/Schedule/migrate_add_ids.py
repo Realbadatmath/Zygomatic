@@ -42,13 +42,7 @@ def add_ids_to_entries(schedule_file):
     return updated, total
 
 
-def main():
-    print('--- Migrating schedule files to add missing IDs ---')
-    for schedule_file in SCHEDULE_FILES:
-        updated, total = add_ids_to_entries(schedule_file)
-        print(f'{schedule_file}: {updated} of {total} entries updated')
-    print('--- Migration complete ---')
+if __name__ == '__main__':  # the CLI lives in migrate_add_ids_cli
+    from zyg_dashboard.Schedule.migrate_add_ids_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

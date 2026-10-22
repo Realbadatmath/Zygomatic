@@ -100,22 +100,7 @@ class AgentLoader:
         return tier_agents
 
 
-# Example usage
-if __name__ == '__main__':
-    loader = AgentLoader()
+if __name__ == '__main__':  # the CLI lives in agent_loader_cli
+    from zyg_dashboard.agent_loader_cli import main as _cli_main
 
-    try:
-        # Load index
-        index = loader.load_index()
-        print(f'Loaded {index["metadata"]["total_agents"]} agents')
-
-        # Example: Load a specific agent
-        ceo_agent = loader.load_agent('CEO-Agent', 'CEO-Agent')
-        print(f'CEO Agent role: {ceo_agent["role"]}')
-
-        # Example: Load all agents for an overseer
-        cto_agents = loader.load_overseer_agents('CTO-Agent')
-        print(f'CTO-Agent has {len(cto_agents)} agents')
-
-    except Exception as e:
-        print(f'Error: {e}')
+    raise SystemExit(_cli_main())

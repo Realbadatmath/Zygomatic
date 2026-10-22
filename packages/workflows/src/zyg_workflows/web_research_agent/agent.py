@@ -2,12 +2,15 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+import logging as _zyg_logging
 import random
 import threading
 import time
 import traceback
 
 from zyg_workflows.web_research_agent.constants import _SOURCE_TIMEOUT, _USER_AGENTS, _between_sites
+
+_zyg_log = _zyg_logging.getLogger('zyg_workflows.web_research_agent')
 
 # ── Main agent class ──────────────────────────────────────────────────────────
 
@@ -24,7 +27,7 @@ class WebResearchAgent:
         self.case = case
         self.case_name = case.get('name', 'Unknown')
         self.pipeline_id = pipeline_id
-        self._log_fn = log_fn or (lambda level, stage, msg: print(f'[{level}] {stage}: {msg}'))
+        self._log_fn = log_fn or (lambda level, stage, msg: _zyg_log.info(f'[{level}] {stage}: {msg}'))
         self.driver = None
         self._browser_engine = None  # 'playwright' | 'selenium'
         self._shutdown = False  # set True when teardown begins; threads check this

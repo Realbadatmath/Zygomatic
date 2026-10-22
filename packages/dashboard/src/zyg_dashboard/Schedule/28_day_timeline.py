@@ -443,25 +443,8 @@ class Timeline28Day:
         return dates
 
 
-def main():
-    """Main function for testing"""
-    timeline = Timeline28Day()
+if __name__ == '__main__':  # the CLI lives in 28_day_timeline_cli
+    import importlib
 
-    # Get month data
-    month_data = timeline.get_month_data()
-    print('28-Day Timeline Data:')
-    print(f'Start Date: {month_data["start_date"]}')
-    print(f'Total Entries: {month_data["total_entries"]}')
-
-    # Generate visualizations
-    timeline.generate_month_visualization()
-    timeline.generate_calendar_view()
-
-    # Print weekly summary
-    print('\nWeekly Summary:')
-    for week, summary in month_data['weekly_summary'].items():
-        print(f'{week}: {summary["total_entries"]} entries, {summary["total_gpu_hours"]} GPU hours')
-
-
-if __name__ == '__main__':
-    main()
+    # Digit-leading module names cannot be spelled in an import statement.
+    raise SystemExit(importlib.import_module('zyg_dashboard.Schedule.28_day_timeline_cli').main())

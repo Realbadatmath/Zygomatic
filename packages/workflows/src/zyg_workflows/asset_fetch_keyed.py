@@ -38,7 +38,6 @@ import json
 import os
 import re
 import subprocess
-import sys
 import time
 import urllib.parse
 import urllib.request
@@ -241,18 +240,7 @@ def _vendor_prov(vendor: str, summary: str):
         )
 
 
-if __name__ == '__main__':
-    a = sys.argv[1:]
-    if not a or '--status' in a:
-        print(
-            'SKETCHFAB_TOKEN:',
-            'set' if _env('SKETCHFAB_TOKEN') else 'MISSING',
-            '| BLENDERKIT_API_KEY:',
-            'set' if _env('BLENDERKIT_API_KEY') else 'MISSING',
-        )
-        sys.exit(0)
-    src, query = a[0], a[1] if len(a) > 1 else ''
-    lic = a[a.index('--license') + 1] if '--license' in a else 'cc0'
-    mx = int(a[a.index('--max') + 1]) if '--max' in a else 10
-    got = sketchfab(query, lic, mx) if src == 'sketchfab' else blenderkit(query, mx)
-    print(f'{len(got)} pack(s) written; now run: python3 mesh_pack_dims.py {src}')
+if __name__ == '__main__':  # the CLI lives in asset_fetch_keyed_cli
+    from zyg_workflows.asset_fetch_keyed_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

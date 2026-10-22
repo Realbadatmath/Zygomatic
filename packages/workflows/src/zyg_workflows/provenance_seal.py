@@ -44,10 +44,7 @@ hold our root reports ``Valid`` with an untrusted issuer, and one that does repo
 
 from __future__ import annotations
 
-import argparse
-import json
 import os
-import sys
 import tempfile
 
 #: Extensions the library embeds a manifest into. Anything else is skipped, not an error:
@@ -377,26 +374,6 @@ def is_sealed(path) -> bool:
     return verify(path)['sealed']
 
 
-def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog='provenance_seal', description='C2PA content credentials.')
-    sub = parser.add_subparsers(dest='cmd', required=True)
-    p_verify = sub.add_parser('verify', help='read the credential in a file')
-    p_verify.add_argument('path')
-    p_sign = sub.add_parser('sign', help='seal a file in place')
-    p_sign.add_argument('path')
-    p_sign.add_argument('--pipeline', required=True)
-    p_sign.add_argument('--run-id', default='')
-    args = parser.parse_args(argv)
-
-    if args.cmd == 'verify':
-        res = verify(args.path)
-        print(json.dumps(res, indent=2, default=str))
-        return 0 if res['sealed'] else 1
-    res = seal(args.path, pipeline=args.pipeline, run_id=args.run_id, log_fn=lambda m: print(m, file=sys.stderr))
-    print(json.dumps(res, indent=2, default=str))
-    return 0 if res['ok'] else 1
-
-
 __all__ = [
     'PROVENANCE_LABEL',
     'SUPPORTED',
@@ -404,12 +381,13 @@ __all__ = [
     'SealError',
     'configured',
     'is_sealed',
-    'main',
     'seal',
     'seal_derived',
     'verify',
 ]
 
 
-if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+if __name__ == '__main__':  # the CLI lives in provenance_seal_cli
+    from zyg_workflows.provenance_seal_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

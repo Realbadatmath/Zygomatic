@@ -482,32 +482,7 @@ def boot() -> dict:
     return {'closed': len(orphans)}
 
 
-def main(argv: list[str]) -> int:
-    import argparse
+if __name__ == '__main__':  # the CLI lives in nomologin_assistant_cli
+    from zyg_zero.nomologin_assistant_cli import cli_main as _cli_main
 
-    ap = argparse.ArgumentParser(description='ask the persona assistant')
-    ap.add_argument('persona')
-    ap.add_argument('text', nargs='*')
-    ap.add_argument('--check', action='store_true', help='report readiness and exit')
-    ap.add_argument('--session', default=None)
-    a = ap.parse_args(argv)
-    if a.check:
-        print(json.dumps(available(), indent=2))
-        return 0
-    if not a.text:
-        print(json.dumps({'ok': False, 'error': 'nothing asked'}))
-        return 2
-    job = ask(a.persona, ' '.join(a.text), a.session)
-    jid = job['id']
-    while True:
-        time.sleep(2.0)
-        v = view(jid)
-        if v['status'] != 'running':
-            print(json.dumps(v, indent=2, ensure_ascii=False)[:20000])
-            return 0 if v['status'] == 'done' else 1
-        sys.stderr.write(f'\r{v["steps"]} steps, {v["seconds"]:.0f}s  ')
-        sys.stderr.flush()
-
-
-if __name__ == '__main__':
-    raise SystemExit(main(sys.argv[1:]))
+    raise SystemExit(_cli_main())

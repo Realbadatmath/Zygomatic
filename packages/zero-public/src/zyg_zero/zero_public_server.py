@@ -63,8 +63,6 @@ except ImportError as _exc:
 # zpub_config.py), so the .env load above MUST happen before these imports.
 from zyg_zero import settings, zpub_store  # noqa: E402  must follow the .env load above
 from zyg_zero.zpub_config import (  # noqa: E402  must follow the .env load above
-    INTERNAL_TOKEN,
-    MAIN_APP_URL,
     MAX_VIDEO_BYTES,
     PORT,
     SECRET_KEY,
@@ -298,13 +296,7 @@ def _recover_stale_jobs() -> None:
         _zyg_log.info(f'[ZeroPub] job recovery error: {_e}')
 
 
-if __name__ == '__main__':
-    if not INTERNAL_TOKEN:
-        print('[ZeroPub] WARNING: ZERO_PUBLIC_TOKEN is not set — internal API calls will be rejected by the main app.')
-    _recover_stale_jobs()
-    _start_mdns('ZygomaticsZero')
-    _start_public_tunnel()
-    print(f'[ZeroPub] Starting on http://{settings.ZYG_BIND_HOST}:{PORT}')
-    print(f'[ZeroPub] Also accessible as http://ZygomaticsZero.local:{PORT}')
-    print(f'[ZeroPub] Main app: {MAIN_APP_URL}')
-    app.run(host=settings.ZYG_BIND_HOST, port=PORT, debug=False, use_reloader=False, threaded=True)
+if __name__ == '__main__':  # the CLI lives in zero_public_server_cli
+    from zyg_zero.zero_public_server_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

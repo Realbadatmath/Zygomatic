@@ -28,11 +28,8 @@ so a character shot's control channel can carry the character's own grid exactly
 tree scene's channel carries the tree — the same cure, applied to people.
 """
 
-import argparse
-import glob
 import json
 import os
-import sys
 
 import numpy as np
 
@@ -42,7 +39,6 @@ except Exception:  # pragma: no cover
     cv2 = None
 
 from . import regions as R
-from .char_mesh import OUT_ROOT
 
 # OpenPose-convention limb colours (BGR) — what controlnet-union's pose mode was fed
 _POSE_COLOURS = [
@@ -191,38 +187,7 @@ def build_cell(cell_dir, out_dir=None):
     return paths
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('char_id')
-    ap.add_argument('--cells', default='')
-    ap.add_argument('--frames', type=int, default=0)
-    ap.add_argument('-o', '--out', default=None)
-    a = ap.parse_args(argv)
+if __name__ == '__main__':  # the CLI lives in char_control_cli
+    from zyg_workflows.geom.char_control_cli import main as _cli_main
 
-    root = os.path.join(OUT_ROOT, a.char_id)
-    if a.cells:
-        dirs = [os.path.join(root, c.strip()) for c in a.cells.split(',')]
-    else:
-        dirs = sorted(d for d in glob.glob(os.path.join(root, 'cell_*')) if os.path.isdir(d))
-    done = 0
-    for d in dirs:
-        if not os.path.exists(os.path.join(d, 'mesh.json')):
-            continue
-        paths = build_cell(d)
-        done += 1
-        if done <= 4:
-            print('  %s: %s' % (os.path.basename(d), ', '.join(sorted(paths))))
-    print('  control maps for %d cells' % done)
-
-    if a.frames and dirs:
-        from . import vace_control
-
-        src = os.path.join(dirs[0], 'control', 'seg.png')
-        out = a.out or os.path.join(root, 'vace_ctrl')
-        r = vace_control.build(src, out, frames=a.frames)
-        print('  VACE ctrl: %s (%d frames, grey %.4f%%)' % (r['ctrl_dir'], r['frames'], r['grey_fraction_mean'] * 100))
-    return 0
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

@@ -18,10 +18,8 @@ writes the stage to a PNG. Page errors are collected and printed.
     python tools_charstudio_screenshot.py --photoreal --frame head --az 40 --out /tmp/d.png
 """
 
-import argparse
 import json
 import os
-import sys
 import time
 import logging as _zyg_logging
 
@@ -210,51 +208,7 @@ def shoot_previews(out_dir, *, body='', url=URL, timeout_s=180, settle_s=2.0, sh
     return {'files': files, 'errors': errs, 'info': info}
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--out', default='')
-    ap.add_argument('--photoreal', action='store_true')
-    ap.add_argument('--clay', action='store_true', help='force the photoreal switch off')
-    ap.add_argument('--compare', action='store_true')
-    ap.add_argument('--frame', default='body', choices=['body', 'head'])
-    ap.add_argument('--az', type=float, default=0.0)
-    ap.add_argument('--el', type=float, default=0.0)
-    ap.add_argument('--body', default='')
-    ap.add_argument('--panel', action='store_true', help='open the Photoreal panel and shoot the whole page')
-    ap.add_argument(
-        '--models', action='store_true', help='open the Models dropdown, hover the first derived model, shoot the page'
-    )
-    ap.add_argument('--width', type=int, default=1600)
-    ap.add_argument('--height', type=int, default=1400)
-    ap.add_argument('--url', default=URL)
-    ap.add_argument(
-        '--previews',
-        default='',
-        help='write the Models-card previews (head_front/body_front/head_tq PNGs) into this directory and exit',
-    )
-    a = ap.parse_args(argv)
-    if a.previews:
-        r = shoot_previews(a.previews, body=a.body, url=a.url)
-        print(json.dumps(r, indent=1))
-        return 1 if r['errors'] else 0
-    r = shoot(
-        a.out,
-        photoreal=a.photoreal,
-        compare=a.compare,
-        frame=a.frame,
-        az=a.az,
-        el=a.el,
-        body=a.body,
-        width=a.width,
-        height=a.height,
-        url=a.url,
-        panel=a.panel,
-        clay=a.clay,
-        models=a.models,
-    )
-    print(json.dumps(r, indent=1))
-    return 1 if r['errors'] else 0
+if __name__ == '__main__':  # the CLI lives in tools_charstudio_screenshot_cli
+    from zyg_workflows.tools_charstudio_screenshot_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

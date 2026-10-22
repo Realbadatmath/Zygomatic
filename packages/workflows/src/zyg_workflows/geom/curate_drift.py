@@ -28,11 +28,9 @@ the reversal instruction. NOTHING IS RETRAINED HERE: retraining changes a charac
 identity and stays a human decision.
 """
 
-import argparse
 import json
 import os
 import shutil
-import sys
 import time
 
 from .char_mesh import OUT_ROOT, DATASETS
@@ -82,23 +80,7 @@ def apply(char_id, quarantine, evidence, log=print):
     return qdir, doc
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('char_id')
-    ap.add_argument('--apply', action='store_true')
-    a = ap.parse_args(argv)
-    quarantine, warn, evidence = plan(a.char_id)
-    print('%s: quarantine %d cells %s' % (a.char_id, len(quarantine), quarantine))
-    print('  warnings (kept): %d cells %s' % (len(warn), warn[:10]))
-    for c in quarantine:
-        ev = ', '.join('%s/%s' % (e['region'], e['axis']) for e in evidence[c])
-        print('    %-9s %s' % (c, ev))
-    if a.apply:
-        apply(a.char_id, quarantine, evidence)
-    else:
-        print('  DRY RUN — pass --apply to move files')
-    return 0
+if __name__ == '__main__':  # the CLI lives in curate_drift_cli
+    from zyg_workflows.geom.curate_drift_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

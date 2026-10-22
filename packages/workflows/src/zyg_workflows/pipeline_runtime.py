@@ -643,24 +643,7 @@ def format_runtime(seconds):
     return f'{hh}h {mm:02d}m {ss:02d}s' if hh else f'{mm}m {ss:02d}s'
 
 
-if __name__ == '__main__':  # pragma: no cover - manual inspection helper
-    import json
-    import sys
+if __name__ == '__main__':  # the CLI lives in pipeline_runtime_cli
+    from zyg_workflows.pipeline_runtime_cli import main as _cli_main
 
-    for path in sys.argv[1:]:
-        with open(path, encoding='utf-8') as fh:
-            data = json.load(fh)
-        res = compute_runtime(data)
-        print(f'{path}')
-        print(f'  status   : {data.get("status")}')
-        print(f'  started  : {data.get("started")}')
-        print(f'  as_of    : {res["runtime_as_of"]}  (running={res["runtime_running"]})')
-        print(
-            f'  runtime  : {format_runtime(res["runtime_seconds"])}'
-            f'   [wall {format_runtime(res["runtime_wall_seconds"])}]'
-        )
-        for gap in res['runtime_gaps']:
-            print(
-                f'  ⏸ paused : {format_runtime(gap["seconds"]):>12}  '
-                f'{gap["from"][11:19]} → {gap["to"][11:19]}  ({gap["reason"]})'
-            )
+    raise SystemExit(_cli_main())

@@ -556,7 +556,7 @@ def report(bodies=None):
     return out
 
 
-if __name__ == '__main__':
-    import json
+if __name__ == '__main__':  # the CLI lives in patella_skin_cli
+    from zyg_workflows.geom.patella_skin_cli import main as _cli_main
 
-    print(json.dumps(report(), indent=1, default=float))
+    raise SystemExit(_cli_main())

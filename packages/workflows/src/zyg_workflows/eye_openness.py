@@ -167,15 +167,7 @@ def measure(clip_path, box=None, fps_sample=2, max_frames=200, log_fn=None):
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-if __name__ == '__main__':
-    import json
-    import sys
+if __name__ == '__main__':  # the CLI lives in eye_openness_cli
+    from zyg_workflows.eye_openness_cli import main as _cli_main
 
-    def _lg(m):
-        print(m, flush=True)
-
-    if len(sys.argv) < 2:
-        print('usage: eye_openness.py CLIP [x0 y0 x1 y1]')
-        sys.exit(2)
-    bx = tuple(float(v) for v in sys.argv[2:6]) if len(sys.argv) >= 6 else None
-    print(json.dumps(measure(sys.argv[1], box=bx, log_fn=_lg), indent=1))
+    raise SystemExit(_cli_main())

@@ -256,20 +256,7 @@ def validate_scene(scene: Scene, strict: bool = False) -> bool:
     return is_valid
 
 
-if __name__ == '__main__':
-    # Demo: validate the example scene
-    from zyg_workflows.dsl_schema import EXAMPLE_SCENE
+if __name__ == '__main__':  # the CLI lives in dsl_validator_cli
+    from zyg_workflows.dsl_validator_cli import main as _cli_main
 
-    print('=' * 70)
-    print('VALIDATING EXAMPLE SCENE')
-    print('=' * 70)
-
-    validator = DSLValidator()
-    is_valid, errors = validator.validate(EXAMPLE_SCENE)
-
-    if is_valid:
-        print(f"✓ Scene '{EXAMPLE_SCENE.metadata.id}' is VALID")
-    else:
-        print(f"✗ Scene '{EXAMPLE_SCENE.metadata.id}' has errors:")
-        for error in errors:
-            print(f'  - {error}')
+    raise SystemExit(_cli_main())

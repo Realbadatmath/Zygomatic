@@ -418,22 +418,7 @@ def kanban_payload(now=None, log_fn=None):
     }
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in kanban_video_status_cli
+    from zyg_dashboard.kanban_video_status_cli import main as _cli_main
 
-    if len(sys.argv) > 1 and sys.argv[1] == 'all':
-        for nm in sorted(os.listdir(LOGBOOK_DIR)):
-            if nm.endswith('.jsonl') and nm != 'index.jsonl':
-                r = read_run(os.path.join(LOGBOOK_DIR, nm))
-                if r:
-                    print(
-                        f'{r["run_key"]:16s} {r["state"]:8s} cur={str(r["current_stage"]):20s} '
-                        f'alive={r["driver_alive"]!s:5s} age={r["last_event_age_s"]:>8.1f}s '
-                        f'dry={r["dry_run"]}'
-                    )
-        sys.exit(0)
-    p = kanban_payload(log_fn=lambda m: print(m, file=sys.stderr))
-    if not p:
-        print('no active video run')
-        sys.exit(1)
-    print(json.dumps(p, indent=2))
+    raise SystemExit(_cli_main())

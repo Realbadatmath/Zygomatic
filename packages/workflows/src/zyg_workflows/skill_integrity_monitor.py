@@ -14,11 +14,9 @@ Or run once manually to create/refresh the baseline:
     python3 skill_integrity_monitor.py --reset
 """
 
-import argparse
 import hashlib
 import json
 import os
-import sys
 from datetime import datetime, timezone
 
 import logging as _zyg_logging
@@ -122,22 +120,7 @@ def check_integrity() -> bool:
     return all_clean
 
 
-def main():
-    parser = argparse.ArgumentParser(description='File integrity monitor')
-    parser.add_argument('--reset', action='store_true', help='Rebuild baseline from current file state')
-    args = parser.parse_args()
+if __name__ == '__main__':  # the CLI lives in skill_integrity_monitor_cli
+    from zyg_workflows.skill_integrity_monitor_cli import main as _cli_main
 
-    if args.reset:
-        baseline = build_baseline()
-        _save_baseline(baseline)
-        print(f'[INTEGRITY] Baseline reset — {len(baseline)} files hashed.', flush=True)
-        for path, info in baseline.items():
-            print(f'  {info["sha256"][:16]}…  {os.path.basename(path)}', flush=True)
-        sys.exit(0)
-
-    clean = check_integrity()
-    sys.exit(0 if clean else 1)
-
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

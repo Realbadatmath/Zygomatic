@@ -46,7 +46,6 @@ fitted frames, in order), which is what track.json's `frames[].i` refers to.
 
 from __future__ import annotations
 
-import argparse
 import glob
 import json
 import os
@@ -308,27 +307,7 @@ def contact_strip(track_arg: str, mode='composite', out=None, n=4):
     return p
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('track')
-    ap.add_argument('--modes', default='depth,normal,skeleton,seg,composite')
-    ap.add_argument('--size', default=None, help='WxH of the render, e.g. 832x480')
-    ap.add_argument('--strip', default='composite', help='mode to write a contact strip for, or "" for none')
-    a = ap.parse_args(argv)
-    size = None
-    if a.size:
-        w, h = a.size.lower().split('x')
-        size = (int(w), int(h))
-    rep = build(a.track, modes=tuple(m.strip() for m in a.modes.split(',') if m.strip()), size=size)
-    if a.strip:
-        p = contact_strip(a.track, mode=a.strip)
-        if p:
-            print('  strip: %s' % p)
-    bad = [m for m, v in rep['modes'].items() if not v['audit_ok']]
-    if bad:
-        print('  STILL CONSTANT: %s' % ', '.join(bad))
-    return 2 if bad else 0
+if __name__ == '__main__':  # the CLI lives in track_plates_cli
+    from zyg_workflows.geom.track_plates_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

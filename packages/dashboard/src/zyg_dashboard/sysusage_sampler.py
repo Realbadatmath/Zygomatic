@@ -21,11 +21,8 @@ pynvml is unavailable. Nothing here reads the GUI; the collector (analytics_hub.
 aggregates the file per day, incrementally, by byte offset.
 """
 
-import json
 import logging as _zyg_logging
 import os
-import sys
-import time
 
 _zyg_log = _zyg_logging.getLogger(__name__)
 
@@ -123,30 +120,7 @@ def _mean(rows, key):
     return round(sum(v) / len(v), 1) if v else None
 
 
-def main():
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    if psutil:
-        psutil.cpu_percent(interval=None)  # prime the counter
-    bucket, bucket_start = [], time.time()
-    print(f'[sysusage] sampling every {SAMPLE_S:g}s -> {OUT}', flush=True)
-    while True:
-        bucket.append(sample())
-        now = time.time()
-        if now - bucket_start >= FLUSH_S - SAMPLE_S / 2:
-            row = {'ts': round(bucket_start + (now - bucket_start) / 2), 'n': len(bucket)}
-            for k in ('gpu_util', 'vram_pct', 'gpu_power_w', 'gpu_temp_c', 'cpu_pct', 'ram_pct'):
-                row[k] = _mean(bucket, k)
-            try:
-                with open(OUT, 'a', encoding='utf-8') as fh:
-                    fh.write(json.dumps(row, separators=(',', ':')) + '\n')
-            except OSError as exc:
-                print(f'[sysusage] write failed: {exc}', file=sys.stderr, flush=True)
-            bucket, bucket_start = [], now
-        time.sleep(SAMPLE_S)
+if __name__ == '__main__':  # the CLI lives in sysusage_sampler_cli
+    from zyg_dashboard.sysusage_sampler_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] == 'once':
-        print(json.dumps(sample()))
-    else:
-        main()
+    raise SystemExit(_cli_main())

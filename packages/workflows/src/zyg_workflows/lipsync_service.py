@@ -60,7 +60,6 @@ Usage:
 
 from __future__ import annotations
 
-import json
 import os
 import subprocess
 from zyg_workflows.bin import exe
@@ -381,13 +380,7 @@ def _deliver(src_mp4: str, out_mp4: str, fps: float | None, dur_s: float) -> boo
     return r.returncode == 0 and os.path.isfile(out_mp4)
 
 
-if __name__ == '__main__':  # pragma: no cover
-    import sys
+if __name__ == '__main__':  # the CLI lives in lipsync_service_cli
+    from zyg_workflows.lipsync_service_cli import main as _cli_main
 
-    print('available:', available())
-    if len(sys.argv) > 3:
-        print(
-            json.dumps(
-                {'mp4': lipsync(sys.argv[1], sys.argv[2], sys.argv[3], log_fn=lambda m: print(m, file=sys.stderr))}
-            )
-        )
+    raise SystemExit(_cli_main())

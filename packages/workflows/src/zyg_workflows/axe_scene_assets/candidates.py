@@ -6,7 +6,6 @@
 
 import os
 import shutil
-import time
 
 from .tree_base import (
     ARC_ENV,
@@ -390,12 +389,7 @@ def build_tree_plate(seed=11, log_fn=None, keep_gen_res=True):
     return (styled if keep_gen_res else None), anchor
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in candidates_cli
+    from zyg_workflows.axe_scene_assets.candidates_cli import main as _cli_main
 
-    def _lg(m):
-        print(f'[{time.strftime("%H:%M:%S")}] {m}', flush=True)
-
-    seed = int(sys.argv[1]) if len(sys.argv) > 1 else 11
-    full, anchor = build_tree_plate(seed=seed, log_fn=_lg)
-    _lg(f'DONE  full={full}  anchor={anchor}')
+    raise SystemExit(_cli_main())

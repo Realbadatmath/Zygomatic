@@ -246,30 +246,7 @@ def test_floating_block():
     )
 
 
-def main():
-    print('=' * 72)
-    print('buildability compiler — ground truth suite')
-    print('=' * 72)
-    test_model_constants()
-    test_manifest()
-    test_face_centers()
-    test_standing_in()
-    test_lint_catches_corruption()
-    test_floating_block()
-    test_falsification()
-    test_scaffold_repairs_column()
-    schematics = load_builtins()
-    test_builtins_certify(schematics)
-    test_order_is_valid(schematics)
-    test_watchtower_ablation_is_buildable(schematics)
+if __name__ == '__main__':  # the CLI lives in test_compiler_cli
+    from zyg_dashboard.hub.tests.test_compiler_cli import main as _cli_main
 
-    print('\n' + '=' * 72)
-    print(f'{len(PASSES)} passed, {len(FAILURES)} failed')
-    for name, detail in FAILURES:
-        print(f'  FAILED: {name}  {detail}')
-    print('=' * 72)
-    return 1 if FAILURES else 0
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

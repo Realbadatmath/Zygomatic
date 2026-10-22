@@ -286,28 +286,8 @@ class Timeline7Day:
         return dates
 
 
-def main():
-    """Main function for testing"""
-    timeline = Timeline7Day()
+if __name__ == '__main__':  # the CLI lives in 7_day_timeline_cli
+    import importlib
 
-    # Get week data
-    week_data = timeline.get_week_data()
-    print('7-Day Timeline Data:')
-    print(f'Start Date: {week_data["start_date"]}')
-    print(f'Total Entries: {week_data["total_entries"]}')
-    print(f'Week Range: {week_data["week_range"]}')
-
-    # Generate visualizations
-    timeline.generate_week_visualization()
-    timeline.generate_model_usage_chart()
-
-    # Print daily summary
-    print('\nDaily Summary:')
-    for date, summary in week_data['daily_summary'].items():
-        print(
-            f'{summary["day_name"]} ({date}): {summary["total_entries"]} entries, {summary["total_gpu_hours"]} GPU hours'
-        )
-
-
-if __name__ == '__main__':
-    main()
+    # Digit-leading module names cannot be spelled in an import statement.
+    raise SystemExit(importlib.import_module('zyg_dashboard.Schedule.7_day_timeline_cli').main())

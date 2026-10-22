@@ -27,6 +27,10 @@ BIND_HOST = os.environ.get('BIND_HOST', '127.0.0.1')
 
 import hub_launcher  # noqa: E402  (module-level code runs; the GUI is behind __main__)
 
-if __name__ == '__main__':
-    print(f'Hub launcher (headless) listening on {BIND_HOST}:{hub_launcher.PORT}', flush=True)
-    hub_launcher.run_server()
+# The surface this wrapper exists to publish: hub_launcher_headless_cli reads both names off it.
+__all__ = ['BIND_HOST', 'hub_launcher']
+
+if __name__ == '__main__':  # the CLI lives in hub_launcher_headless_cli
+    from zyg_dashboard.hub.hub_launcher_headless_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

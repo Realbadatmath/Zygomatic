@@ -40,9 +40,7 @@ FOUR MAPS, EACH IN THE CONVENTION ITS CONTROLNET EXPECTS:
 segmentation in a single model, which is why these four are produced together.
 """
 
-import argparse
 import os
-import sys
 
 import numpy as np
 
@@ -261,16 +259,7 @@ def build(pass_dir, out_dir=None, write=True, mask=None):
     return write_maps(maps, out_dir)
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('pass_dir')
-    ap.add_argument('-o', '--out', default=None)
-    a = ap.parse_args(argv)
-    paths = build(a.pass_dir, a.out)
-    for k, v in sorted(paths.items()):
-        print('  %-8s %s' % (k, v))
-    return 0
+if __name__ == '__main__':  # the CLI lives in conditioning_cli
+    from zyg_workflows.geom.conditioning_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

@@ -310,14 +310,7 @@ def stats():
     return {'files': cnt, 'bytes': tot, 'signatures': len(sigs), 'cap_bytes': cap_bytes()}
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in arch_blend_store_cli
+    from zyg_workflows.arch_blend_store_cli import main as _cli_main
 
-    if '--sweep' in sys.argv:
-        n, freed = sweep()
-        print('swept %d files, freed %.2f GB' % (n, freed / float(1 << 30)))
-    s = stats()
-    print(
-        'blend dir: %d files, %.2f GB, %d signatures (cap %.0f GB)'
-        % (s['files'], s['bytes'] / float(1 << 30), s['signatures'], s['cap_bytes'] / float(1 << 30))
-    )
+    raise SystemExit(_cli_main())

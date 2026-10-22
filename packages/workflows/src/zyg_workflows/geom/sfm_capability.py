@@ -59,7 +59,6 @@ import json
 import os
 import re
 import subprocess
-import sys
 import time
 import logging as _zyg_logging
 from zyg_workflows.bin import exe
@@ -514,41 +513,7 @@ def _wrap(s, w):
     return out
 
 
-def main(argv=None):
-    import argparse
+if __name__ == '__main__':  # the CLI lives in sfm_capability_cli
+    from zyg_workflows.geom.sfm_capability_cli import main as _cli_main
 
-    ap = argparse.ArgumentParser(prog='geom.sfm_capability')
-    ap.add_argument(
-        '--deep',
-        action='store_true',
-        help='also execute the dense-stereo entry point (slow; run after any build or driver change)',
-    )
-    ap.add_argument('--json', action='store_true')
-    ap.add_argument('--record-baseline', action='store_true')
-    ap.add_argument(
-        '--fail-on-broken', action='store_true', help='exit 2 if anything is BROKEN (for CI / preflight use)'
-    )
-    a = ap.parse_args(argv)
-
-    if a.record_baseline:
-        path, rec = record_baseline(deep=a.deep)
-        print('baseline written: %s' % path)
-        for ln in summary_lines(dict(rec, baseline={'status': AVAILABLE, 'reason': 'just recorded'})):
-            print('  ' + ln)
-        return 0
-
-    rec = probe(deep=a.deep)
-    if a.json:
-        print(json.dumps(rec, indent=2, sort_keys=True, default=str))
-    else:
-        print('SFM / CUDA CAPABILITY  —  overall: %s  (%.2fs)' % (rec['status'], rec['elapsed_s']))
-        for ln in summary_lines(rec):
-            print('  ' + ln)
-        if rec['broken']:
-            print()
-            print('BROKEN: %s' % ', '.join(rec['broken']))
-    return 2 if (a.fail_on_broken and rec['broken']) else 0
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

@@ -28,7 +28,6 @@ Run:  python3 nomologin_board.py [--port 8750]
 
 from __future__ import annotations
 
-import argparse
 import json
 import logging as _zyg_logging
 import mimetypes
@@ -330,24 +329,7 @@ class Server(socketserver.ThreadingTCPServer):
         super().handle_error(request, client_address)
 
 
-if __name__ == '__main__':
-    ap = argparse.ArgumentParser(description='Nomologin board')
-    ap.add_argument('--port', type=int, default=PORT)
-    args = ap.parse_args()
-    PORT = args.port
-    _ALLOWED_HOSTS = {f'127.0.0.1:{PORT}', f'localhost:{PORT}', f'[::1]:{PORT}'}
-    nl.init()
-    if na is not None:
-        # Explicit, never at import: this rewrites the ledger, folding conversations a
-        # restart killed. Doing it at import would make any smoke test destructive.
-        closed = na.boot().get('closed')
-        if closed:
-            print(f'[NOMOLOGIN-BOARD] closed {closed} assistant job(s) a restart killed', flush=True)
-    elif ASSIST_ERROR:
-        print(f'[NOMOLOGIN-BOARD] assistant disabled: {ASSIST_ERROR}', flush=True)
-    with Server(('127.0.0.1', PORT), Handler) as httpd:
-        print(f'[NOMOLOGIN-BOARD] http://127.0.0.1:{PORT}  root={nl.ROOT}', flush=True)
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print('\n[NOMOLOGIN-BOARD] stopped', flush=True)
+if __name__ == '__main__':  # the CLI lives in nomologin_board_cli
+    from zyg_zero.nomologin_board_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

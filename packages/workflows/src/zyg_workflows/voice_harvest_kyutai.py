@@ -58,7 +58,6 @@ import json
 import os
 import re
 import subprocess
-import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 DEST = os.path.join(_HERE, 'data', 'assets', 'voice_seeds', 'kyutai')
@@ -339,24 +338,7 @@ def build(dest: str = DEST, log=print) -> dict:
     }
 
 
-if __name__ == '__main__':  # pragma: no cover — operator tool
-    import argparse
+if __name__ == '__main__':  # the CLI lives in voice_harvest_kyutai_cli
+    from zyg_workflows.voice_harvest_kyutai_cli import main as _cli_main
 
-    ap = argparse.ArgumentParser(description='Harvest the Kyutai CC0 voice donations')
-    ap.add_argument('--skip-download', action='store_true')
-    a = ap.parse_args()
-    if not a.skip_download:
-        print(f'downloading {REPO}/{SUBDIR} wavs (skipping .safetensors)…')
-        print(f'  {download()} donations on disk')
-    s = build()
-    print(
-        f'\nkept {s["kept"]} ({s["male"]} male / {s["female"]} female; '
-        f"{s['low_conf']} flagged 'metrics unreliable', "
-        f'{s["sex_guessed"]} with sex inferred rather than read)'
-    )
-    if s['skipped']:
-        print(f'skipped {len(s["skipped"])}:')
-        for i, w in s['skipped'][:20]:
-            print(f'  {i}  {w}')
-    print(f'\nmanifest: {MANIFEST}')
-    sys.exit(0)
+    raise SystemExit(_cli_main())

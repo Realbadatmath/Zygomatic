@@ -30,11 +30,8 @@ something is actually visible in it.
 
 from __future__ import annotations
 
-import argparse
-import json
 import os
 import subprocess
-import sys
 
 from zyg_workflows import vfx_ingest as VI
 from zyg_workflows.bin import exe
@@ -158,40 +155,7 @@ def check(cat_filter=None) -> dict:
     return {'rows': rows, 'pass': sum(1 for r in rows if r['ok']), 'fail': sum(1 for r in rows if not r['ok'])}
 
 
-def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--cat', choices=sorted(VI.CATEGORIES), default=None)
-    ap.add_argument('--json', action='store_true')
-    ap.add_argument('--quiet', action='store_true', help='print only the failures and the totals')
-    a = ap.parse_args(argv)
+if __name__ == '__main__':  # the CLI lives in vfx_preview_check_cli
+    from zyg_workflows.vfx_preview_check_cli import main as _cli_main
 
-    out = check(a.cat)
-    if a.json:
-        print(json.dumps(out, indent=1))
-        return 0 if out['fail'] == 0 else 1
-
-    by_cat = {}
-    for r in out['rows']:
-        by_cat.setdefault(r['cat'], []).append(r)
-    for cat, rows in by_cat.items():
-        bad = [r for r in rows if not r['ok']]
-        print(f'\n{VI.CATEGORIES[cat]["label"]}  ({cat})  {len(rows) - len(bad)}/{len(rows)} play')
-        for r in rows:
-            if a.quiet and r['ok']:
-                continue
-            mark = 'ok  ' if r['ok'] else 'FAIL'
-            detail = ''
-            if r['kind'] in ('video', 'volume') and r.get('frames'):
-                detail = (
-                    f'{vxdur(r.get("dur")):>7}  {r["lit"]}/{r["sampled"]} sampled '
-                    f'frames hold a picture  peak span {r["peak_contrast"]}'
-                )
-            elif r['kind'] == 'image' and r.get('w'):
-                detail = f'{r["w"]}x{r["h"]}  alpha max {r["alpha_max"]}  luma span {r["luma_span"]}'
-            print(f'  {mark} {r["name"][:34]:34s} {detail}' + (f'   <- {r["why"]}' if r.get('why') else ''))
-    print(f'\nTOTAL {out["pass"]} play, {out["fail"]} do not')
-    return 0 if out['fail'] == 0 else 1
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

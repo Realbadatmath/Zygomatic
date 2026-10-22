@@ -173,24 +173,7 @@ def check_creature_op():
     )
 
 
-def main(argv):
-    from zyg_workflows import prop_mesh_library as PML
+if __name__ == '__main__':  # the CLI lives in test_sheet_render_cli
+    from zyg_workflows.prop_mesh.test_sheet_render_cli import main as _cli_main
 
-    check_licence_resolution()
-    check_creature_op()
-    ids = list(argv) or [
-        r['id'] for r in PML.list_assets() if (r.get('provenance') or {}).get('renderer') == 'prop_mesh/sheet_render.py'
-    ]
-    if not ids:
-        FAILS.append('no asset was built by prop_mesh/sheet_render.py — nothing to check')
-    for aid in ids:
-        check_asset(aid)
-    print('assets checked: %s' % (', '.join(ids) or '(none)'))
-    print('%d checks, %d failures' % (CHECKS[0], len(FAILS)))
-    for f in FAILS:
-        print('  FAIL %s' % f)
-    return 1 if FAILS else 0
-
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+    raise SystemExit(_cli_main())

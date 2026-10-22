@@ -28,12 +28,9 @@ Usage:
 IN may be anything ffmpeg decodes; OUT is .wav or .mp3 (256k). Prints one JSON line.
 """
 
-import argparse
 import ctypes
-import json
 import os
 import subprocess
-import sys
 import tempfile
 
 import numpy as np
@@ -175,44 +172,7 @@ def _encode(y, sr, out):
     os.unlink(w)
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('src')
-    ap.add_argument('dst')
-    ap.add_argument('--semitones', type=float, default=0.0)
-    ap.add_argument('--formant-follow', action='store_true', help='envelope moves with the pitch (default: preserved)')
-    ap.add_argument(
-        '--formant-semitones', type=float, default=None, help='explicit envelope shift, independent of pitch'
-    )
-    ap.add_argument('--engine', choices=('finer', 'faster'), default='finer')
-    a = ap.parse_args(argv)
-    x, sr = _decode(a.src)
-    y, ver = shift(
-        x,
-        sr,
-        semitones=a.semitones,
-        formant='follow' if a.formant_follow else 'preserved',
-        formant_semitones=a.formant_semitones,
-        engine=a.engine,
-    )
-    _encode(y, sr, a.dst)
-    rec = {
-        'ok': True,
-        'src': a.src,
-        'dst': a.dst,
-        'semitones': a.semitones,
-        'formant': ('explicit %+.2f st' % a.formant_semitones)
-        if a.formant_semitones is not None
-        else ('follow' if a.formant_follow else 'preserved'),
-        'engine': a.engine,
-        'engine_version': ver,
-        'sr': sr,
-        'in_samples': int(x.shape[1]),
-        'out_samples': int(y.shape[1]),
-    }
-    print(json.dumps(rec))
-    return 0
+if __name__ == '__main__':  # the CLI lives in rubberband_r3_cli
+    from zyg_workflows.tools.rubberband_r3_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

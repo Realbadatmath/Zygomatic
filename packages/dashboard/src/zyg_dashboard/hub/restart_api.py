@@ -21,7 +21,7 @@ import signal
 import socket
 import subprocess
 import time
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler
 from zyg_dashboard.cors import allowed_origin
 from zyg_workflows.bin import exe
 from zyg_workflows.paths import BIND_HOST, ZYG_CREWS_ROOT, ZYG_LEGACY_VENV_PY
@@ -336,10 +336,7 @@ class Handler(BaseHTTPRequestHandler):
         _zyg_log.info(f'[restart-api] {fmt % args}')
 
 
-if __name__ == '__main__':
-    server = HTTPServer((HOST, PORT), Handler)
-    print(f'Restart API listening on {HOST}:{PORT}')
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print('Stopped.')
+if __name__ == '__main__':  # the CLI lives in restart_api_cli
+    from zyg_dashboard.hub.restart_api_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

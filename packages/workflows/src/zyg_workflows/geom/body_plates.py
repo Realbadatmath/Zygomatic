@@ -59,7 +59,6 @@ from __future__ import annotations
 import json
 import os
 import subprocess
-import sys
 import tempfile
 
 from zyg_workflows import paths
@@ -464,29 +463,7 @@ def registered_names():
     return sorted(set(reg.get('derived') or {}) | set(reg.get('originals') or {}))
 
 
-def _main(argv=None):
-    import argparse
+if __name__ == '__main__':  # the CLI lives in body_plates_cli
+    from zyg_workflows.geom.body_plates_cli import _main as _cli_main
 
-    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('names', nargs='*', default=None, help='default: every registered body')
-    ap.add_argument('--views', nargs='*', default=None)
-    ap.add_argument('--size', type=int, default=768)
-    ap.add_argument('--samples', type=int, default=24)
-    ap.add_argument('--force', action='store_true')
-    a = ap.parse_args(argv)
-    names = a.names or registered_names()
-    rc = 0
-    for n in names:
-        try:
-            man = build(n, views=a.views, size=a.size, samples=a.samples, force=a.force, log_fn=print)
-        except Exception as exc:  # noqa: BLE001
-            print(f'{n}: FAILED — {type(exc).__name__}: {exc}')
-            rc = 1
-            continue
-        for vid, st in (man.get('ledger') or {}).items():
-            print('  %-6s %s' % (vid, '  '.join('%s=%s' % (k, v['state']) for k, v in sorted(st.items()))))
-    return rc
-
-
-if __name__ == '__main__':
-    sys.exit(_main())
+    raise SystemExit(_cli_main())

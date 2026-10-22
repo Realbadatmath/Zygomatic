@@ -18,7 +18,6 @@ one field is rewritten here, where it can be read back and checked.
 
 import json
 import struct
-import sys
 
 
 def patch(path, mode='MASK', cutoff=0.5):
@@ -62,8 +61,7 @@ def patch(path, mode='MASK', cutoff=0.5):
     return f'{n} materials -> {mode}'
 
 
-if __name__ == '__main__':
-    mode = sys.argv[1]
-    cutoff = float(sys.argv[2])
-    for p in sys.argv[3:]:
-        print(p, patch(p, mode, cutoff))
+if __name__ == '__main__':  # the CLI lives in glb_alpha_cli
+    from zyg_workflows.tools.hair_assets.glb_alpha_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

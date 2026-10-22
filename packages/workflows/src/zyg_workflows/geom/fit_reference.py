@@ -28,8 +28,6 @@ ORIGINAL_PHEN/ORIGINAL_LOCALS in mesh_skeletons.py ONLY after a front+side eye p
 It never bakes anything itself.
 """
 
-import argparse
-import json
 import math
 import os
 import sys
@@ -235,20 +233,7 @@ def fit(sex, ref_path, iters=400, lr=0.03, log_every=50):
     }
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--sex', required=True, choices=('male', 'female'))
-    ap.add_argument('--ref', required=True)
-    ap.add_argument('--iters', type=int, default=400)
-    ap.add_argument('--out', default='')
-    a = ap.parse_args()
-    rec = fit(a.sex, a.ref, a.iters)
-    out = a.out or ('fit_%s.json' % a.sex)
-    with open(out, 'w') as f:
-        json.dump(rec, f, indent=2)
-    print('WROTE %s' % out)
-    print(json.dumps({k: rec[k] for k in ('phenotype', 'local_changes')}, indent=2))
+if __name__ == '__main__':  # the CLI lives in fit_reference_cli
+    from zyg_workflows.geom.fit_reference_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

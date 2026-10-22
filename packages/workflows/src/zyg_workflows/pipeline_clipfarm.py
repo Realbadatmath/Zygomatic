@@ -248,7 +248,7 @@ def _run_clipfarm_pipeline(pipeline_id: str, directive: str = None):
                     os.path.join(out_dir, _f),
                     pipeline='clipfarm',
                     run_id=pipeline_id,
-                    log_fn=lambda _m: print(_m, flush=True),
+                    log_fn=lambda _m: _zyg_log.info(_m),
                 )
         except Exception as _seal_e:
             _agent_log('WARNING', 'AUDIT', pipeline_id, 'Output Transfer', f'⚠ Content credential exception: {_seal_e}')

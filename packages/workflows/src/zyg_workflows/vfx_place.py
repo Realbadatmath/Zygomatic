@@ -554,29 +554,7 @@ def bake(clip_path: str, params: dict, out_path: str) -> dict:
     return _composite(clip_path, params, out_path, False)
 
 
-if __name__ == '__main__':  # pragma: no cover
-    import argparse
+if __name__ == '__main__':  # the CLI lives in vfx_place_cli
+    from zyg_workflows.vfx_place_cli import main as _cli_main
 
-    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('clip')
-    ap.add_argument('out')
-    ap.add_argument('--element', default='none')
-    ap.add_argument('--anchor', default='0.50,0.85')
-    ap.add_argument('--offset', default='0,0,0')
-    ap.add_argument('--size', type=float, default=3.0)
-    ap.add_argument('--fov', type=float, default=50.0)
-    ap.add_argument('--cam-height', type=float, default=1.6)
-    ap.add_argument('--pitch', type=float, default=0.0)
-    ap.add_argument('--full', action='store_true')
-    a = ap.parse_args()
-    par = {
-        'vfx_element': a.element,
-        'vfx_anchor': a.anchor,
-        'vfx_offset': a.offset,
-        'vfx_size_m': a.size,
-        'vfx_cam_fov': a.fov,
-        'vfx_cam_height': a.cam_height,
-        'vfx_cam_pitch': a.pitch,
-    }
-    out = _composite(a.clip, par, a.out, not a.full)
-    print(json.dumps({k: out[k] for k in ('cam_source', 'seconds', 'width', 'placement')}, indent=1, default=str))
+    raise SystemExit(_cli_main())

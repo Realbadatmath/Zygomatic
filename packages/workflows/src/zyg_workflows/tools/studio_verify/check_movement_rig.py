@@ -34,10 +34,8 @@ Run:  ~/zygomatics-zero/venv/bin/python tools/studio_verify/check_movement_rig.p
 
 import json
 import os
-import sys
 from zyg_workflows import paths
 
-from playwright.sync_api import sync_playwright
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SHOT = os.path.join(HERE, 'movement_rig.png')
@@ -255,26 +253,7 @@ def run(pw, width, height, shoot):
     return out
 
 
-def main():
-    runs = []
-    with sync_playwright() as pw:
-        for i, (w, h) in enumerate(VIEWPORTS):
-            runs.append(run(pw, w, h, shoot=(i == 0)))
-    print(
-        json.dumps(
-            {
-                'ok': True,
-                'runs': runs,
-                'screenshot': SHOT,
-                'screenshot_bytes': os.path.getsize(SHOT),
-                'screenshot_fit': SHOT_FIT,
-                'screenshot_fit_bytes': os.path.getsize(SHOT_FIT),
-            },
-            indent=1,
-        )
-    )
-    return 0
+if __name__ == '__main__':  # the CLI lives in check_movement_rig_cli
+    from zyg_workflows.tools.studio_verify.check_movement_rig_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

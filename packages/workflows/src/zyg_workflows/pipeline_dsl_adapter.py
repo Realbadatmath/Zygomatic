@@ -416,11 +416,7 @@ __all__ = [
 ]
 
 
-if __name__ == '__main__':
-    print('pipeline_dsl_adapter — status')
-    print(f'  CAVEMAN module loaded:   {_CAVEMAN_AVAILABLE}')
-    print(f'  DSL modules loaded:      {_DSL_AVAILABLE}')
-    print(f'  Master switch:           {_master_dsl_on()}')
-    print(f'  Allowed pipelines:       {_allowed_pipelines() or "all"}')
-    for p in ('documentary', 'video', 'storyteller', 'character'):
-        print(f'  {p:<14} → {status_summary(p)}')
+if __name__ == '__main__':  # the CLI lives in pipeline_dsl_adapter_cli
+    from zyg_workflows.pipeline_dsl_adapter_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

@@ -22,6 +22,7 @@ import pytest
 
 from zyg_zero import nomologin as nl
 from zyg_zero import nomologin_mail as mod
+from zyg_zero import nomologin_mail_cli as cli  # main() lives in the CLI sibling since the print split
 
 _IMAP_ERROR = imaplib.IMAP4.error
 
@@ -541,18 +542,18 @@ def _out(capsys):
 
 def test_main_configure_list_forget(store, capsys):
     argv = ['ada', 'configure', '--host', 'imap.example.com', '--user', 'ada@example.com', '--password', 'pw']
-    assert mod.main(argv) == 0
+    assert cli.main(argv) == 0
     assert _out(capsys)['ok'] is True
 
-    assert mod.main(['ada', 'list']) == 0
+    assert cli.main(['ada', 'list']) == 0
     assert _out(capsys)['ada']['host'] == 'imap.example.com'
 
-    assert mod.main(['ada', 'forget']) == 0
+    assert cli.main(['ada', 'forget']) == 0
     assert _out(capsys)['ok'] is True
 
 
 def test_main_configure_without_credentials_fails(store, capsys):
-    assert mod.main(['ada', 'configure']) == 1
+    assert cli.main(['ada', 'configure']) == 1
     assert _out(capsys) == {'ok': False, 'error': 'host, user and password are all required'}
 
 
@@ -562,26 +563,26 @@ def test_main_check_recent_read_codes(store, monkeypatch, capsys):
     box.uids = [b'1']
     box.messages = {'1': ('', _rich())}
 
-    assert mod.main(['ada']) == 0  # default action is check
+    assert cli.main(['ada']) == 0  # default action is check
     assert _out(capsys)['messages'] == 1
 
-    assert mod.main(['ada', 'recent', '-n', '1', '--unread']) == 0
+    assert cli.main(['ada', 'recent', '-n', '1', '--unread']) == 0
     assert [m['uid'] for m in _out(capsys)] == ['1']
 
-    assert mod.main(['ada', 'read', '1']) == 0
+    assert cli.main(['ada', 'read', '1']) == 0
     assert _out(capsys)['codes'] == ['483920']
 
-    assert mod.main(['ada', 'codes', '--minutes', '45']) == 0
+    assert cli.main(['ada', 'codes', '--minutes', '45']) == 0
     assert _out(capsys)['window_minutes'] == 45.0
 
 
 def test_main_read_without_a_uid_fails(store, monkeypatch, capsys):
     _configure()
     _install(monkeypatch, FakeBox())
-    assert mod.main(['ada', 'read']) == 1
+    assert cli.main(['ada', 'read']) == 1
     assert _out(capsys) == {'ok': False, 'error': 'list index out of range'}
 
 
 def test_main_unknown_action(store, capsys):
-    assert mod.main(['ada', 'sendmail']) == 0
+    assert cli.main(['ada', 'sendmail']) == 0
     assert _out(capsys) == {'ok': False, 'error': 'unknown action sendmail'}

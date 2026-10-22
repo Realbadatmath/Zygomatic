@@ -36,11 +36,9 @@ irises that measure warm brown, and it will not pretend to distinguish grey-blue
 blue-grey.
 """
 
-import argparse
 import glob
 import json
 import os
-import sys
 
 import numpy as np
 
@@ -200,21 +198,14 @@ def run(char_id, k=3.5):
     return doc
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('char_id')
-    ap.add_argument('--k', type=float, default=3.5)
-    a = ap.parse_args(argv)
-    doc = run(a.char_id, a.k)
-    gate.print_report(doc)
-    for reg, info in doc['regions'].items():
-        out = info.get('outliers') or {}
-        line = '  %-11s cells=%-3s median Lab=%s' % (reg, info.get('cells'), info.get('median_lab'))
-        if out:
-            line += '  OUTLIERS: ' + ', '.join('%s(%s)' % (n, d['axis']) for n, d in list(out.items())[:6])
-        print(line)
-    return 0 if doc['passed'] else 2
+def main(*a, **k):
+    """Delegate to the CLI, which is where this gate's printing entry point now lives."""
+    from zyg_workflows.geom.drift_gate_cli import main as _m
+
+    return _m(*a, **k)
 
 
-if __name__ == '__main__':
-    sys.exit(main())
+if __name__ == '__main__':  # the CLI lives in drift_gate_cli
+    from zyg_workflows.geom.drift_gate_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

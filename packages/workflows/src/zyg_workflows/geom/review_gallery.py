@@ -16,11 +16,9 @@ Two hard-won details are baked in rather than rediscovered:
   * files.json is written alongside, because the page cannot enumerate a directory.
 """
 
-import argparse
 import json
 import os
 import shutil
-import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -113,19 +111,7 @@ def default_items(scene):
     ]
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--scene', default=os.path.join(ROOT, 'output/axe_forest/tree'))
-    ap.add_argument('-o', '--out', default=os.path.join(ROOT, 'output/axe_forest/REVIEW'))
-    ap.add_argument('--extra', nargs='*', default=[])
-    a = ap.parse_args(argv)
-    items = default_items(a.scene) + [(p, os.path.basename(p)) for p in a.extra]
-    got = collect(a.out, items)
-    print('  %d images -> %s/gallery.html' % (len(got), a.out))
-    for g in got:
-        print('    %s' % g['file'])
-    return 0
+if __name__ == '__main__':  # the CLI lives in review_gallery_cli
+    from zyg_workflows.geom.review_gallery_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

@@ -577,16 +577,7 @@ def deck(slides_dir: str | None = None) -> dict:
     return d
 
 
-if __name__ == '__main__':
-    d = build_deck()
-    print(f'{d["count"]} slides in {len(d["chapters"])} chapters, {len(d["extra"])} extra frames')
-    for ch in d['chapters']:
-        print(f'  {ch["title"]}: {len(ch["slides"])}')
-    missing = [
-        s['file']
-        for ch in CHAPTERS
-        for s in ch['slides']
-        if s.get('file') and not os.path.isfile(os.path.join(SLIDES_DIR, s['file']))
-    ]
-    if missing:
-        print('MISSING:', missing)
+if __name__ == '__main__':  # the CLI lives in zpub_portfolio_deck_cli
+    from zyg_zero.zpub_portfolio_deck_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

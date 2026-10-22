@@ -56,10 +56,8 @@ and re-does nothing.  ``--force`` rebuilds anyway.
 
 from __future__ import annotations
 
-import argparse
 import os
 import subprocess
-import sys
 
 from zyg_workflows import vfx_ingest as vi
 from zyg_workflows.bin import exe
@@ -379,24 +377,7 @@ def build(only=None, force=False, at=None, log=print) -> int:
     return done
 
 
-def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('--only', help='one working-copy filename')
-    ap.add_argument('--force', action='store_true', help='rebuild even if one exists')
-    ap.add_argument(
-        '--at',
-        type=float,
-        help='take the cut from this second instead of picking one; '
-        'recorded as a manual pick and never re-derived after',
-    )
-    a = ap.parse_args(argv)
-    if a.at is not None and not a.only:
-        ap.error("--at sets one plate's window, so it needs --only")
-    # --at is an instruction to change the window, so it implies a rebuild.
-    n = build(only=a.only, force=a.force or a.at is not None, at=a.at)
-    print(f'[plate-pv] {n} preview(s) built')
-    return 0
+if __name__ == '__main__':  # the CLI lives in vfx_plate_preview_cli
+    from zyg_workflows.vfx_plate_preview_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

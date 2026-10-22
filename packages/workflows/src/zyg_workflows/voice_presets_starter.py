@@ -289,17 +289,7 @@ def install_all(overwrite: bool = False) -> dict:
     return {vid: install(vid, overwrite=overwrite) for vid in vs.VOICES}
 
 
-if __name__ == '__main__':  # pragma: no cover — operator tool
-    import argparse
+if __name__ == '__main__':  # the CLI lives in voice_presets_starter_cli
+    from zyg_workflows.voice_presets_starter_cli import main as _cli_main
 
-    ap = argparse.ArgumentParser(description='Install the voice delivery starter tier')
-    ap.add_argument('--voice', default='', help='one voice id (default: all)')
-    ap.add_argument(
-        '--overwrite', action='store_true', help='replace starters that already exist — DISCARDS operator edits'
-    )
-    a = ap.parse_args()
-    res = {a.voice: install(a.voice, a.overwrite)} if a.voice else install_all(a.overwrite)
-    total = sum(len(v) for v in res.values())
-    for vid, slugs in res.items():
-        print(f'{vid:22s} {len(slugs):2d} written' + (f'  ({", ".join(slugs)})' if slugs else '  — already present'))
-    print(f'\n{total} preset files written across {len(res)} voices.')
+    raise SystemExit(_cli_main())

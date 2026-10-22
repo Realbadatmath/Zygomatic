@@ -272,24 +272,7 @@ def _ask_ollama(prompt: str, *, stage: str, options: dict, timeout: int, label: 
     return data, info
 
 
-if __name__ == '__main__':  # python3 kids_llm.py  — one live probe per backend
-    print(
-        json.dumps(
-            {
-                'backend': 'subscription' if opus_on() else 'ollama',
-                'opus_available': opus_available(),
-                'opus_model': OPUS_MODEL,
-                'ollama_model': OLLAMA_MODEL,
-            },
-            indent=1,
-        )
-    )
-    d, i = ask_json(
-        opus_prompt='Reply with JSON only: {"ok": true, "who": "<the model name>"}',
-        ollama_prompt='Reply with JSON only: {"ok": true, "who": "<the model name>"}',
-        system='You answer with one JSON object and nothing else.',
-        stage='kids_llm_probe',
-        max_tokens=200,
-        log_fn=lambda m: print('·', m),
-    )
-    print(json.dumps({'data': d, 'info': i}, indent=1, default=str))
+if __name__ == '__main__':  # the CLI lives in kids_llm_cli
+    from zyg_workflows.kids_llm_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

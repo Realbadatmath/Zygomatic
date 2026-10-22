@@ -780,21 +780,7 @@ def _selftest(out_dir):
     return 0 if verdict else 1
 
 
-def main(argv):
-    if len(argv) >= 3 and argv[1] == '--selftest':
-        return _selftest(argv[2])
-    if len(argv) >= 3 and argv[1] == '--clap-check':
-        res = qc_clap(
-            argv[2],
-            positives=['calm spoken narration', 'ambient background sound'],
-            negatives=['loud music', 'silence', 'noise and distortion'],
-            log_fn=print,
-        )
-        print(json.dumps(res, indent=2))
-        return 0
-    print('usage: audio_qc.py --selftest <out_dir> | --clap-check <wav>')
-    return 2
+if __name__ == '__main__':  # the CLI lives in audio_qc_cli
+    from zyg_workflows.audio_qc_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+    raise SystemExit(_cli_main(sys.argv))

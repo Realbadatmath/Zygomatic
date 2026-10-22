@@ -443,18 +443,7 @@ def book_plate_from_meta(shot_meta, plate_dir, log_fn=None):
     return [{'plate': plate, 'meta': meta, 'quad': quad, 'name': 'book'}]
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in prop_control_cli
+    from zyg_workflows.prop_control_cli import main as _cli_main
 
-    def _lg(m):
-        print(m, flush=True)
-
-    if len(sys.argv) < 5:
-        print('usage: prop_control.py CONTROL.png SHOT_META.json PLATE_DIR OUT.png [MASK.png]')
-        sys.exit(2)
-    ctrl, sm, pdir, outp = sys.argv[1:5]
-    mask = sys.argv[5] if len(sys.argv) > 5 else None
-    pl = book_plate_from_meta(sm, pdir, log_fn=_lg)
-    r = composite_into_control(ctrl, pl, outp, mask_png=mask, log_fn=_lg)
-    print('->', r)
-    sys.exit(0 if r else 1)
+    raise SystemExit(_cli_main())

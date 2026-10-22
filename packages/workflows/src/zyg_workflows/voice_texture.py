@@ -140,15 +140,7 @@ def scan(paths, floor_min_db: float = -26.0, min_voiced: int = 120, log_fn=None)
     return rows
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in voice_texture_cli
+    from zyg_workflows.voice_texture_cli import main as _cli_main
 
-    rows = scan(sys.argv[1:], log_fn=print)
-    print(f'{"voice":34s} {"wear":>6s} {"F0":>6s} {"HNR":>6s} {"jit%":>5s} {"shim%":>6s} {"CPPS":>6s} {"floor":>6s}')
-    for r in rows:
-        tag = '  REJECTED: ' + r['rejected'] if r['rejected'] else ''
-        print(
-            f'{os.path.basename(r["path"])[:34]:34s} {r["wear"]:6.2f} '
-            f'{r["f0"]:6.1f} {r["hnr"]:6.2f} {r["jitter"]:5.2f} '
-            f'{r["shimmer"]:6.2f} {r["cpps"]:6.2f} {r["floor_db"]:6.1f}{tag}'
-        )
+    raise SystemExit(_cli_main())

@@ -41,7 +41,6 @@ the payload.
 
 from __future__ import annotations
 
-import json
 import os
 import sys
 import time
@@ -830,16 +829,7 @@ def payload(view='calendar', anchor=None, days=7, now=None, fresh=False):
     }
 
 
-if __name__ == '__main__':
-    args = sys.argv[1:]
+if __name__ == '__main__':  # the CLI lives in production_calendar_cli
+    from zyg_dashboard.production_calendar_cli import main as _cli_main
 
-    def opt(name, default=None):
-        return args[args.index(name) + 1] if name in args and args.index(name) + 1 < len(args) else default
-
-    print(
-        json.dumps(
-            payload(view=opt('--view', 'calendar'), anchor=opt('--anchor'), days=int(opt('--days', 7))),
-            indent=1,
-            default=str,
-        )
-    )
+    raise SystemExit(_cli_main())

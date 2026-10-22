@@ -15,7 +15,6 @@ and from what the VENDOR shipped beside the bytes — the .mhclo header, the
 import json
 import os
 import shutil
-import sys
 
 
 def mh_pack(conv, src_hair, out_dir, pack_id, label, licence, credit, source_url, evidence, refused):
@@ -149,5 +148,7 @@ def _write(out_dir, man, licence, credit, source_url, evidence, refused, n):
         json.dump(prov, fh, indent=1, ensure_ascii=False)
 
 
-if __name__ == '__main__':
-    print('build_manifest.py is driven by install_hair_packs.py', file=sys.stderr)
+if __name__ == '__main__':  # the CLI lives in build_manifest_cli
+    from zyg_workflows.tools.hair_assets.build_manifest_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

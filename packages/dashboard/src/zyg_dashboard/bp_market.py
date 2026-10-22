@@ -304,7 +304,7 @@ def _cleaner_loop():
         time.sleep(1800)
         try:
             if not _maintenance_active():
-                PM.retention_sweep(log=lambda m: print(m, flush=True))
+                PM.retention_sweep(log=lambda m: _zyg_log.info(m))
         except Exception as e:
             _zyg_log.info(f'[MARKET-CLEANER] error: {e}')
 

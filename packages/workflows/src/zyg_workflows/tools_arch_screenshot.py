@@ -28,7 +28,6 @@ and all.
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import sys
@@ -194,38 +193,7 @@ def shoot(out_png, project='', doc=None, view='eye', width=1600, height=1000, ur
     return info
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('--project', default='', help='saved drawing id, e.g. heath-landscape-demo')
-    ap.add_argument('--doc', default='', help='path to a document JSON to inject instead')
-    ap.add_argument('--view', default='eye', choices=list(VIEWS))
-    ap.add_argument('--out', required=True, help='PNG to write')
-    ap.add_argument('--width', type=int, default=1600)
-    ap.add_argument('--height', type=int, default=1000)
-    ap.add_argument('--url', default=URL)
-    ap.add_argument('--timeout', type=int, default=180)
-    a = ap.parse_args(argv)
-    doc = None
-    if a.doc:
-        with open(a.doc, 'r', encoding='utf-8') as fh:
-            doc = json.load(fh)
-        doc = doc.get('doc') if isinstance(doc, dict) and 'doc' in doc else doc
-    try:
-        info = shoot(
-            a.out,
-            project=a.project,
-            doc=doc,
-            view=a.view,
-            width=a.width,
-            height=a.height,
-            url=a.url,
-            timeout_s=a.timeout,
-        )
-    except Exception as e:
-        print('ARCH_SHOT_FAIL %s: %s' % (type(e).__name__, e))
-        return 1
-    return 0 if info.get('bytes', 0) > 0 else 1
+if __name__ == '__main__':  # the CLI lives in tools_arch_screenshot_cli
+    from zyg_workflows.tools_arch_screenshot_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

@@ -37,10 +37,8 @@ disk and in any log — it is the defect's natural resting state — so it is me
 than assumed, and `main()` exits non-zero when the channel is still constant.
 """
 
-import argparse
 import glob
 import os
-import sys
 
 import numpy as np
 
@@ -157,29 +155,7 @@ def audit(ctrl_dir, sample=24):
     }
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('src')
-    ap.add_argument('-o', '--out', default=None)
-    ap.add_argument('--frames', type=int, default=341)
-    ap.add_argument('--mask-dir', default=None)
-    ap.add_argument('--audit', action='store_true')
-    a = ap.parse_args(argv)
+if __name__ == '__main__':  # the CLI lives in vace_control_cli
+    from zyg_workflows.geom.vace_control_cli import main as _cli_main
 
-    if a.audit:
-        r = audit(a.src)
-        for k, v in r.items():
-            print('  %-20s %s' % (k, v))
-        return 0 if r.get('ok') else 2
-
-    out = a.out or os.path.join(a.src, 'vace_ctrl')
-    r = build(a.src, out, frames=a.frames, mask_dir=a.mask_dir)
-    for k, v in r.items():
-        print('  %-20s %s' % (k, v))
-    v = audit(out)
-    print('  %-20s %s' % ('audit', v['verdict']))
-    return 0 if v['ok'] else 2
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

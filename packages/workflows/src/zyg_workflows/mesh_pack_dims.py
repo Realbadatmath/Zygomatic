@@ -36,7 +36,6 @@ import math
 import os
 import re
 import struct
-import sys
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -302,6 +301,7 @@ def run(only: list[str], force: bool) -> dict:
     return {'files': total, 'measured': measured, 'kept': kept, 'failed': failed, 'seconds': round(time.time() - t0, 1)}
 
 
-if __name__ == '__main__':
-    args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    print(json.dumps(run(args, '--force' in sys.argv)))
+if __name__ == '__main__':  # the CLI lives in mesh_pack_dims_cli
+    from zyg_workflows.mesh_pack_dims_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

@@ -329,10 +329,10 @@ def api_internal_storyteller_analyze_character_photo():
             return jsonify({'ok': False, 'error': 'disabled', 'fields': {}}), 503
         raw = photo.read()
         mt = photo.content_type or 'image/jpeg'
-        result = _cpas.analyze_image_bytes(raw, mt, log_fn=lambda m: print(f'[ST-CHAR-PHOTO] {m}', flush=True))
+        result = _cpas.analyze_image_bytes(raw, mt, log_fn=lambda m: _zyg_log.info(f'[ST-CHAR-PHOTO] {m}'))
         try:
             _cpas.evict_all_ollama_models(
-                log_fn=lambda m: print(f'[ST-CHAR-PHOTO] {m}', flush=True),
+                log_fn=lambda m: _zyg_log.info(f'[ST-CHAR-PHOTO] {m}'),
             )
         except Exception as _exc:
             _zyg_log.debug('ollama model eviction skipped: %s', _exc)

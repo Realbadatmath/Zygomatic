@@ -35,12 +35,10 @@ the same libraries the day anyone clicks through their download pages by hand.
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import re
 import subprocess
-import sys
 import zipfile
 import logging as _zyg_logging
 from zyg_workflows import paths
@@ -561,41 +559,7 @@ def backfill_volume_counts(meta: dict, log=print) -> int:
     return n
 
 
-def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--dry-run', action='store_true')
-    ap.add_argument('--fix-counts', action='store_true', help='recount volume packs from their archives, then exit')
-    ap.add_argument(
-        '--fix-dims', action='store_true', help='measure w/h for sprite rows that are missing them, then exit'
-    )
-    ap.add_argument('--limit-plates', type=int, default=0, help='transcode at most N plates this run (0 = all)')
-    ap.add_argument('--only', choices=['plates', 'sprites', 'volumes'], default=None)
-    a = ap.parse_args(argv)
+if __name__ == '__main__':  # the CLI lives in vfx_ingest_cli
+    from zyg_workflows.vfx_ingest_cli import main as _cli_main
 
-    meta = load_sidecar()
-    if a.fix_dims:
-        n = backfill_image_dims(meta)
-        print(f'[vfx] measured {n} sprite(s)')
-        return 0
-    if a.fix_counts:
-        n = backfill_volume_counts(meta)
-        print(f'[vfx] recounted {n} volume pack(s)')
-        return 0
-    counts = {}
-    if a.only in (None, 'volumes'):
-        counts['volumes'] = ingest_jangafx(meta, a.dry_run)
-    if a.only in (None, 'sprites'):
-        counts['sprites'] = ingest_kenney(meta, a.dry_run)
-    if a.only in (None, 'plates'):
-        counts['plates'] = ingest_doe(meta, a.limit_plates, a.dry_run)
-    if not a.dry_run:
-        save_sidecar(meta)
-    total = {c: sum(1 for r in meta.values() if r.get('cat') == c) for c in CATEGORIES}
-    print(f'[vfx] added this run: {counts}')
-    print(f'[vfx] library totals: {total}')
-    print(f'[vfx] sidecar: {SIDECAR}')
-    return 0
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

@@ -153,52 +153,11 @@ def make_lod(pack: str, item: str, tris: int) -> dict:
     }
 
 
-def main(argv: list[str]) -> int:
-    from zyg_workflows import mesh_pack_dims  # noqa: PLC0415
+if __name__ == '__main__':  # the CLI lives in arch_asset_lod_cli
+    try:
+        from zyg_workflows.arch_asset_lod_cli import main as _cli_main
+    except ImportError:  # inside Blender's python, which has no zyg_workflows installed
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from zyg_workflows.arch_asset_lod_cli import main as _cli_main
 
-    flags = [a for a in argv if a.startswith('--')]
-    args = [a for a in argv if not a.startswith('--')]
-    trees = '--trees' in flags
-    pack_filter = args[0] if (trees and args) else ''
-
-    if '--list' in flags:
-        for r in over_budget(pack_filter, trees):
-            print(f'{r["tris"]:>12,}  {r["id"]}' + ('  [lod1 exists]' if r['has_lod'] else ''))
-        return 0
-
-    if trees:
-        todo = [r for r in over_budget(pack_filter, True) if not r['has_lod']]
-    else:
-        todo = []
-        for a in args:
-            pack, _, item = a.partition('|')
-            hit = [r for r in over_budget(pack) if r['item'] == item]
-            if not hit:
-                print(f'{a}: not over the budget (or not catalogued) — nothing to do')
-                continue
-            todo.append(hit[0])
-    if not todo:
-        print('nothing to decimate')
-        return 0
-
-    packs, bad = set(), 0
-    for r in todo:
-        res = make_lod(r['pack'], r['item'], r['tris'])
-        print(('OK   ' if res['ok'] else 'FAIL ') + res['id'] + ' -> ' + (res.get('lod') or res.get('why') or ''))
-        if res['ok']:
-            packs.add(r['pack'])
-        else:
-            bad += 1
-    if packs:
-        # the new files must be measured and counted or the catalogue lists
-        # them with no size and the budget cannot see them either
-        print(mesh_pack_dims.run(sorted(packs), False))
-    return 1 if bad else 0
-
-
-if __name__ == '__main__':
-    if '--blender' in sys.argv:
-        rest = sys.argv[sys.argv.index('--blender') + 1 :]
-        sys.exit(_blender_main(rest))
-    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    sys.exit(main(sys.argv[1:]))
+    raise SystemExit(_cli_main())

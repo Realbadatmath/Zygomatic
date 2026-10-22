@@ -73,13 +73,7 @@ ceo_task = Task(
 # Create the crew and run the pipeline
 crew = Crew(tasks=[ceo_task])
 
-if __name__ == '__main__':
-    try:
-        result = crew.kickoff()
-        print('\nPipeline Result:')
-        print(result)
-    except Exception as e:
-        import traceback
+if __name__ == '__main__':  # the CLI lives in crewai_pipeline_cli
+    from zyg_dashboard.crewai_pipeline_cli import main as _cli_main
 
-        print(f'\nAn error occurred: {e}')
-        traceback.print_exc()
+    raise SystemExit(_cli_main())

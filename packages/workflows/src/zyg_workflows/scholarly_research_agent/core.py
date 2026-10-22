@@ -9,6 +9,7 @@ from zyg_workflows.scholarly_research_agent.constants import (
     _TOPIC_DISCIPLINES,
     _TOPIC_QUERIES,
     _USER_AGENTS,
+    _zyg_logging,
     dict_row,
     os,
     pgdb,
@@ -16,6 +17,8 @@ from zyg_workflows.scholarly_research_agent.constants import (
     time,
 )
 from zyg_workflows.scholarly_research_agent.directive import _claude_extract_subject, _extract_keywords
+
+_zyg_log = _zyg_logging.getLogger('zyg_workflows.scholarly_research_agent')
 
 
 class ScholarlyResearchAgent:
@@ -28,7 +31,7 @@ class ScholarlyResearchAgent:
     def __init__(self, topic: str, pipeline_id: str = '', log_fn=None, stop_event=None):
         self.topic = topic.lower().strip()
         self.pipeline_id = pipeline_id
-        self._log_fn = log_fn or (lambda level, stage, msg: print(f'[{level}] {stage}: {msg}'))
+        self._log_fn = log_fn or (lambda level, stage, msg: _zyg_log.info(f'[{level}] {stage}: {msg}'))
         self.driver = None
         self._browser_engine = None
         self._shutdown = False

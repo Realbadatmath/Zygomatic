@@ -103,7 +103,7 @@ def api_vram_free():
         _used_before = int(_bparts[0].strip()) if _bparts else None
     except Exception:
         _used_before = None
-    _release_pipeline_vram('api', log_fn=lambda m: print(f'[VRAM] {m}', flush=True))
+    _release_pipeline_vram('api', log_fn=lambda m: _zyg_log.info(f'[VRAM] {m}'))
     try:
         import subprocess as _sp_vf2
 

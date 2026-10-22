@@ -12,8 +12,6 @@ Same code path as scene_shot_run.run_video_vace / run_video_animate, with the id
 seats (still / reference / LoRA) and the plate set exposed. Writes <shot>/video/<engine>_probe_<tag>/.
 """
 
-import argparse
-import json
 import os
 import sys
 import time
@@ -149,48 +147,7 @@ def probe_animate(a, shot, shot_dir, log):
     return take, rec
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('shot_dir')
-    ap.add_argument('--engine', choices=('vace', 'animate'), required=True)
-    ap.add_argument('--plates', default='plates')
-    ap.add_argument('--frames', type=int, default=25)
-    ap.add_argument('--still')
-    ap.add_argument('--ref', action='append', default=[])
-    ap.add_argument('--neg', default='')
-    ap.add_argument('--set-plate', default='')
-    ap.add_argument('--set-strength', type=float, default=1.0)
-    ap.add_argument('--set-end', type=float, default=0.88)
-    ap.add_argument('--geom', default='')
-    ap.add_argument('--use-binding', action='store_true')
-    ap.add_argument('--lora')
-    ap.add_argument('--lora-strength', type=float, default=1.0)
-    ap.add_argument('--vace-strength', type=float, default=0.7)
-    ap.add_argument('--vace-end', type=float, default=0.35)
-    ap.add_argument('--blend', default='')
-    ap.add_argument('--steps', type=int, default=20)
-    ap.add_argument('--seed', type=int, default=7)
-    ap.add_argument('--prompt', default='')
-    ap.add_argument('--tag', default='t')
-    ap.add_argument('--res', default='')
-    a = ap.parse_args()
-    shot_dir = os.path.abspath(a.shot_dir)
-    shot = json.load(open(os.path.join(shot_dir, 'shot.json')))
-    lines = []
+if __name__ == '__main__':  # the CLI lives in recipe_probe_cli
+    from zyg_workflows.tools.recipe_probe_cli import main as _cli_main
 
-    def log(m):
-        print(m, flush=True)
-        lines.append(str(m))
-
-    take, rec = (probe_vace if a.engine == 'vace' else probe_animate)(a, shot, shot_dir, log)
-    if take:
-        os.makedirs(take, exist_ok=True)
-        with open(os.path.join(take, 'probe.json'), 'w') as fh:
-            json.dump(rec, fh, indent=1, default=str)
-        with open(os.path.join(take, 'probe.log'), 'w') as fh:
-            fh.write('\n'.join(lines))
-    print('PROBE DONE', json.dumps({k: rec.get(k) for k in ('engine', 'tag', 'clip', 'wall_s')}))
-
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

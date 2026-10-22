@@ -123,7 +123,8 @@ def test_the_male_singer_pins_the_benched_weights():
 
 
 def test_the_worker_honours_a_pinned_weights_file():
-    src = open(_tree.pkg('tools', 'vc_applio_worker.py')).read()
+    # The worker's command line moved to the _cli sibling (library code never prints).
+    src = open(_tree.pkg('tools', 'vc_applio_worker_cli.py')).read()
     assert "os.environ.get('VC_PTH'" in src
 
 

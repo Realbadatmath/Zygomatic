@@ -332,21 +332,7 @@ def generate_dsl_from_text(
         return generator.generate_from_description(text, scene_id=scene_id, llm_callable=llm_callable)
 
 
-if __name__ == '__main__':
-    # Demo: show prompts
-    print('=' * 70)
-    print('DSL GENERATION PROMPTS')
-    print('=' * 70)
+if __name__ == '__main__':  # the CLI lives in dsl_llm_generator_cli
+    from zyg_workflows.dsl_llm_generator_cli import main as _cli_main
 
-    generator = DSLLLMGenerator(use_caveman=True)
-
-    example_input = 'Deep ocean scene. Unknown creature. Sense of wonder and dread.'
-
-    print('\nSYSTEM PROMPT (with caveman):')
-    print(generator.get_system_prompt())
-
-    print('\nUSER PROMPT (with caveman):')
-    print(generator.get_generation_prompt(example_input))
-
-    print('\n' + '=' * 70)
-    print('Token savings with caveman prompts: ~30-40%')
+    raise SystemExit(_cli_main())

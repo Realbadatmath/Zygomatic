@@ -57,13 +57,11 @@ Usage
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import re
 import shutil
 import subprocess
-import sys
 import tempfile
 import time
 import zipfile
@@ -559,37 +557,7 @@ def build_all(only=None, force=False, log=print) -> dict:
     return {'built': n_ok, 'skipped': n_skip, 'failed': n_bad}
 
 
-def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--all', action='store_true', help='every volume pack')
-    ap.add_argument('--pack', default=None, help='one archive name or slug')
-    ap.add_argument('--force', action='store_true', help='rebuild existing previews')
-    ap.add_argument('--list', action='store_true', help='show state, build nothing')
-    ap.add_argument(
-        '--reconcile',
-        action='store_true',
-        help='re-attach preview clips already on disk that the sidecar has stopped naming; renders nothing',
-    )
-    a = ap.parse_args(argv)
+if __name__ == '__main__':  # the CLI lives in vfx_volume_preview_cli
+    from zyg_workflows.vfx_volume_preview_cli import main as _cli_main
 
-    if a.list:
-        meta = VI.load_sidecar()
-        for _, r in volume_records(meta):
-            pv = r.get('preview') or ''
-            state = (
-                f'{pv}  [{r.get("preview_src", "?")}]'
-                if pv
-                else ('FAILED: ' + r.get('preview_error', '') if r.get('preview_error') else '— none —')
-            )
-            print(f'{(r.get("name") or r.get("file")):28s} {r.get("frames", 0):>4}f  {state}')
-        return 0
-    if a.reconcile:
-        return 0 if reconcile()['fixed'] >= 0 else 1
-    if not (a.all or a.pack):
-        ap.error('give --all, --pack <archive> or --reconcile')
-    out = build_all(only=a.pack, force=a.force)
-    return 0 if out['failed'] == 0 else 1
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

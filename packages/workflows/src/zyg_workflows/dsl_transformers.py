@@ -413,17 +413,7 @@ def dsl_to_all_configs(scene: Scene) -> Dict[str, Dict[str, Any]]:
     }
 
 
-if __name__ == '__main__':
-    # Demo: transform example scene
-    from zyg_workflows.dsl_schema import EXAMPLE_SCENE
+if __name__ == '__main__':  # the CLI lives in dsl_transformers_cli
+    from zyg_workflows.dsl_transformers_cli import main as _cli_main
 
-    print('=' * 70)
-    print('TRANSFORMING SCENE TO TOOL CONFIGS')
-    print('=' * 70)
-
-    configs = dsl_to_all_configs(EXAMPLE_SCENE)
-
-    for tool, config in configs.items():
-        print(f'\n{tool.upper()} CONFIG:')
-        for key, val in config.items():
-            print(f'  {key}: {val}')
+    raise SystemExit(_cli_main())

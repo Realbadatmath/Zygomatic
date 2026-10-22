@@ -28,11 +28,9 @@ than a failure — measured on Abel, 4 of 48 cells are genuine rear views and 1 
 tiny-face hard profile. Those numbers belong in the record, not smoothed out of it.
 """
 
-import argparse
 import glob
 import json
 import os
-import sys
 import time
 
 import numpy as np
@@ -131,22 +129,7 @@ def run(char_id, images=None, out=None, limit=0):
     return summary
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument('char_id')
-    ap.add_argument('--images', default=None)
-    ap.add_argument('--out', default=None)
-    ap.add_argument('--limit', type=int, default=0)
-    a = ap.parse_args(argv)
-    s = run(a.char_id, a.images, a.out, a.limit)
-    for k, v in s.items():
-        if k != 'region_presence':
-            print('  %-22s %s' % (k, v))
-    print('  regions present in N cells:')
-    for k, v in sorted(s['region_presence'].items(), key=lambda kv: -kv[1]):
-        print('    %-18s %d' % (k, v))
-    return 0
+if __name__ == '__main__':  # the CLI lives in char_mesh_cli
+    from zyg_workflows.geom.char_mesh_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

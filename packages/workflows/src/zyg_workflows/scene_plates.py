@@ -241,10 +241,7 @@ def build(shot_dir, log=print):
     return ps
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in scene_plates_cli
+    from zyg_workflows.scene_plates_cli import main as _cli_main
 
-    if len(sys.argv) != 2:
-        print('usage: scene_plates.py <shot_dir>')
-        raise SystemExit(2)
-    build(sys.argv[1])
+    raise SystemExit(_cli_main())

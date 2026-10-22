@@ -769,7 +769,7 @@ def interpret(result: Dict[str, Any], v: Optional[Dict[str, Any]] = None) -> str
     return ' '.join(lines)
 
 
-if __name__ == '__main__':  # pragma: no cover - convenience only
-    import json
+if __name__ == '__main__':  # the CLI lives in mvconsist_band_cli
+    from zyg_workflows.geom.mvconsist_band_cli import main as _cli_main
 
-    print(json.dumps({'BAND': BAND, 'REQUIRED_SETTINGS': REQUIRED_SETTINGS, 'DERIVATION': DERIVATION}, indent=2))
+    raise SystemExit(_cli_main())

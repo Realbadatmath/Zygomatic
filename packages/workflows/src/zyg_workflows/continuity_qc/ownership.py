@@ -9,14 +9,10 @@ from zyg_workflows.continuity_qc.models import (
     _frames_at_times,
     _gate,
     _load_gdino,
-    available,
-    json,
     os,
     paths,
     pick_device,
-    sys,
 )
-from zyg_workflows.continuity_qc.clip import analyze_clip
 
 
 # ── main gate: action_ownership ───────────────────────────────────────────────
@@ -156,40 +152,16 @@ _V7_ACTORS = {'man': 'older man with white beard', 'boy': 'young boy'}
 
 
 def _main(argv):
-    import argparse
+    """The CLI lives in ownership_cli; continuity_qc/__init__.py re-exports this name."""
+    from zyg_workflows.continuity_qc.ownership_cli import _main as _m
 
-    ap = argparse.ArgumentParser(description='grounded continuity QC')
-    ap.add_argument('--clip', default=_V7)
-    ap.add_argument('--sample-fps', type=float, default=2.0)
-    ap.add_argument('--device', default='auto')
-    ap.add_argument('--json-out', default='')
-    ap.add_argument('--skip-clip', action='store_true')
-    ap.add_argument('--skip-ownership', action='store_true')
-    ap.add_argument('--times', default='5.2,12.7')
-    a = ap.parse_args(argv)
-    log = lambda m: print(m, flush=True)
-    res = {'clip': a.clip, 'available': available(log_fn=log)}
-    if not a.skip_clip:
-        res['analyze_clip'] = analyze_clip(a.clip, _V7_OBJECTS, sample_fps=a.sample_fps, device=a.device, log_fn=log)
-    if not a.skip_ownership:
-        res['action_ownership'] = action_ownership(
-            a.clip,
-            _V7_ACTORS,
-            'white clay pipe',
-            [float(x) for x in a.times.split(',') if x.strip()],
-            expected_owner='man',
-            device=a.device,
-            log_fn=log,
-        )
-    if a.json_out:
-        with open(a.json_out, 'w') as fh:
-            json.dump(res, fh, indent=1)
-        print(f'wrote {a.json_out}')
-    return res
+    return _m(argv)
 
 
-if __name__ == '__main__':
-    _main(sys.argv[1:])
+if __name__ == '__main__':  # the CLI lives in ownership_cli
+    from zyg_workflows.continuity_qc.ownership_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CALIBRATION — 2026-07-30, output/multichar_seated/scene20_v7/pasted17.mp4

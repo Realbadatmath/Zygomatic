@@ -30,7 +30,6 @@ Usage:
   ../.venv/bin/python tools/measure_cinematic_clap.py --phase regress --neg variant
 """
 
-import argparse
 import json
 import os
 import sys
@@ -293,33 +292,7 @@ def phase_probe(reg, negatives, neg_label, styles):
                 _zyg_log.info(f'  {mean:.4f} (min {mn:.4f})  {cap!r}')
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--phase', choices=('baseline', 'cands', 'regress', 'probe'), required=True)
-    ap.add_argument('--neg', choices=('current', 'variant'), default='current')
-    ap.add_argument('--sets', default='', help="comma list like 'suspense:S1,mystery:M2' (cands only)")
-    ap.add_argument('--repeats', type=int, default=3, help='qc_clap calls per (file, caption set) — CLAP is noisy')
-    a = ap.parse_args()
+if __name__ == '__main__':  # the CLI lives in measure_cinematic_clap_cli
+    from zyg_workflows.tools.measure_cinematic_clap_cli import main as _cli_main
 
-    global REPEATS
-    REPEATS = max(1, a.repeats)
-    negatives = NEG_CURRENT if a.neg == 'current' else NEG_VARIANT
-    reg = renders()
-    if not reg:
-        print(f'no renders under {OUT_ROOT}')
-        return 1
-    only = {s.strip() for s in a.sets.split(',') if s.strip()}
-
-    if a.phase == 'baseline':
-        phase_baseline(reg, negatives, a.neg)
-    elif a.phase == 'cands':
-        phase_cands(reg, negatives, a.neg, only)
-    elif a.phase == 'probe':
-        phase_probe(reg, negatives, a.neg, sorted(only) or ['suspense', 'mystery', 'triumph'])
-    else:
-        phase_regress(reg, negatives, a.neg)
-    return 0
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

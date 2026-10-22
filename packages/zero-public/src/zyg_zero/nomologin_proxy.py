@@ -33,9 +33,7 @@ Run standalone for a smoke test:
 
 from __future__ import annotations
 
-import argparse
 import base64
-import json
 import select
 import socket
 import socketserver
@@ -490,21 +488,7 @@ def _looks_like_ip(s: str) -> bool:
     return False
 
 
-if __name__ == '__main__':
-    ap = argparse.ArgumentParser(description='Nomologin per-persona proxy shim')
-    ap.add_argument('--listen', type=int, help='loopback port for Chrome to use')
-    ap.add_argument('--upstream', help='http(s)://|socks5://[user:pass@]host:port')
-    ap.add_argument('--probe', metavar='UPSTREAM', help='report the egress IP and exit')
-    ap.add_argument('--direct', action='store_true', help="report this machine's own IP")
-    a = ap.parse_args()
-    if a.direct:
-        print(json.dumps({'direct_ip': direct_ip()}, indent=2))
-    elif a.probe:
-        print(json.dumps(probe(a.probe), indent=2))
-    elif a.listen and a.upstream:
-        try:
-            serve(a.listen, a.upstream)
-        except KeyboardInterrupt:
-            print('\n[NOMOLOGIN-PROXY] stopped', flush=True)
-    else:
-        ap.error('need --listen with --upstream, or --probe, or --direct')
+if __name__ == '__main__':  # the CLI lives in nomologin_proxy_cli
+    from zyg_zero.nomologin_proxy_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

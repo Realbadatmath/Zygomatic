@@ -256,6 +256,7 @@ __all__ = [
 ]
 
 
-if __name__ == '__main__':
-    print(f'Game Simulator  →  http://{lan_host()}:6500')
-    app.run(host=BIND_HOST, port=6500, threaded=True)
+if __name__ == '__main__':  # the CLI lives in gamesim_server_cli
+    from zyg_dashboard.hub.gamesim_server_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

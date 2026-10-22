@@ -30,7 +30,6 @@ child is launched with /usr/bin/python3 and a PATH where /usr/bin precedes the v
 import os
 import socket
 import subprocess
-import time
 
 from zyg_workflows.paths import BIND_HOST
 
@@ -97,22 +96,7 @@ def _ensure(name: str, port: int, script: str) -> None:
     _zyg_log.info(f'[hub-watch] started {name} ({script}) pid={_procs[name].pid} -> :{port}')
 
 
-def main() -> None:
-    print(f'[hub-watch] supervisor up; gating hub (7000/7001/7777) on :{GATE_PORT}', flush=True)
-    gate_was_up = None
-    while True:
-        try:
-            gate_up = _port_up(GATE_PORT)
-            if gate_up != gate_was_up:
-                print(f'[hub-watch] :{GATE_PORT} is {"UP" if gate_up else "DOWN"}', flush=True)
-                gate_was_up = gate_up
-            if gate_up:
-                for name, port, script in COMPONENTS:
-                    _ensure(name, port, script)
-        except Exception as exc:  # never let a transient error kill the supervisor
-            print(f'[hub-watch] error: {exc}', flush=True)
-        time.sleep(CHECK_INTERVAL)
+if __name__ == '__main__':  # the CLI lives in hub_watch_cli
+    from zyg_dashboard.hub.hub_watch_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

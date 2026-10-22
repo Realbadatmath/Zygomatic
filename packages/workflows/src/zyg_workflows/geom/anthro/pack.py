@@ -48,11 +48,9 @@ syntax error in the package under study cannot take the pack down with it.
     python -m zyg_workflows.geom.anthro.pack --section gates
 """
 
-import argparse
 import json
 import os
 import re
-import sys
 import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../geom
@@ -422,25 +420,7 @@ def render(pack, section=None):
     return '\n'.join(lines)
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(
-        prog='python -m zyg_workflows.geom.anthro.pack',
-        description='Neutral-facts context pack for subagents. Reads artefacts and source '
-        'text; never runs the mesh pipeline; never carries a conclusion.',
-    )
-    ap.add_argument('--json', action='store_true', help='machine-readable')
-    ap.add_argument(
-        '--section', choices=('freshness', 'gates', 'facts', 'constants', 'symbols'), help='emit one section only'
-    )
-    a = ap.parse_args(argv)
-    pack = build()
-    if a.json:
-        print(json.dumps(pack, indent=1, sort_keys=True, default=str))
-    else:
-        print(render(pack, a.section))
-    # exit 1 on stale so a workflow script can refuse to hand out a stale pack
-    return 1 if pack['freshness']['stale'] else 0
+if __name__ == '__main__':  # the CLI lives in pack_cli
+    from zyg_workflows.geom.anthro.pack_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

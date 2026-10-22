@@ -852,13 +852,7 @@ def draw_port_mark(overlay: Image.Image, xy, name: str, alpha: float = 1.0, size
     _label(d, name, (x + dx, y + dy), size=size, fill=_INK + (a,), font=_FONT_SERIF_B, anchor=anchor)
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in maritime_map_service_cli
+    from zyg_workflows.maritime_map_service_cli import main as _cli_main
 
-    c = build_chart(force='--force' in sys.argv)
-    print(json.dumps(c.as_dict(), indent=1))
-    p, m = route_path(WEST_AFRICA_RUN, c)
-    print(f'route: {len(p)} samples, {len(m)} ports')
-    for mk in m:
-        print(f'  {mk["name"]:<10} frac {mk["frac"]:.3f}  px {mk["xy"][0]:.0f},{mk["xy"][1]:.0f}')
-    check_route(p, c, marks=m)
+    raise SystemExit(_cli_main())

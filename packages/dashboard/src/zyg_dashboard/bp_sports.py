@@ -351,7 +351,7 @@ def _cleaner_loop():
         time.sleep(1800)
         try:
             if not _maintenance_active():
-                PS.retention_sweep(log=lambda m: print(m, flush=True))
+                PS.retention_sweep(log=lambda m: _zyg_log.info(m))
                 SI.sweep_odds_cache()
         except Exception as e:
             _zyg_log.info(f'[SPORTS-CLEANER] error: {e}')

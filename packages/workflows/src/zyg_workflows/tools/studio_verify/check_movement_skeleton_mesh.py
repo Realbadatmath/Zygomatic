@@ -33,9 +33,7 @@ Run:  <venv>/bin/python \
 
 import json
 import os
-import sys
 
-from playwright.sync_api import sync_playwright
 from zyg_workflows import paths
 
 import logging as _zyg_logging
@@ -404,19 +402,7 @@ def run(pw, shoot):
     return sk, c, made
 
 
-def main():
-    shoot = '--no-shot' not in sys.argv
-    with sync_playwright() as pw:
-        sk, c, made = run(pw, shoot)
-    print(
-        "\nPASS — the Bones layer is the actor's own skeleton: %d pieces, "
-        "%d vertices, skinned to the body's %d joints; %d rig joints still drawn"
-        % (c['bone'], sk['vertices'], sk['bones'], c['joint'])
-    )
-    for p in made:
-        print('      %s' % p)
-    return 0
+if __name__ == '__main__':  # the CLI lives in check_movement_skeleton_mesh_cli
+    from zyg_workflows.tools.studio_verify.check_movement_skeleton_mesh_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

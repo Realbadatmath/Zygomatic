@@ -12,12 +12,9 @@ Highlights models/agents with zero scheduled bars.
 
 import os
 import sys
-from datetime import datetime
 
-# Import timeline orchestrator and model mapping
+# Make the Schedule directory importable for the timeline orchestrator the CLI loads.
 sys.path.append(os.path.join(os.path.dirname(__file__), 'Schedule'))
-from zyg_dashboard.Schedule.timeline_orchestrator_dual import DualTimelineOrchestrator
-from zyg_workflows.ai_model_agent_mapping import model_to_agents
 
 import logging as _zyg_logging
 
@@ -44,24 +41,7 @@ def print_timeline_data(timeline_data, label):
     _zyg_log.info('...\n')
 
 
-def main():
-    date = datetime.now().strftime('%Y-%m-%d')
-    if len(sys.argv) > 1:
-        date = sys.argv[1]
-    print(f'Debugging timeline data for date: {date}')
-    orchestrator = DualTimelineOrchestrator(
-        cpu_schedule_file='schedule_data_CPU.json', gpu_schedule_file='schedule_data_GPU.json'
-    )
-    cpu_data = orchestrator.get_cpu_timeline_data('24h', date=date)
-    gpu_data = orchestrator.get_gpu_timeline_data('24h', date=date)
-    print_timeline_data(cpu_data, 'CPU')
-    print_timeline_data(gpu_data, 'GPU')
-    print('\n=== Model to Agents Mapping (first 5 models) ===')
-    for i, (model, agents) in enumerate(model_to_agents.items()):
-        if i >= 5:
-            break
-        print(f'{model}: {agents}')
+if __name__ == '__main__':  # the CLI lives in debug_timeline_backend_cli
+    from zyg_dashboard.debug_timeline_backend_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    main()
+    raise SystemExit(_cli_main())

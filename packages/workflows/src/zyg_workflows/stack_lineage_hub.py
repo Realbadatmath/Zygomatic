@@ -530,16 +530,7 @@ def section_stack_lineage(days=30, now=None, fresh=False):
     return build(fresh=fresh)
 
 
-if __name__ == '__main__':
-    import sys
+if __name__ == '__main__':  # the CLI lives in stack_lineage_hub_cli
+    from zyg_workflows.stack_lineage_hub_cli import main as _cli_main
 
-    if len(sys.argv) > 1 and sys.argv[1] == 'check':
-        bad = validate()
-        for line in bad:
-            print('FAIL ' + line)
-        store = load_store()
-        ents = sum(len(l['entities']) for l in store['lanes'])
-        iss = sum(len(e.get('issues') or []) for l in store['lanes'] for e in l['entities'])
-        print(f'{len(store["lanes"])} lanes, {ents} entities, {iss} issues, {len(bad)} problems')
-        sys.exit(1 if bad else 0)
-    print(json.dumps(section_stack_lineage(fresh=True), indent=1, default=str))
+    raise SystemExit(_cli_main())

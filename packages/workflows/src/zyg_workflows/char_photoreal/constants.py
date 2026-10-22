@@ -254,4 +254,4 @@ CFG = 3.5
 
 
 def log_to(fn):
-    return fn or (lambda m: print(m, flush=True))
+    return fn or (lambda m: _zyg_log.info(m))

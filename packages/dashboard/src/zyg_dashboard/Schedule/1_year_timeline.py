@@ -453,25 +453,8 @@ class Timeline1Year:
         return dates
 
 
-def main():
-    """Main function for testing"""
-    timeline = Timeline1Year()
+if __name__ == '__main__':  # the CLI lives in 1_year_timeline_cli
+    import importlib
 
-    # Get year data
-    year_data = timeline.get_year_data()
-    print('1-Year Timeline Data:')
-    print(f'Start Date: {year_data["start_date"]}')
-    print(f'Total Entries: {year_data["total_entries"]}')
-
-    # Generate visualizations
-    timeline.generate_year_visualization()
-    timeline.generate_quarterly_report()
-
-    # Print monthly summary
-    print('\nMonthly Summary:')
-    for month, summary in year_data['monthly_summary'].items():
-        print(f'{month}: {summary["total_entries"]} entries, {summary["total_gpu_hours"]} GPU hours')
-
-
-if __name__ == '__main__':
-    main()
+    # Digit-leading module names cannot be spelled in an import statement.
+    raise SystemExit(importlib.import_module('zyg_dashboard.Schedule.1_year_timeline_cli').main())

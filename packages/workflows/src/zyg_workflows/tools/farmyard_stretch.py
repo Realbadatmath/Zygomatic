@@ -36,7 +36,6 @@ asked for, the formant-only ones must land on 0.00.
 
 from __future__ import annotations
 
-import argparse
 import json
 import logging as _zyg_logging
 import os
@@ -347,20 +346,7 @@ def write_html(index):
         fh.write('\n'.join(h))
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument(
-        '--measure-only', action='store_true', help='do not re-render, just re-measure and rewrite the index'
-    )
-    a = ap.parse_args(argv)
-    index = build(measure_only=a.measure_only)
-    bad = [r for r in index['takes'] if not r['ok']]
-    print(
-        '\n%d takes, %d bad%s'
-        % (len(index['takes']), len(bad), (': ' + ', '.join(r['key'] for r in bad)) if bad else '')
-    )
-    return 1 if bad else 0
+if __name__ == '__main__':  # the CLI lives in farmyard_stretch_cli
+    from zyg_workflows.tools.farmyard_stretch_cli import main as _cli_main
 
-
-if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(_cli_main())

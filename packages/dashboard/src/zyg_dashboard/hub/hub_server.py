@@ -18,7 +18,6 @@ import os
 import re
 from pathlib import Path
 from flask import Flask, Response, send_file
-from zyg_workflows.paths import BIND_HOST
 
 app = Flask(__name__)
 
@@ -54,6 +53,7 @@ def index():
     return Response(get_html(), content_type='text/html; charset=utf-8', headers={'Cache-Control': 'no-store'})
 
 
-if __name__ == '__main__':
-    print(f'Zygomatic Hub  →  http://{lan_host()}:7000')
-    app.run(host=BIND_HOST, port=7000, threaded=True)
+if __name__ == '__main__':  # the CLI lives in hub_server_cli
+    from zyg_dashboard.hub.hub_server_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

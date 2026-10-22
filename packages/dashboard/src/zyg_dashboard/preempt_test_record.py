@@ -23,12 +23,10 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 from dataclasses import dataclass
 from datetime import datetime
 
 from zyg_dashboard import preempt_bank as pb
-from zyg_dashboard import test_data_hub as td
 import logging as _zyg_logging
 
 _zyg_log = _zyg_logging.getLogger(__name__)
@@ -508,9 +506,7 @@ def build_record():
     }
 
 
-if __name__ == '__main__':
-    rec = build_record()
-    p = td.record(rec, replace=True)
-    print(f'recorded {rec["id"]}: {p}')
-    if '--print' in sys.argv:
-        print(json.dumps(rec, indent=1, default=str))
+if __name__ == '__main__':  # the CLI lives in preempt_test_record_cli
+    from zyg_dashboard.preempt_test_record_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())

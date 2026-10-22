@@ -176,15 +176,7 @@ def _sh_quote(s: str) -> str:
     return "'" + str(s).replace("'", "'\\''") + "'"
 
 
-if __name__ == '__main__':  # pragma: no cover
-    import sys
+if __name__ == '__main__':  # the CLI lives in sam3d_body_service_cli
+    from zyg_workflows.sam3d_body_service_cli import main as _cli_main
 
-    print('available:', available())
-    print('mhr decode:', mhr_decode_available())
-    if len(sys.argv) > 1:
-        rec = fit_one(sys.argv[1], log_fn=lambda m: print(m, file=sys.stderr))
-        print(
-            json.dumps(
-                {k: v for k, v in (rec or {}).items() if k in ('detected', 'bbox', 't_s', 'focal_length')}, indent=1
-            )
-        )
+    raise SystemExit(_cli_main())

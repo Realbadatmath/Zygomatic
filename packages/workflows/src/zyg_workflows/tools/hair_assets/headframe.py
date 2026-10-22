@@ -9,8 +9,6 @@ band is everything above the chin, and the forward axis is the sign of the nose.
 A groom is stored relative to this frame, so fitting it to another body is a
 translate + uniform scale and never a guess."""
 
-import sys
-
 
 def read_obj_verts(path, only_groups=None):
     """Vertices of an OBJ; with only_groups, only those a face in one of those
@@ -95,10 +93,7 @@ def head_frame(V):
     }
 
 
-if __name__ == '__main__':
-    import json
+if __name__ == '__main__':  # the CLI lives in headframe_cli
+    from zyg_workflows.tools.hair_assets.headframe_cli import main as _cli_main
 
-    for p in sys.argv[1:]:
-        f = head_frame(read_obj_verts(p))
-        print(p)
-        print(' ', json.dumps({k: (round(v, 5) if isinstance(v, float) else v) for k, v in f.items()}))
+    raise SystemExit(_cli_main())

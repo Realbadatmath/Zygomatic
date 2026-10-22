@@ -371,11 +371,7 @@ def _build() -> dict[str, dict]:
 SITES: dict[str, dict] = _build()
 
 
-if __name__ == '__main__':
-    import collections
+if __name__ == '__main__':  # the CLI lives in nomologin_sites_cli
+    from zyg_zero.nomologin_sites_cli import main as _cli_main
 
-    by_policy = collections.Counter(s['policy'] for s in SITES.values())
-    print(f'{len(SITES)} sites in {len(GROUPS)} groups')
-    for g in GROUPS:
-        print(f'  {len(CATALOGUE[g]):>3}  {g}')
-    print('policy:', dict(by_policy))
+    raise SystemExit(_cli_main())

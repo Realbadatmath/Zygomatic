@@ -34,12 +34,3 @@ ignore = [
 # Grandfathered CLI modules: every print in these files sits inside a `main()`/`_main()`/`cli()`
 # body or an `if __name__` block (verified by AST), so it is CLI output, not library logging.
 # The quality ratchet (scripts/ratchet.py, print_calls) keeps their counts from growing.
-"src/zyg_zero/medusa/medusa_presets.py" = ["T201"]
-"src/zyg_zero/nomologin_assistant.py" = ["T201"]
-"src/zyg_zero/nomologin_board.py" = ["T201"]
-"src/zyg_zero/nomologin_browser.py" = ["T201"]
-"src/zyg_zero/nomologin_mail.py" = ["T201"]
-"src/zyg_zero/nomologin_proxy.py" = ["T201"]
-"src/zyg_zero/nomologin_sites.py" = ["T201"]
-"src/zyg_zero/zero_public_server.py" = ["T201"]
-"src/zyg_zero/zpub_portfolio_deck.py" = ["T201"]

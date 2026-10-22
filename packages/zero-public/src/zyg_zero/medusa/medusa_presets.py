@@ -42,8 +42,6 @@ import urllib.request
 
 from flask import Flask, Response, jsonify, request, send_file
 
-from zyg_zero import settings
-
 import medusa_ipgate
 import logging as _zyg_logging
 
@@ -651,7 +649,7 @@ loadPending();
 """
 
 
-if __name__ == '__main__':
-    os.makedirs(PRESETS_DIR, exist_ok=True)
-    print(f'Medusa Presets  →  http://{settings.ZYG_LAN_HOST}:{PORT}  (guard: {CREWS_API}{GUARDED_PATH})')
-    app.run(host=settings.ZYG_BIND_HOST, port=PORT)
+if __name__ == '__main__':  # the CLI lives in medusa_presets_cli
+    from zyg_zero.medusa.medusa_presets_cli import main as _cli_main
+
+    raise SystemExit(_cli_main())
