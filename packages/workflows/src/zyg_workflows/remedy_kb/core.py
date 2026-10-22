@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """core — core section of remedy_kb (verbatim split).
 
 Moved unchanged from remedy_kb.py; see the package __init__ for the full docstring.
@@ -21,6 +20,18 @@ from zyg_workflows import paths
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.remedy_kb')
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Two names of the inherited top import block are not used in this file: the
+# siblings re-import them off this module — cli.py takes ``sys``
+# (``from .core import _infer_role, json, normalize_signature, sys``) and
+# learning.py takes ``time``. Declaring them is what makes the re-export
+# deliberate rather than an unused import; nothing does ``import *`` from here,
+# so __all__ changes no behaviour.
+__all__ = [
+    'sys',
+    'time',
+]
 
 
 KB_PATH = paths.ZYG_REMEDY_KB

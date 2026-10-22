@@ -11,19 +11,21 @@ Carries the original top import block, so the package's ``os``/``json``/
 here with the rest of the vocabulary instead of forcing a back import.
 """
 
-# ruff: noqa: F401  # this module carries the original top import block verbatim
-
 from __future__ import annotations
 
 import json
 import os
-import shutil
-import time
-from typing import Any, Callable
+from typing import Any
 
 from zyg_workflows import creature_identity as _cid
 from zyg_workflows import creature_judge as _cj
 import logging as _zyg_logging
+
+# ``_cid``/``_cj`` are not read here: this module holds them so that the package
+# attributes ``creature_sheet_service._cid``/``._cj`` keep resolving and so that the
+# monkeypatch fan-out in __init__.py (which writes through to every section module
+# holding the name) reaches this one too, as the docstring above says.
+__all__ = ['_cid', '_cj']
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.creature_sheet_service')

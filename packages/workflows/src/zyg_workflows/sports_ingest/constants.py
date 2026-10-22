@@ -7,8 +7,6 @@
 Verbatim section of the original sports_ingest.py (lines 60-303); no logic changes.
 """
 
-# ruff: noqa: F401  # this module carries the original top import block verbatim
-
 from __future__ import annotations
 
 import json
@@ -257,3 +255,20 @@ DEFAULT_SETTINGS = {
     # ── retention ────────────────────────────────────────────────────────────
     'delivery_ttl_hours': 72,
 }
+
+#: The original top import block, re-exported: sports_ingest/__init__.py reads it.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'statistics',
+    'threading',
+    'time',
+    'datetime',
+    'timedelta',
+    'timezone',
+    'requests',
+    'ZoneInfo',
+    '_zyg_logging',
+    '_zyg_log',
+]

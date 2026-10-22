@@ -2,8 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module carries the original top import block verbatim,
-# re-exported by __init__.py so wan/blockout-style attribute access still resolves.
+# This module carries the original top import block verbatim; the names it does not use
+# itself are read THROUGH it by the siblings and by __init__.py, so they are declared
+# re-exports in __all__ below rather than deleted.
 
 """The block-out ladder — does this body read as anatomy at every scale, or only at one?
 
@@ -99,6 +100,14 @@ except ImportError:  # pragma: no cover
         ) from e
 
 __version__ = '1'
+
+# Imports read through this module but not used here (energies: json/os; demos: os;
+# the package __init__: json/os/sys). Everything else it exports is used here too.
+__all__ = [
+    'json',
+    'os',
+    'sys',
+]
 
 # ---------------------------------------------------------------------------------
 # the ladder

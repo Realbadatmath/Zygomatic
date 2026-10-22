@@ -19,7 +19,6 @@ Then: http://$ZYG_LAN_HOST:5300  (loopback unless ZYG_LAN_HOST names the box)
 # and the submodules are imported in the original section order so their
 # module-level side effects — the IP gate, the Resources blueprint and the route
 # registrations — run exactly when they did before.
-# ruff: noqa: F401
 
 import json
 import os
@@ -94,3 +93,81 @@ from .routes import (
     api_vicky_image,
     api_vicky_upload,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name the single medusa_server.py defined, so attribute access on this
+# module (medusa_server.os, medusa_server.app, medusa_server.index, ...) keeps
+# resolving after the split. Declaring them is what makes the re-export
+# deliberate rather than an unused import; nothing does ``import *`` from here,
+# so __all__ changes no behaviour.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'urllib',
+    'requests',
+    'Flask',
+    'Response',
+    'jsonify',
+    'request',
+    'send_file',
+    'paths',
+    'settings',
+    'medusa_ipgate',
+    'medusa_resources',
+    'medusa_vicky',
+    'BASE_DIR',
+    'FAVICON_ICO',
+    'FAVICON_PNG',
+    'PORT',
+    'app',
+    'HTML',
+    'favicon_png',
+    'favicon_ico',
+    'index',
+    'CREWS_API',
+    '_crews_urlopen',
+    'api_generate_character',
+    '_crews_proxy',
+    'api_medusa_angles_proxy',
+    'api_medusa_pending_proxy',
+    'api_medusa_decide_proxy',
+    '_training_proxy_json',
+    'api_models_root',
+    'api_models_sub',
+    '_models_image_passthrough',
+    'api_models_upload_images',
+    'api_training_characters',
+    'api_training_character',
+    'api_training_train',
+    'api_training_status',
+    'api_training_import_root',
+    'api_training_scan_folder',
+    'api_training_import_folders',
+    'api_training_import_status',
+    'api_training_sheet',
+    'api_training_body_prepare',
+    'api_training_sheets',
+    'api_training_sheets_build_all',
+    'api_training_loras',
+    'api_training_lora_sample',
+    'api_training_sheet_page',
+    'api_training_delete_image',
+    'api_training_get_image',
+    'api_training_upload_images',
+    'api_vicky_start',
+    'api_vicky_job',
+    'api_vicky_cancel',
+    'api_vicky_active',
+    'api_vicky_chats',
+    'api_vicky_pictures',
+    'api_vicky_chat',
+    'api_vicky_chat_action',
+    'api_vicky_chat_export',
+    'api_vicky_engines',
+    'api_vicky_info',
+    'VICKY_IMAGE_ROOTS',
+    'VICKY_IMAGE_EXT',
+    'api_vicky_image',
+    'api_vicky_upload',
+]

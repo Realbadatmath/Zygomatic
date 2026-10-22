@@ -2,17 +2,11 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
-# F401: this module inherited the original top import block of relief.py. Every name
-# in it is re-exported by the package __init__ and imported by the sibling
-# sections, so nothing here may be pruned as unused.
 """constants — a verbatim section of the pre-split relief.py.
 
 The module docstring that documented the whole layer lives in the package
 __init__.py; nothing in this file was rewritten, renamed or retuned.
 """
-
-import sys
 
 import numpy as np
 import logging as _zyg_logging

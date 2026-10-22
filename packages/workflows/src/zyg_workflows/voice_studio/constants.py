@@ -7,22 +7,24 @@
 Moved verbatim from voice_studio.py lines 54-252 (2026-10-06 split).
 """
 
-# ruff: noqa: F401  # the original top import block is kept verbatim here; the
-# names it binds are re-exported so voice_studio.json / .os / .exe still resolve.
-
 from __future__ import annotations
 
-import json
 import os
-import re
-import shutil
-import subprocess
-import threading
-import time
 import logging as _zyg_logging
 from zyg_workflows import paths
 from zyg_workflows import provenance_seal as _seal
-from zyg_workflows.bin import exe
+
+# What the package re-exports through this module. The pre-split import block
+# also bound json, re, shutil, subprocess, threading, time and exe; no sibling
+# and no caller reads those names through here, so they are gone. The seal
+# binding stays: it is the pipeline's provenance hook.
+__all__ = [
+    'annotations',
+    'os',
+    '_zyg_logging',
+    'paths',
+    '_seal',
+]
 
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.voice_studio')
 

@@ -6,22 +6,16 @@
 
 """char_photoreal — the constants section, verbatim lines 115-364 of the original module."""
 
-# The original module's top import block, kept verbatim: every name in it was a
-# char_photoreal.<name> attribute, and __init__.py re-exports them from here.
-# ruff: noqa: F401
+# What is left of the original module's top import block: the names this section
+# actually uses. argparse/json/shutil/subprocess/tempfile/time/numpy came along in
+# the verbatim move but no sibling re-imports them from here and the package
+# __init__ imports its own copies, so they are gone.
 
 from __future__ import annotations
 
-import argparse
-import json
 import os
-import shutil
-import subprocess
 import sys
-import tempfile
-import time
 
-import numpy as np
 import logging as _zyg_logging
 
 from zyg_workflows import paths

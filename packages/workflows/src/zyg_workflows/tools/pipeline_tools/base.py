@@ -99,7 +99,13 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-# ruff: noqa: F401
 # importlib / json / time / hashlib / exe are imported here on behalf of the whole
 # package: the sibling section modules do `from .base import json, os, ...` so that
 # they share the exact objects the single-file pipeline_tools.py bound at module level.
+__all__ = [
+    'importlib',
+    'json',
+    'time',
+    'hashlib',
+    'exe',
+]

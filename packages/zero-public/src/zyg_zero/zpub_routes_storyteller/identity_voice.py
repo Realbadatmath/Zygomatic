@@ -2,8 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
-# F401: the original module-level import block is reproduced verbatim in every
+# The original module-level import block is reproduced verbatim in every
 # section module, both so `pkg.os` / `pkg.json` style attribute access keeps
 # resolving and so the function-local `import re as _re` imports in the moved
 # bodies compile exactly as they did in the single file.
@@ -49,6 +48,49 @@ from zyg_zero.zpub_store import (
 
 from zyg_zero.zpub_routes_storyteller.base import _ZPUB_BIBLE_IDENTITY, _ZPUB_VOICE_VALIDATE, _ZpubJobRejected
 from zyg_zero.zpub_routes_storyteller.char_library import _DATASET_ROOT
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The names above that this section's own bodies do not read: they are the
+# pre-split module's attribute surface, which callers and tests reach through
+# the section module (``monkeypatch.setattr(mod, 'os', …)``,
+# ``mod._requests``). Declaring them is what makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour.
+__all__ = [
+    're',
+    'threading',
+    'time',
+    'uuid',
+    'datetime',
+    '_requests',
+    'Blueprint',
+    'request',
+    'session',
+    'paths',
+    'filter_out_medusa',
+    'is_medusa_char',
+    'AVG_PIPELINE_SECONDS',
+    'MAIN_APP_URL',
+    '_ams_iso',
+    'public_url',
+    '_require_api_session',
+    '_session_id',
+    '_session_invite',
+    'limiter',
+    '_int_headers',
+    '_parse_model_family',
+    '_parse_pipeline_options',
+    '_token_check',
+    '_token_use',
+    '_LOG_DIR',
+    '_enqueue',
+    '_get_running',
+    '_link_session_job',
+    '_link_token_job',
+    '_pending_store',
+    '_queue_length',
+    '_save_job',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_zero.zpub_routes_storyteller')

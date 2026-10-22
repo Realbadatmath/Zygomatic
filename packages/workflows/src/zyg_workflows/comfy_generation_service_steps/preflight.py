@@ -4,13 +4,16 @@
 
 from __future__ import annotations
 
-# ruff: noqa: F401  # carries comfy_generation_service_steps.py's original top import block verbatim
-
+# This module carries comfy_generation_service_steps.py's original top import block verbatim.
 import logging
 import os
 import shutil
 from dataclasses import dataclass, field
 from typing import Any, Callable
+
+# Re-exported for the sibling steps, which read it back out of this module
+# (submit.py: ``from .preflight import Any, Callable, StillRenderCtx, _svc, os, shutil``).
+__all__ = ['shutil']
 
 _zyg_log = logging.getLogger('zyg_workflows.comfy_generation_service_steps')
 

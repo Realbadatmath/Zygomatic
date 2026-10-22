@@ -13,7 +13,6 @@ Nothing here is a threshold the pipeline reads directly — every value is a
 default, a range or a label the spec publishes.
 """
 
-# ruff: noqa: F401
 import json
 
 from zyg_workflows import wan_video_service as _wan
@@ -33,3 +32,22 @@ from ..options import (
 from .racks import RACKS
 from .actions import ACTIONS
 from .sanitize import _PARAMS, defaults, nondefault, sanitize
+
+# The package's re-export surface: every name the spec section exposed, in
+# import order. Declared so the imports above need no file-level suppression.
+__all__ = [
+    'json',
+    '_wan',
+    'RESOLUTIONS',
+    '_ambience_options',
+    '_DEF_PATHWAY',
+    '_lora_options',
+    '_lut_options',
+    '_vfx_element_options',
+    'RACKS',
+    'ACTIONS',
+    '_PARAMS',
+    'defaults',
+    'nondefault',
+    'sanitize',
+]

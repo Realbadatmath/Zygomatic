@@ -9,15 +9,15 @@ Moved verbatim out of the 1,179-line arch_spec_seed.py; original lines 19-27.
 
 from __future__ import annotations
 
-# This module inherits the single file's own top import block; `json` is used
-# by cli.py and re-exported from here, so F401 must not strip it.
-# ruff: noqa: F401
-
+# This module inherits the single file's own top import block; `json`, `os` and
+# `sys` are read through here by cli.py, so they are re-exports, not dead code.
 import json
 import os
 import sys
 
 from zyg_workflows import paths
+
+__all__ = ['json', 'os', 'sys', 'HERE']
 
 #: The ``zyg_workflows`` package directory, which ``arch_assistant_ext`` hangs off.
 #: ``cli.main`` puts that extension directory on ``sys.path`` itself, at the one

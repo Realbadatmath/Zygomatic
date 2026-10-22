@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Zygomatic
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# ruff: noqa: F401
 
 """reference_model — the assistant's door to the REFERENCE MODELS (2026-09-23).
 
@@ -103,3 +102,69 @@ from zyg_workflows.arch_assistant_ext.reference_model.views import (
     _VIEWS,
     TOOLS,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: this package's
+# __init__ is the re-export surface the pre-split module left behind, and its
+# callers read these names off it. Declaring them makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour.
+__all__ = [
+    'annotations',
+    'base64',
+    'glob',
+    'json',
+    'os',
+    're',
+    'shutil',
+    'subprocess',
+    'sys',
+    'time',
+    'R',
+    'MAX_OBJECTS',
+    'Drawing',
+    '_num',
+    'cell_centre',
+    'cell_name',
+    'parse_cell',
+    'place_height',
+    '_zyg_logging',
+    'ZYG_TMP_DIR',
+    'tmp_dir',
+    'HERE',
+    '_zyg_log',
+    'KINDS',
+    'OPENINGS',
+    'BLENDER',
+    'BUILDER',
+    'BUILD_TIMEOUT',
+    'MAX_SCRIPT',
+    'WORK_DIR',
+    'LOCK_PATH',
+    'THUMB_W',
+    'THUMB_MAX',
+    'PROMPT',
+    'EXAMPLES',
+    'Reply',
+    '_BlenderLock',
+    'INSPECT_N',
+    'PORTFOLIO_N',
+    'PORTFOLIO_CHECKLIST',
+    'INSPECT_CHECKLIST',
+    '_resolve',
+    '_thumb',
+    '_contact_sheet',
+    '_portfolio_folder',
+    '_audit_text',
+    '_scale_note',
+    't_list_reference_models',
+    't_view_reference',
+    '_write_pack',
+    't_build_reference_asset',
+    't_view_build_script',
+    't_portfolio_reference_asset',
+    't_place_reference_asset',
+    '_materials',
+    '_VIEWS',
+    'TOOLS',
+]

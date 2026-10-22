@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This module inherits the original file's top import block verbatim; some of those
 # imports are used only by its sibling modules, which import them from here, so F401
-# must not strip them out of a range that is promised byte-for-byte.
-# ruff: noqa: F401
+# must not strip them out of a range that is promised byte-for-byte; __all__ below
+# names the ones this module does not use itself.
 
 """analyse_performance — the assistant half of Analyse ▸ Daylight, Energy,
 U-value, Structure, Code check.
@@ -35,6 +35,12 @@ import re
 import logging as _zyg_logging
 
 from zyg_workflows import paths
+
+# re-exported for the package __init__, which imports these two from here
+__all__ = [
+    'os',
+    're',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.arch_assistant_ext.analyse_performance')

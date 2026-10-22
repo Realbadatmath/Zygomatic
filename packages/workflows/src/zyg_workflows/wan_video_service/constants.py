@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module carries the original top import block verbatim,
-# re-exported by __init__.py so wan/blockout-style attribute access still resolves.
-
 """wan_video_service.py — Wan2.1-I2V-14B-480P image-to-video clip generation.
 
 Generates short (~3.8 s) video clips by animating the FLUX-generated still
@@ -40,6 +37,23 @@ try:
 except ImportError:
     _comfy = None
 import logging as _zyg_logging
+
+# This module carries the original top import block verbatim, re-exported by
+# __init__.py, api.py, api_passes.py and helpers.py so wan/blockout-style
+# attribute access still resolves. Declared so the block needs no file-level
+# suppression.
+__all__ = [
+    'gc',
+    'json',
+    'os',
+    'shutil',
+    'subprocess',
+    'threading',
+    'time',
+    'exe',
+    '_comfy',
+    '_zyg_logging',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.wan_video_service')

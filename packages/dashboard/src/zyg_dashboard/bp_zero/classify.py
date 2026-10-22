@@ -7,8 +7,6 @@ Moved verbatim out of bp_zero.py (original lines 95-443) by the 2026-10-06
 modularization wave; zero logic edits.
 """
 
-# ruff: noqa: F401
-#   F401: this module also holds imports its siblings in this package re-import.
 from zyg_dashboard.bp_zero.constants import (
     API_ADAPTER_AVAILABLE,
     DOCS_DIR,

@@ -34,19 +34,16 @@ recorded in PROVENANCE by hand.
     python3 arch_pack_ingest.py --report
 """
 
-# ruff: noqa: F401  # this module inherits the original module's whole
-# top import block verbatim; the names its siblings use are imported there
-# and re-exported from here, so nothing in it is dead.
+# This module inherits the original module's top import block; the names its
+# siblings use are imported here and re-exported from here. The four nothing
+# reads through this module — argparse, concurrent.futures, re, sys; every
+# sibling that needs them imports its own — went with the F401 suppression.
 
 from __future__ import annotations
 
-import argparse
-import concurrent.futures as cf
 import hashlib
 import json
 import os
-import re
-import sys
 import time
 import urllib.error
 import urllib.parse

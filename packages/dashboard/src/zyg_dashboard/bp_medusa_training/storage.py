@@ -10,8 +10,6 @@ Moved verbatim out of bp_medusa_training.py; this module carries the pre-split
 file's top import block and its Blueprint.
 """
 
-# ruff: noqa: F401  # the original top import block lives here; siblings re-import from it
-
 from __future__ import annotations
 
 import io
@@ -27,6 +25,19 @@ from flask import Blueprint, jsonify, request, send_file
 from werkzeug.utils import secure_filename
 from zyg_workflows.paths import ZYG_HOME, ZYG_LORA_DATASETS, ZYG_LORA_OUTPUTS
 import logging as _zyg_logging
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The original top import block lives here and the siblings re-import from it:
+# endpoints.py takes shutil/jsonify/request, folder_import.py takes jsonify/
+# request, contact_sheet.py takes jsonify/request/send_file. Declaring them is
+# what makes the re-export deliberate rather than an unused import; nothing does
+# ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    'shutil',
+    'jsonify',
+    'request',
+    'send_file',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_dashboard.bp_medusa_training')

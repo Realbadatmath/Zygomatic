@@ -6,7 +6,6 @@
 
 # This module re-does the original single-file import block verbatim; every name here is
 # re-exported to the package __init__ and to the sibling modules, so F401 is expected.
-# ruff: noqa: F401
 
 import os
 import re
@@ -38,6 +37,32 @@ except ImportError:
 import logging as _zyg_logging
 
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.scholarly_research_agent')
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# These names of the inherited import block are not used in this file: the
+# siblings re-import them off this module — directive.py takes ``re``, core.py
+# ``dict_row``/``pgdb``/``random``/``time``/``_USER_AGENTS``, extraction.py
+# ``random``/``re``/``_PAGE_LOAD_TIMEOUT``/``_PlaywrightAdapter``/``_up``,
+# run_stages.py ``random``/``re``/``_between_sites``/``_up``/``_ur``,
+# legacy_sources.py ``_between_pages``/``_up``, sources.py
+# ``contact_email``/``time``, and the package __init__ re-exports all of them.
+# Declaring them is what makes the re-export deliberate rather than an unused
+# import; nothing does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    're',
+    'time',
+    'random',
+    'pgdb',
+    'contact_email',
+    'dict_row',
+    '_up',
+    '_ur',
+    '_USER_AGENTS',
+    '_PlaywrightAdapter',
+    '_PAGE_LOAD_TIMEOUT',
+    '_between_pages',
+    '_between_sites',
+]
 
 
 # ── Paths ─────────────────────────────────────────────────────────────────────

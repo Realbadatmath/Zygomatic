@@ -10,9 +10,12 @@ from the core, the ``SECTION_ORDER`` insertion the part-B sections rely on
 wrappers every section calls.
 """
 
-# ruff: noqa: F401  # f/i/b/e/c/s are re-exported from here to the section modules
 from zyg_workflows import mesh_studio as _core
 from zyg_workflows.mesh_studio import _op, f, i, b, e, c, s
+
+# f/i/b/e/c/s are imported here and not used in this module: they are
+# re-exported from here to the section modules and to the package __init__.
+__all__ = ['f', 'i', 'b', 'e', 'c', 's']
 
 #: (new section, the section it goes directly after) — inserted, not appended,
 #: so the rail reads Texture, Measure, Fit … Export, Render, Pipeline, View,

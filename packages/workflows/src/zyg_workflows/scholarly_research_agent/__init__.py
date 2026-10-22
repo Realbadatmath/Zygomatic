@@ -10,7 +10,6 @@ Postgres (the shared `essays` table) caches results to avoid redundant API calls
 Falls back to browser scraping if all APIs return 0 results.
 """
 
-# ruff: noqa: F401
 from types import FunctionType as _FunctionType
 
 from zyg_workflows.scholarly_research_agent import constants as _m_constants
@@ -53,6 +52,46 @@ from zyg_workflows.scholarly_research_agent.extraction import _ExtractionMixin
 from zyg_workflows.scholarly_research_agent.legacy_sources import _LegacySourcesMixin
 from zyg_workflows.scholarly_research_agent.run import _RunMixin
 from zyg_workflows.scholarly_research_agent.web_content import _WebContentMixin
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name above that this file does not itself use, in import order: they are
+# read OFF the package by callers that still say
+# ``from zyg_workflows.scholarly_research_agent import ScholarlyResearchAgent, os, …``
+# or reach them as attributes, exactly as they could on the pre-split module.
+# Declaring them is what makes the re-export deliberate rather than an unused
+# import; nothing does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    'os',
+    're',
+    'time',
+    'random',
+    'pgdb',
+    'contact_email',
+    'dict_row',
+    '_up',
+    '_ur',
+    '_hj',
+    '_USER_AGENTS',
+    '_PlaywrightAdapter',
+    '_PAGE_LOAD_TIMEOUT',
+    '_between_pages',
+    '_between_sites',
+    '_VF_RESOLVER',
+    '_zyg_logging',
+    '_zyg_log',
+    '_AGENT_DIR',
+    '_DATA_DIR',
+    '_IMG_BASE',
+    '_BROWSER_SANDBOX_BASE',
+    '_sb_fetch',
+    '_sb_search',
+    '_TOPIC_DISCIPLINES',
+    '_TOPIC_QUERIES',
+    '_DIRECTIVE_NOISE_WORDS',
+    '_extract_keywords',
+    '_claude_extract_subject',
+    'ScholarlyResearchAgent',
+]
 
 # `_VisualFrameworkResolver` is bound only when the optional import succeeded — in the
 # original single-file module it was a soft, possibly-absent attribute. Keep it that way.

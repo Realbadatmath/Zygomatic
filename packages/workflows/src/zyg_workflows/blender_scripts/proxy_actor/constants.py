@@ -5,7 +5,6 @@
 # This module inherits proxy_actor.py's own top import block verbatim, so every name the
 # single file exposed as an attribute still resolves. Names used only by sibling sections
 # are therefore 'unused' here on purpose.
-# ruff: noqa: F401
 import json
 import math
 import os
@@ -19,6 +18,40 @@ from mathutils import Matrix, Vector
 from zyg_workflows import paths
 from zyg_workflows.blender_scripts import motion_authored as MA
 from zyg_workflows.blender_scripts import skeleton_bind
+
+# the attribute surface the single file had: the inherited import block first,
+# then this module's own constants
+__all__ = [
+    'json',
+    'math',
+    'os',
+    'sys',
+    'tempfile',
+    'time',
+    'bpy',
+    'Matrix',
+    'Vector',
+    'paths',
+    'MA',
+    'skeleton_bind',
+    'RETARGET_NOTE',
+    'HERE',
+    'MOTION_ROOT',
+    'DEFAULT_OUT',
+    'BASE_BODY_ROOT',
+    'FIT_GROUPS',
+    'FIT_MIN',
+    'FIT_MAX',
+    'FIT_TOL',
+    'BONE_ALIAS',
+    'ALIGN_BONES',
+    'STRIP_W',
+    'STRIP_H',
+    'GROUND_TOL',
+    'TRACK_GROUPS',
+    'TRACK_WEIGHT_MIN',
+    'TRACK_TOL',
+]
 
 RETARGET_NOTE = (
     'world-space delta: R_bone(t) = [R_bvh(t) . R_bvh(1)^-1] . R_rest_mpfb; '

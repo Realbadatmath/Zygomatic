@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Zygomatic
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# ruff: noqa: F401
 
 """mvconsist.py — MULTI-VIEW CONSISTENCY AS A GEOMETRIC MEASUREMENT, VIA STRUCTURE-FROM-MOTION.
 
@@ -221,3 +220,55 @@ from zyg_workflows.geom.mvconsist.verdicts import (
     verdict,
     _main,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# This package is the pre-split mvconsist.py seen from outside: every name above is
+# imported here and used by nobody IN this file, because callers read them off the
+# package (``from zyg_workflows.geom.mvconsist import measure, verdict, …``) exactly
+# as they did before the split. ``__all__`` itself comes from constants.py (the
+# original module's own list, which named measure/stability/verdict); extending it
+# here is what makes the re-export deliberate rather than an unused import. Nothing
+# does ``import *`` from this package, so __all__ changes no behaviour.
+__all__ = __all__ + [
+    'annotations',
+    '_glob',
+    'json',
+    'math',
+    'os',
+    'shutil',
+    'statistics',
+    'sys',
+    'time',
+    'uuid',
+    'Any',
+    'Dict',
+    'List',
+    'Optional',
+    'Sequence',
+    '_zyg_logging',
+    '_zyg_log',
+    'DEFAULT_GLOB',
+    'DEFAULT_MAX_IMAGE_SIZE',
+    'QUALITY_PRESETS',
+    'CAMERA_GROUPINGS',
+    '_CONFIG_WITH_PARALLAX',
+    '_CONFIG_NAMES',
+    '_MIN_CAMERAS_FOR_TRIANGULATION',
+    '_MIN_POINTS_FOR_STATISTICS',
+    'MVConsistError',
+    '_import_pycolmap',
+    '_quiet',
+    '_default_scratch_root',
+    '_stage_images',
+    '_read_sizes',
+    '_seed_everything',
+    '_nondeterminism_notes',
+    'measure',
+    '_run_sfm',
+    '_classify',
+    '_scale_applied',
+    '_error_result',
+    'stability',
+    'verdict',
+    '_main',
+]

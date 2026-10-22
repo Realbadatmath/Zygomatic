@@ -7,9 +7,6 @@ Moved verbatim out of bp_zero.py (original lines 5-94) by the 2026-10-06
 modularization wave; zero logic edits.
 """
 
-# ruff: noqa: F401
-#   F401: this module also holds imports its siblings in this package re-import.
-
 # Generated 2026-07-17 heavy-tranche modularization — extracted from crewai_web_gui.py.
 # See crews_modularization_backups_20260717/MODULARIZATION_CHANGELOG.md.
 # Contract: imported only at the BOTTOM of crewai_web_gui.py (all main globals exist;
@@ -83,6 +80,72 @@ from zyg_dashboard.gui.zero_store import (
     _zero_load_config,
 )
 import logging as _zyg_logging
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# This module IS the pre-split top import block: api.py, chat.py, classify.py,
+# kanban.py and topics.py all say ``from zyg_dashboard.bp_zero.constants import
+# …`` and read these names off it. Every name below, in import order, is one
+# this file does not use itself. Declaring them is what makes the re-export
+# deliberate rather than an unused import; nothing does ``import *`` from here,
+# so __all__ changes no behaviour.
+__all__ = [
+    'base64',
+    'json',
+    'os',
+    're',
+    'time',
+    'threading',
+    'jsonify',
+    'request',
+    'session',
+    'gui_state',
+    'ZYG_OLLAMA_URL',
+    '_record_token_usage',
+    'get_dependencies_status',
+    '_safety_error_logs_fn',
+    '_safety_job_status_fn',
+    '_safety_schedule_pause_fn',
+    '_safety_telemetry_fn',
+    '_zpub_pending_load',
+    '_resolve_pipeline_public_status',
+    '_check_workflow_health',
+    '_load_workflow_overrides',
+    'DOCS_DIR',
+    '_APPROVAL_REQ_FILE',
+    '_APPROVAL_STORE_FILE',
+    '_SPORTS_KEYWORD_BLOCKLIST',
+    '_ZERO_AUTO_MODE_PATH',
+    '_ZERO_BATCH_SCHEDULE_PATH',
+    '_ZERO_KANBAN_LOCK',
+    '_ZERO_KANBAN_PATH',
+    '_ZERO_POOL_LABELS',
+    '_ZERO_POOL_PICK_COUNT',
+    '_ZERO_PUB_TIMES',
+    '_ZERO_TOPICS_PENDING',
+    '_ZERO_TOPICS_PENDING_PATH',
+    '_ZERO_TOPICS_TTL',
+    '_ZERO_TOPIC_POOLS_PATH',
+    '_caveman_kw',
+    '_clear_pipeline_halt',
+    '_get_cpu_models',
+    '_get_gpu_models',
+    '_halt_all_pipeline_activity',
+    '_start_clipfarm_internal',
+    'limiter',
+    'requests',
+    'controller',
+    '_RUNTIME_DIR',
+    '_runtime_path',
+    '_workflow_jobs',
+    '_start_scholarly_pipeline_internal',
+    '_AMS_TZ',
+    '_ams_iso',
+    '_ams_now',
+    'ZERO_AUDIT_PATH',
+    'ZERO_TASK_STATE_PATH',
+    '_zero_audit_log',
+    '_zero_load_config',
+]
 
 # The zyg_dashboard package directory, named once here and imported by the siblings:
 # bp_zero's packaged files sit next to the pre-split bp_zero.py, i.e. directly in it.

@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """PHOTOGRAMMETRY SCAN INGEST — photographs in, high-frequency displacement out.
 
 WHY THIS EXISTS, AND WHAT IT REFUSES TO DO. We do not want proportions from a scan.
@@ -287,3 +286,98 @@ from zyg_workflows.geom.scan_ingest.orchestration import (
 )
 
 _zyg_log = _zyg_logging.getLogger(__name__)
+
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# This package is the pre-split scan_ingest.py seen from outside: the original top
+# import block and every stage name are imported above and used by nobody IN this
+# file, because callers read them off the package
+# (from zyg_workflows.geom.scan_ingest import ingest, stage_sfm, …) exactly as
+# they did before the split. Declaring them is what makes the re-export deliberate
+# rather than an unused import; nothing does import * from here, so __all__
+# changes no behaviour.
+__all__ = [
+    'argparse',
+    'glob',
+    'json',
+    'math',
+    'os',
+    'sys',
+    'time',
+    'np',
+    'SCHEMA',
+    'STAGES',
+    'RESIDUAL_CUTOFF_FRAC',
+    'SCAN_BUTTERWORTH_ORDER',
+    'LOWPASS_ALPHA',
+    'LOWPASS_ITER_GUARD_MULT',
+    'LOWPASS_ITER_HARD_CAP',
+    'CALIBRATION_TOL',
+    'CALIBRATION_MAX_ROUNDS',
+    'DEFAULT_SUBDIV_LEVEL',
+    'SHRINKWRAP_SUPPORT_FRAC',
+    'SHRINKWRAP_MAX_FRAC',
+    'MIN_TRACK_LENGTH',
+    'MAX_REPROJ_ERROR_PX',
+    'NORMAL_KNN',
+    'SGBM_MIN_TRI_ANGLE_DEG',
+    'SGBM_MAX_TRI_ANGLE_DEG',
+    'SGBM_MIN_SHARED_POINTS',
+    'SGBM_MAX_PAIRS',
+    'SGBM_MAX_IMAGE_PX',
+    'DENSE_BBOX_MARGIN',
+    'SGBM_MIN_HORIZONTAL_BASELINE',
+    'SGBM_MAX_DISPARITY_PX',
+    'SGBM_RECTIFY_ALPHA',
+    'DENSE_MAX_POINTS',
+    'USE_POISSON_MESH_AS_SCAN',
+    'PERM_MATCH_TOL_M',
+    'VALID_SCALE_KINDS',
+    'CONSENT_REQUIRED_KEYS',
+    'CONSENT_MIN_FIELD_CHARS',
+    'SOFTWARE_LICENCES',
+    'ScanIngestError',
+    '_log',
+    '_atomic_json',
+    '_jsonable',
+    '_read_json',
+    '_stage_path',
+    '_maybe_call',
+    '_quads_to_tris',
+    '_stature_of',
+    '_try_pycolmap',
+    '_try_cv2',
+    '_try_trimesh',
+    '_try_mvconsist',
+    '_target_cage',
+    'stage_sfm',
+    'stage_scale',
+    '_camera_K_dist',
+    '_sgbm_pairs',
+    '_stereo_pair',
+    '_sgbm_densify',
+    '_estimate_normals',
+    '_write_ply',
+    'stage_dense',
+    '_scan_points_m',
+    '_pca_frame',
+    '_icp',
+    'stage_align',
+    '_adjacency',
+    '_lowpass_iters',
+    '_iter_ceiling',
+    '_smooth',
+    '_rms0',
+    '_probe_response',
+    '_calibrate_lowpass',
+    'stage_residual',
+    '_validate_consent',
+    '_relief_subdiv_permutation',
+    'stage_emit',
+    'ingest',
+    'synthetic_capture',
+    'SYNTHETIC_CONSENT',
+    '_consent_gate_check',
+    'self_test',
+    'main',
+]

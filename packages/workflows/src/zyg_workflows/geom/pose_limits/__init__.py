@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """pose_limits.py — joint range of motion and kinematic plausibility on the anny rig, and
 an honest record of which of the requested constraints this rig cannot carry.
 

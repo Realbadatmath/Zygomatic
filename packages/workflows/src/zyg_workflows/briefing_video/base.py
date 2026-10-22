@@ -7,10 +7,6 @@
 Moved verbatim out of briefing_video.py (lines 36-398); zero logic changes.
 """
 
-# ruff: noqa: F401  # the original module-level import block lands here
-# verbatim; several of its names are consumed by the sibling modules rather
-# than by this one, and deleting them would also change how CPython compiles
-# the moved calls (import-originated globals use a different LOAD_ATTR form).
 from __future__ import annotations
 
 import json
@@ -25,6 +21,19 @@ import logging as _zyg_logging
 from zyg_workflows import paths
 from zyg_workflows import provenance_seal as _seal
 from zyg_workflows.bin import exe
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The original module-level import block lands here verbatim and the siblings
+# re-import from it: assemble.py takes json/os/re/shutil, tts.py takes
+# os/re/shutil, episode.py and the package __init__ take _seal. Declaring them
+# is what makes the re-export deliberate rather than an unused import; nothing
+# does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    'json',
+    're',
+    'shutil',
+    '_seal',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.briefing_video')

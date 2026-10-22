@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """Mesh Studio ops, part A — what the mesh IS.
 
 Sections: Library, Import, Topology, Transform, Shape, Rig, Weights, UV,
@@ -28,3 +27,23 @@ from zyg_workflows.mesh_studio_ops.a_shape import (
     shape_rig,
     weights_uv_material,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name above, in import order: none is used in this file, they are read
+# OFF the package (``a_shape._op`` / ``.f`` / ``.c`` …) exactly as they were off
+# the pre-split module. Nothing does ``import *`` from here, so __all__ changes
+# no behaviour — it only makes the re-export deliberate.
+__all__ = [
+    '_op',
+    'f',
+    'i',
+    'b',
+    'e',
+    'c',
+    's',
+    '_side',
+    'library_import',
+    'topology_transform',
+    'shape_rig',
+    'weights_uv_material',
+]

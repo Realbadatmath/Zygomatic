@@ -18,13 +18,26 @@ what the tab and Blender then draw.
 
 from __future__ import annotations
 
-# ruff: noqa: F401
-
 import math
 
 from zyg_workflows import arch_assistant as A
 from zyg_workflows.arch_assistant import Drawing, parse_cell, cell_centre, cell_name, MATERIALS, _num, MAX_OBJECTS
 import logging as _zyg_logging
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: the sibling
+# modules of the 2026-10 split re-import them from here, which is why the
+# verbatim import block was kept. Declaring them makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour.
+__all__ = [
+    'Drawing',
+    'parse_cell',
+    'cell_centre',
+    'cell_name',
+    '_num',
+    'MAX_OBJECTS',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.arch_assistant_ext.stairs_vertical')

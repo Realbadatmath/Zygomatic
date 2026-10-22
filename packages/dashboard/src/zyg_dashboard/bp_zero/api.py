@@ -7,8 +7,6 @@ Moved verbatim out of bp_zero.py (original lines 1671-2028) by the 2026-10-06
 modularization wave; zero logic edits.
 """
 
-# ruff: noqa: F401
-#   F401: this module also holds imports its siblings in this package re-import.
 from zyg_dashboard.bp_zero.constants import (
     DOCS_DIR,
     OLLAMA_AVAILABLE,
@@ -41,6 +39,16 @@ from zyg_dashboard.bp_zero.kanban import (
     _zero_kanban_load,
     _zero_kanban_watcher,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# This module inherits the pre-split top import block. `_zyg_pkg_dir` is the
+# only name in it this file does not read itself; it is kept here because the
+# package's modules re-import the block off each other. Declaring it is what
+# makes the re-export deliberate rather than an unused import; nothing does
+# ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    '_zyg_pkg_dir',
+]
 
 
 def _zero_read_task_state() -> dict:

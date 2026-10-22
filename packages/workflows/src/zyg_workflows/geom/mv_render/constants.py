@@ -9,8 +9,6 @@ full rationale. ROOT comes from `paths.PKG_DIR` and the logger keeps the
 pre-split channel name explicitly, so neither depends on where this file sits.
 """
 
-# ruff: noqa: F401  # the original top import block lives here; siblings re-import from it
-
 import argparse
 import datetime
 import glob
@@ -27,6 +25,25 @@ from zyg_workflows import paths
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.geom.mv_render')
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The original top import block lives here and the siblings re-import from it:
+# outer.py takes argparse/glob/json/os/shutil/subprocess/sys/tempfile,
+# blender_main.py takes json/os/shutil/sys/tempfile, blender_scene.py and
+# blender_verify.py take math (and os). Declaring them is what makes the
+# re-export deliberate rather than an unused import; nothing does ``import *``
+# from here, so __all__ changes no behaviour.
+__all__ = [
+    'argparse',
+    'glob',
+    'json',
+    'math',
+    'os',
+    'shutil',
+    'subprocess',
+    'sys',
+    'tempfile',
+]
 
 
 # ---------------------------------------------------------------------------

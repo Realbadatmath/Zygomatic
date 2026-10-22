@@ -19,7 +19,6 @@ This module imports nothing from the rest of the package, so it is safe to impor
 
 from __future__ import annotations
 
-# ruff: noqa: F401
 #   Every import below is a re-export: this package IS the namespace settings.py had,
 #   so settings.os / settings.Any / settings.NamedTuple still resolve. The 1,760-line
 #   generated module was cut into core.py (Flag, _TRUE), four flags_*.py data modules
@@ -42,4 +41,19 @@ from zyg_workflows.settings.registry import FLAGS, check, get
 # as it did ({'FLAGS': 'dict[str, Flag]'} — PEP 563 keeps it the unevaluated string).
 FLAGS: dict[str, Flag]
 
-__all__ = ['FLAGS', 'Flag', 'check', 'get']
+__all__ = [
+    'os',
+    'warnings',
+    'Any',
+    'Callable',
+    'NamedTuple',
+    'Flag',
+    '_TRUE',
+    '_FLAGS_1',
+    '_FLAGS_2',
+    '_FLAGS_3',
+    '_FLAGS_4',
+    'FLAGS',
+    'check',
+    'get',
+]

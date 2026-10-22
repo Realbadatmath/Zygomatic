@@ -2,16 +2,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# This module inherits web_research_agent.py's own top import block verbatim, so every
-# name the single file exposed as an attribute still resolves. Names used only by sibling
-# sections are therefore 'unused' here on purpose.
-# ruff: noqa: F401
-import os
-import re
 import time
 import random
-import traceback
-import threading
 import logging as _zyg_logging
 
 # channel kept from the pre-split module

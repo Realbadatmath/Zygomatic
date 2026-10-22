@@ -4,7 +4,6 @@
 
 """NEW TOOLS - internal logic, no external API required (lines 1689-2380 of the original pipeline_tools.py)."""
 
-# ruff: noqa: F401
 # `datetime` / `timezone` are re-imported at module level even though every use in
 # this section is behind a function-local `import`: the single file bound them at
 # module level, and CPython's is_import_originated() consults the MODULE symbol table

@@ -4,8 +4,6 @@
 
 """The single-page Game Simulator UI."""
 
-# ruff: noqa: F401
-
 from .head import HEAD
 from .css_creation import CSS_CREATION
 from .css_simulation import CSS_SIMULATION

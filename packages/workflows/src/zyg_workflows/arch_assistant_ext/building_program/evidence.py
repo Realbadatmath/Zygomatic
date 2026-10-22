@@ -2,9 +2,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
-# F401: the original top import block is kept verbatim here and its names are
-#       re-exported, so building_program._A / .math / .re still resolve.
+# The original top import block is kept verbatim here and its names are
+# re-exported (see __all__ below), so building_program._A / .math / .re still resolve.
 #
 # Moved verbatim from arch_assistant_ext/building_program.py lines 5-358
 # (2026-10 split): the module docstring below, the top import block, and the
@@ -55,6 +54,15 @@ from zyg_workflows.arch_assistant import (
     cell_name,
     resolve_block,
 )
+
+# re-exported for the siblings and for importers of the building_program package
+__all__ = [
+    'Drawing',
+    'block_bounds',
+    'parse_cell',
+    'cell_name',
+    'resolve_block',
+]
 
 KINDS: dict = {}
 OPENINGS: list = []

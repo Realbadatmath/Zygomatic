@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """gates.py — the four-tier gate engine over a generated parametric body.
 
 WHY THIS EXISTS: measure.py can produce a number for almost anything, and reference.py can
@@ -475,6 +474,22 @@ from zyg_workflows.geom.anthro.gates.cli import (
 )
 
 __all__ = [
+    'argparse',
+    'json',
+    'math',
+    'os',
+    're',
+    'subprocess',
+    'sys',
+    'tempfile',
+    'time',
+    'np',
+    'MS',
+    'IG',
+    'LMK',
+    'ME',
+    'reference',
+    '_zyg_logging',
     '_zyg_log',
     'SCHEMA',
     'MEASURED',

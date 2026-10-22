@@ -4,13 +4,17 @@
 
 """Scoring & Analytics tools (lines 551-812 of the original pipeline_tools.py)."""
 
-# ruff: noqa: F401
 # `datetime` / `timezone` are re-imported at module level even though every use in
 # this section is behind a function-local `import`: the single file bound them at
 # module level, and CPython's is_import_originated() consults the MODULE symbol table
 # when it chooses the LOAD_METHOD vs PUSH_NULL+LOAD_ATTR call form. Keeping them here
 # keeps the compiled bytecode of the moved bodies identical to the original's.
 from .base import BaseTool, datetime, json, timezone
+
+__all__ = [
+    'datetime',
+    'timezone',
+]
 
 # ---------------------------------------------------------------------------
 # Scoring & Analytics tools

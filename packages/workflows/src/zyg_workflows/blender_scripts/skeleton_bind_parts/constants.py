@@ -5,8 +5,8 @@
 # This module inherits skeleton_bind.py's ORIGINAL top import block, which travels
 # byte for byte: the siblings import what they need from bpy / mathutils
 # themselves, and skeleton_bind.os / .json / .Vector ... are re-exported from here
-# so the old module's namespace resolves unchanged.  F401 is therefore expected.
-# ruff: noqa: F401
+# so the old module's namespace resolves unchanged, which is what ``__all__`` below
+# declares.
 
 """Put the CC0 anatomical skeleton mesh inside a base-body actor.
 
@@ -42,6 +42,34 @@ import bpy
 from mathutils import Matrix, Quaternion, Vector
 
 from zyg_workflows import paths
+
+# the old module's namespace: the inherited import block first, then this
+# module's own constants
+__all__ = [
+    'json',
+    'math',
+    'os',
+    'sys',
+    'tempfile',
+    'bpy',
+    'Matrix',
+    'Quaternion',
+    'Vector',
+    'paths',
+    'HERE',
+    'CREWS',
+    'SKELETON_BLEND',
+    'BASE_BODY_RIG_DIR',
+    'PIECE_PREFIX',
+    'SOURCE_CREDIT',
+    'SUBSURF_LEVELS',
+    'TRI_BUDGET_HIGH',
+    'TRI_BUDGET_TARGET',
+    'TRI_FLOOR',
+    'AXIS_SCALE_CLAMP',
+    'INSIDE_MARGIN',
+    'EXTRA_MESHES',
+]
 
 # ``HERE`` is the blender_scripts directory skeleton_bind.py used to live in, ``CREWS``
 # the package directory above it; SKELETON_BLEND and BASE_BODY_RIG_DIR hang off those.

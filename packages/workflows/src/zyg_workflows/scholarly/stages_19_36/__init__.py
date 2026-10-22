@@ -32,8 +32,6 @@ which is why the numbering skips 11.
 See SPLIT_LOG.md for the stage→marker map and the full list of non-mechanical spots.
 """
 
-# ruff: noqa: F401
-
 import sys as _sys
 from types import ModuleType as _ModuleType
 
@@ -113,6 +111,52 @@ from .finishing import (
 )
 
 __all__ = [
+    'UNSET',
+    '_FORCE_CPU_POST_ENCODE',
+    '_INTENSITY_MOOD_SUFFIX',
+    '_KB_THREAD_STAGGER_S',
+    '_LLM_SMALL',
+    '_NVENC_SEM',
+    '_OLLAMA_BASE_URL',
+    '_SCHOLARLY_SEC_PER_WORD',
+    '_SEED_STOPWORDS',
+    '_TEXT_FRAMING_FIX',
+    '_TEXT_SUBJECT_RE',
+    '_ams_iso',
+    '_apply_color_grade',
+    '_bench_replay_get',
+    '_bm_record_pipeline',
+    '_burn_subtitles',
+    '_cleanup_pipeline_output',
+    '_cq_for_crf',
+    '_derive_episode_era',
+    '_ensure_comfy_offload_env',
+    '_ffmpeg_popen_nvenc_first',
+    '_ffmpeg_run_nvenc_first',
+    '_kb_encode_wait_seconds',
+    '_llm_client',
+    '_llm_key',
+    '_load_flux_seconds_per_image_estimate',
+    '_log_prompt',
+    '_make_book_intro',
+    '_nvenc_vcodec_args',
+    '_parse_iso_to_ams',
+    '_record_token_usage',
+    '_register_prompt',
+    '_scholarly_motion',
+    '_scholarly_n_images',
+    '_scp_output_to_windows',
+    '_seal',
+    '_smoke_cap',
+    '_update_marker',
+    '_urlsplit',
+    '_x264_vcodec_args',
+    '_zyg_log',
+    '_zyg_logging',
+    'exe',
+    'os',
+    'paths',
+    'requests',
     'stage_10_flux_image_generation',
     'stage_12_hand_qc',
     'stage_13_tts_rhythm_refresh',

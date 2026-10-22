@@ -132,5 +132,29 @@ def _num(v, d=0.0):
 
 # This module inherited the original file's whole import block, and the
 # sibling modules of this package re-import from it what they need; nothing
-# here is unused, so the autofix must not delete any of it.
-# ruff: noqa: F401
+# here is unused, so the autofix must not delete any of it — the package
+# __init__ re-exports every one of these names from here.
+__all__ = [
+    'contextlib',
+    'io',
+    'json',
+    'math',
+    'os',
+    'sys',
+    'traceback',
+    'bpy',
+    'bmesh',
+    'mathutils',
+    '_zyg_logging',
+    '_zyg_log',
+    'LOG',
+    'log',
+    'argv',
+    'arg',
+    'flag',
+    'ORIENT',
+    'ACROSS',
+    'REF',
+    '_REF_OBJS',
+    '_num',
+]

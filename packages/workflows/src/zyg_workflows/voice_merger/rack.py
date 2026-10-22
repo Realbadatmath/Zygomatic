@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module keeps the original top import block for its siblings and the package
-
 import hashlib
 import json
 import logging as _zyg_logging
@@ -16,6 +14,24 @@ import threading
 import time
 from zyg_workflows import paths
 from zyg_workflows.bin import exe
+
+# This module keeps the original top import block for its siblings and the
+# package: render.py and library.py read these names through it. Declared so
+# the block needs no file-level suppression.
+__all__ = [
+    'hashlib',
+    'json',
+    '_zyg_logging',
+    'os',
+    're',
+    'shutil',
+    'subprocess',
+    'tempfile',
+    'threading',
+    'time',
+    'paths',
+    'exe',
+]
 
 _HERE = str(paths.PKG_DIR)
 _WORK = str(paths.DATA_DIR / 'runtime' / 'voice_merger')

@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module keeps the original top import block for its siblings and the package
+# This module keeps the original top import block for its siblings and the package.
 
 from __future__ import annotations
 
@@ -19,6 +19,11 @@ import requests
 import logging as _zyg_logging
 
 from zyg_workflows import paths as _paths
+
+# Re-export surface: imported here and not used in this module — picks.py and
+# prices.py read it off this module
+# (``from zyg_workflows.market_ingest.core import … timedelta …``).
+__all__ = ['timedelta']
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.market_ingest')

@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # the original top import block: its names are re-imported by the siblings.
-
 """kids_series_common.py — the module docstring aside: the original top import block and every module-level constant (lines 76-76, 77-168 of the pre-split file, verbatim)."""
 
 from __future__ import annotations
@@ -32,6 +30,34 @@ from zyg_workflows.runtime import ams_iso as _ams_iso, workflow_jobs as _workflo
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.kids_series_common')
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# This is the original top import block and the names below are not used here:
+# the siblings re-import them off this module (``from .constants import json, os,
+# …``) — jobs.py takes argparse/glob/importlib/json/sys/threading/time/traceback/
+# uuid/_runtime/_ams_iso/_workflow_jobs, ffmpeg.py json/shutil/subprocess/
+# tempfile/_seal, audio.py random/shutil/tempfile/threading, visuals.py shutil.
+# Declaring them is what makes the re-export deliberate rather than an unused
+# import; nothing does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    'argparse',
+    'glob',
+    'importlib',
+    'json',
+    'random',
+    'shutil',
+    'subprocess',
+    'sys',
+    'tempfile',
+    'threading',
+    'time',
+    'traceback',
+    'uuid',
+    '_seal',
+    '_runtime',
+    '_ams_iso',
+    '_workflow_jobs',
+]
 
 
 CREWS = str(_paths.PKG_DIR)

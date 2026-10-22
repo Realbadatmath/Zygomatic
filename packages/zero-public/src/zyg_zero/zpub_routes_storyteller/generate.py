@@ -2,8 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
-# F401: the original module-level import block is reproduced verbatim in every
+# The original module-level import block is reproduced verbatim in every
 # section module, both so `pkg.os` / `pkg.json` style attribute access keeps
 # resolving and so the function-local `import re as _re` imports in the moved
 # bodies compile exactly as they did in the single file.
@@ -53,6 +52,28 @@ from zyg_zero.zpub_routes_storyteller.identity_voice import (
     _zpub_precheck_voice_ids,
     _zpub_resolve_voices,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The names above that this section's own bodies do not read: they are the
+# pre-split module's attribute surface, which callers and tests reach through
+# the section module (``monkeypatch.setattr(mod, 'os', …)``,
+# ``mod._requests``). Declaring them is what makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour.
+__all__ = [
+    'json',
+    '_zyg_logging',
+    'os',
+    're',
+    'threading',
+    'time',
+    'Blueprint',
+    'paths',
+    'filter_out_medusa',
+    'is_medusa_char',
+    '_require_api_session',
+    '_LOG_DIR',
+]
 
 
 def _build_storyteller_job(data: dict, sid: str, token: str) -> tuple:

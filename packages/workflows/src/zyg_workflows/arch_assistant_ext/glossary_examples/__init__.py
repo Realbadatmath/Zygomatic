@@ -21,8 +21,8 @@ Nothing here draws. The tools are read-only: no records, no object ceiling.
 
 # This package is the former single-file module glossary_examples.py, cut at its own
 # section banners.  Import path, names and module-level execution order are
-# unchanged; every section below is a verbatim move.
-# ruff: noqa: F401
+# unchanged; every section below is a verbatim move, re-exported through __all__ at
+# the foot of the file.
 
 from __future__ import annotations
 
@@ -70,3 +70,40 @@ from zyg_workflows.arch_assistant_ext.glossary_examples.tools import (
 from zyg_workflows.arch_assistant_ext.glossary_examples.examples_nl_de_fr import (
     EXAMPLES,
 )
+
+__all__ = [
+    're',
+    'unicodedata',
+    'Drawing',
+    'STOREY_M',
+    'KINDS',
+    'OPENINGS',
+    'PROMPT',
+    '_norm',
+    '_NL',
+    '_DE',
+    '_FR',
+    'GLOSSARY',
+    '_src',
+    '_lang',
+    '_k',
+    '_v',
+    'translate',
+    'language_of',
+    '_LEN_RE',
+    '_ST_RE',
+    '_FT',
+    '_IN',
+    '_YD',
+    'units',
+    '_DESIGN_RULES',
+    'EXPLAIN',
+    '_ALIAS',
+    'TOPICS',
+    'explain',
+    't_explain',
+    't_translate',
+    't_units',
+    'TOOLS',
+    'EXAMPLES',
+]

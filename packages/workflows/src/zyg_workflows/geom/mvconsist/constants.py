@@ -5,7 +5,6 @@
 # so that range may not be rewritten — and the imports are also used by its sibling modules
 # (F401). __all__ keeps only the names this module defines: measure/stability/verdict now live
 # in the siblings and are re-exported by the package __init__, which is where callers read them.
-# ruff: noqa: F401
 
 """mvconsist.py — MULTI-VIEW CONSISTENCY AS A GEOMETRIC MEASUREMENT, VIA STRUCTURE-FROM-MOTION.
 
@@ -200,6 +199,30 @@ __all__ = [
     'DEFAULT_GLOB',
     'QUALITY_PRESETS',
     'CAMERA_GROUPINGS',
+]
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The inherited top import block above is not used by this module: the package
+# __init__ re-imports every one of these names off it
+# (``from zyg_workflows.geom.mvconsist.constants import _glob, json, …``) to keep
+# the pre-split module's namespace intact for callers. Declaring them is what
+# makes the re-export deliberate rather than an unused import; nothing does
+# ``import *`` from here, so __all__ changes no behaviour.
+__all__ += [
+    '_glob',
+    'json',
+    'math',
+    'os',
+    'shutil',
+    'statistics',
+    'sys',
+    'time',
+    'uuid',
+    'Any',
+    'Dict',
+    'List',
+    'Optional',
+    'Sequence',
 ]
 
 # ---------------------------------------------------------------------------

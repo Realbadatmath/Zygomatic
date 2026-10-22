@@ -8,7 +8,7 @@ Carries the original module's top import block, so the package keeps re-exportin
 re / unicodedata / Drawing / STOREY_M the way the single file did.
 """
 
-# ruff: noqa: F401  # the moved top import block feeds the sibling modules; keep it byte-for-byte
+# The moved top import block feeds the sibling modules; keep it byte-for-byte.
 
 from __future__ import annotations
 
@@ -16,6 +16,12 @@ import re
 import unicodedata
 
 from zyg_workflows.arch_assistant import Drawing, STOREY_M
+
+# re-exported for the package __init__, which imports these two from here
+__all__ = [
+    'Drawing',
+    'STOREY_M',
+]
 
 KINDS: dict = {}
 OPENINGS: list = []

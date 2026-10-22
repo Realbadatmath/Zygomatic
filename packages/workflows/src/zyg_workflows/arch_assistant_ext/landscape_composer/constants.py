@@ -1,8 +1,9 @@
 # SPDX-FileCopyrightText: 2026 Zygomatic
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# ruff: noqa: F401  # this module inherits the original top import block of landscape_composer.py;
-# names it does not use itself are imported by its siblings and by importers of the package.
+# This module inherits the original top import block of landscape_composer.py;
+# names it does not use itself are imported by its siblings and by importers of
+# the package, so they are re-exported through __all__ below.
 
 """arch_assistant_ext/landscape_composer.py — whole landscapes in one call.
 
@@ -52,6 +53,17 @@ import unicodedata
 
 from zyg_workflows import arch_assistant as _A
 from zyg_workflows.arch_assistant import Drawing, block_bounds, cell_name, parse_cell  # noqa: F401
+
+# re-exported for the siblings and for importers of the landscape_composer package
+__all__ = [
+    'math',
+    'unicodedata',
+    '_A',
+    'Drawing',
+    'block_bounds',
+    'cell_name',
+    'parse_cell',
+]
 
 KINDS: dict = {}
 OPENINGS: list = []

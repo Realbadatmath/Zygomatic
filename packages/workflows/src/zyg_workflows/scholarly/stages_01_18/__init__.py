@@ -22,8 +22,6 @@ import in both directions would close the cycle.
 See SPLIT_LOG.md for the stage→marker map and the full list of non-mechanical spots.
 """
 
-# ruff: noqa: F401
-
 from ._common import (
     _LLM_LARGE,
     _LLM_SCRIPT,
@@ -71,3 +69,51 @@ from .stages_06_07 import (
 )
 from .stage_08 import stage_08_tts_pre_image_pass
 from .stage_09 import stage_09_time_locked_scene_descriptions
+
+#: The package IS the namespace the single file had: every name is re-exported.
+__all__ = [
+    '_LLM_LARGE',
+    '_LLM_SCRIPT',
+    '_LLM_SMALL',
+    '_MURCH_MODEL',
+    '_OLLAMA_BASE_URL',
+    '_PKG_DIR',
+    '_SCHOLARLY_SEC_PER_WORD',
+    '_align_narration_word_timings',
+    '_bench_replay_get',
+    '_build_framework_block',
+    '_classify_subject_type',
+    '_dsl',
+    '_llm_client',
+    '_llm_key',
+    '_log_prompt',
+    '_murch_ollama_text',
+    '_record_token_usage',
+    '_register_prompt',
+    '_research_title_matches_directive',
+    '_scholarly_n_images',
+    '_title_from_directive',
+    '_tts_shared',
+    '_update_marker',
+    '_zyg_log',
+    '_zyg_logging',
+    'exe',
+    'gui_state',
+    'json',
+    'os',
+    're',
+    'requests',
+    'safe_urlopen',
+    'time',
+    'traceback',
+    'stage_01_topic_setup',
+    'stage_02_academic_research',
+    '_script_cleaners',
+    'stage_03_script_preparation',
+    'stage_04_fact_check',
+    'stage_05_visual_intent_tagging',
+    'stage_06_turning_points_and_emotions',
+    'stage_07_emotion_curve',
+    'stage_08_tts_pre_image_pass',
+    'stage_09_time_locked_scene_descriptions',
+]

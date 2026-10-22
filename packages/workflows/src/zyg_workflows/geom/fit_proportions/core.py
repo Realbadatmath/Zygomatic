@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # the original top import block: its names are re-imported by the
-# siblings that use them.
-
 """fit_proportions.py — the imports, the in-graph constraint, the constants, the crotch spec and the steering decision (lines 190-199, 200-595 of the pre-split file, verbatim)."""
 
 import argparse
@@ -25,6 +22,20 @@ import logging as _zyg_logging
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.geom.fit_proportions')
+
+# The original top import block: these names are re-imported through this module by the
+# siblings that use them — baking.py takes argparse/ast/json/os/subprocess/sys/tempfile,
+# fit_sex_stages.py takes FR. Nothing in this file reads them.
+__all__ = [
+    'argparse',
+    'ast',
+    'json',
+    'os',
+    'subprocess',
+    'sys',
+    'tempfile',
+    'FR',
+]
 
 
 SCHEMA = 'geom.fit_proportions/2'

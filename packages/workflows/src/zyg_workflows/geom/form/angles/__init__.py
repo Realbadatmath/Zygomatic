@@ -165,9 +165,8 @@ SOURCES. The angles implement anatomical FACTS and METHODS, which are not copyri
 can be checked against its source; no expression is reproduced.
 """
 
-# ruff: noqa: F401
-
 # The original top import block, so angles.os / angles.np / angles.LMK still resolve.
+# Every name this package re-exports is declared in __all__ at the foot of the file.
 import argparse
 import json
 import math
@@ -246,3 +245,70 @@ from zyg_workflows.geom.form.angles.aggregate import (
     _build,
     main,
 )
+
+# The re-export surface of the split package: the original top import block plus every
+# name the section modules define, so `angles.<name>` and `from ... import <name>`
+# resolve exactly as they did before the split.
+__all__ = [
+    'argparse',
+    'json',
+    'math',
+    'os',
+    'sys',
+    'time',
+    'np',
+    'MS',
+    'IG',
+    'LMK',
+    'ME',
+    'CV',
+    '_zyg_logging',
+    '_zyg_log',
+    'SCHEMA',
+    'CANON',
+    'HOUSE',
+    'FRAME',
+    'SIGN_CONVENTION',
+    'BANDS',
+    '_strict',
+    'MIDLINE_TOL_M',
+    'OCCLUSION_HEIGHT_FRAC',
+    'OCCLUSION_SPLIT_FLOOR',
+    'OCCLUSION_MIN_GAP_FACTOR',
+    'JAW_WEIGHT_CUTS',
+    'FEATURE_MIN_FRAC',
+    'FEATURE_MIN_CONTRAST',
+    'FEATURE_PROBE_RADIUS',
+    '_CACHE',
+    '_frame',
+    '_context',
+    '_skin_mask',
+    '_unresolved',
+    '_bone_weight',
+    '_bone_head',
+    '_target_displacement',
+    '_spread',
+    '_verdict',
+    '_band_for',
+    'face_profile',
+    '_occlusion_cut',
+    '_lm_frac',
+    'gonial_angle',
+    'subcostal_angle',
+    '_relief_sweep',
+    '_local_change_labels',
+    'carrying_angle',
+    '_adjacency',
+    '_canthi',
+    'canthal_tilt',
+    'orbital_long_axis',
+    'nasolabial_angle',
+    '_ear_axis',
+    'ear_nose_parallelism',
+    'measure_angles',
+    'scalars',
+    'falsification_sweep',
+    '_cases',
+    '_build',
+    'main',
+]

@@ -2,14 +2,15 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # carries expansion_hub.py's original top import block verbatim; the siblings re-import from it
+# Carries expansion_hub.py's original top import block verbatim; the siblings
+# re-import from it, so the names this module does not use itself are
+# re-exports — see __all__ below.
 
 import ast
 import hashlib
 import json
 import os
 import re
-import statistics
 import subprocess
 import sys
 import time
@@ -20,6 +21,20 @@ from zyg_dashboard import paths
 from zyg_workflows.bin import exe
 
 _zyg_log = _zyg_logging.getLogger('zyg_dashboard.expansion_hub')
+
+# Imports this module holds for its siblings rather than for itself:
+# ast, json, warnings (reading); hashlib, json, sys, time (aggregation);
+# exe, subprocess, time (helpers).
+__all__ = [
+    'ast',
+    'exe',
+    'hashlib',
+    'json',
+    'subprocess',
+    'sys',
+    'time',
+    'warnings',
+]
 
 HERE = str(paths.PKG_DIR)  # the package the collector ships in
 ROOT = os.path.dirname(os.path.dirname(HERE))  # the tree root above it

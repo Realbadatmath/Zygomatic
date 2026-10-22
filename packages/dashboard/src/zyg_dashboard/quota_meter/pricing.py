@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
-#   the original top-level import block lives here verbatim; its siblings
-#   re-import from it, so nothing in it is unused.
+# The original top-level import block lives here verbatim; the siblings
+# (calculation, transcripts, cli, __init__) re-import from it, so the names
+# this module does not use itself are re-exports — see __all__ below.
 
 from __future__ import annotations
 
@@ -32,6 +32,19 @@ import logging as _zyg_logging
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_dashboard.quota_meter')
+
+# Imports this module holds for its siblings rather than for itself:
+# fcntl, time, urlsplit (calculation), sys, time (cli), timedelta (transcripts),
+# datetime (calculation, transcripts), urllib.request (calculation).
+__all__ = [
+    'datetime',
+    'fcntl',
+    'sys',
+    'time',
+    'timedelta',
+    'urllib',
+    'urlsplit',
+]
 
 
 CREWS = str(paths.PKG_DIR)

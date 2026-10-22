@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """Creature Studio toolbox — the half that MODIFIES a creature in the library.
 
 Creature Studio could show you a creature and turn it around.  It could not
@@ -241,6 +240,18 @@ from zyg_workflows.creature_fx.presets import (
 )
 
 __all__ = [
+    'hashlib',
+    'io',
+    'json',
+    'os',
+    're',
+    'shutil',
+    'threading',
+    'time',
+    'urllib',
+    'uuid',
+    '_zyg_logging',
+    'paths',
     '_zyg_log',
     'HERE',
     'DATA',
@@ -278,11 +289,20 @@ __all__ = [
     '_act',
     '_amt',
     '_pick',
+    'ops_form',
+    'ops_appendages',
+    'ops_face',
+    'ops_surface',
     '_NAMED',
     'colour_word',
     '_colclause',
+    'ops_condition',
+    'ops_gear',
+    'ops_pose',
     '_MESH_VIEWS',
     '_MESH_VIEW_WORDS',
+    'ops_scene',
+    'ops_style',
     '_pil',
     '_px_crop',
     '_px_scale',
@@ -309,6 +329,7 @@ __all__ = [
     '_rgb',
     '_rgba',
     '_apply_rgb_lut',
+    'ops_measure',
     'OP_BY_ID',
     '_cdir',
     '_catdir',

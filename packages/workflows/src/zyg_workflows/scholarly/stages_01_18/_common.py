@@ -7,8 +7,6 @@ The import block, the logger name and `_PKG_DIR` are the ones
 module pulls what it needs from here, so the names stay bound exactly once.
 """
 
-# ruff: noqa: F401  # this module IS the original import block; every name is re-exported
-
 import json
 import logging as _zyg_logging
 import os
@@ -61,3 +59,41 @@ from zyg_workflows.pipeline_scholarly import (  # noqa: E402
     _scholarly_n_images,
     _title_from_directive,
 )
+
+#: This module IS the original import block: every name above is re-exported.
+__all__ = [
+    'json',
+    '_zyg_logging',
+    'os',
+    're',
+    'time',
+    'traceback',
+    'requests',
+    'gui_state',
+    '_MURCH_MODEL',
+    '_murch_ollama_text',
+    'exe',
+    'safe_urlopen',
+    '_align_narration_word_timings',
+    '_OLLAMA_BASE_URL',
+    '_dsl',
+    '_bench_replay_get',
+    '_record_token_usage',
+    '_build_framework_block',
+    '_classify_subject_type',
+    '_log_prompt',
+    '_register_prompt',
+    '_update_marker',
+    '_LLM_LARGE',
+    '_LLM_SCRIPT',
+    '_LLM_SMALL',
+    '_llm_client',
+    '_llm_key',
+    '_tts_shared',
+    '_SCHOLARLY_SEC_PER_WORD',
+    '_research_title_matches_directive',
+    '_scholarly_n_images',
+    '_title_from_directive',
+    '_zyg_log',
+    '_PKG_DIR',
+]

@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """kids_music_service.py — renders, gates and deliverables for the Children's
 Music workflow.
 
@@ -199,6 +198,20 @@ from zyg_workflows.kids_music_service.cli import (
 )
 
 __all__ = [
+    # The original top import block, kept here and re-exported: this package is the
+    # pre-split kids_music_service.py seen from outside, and its namespace is where
+    # the siblings and the callers read these names.
+    'json',
+    'os',
+    're',
+    'subprocess',
+    'time',
+    'kids_llm',
+    'paths',
+    'T',
+    '_seal',
+    '_zyg_logging',
+    'exe',
     '_zyg_log',
     'HERE',
     'SOUNDFONT',

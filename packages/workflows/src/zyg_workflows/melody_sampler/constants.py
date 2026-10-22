@@ -9,7 +9,6 @@ Moved verbatim out of the 1,177-line melody_sampler.py; original lines 49-55, 56
 
 # This module inherits the single file's own top import block; every name in
 # it is re-exported from here, so F401 must not strip it.
-# ruff: noqa: F401
 
 import argparse
 import json
@@ -20,6 +19,11 @@ import sys
 import logging as _zyg_logging
 
 from zyg_workflows import paths
+
+# Re-export surface: these five are imported here and not used in this module —
+# cli.py reads argparse and sys, sample_index.py json and os, render_engine.py
+# random, all with ``from zyg_workflows.melody_sampler.constants import …``.
+__all__ = ['argparse', 'json', 'os', 'random', 'sys']
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.melody_sampler')

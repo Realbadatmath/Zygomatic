@@ -2,8 +2,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # the original top import block is kept verbatim here; its
-# names are re-exported from __init__ so a_shape.c and friends still resolve.
+# The original top import block is kept here; a_shape.c and friends still
+# resolve because __init__ re-exports them from the core itself.
 #
 # Moved verbatim from mesh_studio_ops/a_shape.py lines 5-358 (2026-10 split):
 # the module docstring below, the import block, `_side`, and the Library and
@@ -22,7 +22,7 @@ tense of the finished thing, because that is the contract the build is held to
 -- not a promise that it works today. The page draws these dashed.
 """
 
-from zyg_workflows.mesh_studio import _op, f, i, b, e, c, s
+from zyg_workflows.mesh_studio import _op, f, i, b, e, s
 
 
 def _side(id_, lb, sec, tip, svg, params=(), cls='edit', needs='mesh'):

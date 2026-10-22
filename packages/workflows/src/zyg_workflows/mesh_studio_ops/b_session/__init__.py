@@ -23,10 +23,38 @@ CPython empties a list while ``list.sort`` is running, so the fallback raises
 who ships a section without declaring it; that is the core's to fix.
 """
 
-# ruff: noqa: F401  # a Pattern A package: __init__ re-exports the old module surface
+# a Pattern A package: __init__ re-exports the old module surface
 from .base import _core, _op, f, i, b, e, c, s, _NEW_SECTIONS, _sec, _after, _side, _dock
 
 # The section modules register their ops at import time and export no name of
 # their own, so they must be imported explicitly — in the ORIGINAL section order,
 # because that order is the order the rail draws.
 from . import texture, measure, fit, export, render, pipeline, view, session
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name above, in import order: none is used in this file, they are read
+# OFF the package exactly as they were off the pre-split module. Nothing does
+# ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    '_core',
+    '_op',
+    'f',
+    'i',
+    'b',
+    'e',
+    'c',
+    's',
+    '_NEW_SECTIONS',
+    '_sec',
+    '_after',
+    '_side',
+    '_dock',
+    'texture',
+    'measure',
+    'fit',
+    'export',
+    'render',
+    'pipeline',
+    'view',
+    'session',
+]

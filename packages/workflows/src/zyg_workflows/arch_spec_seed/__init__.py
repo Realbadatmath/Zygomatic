@@ -18,7 +18,6 @@ Run:  python3 arch_spec_seed.py [--force]      (skips keys already researched)
 # package. The 36 seed sheets moved byte for byte into three group modules,
 # main() into cli.py; this __init__ re-exports every name the single file
 # defined, so `from zyg_workflows import arch_spec_seed` resolves as before.
-# ruff: noqa: F401
 
 from __future__ import annotations
 
@@ -52,3 +51,22 @@ from zyg_workflows.arch_spec_seed.seeds import (
 from zyg_workflows.arch_spec_seed.cli import (
     main,
 )
+
+# the re-export surface, in import order
+__all__ = [
+    'constants',
+    'seeds_rooms',
+    'seeds_site',
+    'seeds_fabric',
+    'seeds',
+    'cli',
+    'json',
+    'os',
+    'sys',
+    'HERE',
+    'SEEDS_ROOMS',
+    'SEEDS_SITE',
+    'SEEDS_FABRIC',
+    'SEEDS',
+    'main',
+]

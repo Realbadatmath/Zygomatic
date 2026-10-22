@@ -7,9 +7,6 @@
 Moved verbatim out of bp_benchmark.py; see the package __init__ for the full rationale.
 """
 
-# ruff: noqa: F401
-# F401: this module inherits the original top import block; the siblings re-import what they use
-
 # Generated 2026-07-17 heavy-tranche modularization — extracted from crewai_web_gui.py.
 # See crews_modularization_backups_20260717/MODULARIZATION_CHANGELOG.md.
 # Contract: imported only at the BOTTOM of crewai_web_gui.py (all main globals exist;
@@ -40,6 +37,26 @@ from zyg_dashboard.crewai_web_gui import (  # noqa: E402
     _bm_infra_lock,
     _bm_mr_lock,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# This module inherits the original top import block and the siblings re-import
+# what they use off it. Every name below, in import order, is one this file does
+# not read itself. Declaring them is what makes the re-export deliberate rather
+# than an unused import; nothing does ``import *`` from here, so __all__ changes
+# no behaviour.
+__all__ = [
+    'jsonify',
+    'request',
+    'exe',
+    '_workflow_jobs',
+    '_start_scholarly_pipeline_internal',
+    '_TELEMETRY_CACHE',
+    '_backend_debug',
+    '_FLUX_PERF_TELEMETRY_PATH',
+    '_apply_gpu_power_limit',
+    '_bm_infra_lock',
+    '_bm_mr_lock',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_dashboard.bp_benchmark')

@@ -7,7 +7,7 @@
 Moved verbatim out of water_leisure.py (lines 37-277); zero logic changes.
 """
 
-# ruff: noqa: F401  # the original module-level import block lands here
+# The original module-level import block lands here
 # verbatim; several of its names are consumed by the sibling modules rather
 # than by this one, and deleting them would also change how CPython compiles
 # the moved calls (import-originated globals use a different LOAD_ATTR form).
@@ -36,6 +36,22 @@ from zyg_workflows.arch_assistant import (
     place_height,
     surface_top,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: the sibling
+# modules of the 2026-10 split re-import them from here, which is why the
+# verbatim import block was kept. Declaring them makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour.
+__all__ = [
+    'A',
+    'block_bounds',
+    'cell_name',
+    'cell_of',
+    'cell_size',
+    'ground_plane',
+    'place_height',
+]
 
 KINDS = {
     'pool': {'w': 8, 'd': 4, 'depth': 1.5, 'coping': 0.4, 'raised': 0},

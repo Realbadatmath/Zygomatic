@@ -51,8 +51,6 @@ default camera looks down -Z, and the sheet script orbits in the XY plane placin
 the camera at -Y for the front view). +Z is up. Origin sits on the ground plane.
 """
 
-# ruff: noqa: F401
-
 import math
 
 import bmesh
@@ -62,6 +60,20 @@ import logging as _zyg_logging
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.prop_mesh.pufferball')
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The Blender half of the inherited top import block is not used in this file:
+# the siblings re-import it off this module — geometry.py takes ``bmesh``,
+# ``bpy``, ``Vector`` and ``math``, parts.py ``bpy``, ``Vector`` and ``math``,
+# checks.py ``bmesh``, ``bpy`` and ``Vector``. Declaring them is what makes the
+# re-export deliberate rather than an unused import; nothing does ``import *``
+# from here, so __all__ changes no behaviour.
+__all__ = [
+    'math',
+    'bmesh',
+    'bpy',
+    'Vector',
+]
 
 
 # pass_index vocabulary for this creature. Deliberately NOT pass_lib.IDX: that is

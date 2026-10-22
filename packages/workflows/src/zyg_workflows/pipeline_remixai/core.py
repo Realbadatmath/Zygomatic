@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """core — core section of pipeline_remixai (verbatim split).
 
 Moved unchanged from pipeline_remixai.py; see the package __init__ for the full docstring.
@@ -31,6 +30,23 @@ import logging as _zyg_logging
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.pipeline_remixai')
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Six names of the inherited top import block are not used in this file: the
+# siblings re-import them off this module — media.py takes ``random``, ``re``
+# and ``exe``, stage_helpers.py ``re`` and ``exe``, pipeline.py ``_seal`` and
+# ``traceback``, pipeline_stages.py ``RD``, and the package __init__ re-exports
+# all six to keep the pre-split namespace intact. Declaring them is what makes
+# the re-export deliberate rather than an unused import; nothing does
+# ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    'random',
+    're',
+    'traceback',
+    'RD',
+    '_seal',
+    'exe',
+]
 
 
 _CREWS = str(paths.PKG_DIR)

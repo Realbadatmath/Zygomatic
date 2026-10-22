@@ -12,8 +12,6 @@ unchanged.  ``LAST_FIT`` is the one name a by-value copy would break
 it there on every access.
 """
 
-# ruff: noqa: F401
-
 from .constants import (  # noqa: I001
     annotations,
     json,

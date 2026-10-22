@@ -1,8 +1,9 @@
 # SPDX-FileCopyrightText: 2026 Zygomatic
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# ruff: noqa: F401  # this module inherits the original top import block of relational.py;
-# names it does not use itself are imported by its siblings and by importers of the package.
+# This module inherits the original top import block of relational.py; the names it does not
+# use itself are read THROUGH it by its siblings (spine, body, reference, gate_defs, cli) and
+# by the package __init__, so they are declared re-exports in __all__ below, never deleted.
 
 """relational.py — form predicates about RELATIONSHIPS BETWEEN PARTS, and an honest record
 of which of them this cage cannot carry.
@@ -110,6 +111,34 @@ from zyg_workflows.geom.anthro.gates.bands import (
 from zyg_workflows.geom.anthro.gates.engine import run_gates
 from zyg_workflows.geom.anthro.gates.gate import Gate, _result, validate_registry
 from zyg_workflows.geom.anthro.gates.policy import FAIL, HOUSE, MEASURED, MISSING, PASS
+
+# The re-exports: imports this module does not use itself but its siblings read from it
+# (see the note above the import block). Names defined below are reached by name.
+__all__ = [
+    'argparse',
+    'json',
+    'math',
+    'sys',
+    'time',
+    'np',
+    'MS',
+    'IG',
+    'LMK',
+    'ME',
+    'CAL_UNDECLARED',
+    'CAL_VIOLATION_RATE',
+    'SEVERITY_POLICY',
+    'SEVERITY_REJECTION_CEILING',
+    'run_gates',
+    'Gate',
+    '_result',
+    'validate_registry',
+    'FAIL',
+    'HOUSE',
+    'MEASURED',
+    'MISSING',
+    'PASS',
+]
 
 SCHEMA = 'geom.form.relational/1'
 

@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # the original top import block: its names are re-imported by the siblings that use them.
-
 """tts_service.py — the original top import block, the voice seed pool re-exports and the engine-agnostic tables (lines 9-110 of the pre-split file, verbatim)."""
 
 import json
@@ -43,6 +41,26 @@ from zyg_workflows.voice_pool import (
 import logging as _zyg_logging
 from zyg_workflows import paths
 from zyg_workflows.bin import exe
+
+# The original top import block: these names are re-imported from here by the
+# siblings that use them (shared, engines, asr, text), so they stay re-exports.
+__all__ = [
+    'json',
+    'shutil',
+    'subprocess',
+    'time',
+    'gui_state',
+    '_register_subproc',
+    '_finish_subproc',
+    '_DEMONET_TIER1',
+    '_DEMONET_TIER2',
+    '_DEMONET_TIER3_TITLE',
+    '_TITLE_SYNONYMS',
+    '_SEED_POOL_DIR',
+    '_voice_seed_for',
+    'paths',
+    'exe',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.tts_service')

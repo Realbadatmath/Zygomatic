@@ -2,20 +2,15 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module inherits the original top import block; its
-# siblings re-import what they use, so several names here are 'unused' locally.
 """The kanban stage maps and the department -> stage-map step.
 
 Moved verbatim from ``bp_pipeline_api_steps.py`` lines 25-529 by the
 2026-10-06 modularization split.
 """
 
-import json
 import logging as _zyg_logging
-import os
 
 from zyg_workflows import paths
-from zyg_workflows.bin import exe
 from zyg_workflows.char_state_service import (
     _char_derive_pipeline_stage,
     _contact_sheet_derive_stage,
@@ -23,6 +18,21 @@ from zyg_workflows.char_state_service import (
     _normalize_char_model_family,
 )
 from zyg_workflows.pipeline_common import _parse_pipeline_model_family
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# The private helpers above came with the pre-split top import block and this
+# file does not read them itself; they stay because the siblings re-import the
+# block off each other. Declaring them is what makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour. `json`, `os` and `zyg_workflows.bin.exe` are gone: every
+# sibling that needs them imports them itself.
+__all__ = [
+    '_char_derive_pipeline_stage',
+    '_contact_sheet_derive_stage',
+    '_creature_derive_pipeline_stage',
+    '_normalize_char_model_family',
+    '_parse_pipeline_model_family',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_dashboard.bp_pipeline_api_steps')

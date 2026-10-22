@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module inherits the original top import block; its
-# siblings re-import what they use, so several names here are 'unused' locally.
 """The constants and the first half of the ``FIELDS`` registry.
 
 Moved verbatim from ``character_studio.py`` lines 36-419 by the 2026-10-06
@@ -13,11 +11,9 @@ appended by ``fields_new``.
 
 from __future__ import annotations
 
-import json
 import os
 import re
-import time
-from typing import Any, Optional
+from typing import Any
 import logging as _zyg_logging
 
 from zyg_workflows import paths

@@ -7,18 +7,13 @@
 Moved verbatim out of regions.py; see the package __init__ for the full rationale.
 """
 
-# ruff: noqa: F401
-# F401: this module inherits the original top import block; the siblings re-import what they use
-# __all__ names only what this module actually defines. The original module's other public
-# names live in the sibling modules and are re-exported by the package __init__, which is
-# where every caller reads them — listing them here again would just be an F822.
+# The stdlib names of the original top import block that nothing here and no sibling reads
+# through this module (hashlib/json/sys/tempfile/time) are gone; the siblings import their
+# own. __all__ names only what this module actually defines — the original module's other
+# public names live in the sibling modules and are re-exported by the package __init__,
+# which is where every caller reads them.
 
-import hashlib
-import json
 import os
-import sys
-import tempfile
-import time
 
 import numpy as np
 

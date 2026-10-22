@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 # F401: this module inherited the original top import block of run_logbook.py. Every name
 # in it is re-exported by the package __init__ and imported by the sibling
 # sections, so nothing here may be pruned as unused.
@@ -17,7 +16,6 @@ from __future__ import annotations
 import json
 import os
 import shutil
-import sys
 import time
 import logging as _zyg_logging
 

@@ -5,9 +5,11 @@
 """Imports, path constants, the default config and the global lock.
 
 Moved verbatim from session_tree_server.py lines 42-128.
-"""
 
-# ruff: noqa: F401
+This is the package's shared import surface: every sibling module imports the
+stdlib names it needs from here rather than importing them again, so the names
+this module does not use itself are re-exports — see __all__ at the bottom.
+"""
 
 import glob
 import ipaddress
@@ -93,3 +95,19 @@ DEFAULT_CONFIG = {
 }
 
 LOCK = threading.RLock()
+
+# Imports this module holds for its siblings rather than for itself.
+__all__ = [
+    'BaseHTTPRequestHandler',
+    'ThreadingHTTPServer',
+    'datetime',
+    'glob',
+    'json',
+    'parse_qs',
+    're',
+    'shutil',
+    'subprocess',
+    'time',
+    'urlparse',
+    'uuid',
+]

@@ -2,8 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module keeps the original top import block for its siblings and the package
-
+# This module keeps the original top import block for its siblings and the package.
 import json
 import os
 import subprocess
@@ -13,6 +12,10 @@ import logging as _zyg_logging
 
 from zyg_workflows import paths
 from zyg_workflows.bin import exe
+
+# Re-exported for the siblings, which read it back out of this module
+# (ownership.py: ``from zyg_workflows.continuity_qc.models import … json, os, paths …``).
+__all__ = ['json']
 
 
 # Hugging Face revision for every from_pretrained/download in this module. 'main' is the

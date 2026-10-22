@@ -7,7 +7,6 @@ from __future__ import annotations
 # This module inherits nomologin.py's own top import block verbatim, so every name the
 # single file exposed as an attribute still resolves. Names used only by sibling sections
 # are therefore 'unused' here on purpose.
-# ruff: noqa: F401
 import base64
 import binascii
 import hashlib
@@ -16,12 +15,9 @@ import json
 import logging as _zyg_logging
 import os
 import re
-import shutil
 import socket
 import struct
 import subprocess
-import sys
-import tarfile
 import time
 from datetime import datetime, timezone
 
@@ -31,7 +27,6 @@ from zyg_zero import paths as _zero_paths
 # directory up, and the sibling scripts it launches still live there.
 HERE = str(_zero_paths.PKG_DIR)
 
-from zyg_zero import nomologin_proxy as np  # noqa: E402
 from zyg_zero import nomologin_sites as ns  # noqa: E402
 
 # channel kept from the pre-split module

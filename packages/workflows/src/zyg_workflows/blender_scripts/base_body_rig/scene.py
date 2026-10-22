@@ -9,7 +9,7 @@ Holds the original module's own import block, so every path constant
 import with its argv guard execute here, first and once.
 """
 
-# ruff: noqa: F401  # the original top import block is re-exported to the siblings
+# The original top import block is re-exported to the siblings; see __all__ below.
 
 import argparse
 import bisect
@@ -59,6 +59,62 @@ try:
     import proxy_actor as PA  # noqa: E402
 finally:
     sys.argv = _REAL_ARGV
+
+# What the siblings and the old flat module read off this module: the inherited
+# import block first, then this section's own constants and helpers.
+__all__ = [
+    'argparse',
+    'bisect',
+    'json',
+    'math',
+    'os',
+    'sys',
+    'tempfile',
+    'time',
+    'bpy',
+    'Matrix',
+    'Vector',
+    'BVHTree',
+    'paths',
+    '_zyg_logging',
+    '_zyg_log',
+    'PA',
+    'HERE',
+    'CREWS',
+    'SRC_BLEND',
+    'DEFAULT_OUT',
+    'BODIES',
+    'BONE_RENAME',
+    'CENTRE_BONES',
+    'MIRROR_PAIRS',
+    'TIP_TAILS',
+    'HEIGHT_FRACTIONS',
+    'ARM_FRACTION',
+    'ARM_LENGTH_FRACTION',
+    'FOREARM_RATIO',
+    'ELBOW_FRACTION',
+    'WRIST_FRACTION',
+    'SLICE_BAND',
+    'CLUSTER_GAP',
+    'UV_MARGIN',
+    'ARM_SLICE_FRAC',
+    'MIRROR_TOL',
+    'GROUND_TOL',
+    'INSIDE_MARGIN',
+    'VIEW_W',
+    'VIEW_H',
+    'MAX_BLEND_MB',
+    'parse_args',
+    'clear_scene',
+    'activate',
+    'apply_transforms',
+    'local_verts',
+    'bbox',
+    'append_objects',
+    'tag_group',
+    'facing_sign',
+    'prepare_base',
+]
 
 BODIES = {
     'male_realistic': {'object': 'GEO-body_male_realistic', 'gender': 1.0},

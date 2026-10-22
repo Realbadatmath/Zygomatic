@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 """RIDGE / STRIP / PIT relief — the curve primitive, and the honest re-probe it enables.
 
 WHY THIS MODULE EXISTS
@@ -346,4 +345,38 @@ __all__ = [
     'FAT_INVARIANT_PROBES',
     'AFS_P63_UNPROBED_ON_BODY',
     'AFS_P63_SOURCE',
+    # the original top import block and the section modules' own names, re-exported
+    # so `ridge.<name>` resolves exactly as it did before the split
+    'hashlib',
+    'np',
+    'CV',
+    '_zyg_logging',
+    '_zyg_log',
+    '_require',
+    'RIDGE_ALONG_WIDENING',
+    '_VERDICT_MEANING',
+    '_GRAPH_CACHE',
+    '_mesh_key',
+    '_station_distances',
+    '_group_distance',
+    '_score_profile',
+    '_anisotropic_enabled',
+    '_tangent_frame',
+    '_score',
+    '_SHELL_CACHE',
+    '_skin_mask',
+    '_pool_of_size',
+    '_hist',
+    '_discrete_min_run',
+    '_empty_window_evidence',
+    '_resolution_contract',
+    '_max_disjoint',
+    '_shared_peak_vertices',
+    '_infer_scope',
+    '_classify_probe',
+    '_ridge_grid',
+    '_fmt_res',
+    '_n',
+    '_pct',
+    'main',
 ]

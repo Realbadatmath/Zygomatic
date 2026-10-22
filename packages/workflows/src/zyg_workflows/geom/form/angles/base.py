@@ -5,10 +5,10 @@
 """angles.py imports, the printed CANON bands, the HOUSE constants and the
 frame/context helpers every section below is built on."""
 
-# ruff: noqa: F401
-#   F401: this module inherits angles.py's original top import block byte-for-byte;
-#         argparse/json/math/time are re-imported by the sibling sections that use
-#         them, and deleting them here would edit a range promised byte-for-byte.
+# This module inherits angles.py's original top import block byte-for-byte. The names it
+# does not use itself are read THROUGH it by the sibling sections (aggregate imports
+# argparse/json/os/sys/time/ME, face/eyes/nose_ear/trunk_limb import math), so they are
+# declared re-exports in __all__ below rather than deleted.
 
 import argparse
 import json
@@ -28,6 +28,17 @@ import logging as _zyg_logging
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.geom.form.angles')
+
+# Imports the sibling sections read through this module (see the note above the import
+# block). Everything this module defines itself is reached by name, never by `import *`.
+__all__ = [
+    'argparse',
+    'json',
+    'math',
+    'sys',
+    'time',
+    'ME',
+]
 
 
 SCHEMA = 'geom.form.angles/1'

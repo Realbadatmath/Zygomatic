@@ -7,8 +7,6 @@ Moved verbatim out of bp_zero.py (original lines 444-745) by the 2026-10-06
 modularization wave; zero logic edits.
 """
 
-# ruff: noqa: F401
-#   F401: this module also holds imports its siblings in this package re-import.
 from zyg_dashboard.bp_zero.constants import (
     OLLAMA_AVAILABLE,
     Ollama,
@@ -37,6 +35,16 @@ from zyg_dashboard.bp_zero.classify import (
     _zero_gather_context,
     _zero_get_model,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# This module inherits the pre-split top import block. `_zyg_pkg_dir` is the
+# only name in it this file does not read itself; it is kept here because the
+# package's modules re-import the block off each other. Declaring it is what
+# makes the re-export deliberate rather than an unused import; nothing does
+# ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    '_zyg_pkg_dir',
+]
 
 
 @limiter.limit('60/hour')

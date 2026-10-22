@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401  # this module carries the original top import block verbatim,
-# re-exported by __init__.py so wan/blockout-style attribute access still resolves.
-
 """storyteller_scene_service_steps.py — the stages of build_scene, one per step.
 
 A pure extraction of storyteller_scene_service.build_scene's body, which had
@@ -35,6 +32,21 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 from zyg_workflows import provenance_seal as _seal
 from zyg_workflows.bin import exe
+
+# This module carries the original top import block verbatim; __init__.py and the
+# sibling sections re-import these names from here, so attribute access such as
+# storyteller_scene_service_steps.os keeps resolving.
+__all__ = [
+    'json',
+    'math',
+    'subprocess',
+    'np',
+    'Image',
+    'ImageEnhance',
+    'ImageFilter',
+    '_seal',
+    'exe',
+]
 
 # channel kept from the pre-split module
 _zyg_log = logging.getLogger('zyg_workflows.storyteller_scene_service_steps')

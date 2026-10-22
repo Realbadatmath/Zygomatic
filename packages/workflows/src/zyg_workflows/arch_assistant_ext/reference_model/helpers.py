@@ -4,7 +4,6 @@
 # This module inherits the original file's top import block verbatim; some of those
 # imports are used only by its sibling modules, which import them from here, so F401
 # must not strip them out of a range that is promised byte-for-byte.
-# ruff: noqa: F401
 
 """reference_model — the assistant's door to the REFERENCE MODELS (2026-09-23).
 
@@ -69,6 +68,29 @@ import logging as _zyg_logging
 
 from zyg_workflows import paths
 from zyg_workflows.paths import ZYG_TMP_DIR, tmp_dir
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: the sibling
+# modules of the 2026-10 split re-import them from here, which is why the
+# verbatim import block was kept. Declaring them makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour.
+__all__ = [
+    'glob',
+    'json',
+    're',
+    'shutil',
+    'subprocess',
+    'sys',
+    'time',
+    'MAX_OBJECTS',
+    'Drawing',
+    '_num',
+    'cell_centre',
+    'cell_name',
+    'parse_cell',
+    'place_height',
+]
 
 #: The ``zyg_workflows`` package directory: the builder script and the work tree hang off it.
 HERE = str(paths.PKG_DIR)

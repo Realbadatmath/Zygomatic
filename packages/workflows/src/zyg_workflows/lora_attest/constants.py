@@ -76,14 +76,17 @@ non-commercial weights. Nothing here writes a pixel into a delivered frame.
 
 from __future__ import annotations
 
-# ruff: noqa: F401
-
 import hashlib
 import json
 import os
 import time
 from zyg_workflows.bin import exe
 from zyg_workflows import paths
+
+# Re-export surface: these four are imported here and not used in this module —
+# pins.py, gate.py, ab_probe.py and __init__.py read them off it
+# (``from zyg_workflows.lora_attest.constants import hashlib, json, time, exe``).
+__all__ = ['hashlib', 'json', 'time', 'exe']
 
 _HERE = str(paths.PKG_DIR)
 _RUNTIME_DIR = str(paths.DATA_DIR / 'runtime')

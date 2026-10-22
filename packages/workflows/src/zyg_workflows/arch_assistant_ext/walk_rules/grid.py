@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
 #   the original top-level import block lives here verbatim; its siblings
 #   re-import from it, so nothing in it is unused.
 
@@ -14,6 +13,16 @@ from collections import deque
 from zyg_workflows import arch_assistant as A
 from zyg_workflows.arch_assistant import Drawing, _num
 import logging as _zyg_logging
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: the sibling
+# modules of the 2026-10 split re-import them from here, which is why the
+# verbatim import block was kept. Declaring them makes the re-export deliberate
+# rather than an unused import; nothing does ``import *`` from here, so __all__
+# changes no behaviour.
+__all__ = [
+    'Drawing',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_workflows.arch_assistant_ext.walk_rules')

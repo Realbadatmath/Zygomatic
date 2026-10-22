@@ -71,8 +71,6 @@ Fail-closed but false, and false in the direction that hides work that was actua
     is MORE FAVOURABLE than the verdict this run produced, says so in those words.
 """
 
-# ruff: noqa: F401
-
 import argparse
 import json
 import os

@@ -7,19 +7,6 @@
 Moved verbatim out of build_reference.py; see the package __init__ for the full rationale.
 """
 
-# ruff: noqa: F401
-# F401: this module inherits the original top import block; the siblings re-import what they use
-
-import argparse
-import csv
-import hashlib
-import json
-import os
-import shutil
-import time
-
-import numpy as np
-
 from zyg_workflows import paths as _paths
 
 ROOT = str(_paths.DATA_DIR / 'assets' / 'anthro_reference')

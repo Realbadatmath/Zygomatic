@@ -2,13 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401
-#   The old module's ENTIRE top import block travels here unchanged, including the
-#   names only later sections use (hashlib, io, json, shutil, threading, time,
-#   urllib, uuid). Pruning it would be the one thing this split must not do --
-#   rewrite the file's own characters -- and every name stays reachable as
-#   creature_fx.<name> regardless, because __init__.py re-does the same block.
-#
 #   HERE below is the ONE line of the old file that could not travel verbatim:
 #   creature_fx.py sat directly in zyg_workflows/, so dirname(__file__) WAS the
 #   directory that owns data/. This module sits one level deeper and climbs back
@@ -21,16 +14,8 @@ Moved verbatim out of the old single-file creature_fx.py (lines 58-258).
 
 from __future__ import annotations
 
-import hashlib
-import io
-import json
 import os
 import re
-import shutil
-import threading
-import time
-import urllib.parse
-import uuid
 import logging as _zyg_logging
 
 from zyg_workflows import paths

@@ -25,7 +25,6 @@ Column fields: id, label, hint, unit, higher_better (hb), group.
 that cell's evidence. Add, don't rename.
 """
 
-# ruff: noqa: F401
 # A package since 2026-10-06: the single 2,381-line file was cut at its own section
 # banners. Submodules are imported in the EXACT original section order so the
 # module-level DOMAIN/BANKS mutations still run in that order, and every name the old
@@ -60,3 +59,37 @@ from zyg_workflows.capabilities_questions.prompt_extra import (
     _s,
     prompt_bank,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name above is read off this module by capabilities_hub and the metrics
+# routes as ``capabilities_questions.X``, never used in this file. Declaring
+# them is what makes the re-export deliberate rather than an unused import;
+# nothing does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    'ALIASES',
+    'DOMAIN',
+    'UNIVERSAL',
+    'q',
+    'domain_story_voice_music',
+    'domain_sfx_image',
+    'domain_video_motion',
+    'EXTRA',
+    'ATTRIBUTES',
+    'AUDIO_CAPACITY',
+    'AUDIO_SUBJECTS',
+    'BANKS',
+    'COUNTING',
+    'SPATIAL',
+    'SUBJECTS',
+    '_banks',
+    'audio_bank',
+    'capacity_bank',
+    'subject_bank',
+    'PROMPT_DAMAGE',
+    'PROMPT_EXTRA',
+    'PROMPT_GROUPS',
+    'PROMPT_KIND',
+    '_k',
+    '_s',
+    'prompt_bank',
+]
