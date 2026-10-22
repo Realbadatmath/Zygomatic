@@ -60,9 +60,11 @@ proportion rules (a mountain 0.25-1.0 x its radius, a mesa 0.8, a ridge 0.8 x
 its width, a valley 0.4 x its width deep) are refusals in BOTH modes.
 """
 
-# ruff: noqa: F401, E402 — this package IS the re-export surface of the old
-# single file: every name it defined must stay an attribute of the same
-# import path, and the submodule imports sit below the shared top block.
+# ruff: noqa: E402
+# This package IS the re-export surface of the old single file: every name it
+# defined must stay an attribute of the same import path.
+# E402: the submodule imports sit below this package's own KINDS / OPENINGS /
+# PROMPT definitions, which is the order the single file had.
 
 from __future__ import annotations
 
@@ -164,3 +166,72 @@ from .catalog import (
     TOOLS,
     EXAMPLES,
 )
+
+__all__ = [
+    'math',
+    'Drawing',
+    'parse_cell',
+    'cell_centre',
+    'cell_name',
+    'block_bounds',
+    'MATERIALS',
+    'MAX_OBJECTS',
+    '_num',
+    'place_height',
+    'KINDS',
+    'OPENINGS',
+    'PROMPT',
+    '_hash',
+    'value_noise',
+    'mountain_lattice',
+    'range_lattice',
+    'ridge_crest',
+    'peak_scale',
+    'snow_ceiling',
+    'peak_radius',
+    '_LAT_CACHE',
+    '_cached',
+    '_bilinear',
+    'h_mountain',
+    'h_mountain_range',
+    'h_ridge',
+    'h_volcano',
+    'h_mesa',
+    'h_valley',
+    'HEIGHTS',
+    '_STYLES',
+    'MAX_R',
+    'MIN_R',
+    'MAX_H',
+    'MAX_BLOCK',
+    'SNOW_MIN_SUMMIT',
+    'SNOW_AUTO_LINE',
+    'NO_SNOW',
+    'MOUNT_MAX_SLOPE',
+    'MOUNT_MIN_SLOPE',
+    'MESA_MAX_SLOPE',
+    'RIDGE_MAX_SLOPE',
+    'VALLEY_MAX_DEPTH',
+    'VALLEY_DEF_DEPTH',
+    'RANGE_DEF_HEIGHT',
+    'SCULPT_FEATHER',
+    'RANGE_SPREAD',
+    'SCULPT_MAT',
+    'has_ground',
+    'ground_of',
+    'sculpt_y',
+    'ground_snow_words',
+    'SOLID_WORDS',
+    'SCULPT_WORDS',
+    '_mat',
+    '_bad_size',
+    '_res_for',
+    'resolve_snow',
+    '_snow_words',
+    't_add_mountain',
+    't_add_mountain_range',
+    't_add_ridge',
+    't_add_valley',
+    'TOOLS',
+    'EXAMPLES',
+]

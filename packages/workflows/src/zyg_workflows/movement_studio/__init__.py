@@ -35,15 +35,10 @@ motions became forty, each with its own icon, each a real prompt string. That
 list is the "movement library" the rest of the console modifies.
 """
 
-# ruff: noqa: E402,F401
-
 import json
 import os
 import logging as _zyg_logging
 from zyg_workflows import paths
-
-_zyg_log = _zyg_logging.getLogger(__name__)
-
 
 from zyg_workflows.movement_studio.options import (
     HERE,
@@ -133,3 +128,89 @@ from zyg_workflows.movement_studio.presets import (
     preset_delete,
     spec,
 )
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+
+# ── re-export surface ─────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: this file
+# exists so that ``zyg_workflows.movement_studio.<name>``
+# resolves exactly as it did on the pre-split single-file module.
+# Nothing does ``import *`` from here.
+__all__ = [
+    'json',
+    'os',
+    'paths',
+    'HERE',
+    '_OUT_ROOT',
+    '_PRESET_DIR',
+    '_LORA_ROOT',
+    '_lora_options',
+    '_lora2_options',
+    '_object_options',
+    '_plate_view_options',
+    '_SHOTS_ROOT',
+    '_plateset_options',
+    'RESOLUTIONS',
+    'ACTIONS_LIB',
+    '_ACTION_BY_ID',
+    'action_prompt',
+    'racks_bar_motion',
+    'racks_bar_language',
+    'racks_rail',
+    'RACKS',
+    'ACTIONS',
+    '_PARAMS',
+    'defaults',
+    'sanitize',
+    'nondefault',
+    '_SPEED',
+    '_INTENSITY',
+    '_AMPLITUDE',
+    '_STYLE',
+    '_EASING',
+    '_REPEAT',
+    '_HOLD_START',
+    '_HOLD_END',
+    '_DIRECTION',
+    '_DISTANCE',
+    '_FACING',
+    '_SCALE',
+    '_GROUND',
+    '_LEAD',
+    '_HEAD',
+    '_GAZE',
+    '_MOUTH',
+    '_HANDS',
+    '_POSTURE',
+    '_BREATH',
+    '_WEIGHT',
+    '_clauses',
+    '_decorate',
+    'compose_prompt',
+    'lora_chain',
+    '_pin_regions',
+    'plateset_dir',
+    'plateset_meta',
+    'still_for',
+    'render_kwargs',
+    '_PLATE_DIR',
+    '_PLATE_KINDS',
+    '_plate_log',
+    'resolve_view',
+    'build_plate',
+    '_typed_box',
+    'auto_box',
+    'prop_plates',
+    'plate_chip',
+    '_is_frame_dir',
+    'control_kwargs',
+    '_ENV_KEYS',
+    'env_overrides',
+    'presets',
+    '_safe_name',
+    'preset_load',
+    'preset_save',
+    'preset_delete',
+    'spec',
+]

@@ -74,7 +74,6 @@ page_quad from shot_metadata.json, lines=5, 5.0-12.5s), v2 -> v3:
                                               was damping)
 """
 
-# ruff: noqa: E402,F401
 import glob
 import json
 import os
@@ -86,8 +85,6 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 import logging as _zyg_logging
 from zyg_workflows.bin import exe
-
-_zyg_log = _zyg_logging.getLogger(__name__)
 
 from zyg_workflows.ink_fx import tunables as tunables
 from zyg_workflows.ink_fx import write_on as write_on
@@ -129,3 +126,19 @@ from zyg_workflows.ink_fx.occlusion import _matte_signature as _matte_signature
 from zyg_workflows.ink_fx.occlusion import occlusion_matte as occlusion_matte
 from zyg_workflows.ink_fx.compositor import page_rigid_drift_px as page_rigid_drift_px
 from zyg_workflows.ink_fx.compositor import composite_write_on_quad as composite_write_on_quad
+
+__all__ = [
+    'glob',
+    'json',
+    'os',
+    'shutil',
+    'subprocess',
+    'tempfile',
+    'np',
+    'Image',
+    'ImageDraw',
+    'ImageFilter',
+    'exe',
+]
+
+_zyg_log = _zyg_logging.getLogger(__name__)

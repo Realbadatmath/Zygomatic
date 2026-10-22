@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401,E402
 """Signed surface relief on the anny quad cage — the substrate every FORM predicate stands on.
 
 WHY THIS MODULE EXISTS
@@ -79,8 +78,6 @@ import numpy as np
 from zyg_workflows.geom.anthro import integrity as _integrity
 import logging as _zyg_logging
 
-_zyg_log = _zyg_logging.getLogger(__name__)
-
 from zyg_workflows.geom.form.curvature.topology import (
     _require,
     DELIVERED_DIAGONAL,
@@ -126,6 +123,8 @@ from zyg_workflows.geom.form.curvature.selftest import (
     main,
 )
 
+_zyg_log = _zyg_logging.getLogger(__name__)
+
 __all__ = [
     'delivered_triangles',
     'vertex_adjacency',
@@ -153,4 +152,22 @@ __all__ = [
     'COLLAR_GAP_FRAC',
     'COLLAR_WIDTH_FRAC',
     'COLLAR_MAX_TILT_DEG',
+    'hashlib',
+    'os',
+    'sys',
+    'weakref',
+    'np',
+    '_integrity',
+    '_require',
+    '_FACE_EDGE_CACHE',
+    '_FACE_EDGE_STATS',
+    'ZYG_FACE_EDGE_CACHE',
+    '_face_edges',
+    'face_edge_cache_stats',
+    'COLLAR_MIN_VERTS',
+    '_triangle_terms',
+    '_footprint_reach',
+    '_quad_grid',
+    '_cube_sphere',
+    'main',
 ]

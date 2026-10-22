@@ -30,9 +30,6 @@ import logging as _zyg_logging
 from zyg_workflows import contact_sheet_pipeline as _csp
 from zyg_workflows import provenance_seal as _seal
 
-_zyg_log = _zyg_logging.getLogger(__name__)
-
-# ruff: noqa: E402,F401
 # The submodules are imported in the original section order of the pre-split file.
 from .anchor_ctx import AnchorCtx, _reinstall_anchor, _anchor_style_check, _dedup_candidates, _dedup_most_similar
 from .anchor_identity_gates import step_anchor_face, step_style_gate, step_skin_luminance_gate
@@ -80,3 +77,78 @@ from .pipeline_training import (
     step_qc_safety_valve,
     step_finish_bible,
 )
+
+
+# Every name below is imported above and not used in this module: this package
+# IS the re-export surface of the pre-split module, so the imports are the
+# deliberate public surface, not dead weight.  Nothing does ``import *`` from
+# here, so __all__ changes no behaviour.
+__all__ = [
+    'json',
+    'os',
+    'shutil',
+    'uuid',
+    'dataclass',
+    'Any',
+    'Callable',
+    '_csp',
+    '_seal',
+    'AnchorCtx',
+    '_reinstall_anchor',
+    '_anchor_style_check',
+    '_dedup_candidates',
+    '_dedup_most_similar',
+    'step_anchor_face',
+    'step_style_gate',
+    'step_skin_luminance_gate',
+    'step_dedup_gate',
+    'step_attribute_gate',
+    '_attr_sync_verdict',
+    'step_dedup_recheck',
+    'step_structure_gate',
+    'step_profile_anchor',
+    'step_body_anchor',
+    'run_anchor_gates',
+    'CellRun',
+    'step_engine_gate',
+    'step_build_cell_plan',
+    'step_cell_conditioning',
+    'step_identity_locks',
+    'step_cells_dir',
+    'step_resume_cell',
+    'step_cell_prompt',
+    'step_cell_gen_kwargs',
+    'step_closeup_crop',
+    'run_cell0_gates',
+    'step_finalize_sheet',
+    'step_expansion_manifest',
+    'scaled_budget',
+    'needs_regen',
+    'step_regen_circuit_breaker',
+    'step_vlm_judge',
+    'step_regen_drifted',
+    'step_texture_qc',
+    'step_dataset_exclusions',
+    'step_drift_gate',
+    'step_qc_summary',
+    '_MANIFEST_RESERVED',
+    'PIPELINE_STAGE_ORDER',
+    'emit_log',
+    'skip_before',
+    'park_for_operator',
+    'step_idqc_preflight',
+    'step_persist_sheet_manifest',
+    'step_sheet_approval',
+    'step_qc_backstop',
+    'step_qc_pass_rate_valve',
+    'step_captions',
+    'step_dataset_review',
+    'step_lora_training',
+    'step_lora_flywheel',
+    '_step_sdxl_flywheel_refine',
+    'step_checkpoint_sweep',
+    'step_qc_safety_valve',
+    'step_finish_bible',
+]
+
+_zyg_log = _zyg_logging.getLogger(__name__)

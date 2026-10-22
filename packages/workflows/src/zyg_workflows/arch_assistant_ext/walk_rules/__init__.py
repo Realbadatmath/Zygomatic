@@ -2,10 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401
-#   E402: the submodule imports follow the original top-level import block, which this
-#         file re-does verbatim so old attribute reads (walk_rules.math, .A) still resolve.
-#   F401: this file re-exports every name the single module defined.
+# The submodule imports follow the original top-level import block, which this file
+# re-does verbatim so old attribute reads (walk_rules.math, .A) still resolve; this file
+# re-exports every name the single module defined (see __all__ at the end).
 
 """walk_rules — can a person WALK it? (2026-09-16)
 
@@ -144,3 +143,89 @@ from .checks import (
     _without,
     check_walkable,
 )
+
+# Every name below is imported above and NOT used in this module: this package is the
+# re-export surface of the split, so the names are its public API.  Nothing does
+# ``import *`` from here, so __all__ changes no behaviour -- it tells ruff the imports
+# are deliberate.
+__all__ = [
+    'math',
+    'deque',
+    'A',
+    'Drawing',
+    '_num',
+    '_zyg_logging',
+    'BLOCK_KINDS',
+    'BODY_HI',
+    'BODY_LO',
+    'BODY_M',
+    'CELL',
+    'DECK_KINDS',
+    'DOOR_KINDS',
+    'DOOR_REACH',
+    'ERODE',
+    'FLOOR_TOL',
+    'KINDS',
+    'LANDING_M',
+    'MAX_CELLS',
+    'MAX_FINDINGS',
+    'NEVER_BLOCK',
+    'OBJ_REACH',
+    'OPENINGS',
+    'PAD',
+    'POLE_KINDS',
+    'POLE_M',
+    'PROMPT',
+    'ROOF_PLANT',
+    'SHAFT_KIND',
+    'SIDE_SHORT',
+    'SLACK',
+    'SQUEEZE_M',
+    'SQUEEZE_SLACK',
+    'STAIR_KINDS',
+    'TOOLS',
+    'WALL_KINDS',
+    '_Grid',
+    '_cap',
+    '_fill',
+    '_lbl',
+    '_mod',
+    '_p',
+    '_zyg_log',
+    'block_kinds',
+    'OBB_MAX_CELLS',
+    'SQUARE_TOL',
+    '_Building',
+    '_cores',
+    '_deck_is_used',
+    '_deck_targets',
+    '_door_rects',
+    '_entrance_doors',
+    '_ground_fn',
+    '_grow',
+    '_head_house_door',
+    '_host_of',
+    '_landing_rect',
+    '_obb_of',
+    '_p_str',
+    '_room_doors',
+    '_rot_rect',
+    '_stair_height',
+    '_storey_grid',
+    '_vspan',
+    'DESIGN_CHECKS',
+    'MAX_TRY',
+    '_blocker',
+    '_candidates',
+    '_cell_name',
+    '_in_front',
+    '_pinch',
+    '_reach',
+    '_skip_ids',
+    '_stop_point',
+    '_walk_group',
+    '_walk_storey',
+    '_walkable',
+    '_without',
+    'check_walkable',
+]

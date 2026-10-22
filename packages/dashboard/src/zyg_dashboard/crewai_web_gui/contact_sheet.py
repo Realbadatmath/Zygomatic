@@ -12,8 +12,8 @@ only a running dashboard has, the start-payload parser,
 ``_contact_sheet_launch_run`` and the character-preview sweep state.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: every name here is read back off zyg_dashboard.crewai_web_gui by the
+# bp_* blueprints.
 # (_CHAR_DEFAULT_MODEL_FAMILY is imported above and then re-bound at the bottom, which is what
 # the original single module did to its own global. It is read before the re-binding, so that
 # is not an F811 and needs no suppression.)

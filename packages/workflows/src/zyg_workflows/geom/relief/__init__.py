@@ -136,7 +136,6 @@ WHAT DOES NOT WORK, MEASURED, AND NOT FIXED BY MOVING A THRESHOLD.
       threshold change recovers a feature the cage has no vertices to carry.
 """
 
-# ruff: noqa: E402, F401
 # Pattern A package: relief.py was split at its own section banners into constants.py, primitives.py, anchors.py, layer.py, selftest.py.
 # The import path is unchanged, the original top import block is re-done below so
 # attribute access on the module keeps working, the submodules are imported in the
@@ -223,6 +222,75 @@ from zyg_workflows.geom.relief.selftest import (
 
 import sys as _sys
 from types import ModuleType as _ModuleType
+
+__all__ = [
+    'sys',
+    'np',
+    '_zyg_logging',
+    'AMP',
+    'ANATOMY_KEY',
+    'ASPECT_MIN_DOT',
+    'CLAVICLE_N_STATIONS',
+    'CLAVICLE_S_AMPLITUDE_FRAC',
+    'CLAVICLE_S_CROSSING',
+    'CONDITIONALS',
+    'CREST_AZIMUTH_DEG',
+    'CREST_DROP_ANTERIOR_FRAC',
+    'CREST_DROP_POSTERIOR_FRAC',
+    'CREST_N_STATIONS',
+    'FACET_CAP_FRAC',
+    'FALLOFF_FRAC',
+    'MALLEOLUS_HEIGHT_OFFSET_FRAC',
+    'MALLEOLUS_LAT_POSTERIOR_FRAC',
+    'MIRROR_TOL_FRAC',
+    'NEWELL_MIRROR_MAX',
+    'NUCHAL_N_STATIONS',
+    'PERP_MAX_FRAC',
+    'PSIS_BELOW_CREST_FRAC',
+    'PSIS_HALF_SEPARATION_FRAC',
+    'SCHEMA',
+    'STATION_SPACING_FRAC',
+    'TIBIAL_FACET_CURVATURE_TARGET_FRAC',
+    'TISSUE_MAX_FRAC',
+    'TISSUE_MIN_FRAC',
+    'ULNAR_BORDER_N_STATIONS',
+    '_zyg_log',
+    'cond_asis',
+    'cond_clavicle',
+    'cond_infraclavicular',
+    'cond_none',
+    'cond_psis',
+    '_check_falloff_inside_collar',
+    'bone_frame',
+    'bone_weights',
+    'bones_for',
+    'field_mirror_residual_m',
+    'mirror_map',
+    'newell_vertex_normals',
+    'symmetrise_field',
+    'verify_bone_frame',
+    '_Ctx',
+    '_build_features',
+    '_clavicle_crest',
+    '_crest_points',
+    '_curve',
+    '_elbow_posterior',
+    '_falloff',
+    '_mirror_seeds',
+    '_pelvis_axis',
+    '_resample',
+    '_snap',
+    '_unit',
+    '_wrist_postero_ulnar',
+    '_facet_project',
+    'apply_relief',
+    'relief_field',
+    'relief_regions',
+    'determinism_check',
+    'main',
+    'measure',
+    'self_test',
+]
 
 _SECTIONS = tuple(
     _sys.modules[__name__ + '.' + _n] for _n in ('constants', 'primitives', 'anchors', 'layer', 'selftest')

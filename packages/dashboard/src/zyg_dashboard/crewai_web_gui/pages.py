@@ -13,8 +13,10 @@ stand, the ``/login`` and ``/`` routes, the dashboard-tab renderer and the
 restore-jobs-from-disk startup pass.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# ruff: noqa: E402  the sys.path setup above the first import must run before it, and
+# ``from zyg_workflows import paths`` on line 60 has no per-line marker of its own.
+# Verbatim move: the original import order is load-bearing, and every name here is read
+# back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
 
 from zyg_dashboard import paths as _dash_paths
 from zyg_dashboard.crewai_web_gui._bootstrap import (
@@ -399,3 +401,28 @@ gui_state._CALIBRATION: dict = {
     'max_cpu_pct': 80.0,  # CPU % ceiling — stages block until CPU drops below
     'max_ram_gb': 56.0,  # RAM ceiling in GB — stages block if used GB >= this
 }
+
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and NOT used in this module: it is read off it by
+# ``zyg_dashboard.crewai_web_gui.__init__`` and from there by the bp_* blueprints.
+# Declaring them is what makes the re-export deliberate rather than an unused import;
+# nothing does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    '_skill_sandbox',
+    '_zyg_workflows_pkg',
+    'Agent',
+    'Crew',
+    'CrewAILLM',
+    'CrewAIController',
+    'OLLAMA_AVAILABLE',
+    'Ollama',
+    'Process',
+    'Task',
+    '_ControlPlaneUnavailable',
+    '_HEAVY_REASONING_KEYWORDS',
+    '_OLLAMA_BASE_URL',
+    '_PREFERRED_MODELS',
+    '_pick_model_for_agent',
+    '_pick_ollama_model',
+]

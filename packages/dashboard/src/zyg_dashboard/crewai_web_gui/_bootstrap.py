@@ -16,8 +16,11 @@ and its ``root_path`` is pinned to ``zyg_dashboard.paths.PKG_DIR`` — the direc
 where ``static/`` and ``templates/`` live.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# ruff: noqa: E402  verbatim move: the original import order is load-bearing. The
+# PYTORCH_CUDA_ALLOC_CONF setup below must run before the imports that reach CUDA, so the
+# imports cannot be hoisted above it.
+# Every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints and
+# is declared in __all__ at the bottom.
 
 from zyg_dashboard import paths as _dash_paths
 
@@ -350,3 +353,106 @@ limiter.init_app(app)
 # Hand the Flask app and the rate limiter to the pipelines' runtime seam. The
 # behavioural hooks follow further down, once the functions they bind exist.
 runtime.register(app=app, limiter=limiter)
+
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and NOT used in this module: it is read off this
+# module by its importers. Declaring them is what makes the re-export deliberate rather
+# than an unused import; nothing does ``import *`` from here, so __all__ changes no
+# behaviour.
+__all__ = [
+    'atexit',
+    'glob',
+    'hashlib',
+    'hmac',
+    'html_module',
+    'importlib',
+    'json',
+    'secrets',
+    'shutil',
+    'sys',
+    'threading',
+    'time',
+    'uuid',
+    'gui_state',
+    'exe',
+    'BIND_HOST',
+    'ZYG_DASHBOARD_URL',
+    'ZYG_OLLAMA_URL',
+    'ZYG_REDIS_URL',
+    'tmp_dir',
+    'requests',
+    'render_template',
+    'request',
+    'jsonify',
+    'send_from_directory',
+    'redirect',
+    'session',
+    'url_for',
+    'get_remote_address',
+    'apply_cors',
+    '_CHANNEL_VOICES_PATH',
+    '_CHAR_DEFAULT_MODEL_FAMILY',
+    '_CLIPFARM_STAGES',
+    '_FLUX_PERF_TELEMETRY_PATH',
+    '_RUNTIME_DIR',
+    '_VOICE_LIBRARY_PATH',
+    '_caveman_kw',
+    '_dsl',
+    '_agent_log',
+    '_char_gen_jobs',
+    '_contact_sheet_jobs',
+    '_creature_gen_jobs',
+    '_load_json',
+    '_reconcile_stale_workflow_jobs',
+    '_runtime_path',
+    '_save_json',
+    '_workflow_jobs',
+    '_workflow_pipeline_worker_alive',
+    '_start_crime_pipeline_internal',
+    '_start_scholarly_pipeline_internal',
+    'API_ADAPTER_AVAILABLE',
+    'API_DEV_MODE',
+    'API_DEV_TOKEN',
+    'BACKEND_DEBUG',
+    'LOGIN_DEBUG',
+    'PAGE_LOAD_DEBUG',
+    'SESSION_VALIDITY_TOKEN',
+    '_backend_debug',
+    '_get_cpu_bar_mapping',
+    '_get_gpu_bar_mapping',
+    '_login_debug',
+    '_page_load_debug',
+    '_read_local_telemetry',
+    '_TELEMETRY_CACHE',
+    'api_get_agents',
+    'create_approval',
+    'get_active_schedule',
+    'get_approval_queue',
+    'get_integrity_gate',
+    'get_job_runs',
+    'get_schedule_pause_state',
+    'get_schedule_requests',
+    'get_security_controls',
+    'get_telemetry',
+    'set_schedule_pause',
+    'submit_schedule_request',
+    'terminate_job_run',
+    'update_security_control',
+    'ZoneInfo',
+    '_AMS_TZ',
+    '_ams_iso',
+    '_ams_now',
+    '_parse_iso_to_ams',
+    'AGENT_ZERO_CONFIG_PATH',
+    'ZERO_AUDIT_PATH',
+    'ZERO_TASK_STATE_PATH',
+    '_ZERO_PUBLIC_TOKEN',
+    '_zero_audit_log',
+    '_zero_load_config',
+    'block_spectator_mutation',
+    '_KB_THREAD_STAGGER_S',
+    '_POSTPROC_SEM',
+    '_GPU_PIPELINE_LOCK',
+    '_rate_limit_key',
+]

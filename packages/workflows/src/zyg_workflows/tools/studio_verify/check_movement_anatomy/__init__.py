@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402,F401
-
 """Proof — Movement Studio draws a REAL BODY over the 31-channel rig.
 
 Headless WebGL through Playwright + SwiftShader at the operator's 67 %-zoom
@@ -105,3 +103,40 @@ from .run import (
 from .cli import (
     main,
 )
+
+# Every name imported above is re-exported, not used here: this package IS the module
+# the split replaced, so `__all__` declares the surface instead of a file-level noqa.
+__all__ = [
+    'json',
+    'os',
+    'sys',
+    'paths',
+    'sync_playwright',
+    '_constants',
+    '_run',
+    '_cli',
+    'BIND',
+    'EC_PROBE',
+    'EC_READY',
+    'EC_TIMEOUT_MS',
+    'GFXQ',
+    'HERE',
+    'PIXEL',
+    'PROBE',
+    'READY_TIMEOUT_MS',
+    'RIG_CHANNELS',
+    'SHOT',
+    'SHOT_HAND',
+    'SHOT_MUSCLE',
+    'SIDE_AXIS',
+    'SIDE_L',
+    'SIDE_R',
+    'SKEL',
+    'SKEL_PIECES',
+    'URL',
+    '_require',
+    'side_of',
+    'wait_for',
+    'run',
+    'main',
+]

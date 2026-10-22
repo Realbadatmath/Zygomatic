@@ -56,7 +56,7 @@ Env knobs:
   ZYG_VLM_KEEP_FRAMES     "1" -> keep the extracted frame tempdir for forensics
 """
 
-# ruff: noqa: F401,E402 -- the package re-exports the pre-split module namespace
+# The package re-exports the pre-split module namespace (declared in __all__ below).
 
 import atexit
 import collections
@@ -127,3 +127,70 @@ from zyg_workflows.vlm_inspector.api import (
     inspect_clip,
     summarize,
 )
+
+
+# The re-exported surface of the pre-split module, in import order: every name
+# here exists only so that `<this module>.<name>` keeps resolving for importers.
+__all__ = [
+    'atexit',
+    'collections',
+    'json',
+    'os',
+    'queue',
+    'subprocess',
+    'sys',
+    'tempfile',
+    'threading',
+    'time',
+    '_zyg_logging',
+    'paths',
+    'exe',
+    'base',
+    'judge_server',
+    'api',
+    '_zyg_log',
+    '_DIR',
+    'VLM_HOME',
+    '_VLM_PY',
+    '_VLM_WORKER',
+    '_MODELS_JSON',
+    '_CHECKLIST_PATH',
+    'BOUNDARY_MODEL',
+    'RESIDENT_MODEL',
+    'CPU_MODEL',
+    'TIER_ORDER',
+    'TIERS',
+    '_ANSWER_YES',
+    '_ANSWER_NO',
+    '_mklog',
+    '_enabled',
+    '_strict',
+    '_skipped',
+    'available',
+    '_models_json',
+    '_as_model_id',
+    'model_for',
+    '_quant_for',
+    '_timeout_for',
+    'load_checklist',
+    '_select_items',
+    '_questions_payload',
+    '_norm_answer',
+    '_PERSIST_DEFAULT_TIERS',
+    '_SERVERS',
+    '_SERVERS_LOCK',
+    '_persist_enabled',
+    '_JudgeServer',
+    '_get_server',
+    '_retire_server',
+    'shutdown_workers',
+    '_run_worker',
+    '_aggregate',
+    '_downshift',
+    'inspect_frames',
+    '_execute',
+    '_clip_duration_s',
+    'extract_frames',
+    'inspect_clip',
+    'summarize',
+]

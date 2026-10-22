@@ -104,7 +104,6 @@ Env knobs:
   ZYG_NATIVE_FPS / ZYG_CONTEXT_STRIDE  render-recipe geometry for seam times
 """
 
-# ruff: noqa: E402, F401
 # Pattern-A package: the original module docstring, top import block and every
 # top-level name it defined are re-exported here, and the section modules are
 # imported in the original section order so module-level side effects still run
@@ -118,8 +117,6 @@ import threading
 import time
 import logging as _zyg_logging
 from zyg_workflows.bin import exe
-
-_zyg_log = _zyg_logging.getLogger(__name__)
 
 from zyg_workflows.vlm_report.constants import (
     _DIR,
@@ -204,3 +201,90 @@ from zyg_workflows.vlm_report.synthesis import (
 )
 from zyg_workflows.vlm_report.markdown_report import _write_markdown
 from zyg_workflows.vlm_report.entry import analyze_render, _cli
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+
+# The re-exported surface of the pre-split module, in import order: every name
+# here exists only so that `<this module>.<name>` keeps resolving for importers.
+__all__ = [
+    'json',
+    'os',
+    'subprocess',
+    'sys',
+    'threading',
+    'time',
+    'exe',
+    '_DIR',
+    'NATIVE_FPS',
+    'CONTEXT_STRIDE_FRAMES',
+    'MIN_CROP_PX',
+    'MAX_LOCALIZE_FRAMES',
+    'SYNTH_TOKENS',
+    'SYNTH_WAIT_S',
+    'LESSONS_PATH',
+    'PIN_HALF',
+    'BOX_PAD',
+    'GROUND_PROMPTS',
+    'ROLE_PIN_ANCHOR',
+    'PERSON_SIDE',
+    'PERSON_FALLBACK',
+    'MAX_OBJECT_AREA',
+    'MAX_PERSON_AREA',
+    'MAX_HAND_AREA',
+    'ITEM_TARGETS',
+    'ITEM_REQUIRES_VISIBLE',
+    'ROLE_SHOWS',
+    'ITEM_BEAT_SCOPED',
+    'item_answerable_on',
+    'first_answerable_target',
+    'VLM_CLASS',
+    'VLM_UNRELIABLE_PASS',
+    'SEVERITY_ORDER',
+    'STATUS_ORDER',
+    '_mklog',
+    '_c01',
+    '_pad_box',
+    '_box_ok',
+    '_iou',
+    '_area',
+    '_union',
+    '_median_box',
+    '_stable_box',
+    '_pick_candidate',
+    '_VramWatch',
+    '_probe',
+    '_default_times',
+    '_seam_pairs',
+    '_decode_times',
+    '_pin_targets',
+    '_ground_targets',
+    '_hand_side_targets',
+    '_merge_targets',
+    '_crop_name',
+    '_make_crops',
+    '_checklist_doc',
+    '_write_subset_checklist',
+    '_ChecklistPath',
+    '_remap_bbox',
+    '_inspect',
+    '_run_inspection',
+    '_flow_regions',
+    '_pixel_metrics',
+    '_release_judges',
+    '_release_detectors',
+    '_new_finding',
+    '_fuse',
+    '_verdict_of',
+    'RELATED_GATE_PREFIXES',
+    '_prior_context',
+    '_append_lessons',
+    '_ledger_write',
+    '_SYNTH_RUNNER',
+    '_fmt_metric_table',
+    '_synthesis_prompt',
+    '_run_synthesis',
+    '_write_markdown',
+    'analyze_render',
+    '_cli',
+]

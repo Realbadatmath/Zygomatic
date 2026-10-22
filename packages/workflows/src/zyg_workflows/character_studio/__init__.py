@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401, E402
 """Character Studio — the editable option surface over a character's own bible.
 
 2026-09-02. Character Studio used to be a preview pane with eleven icons beside
@@ -94,3 +93,54 @@ from .mesh_body import (
     write_candidate,
     resolve_body,
 )
+
+
+# Every name below is imported above and not used in this module: this package
+# IS the re-export surface of the pre-split module, so the imports are the
+# deliberate public surface, not dead weight.  Nothing does ``import *`` from
+# here, so __all__ changes no behaviour.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'time',
+    'Any',
+    'Optional',
+    '_zyg_logging',
+    'paths',
+    'fields_new',
+    '_zyg_log',
+    '_HEX_RE',
+    'CHARS_ROOT',
+    'LORA_ROOT',
+    'MAX_TEXT',
+    'MAX_EDITS',
+    'FIELDS',
+    'SECTIONS',
+    'LOCK_FIELD',
+    'MIRRORS',
+    '_get',
+    '_set',
+    '_coerce',
+    '_locked_paths',
+    '_FAMILIES',
+    '_stat',
+    'derived',
+    '_dir_bytes',
+    '_cbs',
+    'spec',
+    '_values',
+    'read',
+    'edit',
+    'MESH_ROOT',
+    'CANDIDATES',
+    'BODY_AXES',
+    '_mesh_registry',
+    '_roster',
+    '_key_is_real',
+    'candidate_path',
+    'load_candidate',
+    'body_axes',
+    'write_candidate',
+    'resolve_body',
+]

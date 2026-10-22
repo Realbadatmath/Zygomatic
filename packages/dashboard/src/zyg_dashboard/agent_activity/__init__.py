@@ -36,7 +36,6 @@ Nothing here talks to the network, and nothing here can steer a run — it reads
 
 from __future__ import annotations
 
-# ruff: noqa: E402,F401
 import glob
 import json
 import os
@@ -47,15 +46,6 @@ import threading
 import time
 from collections import deque
 from datetime import datetime, timezone
-
-try:
-    import psutil
-except Exception:  # pragma: no cover
-    psutil = None
-import logging as _zyg_logging
-
-_zyg_log = _zyg_logging.getLogger(__name__)
-
 from zyg_dashboard.agent_activity import tunables as tunables
 from zyg_dashboard.agent_activity import sampler as sampler
 from zyg_dashboard.agent_activity import transcripts as transcripts
@@ -136,3 +126,30 @@ from zyg_dashboard.agent_activity.transcripts import _parse_transcript_lines as 
 from zyg_dashboard.agent_activity.transcripts import _transcript_items as _transcript_items
 from zyg_dashboard.agent_activity.api import snapshot as snapshot
 from zyg_dashboard.agent_activity.api import session_tail as session_tail
+
+try:
+    import psutil
+except Exception:  # pragma: no cover
+    psutil = None
+import logging as _zyg_logging
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+
+# ── re-export surface ──
+# Every name below is imported above and NOT used in this module; it is here so
+# importers keep resolving it through this module. Nothing does ``import *`` from
+# here, so __all__ changes no behaviour -- it is how ruff is told these are public.
+__all__ = [
+    'glob',
+    'json',
+    'os',
+    're',
+    'shutil',
+    'subprocess',
+    'threading',
+    'time',
+    'deque',
+    'datetime',
+    'timezone',
+]

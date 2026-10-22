@@ -33,10 +33,14 @@ rest of the episode.
 
 from __future__ import annotations
 
-# ruff: noqa: F401,E402  # this file is the re-export surface of the split
-# module: every top-level name briefing_video.py defined is re-bound here, so no
-# importer anywhere needs editing.  The submodules are imported in the original
-# section order, so their module-level side effects still run in that order.
+# ruff: noqa: E402  # the sys.modules eviction loop below MUST run before the
+# submodule imports, or a reload of this package would hand the old submodules
+# straight back (see its comment).
+#
+# This file is the re-export surface of the split module: every top-level name
+# briefing_video.py defined is re-bound here, so no importer anywhere needs
+# editing.  The submodules are imported in the original section order, so their
+# module-level side effects still run in that order.
 
 import sys as _sys
 from types import ModuleType as _ModuleType
@@ -134,6 +138,77 @@ from zyg_workflows.briefing_video.episode import (
     render_episode,
     retention_sweep,
 )
+
+
+# Every name below is imported above and not used in this module: this package
+# IS the re-export surface of the pre-split module, so the imports are the
+# deliberate public surface, not dead weight.  Nothing does ``import *`` from
+# here, so __all__ changes no behaviour.
+__all__ = [
+    'FPS',
+    'H',
+    'THEMES',
+    'W',
+    '_AUDIO_ARGS',
+    '_CREWS',
+    '_FONT_BOLD',
+    '_NVENC_PROBE',
+    '_dur',
+    '_fig',
+    '_fit',
+    '_fit_px',
+    '_fit_px_auto',
+    '_header',
+    '_nvenc_available',
+    '_panel',
+    '_paste',
+    '_plt',
+    '_rule',
+    '_run',
+    '_save',
+    '_seal',
+    '_uniform_size',
+    '_vcodec',
+    '_wrap',
+    '_zyg_log',
+    '_zyg_logging',
+    'exe',
+    'json',
+    'os',
+    're',
+    'shutil',
+    'subprocess',
+    'textwrap',
+    'theme',
+    'time',
+    'render_board',
+    'render_price_chart',
+    '_entity_block',
+    '_initials_disc',
+    'render_card',
+    'render_entity_focus',
+    'render_matchup',
+    'render_parlay_sheet',
+    '_ASR_NUM_WORDS',
+    '_asr_read_back_gate',
+    '_asr_similarity',
+    '_asr_tokens',
+    '_indextts_call',
+    '_slugkey',
+    'seed_path',
+    'speak',
+    'speak_batch',
+    '_build_chapters',
+    '_concat',
+    '_ffmetadata',
+    '_loudnorm',
+    '_render_segment',
+    '_ts',
+    'qc',
+    '_SEAL_PIPELINE',
+    'render_episode',
+    'retention_sweep',
+]
 
 _SECTIONS = tuple(
     _sys.modules[f'{__name__}.{_m}']

@@ -68,7 +68,6 @@ CLI:
     python3 run_logbook.py ingest <run_dir> [--version vNN] [--driver path]
 """
 
-# ruff: noqa: E402, F401
 # Pattern A package: run_logbook.py was split at its own section banners into plumbing.py, recording.py, reading.py, compare.py, report.py.
 # The import path is unchanged, the original top import block is re-done below so
 # attribute access on the module keeps working, the submodules are imported in the
@@ -152,6 +151,74 @@ from zyg_workflows.run_logbook.report import (
 
 import sys as _sys
 from types import ModuleType as _ModuleType
+
+# Re-export surface: every name below is imported above and not used in this
+# module. Nothing does ``import *`` from here, so __all__ changes no behaviour;
+# it declares the inherited namespace public so ruff does not read it as dead.
+__all__ = [
+    'json',
+    'os',
+    'shutil',
+    'sys',
+    'time',
+    '_zyg_logging',
+    'BEAT_CHAR_LIMIT',
+    'CHECKPOINT_NAME',
+    'CHECKPOINT_SCHEMA',
+    'INDEX_PATH',
+    'KNOWN_ZYG_KEYS',
+    'LOGBOOK_DIR',
+    'LOGBOOK_NAME',
+    'SCHEMA',
+    '_CREWS',
+    '_RUNTIME',
+    '_append_jsonl',
+    '_atomic_write',
+    '_file_facts',
+    '_handle',
+    '_log_noop',
+    '_now',
+    '_read_json',
+    '_read_jsonl',
+    '_safe_key',
+    '_sha256',
+    '_zyg_log',
+    'jsonl_path',
+    'resolve_run',
+    '_beat_records',
+    '_config_gates',
+    '_emit',
+    'finish_run',
+    'gate_version_consistency',
+    'mask_stats',
+    'record_config',
+    'record_gates',
+    'record_metrics',
+    'record_stage',
+    'snapshot_env',
+    'start_run',
+    '_load_checkpoints',
+    'checkpoint_path',
+    'list_runs',
+    'load_run',
+    'record_checkpoint',
+    'resume_from',
+    '_CONFIG_SKIP_SUFFIX',
+    '_METRIC_TIERS',
+    '_cell',
+    '_config_flat',
+    '_fnum',
+    '_metric_tier',
+    '_run_meta',
+    'compare_runs',
+    'flatten',
+    'format_compare',
+    '_ingest_metrics',
+    '_main',
+    'format_list',
+    'ingest_run_dir',
+    'write_logbook_md',
+]
 
 _SECTIONS = tuple(_sys.modules[__name__ + '.' + _n] for _n in ('plumbing', 'recording', 'reading', 'compare', 'report'))
 

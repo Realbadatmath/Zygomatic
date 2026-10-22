@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401
-
 """stage_runner — the ClipFarm stage preflights, prompt log and agent runner.
 
 Was a single 2,949-line module; split 2026-10-06 into the sections it already
@@ -74,12 +72,6 @@ from zyg_workflows.tts_service import _bleep_audio_in_clip, _mask_bad_words, _sa
 from zyg_workflows.vram_manager import _wait_ollama_unload
 import logging as _zyg_logging
 
-_zyg_log = _zyg_logging.getLogger(__name__)
-
-# Never defined at module scope in crewai_web_gui.py either, so the ``getattr``
-# this replaces always yielded None, and both uses below are guarded by it.
-_srt_path = None
-
 import sys as _sys
 import types as _types
 
@@ -119,6 +111,12 @@ from zyg_workflows.stage_runner.stage4b_render import _make_render_clip
 from zyg_workflows.stage_runner.tasks import _build_task_desc
 from zyg_workflows.stage_runner.health import _check_workflow_health, _load_workflow_overrides
 from zyg_workflows.stage_runner.delivery import _scp_output_to_windows
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+# Never defined at module scope in crewai_web_gui.py either, so the ``getattr``
+# this replaces always yielded None, and both uses in the sections are guarded by it.
+_srt_path = None
 
 _SECTIONS = (
     _s_prompts,
@@ -164,3 +162,68 @@ class _OneNamespace(_types.ModuleType):
 
 
 _sys.modules[__name__].__class__ = _OneNamespace
+
+# Every name imported above is re-exported, not used here: this package IS the module
+# the split replaced, so `__all__` declares the surface instead of a file-level noqa.
+__all__ = [
+    'json',
+    'os',
+    'subprocess',
+    'sys',
+    'threading',
+    'gui_state',
+    'http_json',
+    'paths',
+    'runtime',
+    '_get_narrator_voice',
+    '_vid_to_channel_id',
+    'exe',
+    '_seal',
+    '_caveman_kw',
+    '_dsl',
+    '_NARRATOR_OUTRO',
+    '_OLLAMA_BASE_URL',
+    '_SENSITIVE_TOPIC_KEYWORDS',
+    '_AGENT_LOG_LOCK',
+    '_agent_log',
+    '_ams_iso',
+    '_ams_now',
+    '_NVENC_SEM',
+    '_ollama_semaphore',
+    '_parse_iso_to_ams',
+    '_POSTPROC_SEM',
+    '_record_token_usage',
+    '_runtime_path',
+    '_workflow_jobs',
+    '_finish_subproc',
+    '_register_marker',
+    '_register_subproc',
+    '_update_marker',
+    '_bleep_audio_in_clip',
+    '_mask_bad_words',
+    '_sanitize_title',
+    '_tts_shared',
+    '_wait_ollama_unload',
+    '_is_test_pid',
+    '_log_prompt',
+    '_register_prompt',
+    '_TEST_ID_PREFIXES_FALLBACK',
+    '_build_framework_block',
+    '_classify_subject_type',
+    '_pf_agents_active',
+    '_pf_agents_done',
+    '_run_stage_agent',
+    '_stage_preflight',
+    '_pf_stage_1',
+    '_pf_stage_3',
+    '_pf_stage_4a',
+    '_pf_stage_4b',
+    '_make_keyword_tables',
+    '_make_github_models',
+    '_make_post_process_clip',
+    '_make_render_clip',
+    '_build_task_desc',
+    '_check_workflow_health',
+    '_load_workflow_overrides',
+    '_scp_output_to_windows',
+]

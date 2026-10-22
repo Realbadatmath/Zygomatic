@@ -12,8 +12,9 @@ markers, the FLUX pipeline caches, the documentary-cinematic style LoRA switch a
 the visual-style LoRA table with its licence provenance.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: the original import order is load-bearing, and every name here is read
+# back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.  The late imports that
+# stayed at their old definition sites carry their own per-line E402 suppressions.
 
 from zyg_dashboard.crewai_web_gui._bootstrap import _agent_log, _backend_debug, _zyg_log, exe, gui_state, runtime
 from zyg_dashboard.crewai_web_gui.security import _push_error_log

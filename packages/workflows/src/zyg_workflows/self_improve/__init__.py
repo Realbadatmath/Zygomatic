@@ -83,15 +83,12 @@ default and reports the second as an already-tried alternative; pass --clip to
 point at a specific one.
 """
 
-# ruff: noqa: E402,F401
 import json
 import os
 import re
 import sys
 import time
 import logging as _zyg_logging
-
-_zyg_log = _zyg_logging.getLogger(__name__)
 
 from zyg_workflows.self_improve import base
 from zyg_workflows.self_improve import chain
@@ -193,3 +190,92 @@ from zyg_workflows.self_improve.cli import (
     _cli_log,
     main,
 )
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+# Every name imported above is re-exported, not used here: this package IS the module
+# the split replaced, so `__all__` declares the surface instead of a file-level noqa.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'sys',
+    'time',
+    'base',
+    'chain',
+    'measure',
+    'signature',
+    'remedies',
+    'diagnosis',
+    'planning',
+    'verify',
+    'campaign_view',
+    'watch',
+    'cli',
+    '_DIR',
+    'SCHEMA',
+    'CAL_W',
+    'CAL_FPS',
+    'CAL_SAMPLE_EVERY',
+    '_COVER_FRAC',
+    '_GRID_COLS',
+    '_GRID_ROWS',
+    '_TILE_DROP_FRAC',
+    '_log_noop',
+    '_mklog',
+    '_jsonable',
+    '_write_json',
+    '_read_json',
+    '_write_text',
+    'clip_geometry',
+    'norm_factor',
+    '_CHAIN_SPEC',
+    '_STEP_FAMILY',
+    '_CONTRACT_STEP',
+    'detect_chain',
+    'keep_boxes_from_mask',
+    'keep_boxes_from_metadata',
+    '_box_iou',
+    '_box_subtract_note',
+    '_cache_path',
+    '_cache_key',
+    'measure_clip',
+    'motion_loss_map',
+    '_num_or_none',
+    '_fact',
+    'load_qc_spec',
+    '_find_clip',
+    '_find_raw',
+    'build_signature',
+    '_ledger_view',
+    '_FALLBACK_REMEDIES',
+    '_FallbackKB',
+    '_kb_singleton',
+    'kb',
+    '_kb_call',
+    '_PATCH_TARGET_HINTS',
+    '_normalize_remedy',
+    'kb_match',
+    '_kb_confidence',
+    '_kb_writes_ledger',
+    '_explain',
+    '_run_vlm',
+    'diagnose',
+    'vlm_findings',
+    '_merge_findings',
+    'render_next_attempt_md',
+    'plan_next_attempt',
+    '_expected_for',
+    '_run_id_of',
+    'verify_attempt',
+    '_expected_belongs',
+    '_ledger_record_verification',
+    'campaign',
+    '_campaign_md',
+    '_kb_learning_view',
+    'read_progress',
+    'read_preview_judge',
+    'watch_active_run',
+    '_cli_log',
+    'main',
+]

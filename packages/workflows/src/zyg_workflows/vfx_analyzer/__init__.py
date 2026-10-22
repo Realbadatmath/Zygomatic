@@ -71,9 +71,11 @@ from zyg_workflows.bin import exe
 _zyg_log = _zyg_logging.getLogger(__name__)
 
 
-# ruff: noqa: E402,F401  (this module keeps the original docstring and the original top
-# import block, so that every old `vfx_analyzer.<name>` attribute access still resolves,
-# and re-exports every name the single file defined; none of it is used here.)
+# ruff: noqa: E402
+# E402: library.py, scan.py and scan_stages.py do `from zyg_workflows.vfx_analyzer import
+# _zyg_log`, so `_zyg_log` above must be bound before the section imports below run.
+# This module also keeps the original docstring and top import block so that every old
+# `vfx_analyzer.<name>` attribute access still resolves; the surface is in __all__ below.
 
 # 2026-10-07 modularization: the 1,296-line vfx_analyzer.py became this package, cut at
 # its own section banners. The submodules are imported in the single file's section
@@ -146,3 +148,82 @@ from zyg_workflows.vfx_analyzer.scan import (
     _segment_shots,
     _build_ledger,
 )
+
+
+# The re-exported surface of the pre-split module, in import order: every name
+# here exists only so that `<this module>.<name>` keeps resolving for importers.
+__all__ = [
+    'base64',
+    'hashlib',
+    'json',
+    'os',
+    're',
+    'shutil',
+    'subprocess',
+    'threading',
+    'time',
+    'traceback',
+    'np',
+    'paths',
+    'exe',
+    '_HERE',
+    'ROOT',
+    'MEDIA_DIR',
+    'RUNS_DIR',
+    'TAXONOMY_PATH',
+    'FFMPEG',
+    'FFPROBE',
+    'OLLAMA',
+    'VLM_MODEL',
+    'VIDEO_EXT',
+    'MAX_WINDOW_S',
+    'DEFAULT_WINDOW_S',
+    '_ID_RE',
+    '_RUN_RE',
+    '_JOBS',
+    '_JOBS_LOCK',
+    '_JOB_KEEP',
+    '_TAX',
+    '_ensure_dirs',
+    '_read_json',
+    '_write_json',
+    '_safe_media_dir',
+    '_safe_run_dir',
+    'taxonomy',
+    'capability',
+    '_free_vram_mb',
+    '_vlm_available',
+    'FULL_FRAME_ONLY',
+    'vlm_ask',
+    '_hash_file',
+    'register_upload',
+    '_probe_file',
+    'library',
+    'get_media',
+    'media_path',
+    'delete_media',
+    '_run_ids',
+    'runs',
+    'run',
+    '_jsonl',
+    'frames',
+    'events',
+    'unknowns',
+    'log_text',
+    'frame_image_path',
+    'crop_image_path',
+    'features',
+    'delete_run',
+    '_job_set',
+    '_job_log',
+    '_prune_jobs',
+    'job',
+    'jobs',
+    'cancel',
+    'start_run',
+    '_extract',
+    '_worker',
+    '_thin_landmarks',
+    '_segment_shots',
+    '_build_ledger',
+]

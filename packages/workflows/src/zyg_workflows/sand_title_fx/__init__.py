@@ -55,11 +55,9 @@ from PIL import Image
 from zyg_workflows.bin import exe
 import logging as _zyg_logging
 
-_zyg_log = _zyg_logging.getLogger(__name__)
-
-# ruff: noqa: E402,F401  (this module keeps the original docstring and the original top
-# import block, so that every old `sand_title_fx.<name>` attribute access still resolves,
-# and re-exports every name the single file defined; none of it is used here.)
+# This module keeps the original docstring and the original top import block, so that every
+# old `sand_title_fx.<name>` attribute access still resolves, and re-exports every name the
+# single file defined; none of it is used here, so the surface is declared in `__all__`.
 
 # 2026-10-07 modularization: the 1,286-line sand_title_fx.py became this package, cut at
 # its own section banners. The submodules are imported in the single file's section
@@ -157,3 +155,103 @@ from zyg_workflows.sand_title_fx.cli import (
     receipt,
     main,
 )
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+# Every name imported above is re-exported, not used here: this package IS the module
+# the split replaced, so `__all__` declares the surface instead of a file-level noqa.
+__all__ = [
+    'argparse',
+    'difflib',
+    'json',
+    'os',
+    're',
+    'subprocess',
+    'sys',
+    'tempfile',
+    'cv2',
+    'np',
+    'Image',
+    'exe',
+    'HERE',
+    'RECEIPT_DIR',
+    'INSTRUCTION',
+    'EXTRA_INSTRUCTION',
+    'NEGATIVE',
+    'PLATE_PROMPT',
+    'CROP_PAD_FRAC',
+    'CROP_UPSCALE',
+    'DIFF_THRESH',
+    'DILATE_PX',
+    'MIN_COMP_FRAC',
+    'BAND_FRAC',
+    'N_PARTICLES',
+    'STREAK_PX',
+    'GRAIN',
+    'FONT',
+    'EMBOSS_DILATE_PX',
+    'EMBOSS_RELIEF',
+    'EMBOSS_FILL',
+    'EMBOSS_SHADOW',
+    'EMBOSS_SHADOW_PX',
+    'EMBOSS_SHADOW_SIGMA',
+    'EMBOSS_HEIGHT_SIGMA',
+    'EMBOSS_SAMPLE_PX',
+    'EMBOSS_GRAIN',
+    'EMBOSS_TRACK_FRAC',
+    'EMBOSS_MAX_WIDTH_FRAC',
+    'EMBOSS_TOP_SCALE',
+    'RAMP_PARTICLES',
+    'RAMP_BAND_FRAC',
+    'RAMP_STREAK_PX',
+    'RAMP_GRAIN_PX',
+    'RAMP_GRAIN_MUL',
+    'RAMP_HAZE_PEAK',
+    'RAMP_HAZE_AT',
+    'RAMP_RELIEF_START',
+    '_log',
+    'normalise',
+    'read_words',
+    '_regions',
+    'lettering_crop',
+    '_prefix_gap',
+    'VLM_PREAMBLE',
+    'VLM_QUESTION',
+    'VLM_MIN_FREE_MIB',
+    '_QUOTE_RE',
+    '_gpu_free_mib',
+    '_quotes',
+    'vlm_read_lettering',
+    'vlm_confirms',
+    'judge_lettering',
+    '_luma',
+    'letters_mask',
+    '_paste_letters',
+    '_ensure_comfy_env',
+    'render_plate',
+    '_score',
+    'write_words_in_sand',
+    '_unit',
+    '_emboss_dilate',
+    'emboss_text_mask',
+    'emboss_cache',
+    'emboss_apply',
+    'emboss_words',
+    'write_words_any',
+    '_smoothstep',
+    '_ease_io',
+    '_band',
+    '_haze_env',
+    '_haze_field',
+    '_grain_layer',
+    'swirl_in',
+    '_streaks',
+    '_ffmpeg',
+    '_fake_plate',
+    '_fake_words',
+    'selftest',
+    '_read_frames',
+    '_mp4_frames',
+    'receipt',
+    'main',
+]

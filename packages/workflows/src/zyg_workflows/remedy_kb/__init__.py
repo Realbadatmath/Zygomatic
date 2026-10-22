@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401,E402
 """remedy_kb.py — the learned knowledge base: MEASURED failure -> CONCRETE parameter change.
 
 2026-07-30. Born from the scene20 paste-back investigation, whose real lesson was not
@@ -138,3 +137,85 @@ from .kb import (
 )
 from .learning import _ledger, record_attempt, record_outcome, _authored_prior, _small, add_remedy, format_ranked
 from .cli import _main, _selftest
+
+# Re-export surface: every name below is imported above and not used in this
+# module. Nothing does ``import *`` from here, so __all__ changes no behaviour;
+# it declares the inherited namespace public so ruff does not read it as dead.
+__all__ = [
+    'json',
+    'os',
+    'sys',
+    'threading',
+    'time',
+    '_zyg_logging',
+    'paths',
+    '_zyg_log',
+    'KB_PATH',
+    'LEARNED_PATH',
+    'STATE_PATH',
+    '_LOCK',
+    '_MAX_DEPTH',
+    '_FLOW_MIN_HANDS',
+    '_FLOW_MIN_HEAD',
+    '_CHURN_MAX',
+    '_PROP_NCC_MIN',
+    '_DEFAULT_SEVERITY_WEIGHTS',
+    '_log_noop',
+    'kb_path',
+    'learned_path',
+    'state_path',
+    '_Missing',
+    'MISSING',
+    '_is_num',
+    '_num',
+    '_fmt',
+    '_child',
+    '_lookup',
+    '_resolve_binding',
+    '_resolve',
+    '_box',
+    '_overlap',
+    '_ROLE_HINTS',
+    '_infer_role',
+    'normalize_signature',
+    '_T',
+    '_bad',
+    '_eval',
+    '_SYM',
+    '_desc',
+    '_side',
+    '_items_of',
+    '_eval_quant',
+    '_eval_overlap',
+    'evaluate',
+    '_fired',
+    '_bindings_from',
+    'explain',
+    '_why_not',
+    '_cache',
+    '_read_json',
+    '_write_json_atomic',
+    'load_state',
+    '_save_state',
+    '_mtime',
+    'load_kb',
+    '_cf',
+    'posterior_confidence',
+    'severity_weight',
+    'match',
+    'diagnose',
+    '_subst',
+    '_resolve_action',
+    '_set_dotted',
+    '_del_dotted',
+    'apply',
+    '_ledger',
+    'record_attempt',
+    'record_outcome',
+    '_authored_prior',
+    '_small',
+    'add_remedy',
+    'format_ranked',
+    '_main',
+    '_selftest',
+]

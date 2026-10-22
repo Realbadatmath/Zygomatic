@@ -23,12 +23,6 @@ Why this shape
   exactly the wrong file here, so the NAME is the primary signal, not the shape.
 """
 
-# ruff: noqa: E402, F401
-# E402: the submodule imports must follow the original top import block so
-#       that zpub_cinema.os / zpub_cinema.json keep resolving, and must run
-#       in the original section order.
-# F401: this file IS the re-export surface.
-
 import hashlib
 import json
 import os
@@ -40,11 +34,7 @@ import threading
 import time
 from datetime import datetime, timezone
 
-
 import logging as _zyg_logging
-
-_zyg_log = _zyg_logging.getLogger(__name__)
-
 
 # Submodules, in the original section order — module-level side effects
 # (the runtime/cache makedirs in constants) run exactly when they used to.
@@ -206,6 +196,178 @@ from .assembly import _audio_label
 # module exposed disappears.
 from .constants import _d
 
+_zyg_log = _zyg_logging.getLogger(__name__)
+
 __annotations__ = {}
 for _m in (_mod_prefs, _mod_library, _mod_hls):
     __annotations__.update(getattr(_m, '__annotations__', None) or {})
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name the single zpub_cinema.py defined, so attribute access on this module
+# keeps resolving after the split. Declaring them is what makes the re-export
+# deliberate rather than an unused import; nothing does ``import *`` from here,
+# so __all__ changes no behaviour.
+__all__ = [
+    'hashlib',
+    'json',
+    'os',
+    're',
+    'shutil',
+    'signal',
+    'subprocess',
+    'threading',
+    'time',
+    'datetime',
+    'timezone',
+    '_zyg_logging',
+    '_mod_constants',
+    '_mod_naming',
+    '_mod_probing',
+    '_mod_prefs',
+    '_mod_library',
+    '_mod_vtt',
+    '_mod_playback',
+    '_mod_hls',
+    '_mod_assembly',
+    '_ams_iso',
+    '_HERE',
+    'RUNTIME_DIR',
+    'LIBRARY_PATH',
+    'CACHE_DIR',
+    'THUMB_DIR',
+    'SUB_DIR',
+    'FFMPEG',
+    'FFPROBE',
+    'VIDEO_EXTS',
+    'SUB_EXTS',
+    'MIN_VIDEO_BYTES',
+    'SKIP_DIRS',
+    '_lock',
+    '_QUALITY_TOKENS',
+    '_QUALITY_RE',
+    '_YEAR_RE',
+    '_HALF',
+    '_EPISODE_RES',
+    '_SEASON_DIR_RE',
+    '_AD_IMAGE_RE',
+    '_POSTER_NAME_RE',
+    '_clean_title',
+    'parse_release_name',
+    'detect_episode',
+    '_LANG_MAP',
+    '_LANG_NAMES',
+    '_norm_lang',
+    '_lang_from_filename',
+    '_lang_label',
+    '_run',
+    '_parse_chapters',
+    'probe',
+    'BROWSER_VCODECS',
+    'BROWSER_ACODECS',
+    'DIRECT_CONTAINERS',
+    '_playback_plan',
+    'PREFS_PATH',
+    'DEFAULT_PREFS',
+    '_PREFS_KEYS',
+    '_prefs_cache',
+    '_blank_prefs',
+    'load_prefs',
+    'save_prefs',
+    'show_key',
+    'item_show_key',
+    '_coerce_pref',
+    'update_prefs',
+    'display_series',
+    'prefs_for',
+    '_kw_score',
+    '_lang_score',
+    '_external_subs',
+    'TEXT_SUB_CODECS',
+    'IMAGE_SUB_CODECS',
+    '_embedded_subs',
+    '_sub_rank',
+    'pick_default_sub',
+    '_audio_rank',
+    'pick_default_audio',
+    '_OP_STRICT_RE',
+    '_OP_LOOSE_RE',
+    '_TAIL_CH_RE',
+    'OP_MIN_SECONDS',
+    'OP_MAX_SECONDS',
+    'detect_marks',
+    'chapters_of',
+    'set_series_name',
+    '_folder_artwork',
+    'thumb_path',
+    '_frame_score',
+    '_lavfi_escape',
+    '_THUMB_DARK_FLOOR',
+    '_THUMB_BLOWN_CEIL',
+    '_THUMB_GOOD_LUMA',
+    '_THUMB_GOOD_BYTES',
+    '_THUMB_FRACTIONS',
+    'build_thumb',
+    '_blank_library',
+    'load_library',
+    'save_library',
+    'item_id_for',
+    '_walk_videos',
+    'build_item',
+    '_scans',
+    '_scan_lock',
+    'scan_status',
+    'start_scan',
+    '_TIME_RE',
+    '_read_text',
+    'srt_to_vtt',
+    '_VTT_CUE_RE',
+    '_vtt_seconds',
+    '_vtt_stamp',
+    'shift_vtt',
+    '_VTT_TAG_RE',
+    '_ASS_BRACE_RE',
+    '_ASS_DRAW_RE',
+    'SUB_MIN_VISIBLE',
+    'SUB_MAX_ACTIVE',
+    'SUB_MERGE_GAP',
+    'SUB_CACHE_VER',
+    '_vtt_blocks',
+    'tidy_vtt',
+    '_ffmpeg_to_vtt',
+    'subtitle_vtt',
+    'NVENC_MAX_HEIGHT',
+    '_audio_order',
+    'transcode_commands',
+    'keyframe_before',
+    'exact_start',
+    'stream_transcode',
+    'HLS_DIR',
+    'HLS_SEG_SECONDS',
+    'HLS_LEAD_SECONDS',
+    'HLS_IDLE_TIMEOUT',
+    'HLS_START_TIMEOUT',
+    'HLS_MIN_FREE_BYTES',
+    '_HLS',
+    '_HLS_LOCK',
+    '_FPS_CACHE',
+    '_video_fps',
+    '_hls_tail',
+    'hls_commands',
+    '_hls_read_playlist',
+    '_hls_governor',
+    'start_hls',
+    'get_hls',
+    'note_hls_segment',
+    'close_hls',
+    'sweep_hls',
+    '_norm_title',
+    'version_suffixes',
+    'EPISODE_CHUNK',
+    'assign_absolute',
+    '_card',
+    'board',
+    'get_item',
+    'item_detail',
+    '_audio_label',
+    '_d',
+]

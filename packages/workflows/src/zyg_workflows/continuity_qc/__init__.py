@@ -41,7 +41,7 @@ Measured on output/multichar_seated/scene20_v7/pasted17.mp4 (832x480, 17 fps,
 default thresholds were fitted to.
 """
 
-# ruff: noqa: E402,F401  # the original top import block and the re-export block are deliberate
+# The original top import block and the re-export block below are deliberate.
 
 import json
 import os
@@ -102,3 +102,62 @@ from zyg_workflows.continuity_qc.ownership import (
     _V7_ACTORS,
     _main,
 )
+
+
+# Every name below is imported above and not used in this module: this package
+# IS the re-export surface of the pre-split module, so the imports are the
+# deliberate public surface, not dead weight.  Nothing does ``import *`` from
+# here, so __all__ changes no behaviour.
+__all__ = [
+    'json',
+    'os',
+    'subprocess',
+    'sys',
+    'time',
+    '_zyg_logging',
+    'paths',
+    'exe',
+    '_HF_REVISION',
+    '_zyg_log',
+    'GDINO_WEIGHTS',
+    'GDINO_CONFIG',
+    'SAM2_WEIGHTS',
+    'SAM2_NODE_DIR',
+    'DINOV2_MODEL_ID',
+    'CONTEXT_STRIDE_FRAMES',
+    'DEFAULT_THRESHOLDS',
+    '_GPU_FLOOR_BYTES',
+    '_CACHE',
+    '_SAM2_PKG',
+    '_free_vram_bytes',
+    'pick_device',
+    '_gate',
+    '_load_gdino',
+    '_sam2_cfg_for',
+    '_load_sam2',
+    '_load_dino',
+    'available',
+    '_sample_frames',
+    '_frames_at_times',
+    '_caption_and_spans',
+    '_nms',
+    '_detect',
+    '_select_box',
+    '_iou',
+    '_containment',
+    '_sam2_batch',
+    '_track_window',
+    '_embed',
+    '_mask_bbox',
+    '_crops',
+    'analyze_clip',
+    '_wget',
+    '_anchor_cosines',
+    '_verdict_object',
+    '_verdict_background',
+    'action_ownership',
+    '_V7',
+    '_V7_OBJECTS',
+    '_V7_ACTORS',
+    '_main',
+]

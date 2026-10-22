@@ -38,7 +38,7 @@ PROVIDER CHAIN (measured 2026-08-06 from this host)
            coin logos (its /coins/markets image URLs).
 """
 
-# ruff: noqa: E402,F401  # the original top import block and the re-export block are deliberate
+# The original top import block and the re-export block below are deliberate.
 
 from __future__ import annotations
 
@@ -125,3 +125,89 @@ from zyg_workflows.market_ingest.picks import (
     history_add,
     history,
 )
+
+
+# ── re-export surface ─────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: this file
+# exists so that ``zyg_workflows.market_ingest.<name>``
+# resolves exactly as it did on the pre-split single-file module.
+# Nothing does ``import *`` from here.
+__all__ = [
+    'csv',
+    'io',
+    'json',
+    'os',
+    're',
+    'threading',
+    'time',
+    'datetime',
+    'timedelta',
+    'timezone',
+    'requests',
+    '_zyg_logging',
+    '_zyg_log',
+    '_CREWS',
+    '_RUNTIME',
+    '_CACHE_DIR',
+    '_SETTINGS_PATH',
+    '_UNIVERSE_PATH',
+    '_ICEBOX_PATH',
+    '_HISTORY_PATH',
+    '_LOCK',
+    '_UA',
+    '_HDRS',
+    'DEFAULT_SETTINGS',
+    '_STATIC_UNIVERSE',
+    '_SP500_CSV',
+    '_NDX_LIST',
+    '_load',
+    '_save',
+    '_now_utc',
+    '_iso',
+    'settings',
+    'update_settings',
+    '_get',
+    '_fetch_sp500',
+    '_NAME_SUFFIX_RE',
+    '_clean_company',
+    '_fetch_ndx',
+    'universe',
+    'crypto_universe',
+    '_cache_path',
+    '_cache_get',
+    '_cache_put',
+    '_norm_bars',
+    '_TD_CALLS',
+    '_TD_LOCK',
+    '_twelvedata_throttle',
+    '_p_twelvedata',
+    '_p_stockanalysis',
+    '_p_nasdaq',
+    '_p_alphavantage',
+    '_BINANCE_QUOTE',
+    '_p_binance',
+    '_p_coinbase',
+    '_KRAKEN_ALIAS',
+    '_p_kraken',
+    '_p_coingecko_ohlc',
+    'fetch_bars',
+    '_sma',
+    '_ema_series',
+    '_rsi',
+    '_atr_pct',
+    '_pct',
+    'indicators',
+    '_clamp',
+    '_CHART_BARS',
+    '_overlay_series',
+    'score_symbol',
+    '_recent_symbols',
+    'screen',
+    'icebox',
+    'icebox_add',
+    'icebox_mark_used',
+    'icebox_delete',
+    'social_text',
+    'history_add',
+    'history',
+]

@@ -25,8 +25,8 @@ from zyg_workflows.bin import exe
 from zyg_dashboard import paths
 from zyg_dashboard.cors import apply_cors
 
-# ruff: noqa: E402,F401  this module inherits the original top import block; its names are
-# imported by the sibling section modules, so ruff must not prune them.
+# This module inherits the original top import block; its names are imported by the
+# sibling section modules, so ruff must not prune them.
 
 bp = Blueprint('assets_media', __name__)
 from zyg_dashboard.gui.runtime_state import _RUNTIME_DIR, _runtime_path  # noqa: E402
@@ -46,6 +46,44 @@ from zyg_dashboard.crewai_web_gui import (  # noqa: E402
     limiter,
 )
 from zyg_dashboard import crewai_web_gui as _main_mod  # noqa: E402  late: crewai_web_gui imports this blueprint at its bottom, so `bp` must exist first
+
+
+# ── re-export surface ──
+# Every name below is imported above and NOT used in this module; it is here so
+# importers keep resolving it through this module. Nothing does ``import *`` from
+# here, so __all__ changes no behaviour -- it is how ruff is told these are public.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'subprocess',
+    'time',
+    'threading',
+    'datetime',
+    'timezone',
+    'jsonify',
+    'request',
+    'send_file',
+    'send_from_directory',
+    'exe',
+    'apply_cors',
+    '_RUNTIME_DIR',
+    '_runtime_path',
+    '_AMS_TZ',
+    '_ams_now',
+    '_ASSETS_REACTION_DIR',
+    '_ASSETS_SFX_DIR',
+    '_CLIPS_OUTPUT_DIR',
+    '_SV_STATUS_FILE',
+    '_TSTORE_FILE',
+    '_YT_TOKEN_FILE',
+    '_YT_UPLOAD_SCRIPT',
+    '_YT_VENV_PYTHON',
+    '_agent_log',
+    '_register_prompt',
+    '_zero_claim_batch_slot',
+    'limiter',
+]
 
 _zyg_log = _zyg_logging.getLogger('zyg_dashboard.bp_assets_media')  # channel kept from the pre-split module
 

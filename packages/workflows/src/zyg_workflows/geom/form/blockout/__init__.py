@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401  # the re-export block IS this module; the shim below it needs sys.
+# the re-export block IS this module; the shim below it needs sys.
 
 
 """The block-out ladder — does this body read as anatomy at every scale, or only at one?
@@ -141,3 +141,60 @@ from zyg_workflows.geom.form.blockout.demos import (
     self_test,
     main,
 )
+
+__all__ = [
+    'json',
+    'os',
+    'sys',
+    'time',
+    'np',
+    'sp',
+    'spl',
+    'connected_components',
+    'CV',
+    '__version__',
+    'BANDS',
+    'WAVELENGTH_LOW_FRAC',
+    'WAVELENGTH_MID_FRAC',
+    'LAMBDA_LOW',
+    'LAMBDA_MID',
+    'MICRO_SIGMA_FRAC',
+    'BAND_MEANING',
+    'EIGS_MARGIN',
+    'EIGS_MIN_K',
+    'EIGS_MAX_K',
+    'EIGS_GROWTH',
+    'EIGS_SIGMA',
+    'MSTAT',
+    'PREDICATES',
+    'shell_split',
+    '_body_quads',
+    'spectral_basis',
+    'decompose',
+    'FALLBACK_BANDS',
+    'ARM_TARGETS',
+    'MORPH_REGION_CORE',
+    'MORPH_REGIONS',
+    'CAGE_VERTS',
+    '_to_mask',
+    '_sibling_groups',
+    'region_map',
+    '_rms',
+    'band_energies',
+    'delta_bands',
+    'smooth',
+    'render_blockout',
+    'report',
+    '_json_safe',
+    'write_json',
+    '_gate_ab',
+    '_status_counts',
+    'demo_level1_error',
+    '_print_level1',
+    'WAXY_SWEEP',
+    'demo_waxy',
+    'character_meshes',
+    'run_characters',
+    'self_test',
+    'main',
+]

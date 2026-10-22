@@ -30,7 +30,9 @@ Public API:
     generate_vace_static_clip(still_path, prompt, out_dir, ...)     -> clip path or None
 """
 
-# ruff: noqa: F401,E402  -- the re-export block, then the shim imports below it.
+import sys as _sys
+from types import ModuleType as _ModuleType
+
 # Pattern A package: every name the single-file module defined is re-exported here,
 # in its original declaration order, so `wan_vace_service.<anything>` still resolves
 # (including the top import block: .base holds `os`, `math`, `shutil`, `Image`,
@@ -125,8 +127,6 @@ _SECTION_NAMES = ('base', 'beats', 'masks', 'graded_pin', 'sequences', 'static_c
 # section module that already holds it, which restores the old semantics
 # exactly. Must stay the last statement in this file.
 # ---------------------------------------------------------------------------
-import sys as _sys
-from types import ModuleType as _ModuleType
 
 
 class _WanVaceServiceModule(_ModuleType):
@@ -147,3 +147,69 @@ class _WanVaceServiceModule(_ModuleType):
 _SECTIONS = tuple(_sys.modules[f'{__name__}.{_n}'] for _n in _SECTION_NAMES)
 
 _sys.modules[__name__].__class__ = _WanVaceServiceModule
+
+
+# The re-exported surface of the pre-split module, in import order: every name
+# here exists only so that `<this module>.<name>` keeps resolving for importers.
+__all__ = [
+    'os',
+    'math',
+    'shutil',
+    'Image',
+    'ImageDraw',
+    'ImageFilter',
+    'exe',
+    '_QCBlocked',
+    '_zyg_logging',
+    '_zyg_log',
+    '_HERE',
+    '_T2V_MODEL',
+    '_VACE_MODULE',
+    '_static_neg',
+    '_log_noop',
+    '_env_flag',
+    '_env_int',
+    '_env_float',
+    '_BEAT_SEP',
+    'beat_char_limit',
+    '_clip_one',
+    'clip_prompt_beats',
+    'clip_negative',
+    'beat_window_map',
+    'assert_no_dead_beats',
+    'build_char_mask',
+    '_mask_stats',
+    '_disk',
+    '_binmorph',
+    '_components',
+    '_clip_temporal_std',
+    '_envelope_from_std',
+    '_feather_and_crush',
+    'build_motion_envelope_mask',
+    '_default_max_white',
+    'preflight_mask_gates',
+    'generate_vace_with_probe',
+    'paste_back_keep_regions',
+    'generate_vace_clip_from_frames',
+    'PIN_WHOLE_MASK',
+    '_PIN_NEUTRAL',
+    '_PIN_FEATHER_PX',
+    '_resolve_pin_regions',
+    'pin_regions_from_meta',
+    '_feather_ramp',
+    'build_graded_pin_mask',
+    '_SEQ_EXT',
+    '_VID_EXT',
+    '_MASK_GLOBS',
+    'is_mask_sequence',
+    '_seq_source_frames',
+    'build_mask_sequence',
+    'build_control_sequence',
+    '_CTRL_GLOBS',
+    'control_frames_in',
+    'build_control_from_dir',
+    'paint_control_frame',
+    'paint_control_sequence',
+    'stamp_control_channel',
+    'generate_vace_static_clip',
+]

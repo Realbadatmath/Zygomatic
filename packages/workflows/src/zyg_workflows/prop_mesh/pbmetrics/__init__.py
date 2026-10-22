@@ -57,7 +57,7 @@ orientation are DIRECTORS in [0, pi) — fur has no head or tail — so every co
 through the double-angle representation and never through a raw angle difference.
 """
 
-# ruff: noqa: F401,E402 -- the package re-exports the pre-split module namespace
+# The package re-exports the pre-split module namespace.
 
 import math
 import os
@@ -89,6 +89,50 @@ __all__ = [
     'compare',
     'null_report',
     'usable_terms',
+    # Inherited import block, re-exported so the pre-split namespace survives.
+    'math',
+    'os',
+    'sys',
+    'np',
+    'Image',
+    'ndimage',
+    'constants',
+    'io_matte',
+    'fields',
+    'colour',
+    'top_level',
+    'SIGMA_D',
+    'SIGMA_I',
+    'COHERENCE_FLOOR',
+    'N_AZIMUTH_BINS',
+    'LOCK_K_MIN',
+    'LOCK_K_MAX',
+    'SIL_SCALES',
+    'BALD_TAU',
+    'BALD_BLUR',
+    'MATTE_DL',
+    'MATTE_DC',
+    'MATTE_EDGE_COLS',
+    '_luma',
+    '_chroma',
+    '_backdrop',
+    'find_horizon',
+    '_cut_floor',
+    '_radial_theta',
+    '_srgb_to_lab',
+    'plate_region',
+    'surface_detail',
+    'largest_smooth_patch',
+    'measure_rgb',
+    'dump_visuals',
+    'TERMS',
+    'perturb',
+    'COAT_TERMS',
+    'DIRECTION_MARGIN',
+    'direction_report',
+    '_raw',
+    '_fmt',
+    'main',
 ]
 
 from zyg_workflows.prop_mesh.pbmetrics.constants import (

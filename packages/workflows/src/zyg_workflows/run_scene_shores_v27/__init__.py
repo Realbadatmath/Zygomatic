@@ -1,4 +1,6 @@
-# ruff: noqa: E402,F401  (re-export shim: the package IS the old module)
+# ruff: noqa: E402  (re-export shim: the package IS the old module)
+# E402: the `globals()` rebind loop for NEW_HIRES/NEW_PLATE has to run between the constants
+# import and the section imports, so the section imports cannot be hoisted above it.
 # SPDX-FileCopyrightText: 2026 Zygomatic
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
@@ -234,3 +236,75 @@ from zyg_workflows.run_scene_shores_v27.checks import (
 from zyg_workflows.run_scene_shores_v27.driver import (
     main,
 )
+
+# Every name imported above is re-exported, not used here: this package IS the module
+# the split replaced, so `__all__` declares the surface instead of a file-level noqa.
+__all__ = [
+    'copy',
+    'json',
+    'math',
+    'os',
+    'shutil',
+    'subprocess',
+    'sys',
+    'sf',
+    'paths',
+    'exe',
+    'CREWS',
+    'np',
+    'Image',
+    'sss',
+    'NO_BIRD',
+    'BLUE_WATER',
+    'ST',
+    'SRC_DIR',
+    'SRC_MP4',
+    'SLUG',
+    'OUT_DIR',
+    'SEED_WAV',
+    'SCENE_CFG',
+    'BIRD_CFG',
+    'WATER_POLY',
+    'SPRITE_DIR',
+    'SHORES',
+    'CLOSING_SEED',
+    'LINE3',
+    'STEM_LUFS',
+    'MASTER_LUFS',
+    'BED_LUFS',
+    'MUSIC_LUFS',
+    'BIRD_IN',
+    'BIRD_DUR',
+    'BEAT_S',
+    'TAIL_TRIM_S',
+    'TAIL_FADE_IN_S',
+    'END_FADE_S',
+    'MASTER_FADE_S',
+    'OVERSHOOT_S',
+    'SHIP_AT',
+    'SHIP_TOL',
+    'STILLS_CARRY',
+    'TAKES',
+    '_AUDIO_TAKES',
+    '_STATIC_REGIONS',
+    '_canary_px',
+    '_md5',
+    '_cp',
+    '_carry',
+    '_restamp',
+    '_dur',
+    '_span',
+    '_grab',
+    '_seq',
+    '_bird_flies_away',
+    '_bird_is_in_the_delivered_file',
+    '_bird_trajectory_matches_model_in_delivered_file',
+    '_bird_bank_visible_in_delivered_file',
+    '_no_crates_in_the_water',
+    '_the_bow_is_opaque',
+    '_no_one_on_the_stern',
+    '_smoke_leaves_the_chimney',
+    '_water_moves_in_the_delivered_file',
+    '_camera_holds_for_the_bird',
+    'main',
+]

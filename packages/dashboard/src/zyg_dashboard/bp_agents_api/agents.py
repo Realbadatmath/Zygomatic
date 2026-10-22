@@ -9,7 +9,7 @@ and every shared helper are bound here, once, and the sibling sections import
 them from this module.
 """
 
-# ruff: noqa: E402,F401  # the original import block is re-exported to the siblings
+# The original import block is re-exported to the siblings.
 
 import logging as _zyg_logging
 import json
@@ -51,6 +51,27 @@ from zyg_dashboard.crewai_web_gui import (  # noqa: E402
 # crewai_web_gui is loaded (above) — never before it.
 from zyg_dashboard.gui.controller import controller  # noqa: E402
 from zyg_dashboard import crewai_web_gui as _main_mod  # noqa: E402  late: crewai_web_gui imports this blueprint at its bottom, so `bp` must exist first
+
+
+# ── re-export surface ──
+# Every name below is imported above and NOT used in this module; it is here so
+# importers keep resolving it through this module. Nothing does ``import *`` from
+# here, so __all__ changes no behaviour -- it is how ruff is told these are public.
+__all__ = [
+    'json',
+    'time',
+    'request',
+    'apply_cors',
+    '_runtime_path',
+    '_workflow_jobs',
+    '_get_cpu_bar_mapping',
+    '_zero_load_config',
+    '_CLIPFARM_STAGES',
+    '_get_all_tools',
+    '_load_canonical_json',
+    'get_model_name_by_id',
+    'html_module',
+]
 
 # channel kept from the pre-split module
 _zyg_log = _zyg_logging.getLogger('zyg_dashboard.bp_agents_api')

@@ -2,8 +2,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401,E402  (this file exists to re-export; the import block below
-# is the original one, kept so attribute access like the old module had it works)
+# This file exists to re-export; the import block below is the original one,
+# kept so attribute access like the old module had it works.
 
 """pipeline_remix.py — the Remix department (2026-08-05).
 
@@ -49,8 +49,6 @@ from zyg_workflows import runtime
 from zyg_workflows.net import safe_urlopen
 import logging as _zyg_logging
 from zyg_workflows.bin import exe
-
-_zyg_log = _zyg_logging.getLogger(__name__)
 
 # The sections of the original pipeline_remix.py, imported in their original order
 # so module-level side effects still happen in that order, then every name the
@@ -138,3 +136,99 @@ from .compilation import (
     retention_sweep,
     start_compilation,
 )
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+
+# ── re-export surface ─────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: this file
+# exists so that ``zyg_workflows.pipeline_remix.<name>``
+# resolves exactly as it did on the pre-split single-file module.
+# Nothing does ``import *`` from here.
+__all__ = [
+    'json',
+    'math',
+    'os',
+    're',
+    'shutil',
+    'subprocess',
+    'threading',
+    'time',
+    'traceback',
+    'uuid',
+    'RI',
+    'paths',
+    '_seal',
+    'runtime',
+    'safe_urlopen',
+    'exe',
+    '_CREWS',
+    '_FONT',
+    '_OLLAMA',
+    '_OUT_ROOT',
+    '_RUNTIME',
+    '_env_f',
+    '_env_i',
+    '_jobs',
+    '_marker',
+    '_marker_update',
+    '_now_iso',
+    '_nvenc_sem',
+    '_Stopped',
+    '_check_stop',
+    '_finish',
+    '_log',
+    '_mk_job',
+    '_save_state',
+    '_stopped',
+    '_tree_gb',
+    '_update_stage',
+    'disk_ok',
+    '_SIL_RE',
+    '_duration',
+    '_enc_timeout',
+    '_fetch_captions',
+    '_ffprobe',
+    '_get_transcript',
+    '_gpu_clear',
+    '_punct_density',
+    '_rms_curve',
+    '_run',
+    '_silences',
+    '_whisper_transcribe',
+    '_fused_curve',
+    '_llm_model',
+    '_llm_spans',
+    '_norm01',
+    '_ollama_json',
+    '_ollama_release',
+    '_pick_windows',
+    '_smooth',
+    '_snap_window',
+    '_AUDIO_ARGS',
+    '_NORM',
+    '_SUB_STYLE',
+    '_build_narration_track',
+    '_build_srt',
+    '_encode_nvenc_first',
+    '_extract_broll_window',
+    '_fmt_srt_ts',
+    '_loudnorm_master',
+    '_narration_script',
+    '_pane',
+    '_phash_video',
+    '_qc_media',
+    '_render_title_card',
+    '_render_vertical_clip',
+    '_render_wide_segment',
+    '_slug',
+    '_tts_line',
+    '_vcodec_nvenc',
+    '_vcodec_x264',
+    '_run_remix',
+    'start_remix',
+    '_pick_compilation_segments',
+    '_run_compilation',
+    'retention_sweep',
+    'start_compilation',
+]

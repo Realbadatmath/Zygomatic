@@ -51,8 +51,6 @@ default camera looks down -Z, and the sheet script orbits in the XY plane placin
 the camera at -Y for the front view). +Z is up. Origin sits on the ground plane.
 """
 
-# ruff: noqa: F401, E402
-
 from .constants import (
     math,
     bmesh,
@@ -98,3 +96,46 @@ from .checks import (
     build,
     bounds,
 )
+
+# Re-export surface: every name below is imported above and not used in this
+# module. Nothing does ``import *`` from here, so __all__ changes no behaviour;
+# it declares the inherited namespace public so ruff does not read it as dead.
+__all__ = [
+    'math',
+    'bmesh',
+    'bpy',
+    'Vector',
+    '_zyg_logging',
+    '_zyg_log',
+    'IDX',
+    'P',
+    '_link',
+    '_sagitta',
+    '_face_centre_y',
+    '_face_surface_y',
+    '_outward',
+    '_cylindrical_uv',
+    '_sphere',
+    '_uv_sphere_data',
+    '_capsule',
+    '_subsurf',
+    '_fur',
+    '_bald_patch',
+    '_hair',
+    'materials',
+    'build_body',
+    'build_face',
+    'build_eyes',
+    'build_mouth',
+    'build_arms',
+    'build_legs',
+    'build_feet',
+    'build_tail',
+    'FUR_GEOMETRY_TAGS',
+    'is_fur_geometry',
+    'signed_volume',
+    'assert_geometry',
+    'assert_parts_visible',
+    'build',
+    'bounds',
+]

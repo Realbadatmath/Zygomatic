@@ -64,7 +64,6 @@ Armature custom properties:
 # import path is unchanged (`import proxy_actor as PA`, with blender_scripts/ on sys.path),
 # and the original top import block is re-done here so attribute accesses like
 # proxy_actor.bpy / proxy_actor.MA still resolve.
-# ruff: noqa: E402,F401
 import json
 import math
 import os
@@ -151,6 +150,88 @@ from zyg_workflows.blender_scripts.proxy_actor.motion import (
 )
 from zyg_workflows.blender_scripts.proxy_actor.output import make_collection, render_strip, run_checks, stitch
 from zyg_workflows.blender_scripts.proxy_actor.actor_build import build, check_blend, main, skeleton_meta
+
+# Every name below is imported above and NOT used in this module: this package is the
+# re-export surface of the split, so the names are its public API.  Nothing does
+# ``import *`` from here, so __all__ changes no behaviour -- it tells ruff the imports
+# are deliberate.
+__all__ = [
+    'json',
+    'math',
+    'os',
+    'sys',
+    'tempfile',
+    'time',
+    'bpy',
+    'Matrix',
+    'Vector',
+    'MA',
+    'skeleton_bind',
+    'ALIGN_BONES',
+    'BASE_BODY_ROOT',
+    'BONE_ALIAS',
+    'DEFAULT_OUT',
+    'FIT_GROUPS',
+    'FIT_MAX',
+    'FIT_MIN',
+    'FIT_TOL',
+    'GROUND_TOL',
+    'HERE',
+    'MOTION_ROOT',
+    'RETARGET_NOTE',
+    'STRIP_H',
+    'STRIP_W',
+    'TRACK_GROUPS',
+    'TRACK_TOL',
+    'TRACK_WEIGHT_MIN',
+    'age_macro',
+    'all_motions',
+    'clear_scene',
+    'evaluated_bbox',
+    'evaluated_points',
+    'find_clip',
+    'load_library',
+    'parse_args',
+    'standing_height',
+    'ARM_CHAIN',
+    'ARM_RATIO_HI',
+    'ARM_RATIO_LO',
+    'CLAVICLE_BONES',
+    'CLAVICLE_FAR',
+    'CLAVICLE_HOST',
+    'CLAVICLE_NEAR',
+    'TRUNK_CORE',
+    '_point_segment',
+    'add_rig',
+    'apply_pose_as_rest',
+    'bake_pose_as_rest',
+    'base_body_id',
+    'bound_arm_chain',
+    'bound_clavicles',
+    'build_body',
+    'load_base_body',
+    'strip_helpers',
+    'fit_rig',
+    'load_fit_spec',
+    'measure_fit',
+    'scale_actor',
+    'align_rest',
+    'face_minus_y',
+    'ground',
+    'hierarchy_order',
+    'import_bvh',
+    'per_frame_stats',
+    'retarget',
+    'sample_bvh',
+    'track_vertex_indices',
+    'make_collection',
+    'render_strip',
+    'run_checks',
+    'stitch',
+    'build',
+    'check_blend',
+    'skeleton_meta',
+]
 
 # proxy_actor.py ran main() at import time -- base_body_rig.py relies on it (it fakes
 # `-- --list-motions` around its `import proxy_actor`). Kept as the package's last statement,

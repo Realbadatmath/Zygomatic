@@ -2,8 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401  # the re-export block IS this module; the shim below it needs sys.
-
+# The re-export block IS this module; the shim below it needs `sys`.
 
 """storyteller_scene_service_steps.py — the stages of build_scene, one per step.
 
@@ -109,3 +108,48 @@ class _SplitModule(_ModuleType):
 
 
 _sys.modules[__name__].__class__ = _SplitModule
+
+# Every name imported above is re-exported, not used here: this package IS the module
+# the split replaced, so `__all__` declares the surface instead of a file-level noqa.
+__all__ = [
+    'annotations',
+    'json',
+    'logging',
+    'math',
+    'os',
+    'shutil',
+    'subprocess',
+    'time',
+    'Any',
+    'np',
+    'Image',
+    'ImageEnhance',
+    'ImageFilter',
+    '_seal',
+    'exe',
+    '_zyg_log',
+    '_svc',
+    '_GateReceipts',
+    '_free_comfy_vram',
+    '_step_stills',
+    '_step_wardrobe_lock',
+    '_step_prop_edit',
+    '_step_hand_repair',
+    '_step_derived_stills',
+    '_line_voice',
+    '_line_wav',
+    '_step_voice_lines',
+    '_at_time',
+    '_step_timeline',
+    '_step_stem',
+    '_bed_track',
+    '_music_cues',
+    '_step_master',
+    '_window_view',
+    '_shot_frame',
+    '_frame_head_reveal',
+    '_frames_context',
+    '_step_frames',
+    '_step_encode',
+    '_scene_state',
+]

@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401
 """SEPARATING SURFACE DETAIL FROM PROPORTION — a replacement for the umbrella low-pass.
 
 WHY THIS EXISTS. geom/scan_ingest.py's stage_residual has to answer one question about a
@@ -90,8 +89,6 @@ from scipy.sparse import coo_matrix, diags
 from scipy.sparse.linalg import LinearOperator
 import logging as _zyg_logging
 
-_zyg_log = _zyg_logging.getLogger(__name__)
-
 # The sections of the single file this package replaces, imported in the original
 # section order so every module-level side effect still runs when it used to.
 from zyg_workflows.geom.detail_filter import operators
@@ -154,3 +151,68 @@ from zyg_workflows.geom.detail_filter.acceptance import (
     sweep,
     transfer_curve,
 )
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+__all__ = [
+    'argparse',
+    'json',
+    'math',
+    'sys',
+    'time',
+    'np',
+    'coo_matrix',
+    'diags',
+    'LinearOperator',
+    'operators',
+    'filters',
+    'acceptance',
+    'CHEBY_DEGREE_MAX',
+    'CHEBY_DEGREE_MIN',
+    'CHEBY_DEGREE_SAFETY',
+    'COTAN_CLAMP',
+    'DETAIL_EDGE_FRAC',
+    'DetailFilterError',
+    'LEGACY_CUTOFF_FRAC',
+    'LEGACY_SWEEP_MULTIPLES',
+    'LMAX_ITERS',
+    'LMAX_MARGIN',
+    'LMAX_TOL',
+    'PROPORTION_EDGE_FRAC',
+    'SCHEMA',
+    '_cotan_from_tris',
+    '_quad_triangulations',
+    'cotan_operator',
+    'mean_edge_length',
+    'umbrella_operator',
+    '_bw_factors',
+    'band_response',
+    'butterworth_keep',
+    'butterworth_lowpass',
+    'butterworth_response',
+    'cheby_apply',
+    'cheby_apply_torch',
+    'cheby_coeffs',
+    'cheby_degree_for',
+    'cheby_keep',
+    'cheby_keep_torch',
+    'clear_factor_cache',
+    'diffusion_iters_for',
+    'diffusion_keep',
+    'eig_from_wavelength',
+    'lambda_max',
+    'rayleigh_check',
+    'taubin_keep',
+    'taubin_stability',
+    'wavelength_from_eig',
+    'NYQUIST_EDGES_PER_WAVE',
+    'PROBE_LIVE_FRAC',
+    '_jsonable',
+    '_probe_is_live',
+    '_probe_kept',
+    'main',
+    'morph_keep',
+    'probe_floor_m',
+    'sweep',
+    'transfer_curve',
+]

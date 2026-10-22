@@ -12,8 +12,9 @@ the ``require_login`` before_request hook, the canonical-data paths, the dashboa
 error-log push and the CPU/GPU model-list readers.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: the original import order is load-bearing, and every name here is read
+# back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.  The late imports that
+# stayed at their old definition sites carry their own per-line E402 suppressions.
 
 from zyg_dashboard import paths as _dash_paths
 from zyg_dashboard.crewai_web_gui._bootstrap import (

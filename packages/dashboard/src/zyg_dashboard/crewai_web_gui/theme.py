@@ -13,8 +13,9 @@ table, the HuggingFace ``.env`` path, the channel-data-retrieval probe and the
 sports / templates-store / clips-output paths.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: the original import order is load-bearing, and every name here is read
+# back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.  The late imports that
+# stayed at their old definition sites carry their own per-line E402 suppressions.
 
 from zyg_dashboard import paths as _dash_paths
 from zyg_dashboard.crewai_web_gui._bootstrap import _zyg_log, app, hashlib, json, os, request, send_from_directory
@@ -532,3 +533,13 @@ _CLIPS_OUTPUT_DIR = str(_dash_paths.DATA_DIR / 'output' / 'clips')
 
 
 # 2026-07-17 heavy-tranche: asset_manager_templates_board moved to bp_assets_media.py
+
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and NOT used in this module: it is read off it by
+# ``zyg_dashboard.crewai_web_gui.__init__`` and from there by the bp_* blueprints.
+# Declaring them is what makes the re-export deliberate rather than an unused import;
+# nothing does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    '_cdr',
+]

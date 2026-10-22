@@ -18,7 +18,6 @@ Design notes (2026-07-15 modernization):
   UTC which put them on yesterday's date until 02:00.
 """
 
-# ruff: noqa: E402,F401
 from __future__ import annotations
 
 import json
@@ -136,6 +135,109 @@ from .payloads import (  # noqa: F401
 # globals hold that name.
 import sys as _sys
 from types import ModuleType as _ModuleType
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and is not used in this module: schedule_service.py became this
+# package and the single file's whole surface — public and underscore — is re-exported
+# here for its importers. Nothing does ``import *`` from it, so __all__ changes no
+# behaviour; it only tells ruff these imports are deliberate.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'statistics',
+    'subprocess',
+    'threading',
+    'time',
+    'uuid',
+    'date',
+    'datetime',
+    'timedelta',
+    'ZoneInfo',
+    'MissingExecutable',
+    'exe',
+    'ZYG_COMFY_URL',
+    '_zyg_logging',
+    'AGENT_MODEL_SLUG',
+    '_AGENTS_JSON',
+    '_AGENT_LEDGER',
+    '_AGENT_OPEN',
+    '_AMS',
+    '_BASE',
+    '_DURATION_CACHE',
+    '_DURATION_CACHE_TTL_S',
+    '_MANUAL_FILES',
+    '_MODELS_JSON',
+    '_RUNTIME',
+    '_SCHEDULE_DIR',
+    '_agents_raw',
+    '_device_cache',
+    '_hhmm',
+    '_load_json',
+    '_lock',
+    '_models_raw',
+    '_parse_iso',
+    '_parse_job_start_time',
+    '_registry_cache',
+    '_slug_to_id',
+    '_slugify',
+    '_zyg_log',
+    'agent_slots',
+    'ams_now',
+    'ams_today',
+    'bar_id_for',
+    'devices',
+    'model_registry',
+    'DEFAULT_DURATIONS',
+    'PIPELINE_AGENT',
+    '_PIPELINE_FALLBACK_MODEL',
+    '_STAGE_MODEL_RULES',
+    '_STATE_FILE_TYPES',
+    '_TEST_ID_PREFIXES_FALLBACK',
+    '_is_test_state',
+    '_pipeline_total',
+    '_stage_model',
+    'get_duration_table',
+    '_CS_STAGE_ORDER',
+    '_TERMINAL',
+    '_comfy_q_cache',
+    '_entry',
+    '_forecast_from_job',
+    '_history_from_timeline',
+    '_is_terminal',
+    '_live_from_job',
+    '_remaining_stages',
+    'build_live_entries',
+    'comfy_queue_depth',
+    '_parse_day',
+    '_write_manual',
+    'add_manual_entry',
+    'build_upcoming_entries',
+    'check_conflict',
+    'delete_manual_entry',
+    'manual_entries_for',
+    'reserved_windows',
+    '_HISTORY_CACHE',
+    '_agent_mem',
+    '_agent_spans',
+    '_agent_what',
+    '_archive_entries_for',
+    '_build_history_index',
+    '_days_of',
+    '_file_sig',
+    '_history_index',
+    '_history_mem',
+    '_history_signature',
+    'agent_entries_for',
+    'history_entries_for',
+    '_WINDOW_DAYS',
+    'live_payload',
+    'meta_payload',
+    'model_pipelines',
+    'telemetry_window_stats',
+    'upcoming_payload',
+]
+
 
 _SECTIONS = tuple(
     _sys.modules[f'{__name__}.{_n}'] for _n in ('base', 'durations', 'live', 'planning', 'history', 'payloads')

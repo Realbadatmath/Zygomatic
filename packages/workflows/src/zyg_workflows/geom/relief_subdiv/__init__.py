@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401,E402
 """BONY RELIEF AT SUBDIVISION LEVEL — the same anatomy, evaluated where the surface can
 carry it.
 
@@ -310,3 +309,48 @@ from zyg_workflows.geom.relief_subdiv.measurement import (
     _jsonable,
 )
 from zyg_workflows.geom.relief_subdiv.cli import self_test, main
+
+__all__ = [
+    'json',
+    'os',
+    'resource',
+    'sys',
+    'time',
+    'np',
+    '_zyg_logging',
+    '_zyg_log',
+    'SCHEMA',
+    '_module_provenance',
+    'SUBDIV_STILLS',
+    'SUBDIV_3D',
+    'CAGE_VERTS',
+    'CAGE_FACES',
+    'CAGE_NULL_TARGET_SIZES',
+    'NULL_POOLS_BY_LEVEL',
+    'POINT_NULL_N_BY_LEVEL',
+    'LEVEL_CUT_ABSOLUTE_FLOOR_FRAC',
+    'LEVEL_CUT_ABSOLUTE_FLOOR_CONTRAST',
+    'LEVEL_NULL_SEED_PANEL',
+    'catmull_clark',
+    'subdivide',
+    'subdiv_mirror_map',
+    'fast_mirror_map',
+    '_verify_fast_mirror_map',
+    'mirror_map_override',
+    '_lexsearch',
+    'verify_index_preservation',
+    '_pooled_runs_at',
+    '_panel_cut',
+    'level_null',
+    'cuts_for',
+    'probe_at_cut',
+    'apply_relief_at',
+    'mirror_audit',
+    '_row',
+    '_fmt',
+    'measure',
+    'determinism_check',
+    '_jsonable',
+    'self_test',
+    'main',
+]

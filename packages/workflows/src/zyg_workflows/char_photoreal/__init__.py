@@ -128,9 +128,6 @@ import logging as _zyg_logging
 
 from zyg_workflows import paths
 
-_zyg_log = _zyg_logging.getLogger(__name__)
-
-# ruff: noqa: F401,E402
 from zyg_workflows.char_photoreal import constants as constants
 from zyg_workflows.char_photoreal import plates as plates
 from zyg_workflows.char_photoreal import renders as renders
@@ -253,3 +250,23 @@ from zyg_workflows.char_photoreal.publish import (
     run_all as run_all,
     main as main,
 )
+
+
+# Every name below is imported above and not used in this module: this package
+# IS the re-export surface of the pre-split module, so the imports are the
+# deliberate public surface, not dead weight.  Nothing does ``import *`` from
+# here, so __all__ changes no behaviour.
+__all__ = [
+    'argparse',
+    'json',
+    'os',
+    'shutil',
+    'subprocess',
+    'sys',
+    'tempfile',
+    'time',
+    'np',
+    'paths',
+]
+
+_zyg_log = _zyg_logging.getLogger(__name__)

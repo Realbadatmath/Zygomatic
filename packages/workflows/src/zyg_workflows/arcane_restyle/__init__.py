@@ -27,7 +27,7 @@ Profiles live in data/runtime/character_style_profiles.json.
 
 from __future__ import annotations
 
-# ruff: noqa: F401,E402  this __init__ IS the re-export surface of the old arcane_restyle.py.
+# This __init__ IS the re-export surface of the old arcane_restyle.py.
 from __future__ import annotations
 
 # The submodules are imported in the original section order, so any module-level
@@ -64,3 +64,28 @@ from zyg_workflows.arcane_restyle.qwen import (
 from zyg_workflows.arcane_restyle.dataset import (
     build_styled_sdxl_dataset,
 )
+
+__all__ = [
+    'copy',
+    'json',
+    'os',
+    're',
+    'shutil',
+    'Callable',
+    '_ads',
+    'paths',
+    '_zyg_logging',
+    '_zyg_log',
+    '_PROFILES_PATH',
+    '_DEPTH_CKPT',
+    '_STYLE_NEG',
+    'load_profile',
+    'set_char_profile',
+    '_styled_caption',
+    '_stage_char_lora',
+    'depth_controlnet_arcane_restyle',
+    '_arcane_prompt',
+    'instantid_arcane_restyle',
+    'qwen_restyle_image',
+    'build_styled_sdxl_dataset',
+]

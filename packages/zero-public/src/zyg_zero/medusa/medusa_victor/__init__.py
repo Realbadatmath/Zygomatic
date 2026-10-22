@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401,E402  (this file exists to re-export; the import block below
-# is the original one, kept so attribute access like the old module had it works)
-
 """medusa_victor.py — the local brains behind Medusa's chat assistant.
 
 Built 2026-09-17 for Victor, when he was the local alternative to a metered
@@ -96,8 +93,6 @@ import logging as _zyg_logging
 
 from zyg_workflows import paths
 
-_zyg_log = _zyg_logging.getLogger(__name__)
-
 # The sections of the original medusa_victor.py, imported in their original order
 # so module-level side effects still happen in that order, then every name the
 # single-file module defined, re-exported so no importer anywhere changes.
@@ -187,11 +182,6 @@ from .schemas import (
     _schema,
     system_prompt,
 )
-
-# The single-file module carried one module-level annotation; restated bare (it
-# binds nothing) so this package's __annotations__ matches the old module's.
-TOOLS: dict[str, tuple[dict, callable]]
-
 from .turn import (
     AGE_GATE_PATH,
     EMPTY_NUDGE,
@@ -215,3 +205,124 @@ from .turn import (
     _refuses_content,
     run_turn,
 )
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+# The single-file module carried one module-level annotation; restated bare (it
+# binds nothing) so this package's __annotations__ matches the old module's.
+TOOLS: dict[str, tuple[dict, callable]]
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name the single medusa_victor.py defined, so attribute access on this module
+# keeps resolving after the split. Declaring them is what makes the re-export
+# deliberate rather than an unused import; nothing does ``import *`` from here,
+# so __all__ changes no behaviour.
+__all__ = [
+    'fnmatch',
+    'json',
+    'os',
+    're',
+    'subprocess',
+    'threading',
+    'time',
+    'urllib',
+    '_zyg_logging',
+    'paths',
+    'BASH_MAX',
+    'BASH_TIMEOUT',
+    'BRAINS',
+    'CREWS_API',
+    'CREWS_TIMEOUT',
+    'DEFAULT_BRAIN',
+    'FENCE',
+    'GLOB_MAX_HITS',
+    'GREP_MAX_HITS',
+    'HERE',
+    'HTTP_TIMEOUT',
+    'IMAGE_APPROVAL',
+    'MAX_HISTORY',
+    'MAX_STEPS',
+    'OLLAMA_URL',
+    'READ_MAX',
+    'ROOT',
+    'STILLS_API',
+    'STILLS_DEFAULT_FAMILY',
+    'STILLS_TIMEOUT',
+    'STILLS_WAIT',
+    'TOOL_RESULT_MAX',
+    'brain',
+    '_TURN',
+    '_clip',
+    '_crews',
+    '_http_json',
+    '_record_image',
+    '_rel',
+    '_safe_path',
+    '_stills',
+    '_turn_job',
+    '_urlopen_http',
+    'available',
+    'info',
+    'models',
+    'resolve_model',
+    '_t_edit_file',
+    '_t_list_files',
+    '_t_read_file',
+    '_t_run_bash',
+    '_t_search_files',
+    '_t_write_file',
+    '_SHEET_ASK_DIR',
+    '_SHEET_ASK_TTL_S',
+    '_SHEET_NO',
+    '_SHEET_YES',
+    '_sheet_ask_path',
+    '_sheet_clear_ask',
+    '_sheet_consent',
+    '_sheet_record_ask',
+    '_still_dim',
+    '_t_crews_api',
+    '_t_image_angles',
+    '_t_image_capability',
+    '_t_image_decide',
+    '_t_image_edit',
+    '_t_image_edit_status',
+    '_t_image_generate',
+    '_t_image_jobs',
+    '_t_image_pending',
+    '_t_picture_generate',
+    '_t_picture_status',
+    '_t_video_prompt',
+    '_t_video_render_start',
+    '_t_video_render_status',
+    '_t_video_render_stop',
+    '_t_video_spec',
+    'TOOLS',
+    'TOOL_SCHEMAS',
+    '_B',
+    '_I',
+    '_O',
+    '_S',
+    '_schema',
+    'system_prompt',
+    'AGE_GATE_PATH',
+    'EMPTY_NUDGE',
+    'MAX_NUDGES',
+    'NUDGE',
+    'PICTURE_NUDGE',
+    'REFUSAL_NUDGE',
+    '_AGE_GATE',
+    '_AGE_GATE_TRIED',
+    '_INTENT',
+    '_MINOR_HINT',
+    '_PICTURE_CLAIM',
+    '_REFUSAL',
+    '_age_gate',
+    '_chat_once',
+    '_claims_picture',
+    '_history_messages',
+    '_images_b64',
+    '_is_intent',
+    '_minor_language',
+    '_refuses_content',
+    'run_turn',
+]

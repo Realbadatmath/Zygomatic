@@ -14,9 +14,15 @@ constants (output base, token-usage ledger, context windows, aspect-ratio filter
 map, ``sanitize_filename``).
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: every name here is read back off zyg_dashboard.crewai_web_gui by the
+# bp_* blueprints.
 
+# Aliased stdlib re-exports for the Claude collaboration layer: bp_claude_clip.py and
+# theme.py read these three off this module, and crewai_web_gui/__init__.py re-exports
+# them, so they are part of this module's surface rather than local helpers.
+import re as _ccl_re
+import json as _ccl_json
+import threading as _ccl_threading
 from zyg_dashboard import paths as _dash_paths
 from zyg_dashboard.crewai_web_gui._bootstrap import (
     ZYG_REDIS_URL,
@@ -35,6 +41,18 @@ from zyg_workflows.char_state_service.char_state import _char_save_state
 from zyg_workflows.char_state_service.creature import _creature_save_state
 from zyg_workflows.subproc_registry import _kill_all_subprocs
 from zyg_workflows.vram_manager import _evict_all_ollama_models, _release_pipeline_vram
+
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and NOT used in this module: it is read off this
+# module by its importers. Declaring them is what makes the re-export deliberate rather
+# than an unused import; nothing does ``import *`` from here, so __all__ changes no
+# behaviour.
+__all__ = [
+    '_ccl_re',
+    '_ccl_json',
+    '_ccl_threading',
+]
 
 
 def _halt_all_pipeline_activity(reason: str = 'Stopped by user') -> dict:
@@ -277,9 +295,8 @@ _YT_TOKEN_FILE = os.path.expanduser('~/zygomatics-zero/youtube/token.pickle')  #
 #             execute_caption_plan()       → captioned clips
 # ══════════════════════════════════════════════════════════════════════════════
 
-import re as _ccl_re  # noqa: E402  module-level alias kept beside the section that re-exports it
-import json as _ccl_json  # noqa: E402  module-level alias kept beside the section that re-exports it
-import threading as _ccl_threading  # noqa: E402  module-level alias kept beside the section that re-exports it
+# (_ccl_re / _ccl_json / _ccl_threading, this section's aliased stdlib re-exports, are
+# imported with the rest of the import block at the top of the file.)
 
 # Never made here: importing a module must not touch the filesystem. Both render
 # entry points already create it at the write site — bp_claude_clip.py's

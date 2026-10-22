@@ -1,4 +1,3 @@
-# ruff: noqa: F401,E402
 # SPDX-FileCopyrightText: 2026 Zygomatic
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
@@ -82,3 +81,59 @@ from zyg_workflows.pipeline_sports.pipeline import (
     retention_sweep,
     start_episode,
 )
+
+# Re-export surface: every name below is imported above and not used in this
+# module. Nothing does ``import *`` from here, so __all__ changes no behaviour;
+# it declares the inherited namespace public so ruff does not read it as dead.
+__all__ = [
+    'ATTRIBUTION',
+    'BJ',
+    'BV',
+    'CHANNELS',
+    'DISCLAIMER',
+    'OUTRO_LINE',
+    'SI',
+    '_ROMAN_SPOKEN',
+    '_SPEAK_AS_WORD',
+    '_display_selection',
+    '_entity_label',
+    '_kickoff_local',
+    '_log',
+    '_re_sp',
+    '_speech_label',
+    '_speech_selection',
+    '_speech_sub',
+    '_speechify',
+    '_stage',
+    'datetime',
+    'os',
+    'shutil',
+    'threading',
+    'timezone',
+    'traceback',
+    '_PCT_RE',
+    '_board_rows',
+    '_chapter_title',
+    '_display_leg',
+    '_facts_for',
+    '_form_facts',
+    '_form_score',
+    '_injury_facts',
+    '_nearest_team',
+    '_overview_script',
+    '_parlay_rows',
+    '_parlay_script',
+    '_pct_misattributions',
+    '_role_flip',
+    '_role_flips',
+    '_speech_final',
+    '_speech_leg',
+    '_team_variants',
+    '_template_scripts',
+    '_welcome_script',
+    '_write_scripts',
+    '_description_intro',
+    '_run',
+    'retention_sweep',
+    'start_episode',
+]

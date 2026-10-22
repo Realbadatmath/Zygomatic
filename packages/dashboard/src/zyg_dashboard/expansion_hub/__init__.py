@@ -38,7 +38,9 @@ Line counts are cached per file by (mtime_ns, size) in
 ``python3 expansion_hub.py [--fresh] [--json]`` prints the summary (or the full payload).
 """
 
-# ruff: noqa: F401,E402
+# ruff: noqa: E402
+#   E402: the section imports must stay BELOW the sys.modules purge further down — that
+#         purge is what makes an importlib reload of this package reload the collectors.
 
 # ── expansion_hub.py became expansion_hub/ ───────────────────────────────────
 # Pattern A: the import path `zyg_dashboard.expansion_hub` is unchanged and every name the
@@ -140,3 +142,84 @@ from .aggregation import (  # noqa: F401
     build,
     section_expansion,
 )
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and is not used in this module: expansion_hub.py became this
+# package and the single file's whole surface — public and underscore — is re-exported
+# here for its importers. Nothing does ``import *`` from it, so __all__ changes no
+# behaviour; it only tells ruff these imports are deliberate.
+__all__ = [
+    'ast',
+    'hashlib',
+    'json',
+    'os',
+    're',
+    'statistics',
+    'subprocess',
+    'time',
+    'warnings',
+    '_zyg_logging',
+    'exe',
+    '_zyg_log',
+    'HERE',
+    'ROOT',
+    'HOME',
+    'CREWS_DATA',
+    'CACHE_PATH',
+    'TRAINING_ROOTS',
+    'EXTRA_FILES',
+    'CODE_EXT',
+    'CONFIG_EXT',
+    'DOCS_EXT',
+    'TABLE_EXT',
+    'ASSET_EXT',
+    'ASSET_DIRS',
+    'NOLINE_EXT',
+    'SKIP_EXT',
+    '_SKIP_BY_EXT',
+    'HARD_PRUNE',
+    'OUTPUT_PRUNE',
+    'CONTENT_PRUNE',
+    'DATA_PRUNE',
+    'CREWS_DATA_KEEP',
+    'THIRD_PARTY_ROOTS',
+    'PROMPT_NAME',
+    '_PROMPT_DIRS',
+    'ROUTE_RE',
+    'DEF_RE',
+    'CLASS_RE',
+    'MAIN_RE',
+    'JS_FN_RE',
+    'SCAN_TTL_S',
+    '_LAST',
+    '_iso',
+    '_ext',
+    'RUNTIME_FILE',
+    '_is_backup_name',
+    '_kind_of',
+    'KIND_LABEL',
+    'KIND_ORDER',
+    '_unit_files',
+    '_parse_unit',
+    '_exec_paths',
+    '_unit_states',
+    '_third_party',
+    'discover_components',
+    '_prune_reason',
+    '_load_cache',
+    '_save_cache',
+    '_string_like',
+    '_str_len',
+    '_collect_strings',
+    '_prompt_literals',
+    '_prompt_units',
+    '_read_file',
+    '_walk_component',
+    '_add_file',
+    '_walk_training',
+    '_agg',
+    '_folder_rows',
+    '_version',
+    'build',
+    'section_expansion',
+]

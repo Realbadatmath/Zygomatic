@@ -220,7 +220,7 @@ measured on the exact images in these directories and Cycles is stochastic, so a
 silently leaves the band describing pixels that no longer exist.
 """
 
-# ruff: noqa: F401,E402  # re-export surface: every name the pre-split module defined
+# re-export surface: every name the pre-split module defined
 
 import argparse
 import datetime
@@ -278,3 +278,59 @@ from zyg_workflows.geom.mv_render.blender_verify import (
 )
 from zyg_workflows.geom.mv_render.blender_main import _bl_main, _bl_main_inner
 from zyg_workflows.geom.mv_render.outer import _blender_version, _render_positive, _build_negative, _PROVENANCE, main
+
+__all__ = [
+    'argparse',
+    'datetime',
+    'glob',
+    'json',
+    'math',
+    'os',
+    'shutil',
+    'subprocess',
+    'sys',
+    'tempfile',
+    '_zyg_logging',
+    'paths',
+    '_zyg_log',
+    'BLENDER',
+    'ROOT',
+    'FEMALE_GLB',
+    'OUT_H',
+    'OUT_W',
+    'N_VIEWS',
+    'AZIMUTH_STEP_DEG',
+    'ELEVATION_DEG',
+    'SENSOR_MM',
+    'LENS_MM',
+    'FRAME_H_PER_STATURE',
+    'HEAD_TOP_MARGIN',
+    'CYCLES_SAMPLES',
+    'TRANSLATION_TOL_PX',
+    'WORKER_STATUS',
+    'NEG_CHARS',
+    'CHAR_ROOT',
+    'SETS',
+    '_now',
+    '_bl_orient',
+    '_bl_texture_material',
+    '_bl_grey_material',
+    '_SCREEN_SPACE_SOCKETS',
+    '_bl_assert_surface_locked',
+    '_bl_scene',
+    '_bl_place_camera',
+    '_bl_render',
+    '_bl_read_rgb',
+    '_bl_gray',
+    '_bl_ncc_shift',
+    '_bl_verify_texture_lock',
+    '_bl_subject_mask',
+    '_bl_coverage',
+    '_bl_main',
+    '_bl_main_inner',
+    '_blender_version',
+    '_render_positive',
+    '_build_negative',
+    '_PROVENANCE',
+    'main',
+]

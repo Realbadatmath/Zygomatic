@@ -12,8 +12,8 @@ Google-Trends topic pools with the sports blocklist and the Zero kanban
 sequential queue with its auto-mode scheduler.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: the original import order is load-bearing, and every name here is read
+# back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
 
 from zyg_dashboard import paths as _dash_paths
 from zyg_dashboard.crewai_web_gui._bootstrap import (

@@ -2,11 +2,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401
 import json
 import logging as _zyg_logging
-
-_zyg_log = _zyg_logging.getLogger(__name__)
 
 # The sections of the single file this package replaces, imported in the original
 # section order so every module-level side effect still runs when it used to.
@@ -35,3 +32,28 @@ from zyg_workflows.update_agent_model_mapping.mapping import (
     save_json_file,
     update_agent_mapping,
 )
+
+_zyg_log = _zyg_logging.getLogger(__name__)
+
+
+# The re-exported surface of the pre-split module, in import order: every name
+# here exists only so that `<this module>.<name>` keeps resolving for importers.
+__all__ = [
+    'json',
+    'constants',
+    'verticals_marketing',
+    'verticals_children_3d',
+    'verticals_children_2d',
+    'verticals',
+    'mapping',
+    'CPU_MODELS_FILE',
+    'GPU_MODELS_FILE',
+    'MAPPING_FILE',
+    'BUSINESS_VERTICALS',
+    'find_model_id',
+    'get_next_model_id',
+    'load_json_file',
+    'normalize_model_name',
+    'save_json_file',
+    'update_agent_mapping',
+]

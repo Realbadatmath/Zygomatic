@@ -39,9 +39,6 @@ import os
 import shutil
 import time
 
-
-# ruff: noqa: F401,E402
-
 from .tree_base import (
     ARC_ENV,
     ARC_ENV_SWEEP,
@@ -109,3 +106,66 @@ from .scar_height import (
     build_scar_height,
     height_to_shading,
 )
+
+# Every name below is imported above and NOT used in this module: this package is the
+# re-export surface of the split, so the names are its public API.  Nothing does
+# ``import *`` from here, so __all__ changes no behaviour -- it tells ruff the imports
+# are deliberate.
+__all__ = [
+    'os',
+    'shutil',
+    'time',
+    'ARC_ENV',
+    'ARC_ENV_SWEEP',
+    'FRAMINGS',
+    'H_GEN',
+    'H_REND',
+    'OUT',
+    'TREE_BASE_PROMPT',
+    'TREE_SCENE_DESC',
+    'W_GEN',
+    'W_REND',
+    '_ARC_ENV_NEG',
+    '_AXE_NEG',
+    '_AXE_PROMPT',
+    '_DIR',
+    '_JUG',
+    '_NEG_PLATE',
+    '_SCAR_NEG',
+    '_SCAR_PROMPT',
+    '_TREE_COMMON',
+    '_arcane_env',
+    '_free',
+    '_log_noop',
+    'build_tree_base',
+    'sweep_arcane_env',
+    'sweep_tree_base',
+    'PROP_DIR',
+    'apply_scars',
+    'build_candidates',
+    'build_tree_plate',
+    'find_trunk',
+    'paint_region',
+    'AXE_SPRITE_SEED',
+    '_AXE_SPRITE_NEG',
+    '_AXE_SPRITE_PROMPT',
+    '_BARK_PATCH_NEG',
+    '_BARK_PATCH_PROMPT',
+    '_match_colour',
+    'apply_scars_textured',
+    'composite_axe',
+    'key_white',
+    'sweep_axe_sprites',
+    '_CLOSEUP_PROMPT',
+    '_ENTRY_NEG',
+    '_ENTRY_PROMPT',
+    '_HERO_NEG',
+    '_HERO_PROMPT',
+    'closeup_sweep',
+    'harmonise_entry',
+    'hero_sweep',
+    'apply_scars_height',
+    'apply_scars_ratio3d',
+    'build_scar_height',
+    'height_to_shading',
+]

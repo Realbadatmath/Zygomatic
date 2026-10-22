@@ -42,7 +42,7 @@ existing creature-image route can serve it. Training tiles are written by the
 caller into ``<dataset_dir>/training/`` (SimpleTuner rglobs recursively, so the
 working files must not sit beside the tiles).
 """
-# ruff: noqa: E402,F401  # a Pattern A package: the __init__ re-exports the old surface
+# a Pattern A package: the __init__ re-exports the old surface
 
 from __future__ import annotations
 
@@ -87,6 +87,66 @@ from .tiles import training_tiles, reclassify
 # is propagated to the section modules that hold that name.
 import sys as _sys
 from types import ModuleType as _ModuleType
+
+__all__ = [
+    'json',
+    'os',
+    'shutil',
+    'time',
+    'Any',
+    'Callable',
+    '_cid',
+    '_cj',
+    '_zyg_logging',
+    '_zyg_log',
+    'SHEET_DIRNAME',
+    'SHEET_FILENAME',
+    'REPORT_FILENAME',
+    'CELL_SIZE',
+    'MAX_REGEN',
+    'SCRATCH_ANCHOR_SEEDS',
+    '_KEEP',
+    'SOFT_FLAGS',
+    'LOCKED_VIEW_EXEMPT',
+    'MAX_REGEN_SOFT',
+    'CONFORM_SEEDS',
+    'SIDE_TOWARD_BACK',
+    '_SIDE_TEXT_Q',
+    '_SIDE_TEXT_BACK',
+    'keep_sentence',
+    'anchor_locks',
+    '_file_sig',
+    '_text_sig',
+    '_mirror',
+    '_opposite',
+    'side_instruction',
+    'ANGLES',
+    'COMPACT_IDS',
+    'angle_plan',
+    'sheet_dir',
+    'sheet_path',
+    'report_path',
+    'load_report',
+    '_split_flags',
+    'caption_mode',
+    '_score_key',
+    '_prepare_reference',
+    '_crop_letterbox_image',
+    'strip_letterbox',
+    'structural_check',
+    'make_strip',
+    'stitch_sheet',
+    '_NEG',
+    '_edit',
+    '_txt2img',
+    'conform_instruction',
+    'check_anchor_agreement',
+    'conform_variants',
+    'conform_anchor',
+    'build_sheet',
+    'training_tiles',
+    'reclassify',
+]
 
 _SECTIONS = (base, images, comfy, build, build_anchors, build_cells, tiles)
 

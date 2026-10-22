@@ -34,10 +34,14 @@ walls exposed (p.raised = depth) — unless sunk=true (a plant storey below), an
 
 from __future__ import annotations
 
-# ruff: noqa: F401,E402  # this file is the re-export surface of the split
-# module: every top-level name water_leisure.py defined is re-bound here, so no
-# importer anywhere needs editing.  The submodules are imported in the original
-# section order, so their module-level side effects still run in that order.
+# ruff: noqa: E402
+# E402: the sys.modules purge loop below MUST run before the submodule imports --
+# hoisting them above it would delete the modules it has just imported, and the
+# _SECTIONS lookup further down would then raise KeyError.
+# This file is the re-export surface of the split module: every top-level name
+# water_leisure.py defined is re-bound here (see __all__), so no importer anywhere
+# needs editing.  The submodules are imported in the original section order, so their
+# module-level side effects still run in that order.
 
 import sys as _sys
 from types import ModuleType as _ModuleType
@@ -166,6 +170,111 @@ from zyg_workflows.arch_assistant_ext.water_leisure.tools import (
     TOOLS,
     _BASE_H,
 )
+
+# Every name below is imported above and NOT used in this module: this package is the
+# re-export surface of the split, so the names are its public API.  Nothing does
+# ``import *`` from here, so __all__ changes no behaviour -- it tells ruff the imports
+# are deliberate.
+__all__ = [
+    'A',
+    'COURT_SLOPE',
+    'COURT_SPREAD',
+    'DECK_CLEAR',
+    'Drawing',
+    'INF_INSET',
+    'INF_REACH',
+    'KINDS',
+    'LEVEL_TOL',
+    'MATERIALS',
+    'MAX_OBJECTS',
+    'OPENINGS',
+    'PROMPT',
+    'SIDES',
+    'SPORTS',
+    '_DEFAULT_MAT',
+    '_INF',
+    '_cells',
+    '_deck_at',
+    '_deck_extent',
+    '_ground_span',
+    '_label',
+    '_level_check',
+    '_line_span',
+    '_mat',
+    '_num',
+    '_parapet_along',
+    '_room',
+    '_storey_deck',
+    'block_bounds',
+    'cell_centre',
+    'cell_name',
+    'cell_of',
+    'cell_size',
+    'deck_top',
+    'deck_tops',
+    'ground_height',
+    'ground_plane',
+    'math',
+    'parse_cell',
+    'place_height',
+    'surface_top',
+    'CORE_CLEAR',
+    'DECK_MARGIN',
+    'GUARD_H',
+    'GUARD_IN',
+    'GUARD_T',
+    'GUARD_WORDS',
+    'INF_COPING',
+    'INF_RIM',
+    'INF_TILE',
+    'INF_TILES',
+    'LIGHT_CAP',
+    'LIGHT_N',
+    'LOUNGER_MAX',
+    'LOUNGER_OFF',
+    'LOUNGER_STEP',
+    'PALM_GUARD',
+    'PALM_IN',
+    'PALM_R',
+    'PARASOL_OFF',
+    'PLANT_KINDS',
+    'POOL_MIN_SIDE',
+    'SWIM_DEPTH',
+    'WALK_MIN',
+    '_DIR',
+    '_FACE_NZ',
+    '_FACE_X',
+    '_OPP',
+    '_block_cells',
+    '_coverage',
+    '_deck_cores',
+    '_guards_along',
+    '_inside',
+    '_move_suggestion',
+    '_n_treads',
+    '_pool_deck',
+    '_pool_span',
+    '_rect_gap',
+    '_storey_base',
+    '_walk_short',
+    '_walk_suggestion',
+    '_would_deck',
+    't_add_pool',
+    'DESIGN_CHECKS',
+    'check_infinity_pools',
+    't_add_infinity_pool',
+    'CANAL_LEVEL_MSG',
+    '_deck_or_ground',
+    't_add_beach_set',
+    't_add_canal',
+    't_add_fountain',
+    't_add_playground',
+    't_add_pond',
+    't_add_sports_court',
+    'EXAMPLES',
+    'TOOLS',
+    '_BASE_H',
+]
 
 _SECTIONS = tuple(
     _sys.modules[f'{__name__}.{_m}']

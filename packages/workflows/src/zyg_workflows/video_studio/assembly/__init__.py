@@ -14,9 +14,9 @@ that the old file kept under one banner and that share the graph helpers:
     start_render() spawns.
 """
 
-# ruff: noqa: F401, E402 — this package IS the re-export surface of the old
-# single file: every name it defined must stay an attribute of the same
-# import path, and the submodule imports sit below the shared top block.
+# This package IS the re-export surface of the old single file: every name it
+# defined must stay an attribute of the same import path, so the surface is
+# declared in __all__ at the bottom of this file.
 
 import json
 import math
@@ -56,3 +56,51 @@ from .render import (
     _enable_comfy,
     _render_worker,
 )
+
+
+# The re-exported surface of the pre-split module, in import order: every name
+# here exists only so that `<this module>.<name>` keeps resolving for importers.
+__all__ = [
+    'json',
+    'math',
+    'os',
+    'shutil',
+    'threading',
+    'time',
+    '_wan',
+    'HERE',
+    '_comfy',
+    '_OUT_ROOT',
+    '_zyg_log',
+    '_audio_spec',
+    '_color_match_filter',
+    '_detect',
+    '_motion_series',
+    '_post_process',
+    'PATHWAYS',
+    'compose_link_prompts',
+    'compose_prompt',
+    '_JOBS',
+    '_JOBS_LOCK',
+    '_job_log',
+    '_job_set',
+    '_prune_jobs',
+    '_RENDER_GATE',
+    'job',
+    'nondefault',
+    'sanitize',
+    '_MEDIA_ROOT',
+    '_resolve_shot_path',
+    '_prepare_shotlist',
+    '_assemble_worker',
+    'start_assemble',
+    '_NODE_DEFAULTS',
+    '_node',
+    '_CACHE_NODES',
+    '_augment_graph',
+    '_graph_overrides',
+    '_submit',
+    '_render_one',
+    '_enable_comfy',
+    '_render_worker',
+]

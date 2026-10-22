@@ -20,7 +20,7 @@ the zero-public server it spawns and that subprocess' working directory — come
 named once.
 """
 
-# ruff: noqa: E402  the collaborators have to be imported before the moved block runs
+# The collaborators have to be imported before the moved block runs.
 
 from zyg_dashboard import paths as _dash_paths
 from zyg_dashboard.crewai_web_gui import (

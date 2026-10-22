@@ -11,7 +11,6 @@
 # re-export shim, so the import path and every attribute access are unchanged. The
 # submodules are imported in their original order, which is the order the routes
 # register on `bp`.
-# ruff: noqa: E402,F401
 import logging as _zyg_logging
 import json
 import os
@@ -89,3 +88,79 @@ from .workflow import (
     get_workflow_step_agents,
     pipeline_stages,
 )
+
+
+# ── re-export surface ──
+# Every name below is imported above and NOT used in this module; it is here so
+# importers keep resolving it through this module. Nothing does ``import *`` from
+# here, so __all__ changes no behaviour -- it is how ruff is told these are public.
+__all__ = [
+    '_zyg_logging',
+    'json',
+    'os',
+    'time',
+    'Blueprint',
+    'jsonify',
+    'request',
+    'send_from_directory',
+    'session',
+    'API_ADAPTER_AVAILABLE',
+    'USERS_DATA_PATH',
+    '_AGENT_FACES_BASE',
+    '_AGENT_FACE_EXTENSIONS',
+    '_CLIPFARM_STAGES',
+    '_agent_api_to_legacy_shape',
+    '_backend_debug',
+    '_find_agent_face_path',
+    '_first_list',
+    '_get_agents_list',
+    '_get_all_tools',
+    '_get_cpu_bar_mapping',
+    '_get_gpu_bar_mapping',
+    '_load_canonical_json',
+    '_load_json',
+    '_main_mod',
+    '_resolve_agent_display_name',
+    '_resolve_ai_models_display',
+    '_runtime_path',
+    '_workflow_jobs',
+    '_zero_agent_legacy_shape',
+    '_zero_load_config',
+    '_zyg_log',
+    'api_get_agents',
+    'apply_cors',
+    'bp',
+    'controller',
+    'get_active_schedule',
+    'get_agent_face',
+    'get_agent_name_by_id',
+    'get_agents',
+    'get_agents_assigned_to_user',
+    'get_department_agents',
+    'get_model_name_by_id',
+    'get_tier1_agents',
+    'html_module',
+    'limiter',
+    'api_prompt_log',
+    'get_agent_config_by_name',
+    'get_agent_logbook',
+    'get_agent_model_bar_mapping',
+    'get_agents_config',
+    'get_cpu_agent_model_bar_mapping',
+    'get_departments',
+    'get_gpu_schedule',
+    'release_gpu',
+    '_load_feedback_workflow_data',
+    'agent_model_audit',
+    'agent_network',
+    'agent_tree',
+    'api_tools',
+    'available_models',
+    'get_agents_active',
+    'get_hardware_table',
+    'get_model_ids',
+    'get_orchestration_permissions',
+    'get_workflow_box_ids',
+    'get_workflow_step_agents',
+    'pipeline_stages',
+]

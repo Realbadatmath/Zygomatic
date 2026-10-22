@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402,F401
-
 """test_arch_assistant.py — the drawing assistant, the cell labels, the ring.
 
     venv/bin/python test_arch_assistant.py          (needs :8899 up)
@@ -43,3 +41,27 @@ from zyg_workflows.test_arch_assistant.tab import SCRIPT, test_tab
 from zyg_workflows.test_arch_assistant.cli import test_cli, test_cli_events
 from zyg_workflows.test_arch_assistant.ledger import test_ledger, test_partials, test_assets_materials
 from zyg_workflows.test_arch_assistant.thinkless import test_thinkless, test_live
+
+# Every name imported above is re-exported, not used here: this package IS the module
+# the split replaced, so `__all__` declares the surface instead of a file-level noqa.
+__all__ = [
+    'json',
+    'math',
+    'time',
+    'paths',
+    'A',
+    'URL',
+    'FIXTURE_TOKEN',
+    'FAILS',
+    'check',
+    'test_drawer',
+    'SCRIPT',
+    'test_tab',
+    'test_cli',
+    'test_cli_events',
+    'test_ledger',
+    'test_partials',
+    'test_assets_materials',
+    'test_thinkless',
+    'test_live',
+]

@@ -42,7 +42,7 @@ separate from the file-backed records so dropping a raw file in still works (it 
 as un-cleared until metadata is set).
 """
 
-# ruff: noqa: F401,E402  this __init__ IS the re-export surface of the old asset_library_service.py.
+# This __init__ IS the re-export surface of the old asset_library_service.py.
 
 # The submodules are imported in the original section order, so any module-level
 # side effect still runs exactly when it did in the single-file asset_library_service.py.
@@ -94,3 +94,50 @@ from zyg_workflows.asset_library_service.apply import (
     _presence_qc,
     apply_asset,
 )
+
+# Every name below is imported above and NOT used in this module: this package is the
+# re-export surface of the split, so the names are its public API.  Nothing does
+# ``import *`` from here, so __all__ changes no behaviour -- it tells ruff the imports
+# are deliberate.
+__all__ = [
+    'os',
+    'json',
+    'copy',
+    'math',
+    'threading',
+    '_zyg_logging',
+    'paths',
+    '_zyg_log',
+    '_HERE',
+    '_CHARS_ROOT',
+    '_AUDIO_ROOT',
+    '_AUDIO_EXTS',
+    '_CATEGORIES',
+    '_DEFAULTS',
+    '_log_noop',
+    'categories',
+    'category_info',
+    '_lib_path',
+    '_audio_dir',
+    '_audio_meta_path',
+    '_AUDIO_META_LOCK',
+    '_load_audio_meta_strict',
+    '_load_audio_meta',
+    'get_audio_meta',
+    'set_audio_meta',
+    'set_audio_meta_many',
+    'load_assets',
+    'save_assets',
+    'get_asset',
+    'add_asset',
+    'remove_asset',
+    '_preview_dir',
+    'preview_path',
+    'has_preview',
+    'generate_preview',
+    'ensure_previews',
+    '_char_base_image',
+    '_apply_instruction',
+    '_presence_qc',
+    'apply_asset',
+]

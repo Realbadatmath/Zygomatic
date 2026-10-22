@@ -2,10 +2,13 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401
+# ruff: noqa: E402
 #   E402: the original module already imported crewai_web_gui *after* `bp` (the circular
-#         import below), and the submodule re-exports must come after that too.
-#   F401: everything this module imports is a re-export — the package IS the old namespace.
+#         import below), and the submodule re-exports must come after that too. All five
+#         section modules do `from zyg_dashboard.bp_pipeline_api import bp`, so `bp` must
+#         be bound before they are imported.
+# Everything this module imports is a re-export — the package IS the old namespace — and
+# the re-exported names are declared in __all__ at the bottom.
 
 # Generated 2026-07-17 heavy-tranche modularization — extracted from crewai_web_gui.py.
 # See crews_modularization_backups_20260717/MODULARIZATION_CHANGELOG.md.
@@ -131,3 +134,101 @@ from zyg_dashboard.bp_pipeline_api.timeline_logs import (
     live_log,
     pipeline_flags,
 )
+
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and NOT used in this module: it is read off this
+# module by its importers. Declaring them is what makes the re-export deliberate rather
+# than an unused import; nothing does ``import *`` from here, so __all__ changes no
+# behaviour.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'timedelta',
+    'Response',
+    'jsonify',
+    'request',
+    'send_file',
+    'send_from_directory',
+    'session',
+    'stream_with_context',
+    '_steps',
+    'apply_cors',
+    'gui_state',
+    '_seal',
+    '_char_reconcile_job_state',
+    '_char_reload_jobs_from_disk',
+    '_contact_sheet_reload_jobs_from_disk',
+    '_contact_sheet_worker_alive',
+    '_creature_reload_jobs_from_disk',
+    '_creature_state_path',
+    '_normalize_pipeline_options',
+    '_parse_pipeline_model_family',
+    '_pipeline_current_stage_from_job',
+    '_resolve_pipeline_public_status',
+    '_compute_runtime',
+    '_card_times',
+    '_fmt_runtime',
+    '_workflow_job_gpu_active',
+    '_CLIPFARM_STAGES',
+    '_FLUX_LORA_PATH',
+    '_FLUX_LORA_SCALE',
+    '_SUBPROC_LOCK',
+    '_SUBPROC_REGISTRY',
+    '_VALID_VISUAL_STYLES',
+    '_start_clipfarm_internal',
+    '_start_creature_pipeline_internal',
+    '_start_manga_pipeline_internal',
+    '_start_storyteller_pipeline_internal',
+    '_start_video_pipeline_internal',
+    'limiter',
+    'Crew',
+    'Process',
+    'Task',
+    'controller',
+    '_RUNTIME_DIR',
+    '_char_gen_jobs',
+    '_contact_sheet_jobs',
+    '_creature_gen_jobs',
+    '_runtime_path',
+    '_workflow_jobs',
+    '_workflow_pipeline_worker_alive',
+    '_start_scholarly_pipeline_internal',
+    '_backend_debug',
+    '_ams_iso',
+    '_ams_now',
+    '_parse_iso_to_ams',
+    '_zero_audit_log',
+    'block_spectator_mutation',
+    'api_internal_pipeline_start',
+    'run_single_agent',
+    'run_task',
+    'start_clipfarm_workflow',
+    '_read_creature_brief_name',
+    '_seal_gate_outputs',
+    'api_internal_creature_approve',
+    'api_internal_creature_reject',
+    'api_internal_creature_resume',
+    'api_internal_creature_sheet',
+    'approve_creature_review',
+    'reject_creature_review',
+    '_rt_report_line',
+    '_runtime_payload',
+    'api_internal_pipeline_download',
+    'api_internal_pipeline_status',
+    'workflow_status',
+    'workflow_status_active',
+    'api_subprocesses',
+    'get_subprocess_by_pid',
+    'kanban_clear_errors',
+    'kanban_status',
+    'api_pipeline_active',
+    'api_pipeline_murch_debug',
+    'api_pipeline_test',
+    'api_pipeline_timeline',
+    'api_pipeline_timeline_download',
+    'frontend_log',
+    'live_log',
+    'pipeline_flags',
+]

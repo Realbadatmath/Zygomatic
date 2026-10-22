@@ -3,7 +3,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 
-# ruff: noqa: E402, F401
+# ruff: noqa: E402  # the ``del sys.modules[...]`` reload cascade below must run
+# before the section imports, so this import block cannot be hoisted.
 
 """kids_video_service.py — the illustrated-video leg of the Children's Music workflow.
 
@@ -501,6 +502,20 @@ __all__ = [
     'reassemble',
     'run',
     '_main',
+    # ── the original top import block, re-exported so that
+    #    ``kids_video_service.os`` and friends resolve as they did pre-split ──
+    'json',
+    'math',
+    'os',
+    'random',
+    're',
+    'subprocess',
+    'time',
+    'kids_llm',
+    'paths',
+    'T',
+    '_seal',
+    'exe',
 ]
 
 from zyg_workflows.kids_video_service import (  # the section modules themselves

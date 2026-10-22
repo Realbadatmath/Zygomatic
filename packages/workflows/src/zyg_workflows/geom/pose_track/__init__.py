@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402,F401
-
 """pose_track.py — a per-shot POSE TRACK for the VACE control channel (2026-09-02).
 
 RUN (either venv; the two model stacks are subprocesses):
@@ -119,6 +117,49 @@ from .cli import (
 
 import sys as _sys
 import types as _types
+
+__all__ = [
+    'argparse',
+    'contextlib',
+    'glob',
+    'json',
+    'os',
+    'subprocess',
+    'sys',
+    'time',
+    'np',
+    '_zyg_logging',
+    'paths',
+    'exe',
+    'FOUND',
+    'MHR70_TO_POSE',
+    'NOT_DETECTABLE',
+    'NOT_FOUND',
+    'OUT_ROOT',
+    'UNMEASURABLE',
+    '_CREWS',
+    '_GPU_LOCK',
+    '_mem_available_gb',
+    '_wait_for_ram',
+    '_zyg_log',
+    'gpu_lock',
+    '_iou',
+    '_one_euro',
+    '_rotvec',
+    '_savgol',
+    '_unwrap_rotvec',
+    'build_track',
+    'extract_frames',
+    'rotvec_to_matrix',
+    'smooth_series',
+    'subject_track',
+    'SOMA_X',
+    '_obj_verts',
+    '_umeyama',
+    'gate_against_2d',
+    'soma_registration_probe',
+    'main',
+]
 
 #: tests/test_gpu_run.py:125,150 do `monkeypatch.setattr(P, '_GPU_LOCK', TMP_LOCK)`
 #: — in the single-file module that rebound the very global `gpu_lock` reads.

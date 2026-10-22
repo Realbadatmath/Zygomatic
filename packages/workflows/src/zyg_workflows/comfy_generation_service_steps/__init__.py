@@ -22,8 +22,6 @@ rather than snapshotting them at import time.
 
 from __future__ import annotations
 
-# ruff: noqa: F401,E402
-
 # ── comfy_generation_service_steps.py became comfy_generation_service_steps/ ──
 # Pattern A: the import path `zyg_workflows.comfy_generation_service_steps` is unchanged and
 # every name the single file defined — public and underscore — is re-exported below from the
@@ -79,3 +77,53 @@ from .submit import (  # noqa: F401
     run_hand_fixer_stage,
     hand_fix_render_crop,
 )
+
+
+# Every name below is imported above and not used in this module: this package
+# IS the re-export surface of the pre-split module, so the imports are the
+# deliberate public surface, not dead weight.  Nothing does ``import *`` from
+# here, so __all__ changes no behaviour.
+__all__ = [
+    'logging',
+    'os',
+    'shutil',
+    'dataclass',
+    'field',
+    'Any',
+    'Callable',
+    '_zyg_log',
+    '_svc',
+    'StillRenderCtx',
+    'flux_licence_paused',
+    'compose_prompts',
+    'resolve_unet_and_sampling',
+    'stage_medusa_base_lora',
+    'stage_character_lora_for_family',
+    'select_workflow',
+    'qwen_edit_resolution_cap',
+    'configure_detailer_passes',
+    'apply_prompt_and_sampler',
+    'apply_model_nodes',
+    'apply_face_detailer_patch',
+    'apply_hand_detailer_patch',
+    '_set_node13_lora',
+    '_cond_scale',
+    'apply_workflow_overrides',
+    '_branch_flux_img2img',
+    '_branch_flux_character_ipadapter',
+    '_branch_flux_pulid_cell',
+    '_branch_klein_refcontrol',
+    '_branch_klein_edit',
+    '_branch_qwen_edit_angle',
+    '_branch_flux_pose_ipa_cell',
+    '_branch_flux_pose_instantid_cell',
+    '_branch_flux_pose_ipa_i2i_cell',
+    '_branch_medusa_base',
+    '_branch_flux_character_instantid',
+    'log_submission',
+    'submit_render',
+    'save_render_output',
+    'apply_render_time_restyle',
+    'run_hand_fixer_stage',
+    'hand_fix_render_crop',
+]

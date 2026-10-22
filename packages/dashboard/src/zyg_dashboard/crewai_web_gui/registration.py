@@ -13,8 +13,9 @@ already; the package ``__init__`` therefore re-exports the eleven modules above
 this one before it imports this one.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: the original import order is load-bearing, and every name here is read
+# back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.  The late imports that
+# stayed at their old definition sites carry their own per-line E402 suppressions.
 
 from zyg_dashboard.crewai_web_gui._bootstrap import app, runtime
 
@@ -329,3 +330,97 @@ from zyg_workflows.tts_service import (  # noqa: E402  bottom registration block
     _synthesise_tts,
     _tts_shared,
 )
+
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and NOT used in this module: it is read off it by
+# ``zyg_dashboard.crewai_web_gui.__init__`` and from there by the bp_* blueprints.
+# Declaring them is what makes the re-export deliberate rather than an unused import;
+# nothing does ``import *`` from here, so __all__ changes no behaviour.
+__all__ = [
+    '_vram_manager',
+    '_comfy_idle_vram_sweeper_loop',
+    '_comfy_vram_used_mb',
+    '_evict_all_ollama_models',
+    '_release_pipeline_vram',
+    '_startup_vram_sweep',
+    '_workflow_job_gpu_active',
+    '_subproc_registry',
+    '_kill_all_subprocs',
+    '_char_state_service',
+    '_bg_contact_sheet_pipeline',
+    '_char_derive_pipeline_stage',
+    '_char_library_trained_at',
+    '_char_lora_output_ready',
+    '_char_lora_train_families',
+    '_char_mark_done',
+    '_char_mark_error',
+    '_char_params_from_bible',
+    '_char_preview_png_names',
+    '_char_reconcile_job_state',
+    '_char_reload_jobs_from_disk',
+    '_char_render_style',
+    '_char_save_state',
+    '_char_stage_end',
+    '_char_stage_start',
+    '_char_state_path',
+    '_char_train_lora_for_family',
+    '_contact_sheet_derive_stage',
+    '_contact_sheet_emit',
+    '_contact_sheet_reload_jobs_from_disk',
+    '_contact_sheet_resume_run',
+    '_contact_sheet_save_state',
+    '_contact_sheet_state_path',
+    '_contact_sheet_worker_alive',
+    '_creature_derive_pipeline_stage',
+    '_creature_reload_jobs_from_disk',
+    '_creature_save_state',
+    '_creature_state_path',
+    '_have_usable_char_preview',
+    '_normalize_char_model_family',
+    '_render_char_preview_images',
+    '_resolve_char_model_family',
+    '_stage_runner',
+    '_check_workflow_health',
+    '_load_workflow_overrides',
+    '_register_prompt',
+    '_pipeline_common',
+    '_normalize_pipeline_options',
+    '_parse_pipeline_model_family',
+    '_pipeline_current_stage_from_job',
+    '_resolve_pipeline_public_status',
+    '_run_creature_training',
+    '_pipeline_clipfarm',
+    '_run_clipfarm_pipeline',
+    '_pipeline_crime',
+    '_run_crime_pipeline',
+    '_pipeline_video',
+    '_run_video_pipeline',
+    '_pipeline_scholarly',
+    '_pipeline_storyteller',
+    '_run_storyteller_pipeline',
+    '_safety_error_logs_fn',
+    '_safety_job_status_fn',
+    '_safety_schedule_pause_fn',
+    '_safety_telemetry_fn',
+    '_ZPUB_PENDING_LOCK',
+    '_zpub_pending_load',
+    '_zpub_pending_save',
+    '_encode_utils',
+    '_tts_service',
+    '_narrator_voice_service',
+    'get_dependencies_status',
+    '_cq_for_crf',
+    '_ffmpeg_popen_nvenc_first',
+    '_ffmpeg_run_nvenc_first',
+    '_kb_encode_wait_seconds',
+    '_nvenc_vcodec_args',
+    '_x264_vcodec_args',
+    '_get_narrator_voice',
+    '_vid_to_channel_id',
+    '_bleep_audio_in_clip',
+    '_mask_bad_words',
+    '_sanitize_title',
+    '_synthesise_tts',
+    '_tts_shared',
+]

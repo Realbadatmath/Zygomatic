@@ -2,10 +2,9 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401
+# ruff: noqa: E402
 #   E402: the submodule imports and the shims must follow the original import block,
 #         which this file re-does verbatim so old attribute reads still resolve.
-#   F401: this file re-exports every name the single module defined.
 
 """quota_meter.py — the Claude subscription quota meter and the two costs behind it. 2026-09-17.
 
@@ -175,6 +174,94 @@ from .cli import _fmt_report, _iso, main
 #      rebind the package attribute, so writes are forwarded into every section module
 #      that holds the name.
 import types as _zyg_types  # noqa: E402
+
+# ── re-export surface ────────────────────────────────────────────────────────
+# Every name below is imported above and is not used in this module: quota_meter.py became this
+# package and the single file's whole surface — public and underscore — is re-exported
+# here for its importers. Nothing does ``import *`` from it, so __all__ changes no
+# behaviour; it only tells ruff these imports are deliberate.
+__all__ = [
+    'fcntl',
+    'json',
+    'os',
+    're',
+    'time',
+    'urllib',
+    'datetime',
+    'timedelta',
+    'urlsplit',
+    '_zyg_logging',
+    'BUCKET_S',
+    'CACHE_PATH',
+    'CACHE_VERSION',
+    'CONFIG_PATH',
+    'CRED_PATH',
+    'CREWS',
+    'DAY',
+    'DEFAULT_CONFIG',
+    'DEFAULT_LANES',
+    'HOME',
+    'INTERACTIVE_ENTRYPOINTS',
+    'LEGACY_CLI_UNKNOWN_MODEL',
+    'OAUTH_BETA',
+    'PRICING',
+    'PROJECTS_DIR',
+    'QuotaError',
+    'RUNTIME',
+    'SAMPLES_PATH',
+    'SCAN_CAP_DAYS',
+    'STATUS_PATH',
+    'TREE_MARKER',
+    'TREE_MARKER_ROWS',
+    'TREE_TASK_RE',
+    'USAGE_KEYS',
+    'USAGE_URL',
+    'WEB_SEARCH_USD',
+    'WEEK',
+    'WEEKS_PER_MONTH',
+    '_PRICING_BY_LEN',
+    '_add',
+    '_zero',
+    '_zyg_log',
+    'load_config',
+    'model_key',
+    'price_row',
+    'price_tokens',
+    'price_usage',
+    'price_usage_total',
+    'usage_from_message',
+    'weekly_price',
+    '_norm_kw',
+    '_read_cache_at',
+    '_slug_words',
+    '_tree_task',
+    '_ts_iso',
+    '_write_json_atomic',
+    'aggregate',
+    'aggregate_lanes',
+    'classify',
+    'daily_series',
+    'parse_transcript',
+    'scan_transcripts',
+    '_append_sample',
+    '_credentials',
+    '_history',
+    '_implied_rates',
+    '_lane_split',
+    '_limit',
+    '_write_status',
+    'compute',
+    'fetch_usage',
+    'parse_usage_payload',
+    'read_samples',
+    'read_status',
+    'report',
+    'sample',
+    '_fmt_report',
+    '_iso',
+    'main',
+]
+
 
 _SECTIONS = tuple(sys.modules[f'{__name__}.{_n}'] for _n in ('pricing', 'transcripts', 'calculation', 'cli'))
 

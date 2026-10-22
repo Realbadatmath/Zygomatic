@@ -2,9 +2,6 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: E402, F401  # the re-export block IS this module; the shim below it needs sys.
-
-
 """wan_video_service.py — Wan2.1-I2V-14B-480P image-to-video clip generation.
 
 Generates short (~3.8 s) video clips by animating the FLUX-generated still
@@ -103,6 +100,75 @@ import sys as _sys
 from types import ModuleType as _ModuleType
 
 from zyg_workflows.wan_video_service import constants, api, helpers  # noqa: F401
+
+# The re-export surface of the pre-split module, in its original import order: every name
+# the single file used to bind at module level, so `wan_video_service.<name>` still resolves.
+__all__ = [
+    'gc',
+    'json',
+    'os',
+    'shutil',
+    'subprocess',
+    'threading',
+    'time',
+    'exe',
+    '_comfy',
+    '_zyg_logging',
+    '_zyg_log',
+    '_MODEL_ID',
+    '_DEFAULT_N_CLIPS',
+    '_CLIP_FRAMES',
+    '_CLIP_FPS',
+    '_OUTPUT_FPS',
+    '_N_CHAINED',
+    'SEC_PER_SUBCLIP',
+    '_SEC_PER_SUBCLIP',
+    'VIDEO_SHORT_PRESETS',
+    'n_chained_for_scene_duration',
+    'effective_wan_scene_duration_sec',
+    'final_trim_target_sec',
+    '_WIDTH',
+    '_HEIGHT',
+    '_WAN_COMFY_MODEL',
+    '_WAN_ATTENTION',
+    '_WAN22',
+    '_WAN_LIGHTNING',
+    '_WAN22_BOUNDARY_FRACTION',
+    '_LIGHTNING_HIGH_LORA',
+    '_LIGHTNING_LOW_LORA',
+    '_INFER_STEPS',
+    '_GUIDANCE',
+    '_MOTION_FREEZE_THRESH',
+    '_T2V_MODEL_ID',
+    '_HUMAN_SUBJECT_KW',
+    '_MOTION_BY_EMOTION',
+    '_SCENE_MOTION_HINTS',
+    '_EMOTION_PRIORITY',
+    '_CAMERA_BY_SHOT',
+    '_STATIC_SHOT_NEG',
+    '_CINEMATIC_WAN_SUFFIX',
+    '_pipe',
+    '_pipe_lock',
+    '_t2v_pipe',
+    '_t2v_pipe_lock',
+    'generate',
+    '_load_pipe',
+    '_unload_pipe',
+    '_load_t2v_pipe',
+    '_unload_t2v_pipe',
+    '_generate_via_comfyui',
+    '_color_match_to',
+    '_extract_last_frame',
+    '_submit_wan_clip',
+    '_build_prompt',
+    '_stitch_clips',
+    '_compute_motion_score',
+    '_save_video',
+    '_interpolate_clip',
+    'constants',
+    'api',
+    'helpers',
+]
 
 _SECTIONS = (
     constants,

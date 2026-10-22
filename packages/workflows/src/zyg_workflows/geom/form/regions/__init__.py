@@ -82,7 +82,6 @@ correspondence, and nothing here verifies that the correspondence is anatomicall
 that age.
 """
 
-# ruff: noqa: E402, F401
 # Pattern A package: regions.py was cut at its own section banners into the modules below.
 # The original top import block is re-done here so old attribute access (regions.os, ...)
 # still resolves, the submodules are imported in the original section order, and every
@@ -147,3 +146,56 @@ from zyg_workflows.geom.form.regions.builder import (
     main,
 )
 from zyg_workflows.geom.form.regions.context import __all__
+
+__all__ = __all__ + [
+    'hashlib',
+    'json',
+    'os',
+    'sys',
+    'tempfile',
+    'time',
+    'np',
+    'MS',
+    'LM',
+    'CV',
+    '_zyg_logging',
+    '_zyg_log',
+    'SCHEMA_VERSION',
+    'CAGE_VERTS',
+    'CAGE_FACES',
+    'REGIONS_PATH',
+    'FEATURE_MIN_FRAC',
+    'FEATURE_MIN_CONTRAST',
+    'FEATURE_PROBE_RADIUS',
+    '_patch_seed_fix_enabled',
+    '_CTX',
+    '_ctx',
+    '_relief',
+    '_ball',
+    '_support',
+    '_left',
+    '_joint_line',
+    '_limb_frame',
+    '_sector',
+    '_r_landmark_ball',
+    '_r_support_gap',
+    '_r_feature_search',
+    '_window_mask',
+    '_RESOLVERS',
+    'REGION_SPEC',
+    'REGION_NAMES',
+    '_ARM_LABELS',
+    '_sector_ring',
+    '_sector_axis_rings',
+    '_resolve_left',
+    'build_regions',
+    '_safe_relief',
+    '_one_line',
+    '_jsonable',
+    '_content_sha',
+    '_atomic_json',
+    'load_regions',
+    'mirror_check',
+    'resolve_regions',
+    'main',
+]

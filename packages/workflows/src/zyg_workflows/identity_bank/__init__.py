@@ -120,7 +120,6 @@ Every public call is fail-safe: on any internal error it returns
 exception into the generation path).
 """
 
-# ruff: noqa: E402,F401
 import os
 import time
 
@@ -213,6 +212,80 @@ from .runs import (  # noqa: F401
 # package writes a rebinding through to every section module that holds the name.
 import sys as _sys
 from types import ModuleType as _ModuleType
+
+__all__ = [
+    'os',
+    'time',
+    'pgdb',
+    '_zyg_logging',
+    'exe',
+    'DEFAULT_BACKEND',
+    'DEVICE',
+    'RATCHET_DELTA',
+    'RATCHET_MIN_RENDERS',
+    'SPREAD_ALARM',
+    'Z_FLOOR',
+    'Z_MIN_BANK',
+    'Z_MIN_STD',
+    '_DINO',
+    '_DINOV2_DIM',
+    '_FACENET_DIM',
+    '_FLOORS',
+    '_HERE',
+    '_HF_REVISION',
+    '_IMNET_MEAN',
+    '_IMNET_STD',
+    '_MTCNN',
+    '_RESNET',
+    '_RUNTIME',
+    '_blob',
+    '_get_dino',
+    '_get_facenet',
+    '_l2',
+    '_ledger_fallback',
+    '_ledger_gate',
+    '_log',
+    '_np',
+    '_open_crop',
+    '_run_id',
+    '_unblob',
+    '_zyg_log',
+    'embed_auto',
+    'embed_face',
+    'embed_region',
+    '_bank',
+    '_pick_backend',
+    '_record_check',
+    'bank_backends',
+    'bank_stats',
+    'check',
+    'enroll',
+    'CLIP_FLOORS',
+    'CLIP_FLOOR_BENCHED',
+    'CLIP_MAX_FRAMES',
+    'CLIP_MIN_FOUND',
+    'CLIP_MODE',
+    'CLIP_PASS_FRAC',
+    'CLIP_SPREAD_ALARM',
+    'CLIP_STRIDE',
+    'FACE_BOX_MARGIN',
+    'LEDGER_STATES',
+    '_check_clip_legacy',
+    '_clamp01',
+    '_explode',
+    '_pct',
+    '_probe_fps',
+    'check_clip',
+    'enabled',
+    'track_face_box',
+    '_RUN_CHAR_KEYS',
+    '_bankable',
+    'drift_report',
+    'enroll_from_canon',
+    'purge',
+    'run_char_ids',
+    'score_run',
+]
 
 _SECTIONS = tuple(_sys.modules[f'{__name__}.{_n}'] for _n in ('embedding', 'gate', 'clip', 'runs'))
 

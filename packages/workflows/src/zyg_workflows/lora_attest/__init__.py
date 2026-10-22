@@ -76,8 +76,6 @@ non-commercial weights. Nothing here writes a pixel into a delivered frame.
 
 from __future__ import annotations
 
-# ruff: noqa: F401, E402
-
 from zyg_workflows.lora_attest.constants import (
     annotations,
     hashlib,
@@ -139,3 +137,65 @@ from zyg_workflows.lora_attest.ab_probe import (
     ab_probe_lora,
     _cli,
 )
+
+
+# ── re-export surface ─────────────────────────────────────────────────────────
+# Every name below is imported above and not used in this module: this file
+# exists so that ``zyg_workflows.lora_attest.<name>``
+# resolves exactly as it did on the pre-split single-file module.
+# Nothing does ``import *`` from here.
+__all__ = [
+    'annotations',
+    'hashlib',
+    'json',
+    'os',
+    'time',
+    'exe',
+    'paths',
+    '_HERE',
+    '_RUNTIME_DIR',
+    'PINS_PATH',
+    '_HASH_CACHE_PATH',
+    'GATE_NAME',
+    'AB_PROBE_FLOOR',
+    '_MODEL_EXT',
+    '_NODE_FOLDERS',
+    '_STRENGTH_KEYS',
+    '_ALL_FOLDERS',
+    '_SEED_GLOBS',
+    '_SEED_GLOBS_EXTRA',
+    'AttestationError',
+    '_log_noop',
+    '_truthy',
+    '_ledger',
+    '_run_id',
+    '_record_gate',
+    '_record_fallback',
+    '_sha256_local',
+    '_load_cache',
+    '_save_cache',
+    'sha256_file',
+    'model_roots',
+    'resolve_model_path',
+    'load_pins',
+    'save_pins',
+    '_pin_for',
+    'seed_pins',
+    '_node_class',
+    '_is_output_class',
+    '_wiring_known',
+    '_reachable_nodes',
+    '_guess_kind',
+    '_node_strength',
+    'collect_model_refs',
+    'attest_graph',
+    'merge_overrides',
+    'attest_submit',
+    '_CLIP_CACHE',
+    '_clip_embed_paths',
+    '_free_vram_mb',
+    '_comfy_busy',
+    '_ab_probe_graph',
+    'ab_probe_lora',
+    '_cli',
+]

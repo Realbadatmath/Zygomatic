@@ -12,8 +12,9 @@ Lines 1540-1950 of the original module, verbatim: ``_start_video_pipeline_intern
 Ken Burns and Storyteller tranches that moved to zyg_workflows in 2026-07.
 """
 
-# ruff: noqa: E402,F401  verbatim move: the original import order is load-bearing,
-# and every name here is read back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.
+# Verbatim move: the original import order is load-bearing, and every name here is read
+# back off zyg_dashboard.crewai_web_gui by the bp_* blueprints.  The late imports that
+# stayed at their old definition sites carry their own per-line E402 suppressions.
 
 from zyg_dashboard.crewai_web_gui._bootstrap import (
     _ams_iso,

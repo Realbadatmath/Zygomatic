@@ -35,7 +35,7 @@ and an API key is present — the local model handles this task fine.
 
 from __future__ import annotations
 
-# ruff: noqa: F401,E402  this __init__ IS the re-export surface of the old remixai_analyze.py.
+# This __init__ IS the re-export surface of the old remixai_analyze.py.
 from __future__ import annotations
 
 # The submodules are imported in the original section order, so any module-level
@@ -107,3 +107,66 @@ from zyg_workflows.remixai_analyze.music import (
     _MOOD_TO_MOOD,
     music_request,
 )
+
+# Re-export surface: every name below is imported above and not used in this
+# module. Nothing does ``import *`` from here, so __all__ changes no behaviour;
+# it declares the inherited namespace public so ruff does not read it as dead.
+__all__ = [
+    'base64',
+    'json',
+    'os',
+    're',
+    'subprocess',
+    '_hj',
+    '_safe_urlopen',
+    'paths',
+    'exe',
+    '_zyg_logging',
+    '_zyg_log',
+    '_CREWS',
+    '_OLLAMA',
+    '_llm_model',
+    '_vlm_model',
+    '_gpu_clear',
+    '_run',
+    '_ollama_json',
+    '_ollama_release',
+    '_haiku_enabled',
+    '_haiku_json',
+    '_llm',
+    'sample_frames',
+    'probe_duration',
+    'probe_video',
+    '_FRAME_PROMPT',
+    'describe_frames',
+    'visual_style_summary',
+    '_BEATS_PROMPT',
+    '_BRIEF_CAPS',
+    '_BRIEF_REQUIRED',
+    '_cap',
+    '_sanitize_brief',
+    'brief_prose',
+    'analyze_transcript',
+    '_SCRIPT_PROMPT',
+    '_TTS_WPM_DEFAULT',
+    '_tts_wpm',
+    '_BRIEF_LEVELS',
+    '_brief_level',
+    '_brief_for_writer',
+    'regenerate_script',
+    '_TITLE_ANALYZE_PROMPT',
+    'analyze_title',
+    '_TITLE_WRITE_PROMPT',
+    '_TITLE_MAX_WORDS',
+    '_TITLE_MAX_CHARS',
+    '_tidy_title',
+    'regenerate_title',
+    '_GENRES',
+    '_MOODS',
+    'extract_music_bed',
+    '_clap_rank',
+    'analyze_music',
+    '_GENRE_TO_MOOD',
+    '_MOOD_TO_MOOD',
+    'music_request',
+]

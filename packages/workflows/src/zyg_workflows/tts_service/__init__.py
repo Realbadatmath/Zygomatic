@@ -2,7 +2,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-# ruff: noqa: F401, E402  # this module IS the re-export namespace of the pre-split tts_service.py.
+# This module IS the re-export namespace of the pre-split tts_service.py; the names it
+# re-binds are declared in __all__ at the bottom of this file.
 
 # Generated 2026-07-17 heavy-tranche modularization — extracted from crewai_web_gui.py.
 # See crews_modularization_backups_20260717/MODULARIZATION_CHANGELOG.md.
@@ -110,3 +111,80 @@ from .shared import (
     _selected_voice_id,
     _synthesise_tts,
 )
+
+
+# The re-exported surface of the pre-split module, in import order: every name
+# here exists only so that `<this module>.<name>` keeps resolving for importers.
+__all__ = [
+    'json',
+    'os',
+    're',
+    'shutil',
+    'subprocess',
+    'time',
+    'gui_state',
+    '_register_subproc',
+    '_finish_subproc',
+    '_DEMONET_TIER1',
+    '_DEMONET_TIER2',
+    '_DEMONET_TIER3_TITLE',
+    '_TITLE_SYNONYMS',
+    '_SEED_POOL_DIR',
+    '_voice_seed_for',
+    '_zyg_logging',
+    'paths',
+    'exe',
+    '_zyg_log',
+    '_TTS_MAX_CHARS',
+    '_TTS_LOUDNORM',
+    '_ROMAN_VALUES',
+    '_ROMAN_CANON',
+    '_ROMAN_CARDINAL_BEFORE',
+    '_ROMAN_MAX',
+    '_ORD_UNITS',
+    '_CARD_UNITS',
+    '_CARD_TENS',
+    '_ORD_TENS',
+    '_roman_to_int',
+    '_int_to_cardinal',
+    '_int_to_ordinal',
+    '_expand_roman_numerals',
+    '_tts_clean_text',
+    '_tts_split_sentences',
+    '_tts_chunk_text',
+    '_tts_trim_edge_silence',
+    '_INDEXTTS_DIR',
+    '_INDEXTTS_PY',
+    '_INDEXTTS_WORKER',
+    '_CHATTERBOX_DIR',
+    '_CHATTERBOX_PY',
+    '_CHATTERBOX_WORKER',
+    '_TTS_TASKSET_CORES',
+    '_TTS_WORKER_THREADS',
+    '_tts_worker_env',
+    '_tts_run_worker',
+    '_tts_batch_file',
+    '_GPU_PROBE',
+    '_gpu_usable',
+    '_tts_timeout_for',
+    '_indextts_segments',
+    '_chatterbox_installed',
+    '_chatterbox_segments',
+    '_TTS_SEG_NAME_RE',
+    '_tts_segment_indices',
+    '_tts_loudnorm_targets',
+    '_tts_measure_loudness',
+    '_tts_assemble',
+    '_ASR_NUM_WORDS',
+    '_asr_tokens',
+    '_asr_similarity',
+    '_asr_inserted_run',
+    '_asr_missing_names',
+    '_tts_asr_read_back',
+    '_tts_shared',
+    '_mask_bad_words',
+    '_sanitize_title',
+    '_bleep_audio_in_clip',
+    '_selected_voice_id',
+    '_synthesise_tts',
+]

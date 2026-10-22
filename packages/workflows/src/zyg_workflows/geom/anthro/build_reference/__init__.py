@@ -35,7 +35,6 @@ RUN:
     python3 -m zyg_workflows.geom.anthro.build_reference [--source-dir DIR] [--out DIR]
 """
 
-# ruff: noqa: E402, F401
 # Pattern A package: build_reference.py was cut at its own section banners into the modules below.
 # The original top import block is re-done here so old attribute access (build_reference.os, ...)
 # still resolves, the submodules are imported in the original section order, and every
@@ -96,3 +95,50 @@ from zyg_workflows.geom.anthro.build_reference.pipeline import (
     build,
     main,
 )
+
+__all__ = [
+    'argparse',
+    'csv',
+    'hashlib',
+    'json',
+    'os',
+    'shutil',
+    'time',
+    'np',
+    '_paths',
+    'ROOT',
+    'SCHEMA_VERSION',
+    'IMPORT_DIR',
+    'SOURCE_FILES',
+    'DODRACE',
+    'MIN_GROUP_N',
+    'ISO_20685_1_TABLE4_MM',
+    'DIMENSIONS',
+    'INDICES',
+    'MAHALANOBIS_ORDER',
+    'CHI2_DF10',
+    'POLICY_MIN_R',
+    'POLICY_MAX_RMSE_MM',
+    'PERCENTILE_GRID',
+    'REPORT_PERCENTILES',
+    '_sha256',
+    '_atomic_json',
+    '_atomic_npz',
+    '_r6',
+    '_resolve_sources',
+    '_load_ansur',
+    '_load_lms',
+    '_summary',
+    '_ratio_values',
+    '_build_ratio_specs',
+    '_diagnostics',
+    '_mahalanobis',
+    '_provenance',
+    '_conventions',
+    'AGEING_REFERENCE_AGES',
+    'AGEING_BIN_HALFWIDTH_Y',
+    '_ageing_deltas',
+    '_gaps',
+    'build',
+    'main',
+]
