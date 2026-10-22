@@ -67,6 +67,9 @@ def _fake_torch(monkeypatch, available=True):
 
 def _fake_run(monkeypatch, stdout='', exc=None):  # nvidia-smi/pgrep, recording the argv it was given
     seen = []
+    # `exe()` resolves the binary through PATH and raises when it is absent (a CI runner has no
+    # nvidia-smi); the fake below is what must answer, so the lookup is bypassed.
+    monkeypatch.setattr(M, 'exe', lambda name, **kw: name)
 
     def _run(cmd, **kwargs):
         seen.append(list(cmd))

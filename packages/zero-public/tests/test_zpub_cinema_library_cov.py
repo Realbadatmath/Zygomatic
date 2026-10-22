@@ -466,8 +466,12 @@ def test_start_scan_indexes_the_tree_and_builds_thumbnails(cine, monkeypatch):
 
     lib = library.load_library()
     assert lib['roots'] == [cine.media]
-    assert sorted(it['path'] for it in lib['items'].values()) == sorted(kept)
-    assert library.item_id_for(dup) not in lib['items']
+    # os.walk order is filesystem-specific, so either the original or its copy may be the one
+    # kept; the duplicate rule only promises that exactly one of the pair survives.
+    paths = sorted(it['path'] for it in lib['items'].values())
+    assert len(paths) == 5
+    assert sorted(os.path.basename(p) for p in paths) == sorted(os.path.basename(k) for k in kept)
+    assert (library.item_id_for(dup) in lib['items']) != (library.item_id_for(kept[0]) in lib['items'])
     assert library.item_id_for(broken) not in lib['items']
     assert len(thumbed) == 5
 

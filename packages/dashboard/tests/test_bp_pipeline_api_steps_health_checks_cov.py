@@ -494,6 +494,8 @@ def _smi(monkeypatch, smi_ok=True, dpkg=None):
             raise FileNotFoundError('dpkg')
         return dpkg.encode()
 
+    # `exe()` raises on a machine without nvidia-smi/dpkg (the CI runner); the fake answers instead.
+    monkeypatch.setattr(h, 'exe', lambda name, **kw: name)
     monkeypatch.setattr(subprocess, 'check_output', check_output)
 
 

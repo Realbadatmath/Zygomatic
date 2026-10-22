@@ -506,7 +506,9 @@ def test_run_creature_training_records_an_unexpected_failure(creature):
     mod._run_creature_training('c1', 'd')
     assert creature.job['status'] == 'failed'
     assert creature.job['error'] == 'sheet json was garbage'
-    assert any('Traceback' in call[2] for call in creature.errors)
+    # the module logs the LAST 800 chars of the traceback; the exception line is always inside
+    # that window, the 'Traceback' header is not when the runner's paths are long.
+    assert any('sheet json was garbage' in call[2] and 'ValueError' in call[2] for call in creature.errors)
 
 
 # ── job status read-outs ────────────────────────────────────────────────────
